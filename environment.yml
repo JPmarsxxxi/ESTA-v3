@@ -1,0 +1,33 @@
+name: esta
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # GPU build of torch via the cu118 wheel — the path documented in the
+      # original ESTA-Final notebook ("pip install torch ... --index-url
+      # .../cu118"). The +cu118 local version only exists on the PyTorch CUDA
+      # index, so --extra-index-url pulls the CUDA wheel while every other dep
+      # below still resolves from PyPI. Plain "torch==2.6.0" silently installs
+      # the CPU wheel (cuda.is_available() == False) — that's the regression.
+      # The version stays pinned at 2.6.0 (TTS/transformers/numpy lock from the
+      # notebook); only the cpu→cu118 BUILD changes, so no locked API moves.
+      # Only XTTS (Coqui) uses the GPU. faster-whisper is pinned to device="cpu"
+      # in code (it needs CUDA-12 cuDNN/cuBLAS that cu118 doesn't provide), so
+      # cu118 is sufficient — do NOT bump to cu124 without also adding those libs.
+      - --extra-index-url https://download.pytorch.org/whl/cu118
+      - TTS==0.22.0
+      - transformers==4.33.3
+      - torch==2.6.0+cu118
+      - torchvision==0.21.0+cu118
+      - torchaudio==2.6.0+cu118
+      - faster-whisper==1.2.1
+      - numpy==1.26.4
+      - PyYAML>=6.0
+      - opencv-python>=4.8.0
+      - yt-dlp>=2024.1.0
+      - pillow>=10.0.0
+      - requests>=2.31.0
+      - youtube-transcript-api>=0.6.0
+      - duckduckgo-search>=6.0.0

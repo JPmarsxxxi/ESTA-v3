@@ -1,0 +1,48 @@
+{
+  "ok": false,
+  "phases": {
+    "install": 30.6,
+    "download": 144.1,
+    "server_start": 38.2,
+    "generate": 10.0
+  },
+  "notes": [
+    {
+      "gpu": "Tesla T4"
+    },
+    {
+      "vram_gb": 15.6
+    },
+    {
+      "host_ram_gb": 33.7
+    },
+    {
+      "downloaded": "minimax_h3_fl2va_pruned-Q4_K.gguf 11.42GB"
+    },
+    {
+      "downloaded": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf 13.1GB"
+    },
+    {
+      "downloaded": "minimax_h3_video_vae_fp16.safetensors 5.21GB"
+    },
+    {
+      "downloaded": "minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors 1.96GB"
+    },
+    {
+      "prompt_id": "fb143d7b-e702-4a43-9b83-87928f2c0e11"
+    },
+    {
+      "run_status": "error"
+    },
+    {
+      "run_messages": "[[\"execution_start\", {\"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"timestamp\": 1787784143639}], [\"execution_cached\", {\"nodes\": [], \"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"timestamp\": 1787784143643}], [\"execution_error\", {\"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"node_id\": \"4\", \"node_type\": \"CLIPLoaderGGUF\", \"executed\": [\"5\"], \"exception_message\": \"This gguf file is incompatible with llama.cpp!\\nConsider using safetensors or a compatible gguf file\\n(/kaggle/temp/ComfyUI/models/clip/qwen3vl_32b_minimax_h3-Q2_K_M.gguf)\\n\", \"exception_type\": \"ValueError\", \"traceback\": [\"  File \\\"/kaggle/temp/ComfyUI/execution.py\\\", line 545, in execute\\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\", \"  File \\\"/kaggle/temp/ComfyUI/execution.py\\\", line 344, in get_output_data\\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    },
+    {
+      "peak_vram_gb": 0.0
+    },
+    {
+      "peak_host_ram_gb": 0.82
+    }
+  ],
+  "total_s": 228.1
+}

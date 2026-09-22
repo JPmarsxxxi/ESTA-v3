@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+config.yaml
+
+# Session data, user property, model weights
+sessions/*
+!sessions/.gitkeep
+characters/
+voice_samples/*
+!voice_samples/.gitkeep
+profile/preferences.md
+*.pt
+
+# Node / Next
+node_modules/
+.next/
+.turbo/
+.content-collections/
+.open-next/
+*.tsbuildinfo
+
+# Backend runtime state (jobs, logs)
+.esta/
+
+.claude/settings.local.json

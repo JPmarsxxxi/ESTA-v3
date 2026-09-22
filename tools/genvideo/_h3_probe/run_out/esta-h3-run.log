@@ -1,0 +1,79 @@
+[{"stream_name":"stderr","time":7.057266704,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":7.057338431,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.935245684,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.935279736,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.935291785,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.935295235,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.59131167,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.591349762,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.591365347,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.591368822,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":14.962384698,"data":"[esta] gpu: Tesla T4\n"}
+,{"stream_name":"stdout","time":14.963296146,"data":"[esta] vram_gb: 15.6\n"}
+,{"stream_name":"stdout","time":14.96417829,"data":"[esta] host_ram_gb: 33.7\n"}
+,{"stream_name":"stderr","time":14.983436558,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":15.186508673,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":15.186541924,"data":"\n"}
+,{"stream_name":"stderr","time":15.18654817,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stdout","time":21.804770215,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 68.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.007137095,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 68.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.022696179,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 76.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.224999381,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 76.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.677714601,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 31.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.710877943,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 22.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.742477767,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 5.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.804991266000002,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 75.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.880486803,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 31.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.880565656,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 22.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.880573931,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 5.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.880579389,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 75.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.929189744,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 18.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.131336692,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 18.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.616058204,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 28.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.818120865,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 28.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.610657835,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.813118839,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.620120073,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 20.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.822256582,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 20.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.781166951,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.812081719,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 4.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.984256305,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.984288476,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 4.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.260890333,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 46.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.322684703,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 21.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.410322141,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 75.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.463151202,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 46.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.463182214,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 21.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":28.463190937,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 75.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":40.899009081,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":41.103230389,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":41.103276929,"data":"\n"}
+,{"stream_name":"stderr","time":41.103285793,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stdout","time":43.191878918,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 3.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":43.394344933,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 3.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":45.527253879,"data":"[esta] PHASE install: 30.6s\n"}
+,{"stream_name":"stdout","time":89.434360904,"data":"[esta] downloaded: minimax_h3_fl2va_pruned-Q4_K.gguf 11.42GB\n"}
+,{"stream_name":"stderr","time":89.57012707,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":89.570160668,"data":"\n"}
+,{"stream_name":"stderr","time":89.570166151,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stdout","time":147.803721751,"data":"[esta] downloaded: qwen3vl_32b_minimax_h3-Q2_K_M.gguf 13.1GB\n"}
+,{"stream_name":"stdout","time":179.825804181,"data":"[esta] downloaded: minimax_h3_video_vae_fp16.safetensors 5.21GB\n"}
+,{"stream_name":"stdout","time":189.642372938,"data":"[esta] downloaded: minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors 1.96GB\n"}
+,{"stream_name":"stdout","time":189.643448635,"data":"[esta] PHASE download: 144.1s\n"}
+,{"stream_name":"stdout","time":227.871524584,"data":"[esta] PHASE server_start: 38.2s\n"}
+,{"stream_name":"stdout","time":227.874638255,"data":"[esta] prompt_id: fb143d7b-e702-4a43-9b83-87928f2c0e11\n"}
+,{"stream_name":"stdout","time":237.877482162,"data":"[esta] PHASE generate: 10.0s\n"}
+,{"stream_name":"stdout","time":237.87861161,"data":"[esta] run_status: error\n"}
+,{"stream_name":"stdout","time":237.879722694,"data":"[esta] run_messages: [[\"execution_start\", {\"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"timestamp\": 1787784143639}], [\"execution_cached\", {\"nodes\": [], \"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"timestamp\": 1787784143643}], [\"execution_error\", {\"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\", \"node_id\": \"4\", \"node_type\": \"CLIPLoaderGGUF\", \"executed\": [\"5\"], \"exception_message\": \"This gguf file is incompatible with llama.cpp!\\nConsider using safetensors or a compatible gguf file\\n(/kaggle/temp/ComfyUI/models/clip/qwen3vl_32b_minimax_h3-Q2_K_M.gguf)\\n\", \"exception_type\": \"ValueError\", \"traceback\": [\"  File \\\"/kaggle/temp/ComfyUI/execution.py\\\", line 545, in execute\\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\n\", \"  File \\\"/kaggle/temp/ComfyUI/execution.py\\\", line 344, in get_output_data\\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stdout","time":237.882040156,"data":"[esta] peak_vram_gb: 0.0\n"}
+,{"stream_name":"stdout","time":237.882061236,"data":"[esta] peak_host_ram_gb: 0.82\n"}
+,{"stream_name":"stdout","time":237.884141043,"data":"ESTA_PROBE_RESULT::{\"ok\": false, \"phases\": {\"install\": 30.6, \"download\": 144.1, \"server_start\": 38.2, \"generate\": 10.0}, \"notes\": [{\"gpu\": \"Tesla T4\"}, {\"vram_gb\": 15.6}, {\"host_ram_gb\": 33.7}, {\"downloaded\": \"minimax_h3_fl2va_pruned-Q4_K.gguf 11.42GB\"}, {\"downloaded\": \"qwen3vl_32b_minimax_h3-Q2_K_M.gguf 13.1GB\"}, {\"downloaded\": \"minimax_h3_video_vae_fp16.safetensors 5.21GB\"}, {\"downloaded\": \"minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors 1.96GB\"}, {\"prompt_id\": \"fb143d7b-e702-4a43-9b83-87928f2c0e11\"}, {\"run_status\": \"error\"}, {\"run_messages\": \"[[\\\"execution_start\\\", {\\\"prompt_id\\\": \\\"fb143d7b-e702-4a43-9b83-87928f2c0e11\\\", \\\"timestamp\\\": 1787784143639}], [\\\"execution_cached\\\", {\\\"nodes\\\": [], \\\"prompt_id\\\": \\\"fb143d7b-e702-4a43-9b83-87928f2c0e11\\\", \\\"timestamp\\\": 1787784143643}], [\\\"execution_error\\\", {\\\"prompt_id\\\": \\\"fb143d7b-e702-4a43-9b83-87928f2c0e11\\\", \\\"node_id\\\": \\\"4\\\", \\\"node_type\\\": \\\"CLIPLoaderGGUF\\\", \\\"executed\\\": [\\\"5\\\"], \\\"exception_message\\\": \\\"This gguf file is incompatible with llama.cpp!\\\\nConsider using safetensors or a compatible gguf file\\\\n(/kaggle/temp/ComfyUI/models/clip/qwen3vl_32b_minimax_h3-Q2_K_M.gguf)\\\\n\\\", \\\"exception_type\\\": \\\"ValueError\\\", \\\"traceback\\\": [\\\"  File \\\\\\\"/kaggle/temp/ComfyUI/execution.py\\\\\\\", line 545, in execute\\\\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\\\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\\\\n\\\", \\\"  File \\\\\\\"/kaggle/temp/ComfyUI/execution.py\\\\\\\", line 344, in get_output_data\\\\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\\\\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\"}, {\"peak_vram_gb\": 0.0}, {\"peak_host_ram_gb\": 0.82}], \"total_s\": 228.1}\n"}
+,{"stream_name":"stderr","time":243.147006396,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":243.147040628,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":243.317494787,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":243.317523067,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":243.98478749,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":244.321005591,"data":"[NbConvertApp] Writing 66656 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":246.876680869,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":247.696472182,"data":"[NbConvertApp] Writing 367427 bytes to __results__.html\n"}
+]

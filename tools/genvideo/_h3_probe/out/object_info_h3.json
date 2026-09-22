@@ -1,0 +1,2999 @@
+{
+  "VAELoader": {
+    "input": {
+      "required": {
+        "vae_name": [
+          [
+            "pixel_space"
+          ]
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "vae_name"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VAE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VAE"
+    ],
+    "name": "VAELoader",
+    "display_name": "Load VAE",
+    "description": "",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "LoraLoader": {
+    "input": {
+      "required": {
+        "model": [
+          "MODEL",
+          {
+            "tooltip": "The diffusion model the LoRA will be applied to."
+          }
+        ],
+        "clip": [
+          "CLIP",
+          {
+            "tooltip": "The CLIP model the LoRA will be applied to."
+          }
+        ],
+        "lora_name": [
+          [],
+          {
+            "tooltip": "The name of the LoRA."
+          }
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01,
+            "tooltip": "How strongly to modify the diffusion model. This value can be negative."
+          }
+        ],
+        "strength_clip": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01,
+            "tooltip": "How strongly to modify the CLIP model. This value can be negative."
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "clip",
+        "lora_name",
+        "strength_model",
+        "strength_clip"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL",
+      "CLIP"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "MODEL",
+      "CLIP"
+    ],
+    "name": "LoraLoader",
+    "display_name": "Load LoRA (Model and CLIP)",
+    "description": "This LoRA loader is used to modify both diffusion and CLIP models, altering the way in which latents are denoised such as applying styles. Multiple LoRA nodes can be linked together.",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "output_tooltips": [
+      "The modified diffusion model.",
+      "The modified CLIP model."
+    ],
+    "search_aliases": [
+      "lora",
+      "load lora",
+      "apply lora",
+      "lora loader",
+      "lora model"
+    ],
+    "essentials_category": "Image Generation"
+  },
+  "CLIPLoader": {
+    "input": {
+      "required": {
+        "clip_name": [
+          []
+        ],
+        "type": [
+          [
+            "stable_diffusion",
+            "stable_cascade",
+            "sd3",
+            "stable_audio",
+            "mochi",
+            "ltxv",
+            "pixart",
+            "cosmos",
+            "lumina2",
+            "wan",
+            "hidream",
+            "chroma",
+            "ace",
+            "omnigen2",
+            "qwen_image",
+            "hunyuan_image",
+            "flux2",
+            "ovis",
+            "longcat_image",
+            "cogvideox",
+            "lens",
+            "pixeldit",
+            "ideogram4",
+            "boogu",
+            "krea2",
+            "joyimage",
+            "mage",
+            "minimax"
+          ]
+        ]
+      },
+      "optional": {
+        "device": [
+          [
+            "default",
+            "cpu"
+          ],
+          {
+            "advanced": true
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name",
+        "type"
+      ],
+      "optional": [
+        "device"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "CLIPLoader",
+    "display_name": "Load CLIP",
+    "description": "Recipes:\nsd: clip-l\nstable cascade: clip-g\nsd3: t5 xxl / clip-g / clip-l\nstable audio: t5 base\nmochi: t5 xxl\ncogvideox: t5 xxl (226-token padding)\ncosmos: old t5 xxl\nlumina2: gemma 2 2B\nwan: umt5 xxl\nhidream: llama-3.1 (Recommend) or t5\nomnigen2: qwen vl 2.5 3B\njoyimage: qwen3-vl 8B\nlens: gpt-oss-20b\npixeldit: gemma 2 2B elm\nminimax: MiniMax H3 Qwen3-VL or Music3 Qwen/RVQ",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "UNETLoader": {
+    "input": {
+      "required": {
+        "unet_name": [
+          []
+        ],
+        "weight_dtype": [
+          [
+            "default",
+            "fp8_e4m3fn",
+            "fp8_e4m3fn_fast",
+            "fp8_e5m2"
+          ],
+          {
+            "advanced": true
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "unet_name",
+        "weight_dtype"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "name": "UNETLoader",
+    "display_name": "Load Diffusion Model",
+    "description": "",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "DualCLIPLoader": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          []
+        ],
+        "clip_name2": [
+          []
+        ],
+        "type": [
+          [
+            "sdxl",
+            "sd3",
+            "flux",
+            "hunyuan_video",
+            "hidream",
+            "hunyuan_image",
+            "hunyuan_video_15",
+            "kandinsky5",
+            "kandinsky5_image",
+            "ltxv",
+            "newbie",
+            "ace"
+          ]
+        ]
+      },
+      "optional": {
+        "device": [
+          [
+            "default",
+            "cpu"
+          ],
+          {
+            "advanced": true
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "type"
+      ],
+      "optional": [
+        "device"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "DualCLIPLoader",
+    "display_name": "Load CLIP (Dual)",
+    "description": "Recipes:\nsdxl: clip-l, clip-g\nsd3: clip-l, clip-g / clip-l, t5 / clip-g, t5\nflux: clip-l, t5\nhidream: at least one of t5 or llama, recommended t5 and llama\nhunyuan_image: qwen2.5vl 7b and byt5 small\nnewbie: gemma-3-4b-it, jina clip v2",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "LoraLoaderModelOnly": {
+    "input": {
+      "required": {
+        "model": [
+          "MODEL"
+        ],
+        "lora_name": [
+          []
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "lora_name",
+        "strength_model"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "name": "LoraLoaderModelOnly",
+    "display_name": "Load LoRA",
+    "description": "This LoRAs loader is used to modify the diffusion model, altering the way in which latents are denoised such as applying styles. Multiple LoRA nodes can be linked together.",
+    "python_module": "nodes",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "output_tooltips": [
+      "The modified diffusion model.",
+      "The modified CLIP model."
+    ],
+    "search_aliases": [
+      "lora",
+      "load lora",
+      "apply lora",
+      "lora loader",
+      "lora model"
+    ],
+    "essentials_category": "Image Generation"
+  },
+  "TripleCLIPLoader": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ],
+        "clip_name2": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ],
+        "clip_name3": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "clip_name3"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "TripleCLIPLoader",
+    "display_name": "Load CLIP (Triple)",
+    "description": "Recipes:\nsd3: clip-l, clip-g, t5",
+    "python_module": "comfy_extras.nodes_sd3",
+    "category": "model/loaders",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "LTXVAudioVAELoader": {
+    "input": {
+      "required": {
+        "ckpt_name": [
+          "COMBO",
+          {
+            "tooltip": "Audio VAE checkpoint to load.",
+            "multiselect": false,
+            "options": []
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "ckpt_name"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VAE"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "Audio VAE"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "LTXVAudioVAELoader",
+    "display_name": "Load LTXV Audio VAE",
+    "description": "",
+    "python_module": "comfy_extras.nodes_lt_audio",
+    "category": "model/loaders",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MiniMaxMusic3TextEncode": {
+    "input": {
+      "required": {
+        "clip": [
+          "CLIP",
+          {}
+        ],
+        "caption": [
+          "STRING",
+          {
+            "multiline": true,
+            "dynamicPrompts": true
+          }
+        ],
+        "lyrics": [
+          "STRING",
+          {
+            "multiline": true,
+            "dynamicPrompts": true
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709551615,
+            "control_after_generate": true
+          }
+        ],
+        "max_duration": [
+          "FLOAT",
+          {
+            "tooltip": "Maximum duration in seconds; the model can end the song earlier.",
+            "default": 120.0,
+            "min": 0.04,
+            "max": 360.0,
+            "step": 0.04
+          }
+        ],
+        "cfg_scale": [
+          "FLOAT",
+          {
+            "advanced": true,
+            "default": 1.5,
+            "min": 0.0,
+            "max": 100.0,
+            "step": 0.1,
+            "round": 0.01
+          }
+        ],
+        "top_k": [
+          "INT",
+          {
+            "advanced": true,
+            "default": 50,
+            "min": 1,
+            "max": 16384
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip",
+        "caption",
+        "lyrics",
+        "seed",
+        "max_duration",
+        "cfg_scale",
+        "top_k"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CONDITIONING",
+      "FLOAT"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "CONDITIONING",
+      "seconds"
+    ],
+    "output_tooltips": [
+      null,
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MiniMaxMusic3TextEncode",
+    "display_name": "MiniMax Music3 Text Encode",
+    "description": "Uses a MiniMax Music3 CLIP model to generate the acoustic conditioning sequence.",
+    "python_module": "comfy_extras.nodes_minimax_music",
+    "category": "model/conditioning/minimax music",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "EmptyMiniMaxMusic3LatentAudio": {
+    "input": {
+      "required": {
+        "seconds": [
+          "FLOAT",
+          {
+            "default": 120.0,
+            "min": 0.04,
+            "max": 360.0,
+            "step": 0.04
+          }
+        ],
+        "batch_size": [
+          "INT",
+          {
+            "default": 1,
+            "min": 1,
+            "max": 4096
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "seconds",
+        "batch_size"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "LATENT"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "LATENT"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "EmptyMiniMaxMusic3LatentAudio",
+    "display_name": "Empty MiniMax Music3 Latent Audio",
+    "description": "Creates an empty MiniMax Music3 audio latent for the requested duration.",
+    "python_module": "comfy_extras.nodes_minimax_music",
+    "category": "model/latent/minimax music",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "EmptyMiniMaxH3LatentAV": {
+    "input": {
+      "required": {
+        "width": [
+          "INT",
+          {
+            "default": 1344,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 768,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "length": [
+          "INT",
+          {
+            "tooltip": "Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested)",
+            "default": 124,
+            "min": 5,
+            "max": 3600,
+            "step": 17
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "width",
+        "height",
+        "length"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "LATENT"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "LATENT"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "EmptyMiniMaxH3LatentAV",
+    "display_name": "Empty MiniMax H3 AV Latent",
+    "description": "Joint video+audio latent for MiniMax H3. Duration snaps to the model's 17k+5 frame grid at 24 fps.",
+    "python_module": "comfy_extras.nodes_minimax_h3",
+    "category": "model/latent/minimax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MiniMaxH3ImageToVideo": {
+    "input": {
+      "required": {
+        "clip": [
+          "CLIP",
+          {}
+        ],
+        "vae": [
+          "VAE",
+          {}
+        ],
+        "prompt": [
+          "STRING",
+          {
+            "multiline": true,
+            "dynamicPrompts": true
+          }
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 1344,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 768,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "length": [
+          "INT",
+          {
+            "tooltip": "Frame count at 24 fps, snapped up to the model's 17k+5 grid (124 = ~5s; trained range is ~124-362, longer is untested)",
+            "default": 124,
+            "min": 5,
+            "max": 3600,
+            "step": 17
+          }
+        ]
+      },
+      "optional": {
+        "first_frame": [
+          "IMAGE",
+          {}
+        ],
+        "last_frame": [
+          "IMAGE",
+          {}
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip",
+        "vae",
+        "prompt",
+        "width",
+        "height",
+        "length"
+      ],
+      "optional": [
+        "first_frame",
+        "last_frame"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CONDITIONING",
+      "LATENT"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "positive",
+      "LATENT"
+    ],
+    "output_tooltips": [
+      null,
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MiniMaxH3ImageToVideo",
+    "display_name": "MiniMax H3 Image to Video",
+    "description": "",
+    "python_module": "comfy_extras.nodes_minimax_h3",
+    "category": "model/conditioning/minimax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MiniMaxH3AddGuide": {
+    "input": {
+      "required": {
+        "positive": [
+          "CONDITIONING",
+          {}
+        ],
+        "latent": [
+          "LATENT",
+          {}
+        ],
+        "frame_idx": [
+          "INT",
+          {
+            "tooltip": "Frame index to anchor the image or the clip's first frame at. Negative values are counted from the end of the video.",
+            "default": 0,
+            "min": -9999,
+            "max": 9999
+          }
+        ]
+      },
+      "optional": {
+        "vae": [
+          "VAE",
+          {
+            "tooltip": "Video VAE, needed when an image is connected."
+          }
+        ],
+        "audio_vae": [
+          "VAE",
+          {
+            "tooltip": "Audio VAE, needed when an audio is connected."
+          }
+        ],
+        "image": [
+          "IMAGE",
+          {
+            "tooltip": "Image or video frames to anchor. Multi-frame batches are anchored as a clip and cropped down to the model's valid clip lengths: 5, 22, 39... (17k + 5) frames. Batches shorter than 5 frames use only the first image."
+          }
+        ],
+        "audio": [
+          "AUDIO",
+          {
+            "tooltip": "Soundtrack to anchor starting at the same frame index, cropped to the video's remaining duration."
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "positive",
+        "latent",
+        "frame_idx"
+      ],
+      "optional": [
+        "vae",
+        "audio_vae",
+        "image",
+        "audio"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CONDITIONING"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "positive"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MiniMaxH3AddGuide",
+    "display_name": "Add Guide for MiniMax H3",
+    "description": "Anchor an image, a short clip, audio, or a clip with its soundtrack at any frame of a MiniMax H3 video. Chain several nodes to anchor several frames.",
+    "python_module": "comfy_extras.nodes_minimax_h3",
+    "category": "model/conditioning/minimax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MiniMaxH3ReferenceToVideo": {
+    "input": {
+      "required": {
+        "clip": [
+          "CLIP",
+          {}
+        ],
+        "vae": [
+          "VAE",
+          {}
+        ],
+        "audio_vae": [
+          "VAE",
+          {}
+        ],
+        "prompt": [
+          "STRING",
+          {
+            "multiline": true,
+            "dynamicPrompts": true
+          }
+        ],
+        "width": [
+          "INT",
+          {
+            "default": 1344,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "height": [
+          "INT",
+          {
+            "default": 768,
+            "min": 32,
+            "max": 16384,
+            "step": 32
+          }
+        ],
+        "length": [
+          "INT",
+          {
+            "tooltip": "Frame count at 24 fps, (124 = ~5s, trained range is ~124-362)",
+            "default": 124,
+            "min": 5,
+            "max": 3600,
+            "step": 17
+          }
+        ],
+        "ref_image_size": [
+          "COMBO",
+          {
+            "tooltip": "Reference image sizing. 'match' scales each ref (down only, keeping aspect) to the generation's pixel area; 'max' uses the reference pipeline's 2048px short edge for best identity fidelity. Reference tokens ride through every sampling step, so 'max' can be several times slower.",
+            "default": "match",
+            "multiselect": false,
+            "options": [
+              "match",
+              "max"
+            ]
+          }
+        ]
+      },
+      "optional": {
+        "ref_images": [
+          "COMFY_AUTOGROW_V3",
+          {
+            "template": {
+              "input": {
+                "required": {
+                  "ref_image": [
+                    "IMAGE",
+                    {
+                      "tooltip": "Reference image (downscaled to 2048 short edge if larger, never upscaled)"
+                    }
+                  ]
+                }
+              },
+              "prefix": "ref_image_",
+              "min": 0,
+              "max": 9
+            }
+          }
+        ],
+        "ref_videos": [
+          "COMFY_AUTOGROW_V3",
+          {
+            "template": {
+              "input": {
+                "required": {
+                  "ref_video": [
+                    "IMAGE",
+                    {
+                      "tooltip": "Reference video frames at 24 fps (2-15s)"
+                    }
+                  ]
+                }
+              },
+              "prefix": "ref_video_",
+              "min": 0,
+              "max": 3
+            }
+          }
+        ],
+        "ref_video_audios": [
+          "COMFY_AUTOGROW_V3",
+          {
+            "template": {
+              "input": {
+                "required": {
+                  "ref_video_audio": [
+                    "AUDIO",
+                    {
+                      "tooltip": "Soundtrack of the same-numbered reference video"
+                    }
+                  ]
+                }
+              },
+              "prefix": "ref_video_audio_",
+              "min": 0,
+              "max": 3
+            }
+          }
+        ],
+        "ref_audios": [
+          "COMFY_AUTOGROW_V3",
+          {
+            "template": {
+              "input": {
+                "required": {
+                  "ref_audio": [
+                    "AUDIO",
+                    {
+                      "tooltip": "Standalone reference audio"
+                    }
+                  ]
+                }
+              },
+              "prefix": "ref_audio_",
+              "min": 0,
+              "max": 3
+            }
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip",
+        "vae",
+        "audio_vae",
+        "prompt",
+        "width",
+        "height",
+        "length",
+        "ref_image_size"
+      ],
+      "optional": [
+        "ref_images",
+        "ref_videos",
+        "ref_video_audios",
+        "ref_audios"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CONDITIONING",
+      "LATENT"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "positive",
+      "LATENT"
+    ],
+    "output_tooltips": [
+      null,
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MiniMaxH3ReferenceToVideo",
+    "display_name": "MiniMax H3 Reference to Video",
+    "description": "<Picture i> / <Video k> / <Audio j> reference conditioning for MiniMax H3. Use the same tags when prompting.",
+    "python_module": "comfy_extras.nodes_minimax_h3",
+    "category": "model/conditioning/minimax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MiniMaxH3SigmaShift": {
+    "input": {
+      "required": {
+        "model": [
+          "MODEL",
+          {}
+        ],
+        "shift_video": [
+          "FLOAT",
+          {
+            "default": 12.0,
+            "min": 0.01,
+            "max": 100.0,
+            "step": 0.01
+          }
+        ],
+        "shift_audio": [
+          "FLOAT",
+          {
+            "default": 3.0,
+            "min": 0.01,
+            "max": 100.0,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "shift_video",
+        "shift_audio"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MiniMaxH3SigmaShift",
+    "display_name": "ModelSamplingMiniMaxH3",
+    "description": "Set the video/audio flow shifts.",
+    "python_module": "comfy_extras.nodes_minimax_h3",
+    "category": "model/patch/minimax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": [
+      "sigma shift",
+      "minimax shift"
+    ],
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "QuadrupleCLIPLoader": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ],
+        "clip_name2": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ],
+        "clip_name3": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ],
+        "clip_name4": [
+          "COMBO",
+          {
+            "multiselect": false,
+            "options": []
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "clip_name3",
+        "clip_name4"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "QuadrupleCLIPLoader",
+    "display_name": "Load CLIP (Quadruple)",
+    "description": "Recipes:\nhidream: long clip-l, long clip-g, t5xxl, llama_8b_3.1_instruct",
+    "python_module": "comfy_extras.nodes_hidream",
+    "category": "model/loaders",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": false,
+    "price_badge": null,
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "LoraLoaderBypass": {
+    "input": {
+      "required": {
+        "model": [
+          "MODEL",
+          {
+            "tooltip": "The diffusion model the LoRA will be applied to."
+          }
+        ],
+        "clip": [
+          "CLIP",
+          {
+            "tooltip": "The CLIP model the LoRA will be applied to."
+          }
+        ],
+        "lora_name": [
+          [],
+          {
+            "tooltip": "The name of the LoRA."
+          }
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01,
+            "tooltip": "How strongly to modify the diffusion model. This value can be negative."
+          }
+        ],
+        "strength_clip": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01,
+            "tooltip": "How strongly to modify the CLIP model. This value can be negative."
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "clip",
+        "lora_name",
+        "strength_model",
+        "strength_clip"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL",
+      "CLIP"
+    ],
+    "output_is_list": [
+      false,
+      false
+    ],
+    "output_name": [
+      "MODEL",
+      "CLIP"
+    ],
+    "name": "LoraLoaderBypass",
+    "display_name": "Load LoRA (Bypass) (For debugging)",
+    "description": "Apply LoRA in bypass mode. Unlike regular LoRA, this doesn't modify model weights - instead it injects the LoRA computation during forward pass. Useful for training scenarios.",
+    "python_module": "comfy_extras.nodes_lora_debug",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "output_tooltips": [
+      "The modified diffusion model.",
+      "The modified CLIP model."
+    ],
+    "experimental": true,
+    "search_aliases": []
+  },
+  "LoraLoaderBypassModelOnly": {
+    "input": {
+      "required": {
+        "model": [
+          "MODEL"
+        ],
+        "lora_name": [
+          []
+        ],
+        "strength_model": [
+          "FLOAT",
+          {
+            "default": 1.0,
+            "min": -100.0,
+            "max": 100.0,
+            "step": 0.01
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "lora_name",
+        "strength_model"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "name": "LoraLoaderBypassModelOnly",
+    "display_name": "Load LoRA (Bypass, Model Only) (for debugging)",
+    "description": "Apply LoRA in bypass mode. Unlike regular LoRA, this doesn't modify model weights - instead it injects the LoRA computation during forward pass. Useful for training scenarios.",
+    "python_module": "comfy_extras.nodes_lora_debug",
+    "category": "model/loaders",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "output_tooltips": [
+      "The modified diffusion model.",
+      "The modified CLIP model."
+    ],
+    "experimental": true,
+    "search_aliases": []
+  },
+  "MinimaxTextToVideoNode": {
+    "input": {
+      "required": {
+        "prompt_text": [
+          "STRING",
+          {
+            "tooltip": "Text prompt to guide the video generation",
+            "default": "",
+            "multiline": true
+          }
+        ],
+        "model": [
+          "COMBO",
+          {
+            "tooltip": "Model to use for video generation",
+            "default": "T2V-01",
+            "multiselect": false,
+            "options": [
+              "T2V-01",
+              "T2V-01-Director"
+            ]
+          }
+        ]
+      },
+      "optional": {
+        "seed": [
+          "INT",
+          {
+            "tooltip": "The random seed used for creating the noise.",
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709551615,
+            "step": 1,
+            "control_after_generate": true
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "prompt_text",
+        "model"
+      ],
+      "optional": [
+        "seed"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxTextToVideoNode",
+    "display_name": "MiniMax Text to Video",
+    "description": "Generates videos synchronously based on a prompt, and optional parameters.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "{\"type\":\"usd\",\"usd\":0.43}"
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxImageToVideoNode": {
+    "input": {
+      "required": {
+        "image": [
+          "IMAGE",
+          {
+            "tooltip": "Image to use as first frame of video generation"
+          }
+        ],
+        "prompt_text": [
+          "STRING",
+          {
+            "tooltip": "Text prompt to guide the video generation",
+            "default": "",
+            "multiline": true
+          }
+        ],
+        "model": [
+          "COMBO",
+          {
+            "tooltip": "Model to use for video generation",
+            "default": "I2V-01",
+            "multiselect": false,
+            "options": [
+              "I2V-01-Director",
+              "I2V-01",
+              "I2V-01-live"
+            ]
+          }
+        ]
+      },
+      "optional": {
+        "seed": [
+          "INT",
+          {
+            "tooltip": "The random seed used for creating the noise.",
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709551615,
+            "step": 1,
+            "control_after_generate": true
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "image",
+        "prompt_text",
+        "model"
+      ],
+      "optional": [
+        "seed"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxImageToVideoNode",
+    "display_name": "MiniMax Image to Video",
+    "description": "Generates videos synchronously based on an image and prompt, and optional parameters.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "{\"type\":\"usd\",\"usd\":0.43}"
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuoVideoNode": {
+    "input": {
+      "required": {
+        "prompt_text": [
+          "STRING",
+          {
+            "tooltip": "Text prompt to guide the video generation.",
+            "default": "",
+            "multiline": true
+          }
+        ]
+      },
+      "optional": {
+        "seed": [
+          "INT",
+          {
+            "tooltip": "The random seed used for creating the noise.",
+            "default": 0,
+            "min": 0,
+            "max": 18446744073709551615,
+            "step": 1,
+            "control_after_generate": true
+          }
+        ],
+        "first_frame_image": [
+          "IMAGE",
+          {
+            "tooltip": "Optional image to use as the first frame to generate a video."
+          }
+        ],
+        "prompt_optimizer": [
+          "BOOLEAN",
+          {
+            "tooltip": "Optimize prompt to improve generation quality when needed.",
+            "default": true
+          }
+        ],
+        "duration": [
+          "COMBO",
+          {
+            "tooltip": "The length of the output video in seconds.",
+            "default": 6,
+            "multiselect": false,
+            "options": [
+              6,
+              10
+            ]
+          }
+        ],
+        "resolution": [
+          "COMBO",
+          {
+            "tooltip": "The dimensions of the video display. 1080p is 1920x1080, 768p is 1366x768.",
+            "default": "768P",
+            "multiselect": false,
+            "options": [
+              "768P",
+              "1080P"
+            ]
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "prompt_text"
+      ],
+      "optional": [
+        "seed",
+        "first_frame_image",
+        "prompt_optimizer",
+        "duration",
+        "resolution"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuoVideoNode",
+    "display_name": "MiniMax Hailuo 02 Video",
+    "description": "Generates videos from prompt, with optional start frame using the MiniMax Hailuo-02 model.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [
+          {
+            "name": "resolution",
+            "type": "COMBO"
+          },
+          {
+            "name": "duration",
+            "type": "COMBO"
+          }
+        ],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "\n                (\n                  $prices := {\n                    \"768p\": {\"6\": 0.28, \"10\": 0.56},\n                    \"1080p\": {\"6\": 0.49}\n                  };\n                  $resPrices := $lookup($prices, $lowercase(widgets.resolution));\n                  $price := $lookup($resPrices, $string(widgets.duration));\n                  {\"type\":\"usd\",\"usd\": $price ? $price : 0.43}\n                )\n                "
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuo03TextToVideoNode": {
+    "input": {
+      "required": {
+        "model": [
+          "COMFY_DYNAMICCOMBO_V3",
+          {
+            "tooltip": "Model to use for video generation.",
+            "options": [
+              {
+                "key": "MiniMax H3",
+                "inputs": {
+                  "required": {
+                    "prompt": [
+                      "STRING",
+                      {
+                        "tooltip": "Text prompt for video generation.",
+                        "default": "",
+                        "multiline": true
+                      }
+                    ],
+                    "resolution": [
+                      "COMBO",
+                      {
+                        "tooltip": "Resolution of the output video.",
+                        "multiselect": false,
+                        "options": [
+                          "768P",
+                          "2K"
+                        ]
+                      }
+                    ],
+                    "ratio": [
+                      "COMBO",
+                      {
+                        "tooltip": "Aspect ratio of the output video.",
+                        "default": "16:9",
+                        "multiselect": false,
+                        "options": [
+                          "16:9",
+                          "4:3",
+                          "1:1",
+                          "3:4",
+                          "9:16",
+                          "21:9"
+                        ]
+                      }
+                    ],
+                    "duration": [
+                      "INT",
+                      {
+                        "tooltip": "Duration of the output video in seconds (4-15).",
+                        "default": 5,
+                        "min": 4,
+                        "max": 15,
+                        "step": 1,
+                        "display": "slider"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "tooltip": "Random seed. The same request with the same seed gives similar, but not guaranteed identical, results.",
+            "default": 42,
+            "min": 0,
+            "max": 4294967295,
+            "step": 1,
+            "control_after_generate": true,
+            "display": "number"
+          }
+        ],
+        "watermark": [
+          "BOOLEAN",
+          {
+            "tooltip": "Whether to add an AIGC watermark to the video.",
+            "advanced": true,
+            "default": false
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "seed",
+        "watermark"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuo03TextToVideoNode",
+    "display_name": "MiniMax H3 Text to Video",
+    "description": "Generate video from a text prompt using the MiniMax H3 model.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [
+          {
+            "name": "model.resolution",
+            "type": "COMBO"
+          },
+          {
+            "name": "model.duration",
+            "type": "INT"
+          }
+        ],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "\n                (\n                  $dur := $lookup(widgets, \"model.duration\");\n                  $rate := $lookup(widgets, \"model.resolution\") = \"768p\" ? 0.1287 : 0.1859;\n                  {\"type\": \"usd\", \"usd\": $dur * $rate}\n                )\n                "
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuo03FirstLastFrameNode": {
+    "input": {
+      "required": {
+        "model": [
+          "COMFY_DYNAMICCOMBO_V3",
+          {
+            "tooltip": "Model to use for video generation.",
+            "options": [
+              {
+                "key": "MiniMax H3",
+                "inputs": {
+                  "required": {
+                    "prompt": [
+                      "STRING",
+                      {
+                        "tooltip": "Text prompt for video generation.",
+                        "default": "",
+                        "multiline": true
+                      }
+                    ],
+                    "resolution": [
+                      "COMBO",
+                      {
+                        "tooltip": "Resolution of the output video.",
+                        "multiselect": false,
+                        "options": [
+                          "768P",
+                          "2K"
+                        ]
+                      }
+                    ],
+                    "duration": [
+                      "INT",
+                      {
+                        "tooltip": "Duration of the output video in seconds (4-15).",
+                        "default": 5,
+                        "min": 4,
+                        "max": 15,
+                        "step": 1,
+                        "display": "slider"
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "first_frame": [
+          "IMAGE",
+          {
+            "tooltip": "First frame image for the video."
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "tooltip": "Random seed. The same request with the same seed gives similar, but not guaranteed identical, results.",
+            "default": 42,
+            "min": 0,
+            "max": 4294967295,
+            "step": 1,
+            "control_after_generate": true,
+            "display": "number"
+          }
+        ],
+        "watermark": [
+          "BOOLEAN",
+          {
+            "tooltip": "Whether to add an AIGC watermark to the video.",
+            "advanced": true,
+            "default": false
+          }
+        ]
+      },
+      "optional": {
+        "last_frame": [
+          "IMAGE",
+          {
+            "tooltip": "Optional last frame image for the video."
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "first_frame",
+        "seed",
+        "watermark"
+      ],
+      "optional": [
+        "last_frame"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuo03FirstLastFrameNode",
+    "display_name": "MiniMax H3 First-Last-Frame to Video",
+    "description": "Generate video from a first frame image and an optional last frame image using the MiniMax H3 model. The aspect ratio of the video follows the supplied images.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [
+          {
+            "name": "model.resolution",
+            "type": "COMBO"
+          },
+          {
+            "name": "model.duration",
+            "type": "INT"
+          }
+        ],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "\n                (\n                  $dur := $lookup(widgets, \"model.duration\");\n                  $rate := $lookup(widgets, \"model.resolution\") = \"768p\" ? 0.1287 : 0.1859;\n                  {\"type\": \"usd\", \"usd\": $dur * $rate}\n                )\n                "
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuo03ReferenceNode": {
+    "input": {
+      "required": {
+        "model": [
+          "COMFY_DYNAMICCOMBO_V3",
+          {
+            "tooltip": "Model to use for video generation.",
+            "options": [
+              {
+                "key": "MiniMax H3",
+                "inputs": {
+                  "required": {
+                    "prompt": [
+                      "STRING",
+                      {
+                        "tooltip": "Text prompt for video generation.",
+                        "default": "",
+                        "multiline": true
+                      }
+                    ],
+                    "resolution": [
+                      "COMBO",
+                      {
+                        "tooltip": "Resolution of the output video.",
+                        "multiselect": false,
+                        "options": [
+                          "768P",
+                          "2K"
+                        ]
+                      }
+                    ],
+                    "ratio": [
+                      "COMBO",
+                      {
+                        "tooltip": "Aspect ratio of the output video.",
+                        "default": "adaptive",
+                        "multiselect": false,
+                        "options": [
+                          "adaptive",
+                          "16:9",
+                          "4:3",
+                          "1:1",
+                          "3:4",
+                          "9:16",
+                          "21:9"
+                        ]
+                      }
+                    ],
+                    "duration": [
+                      "INT",
+                      {
+                        "tooltip": "Duration of the output video in seconds (4-15).",
+                        "default": 5,
+                        "min": 4,
+                        "max": 15,
+                        "step": 1,
+                        "display": "slider"
+                      }
+                    ],
+                    "reference_images": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Subject or style reference images, referred to in the prompt as 'Image 1'..'Image 9' in connection order. Up to 9 images.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_image": [
+                                "IMAGE",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "image_1",
+                            "image_2",
+                            "image_3",
+                            "image_4",
+                            "image_5",
+                            "image_6",
+                            "image_7",
+                            "image_8",
+                            "image_9"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_videos": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Motion or scene reference videos, referred to in the prompt as 'Video 1'..'Video 3' in connection order. Up to 3 videos, 2-15 seconds each, 15 seconds in total.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_video": [
+                                "VIDEO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "video_1",
+                            "video_2",
+                            "video_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_audios": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Audio references, referred to in the prompt as 'Audio 1'..'Audio 3' in connection order. Up to 3 clips, 2-15 seconds each, 15 seconds in total. Cannot be used without a reference image or video.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_audio": [
+                                "AUDIO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "audio_1",
+                            "audio_2",
+                            "audio_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "seed": [
+          "INT",
+          {
+            "tooltip": "Random seed. The same request with the same seed gives similar, but not guaranteed identical, results.",
+            "default": 42,
+            "min": 0,
+            "max": 4294967295,
+            "step": 1,
+            "control_after_generate": true,
+            "display": "number"
+          }
+        ],
+        "watermark": [
+          "BOOLEAN",
+          {
+            "tooltip": "Whether to add an AIGC watermark to the video.",
+            "advanced": true,
+            "default": false
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "seed",
+        "watermark"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuo03ReferenceNode",
+    "display_name": "MiniMax H3 Reference to Video",
+    "description": "Generate video conditioned on reference images, videos, and audio using the MiniMax H3 model. Refer to the references in the prompt by their order: 'Image 1', 'Image 2', 'Video 1', 'Audio 1', and so on.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [
+          {
+            "name": "model.resolution",
+            "type": "COMBO"
+          },
+          {
+            "name": "model.duration",
+            "type": "INT"
+          }
+        ],
+        "inputs": [],
+        "input_groups": [
+          "model.reference_images",
+          "model.reference_videos"
+        ]
+      },
+      "expr": "\n                (\n                  $dur := $lookup(widgets, \"model.duration\");\n                  $rate := $lookup(widgets, \"model.resolution\") = \"768p\" ? 0.1287 : 0.1859;\n                  $imgsRaw := $lookup(inputGroups, \"model.reference_images\");\n                  $imgs := $imgsRaw ? $imgsRaw : 0;\n                  $vidsRaw := $lookup(inputGroups, \"model.reference_videos\");\n                  $vids := $vidsRaw ? $vidsRaw : 0;\n                  $base := $dur * $rate + ($imgs > 5 ? ($imgs - 5) * 0.0572 : 0);\n                  $vids > 0\n                    ? {\"type\": \"range_usd\", \"min_usd\": $base + $vids * 2 * $rate,\n                       \"max_usd\": $base + 15 * $rate, \"format\": {\"approximate\": true}}\n                    : {\"type\": \"usd\", \"usd\": $base}\n                )\n                "
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuo03ContextIRNode": {
+    "input": {
+      "required": {
+        "model": [
+          "COMFY_DYNAMICCOMBO_V3",
+          {
+            "tooltip": "Model to use for prompt enhancement.",
+            "options": [
+              {
+                "key": "MiniMax H3",
+                "inputs": {
+                  "required": {
+                    "prompt": [
+                      "STRING",
+                      {
+                        "tooltip": "Description of the video you intend to generate.",
+                        "default": "",
+                        "multiline": true
+                      }
+                    ],
+                    "duration": [
+                      "INT",
+                      {
+                        "tooltip": "Duration of the video you intend to generate, in seconds (4-15).",
+                        "default": 5,
+                        "min": 4,
+                        "max": 15,
+                        "step": 1,
+                        "display": "slider"
+                      }
+                    ],
+                    "ratio": [
+                      "COMBO",
+                      {
+                        "tooltip": "Aspect ratio of the video you intend to generate. 'adaptive' requires at least one image, video, or audio input.",
+                        "default": "adaptive",
+                        "multiselect": false,
+                        "options": [
+                          "adaptive",
+                          "16:9",
+                          "4:3",
+                          "1:1",
+                          "3:4",
+                          "9:16",
+                          "21:9"
+                        ]
+                      }
+                    ],
+                    "reference_images": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Subject or style reference images, referred to in the prompt as 'Image 1'..'Image 9' in connection order. Up to 9 images.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_image": [
+                                "IMAGE",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "image_1",
+                            "image_2",
+                            "image_3",
+                            "image_4",
+                            "image_5",
+                            "image_6",
+                            "image_7",
+                            "image_8",
+                            "image_9"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_videos": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Motion or scene reference videos, referred to in the prompt as 'Video 1'..'Video 3' in connection order. Up to 3 videos, 2-15 seconds each, 15 seconds in total.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_video": [
+                                "VIDEO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "video_1",
+                            "video_2",
+                            "video_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_audios": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Audio references, referred to in the prompt as 'Audio 1'..'Audio 3' in connection order. Up to 3 clips, 2-15 seconds each, 15 seconds in total. Cannot be used without a reference image or video.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_audio": [
+                                "AUDIO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "audio_1",
+                            "audio_2",
+                            "audio_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "optional": {
+        "first_frame": [
+          "IMAGE",
+          {
+            "tooltip": "First frame of the video you intend to generate. Cannot be combined with reference media."
+          }
+        ],
+        "last_frame": [
+          "IMAGE",
+          {
+            "tooltip": "Last frame of the video you intend to generate. Cannot be combined with reference media."
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model"
+      ],
+      "optional": [
+        "first_frame",
+        "last_frame"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "STRING"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "STRING"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuo03ContextIRNode",
+    "display_name": "MiniMax H3 Context IR (Prompt Enhancer)",
+    "description": "Analyze text and media context with MiniMax H3 Context IR and produce an enhanced, structured video prompt. Feed the output into the prompt of a MiniMax H3 video node and attach the same media there in the same order, because the enhanced prompt refers to the attached media by position.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [],
+        "inputs": [
+          "first_frame",
+          "last_frame"
+        ],
+        "input_groups": [
+          "model.reference_images",
+          "model.reference_videos",
+          "model.reference_audios"
+        ]
+      },
+      "expr": "\n                (\n                  $imgsRaw := $lookup(inputGroups, \"model.reference_images\");\n                  $imgs := $imgsRaw ? $imgsRaw : 0;\n                  $vidsRaw := $lookup(inputGroups, \"model.reference_videos\");\n                  $vids := $vidsRaw ? $vidsRaw : 0;\n                  $audsRaw := $lookup(inputGroups, \"model.reference_audios\");\n                  $auds := $audsRaw ? $audsRaw : 0;\n                  $frames := (inputs.first_frame.connected ? 1 : 0) + (inputs.last_frame.connected ? 1 : 0);\n                  ($imgs + $vids + $auds) > 0\n                    ? {\"type\": \"range_usd\", \"min_usd\": 0.06, \"max_usd\": 0.11, \"format\": {\"approximate\": true}}\n                    : $frames > 0\n                      ? {\"type\": \"usd\", \"usd\": 0.05, \"format\": {\"approximate\": true}}\n                      : {\"type\": \"usd\", \"usd\": 0.02, \"format\": {\"approximate\": true}}\n                )\n                "
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "MinimaxHailuo03RegenerateNode": {
+    "input": {
+      "required": {
+        "model": [
+          "COMFY_DYNAMICCOMBO_V3",
+          {
+            "tooltip": "Model to use for video regeneration.",
+            "options": [
+              {
+                "key": "MiniMax H3",
+                "inputs": {
+                  "required": {
+                    "prompt": [
+                      "STRING",
+                      {
+                        "tooltip": "The exact prompt used to generate the source video.",
+                        "default": "",
+                        "multiline": true
+                      }
+                    ],
+                    "resolution": [
+                      "COMBO",
+                      {
+                        "tooltip": "Resolution to re-render the source video at.",
+                        "multiselect": false,
+                        "options": [
+                          "2K"
+                        ]
+                      }
+                    ],
+                    "reference_images": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Reference images from the original generation, in the same order. Up to 9 images.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_image": [
+                                "IMAGE",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "image_1",
+                            "image_2",
+                            "image_3",
+                            "image_4",
+                            "image_5",
+                            "image_6",
+                            "image_7",
+                            "image_8",
+                            "image_9"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_videos": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Reference videos from the original generation, in the same order. Up to 3 videos, 2-15 seconds each, 15 seconds in total.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_video": [
+                                "VIDEO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "video_1",
+                            "video_2",
+                            "video_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ],
+                    "reference_audios": [
+                      "COMFY_AUTOGROW_V3",
+                      {
+                        "tooltip": "Audio references from the original generation, in the same order. Up to 3 clips, 2-15 seconds each, 15 seconds in total. Cannot be used without a reference image or video.",
+                        "template": {
+                          "input": {
+                            "required": {
+                              "reference_audio": [
+                                "AUDIO",
+                                {}
+                              ]
+                            }
+                          },
+                          "names": [
+                            "audio_1",
+                            "audio_2",
+                            "audio_3"
+                          ],
+                          "min": 0
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "video": [
+          "VIDEO",
+          {
+            "tooltip": "The MiniMax H3 768P output video to re-render. Connect the unmodified output of a MiniMax H3 video node (24 FPS, 4-15 seconds). 2K outputs cannot be used."
+          }
+        ],
+        "watermark": [
+          "BOOLEAN",
+          {
+            "tooltip": "Whether to add an AIGC watermark to the video.",
+            "advanced": true,
+            "default": false
+          }
+        ]
+      },
+      "optional": {
+        "first_frame": [
+          "IMAGE",
+          {
+            "tooltip": "First frame image from the original generation, if one was used."
+          }
+        ],
+        "last_frame": [
+          "IMAGE",
+          {
+            "tooltip": "Last frame image from the original generation, if one was used."
+          }
+        ]
+      },
+      "hidden": {
+        "auth_token_comfy_org": [
+          "AUTH_TOKEN_COMFY_ORG"
+        ],
+        "api_key_comfy_org": [
+          "API_KEY_COMFY_ORG"
+        ],
+        "unique_id": [
+          "UNIQUE_ID"
+        ],
+        "comfy_usage_source": [
+          "COMFY_USAGE_SOURCE"
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "model",
+        "video",
+        "watermark"
+      ],
+      "optional": [
+        "first_frame",
+        "last_frame"
+      ],
+      "hidden": [
+        "auth_token_comfy_org",
+        "api_key_comfy_org",
+        "unique_id",
+        "comfy_usage_source"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "VIDEO"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "VIDEO"
+    ],
+    "output_tooltips": [
+      null
+    ],
+    "output_matchtypes": null,
+    "name": "MinimaxHailuo03RegenerateNode",
+    "display_name": "MiniMax H3 Regenerate to 2K",
+    "description": "Re-render a MiniMax H3 768P output at 2K resolution. Connect the unmodified 768P video and the exact prompt used to generate it; if the original generation used first/last frames or reference media, attach the same inputs.",
+    "python_module": "comfy_api_nodes.nodes_minimax",
+    "category": "partner/video/MiniMax",
+    "output_node": false,
+    "deprecated": false,
+    "experimental": false,
+    "dev_only": false,
+    "api_node": true,
+    "price_badge": {
+      "engine": "jsonata",
+      "depends_on": {
+        "widgets": [],
+        "inputs": [],
+        "input_groups": []
+      },
+      "expr": "{\"type\": \"usd\", \"usd\": 0.0715, \"format\": {\"suffix\": \"/second\"}}"
+    },
+    "search_aliases": null,
+    "essentials_category": null,
+    "has_intermediate_output": false
+  },
+  "UnetLoaderGGUF": {
+    "input": {
+      "required": {
+        "unet_name": [
+          []
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "unet_name"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "name": "UnetLoaderGGUF",
+    "display_name": "Unet Loader (GGUF)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "CLIPLoaderGGUF": {
+    "input": {
+      "required": {
+        "clip_name": [
+          []
+        ],
+        "type": [
+          [
+            "stable_diffusion",
+            "stable_cascade",
+            "sd3",
+            "stable_audio",
+            "mochi",
+            "ltxv",
+            "pixart",
+            "cosmos",
+            "lumina2",
+            "wan",
+            "hidream",
+            "chroma",
+            "ace",
+            "omnigen2",
+            "qwen_image",
+            "hunyuan_image",
+            "flux2",
+            "ovis",
+            "longcat_image",
+            "cogvideox",
+            "lens",
+            "pixeldit",
+            "ideogram4",
+            "boogu",
+            "krea2",
+            "joyimage",
+            "mage",
+            "minimax"
+          ]
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name",
+        "type"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "CLIPLoaderGGUF",
+    "display_name": "CLIPLoader (GGUF)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "DualCLIPLoaderGGUF": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          []
+        ],
+        "clip_name2": [
+          []
+        ],
+        "type": [
+          [
+            "sdxl",
+            "sd3",
+            "flux",
+            "hunyuan_video",
+            "hidream",
+            "hunyuan_image",
+            "hunyuan_video_15",
+            "kandinsky5",
+            "kandinsky5_image",
+            "ltxv",
+            "newbie",
+            "ace"
+          ]
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "type"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "DualCLIPLoaderGGUF",
+    "display_name": "DualCLIPLoader (GGUF)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "TripleCLIPLoaderGGUF": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          []
+        ],
+        "clip_name2": [
+          []
+        ],
+        "clip_name3": [
+          []
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "clip_name3"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "TripleCLIPLoaderGGUF",
+    "display_name": "TripleCLIPLoader (GGUF)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "QuadrupleCLIPLoaderGGUF": {
+    "input": {
+      "required": {
+        "clip_name1": [
+          []
+        ],
+        "clip_name2": [
+          []
+        ],
+        "clip_name3": [
+          []
+        ],
+        "clip_name4": [
+          []
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "clip_name1",
+        "clip_name2",
+        "clip_name3",
+        "clip_name4"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "CLIP"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "CLIP"
+    ],
+    "name": "QuadrupleCLIPLoaderGGUF",
+    "display_name": "QuadrupleCLIPLoader (GGUF)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  },
+  "UnetLoaderGGUFAdvanced": {
+    "input": {
+      "required": {
+        "unet_name": [
+          []
+        ],
+        "dequant_dtype": [
+          [
+            "default",
+            "target",
+            "float32",
+            "float16",
+            "bfloat16"
+          ],
+          {
+            "default": "default"
+          }
+        ],
+        "patch_dtype": [
+          [
+            "default",
+            "target",
+            "float32",
+            "float16",
+            "bfloat16"
+          ],
+          {
+            "default": "default"
+          }
+        ],
+        "patch_on_device": [
+          "BOOLEAN",
+          {
+            "default": false
+          }
+        ]
+      }
+    },
+    "input_order": {
+      "required": [
+        "unet_name",
+        "dequant_dtype",
+        "patch_dtype",
+        "patch_on_device"
+      ]
+    },
+    "is_input_list": false,
+    "output": [
+      "MODEL"
+    ],
+    "output_is_list": [
+      false
+    ],
+    "output_name": [
+      "MODEL"
+    ],
+    "name": "UnetLoaderGGUFAdvanced",
+    "display_name": "Unet Loader (GGUF/Advanced)",
+    "description": "",
+    "python_module": "custom_nodes.ComfyUI-GGUF",
+    "category": "bootleg",
+    "output_node": false,
+    "has_intermediate_output": false,
+    "search_aliases": []
+  }
+}

@@ -1,0 +1,212 @@
+{
+  "prompt": [
+    0,
+    "fb143d7b-e702-4a43-9b83-87928f2c0e11",
+    {
+      "1": {
+        "class_type": "UnetLoaderGGUF",
+        "inputs": {
+          "unet_name": "minimax_h3_fl2va_pruned-Q4_K.gguf"
+        }
+      },
+      "2": {
+        "class_type": "MiniMaxH3SigmaShift",
+        "inputs": {
+          "model": [
+            "1",
+            0
+          ],
+          "shift_video": 12.0,
+          "shift_audio": 3.0
+        }
+      },
+      "3": {
+        "class_type": "LoraLoaderModelOnly",
+        "inputs": {
+          "model": [
+            "2",
+            0
+          ],
+          "lora_name": "minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors",
+          "strength_model": 1.0
+        }
+      },
+      "4": {
+        "class_type": "CLIPLoaderGGUF",
+        "inputs": {
+          "clip_name": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+          "type": "minimax"
+        }
+      },
+      "5": {
+        "class_type": "VAELoader",
+        "inputs": {
+          "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+        }
+      },
+      "6": {
+        "class_type": "MiniMaxH3ImageToVideo",
+        "inputs": {
+          "clip": [
+            "4",
+            0
+          ],
+          "vae": [
+            "5",
+            0
+          ],
+          "prompt": "a slow cinematic push in on a trading desk at night, three monitors glowing with red and green candlestick charts, shallow depth of field, shot on film, natural light",
+          "width": 640,
+          "height": 384,
+          "length": 124
+        }
+      },
+      "7": {
+        "class_type": "ConditioningZeroOut",
+        "inputs": {
+          "conditioning": [
+            "6",
+            0
+          ]
+        }
+      },
+      "8": {
+        "class_type": "KSampler",
+        "inputs": {
+          "model": [
+            "3",
+            0
+          ],
+          "seed": 12345,
+          "steps": 4,
+          "cfg": 1.0,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "positive": [
+            "6",
+            0
+          ],
+          "negative": [
+            "7",
+            0
+          ],
+          "latent_image": [
+            "6",
+            1
+          ],
+          "denoise": 1.0
+        }
+      },
+      "9": {
+        "class_type": "VAEDecode",
+        "inputs": {
+          "samples": [
+            "8",
+            0
+          ],
+          "vae": [
+            "5",
+            0
+          ]
+        }
+      },
+      "10": {
+        "class_type": "CreateVideo",
+        "inputs": {
+          "images": [
+            "9",
+            0
+          ],
+          "fps": 24.0
+        }
+      },
+      "11": {
+        "class_type": "SaveVideo",
+        "inputs": {
+          "video": [
+            "10",
+            0
+          ],
+          "filename_prefix": "h3_probe",
+          "format": "mp4",
+          "codec": "h264"
+        }
+      }
+    },
+    {
+      "client_id": "esta",
+      "create_time": 1787784143638
+    },
+    [
+      "11"
+    ]
+  ],
+  "outputs": {},
+  "status": {
+    "status_str": "error",
+    "completed": false,
+    "messages": [
+      [
+        "execution_start",
+        {
+          "prompt_id": "fb143d7b-e702-4a43-9b83-87928f2c0e11",
+          "timestamp": 1787784143639
+        }
+      ],
+      [
+        "execution_cached",
+        {
+          "nodes": [],
+          "prompt_id": "fb143d7b-e702-4a43-9b83-87928f2c0e11",
+          "timestamp": 1787784143643
+        }
+      ],
+      [
+        "execution_error",
+        {
+          "prompt_id": "fb143d7b-e702-4a43-9b83-87928f2c0e11",
+          "node_id": "4",
+          "node_type": "CLIPLoaderGGUF",
+          "executed": [
+            "5"
+          ],
+          "exception_message": "This gguf file is incompatible with llama.cpp!\nConsider using safetensors or a compatible gguf file\n(/kaggle/temp/ComfyUI/models/clip/qwen3vl_32b_minimax_h3-Q2_K_M.gguf)\n",
+          "exception_type": "ValueError",
+          "traceback": [
+            "  File \"/kaggle/temp/ComfyUI/execution.py\", line 545, in execute\n    output_data, output_ui, has_subgraph, has_pending_tasks = await get_output_data(prompt_id, unique_id, obj, input_data_all, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/execution.py\", line 344, in get_output_data\n    return_values = await _async_map_node_over_list(prompt_id, unique_id, obj, input_data_all, obj.FUNCTION, allow_interrupt=True, execution_block_cb=execution_block_cb, pre_execute_cb=pre_execute_cb, v3_data=v3_data)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/execution.py\", line 318, in _async_map_node_over_list\n    await process_inputs(input_dict, i)\n",
+            "  File \"/kaggle/temp/ComfyUI/execution.py\", line 306, in process_inputs\n    result = f(**inputs)\n             ^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF/nodes.py\", line 251, in load_clip\n    return (self.load_patcher([clip_path], clip_type, self.load_data([clip_path])),)\n                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF/nodes.py\", line 227, in load_data\n    sd = gguf_clip_loader(p)\n         ^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF/loader.py\", line 471, in gguf_clip_loader\n    sd, extra = gguf_sd_loader(path, is_text_model=True)\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+            "  File \"/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF/loader.py\", line 98, in gguf_sd_loader\n    raise ValueError(f\"This gguf file is incompatible with llama.cpp!\\nConsider using safetensors or a compatible gguf file\\n({path})\")\n"
+          ],
+          "current_inputs": {
+            "clip_name": [
+              "qwen3vl_32b_minimax_h3-Q2_K_M.gguf"
+            ],
+            "type": [
+              "minimax"
+            ]
+          },
+          "current_outputs": [
+            "5",
+            "10",
+            "3",
+            "1",
+            "6",
+            "4",
+            "2",
+            "11",
+            "8",
+            "9",
+            "7"
+          ],
+          "timestamp": 1787784144576
+        }
+      ]
+    ]
+  },
+  "meta": {}
+}

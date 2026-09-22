@@ -1,0 +1,158 @@
+{
+  "version": "1.0.0",
+  "description": "Higgsfield-style camera + motion presets for generative video. Open video models take camera direction as natural language in the prompt, so a preset is a prompt fragment plus a few generation hints. `reliability` is how consistently the move actually shows up in the output: high = works nearly every time, medium = works most of the time, low = worth a reroll or two. `family` groups them for the picker UI.",
+  "default": "push_in",
+  "presets": {
+    "push_in": {
+      "label": "Push In",
+      "family": "camera",
+      "prompt": "the camera slowly pushes in toward the subject, steady controlled dolly, gradual tightening of the frame",
+      "reliability": "high",
+      "notes": "The safest move in the library. Reads as intentional on almost any subject."
+    },
+    "pull_back": {
+      "label": "Pull Back",
+      "family": "camera",
+      "prompt": "the camera slowly pulls back away from the subject, revealing more of the surrounding environment",
+      "reliability": "high",
+      "notes": "Reveal shot. Pairs well with a line that widens the argument."
+    },
+    "crash_zoom_in": {
+      "label": "Crash Zoom In",
+      "family": "camera",
+      "prompt": "the camera crash zooms in fast and hard toward the subject, sudden aggressive snap push, motion blur streaking at the frame edges",
+      "reliability": "medium",
+      "notes": "Higgsfield's signature move. Punchy on a stinger word; needs a subject with a clear focal point or it just smears."
+    },
+    "crash_zoom_out": {
+      "label": "Crash Zoom Out",
+      "family": "camera",
+      "prompt": "the camera crash zooms out fast and hard, sudden snap pull revealing the wider scene, motion blur streaking at the frame edges",
+      "reliability": "medium"
+    },
+    "dolly_in": {
+      "label": "Dolly In",
+      "family": "camera",
+      "prompt": "the camera dollies forward through the scene at a steady pace, parallax between foreground and background as it moves",
+      "reliability": "high",
+      "notes": "Differs from push_in by moving THROUGH space — you get real parallax, not just a scale-up."
+    },
+    "dolly_out": {
+      "label": "Dolly Out",
+      "family": "camera",
+      "prompt": "the camera dollies backward through the scene at a steady pace, foreground elements sliding past, deep parallax",
+      "reliability": "high"
+    },
+    "orbit_left": {
+      "label": "Orbit Left",
+      "family": "camera",
+      "prompt": "the camera arcs smoothly around the subject to the left, orbiting shot, subject stays centered while the background sweeps past",
+      "reliability": "medium",
+      "notes": "Wants a clearly separable subject. On flat/abstract frames it degenerates into a pan."
+    },
+    "orbit_right": {
+      "label": "Orbit Right",
+      "family": "camera",
+      "prompt": "the camera arcs smoothly around the subject to the right, orbiting shot, subject stays centered while the background sweeps past",
+      "reliability": "medium"
+    },
+    "crane_up": {
+      "label": "Crane Up",
+      "family": "camera",
+      "prompt": "the camera cranes upward and tilts down slightly, rising above the scene, revealing scale from a higher vantage",
+      "reliability": "medium"
+    },
+    "crane_down": {
+      "label": "Crane Down",
+      "family": "camera",
+      "prompt": "the camera cranes downward from above toward the subject, descending smoothly to eye level",
+      "reliability": "medium"
+    },
+    "tilt_up": {
+      "label": "Tilt Up",
+      "family": "camera",
+      "prompt": "the camera tilts upward from the base of the subject toward the top, revealing height",
+      "reliability": "high"
+    },
+    "tilt_down": {
+      "label": "Tilt Down",
+      "family": "camera",
+      "prompt": "the camera tilts downward from above toward the ground, settling on the subject",
+      "reliability": "high"
+    },
+    "pan_left": {
+      "label": "Pan Left",
+      "family": "camera",
+      "prompt": "the camera pans smoothly to the left across the scene, revealing what was outside the frame",
+      "reliability": "high"
+    },
+    "pan_right": {
+      "label": "Pan Right",
+      "family": "camera",
+      "prompt": "the camera pans smoothly to the right across the scene, revealing what was outside the frame",
+      "reliability": "high"
+    },
+    "whip_pan": {
+      "label": "Whip Pan",
+      "family": "camera",
+      "prompt": "the camera whip pans violently sideways, extreme horizontal motion blur smearing the entire frame",
+      "reliability": "medium",
+      "notes": "Best used as a transition tail, not a whole shot. Generate it, then trim to the last ~0.4s."
+    },
+    "fpv_drone": {
+      "label": "FPV Drone",
+      "family": "camera",
+      "prompt": "aggressive FPV drone shot flying fast through the scene, swooping and banking, dynamic first-person aerial motion, wide lens distortion",
+      "reliability": "medium",
+      "notes": "Loves environments and architecture. Hates close-ups of objects."
+    },
+    "handheld": {
+      "label": "Handheld",
+      "family": "camera",
+      "prompt": "handheld camera with natural human shake and micro-corrections, documentary feel, slight breathing motion",
+      "reliability": "high",
+      "notes": "The cheapest way to make a generated shot stop looking generated."
+    },
+    "static": {
+      "label": "Locked Off",
+      "family": "camera",
+      "prompt": "the camera is locked off on a tripod and does not move, completely static frame, only the subject moves",
+      "reliability": "high",
+      "notes": "Use when the motion should come from the subject, not the lens. Also the right pick when you plan to add a render-time zoom on top."
+    },
+    "bullet_time": {
+      "label": "Bullet Time",
+      "family": "vfx",
+      "prompt": "extreme slow motion while the camera arcs rapidly around the frozen subject, bullet time effect, time nearly stopped",
+      "reliability": "low",
+      "notes": "Spectacular when it lands, incoherent when it doesn't. Budget rerolls."
+    },
+    "rack_focus": {
+      "label": "Rack Focus",
+      "family": "vfx",
+      "prompt": "the lens racks focus from the blurred foreground to the sharp background, shallow depth of field shifting",
+      "reliability": "low"
+    },
+    "time_lapse": {
+      "label": "Time Lapse",
+      "family": "vfx",
+      "prompt": "fast time lapse, clouds and light racing across the scene, long exposure trails, hours compressed into seconds",
+      "reliability": "medium"
+    },
+    "parallax_2d": {
+      "label": "2.5D Parallax",
+      "family": "camera",
+      "prompt": "subtle three dimensional parallax as the camera drifts, foreground and background separating with depth, photo coming alive",
+      "reliability": "high",
+      "notes": "The move that makes a still photograph read as footage. Best I2V preset on a static seed image."
+    }
+  },
+  "style_suffix": {
+    "description": "Appended after the subject + camera fragments. Keeps output looking like footage rather than like a render.",
+    "cinematic": "shot on film, cinematic color grading, natural lighting, shallow depth of field, 24fps motion cadence",
+    "documentary": "documentary footage, available light, realistic texture, unpolished and candid",
+    "broadcast": "clean broadcast television look, even lighting, high clarity, professional camera",
+    "gritty": "grainy handheld footage, high contrast, harsh practical lighting, raw and unglamorous"
+  },
+  "negative_default": "text, watermark, logo, subtitles, caption, distorted faces, extra limbs, warping geometry, flickering, blurry, low quality, jpeg artifacts, static noise, morphing objects"
+}

@@ -1,0 +1,63 @@
+[{"stream_name":"stderr","time":6.708936608,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":6.709017114,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":7.539671977,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.539698735,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.539708692,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.539711404,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":8.130337925,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.130365223,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.13036991,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.130373527,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":13.954408445,"data":"[esta] gpu: Tesla T4\n"}
+,{"stream_name":"stdout","time":13.955301446,"data":"[esta] vram_gb: 15.6\n"}
+,{"stream_name":"stdout","time":13.956017647,"data":"[esta] host_ram_gb: 33.7\n"}
+,{"stream_name":"stderr","time":13.973851463999999,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":14.176056889,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":14.176078877,"data":"\n"}
+,{"stream_name":"stderr","time":14.176084609,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stdout","time":20.332506944,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 78.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.525738555,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 86.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.534519983,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 78.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.534543175,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 86.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.132521286,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 31.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.163113027,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 24.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.190343359,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 5.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.242280364,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 90.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.335190432,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 31.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.33521143,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 24.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.335217058,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 5.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.33522246,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 90.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.291527724,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 18.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.493745084,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 18.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.904184063,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 30.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.106257037,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 30.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.989063538,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.190894126,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.061461195,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 19.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.264056971,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 19.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.297882801,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.324992158,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 4.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.499975025,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.500006557,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 4.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.855249351,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 38.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.911650737,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 21.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.020379105,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 55.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.057029697,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 38.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.057051211,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 21.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.057056235,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 55.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":39.039954813,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":39.246541054,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":39.246571127,"data":"\n"}
+,{"stream_name":"stderr","time":39.246577493,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stdout","time":41.329669838,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 4.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":41.531996268,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 4.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":46.609180299,"data":"[esta] PHASE install: 32.7s\n"}
+,{"stream_name":"stderr","time":47.497402082,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":47.497429404,"data":"\n"}
+,{"stream_name":"stderr","time":47.49743467,"data":"Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.\n"}
+,{"stream_name":"stderr","time":43209.163500578,"data":"Timeout waiting for execute reply (43200s).\n"}
+,{"stream_name":"stderr","time":43209.251480838,"data":"Cancellation requested; stopping current tasks.\n"}
+,{"stream_name":"stderr","time":43209.268496428,"data":"Cancellation requested; stopping current tasks.\n"}
+,{"stream_name":"stderr","time":43209.268532756,"data":"\n"}
+,{"stream_name":"stderr","time":43209.268540523,"data":"Cancellation requested; stopping current tasks.\n"}
+]

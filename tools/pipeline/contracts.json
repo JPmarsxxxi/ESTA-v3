@@ -1,0 +1,306 @@
+{
+  "version": "1.0.0",
+  "description": "Skill I/O contract registry for the ESTA pipeline. Phase 1 of notes/smart-pipeline-and-found-audio.md. The conductor reads this to (a) plan a pipeline backwards from the goal artifact, and (b) validate any custom skill order before running it — an order is valid only if every skill's `needs` are produced by an earlier skill (or already present in the session). Artifact paths are relative to sessions/<id>/ unless marked repo-level. Mode entries override/extend the skill's base needs/produces; 'status: planned' modes are part of the redesign and not built yet.",
+  "goal_artifact": "*.openreel.json",
+  "skills": {
+    "requirements": {
+      "needs": [],
+      "produces": [
+        "requirements.json",
+        "conversation.jsonl"
+      ],
+      "optional_produces": [
+        "script_uploaded.txt"
+      ],
+      "fields_set": [
+        "topic",
+        "style",
+        "duration_range",
+        "comments",
+        "example_scripts",
+        "script_source",
+        "skip_scriptwriter",
+        "licensing"
+      ],
+      "notes": "Entry point. `licensing` field (free_only | fair_use_ok) added in Phase 2; honored by audio:found-fetch and assets."
+    },
+    "voice-profiler": {
+      "needs": [
+        "requirements.json"
+      ],
+      "optional_needs": [
+        "profile/preferences.md"
+      ],
+      "produces": [
+        "voice_profile.md"
+      ],
+      "condition": "requirements.example_scripts is a non-empty list (skip when it is the ASSET_COLLECTOR_PLACEHOLDER sentinel)",
+      "notes": "Conditional. Consumed by scriptwriter and humanizer."
+    },
+    "research": {
+      "needs": [
+        "requirements.json"
+      ],
+      "optional_needs": [
+        "script_uploaded.txt",
+        "script.md"
+      ],
+      "produces": [
+        "research.json"
+      ],
+      "notes": "Append-only; re-invocable. In found-audio flows its output doubles as the hunting brief for audio:found-fetch."
+    },
+    "scriptwriter": {
+      "base_needs": [
+        "requirements.json",
+        "research.json"
+      ],
+      "optional_needs": [
+        "voice_profile.md",
+        "profile/preferences.md"
+      ],
+      "produces": [
+        "script.md",
+        "script_metadata.json"
+      ],
+      "condition": "requirements.skip_scriptwriter is false",
+      "modes": {
+        "author": {
+          "status": "built",
+          "needs": [
+            "requirements.json",
+            "research.json"
+          ],
+          "notes": "Default. Writes prose script BEFORE audio. Auto-invokes humanizer."
+        },
+        "arranger": {
+          "status": "built",
+          "phase": 4,
+          "needs": [
+            "requirements.json",
+            "research.json",
+            "audio_pool.json",
+            "audio_pool_analysis.json"
+          ],
+          "produces": [
+            "script.md",
+            "script_metadata.json",
+            "arrangement.json"
+          ],
+          "notes": "Claude-native: selects + sequences pool clips into the arc. Writes script.md (human/plan-readable) AND arrangement.json (machine spec for audio:assemble; schema + validator in tools/scriptwriter/{schema,arrange}.py). Runs AFTER audio:found-fetch — the dependency inversion the rigid flow could not express. No humanizer pass."
+        }
+      }
+    },
+    "audio": {
+      "base_produces": [
+        "audio.wav",
+        "audio_metadata.json"
+      ],
+      "modes": {
+        "clone": {
+          "status": "built",
+          "needs": [
+            "script.md"
+          ],
+          "produces": [
+            "audio.wav",
+            "audio_metadata.json"
+          ],
+          "notes": "Coqui XTTS v2 voice clone. Requires esta conda env + a repo-level voice_samples/ wav."
+        },
+        "self-record": {
+          "status": "built",
+          "needs": [
+            "script.md"
+          ],
+          "produces": [
+            "audio.wav",
+            "audio_metadata.json"
+          ],
+          "notes": "Multi-take self-recording loop."
+        },
+        "found-fetch": {
+          "status": "built",
+          "phase": 3,
+          "needs": [
+            "requirements.json",
+            "research.json"
+          ],
+          "produces": [
+            "audio_pool.json"
+          ],
+          "produces_dirs": [
+            "audio_pool/"
+          ],
+          "honors": [
+            "requirements.licensing"
+          ],
+          "sources": [
+            "freesound",
+            "openverse",
+            "archive",
+            "wikimedia",
+            "ccmixter",
+            "youtube"
+          ],
+          "notes": "Searches + downloads an audio/SFX pool by theme. Does NOT produce audio.wav — its output (audio_pool.json) feeds scriptwriter:arranger. Pixabay-audio (no public API) and FMA (dead API) dropped; LibriVox folded into archive (mediatype:audio). youtube gated to fair_use_ok. Use short keyword queries."
+        },
+        "analyze-pool": {
+          "status": "built",
+          "phase": 7,
+          "needs": [
+            "audio_pool.json"
+          ],
+          "produces": [
+            "audio_pool_analysis.json"
+          ],
+          "notes": "faster-whisper transcribes each downloaded pool clip and enriches audio_pool.json in place with transcript + word-level timing for speech clips (music/SFX flagged has_speech=false; >300s junk skipped). Lets scriptwriter:arranger select by ACTUAL content and cut spoken lines to exact word timestamps. Audio analog of assets' vision + transcript moment-finding."
+        },
+        "assemble": {
+          "status": "built",
+          "phase": 5,
+          "needs": [
+            "arrangement.json",
+            "audio_pool.json"
+          ],
+          "produces": [
+            "audio.wav",
+            "audio_metadata.json"
+          ],
+          "notes": "Stitches the arranged clips (arrangement.json) from the pool into a single audio.wav (ffmpeg concat/mix, crossfades, bed, silence). Honors the standard audio output contract so timestamps + everything downstream are mode-agnostic."
+        },
+        "complex-placeholder": {
+          "status": "not_built",
+          "notes": "Original multi-voice/SFX placeholder — superseded by found-fetch + assemble."
+        }
+      }
+    },
+    "timestamps": {
+      "needs": [
+        "audio.wav"
+      ],
+      "produces": [
+        "timestamps.json"
+      ],
+      "streams": [
+        "timestamps_progress.jsonl"
+      ],
+      "notes": "ALWAYS runs — the timeline's physics (ground-truth per-word/per-sound timing). In found-audio flows it runs on the assembled audio.wav and its transcript doubles as the caption track."
+    },
+    "style-analysis": {
+      "needs": [
+        "requirements.json"
+      ],
+      "produces": [
+        "style_analysis.json"
+      ],
+      "produces_dirs": [
+        "style_examples/"
+      ],
+      "parallelizable_with": [
+        "audio",
+        "scriptwriter"
+      ],
+      "notes": "Only needs requirements.json — can run in parallel from early in any flow. Phase 1 Python (OpenCV/CLIP/Whisper) in background; may use the Colab/Ollama server in config."
+    },
+    "plan": {
+      "needs": [
+        "script.md",
+        "style_analysis.json"
+      ],
+      "optional_needs": [
+        "research.json",
+        "timestamps.json"
+      ],
+      "produces": [
+        "plan.json"
+      ],
+      "streams": [
+        "plan_progress.jsonl"
+      ],
+      "default_mode": "bulk",
+      "modes": {
+        "bulk": {
+          "status": "built",
+          "notes": "Default. Two-pass generation of the full shot list; every shot streams to plan_progress.jsonl immediately (assets fetches without waiting for the full plan)."
+        },
+        "manual": {
+          "status": "built",
+          "notes": "Hands-on per-line loop: one shot card is planned and shown for user approval; ON APPROVE the line is appended to plan_progress.jsonl (assets fetches it in background) and the NEXT card is presented immediately — approval and fetching overlap so the user never waits. Approval gates the plan idea only (option A); the user judges fetched picks visually on the live timeline and says 'redo shot N' (assets run.py shot). A render pass runs after each fetch so the editor fills in shot by shot. plan.json is assembled from the approved lines when the loop finishes."
+        }
+      },
+      "notes": "Estimates timing at 150 wpm; reconciles to real timing when timestamps.json is present. Bare 'plan' tokens resolve to plan:bulk via default_mode (backward compatible)."
+    },
+    "assets": {
+      "needs": [
+        "plan.json"
+      ],
+      "optional_needs": [
+        "plan_progress.jsonl"
+      ],
+      "honors": [
+        "requirements.licensing"
+      ],
+      "produces": [
+        "assets.json"
+      ],
+      "produces_dirs": [
+        "assets/"
+      ],
+      "notes": "Streams shots from plan_progress.jsonl. Licensing stance (Phase 2) gates source selection for copyrighted footage."
+    },
+    "motion-graphics": {
+      "needs": [
+        "plan.json"
+      ],
+      "optional_needs": [
+        "style_analysis.json",
+        "requirements.json"
+      ],
+      "produces": [
+        "motion_graphics.json"
+      ],
+      "streams": [
+        "assets_progress.jsonl"
+      ],
+      "notes": "Generates motion graphics with HyperFrames (Node/Chrome, no conda). Full-frame MP4s overwrite the stock pick for MOTION_GRAPHICS shots in the assets feed (later line wins); overlay WebMs publish under '<n>-overlay' keys that render maps to extra Graphics-track clips. Zero-slot plans still write the done-marker. Runs alongside the assets background fetch; stock picks are the per-slot fallback.",
+      "parallelizable_with": [
+        "assets"
+      ]
+    },
+    "ai-video": {
+      "needs": [
+        "plan.json"
+      ],
+      "optional_needs": [
+        "assets_progress.jsonl",
+        "requirements.json"
+      ],
+      "produces": [
+        "gen_video.json"
+      ],
+      "streams": [
+        "assets_progress.jsonl"
+      ],
+      "notes": "Generative AI B-roll (Higgsfield-style camera moves) on Kaggle's free GPU. Three scriptable steps: push (upload notebook + start detached run), status (poll), apply (download clips, publish on the assets feed). Fills shots typed AI_VIDEO or carrying a `generate` block; publishes as ordinary assets_progress lines so a generated clip supersedes the stock pick for that shot (later line wins) with no render change. Stock stays as the per-slot fallback, so a failed or quota-blocked run never blocks render. Optional --seed-from-assets turns text-to-video into image-to-video by seeding from the frame already fetched for that shot, which requires assets to have run first.",
+      "parallelizable_with": [
+        "assets",
+        "motion-graphics"
+      ]
+    },
+    "render": {
+      "needs": [
+        "plan.json",
+        "assets.json",
+        "audio.wav",
+        "audio_metadata.json",
+        "timestamps.json",
+        "requirements.json"
+      ],
+      "produces": [
+        "*.openreel.json"
+      ],
+      "notes": "Deterministic assembler (no LLM). Writes <session>.openreel.json — the goal artifact the OpenReel web editor loads directly. Filename uses the session folder slug so each project on disk has a recognizable name."
+    }
+  }
+}

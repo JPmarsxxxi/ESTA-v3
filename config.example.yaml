@@ -1,0 +1,34 @@
+# ESTA-v2 configuration — TEMPLATE
+# Copy this to config.yaml and fill in your keys. config.yaml is gitignored.
+
+# LLM provider used for content generation (scriptwriting, research synthesis, etc.).
+# - claude  : Claude (this harness) does it directly in-conversation. No API key needed. Default.
+llm_provider: claude
+
+# Whether a CUDA GPU is available. XTTS audio generation uses GPU when true,
+# falls back to CPU otherwise. CPU works but is significantly slower (~5-10x).
+gpu_available: false
+
+# Whisper model size for timestamp extraction (faster-whisper).
+# - base:   ~2-3 min, ±120ms accuracy
+# - small:  ~3-5 min, ±100ms accuracy (recommended)
+# - medium: ~5-7 min, ±100ms accuracy (best, diminishing returns vs small)
+whisper_model: small
+
+# Ollama server running Gemma 4 via Colab T4 + ngrok.
+# Used by style-analysis for vision sequence analysis + synthesis.
+# Leave ollama_url empty to skip Gemma analysis (CLIP + OpenCV pacing data only).
+# Setup: open tools/colab/style_analysis_server.ipynb in Colab, run all cells,
+# paste the ngrok URL it prints below (without /v1 suffix).
+ollama_url: ""              # auto-filled by style-analysis skill — do not set manually
+ollama_model: "gemma4:e4b-json"
+ngrok_token: ""             # https://dashboard.ngrok.com — free account, paste auth token here
+
+# API keys — fill these in config.yaml (never commit real keys).
+apis:
+  pexels_key: ""       # https://www.pexels.com/api/
+  pixabay_key: ""      # https://pixabay.com/api/docs/
+  giphy_key: ""        # https://developers.giphy.com/
+  anthropic_key: ""    # https://console.anthropic.com/ — Claude (all text work)
+  hf_token: ""         # https://huggingface.co/settings/tokens — CLIP model download
+  freesound_key: ""    # https://freesound.org/apiv2/apply/ — found-audio fetch (Phase 3)

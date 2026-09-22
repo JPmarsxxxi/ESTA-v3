@@ -1,0 +1,66 @@
+[{"stream_name":"stderr","time":8.486699249,"data":"/usr/local/lib/python3.12/dist-packages/nbformat/__init__.py:96: MissingIDFieldWarning: Cell is missing an id field, this will become a hard error in future nbformat versions. You may want to use `normalize()` on your notebooks before validations (available since nbformat 5.1.4). Previous versions of nbformat are fixing this issue transparently, and will stop doing so in the future.\n"}
+,{"stream_name":"stderr","time":8.486783671,"data":"  validate(nb)\n"}
+,{"stream_name":"stderr","time":9.840427745,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.84046461,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.840470129,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.840474355,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":10.687449213,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":10.687483646,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":10.687489859,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":10.687495064,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":12.085831093,"data":"[esta] host_ram_gb: 33.7\n"}
+,{"stream_name":"stdout","time":12.08673175,"data":"[esta] disk_free_gb: 1102.5\n"}
+,{"stream_name":"stderr","time":12.119260444,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":12.321876341,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stderr","time":12.321911712,"data":"\n"}
+,{"stream_name":"stderr","time":12.321915972,"data":"Cloning into '/kaggle/temp/ComfyUI'...\n"}
+,{"stream_name":"stdout","time":14.016521144,"data":"[esta] comfyui_commit: a25c7bf2b8c7408d8724f4245dbe09d95992e3a1 Wed Aug 26 22:26:03 2026 +0400\n"}
+,{"stream_name":"stdout","time":20.074206421,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 64.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.276830856,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 22.3/22.3 MB 64.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.306154218,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 73.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.508838829,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 73.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.945666009,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 29.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":20.988725774,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 16.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.030220234,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 3.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.102977108,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 64.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.148576378,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 58.5/58.5 MB 29.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.148610897,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 342.3/342.3 kB 16.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.148616599,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 70.8/70.8 kB 3.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":21.148621347,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.2/3.2 MB 64.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.183321627,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 17.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.385861418,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100.1/100.1 MB 17.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.847040964,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 29.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.049619533,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 60.9/60.9 MB 29.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.852197767,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.053173152,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.4/89.4 MB 20.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":24.827943543,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 20.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.030895981,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 89.1/89.1 MB 20.2 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":25.983590935,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.020320607,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 3.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.185986838,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 104.3/104.3 MB 17.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.186018317,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 61.2/61.2 kB 3.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.347754708,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 53.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.422644885,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 15.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.511100552,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 79.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.550086067,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.8/35.8 MB 53.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.550120402,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 320.8/320.8 kB 15.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":26.550127289,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.1/5.1 MB 79.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":40.061104743,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":40.263909508,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stderr","time":40.263999062,"data":"\n"}
+,{"stream_name":"stderr","time":40.264006638,"data":"Cloning into '/kaggle/temp/ComfyUI/custom_nodes/ComfyUI-GGUF'...\n"}
+,{"stream_name":"stdout","time":42.411647598,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 3.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":42.617030052,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.5/118.5 kB 3.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":45.013136246,"data":"[esta] templates_found: []\n"}
+,{"stream_name":"stdout","time":97.351659272,"data":"[esta] node_class_count: 906\n"}
+,{"stream_name":"stdout","time":97.353208212,"data":"[esta] relevant_nodes: ['VAELoader', 'LoraLoader', 'CLIPLoader', 'UNETLoader', 'DualCLIPLoader', 'LoraLoaderModelOnly', 'TripleCLIPLoader', 'LTXVAudioVAELoader', 'MiniMaxMusic3TextEncode', 'EmptyMiniMaxMusic3LatentAudio', 'EmptyMiniMaxH3LatentAV', 'MiniMaxH3ImageToVideo', 'MiniMaxH3AddGuide', 'MiniMaxH3ReferenceToVideo', 'MiniMaxH3SigmaShift', 'QuadrupleCLIPLoader', 'LoraLoaderBypass', 'LoraLoaderBypassModelOnly', 'MinimaxTextToVideoNode', 'MinimaxImageToVideoNode', 'MinimaxHailuoVideoNode', 'MinimaxHailuo03TextToVideoNode', 'MinimaxHailuo03FirstLastFrameNode', 'MinimaxHailuo03ReferenceNode', 'MinimaxHailuo03ContextIRNode', 'MinimaxHailuo03RegenerateNode', 'UnetLoaderGGUF', 'CLIPLoaderGGUF', 'DualCLIPLoaderGGUF', 'TripleCLIPLoaderGGUF', 'QuadrupleCLIPLoaderGGUF', 'UnetLoaderGGUFAdvanced']\n"}
+,{"stream_name":"stdout","time":97.362476273,"data":"ESTA_PROBE_RESULT::{\"ok\": true, \"steps\": [{\"host_ram_gb\": 33.7}, {\"disk_free_gb\": 1102.5}, {\"comfyui_commit\": \"a25c7bf2b8c7408d8724f4245dbe09d95992e3a1 Wed Aug 26 22:26:03 2026 +0400\"}, {\"templates_found\": []}, {\"node_class_count\": 906}, {\"relevant_nodes\": [\"VAELoader\", \"LoraLoader\", \"CLIPLoader\", \"UNETLoader\", \"DualCLIPLoader\", \"LoraLoaderModelOnly\", \"TripleCLIPLoader\", \"LTXVAudioVAELoader\", \"MiniMaxMusic3TextEncode\", \"EmptyMiniMaxMusic3LatentAudio\", \"EmptyMiniMaxH3LatentAV\", \"MiniMaxH3ImageToVideo\", \"MiniMaxH3AddGuide\", \"MiniMaxH3ReferenceToVideo\", \"MiniMaxH3SigmaShift\", \"QuadrupleCLIPLoader\", \"LoraLoaderBypass\", \"LoraLoaderBypassModelOnly\", \"MinimaxTextToVideoNode\", \"MinimaxImageToVideoNode\", \"MinimaxHailuoVideoNode\", \"MinimaxHailuo03TextToVideoNode\", \"MinimaxHailuo03FirstLastFrameNode\", \"MinimaxHailuo03ReferenceNode\", \"MinimaxHailuo03ContextIRNode\", \"MinimaxHailuo03RegenerateNode\", \"UnetLoaderGGUF\", \"CLIPLoaderGGUF\", \"DualCLIPLoaderGGUF\", \"TripleCLIPLoaderGGUF\", \"QuadrupleCLIPLoaderGGUF\", \"UnetLoaderGGUFAdvanced\"]}]}\n"}
+,{"stream_name":"stderr","time":104.056221201,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":104.05626079,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":104.33580557,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":104.335861327,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":105.414095203,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":105.967898734,"data":"[NbConvertApp] Writing 10877 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":110.547488255,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":111.997848607,"data":"[NbConvertApp] Writing 301062 bytes to __results__.html\n"}
+]

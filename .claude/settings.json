@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$found = conda env list 2>$null | Select-String '^esta\\s'; if (-not $found) { Write-Output 'ESTA ENV WARNING: The esta conda environment is missing. Python-heavy skills (audio, timestamps, render) will fail. Run .\\setup.ps1 once to create it.' }"
+          },
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/tools/check_colab_mcp.py\""
+          }
+        ]
+      }
+    ]
+  }
+}

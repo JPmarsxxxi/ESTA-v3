@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "colab-proxy-mcp": {
+      "command": "python",
+      "args": ["-c", "from colab_mcp import main; main()"],
+      "timeout": 30000
+    },
+    "esta-opencut": {
+      "command": "node",
+      "args": ["tools/opencut/mcp-server.mjs"],
+      "timeout": 30000
+    }
+  }
+}

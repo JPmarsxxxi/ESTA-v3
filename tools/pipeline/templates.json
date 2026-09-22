@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "description": "Flow templates — the rails of the hybrid conductor (Phase 6 of notes/smart-pipeline-and-found-audio.md). The conductor instantiates one of these into a per-session pipeline.json, pruning/adapting within guardrails (validated against contracts.json). `mode` maps to a skill mode; `parallel: true` marks a step that only needs requirements.json and can run alongside others. requirements is listed first for completeness — it has already run by the time the conductor builds the pipeline.",
+  "templates": {
+    "standard-vo": {
+      "description": "The canonical flow: authored script + generated/recorded voiceover. Default for normal videos.",
+      "steps": [
+        { "skill": "requirements" },
+        { "skill": "voice-profiler", "when": "example_scripts_is_list" },
+        { "skill": "research" },
+        { "skill": "scriptwriter", "mode": "author" },
+        { "skill": "audio", "mode": "clone" },
+        { "skill": "timestamps" },
+        { "skill": "style-analysis", "parallel": true },
+        { "skill": "plan" },
+        { "skill": "assets" },
+        { "skill": "motion-graphics" },
+        { "skill": "render" }
+      ]
+    },
+    "found-audio-collage": {
+      "description": "Bumblebee-style: narration synthesized from found audio. audio:found-fetch builds a pool, scriptwriter:arranger sequences it, audio:assemble stitches it into audio.wav. The script depends on the audio pool — the inversion the rigid flow could not express.",
+      "steps": [
+        { "skill": "requirements" },
+        { "skill": "research" },
+        { "skill": "audio", "mode": "found-fetch" },
+        { "skill": "audio", "mode": "analyze-pool" },
+        { "skill": "scriptwriter", "mode": "arranger" },
+        { "skill": "audio", "mode": "assemble" },
+        { "skill": "timestamps" },
+        { "skill": "style-analysis", "parallel": true },
+        { "skill": "plan" },
+        { "skill": "assets" },
+        { "skill": "motion-graphics" },
+        { "skill": "render" }
+      ]
+    }
+  }
+}

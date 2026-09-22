@@ -1,0 +1,131 @@
+{
+  "1": {
+    "class_type": "UnetLoaderGGUF",
+    "inputs": {
+      "unet_name": "minimax_h3_fl2va_pruned-Q4_K.gguf"
+    }
+  },
+  "2": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "3": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "2",
+        0
+      ],
+      "lora_name": "minimax_h3_fl2v_turbo_4step_v1.1_768p_comfyui_bf16.safetensors",
+      "strength_model": 1.0
+    }
+  },
+  "4": {
+    "class_type": "CLIPLoaderGGUF",
+    "inputs": {
+      "clip_name": "qwen3vl_32b_minimax_h3-Q2_K_M.gguf",
+      "type": "minimax"
+    }
+  },
+  "5": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_fp16.safetensors"
+    }
+  },
+  "6": {
+    "class_type": "MiniMaxH3ImageToVideo",
+    "inputs": {
+      "clip": [
+        "4",
+        0
+      ],
+      "vae": [
+        "5",
+        0
+      ],
+      "prompt": "a slow cinematic push in on a trading desk at night, three monitors glowing with red and green candlestick charts, shallow depth of field, shot on film, natural light",
+      "width": 640,
+      "height": 384,
+      "length": 124
+    }
+  },
+  "7": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "6",
+        0
+      ]
+    }
+  },
+  "8": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "3",
+        0
+      ],
+      "seed": 12345,
+      "steps": 4,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "positive": [
+        "6",
+        0
+      ],
+      "negative": [
+        "7",
+        0
+      ],
+      "latent_image": [
+        "6",
+        1
+      ],
+      "denoise": 1.0
+    }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "5",
+        0
+      ]
+    }
+  },
+  "10": {
+    "class_type": "CreateVideo",
+    "inputs": {
+      "images": [
+        "9",
+        0
+      ],
+      "fps": 24
+    }
+  },
+  "11": {
+    "class_type": "SaveVideo",
+    "inputs": {
+      "video": [
+        "10",
+        0
+      ],
+      "filename_prefix": "h3_probe",
+      "format": "mp4",
+      "codec": "h264"
+    }
+  }
+}
