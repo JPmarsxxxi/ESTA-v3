@@ -9,7 +9,7 @@ import { handleAck, handleFrame, handleState, injectCmd, streamCmds } from "./li
 import { pickerCandidates, pickerJobs, pickerPick, pickerRefetch, pickerShots, pickerSources } from "./picker.ts";
 import { planCommand, planCommandStatus, planRewrite, planRewriteStatus, planSave, planShots } from "./planner.ts";
 import { chatHealth, chatInterrupt, chatOpen, chatSend, chatStatus, chatStop, chatStream, stopAllChats } from "./chat.ts";
-import { createSession, importSession, listAllSessions, listSessions, listV2Sessions } from "./sessions.ts";
+import { createSession, importSession, listAllSessions, listSessions, listV2Sessions, updateRequirements } from "./sessions.ts";
 import { activeJobs, cancelJob, getJob, jobLog, listJobs, loadJobs, onJobEnd, retryJob, setProgress, startJob, type Job } from "./jobs.ts";
 import { artifactPresent, computeState, mutateUi, rebuildPipeline, setCustomFlow, templates, type Checkpoint } from "./pipeline.ts";
 import { ACTIONS, actionBlock, buildJob, preflight, voiceSamples } from "./actions.ts";
@@ -269,6 +269,8 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	if (is("POST", "/_sessions/create")) return createSession(req, res);
 	if (is("GET", "/_sessions/import")) return listV2Sessions(res);
 	if (is("POST", "/_sessions/import")) return importSession(req, res);
+	const reqs = /^\/_sessions\/([^/]+)\/requirements$/.exec(pk);
+	if (reqs && req.method === "POST") return updateRequirements(req, res, reqs[1]);
 
 	const pipe = /^\/_pipeline\/([^/]+)(?:\/([^/]+))?$/.exec(pk);
 	if (pipe) return pipelineRoute(req, res, pipe[1], pipe[2] || "");

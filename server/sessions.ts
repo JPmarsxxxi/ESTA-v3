@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { REPO_ROOT, ROOT, V2_SESSIONS, json, readBody, send } from "./lib.ts";
 import { STAGES, artifactPresent, mutateUi, readPipeline } from "./pipeline.ts";
+import { noteSelfWrite } from "./files.ts";
 
 // v2 behaviour: only session folders that contain a *.openreel.json, newest first.
 export function listSessions(res: ServerResponse) {
@@ -249,4 +250,36 @@ export async function importSession(req: IncomingMessage, res: ServerResponse) {
 		});
 	}
 	json(res, 200, { ok: true, id, approvals, builtPipeline: !hadPipeline && approvals.length > 0 });
+}
+
+// Edit an existing session's requirements from the Requirements workspace.
+// Same validators and field rules as create; session_id, created_at and any
+// field the form doesn't own are preserved, and so are example scripts whose
+// text didn't change (they keep their original source).
+export async function updateRequirements(req: IncomingMessage, res: ServerResponse, sessionId: string) {
+	const dir = resolve(ROOT, sessionId);
+	if (!dir.startsWith(ROOT) || dir === ROOT || !existsSync(dir)) return json(res, 404, { error: "no such session" });
+	let body: Record<string, unknown>;
+	try {
+		body = await readBody(req);
+	} catch {
+		return json(res, 400, { error: "Invalid JSON" });
+	}
+	const v = validateRequirements(body);
+	if (Object.keys(v.errors).length) return json(res, 400, { error: "invalid requirements", fields: v.errors });
+	const path = resolve(dir, "requirements.json");
+	let prior: Record<string, unknown> = {};
+	try {
+		prior = JSON.parse(readFileSync(path, "utf8"));
+	} catch {}
+	const built = buildRequirements(sessionId, { ...body, ...v.values });
+	const priorExamples = Array.isArray(prior.example_scripts) ? (prior.example_scripts as Array<{ text?: string }>) : [];
+	const examples = Array.isArray(built.example_scripts)
+		? built.example_scripts.map((e) => priorExamples.find((p) => p.text === e.text) ?? e)
+		: built.example_scripts;
+	const next = { ...prior, ...built, example_scripts: examples, session_id: prior.session_id ?? sessionId, created_at: prior.created_at ?? built.created_at };
+	noteSelfWrite(path, req.headers["x-esta-client"]);
+	writeFileSync(path, JSON.stringify(next, null, 2), "utf8");
+	if (built.script_text) writeFileSync(resolve(dir, "script_uploaded.txt"), built.script_text, "utf8");
+	json(res, 200, { ok: true, requirements: next });
 }

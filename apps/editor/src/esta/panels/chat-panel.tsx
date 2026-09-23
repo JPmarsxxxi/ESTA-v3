@@ -35,20 +35,18 @@ export function ChatPanel() {
 
 	return (
 		<div className="flex size-full min-h-0 flex-col text-sm">
-			{!chat.alive && (
+			{chatId && !chat.alive && (
 				<div className="bg-caution/15 flex shrink-0 items-center justify-between gap-2 px-2 py-1.5 text-xs">
-					<span>{chatId ? "Chat disconnected: the Claude process exited." : "Starting Claude…"}</span>
-					{chatId && (
-						<Button size="sm" variant="outline" onClick={() => restartChat()}>
-							Restart chat
-						</Button>
-					)}
+					<span>Chat disconnected: the Claude process exited.</span>
+					<Button size="sm" variant="outline" onClick={() => restartChat()}>
+						Restart chat
+					</Button>
 				</div>
 			)}
 			<div ref={scrollRef} className="min-h-0 flex-1 space-y-2 overflow-auto p-2">
 				{chat.items.length === 0 && (
 					<p className="text-muted-foreground text-xs">
-						Ask anything: &quot;what runs next?&quot;, &quot;tighten the hook&quot;, &quot;redo line L04 angrier&quot;. Every message carries this session and stage.
+						Ask anything: &quot;what runs next?&quot;, &quot;tighten the hook&quot;, &quot;redo line L04 angrier&quot;. Every message carries this session and stage. Claude starts with your first message.
 					</p>
 				)}
 				{chat.items.map((item, i) => {
@@ -89,8 +87,8 @@ export function ChatPanel() {
 					className={`${inputClass} min-h-9 resize-none`}
 					rows={2}
 					value={text}
-					placeholder={chat.alive ? "Message Claude…" : "Chat is disconnected"}
-					disabled={!chat.alive}
+					placeholder={chatId && !chat.alive ? "Chat is disconnected" : "Message Claude…"}
+					disabled={Boolean(chatId) && !chat.alive}
 					onChange={(e) => setText(e.target.value)}
 					onKeyDown={(e) => {
 						if (e.key === "Enter" && !e.shiftKey) {
@@ -104,7 +102,7 @@ export function ChatPanel() {
 						Stop
 					</Button>
 				) : (
-					<Button size="sm" disabled={!chat.alive || !text.trim()} onClick={send}>
+					<Button size="sm" disabled={(Boolean(chatId) && !chat.alive) || !text.trim()} onClick={send}>
 						Send
 					</Button>
 				)}

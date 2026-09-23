@@ -13,6 +13,12 @@ import { JobsPanel } from "./panels/jobs-panel";
 import { ChatPanel } from "./panels/chat-panel";
 import { FilesPanel } from "./panels/files-panel";
 import { PipelinePanel } from "./panels/pipeline-panel";
+import { PlannerPanel } from "./panels/planner-panel";
+import { PickerPanel } from "./panels/picker-panel";
+import { ScriptPanel } from "./panels/script-panel";
+import { RequirementsPanel } from "./panels/requirements-panel";
+import { TaggedPanel } from "./panels/tagged-panel";
+import { PreviewPanel, TimelinePanel } from "./panels/shots-panels";
 
 export const PANELS: Record<string, { title: string; Component: ComponentType }> = {
 	stage: { title: "Stage", Component: StagePanel },
@@ -20,6 +26,13 @@ export const PANELS: Record<string, { title: string; Component: ComponentType }>
 	chat: { title: "Chat", Component: ChatPanel },
 	files: { title: "Files", Component: FilesPanel },
 	pipeline: { title: "Pipeline", Component: PipelinePanel },
+	requirements: { title: "Requirements", Component: RequirementsPanel },
+	script: { title: "Script", Component: ScriptPanel },
+	tagged: { title: "Tagged script", Component: TaggedPanel },
+	planner: { title: "Plan editor", Component: PlannerPanel },
+	picker: { title: "Shot picker", Component: PickerPanel },
+	timeline: { title: "Timeline", Component: TimelinePanel },
+	preview: { title: "Preview", Component: PreviewPanel },
 };
 
 // A workspace is columns of stacked panels. Each stage has a preset; the user
@@ -27,19 +40,28 @@ export const PANELS: Record<string, { title: string; Component: ComponentType }>
 type Layout = string[][];
 
 const PRESETS: Record<string, Layout> = {
-	requirements: [["stage", "pipeline"], ["files"], ["chat"]],
+	requirements: [["stage", "pipeline"], ["requirements"], ["chat"]],
 	"voice-profile": [["stage", "jobs"], ["files"], ["chat"]],
 	research: [["stage", "jobs"], ["files"], ["chat"]],
-	script: [["stage", "jobs"], ["files"], ["chat"]],
-	voice: [["stage", "jobs"], ["files"], ["chat"]],
+	script: [["stage", "jobs"], ["script"], ["files", "chat"]],
+	voice: [["stage", "jobs"], ["tagged"], ["chat"]],
 	timestamps: [["stage", "jobs"], ["files"], ["chat"]],
 	style: [["stage", "jobs"], ["files"], ["chat"]],
-	plan: [["stage", "jobs"], ["files"], ["chat"]],
-	assets: [["stage", "jobs"], ["files"], ["chat"]],
-	edit: [["stage", "jobs"], ["pipeline"], ["chat"]],
+	plan: [["stage", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
+	assets: [["stage", "jobs"], ["picker"], ["preview", "chat"]],
+	edit: [["stage", "jobs"], ["timeline", "preview"], ["chat"]],
 };
 
 const layoutKey = (stage: string) => `esta.layout.${stage}`;
+
+// The stage column is narrow, the surface in the middle gets the room.
+function columnSize({ index, count }: { index: number; count: number }) {
+	if (count === 1) return 100;
+	if (count === 2) return index === 0 ? 34 : 66;
+	if (index === 0) return 26;
+	if (index === count - 1) return 26;
+	return (100 - 52) / (count - 2);
+}
 
 function loadLayout(stage: string): Layout {
 	const preset = PRESETS[stage] ?? PRESETS.research;
@@ -163,7 +185,7 @@ function Workspace({ stage }: { stage: string }) {
 			{layout.map((col, ci) => (
 				<Fragment key={ci}>
 					{ci > 0 && <ResizableHandle />}
-					<ResizablePanel minSize={15} defaultSize={ci === 0 ? 40 : 60 / (layout.length - 1)}>
+					<ResizablePanel minSize={12} defaultSize={columnSize({ index: ci, count: layout.length })}>
 						<ResizablePanelGroup direction="vertical" autoSaveId={`esta-${stage}-col${ci}`} className="gap-1">
 							{col.map((panel, ri) => {
 								const def = PANELS[panel];

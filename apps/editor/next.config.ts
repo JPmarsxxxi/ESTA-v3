@@ -2,7 +2,15 @@ import type { NextConfig } from "next";
 import { withBotId } from "botid/next/config";
 import { withContentCollections } from "@content-collections/next";
 
+const ESTA_BACKEND = process.env.NEXT_PUBLIC_ESTA_BACKEND || "http://localhost:8787";
+
 const nextConfig: NextConfig = {
+	// Session media is served through this origin, so large files and the SSE
+	// stream don't eat the ~6 connections Chrome allows the backend's host and
+	// starve API calls (v2's asset-server had the same trap).
+	async rewrites() {
+		return [{ source: "/api/sessions/:path*", destination: `${ESTA_BACKEND}/api/sessions/:path*` }];
+	},
 	compiler: {
 		removeConsole: process.env.NODE_ENV === "production",
 	},

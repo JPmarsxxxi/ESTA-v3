@@ -69,11 +69,22 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/timeline/__tests__/update-pipeline.test.ts`, `src/timeline/placement/__tests__/resolve.test.ts` | Compare against `MediaTime` values instead of bare numbers. | Upstream type errors. These tests still fail at runtime, as they do upstream, because wasm doesn't initialise under `bun test`. |
 | `eslint.config.mjs` | Paths `apps/web` -> `apps/editor`; `next.rootDir`; a Node block for `server/` and `scripts/`. | |
 | `apps/editor/.env.local` | Generated with placeholder values by `scripts/dev.ts` when missing. | OpenCut validates auth/DB/Redis env at import time; ESTA never uses them. |
+| `next.config.ts` | Rewrites `/api/sessions/*` to the backend. | Session media loads from this origin, so big files don't eat the ~6 connections Chrome allows the backend's host (v2 hit the same limit). |
+| `package.json` | Added `remark-gfm`. | The chat panel renders Claude's markdown tables. |
 
 ### Not carried over from v2's OpenCut spike
 
 - `src/app/esta-seed/` and `public/esta-import.json`: replaced by the native emitter in M3.
 - `src/components/providers/esta-cmd-bridge.tsx`: the live-edit dispatcher moves into `src/esta/` with the editor integration in M3.
+
+## M2 surfaces
+
+- **Planner panel** (`src/esta/panels/planner-panel.tsx`): a port of `tools/planner/index.html`. Same fields, same endpoints, same autosave-on-leave, Ctrl+S, Rewrite and split/merge/overlay commands, and v2's line-identity anchoring so a split doesn't move the user off their shot. The beacon on hard close is a `keepalive` fetch rather than `sendBeacon`: the backend is a different origin, and a beacon can't carry the JSON content type through preflight.
+- **Picker panel** (`picker-panel.tsx`): a port of `tools/picker/index.html`, including the full source bank with the plan's prescription starred, background fetch jobs, the generated-graphic override notice, pick-and-advance, and v2's rule that at most one `<video>` exists at a time (created on hover).
+- **Script panel** (`script-panel.tsx`, `line-editor.tsx`): a port of v2 `apps/studio`'s `WritingStageView` + `LineEditor` for `script.md` and the talking points in `script_metadata.json`.
+- **Tagged-script review** (`tagged-panel.tsx`): new in v3. It gives the audio skill's approval step a surface: the delivery markup with its tags as chips, tag-check, approve, and per-line redo through `expressive --only`.
+- **Requirements panel** (`requirements-panel.tsx`) edits `requirements.json` in place through a new `POST /_sessions/:id/requirements`, which runs v2's validators and preserves fields the form doesn't own.
+- **Timeline strip and preview** (`shots-panels.tsx`): plan-derived, sharing one selected shot with the planner and picker. The OpenCut timeline joins that shared selection in M3, when the native project exists.
 
 ## Known baseline issues (not introduced by v3)
 

@@ -23,7 +23,7 @@ function chatReducer({ state, ev }: { state: ChatState; ev: StreamEvent }): Chat
 	const last = items[items.length - 1];
 	switch (ev.type) {
 		case "__reset":
-			return { items: [], alive: true, busy: false };
+			return { items: [], alive: false, busy: false };
 		case "__alive":
 			return { ...state, alive: ev.alive };
 		case "connected":
@@ -75,6 +75,8 @@ type Ctx = {
 	lastFile: FileEvent | null;
 	chat: ChatState;
 	chatId: string | null;
+	selectedShot: number | null;
+	selectShot: (n: number | null) => void;
 	sendChat: (text: string) => Promise<void>;
 	restartChat: () => Promise<void>;
 	interruptChat: () => Promise<void>;
@@ -115,6 +117,8 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	const [logs, setLogs] = useState<Record<string, string>>({});
 	const [lastFile, setLastFile] = useState<FileEvent | null>(null);
 	const [chatId, setChatId] = useState<string | null>(null);
+	// One selected shot across planner, picker and timeline.
+	const [selectedShot, selectShot] = useState<number | null>(null);
 	const [chat, dispatch] = useReducer((state: ChatState, ev: StreamEvent) => chatReducer({ state, ev }), { items: [], alive: false, busy: false });
 
 	const refresh = useCallback(() => {
@@ -147,7 +151,7 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	);
 
 	useEffect(() => {
-		connectEvents({ session, chats: chatId ? [chatId] : [] });
+		void connectEvents({ session, chats: chatId ? [chatId] : [] });
 	}, [session, chatId]);
 
 	// A reconnect after a backend restart must not show stale state.
@@ -169,46 +173,44 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	useChannel<FileEvent>({ ch: "file", fn: setLastFile });
 	useChannel<StreamEvent>({ ch: "chat", fn: (data, ev) => ev.chat === chatId && dispatch(data) });
 
-	// Takes over a chat the backend just opened. A resumed id that never had a
-	// turn exits at once, possibly before this tab subscribed to its events, so
-	// check it and fall back to a fresh chat.
-	const adoptChat = useCallback(
-		async ({ id, requested }: { id: string; requested: string | null }) => {
-			writeStorage({ key: chatKey(session), value: id });
-			setChatId(id);
-			dispatch({ type: "__alive", alive: true });
-			await new Promise((r) => setTimeout(r, 3000));
+	// Claude only starts on the first message: an idle workspace shouldn't hold a
+	// claude process per open session. A stored id resumes the conversation.
+	const ensureChat = useCallback(async () => {
+		if (chatId && chat.alive) return chatId;
+		const requested = chatId ?? readStorage(chatKey(session));
+		let { chat: id } = await post<{ chat: string }>({ path: "/chat/open", body: { chat: requested } });
+		await connectEvents({ session, chats: [id] });
+		setChatId(id);
+		dispatch({ type: "__alive", alive: true });
+		if (requested) {
+			// A resume of a conversation the CLI no longer has exits at once.
+			await new Promise((r) => setTimeout(r, 2500));
 			const { alive } = await api<{ alive: boolean }>(`/chat/status?chat=${encodeURIComponent(id)}`);
-			if (alive) return;
-			if (!requested) return dispatch({ type: "__alive", alive: false });
-			const fresh = await post<{ chat: string }>({ path: "/chat/open", body: { chat: null } });
-			writeStorage({ key: chatKey(session), value: fresh.chat });
-			setChatId(fresh.chat);
-		},
-		[session],
-	);
-
-	useEffect(() => {
-		const requested = readStorage(chatKey(session));
-		post<{ chat: string }>({ path: "/chat/open", body: { chat: requested } })
-			.then(({ chat: id }) => adoptChat({ id, requested }))
-			.catch(() => dispatch({ type: "__alive", alive: false }));
-	}, [adoptChat, session]);
+			if (!alive) {
+				id = (await post<{ chat: string }>({ path: "/chat/open", body: { chat: null } })).chat;
+				await connectEvents({ session, chats: [id] });
+				setChatId(id);
+				dispatch({ type: "__alive", alive: true });
+			}
+		}
+		writeStorage({ key: chatKey(session), value: id });
+		return id;
+	}, [chatId, chat.alive, session]);
 
 	const restartChat = useCallback(async () => {
 		if (chatId) await post({ path: "/chat/stop", body: { chat: chatId } }).catch(() => {});
+		writeStorage({ key: chatKey(session), value: null });
+		setChatId(null);
 		dispatch({ type: "__reset" });
-		const { chat: id } = await post<{ chat: string }>({ path: "/chat/open", body: { chat: null } });
-		await adoptChat({ id, requested: null });
-	}, [chatId, adoptChat]);
+	}, [chatId, session]);
 
 	const sendChat = useCallback(
 		async (text: string) => {
-			if (!chatId) return;
+			const id = await ensureChat();
 			// Every turn names the session and stage, so the skills resolve the right folder.
-			await post({ path: "/chat/send", body: { chat: chatId, text: `[ESTA session: sessions/${session} · stage: ${stage}]\n${text}` } });
+			await post({ path: "/chat/send", body: { chat: id, text: `[ESTA session: sessions/${session} · stage: ${stage}]\n${text}` } });
 		},
-		[chatId, session, stage],
+		[ensureChat, session, stage],
 	);
 
 	const interruptChat = useCallback(async () => {
@@ -220,8 +222,8 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	}, []);
 
 	const value = useMemo<Ctx>(
-		() => ({ session, stage, setStage, pipeline, pipelineError, refresh, jobs, logs, appendLog, lastFile, chat, chatId, sendChat, restartChat, interruptChat }),
-		[session, stage, setStage, pipeline, pipelineError, refresh, jobs, logs, appendLog, lastFile, chat, chatId, sendChat, restartChat, interruptChat],
+		() => ({ session, stage, setStage, pipeline, pipelineError, refresh, jobs, logs, appendLog, lastFile, chat, chatId, selectedShot, selectShot, sendChat, restartChat, interruptChat }),
+		[session, stage, setStage, pipeline, pipelineError, refresh, jobs, logs, appendLog, lastFile, chat, chatId, selectedShot, sendChat, restartChat, interruptChat],
 	);
 	return <WorkspaceContext.Provider value={value}>{children}</WorkspaceContext.Provider>;
 }

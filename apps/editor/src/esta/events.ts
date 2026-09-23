@@ -13,6 +13,7 @@ type Listener<T = any> = (data: T, ev: Meta) => void;
 const listeners = new Map<string, Set<Listener>>();
 let source: EventSource | null = null;
 let key = "";
+let opened: Promise<void> = Promise.resolve();
 const status = { connected: false };
 const statusListeners = new Set<(connected: boolean) => void>();
 
@@ -21,16 +22,21 @@ function setConnected(connected: boolean) {
 	for (const fn of statusListeners) fn(connected);
 }
 
-export function connectEvents({ session, chats }: { session: string | null; chats: string[] }) {
+export function connectEvents({ session, chats }: { session: string | null; chats: string[] }): Promise<void> {
 	const next = `${session ?? ""}|${[...chats].sort().join(",")}`;
-	if (source && key === next) return;
+	if (source && key === next) return opened;
 	source?.close();
 	key = next;
 	const q = new URLSearchParams();
 	if (session) q.set("session", session);
 	for (const c of chats) q.append("chat", c);
 	source = new EventSource(`${BACKEND}/_events?${q}`);
-	source.onopen = () => setConnected(true);
+	opened = new Promise((resolve) => {
+		if (source) source.onopen = () => {
+			setConnected(true);
+			resolve();
+		};
+	});
 	source.onerror = () => setConnected(false);
 	source.onmessage = (e) => {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -42,6 +48,7 @@ export function connectEvents({ session, chats }: { session: string | null; chat
 		}
 		for (const fn of listeners.get(ev.ch) ?? []) fn(ev.data, ev);
 	};
+	return opened;
 }
 
 export function onChannel<T>({ ch, fn }: { ch: string; fn: Listener<T> }) {

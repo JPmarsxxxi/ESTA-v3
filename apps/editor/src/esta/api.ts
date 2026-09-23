@@ -15,8 +15,12 @@ export class ApiError extends Error {
 	}
 }
 
+// Session files go through this origin (Next rewrites them); everything else
+// talks to the backend directly.
+const urlFor = (path: string) => (path.startsWith("/api/sessions") ? path : BACKEND + path);
+
 async function request<T>({ path, method, body: payload }: { path: string; method: string; body?: unknown }): Promise<T> {
-	const res = await fetch(BACKEND + path, {
+	const res = await fetch(urlFor(path), {
 		method,
 		headers: { "Content-Type": "application/json", "X-Esta-Client": CLIENT_ID },
 		body: payload !== undefined ? JSON.stringify(payload) : undefined,
@@ -38,13 +42,15 @@ export const api = <T>(path: string) => request<T>({ path, method: "GET" });
 export const post = <T>({ path, body }: { path: string; body?: unknown }) => request<T>({ path, method: "POST", body: body ?? {} });
 
 export async function apiText(path: string) {
-	const res = await fetch(BACKEND + path, { cache: "no-store" });
+	const res = await fetch(urlFor(path), { cache: "no-store" });
 	if (!res.ok) throw new ApiError({ status: res.status, body: { error: await res.text() } });
 	return res.text();
 }
 
+// Media goes through this origin (see next.config.ts rewrites): it must not
+// compete with the API and the event stream for the backend's connection pool.
 export const sessionFileUrl = ({ session, path }: { session: string; path: string }) =>
-	`${BACKEND}/api/sessions/${encodeURIComponent(session)}/${path.split("/").map(encodeURIComponent).join("/")}`;
+	`/api/sessions/${encodeURIComponent(session)}/${path.split("/").map(encodeURIComponent).join("/")}`;
 
 export type Badge = "idle" | "running" | "failed" | "done" | "overridden" | "locked" | "review" | "skipped" | "not-in-flow";
 
