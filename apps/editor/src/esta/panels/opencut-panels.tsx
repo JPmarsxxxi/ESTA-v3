@@ -11,6 +11,7 @@ import { usePreviewStore } from "@/preview/preview-store";
 import { bookmarkNotesPreviewOverlay, getBookmarkPreviewOverlaySource } from "@/timeline/bookmarks/index";
 import { Timeline } from "@/timeline/components";
 import { useOpenCut } from "../opencut/host";
+import { ConflictBanner } from "./editor-panel";
 
 function Gate({ children }: { children: ReactNode }) {
 	const { status, error, open } = useOpenCut();
@@ -57,7 +58,12 @@ export const OcPreviewPanel = () => (
 
 export const OcTimelinePanel = () => (
 	<Gate>
-		<Timeline />
+		<div className="flex size-full min-h-0 flex-col">
+			<ConflictBanner />
+			<div className="min-h-0 flex-1">
+				<Timeline />
+			</div>
+		</div>
 	</Gate>
 );
 

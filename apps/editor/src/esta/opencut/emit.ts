@@ -1,5 +1,6 @@
 import { upsertPathKeyframe } from "@/animation";
 import { DEFAULT_BACKGROUND_COLOR } from "@/background/color";
+import { processMediaAssets } from "@/media/processing";
 import type { MediaType } from "@/media/types";
 import type { TProject } from "@/project/types";
 import { CURRENT_PROJECT_VERSION } from "@/services/storage/migrations";
@@ -49,6 +50,9 @@ type ImportVideo = {
 type ImportAudio = Omit<ImportVideo, "kind" | "speed" | "keyframes"> & { volume: number };
 type ImportText = { startTime: number; duration: number; content: string; params: Record<string, string | number | boolean>; keyframes: ImportKeyframe[] };
 type Lane<T> = { name: string; elements: T[]; muted: boolean };
+// A stream-pending shot of render's early pass; url is set once its asset landed.
+type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; url?: string; mediaType?: "video" | "image"; inPoint?: number; size?: number; mtimeMs?: number };
+type MediaInfo = { duration: number };
 
 export type EstaImport = {
 	project: { id: string; name: string; width: number; height: number; fps: number };
@@ -59,6 +63,7 @@ export type EstaImport = {
 		audio: Lane<ImportAudio>[];
 	};
 	text: ImportText[];
+	pending: Pending[];
 	originals: boolean;
 	summary: Record<string, unknown>;
 };
@@ -173,11 +178,36 @@ function splitCrossfades(main: Lane<ImportVideo> & { transitions: EstaImport["tr
 	return lanes;
 }
 
-export function buildScene(doc: EstaImport): TScene {
-	const present = new Set(doc.media.filter((m) => !m.missing).map((m) => m.id));
+const placeholderId = (shot: number) => `esta-pending-${shot}`;
+
+// Pending shots whose asset has landed become real media under render's own id,
+// so the final render pass reuses the download; the rest get a placeholder card.
+function pendingMedia(doc: EstaImport): ImportMedia[] {
+	return doc.pending.map((p) =>
+		p.url
+			? { id: `media-shot-${p.shot}`, url: p.url, mediaType: p.mediaType ?? "video", name: p.name || `Shot ${p.shot}`, sourceDuration: 0, width: 0, height: 0, fps: 0, hasAudio: false, size: p.size, mtimeMs: p.mtimeMs }
+			: { id: placeholderId(p.shot), url: "", mediaType: "image", name: `Shot ${p.shot}: fetching`, sourceDuration: 0, width: doc.project.width, height: doc.project.height, fps: 0, hasAudio: false },
+	);
+}
+
+function pendingClip({ p, info }: { p: Pending; info: Map<string, MediaInfo> }): ImportVideo {
+	const base = { clipId: p.clipId, startTime: p.startTime, duration: p.duration, keyframes: [] };
+	if (!p.url) return { ...base, mediaId: placeholderId(p.shot), kind: "image", name: `Shot ${p.shot}: fetching`, inPoint: 0, outPoint: p.duration, sourceDuration: 0 };
+	const mediaId = `media-shot-${p.shot}`;
+	const src = info.get(mediaId)?.duration ?? 0;
+	const inPoint = p.inPoint ?? 0;
+	if (p.mediaType !== "video") return { ...base, mediaId, kind: "image", name: p.name, inPoint: 0, outPoint: p.duration, sourceDuration: 0 };
+	return { ...base, mediaId, kind: "video", name: p.name, inPoint, outPoint: src > 0 ? Math.min(inPoint + p.duration, src) : inPoint + p.duration, sourceDuration: src };
+}
+
+export function buildScene({ doc, info }: { doc: EstaImport; info: Map<string, MediaInfo> }): TScene {
+	const present = new Set(info.keys());
 	const keep = <T extends { mediaId: string }>(els: T[]) => els.filter((e) => present.has(e.mediaId));
+	const pending = doc.pending.map((p) => ({ track: p.track, clip: pendingClip({ p, info }) })).filter((x) => present.has(x.clip.mediaId));
+	const withPending = ({ name, els }: { name: string; els: ImportVideo[] }) =>
+		[...keep(els), ...pending.filter((x) => x.track === name).map((x) => x.clip)].sort((a, b) => a.startTime - b.startTime);
 	const main = doc.tracks.main;
-	const lanes = splitCrossfades({ ...main, elements: keep(main.elements) });
+	const lanes = splitCrossfades({ ...main, elements: withPending({ name: "Main", els: main.elements }) });
 	const videoTrack = ({ name, clips, muted }: { name: string; clips: ImportVideo[]; muted: boolean }): VideoTrack => ({
 		id: generateUUID(),
 		name,
@@ -190,8 +220,11 @@ export function buildScene(doc: EstaImport): TScene {
 	// overlay[0] draws on top: captions, then graphics, then the crossfade lane.
 	const overlay: OverlayTrack[] = [];
 	if (doc.text.length) overlay.push({ id: generateUUID(), name: "Captions", type: "text", elements: doc.text.map((block, index) => textElement({ block, index })), hidden: false });
-	for (const lane of doc.tracks.overlay) {
-		const els = keep(lane.elements);
+	const overlayLanes = [...doc.tracks.overlay];
+	for (const name of new Set(pending.map((x) => x.track)))
+		if (name !== "Main" && !overlayLanes.some((l) => l.name === name)) overlayLanes.push({ name, elements: [], muted: true });
+	for (const lane of overlayLanes) {
+		const els = withPending({ name: lane.name, els: lane.elements });
 		if (els.length) overlay.push(videoTrack({ name: lane.name, clips: els, muted: lane.muted }));
 	}
 	if (lanes.b.length) overlay.push(videoTrack({ name: "Main B", clips: lanes.b, muted: main.muted }));
@@ -211,22 +244,51 @@ export function buildScene(doc: EstaImport): TScene {
 	};
 }
 
+async function placeholderFile({ media }: { media: ImportMedia }) {
+	const canvas = new OffscreenCanvas(Math.round(media.width / 2) || 540, Math.round(media.height / 2) || 960);
+	const ctx = canvas.getContext("2d");
+	if (!ctx) throw new Error("no 2d canvas");
+	ctx.fillStyle = "#26262b";
+	ctx.fillRect(0, 0, canvas.width, canvas.height);
+	ctx.fillStyle = "#a1a1aa";
+	ctx.textAlign = "center";
+	ctx.font = `600 ${Math.round(canvas.width / 9)}px sans-serif`;
+	ctx.fillText(media.name.replace(/:.*/, ""), canvas.width / 2, canvas.height / 2);
+	ctx.font = `${Math.round(canvas.width / 16)}px sans-serif`;
+	ctx.fillText("fetching...", canvas.width / 2, canvas.height / 2 + canvas.width / 8);
+	return new File([await canvas.convertToBlob({ type: "image/png" })], `${media.id}.png`, { type: "image/png" });
+}
+
 // Media lives in OpenCut's per-project OPFS store. A re-emit only downloads
 // files whose size or mtime changed (render reuses media ids across passes),
-// and drops what the new revision no longer references.
+// and drops what the new revision no longer references. Downloads go through
+// OpenCut's own upload probe for thumbnails and, for shots hydrated from the
+// asset feed, the source duration render hasn't ffprobed yet.
 async function syncMedia({ projectId, media, onProgress }: { projectId: string; media: ImportMedia[]; onProgress: (p: EmitProgress) => void }) {
 	const meta = new IndexedDBAdapter<MediaAssetData>({ dbName: `video-editor-media-${projectId}`, storeName: "media-metadata", version: 1 });
 	const stored = new Map((await meta.getAll()).map((m) => [m.id, m]));
 	const wanted = media.filter((m) => !m.missing);
+	const info = new Map<string, MediaInfo>();
 	let done = 0;
 	for (const m of wanted) {
 		onProgress({ phase: "media", done, total: wanted.length, label: m.name });
 		const have = stored.get(m.id);
-		if (!have || have.size !== m.size || have.lastModified !== m.mtimeMs) {
-			const res = await fetch(m.url, { cache: "no-store" });
-			if (!res.ok) throw new Error(`${m.name}: HTTP ${res.status}`);
-			const blob = await res.blob();
-			const file = new File([blob], m.url.split("/").pop() || m.name, { type: blob.type, lastModified: m.mtimeMs });
+		const fresh = m.url ? have && have.size === m.size && have.lastModified === m.mtimeMs : have;
+		if (have && fresh) {
+			info.set(m.id, { duration: m.sourceDuration || have.duration || 0 });
+		} else {
+			let file: File;
+			if (m.url) {
+				const res = await fetch(m.url, { cache: "no-store" });
+				if (!res.ok) throw new Error(`${m.name}: HTTP ${res.status}`);
+				const blob = await res.blob();
+				file = new File([blob], m.url.split("/").pop() || m.name, { type: blob.type, lastModified: m.mtimeMs });
+			} else {
+				file = await placeholderFile({ media: m });
+			}
+			const [probe] = await processMediaAssets({ files: [file] });
+			if (probe?.url) URL.revokeObjectURL(probe.url);
+			const duration = m.sourceDuration || probe?.duration || 0;
 			await storageService.saveMediaAsset({
 				projectId,
 				mediaAsset: {
@@ -234,27 +296,29 @@ async function syncMedia({ projectId, media, onProgress }: { projectId: string; 
 					name: m.name,
 					type: m.mediaType,
 					file,
-					width: m.width || undefined,
-					height: m.height || undefined,
-					duration: m.sourceDuration || undefined,
-					fps: m.fps || undefined,
-					hasAudio: m.hasAudio,
+					width: m.width || probe?.width,
+					height: m.height || probe?.height,
+					duration: duration || undefined,
+					fps: m.fps || probe?.fps,
+					hasAudio: m.hasAudio || probe?.hasAudio,
+					thumbnailUrl: probe?.thumbnailUrl,
 				},
 			});
+			info.set(m.id, { duration });
 		}
 		done++;
 	}
-	const keepIds = new Set(wanted.map((m) => m.id));
-	for (const id of stored.keys()) if (!keepIds.has(id)) await storageService.deleteMediaAsset({ projectId, id });
+	for (const id of stored.keys()) if (!info.has(id)) await storageService.deleteMediaAsset({ projectId, id });
 	onProgress({ phase: "media", done, total: wanted.length, label: "" });
+	return info;
 }
 
 export async function emitSession({ session, originals, onProgress = () => {} }: { session: string; originals: boolean; onProgress?: (p: EmitProgress) => void }) {
 	onProgress({ phase: "convert", done: 0, total: 1, label: "from_openreel.py" });
 	const doc = await api<EstaImport>(`/_opencut/${encodeURIComponent(session)}${originals ? "?originals=1" : ""}`);
 	const projectId = projectIdFor(session);
-	const scene = buildScene(doc);
-	await syncMedia({ projectId, media: doc.media, onProgress });
+	const info = await syncMedia({ projectId, media: [...doc.media, ...pendingMedia(doc)], onProgress });
+	const scene = buildScene({ doc, info });
 
 	onProgress({ phase: "save", done: 0, total: 1, label: "project" });
 	const previous = await storageService.loadProject({ id: projectId });
@@ -282,5 +346,6 @@ export async function emitSession({ session, originals, onProgress = () => {} }:
 	await storageService.saveProject({ project });
 	onProgress({ phase: "save", done: 1, total: 1, label: "project" });
 	const missing = doc.media.filter((m) => m.missing).map((m) => m.url);
-	return { projectId, originals: doc.originals, summary: doc.summary, missing };
+	const hydrated = doc.pending.filter((p) => p.url).length;
+	return { projectId, originals: doc.originals, summary: { ...doc.summary, pending: doc.pending.length - hydrated, hydrated }, missing };
 }
