@@ -10,6 +10,7 @@ import { storageService } from "@/services/storage/service";
 import { ApiError, CLIENT_ID, api, type FileEvent } from "../api";
 import { useChannel } from "../events";
 import { useWorkspace } from "../store";
+import { EstaCmdBridge } from "./bridge";
 import { type EmitProgress, emitSession, projectIdFor } from "./emit";
 
 type Status = "idle" | "loading" | "ready" | "missing" | "error";
@@ -220,6 +221,7 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 	return (
 		<OpenCutContext.Provider value={value}>
 			{status === "ready" && stage === "edit" && <EditorRuntimeBindings />}
+			{status === "ready" && <EstaCmdBridge session={session} />}
 			{children}
 		</OpenCutContext.Provider>
 	);

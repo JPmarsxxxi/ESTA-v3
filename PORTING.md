@@ -19,6 +19,7 @@ Every deviation from a verbatim copy of ESTA-v2, and every change to vendored Op
 | File | Change | Why |
 |---|---|---|
 | `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id). | The main track's `transitions` name clips by id; without it the emitter can't tell which neighbouring pair a crossfade belongs to. |
+| `tools/opencut/mcp-server.mjs` | The never-acknowledged error reads `out.delivered` (it referenced an undefined `delivered`, so it threw instead of reporting). Its hints point at the session's Edit stage instead of `/esta-seed`. | A bug in v2, and the seed page no longer exists. |
 
 ## Backend (`server/`, replaces `asset-server.mjs` + `chat-bridge.mjs`)
 
@@ -28,7 +29,7 @@ Every v2 route is kept with its v2 behaviour, on one port (8787). Differences:
 - **`/_sessions/create`** still creates a bare folder for v2's `{topic}` body. When the requirements fields are sent (the v3 form), it also validates them with `tools/requirements/validators.py` and writes `requirements.json` (the `schema.py` fields), `conversation.jsonl`, and `script_uploaded.txt` for an uploaded script.
 - **`/_sessions/list`** is unchanged. `?all=1` also lists sessions that haven't been rendered yet, for the session list page.
 - **`/_plan` and `/_picker` HTML pages are not served.** Their APIs are unchanged; the pages become React panels in M2.
-- **Chat:** v2 opened a chat by holding `/chat/stream` open. `/chat/stream` still works; the UI uses `POST /chat/open` plus the multiplexed `/_events?chat=<id>` stream. Added `/chat/status` (liveness) and kept v2's `/chat/interrupt`.
+- **Chat:** the headless session gets the `esta-opencut` MCP server through `--mcp-config` and pre-allows its tools (`--allowedTools mcp__esta-opencut`): `--print` runs skip project `.mcp.json` servers that were never approved. v2 opened a chat by holding `/chat/stream` open. `/chat/stream` still works; the UI uses `POST /chat/open` plus the multiplexed `/_events?chat=<id>` stream. Added `/chat/status` (liveness) and kept v2's `/chat/interrupt`.
 - **Live edit:** `/_cmd` also broadcasts on `/_events` (channel `cmd`). `delivered` counts both kinds of subscriber.
 - **Media:** files are served under both `/api/sessions/<id>/...` (v2's URL form) and the bare `/<id>/...` path the asset-server saw behind Vite's proxy.
 - **CORS** also allows the `X-Esta-Client` header. The editor tags its own writes with it, so file-change events can tell a tab's own save from an external write.
@@ -83,7 +84,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 ### Not carried over from v2's OpenCut spike
 
 - `src/app/esta-seed/` and `public/esta-import.json`: replaced by the native emitter (below).
-- `src/components/providers/esta-cmd-bridge.tsx`: the live-edit dispatcher moves into `src/esta/` with the editor integration in M3.
+- `src/components/providers/esta-cmd-bridge.tsx`: replaced by `src/esta/opencut/bridge.tsx` (below).
 
 ## M2 surfaces
 
@@ -109,6 +110,13 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 - **Editor project panel** (`panels/editor-panel.tsx`, in the Edit preset): Build project (proxies, for editing), Build for export (originals, what `from_openreel.py --originals` did), and a link to OpenCut's own full-page editor (`/editor/esta-<session>`). The render skill's `--emit` into the OpenCut clone and its `/esta-seed` step map to these buttons (see CLAUDE.md).
 
 - **Embedded editor** (`opencut/host.tsx`, `panels/opencut-panels.tsx`): OpenCut's preview, timeline, media and properties panels are dockable workspace panels ("Editor ..."), and the Edit preset is Stage/Editor project/Jobs, Preview/Timeline, Properties/Media/Chat. The plan-derived panels are renamed "Shot strip" and "Shot preview". `OpenCutHost` loads `esta-<session>` into OpenCut's singleton `EditorCore` the first time one of these panels is shown and keeps it loaded across stage switches. OpenCut's keyboard shortcuts only listen on the Edit stage, so keys in the planner or script editor never reach the timeline. Rebuilding while the project is open flushes pending autosave, pauses it, rebuilds, and reloads the project in place. Not carried over from OpenCut's editor page: the onboarding dialog, the storage migration dialog, the changelog toast, and paste-to-import.
+
+- **Live edit** (`opencut/bridge.tsx`): the dispatcher for `tools/opencut/mcp-server.mjs`, mounted whenever the session's project is loaded (on any stage). Commands arrive on the `/_events` `cmd` channel; results go back through `/_ack` and `/_frame`. Every 2 s, and 300 ms after any timeline change, it pushes the `/_state` snapshot `get_timeline` returns. That push is also the heartbeat the MCP server checks for a live editor. Snapshot: every track and clip with id, shot number, name, media, start, duration, end, source duration and trim in seconds, volume as linear gain, and which properties are animated.
+  - "Shot N" is the Nth clip by start time across the main track and the `Main*` crossfade lanes, as in v2.
+  - `update_clip`/`animate_clip` volumes are linear (as the tools describe) and converted to OpenCut's dB. `animate_clip` replaces the property's keyframes; `scale` keys both axes.
+  - Edits go through OpenCut's undoable commands, so they are undoable, and they count as local edits for the render conflict banner.
+  - `get_frame` renders with OpenCut's own scene builder and canvas renderer at the requested time, downscaled to 540 px on the long side.
+  - One editor tab at a time: commands aren't addressed to a session, so two open workspaces would both apply them (v2 had the same limit).
 
 ## Known baseline issues (not introduced by v3)
 

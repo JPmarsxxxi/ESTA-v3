@@ -260,7 +260,7 @@ async function handle(msg) {
           const warn = state._stale
             ? `⚠ STALE — no live editor has pushed state in the last few seconds ` +
               `(age ${state._age_ms ?? "?"}ms). The tab may be closed or on an old ` +
-              `build. Do NOT trust clip ids below; re-seed the editor first.\n\n`
+              `build. Do NOT trust clip ids below; open the session's Edit stage first.\n\n`
             : "";
           reply(id, {
             content: [
@@ -290,7 +290,7 @@ async function handle(msg) {
               content: [
                 {
                   type: "text",
-                  text: "No LIVE editor to render from — open/seed the editor tab first.",
+                  text: "No LIVE editor to render from — open the session's Edit stage (localhost:3000/esta/<id>) first.",
                 },
               ],
             });
@@ -349,7 +349,7 @@ async function handle(msg) {
                 type: "text",
                 text:
                   "No LIVE editor is open (no heartbeat in the last few seconds). " +
-                  "Open/seed the editor tab (localhost:3000/esta-seed) and wait " +
+                  "Open the session's Edit stage (localhost:3000/esta/<id>) and wait " +
                   "for the timeline to load, then retry.",
               },
             ],
@@ -366,9 +366,9 @@ async function handle(msg) {
               {
                 type: "text",
                 text:
-                  `Command was delivered to ${delivered} editor(s) but never ` +
+                  `Command was delivered to ${out.delivered} editor(s) but never ` +
                   `acknowledged. The editor tab is likely running an old build ` +
-                  `or is stale — re-seed it (localhost:3001/esta-seed) and retry.`,
+                  `or is stale — reload the session's workspace (localhost:3000/esta/<id>) and retry.`,
               },
             ],
           });
