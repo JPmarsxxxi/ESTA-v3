@@ -61,6 +61,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 |---|---|
 | `src/app/page.tsx` | OpenCut's marketing landing page is replaced by the ESTA session list (`@/esta/home`). |
 | `src/app/esta/[session]/page.tsx` | New route: the stage workspace (`@/esta/workspace`). |
+| `src/components/providers/editor-provider.tsx` | `EditorRuntimeBindings` is exported, so the workspace's embedded editor reuses OpenCut's shortcut, ripple and unsaved-changes wiring instead of copying it. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
@@ -102,7 +103,9 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - Keyframes: `scale.x/y`, `position.x/y`, `rotation`, `opacity` map to OpenCut's `transform.*` and `opacity` paths, linear.
   - Crossfades: OpenCut has no transitions. As in v2's spike, alternate clips move to a `Main B` video lane above the main track. The earlier clip of each pair runs on past the cut by the fade length (clamped to the source it has left), and whichever of the two is on top fades. Cut points stay where the plan put them. Track order, top first: Captions, Graphics/Overlay, Main B, main.
   - Clips whose media file is missing on disk are left out and listed in the panel.
-- **Editor project panel** (`panels/editor-panel.tsx`, in the Edit preset): Build project (proxies, for editing), Build for export (originals, what `from_openreel.py --originals` did), and Open editor (`/editor/esta-<session>`). The render skill's `--emit` into the OpenCut clone and its `/esta-seed` step map to these buttons (see CLAUDE.md).
+- **Editor project panel** (`panels/editor-panel.tsx`, in the Edit preset): Build project (proxies, for editing), Build for export (originals, what `from_openreel.py --originals` did), and a link to OpenCut's own full-page editor (`/editor/esta-<session>`). The render skill's `--emit` into the OpenCut clone and its `/esta-seed` step map to these buttons (see CLAUDE.md).
+
+- **Embedded editor** (`opencut/host.tsx`, `panels/opencut-panels.tsx`): OpenCut's preview, timeline, media and properties panels are dockable workspace panels ("Editor ..."), and the Edit preset is Stage/Editor project/Jobs, Preview/Timeline, Properties/Media/Chat. The plan-derived panels are renamed "Shot strip" and "Shot preview". `OpenCutHost` loads `esta-<session>` into OpenCut's singleton `EditorCore` the first time one of these panels is shown and keeps it loaded across stage switches. OpenCut's keyboard shortcuts only listen on the Edit stage, so keys in the planner or script editor never reach the timeline. Rebuilding while the project is open flushes pending autosave, pauses it, rebuilds, and reloads the project in place. Not carried over from OpenCut's editor page: the onboarding dialog, the storage migration dialog, the changelog toast, and paste-to-import.
 
 ## Known baseline issues (not introduced by v3)
 

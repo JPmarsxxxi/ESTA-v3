@@ -4,7 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ApiError } from "../api";
-import { type EmitProgress, emitSession, projectIdFor } from "../opencut/emit";
+import type { EmitProgress } from "../opencut/emit";
+import { useOpenCut } from "../opencut/host";
 import { useWorkspace } from "../store";
 
 type Built = { originals: boolean; at: number; summary: Record<string, unknown>; missing: string[] };
@@ -24,6 +25,7 @@ function readBuilt(session: string): Built | null {
 // OpenCut encodes the crf-23 proxies into the finished video.
 export function EditorPanel() {
 	const { session } = useWorkspace();
+	const { projectId, rebuild } = useOpenCut();
 	const [built, setBuilt] = useState<Built | null>(() => readBuilt(session));
 	const [progress, setProgress] = useState<EmitProgress | null>(null);
 	const [error, setError] = useState<string | null>(null);
@@ -31,7 +33,7 @@ export function EditorPanel() {
 	const build = async (originals: boolean) => {
 		setError(null);
 		try {
-			const r = await emitSession({ session, originals, onProgress: setProgress });
+			const r = await rebuild({ originals, onProgress: setProgress });
 			const next = { originals: r.originals, at: Date.now(), summary: r.summary, missing: r.missing };
 			setBuilt(next);
 			try {
@@ -58,7 +60,7 @@ export function EditorPanel() {
 				</Button>
 				{built && !busy && (
 					<Button size="sm" variant="secondary" asChild>
-						<Link href={`/editor/${projectIdFor(session)}`}>Open editor</Link>
+						<Link href={`/editor/${projectId}`}>Full-page editor</Link>
 					</Button>
 				)}
 			</div>

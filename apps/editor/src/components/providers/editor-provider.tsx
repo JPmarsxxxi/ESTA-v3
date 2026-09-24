@@ -127,7 +127,7 @@ export function EditorProvider({ projectId, children }: EditorProviderProps) {
 	);
 }
 
-function EditorRuntimeBindings() {
+export function EditorRuntimeBindings() {
 	const editor = useEditor();
 	const rippleEditingEnabled = useTimelineStore(
 		(state) => state.rippleEditingEnabled,
