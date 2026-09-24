@@ -6,13 +6,19 @@ Every deviation from a verbatim copy of ESTA-v2, and every change to vendored Op
 
 | What | Status |
 |---|---|
-| `tools/**` | Verbatim. `diff -r` against v2 shows only the excluded `asset-server.mjs`, `chat-bridge.mjs`, `planner/`, `picker/` (and `__pycache__`). No integration fixes needed so far. |
+| `tools/**` | Verbatim except the integration fixes listed below. `diff -r` against v2 shows only the excluded `asset-server.mjs`, `chat-bridge.mjs`, `planner/`, `picker/` (and `__pycache__`) plus those fixes. |
 | `.claude/skills/**` | All 14 ESTA skills verbatim, merged with the StyleSeed skills already in v3. v2's `humanizer` replaced v3's; the leftover files of v3's clone (`.git/`, `LICENSE`, `README.md`, `WARP.md`) were moved out so the folder matches v2 exactly. |
 | `.claude/settings.json` | Verbatim (the `esta` env and Colab MCP prompt hooks), so terminal Claude Code behaves as in v2. |
 | `.mcp.json` | Verbatim. `tools/opencut/mcp-server.mjs` didn't move, and the backend keeps port 8787, so no path or URL changes. |
 | `config.example.yaml`, `environment.yml`, `setup.ps1`, `requirements.txt`, `editing-principles.md`, `motion-design.md`, `sound-design.md`, `voice_samples/`, `characters/`, `profile/`, `notebook/` | Verbatim. |
 | `config.yaml` | Also copied (gitignored). SPEC lists only the example, but the tools read their API keys from the real file. |
 | `CLAUDE.md` | v2's Skills, Pipeline rules, Conductor, Conda, Background steps, Session folder, User profile and LLM provider sections merged verbatim under "Pipeline (from ESTA-v2)". v2's "Browser surfaces" and "Setup" sections are replaced by v3's commands and a rule mapping v2 server/URL references to v3. |
+
+### Integration fixes to `tools/`
+
+| File | Change | Why |
+|---|---|---|
+| `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id). | The main track's `transitions` name clips by id; without it the emitter can't tell which neighbouring pair a crossfade belongs to. |
 
 ## Backend (`server/`, replaces `asset-server.mjs` + `chat-bridge.mjs`)
 
@@ -33,6 +39,7 @@ Every v2 route is kept with its v2 behaviour, on one port (8787). Differences:
   - `/_files/:id` (SSE) and `/_files/:id/list`
   - `/_sessions/import`
   - `/_preflight`
+  - `/_opencut/:id[?originals=1]`: runs `from_openreel.py` into `.esta/opencut/` and returns its intermediate, with each media file's size and mtime (or `missing`)
 - **Jobs** are spawned detached, so a Kaggle run survives a backend restart. On restart, a job whose process died is marked `interrupted`. One still running is tracked as detached, and resolves to done or interrupted from disk when it exits.
 
 ## Pipeline state
@@ -74,7 +81,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 
 ### Not carried over from v2's OpenCut spike
 
-- `src/app/esta-seed/` and `public/esta-import.json`: replaced by the native emitter in M3.
+- `src/app/esta-seed/` and `public/esta-import.json`: replaced by the native emitter (below).
 - `src/components/providers/esta-cmd-bridge.tsx`: the live-edit dispatcher moves into `src/esta/` with the editor integration in M3.
 
 ## M2 surfaces
@@ -86,6 +93,18 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 - **Requirements panel** (`requirements-panel.tsx`) edits `requirements.json` in place through a new `POST /_sessions/:id/requirements`, which runs v2's validators and preserves fields the form doesn't own.
 - **Timeline strip and preview** (`shots-panels.tsx`): plan-derived, sharing one selected shot with the planner and picker. The OpenCut timeline joins that shared selection in M3, when the native project exists.
 
+## M3 editor integration
+
+- **Native emitter** (`src/esta/opencut/emit.ts`): the TS module SPEC allows in place of `tools/opencut/emit.py`. It takes `from_openreel.py`'s intermediate from `/_opencut/:id`, so the track mapping, proxy choice and caption chunking stay v2's code, and builds the native project with OpenCut's own builders (`buildElementFromMedia`, `buildTextElement`, `upsertPathKeyframe`, `mediaTimeFromSeconds`). It saves the project as `esta-<session>` and its media into OpenCut's per-project store. A rebuild downloads only files whose size or mtime changed and drops media the new revision no longer uses. The project's background and timeline view survive a rebuild.
+  - Trim: `trimStart = inPoint`, `trimEnd = sourceDuration - outPoint`. `speed` becomes `retime.rate`.
+  - Volume: OpenReel's linear gain becomes OpenCut's dB (`20·log10`, 0 -> -60 dB).
+  - Video lanes keep render's `muted` on the track and turn off `isSourceAudioEnabled`, so clip audio never competes with the voiceover.
+  - Keyframes: `scale.x/y`, `position.x/y`, `rotation`, `opacity` map to OpenCut's `transform.*` and `opacity` paths, linear.
+  - Crossfades: OpenCut has no transitions. As in v2's spike, alternate clips move to a `Main B` video lane above the main track. The earlier clip of each pair runs on past the cut by the fade length (clamped to the source it has left), and whichever of the two is on top fades. Cut points stay where the plan put them. Track order, top first: Captions, Graphics/Overlay, Main B, main.
+  - Clips whose media file is missing on disk are left out and listed in the panel.
+- **Editor project panel** (`panels/editor-panel.tsx`, in the Edit preset): Build project (proxies, for editing), Build for export (originals, what `from_openreel.py --originals` did), and Open editor (`/editor/esta-<session>`). The render skill's `--emit` into the OpenCut clone and its `/esta-seed` step map to these buttons (see CLAUDE.md).
+
 ## Known baseline issues (not introduced by v3)
 
+- `bun run typecheck` fails on `src/changelog/` and `src/app/changelog/` until `next dev` has generated `.content-collections` once (upstream's content-collections setup).
 - `bun run lint:all` reports OpenCut's own lint errors: 112 in 73 upstream files, 87 of them `no-unsafe-type-assertion`. Unmodified upstream `apps/web` reports 136. `bun run lint` covers the code v3 owns and is clean.

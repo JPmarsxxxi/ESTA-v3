@@ -33,6 +33,7 @@ ESTA-v2's AI video factory (topic -> script -> voiceover -> plan -> assets -> ed
 
 - `tools/` and `.claude/skills/` are verbatim v2 copies. Change them only for integration fixes, and log each in `PORTING.md` with the reason.
 - v2's servers are gone. Where a skill says to run `node tools/asset-server.mjs` or `tools/chat-bridge.mjs`, the v3 backend (`bun run dev`) already serves the same routes on :8787. Where a skill points the user at `localhost:8787/_plan?session=<id>` or `/_picker?session=<id>`, point them at the session's workspace instead: `http://localhost:3000/esta/<id>`.
+- Where the render skill emits `esta-import.json` into the OpenCut clone and loads `/esta-seed`, use the Edit stage's **Build project** instead, and **Build for export** where it says `--originals`. Both build the native OpenCut project `esta-<id>` from `<id>.openreel.json`.
 - Approvals and overrides live under the `ui` key of `pipeline.json`. `conductor.py` round-trips unknown keys, so its commands keep working.
 - OpenCut code outside `src/esta/` is upstream: keep edits there minimal and list each one in `PORTING.md`.
 

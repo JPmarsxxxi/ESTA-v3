@@ -83,6 +83,7 @@ def _video_element(clip: dict, media: dict) -> dict:
         for k in (clip.get("keyframes") or [])
     ]
     return {
+        "clipId": clip.get("id"),
         "mediaId": clip["mediaId"],
         "kind": kind,  # "video" | "image"
         "name": media.get("name", "")[:80],
@@ -101,6 +102,7 @@ def _video_element(clip: dict, media: dict) -> dict:
 def _audio_element(clip: dict, media: dict) -> dict:
     meta = media.get("metadata", {}) or {}
     return {
+        "clipId": clip.get("id"),
         "mediaId": clip["mediaId"],
         "name": media.get("name", "")[:80],
         "startTime": round(float(clip.get("startTime", 0)), 3),

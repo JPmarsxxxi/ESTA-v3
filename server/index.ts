@@ -13,6 +13,7 @@ import { createSession, importSession, listAllSessions, listSessions, listV2Sess
 import { activeJobs, cancelJob, getJob, jobLog, listJobs, loadJobs, onJobEnd, retryJob, setProgress, startJob, type Job } from "./jobs.ts";
 import { artifactPresent, computeState, mutateUi, rebuildPipeline, setCustomFlow, templates, type Checkpoint } from "./pipeline.ts";
 import { ACTIONS, actionBlock, buildJob, preflight, voiceSamples } from "./actions.ts";
+import { opencutImport } from "./opencut.ts";
 
 const PORT = Number(process.env.ASSET_PORT) || 8787;
 
@@ -275,6 +276,8 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	const pipe = /^\/_pipeline\/([^/]+)(?:\/([^/]+))?$/.exec(pk);
 	if (pipe) return pipelineRoute(req, res, pipe[1], pipe[2] || "");
 	if (pk === "/_jobs" || pk.startsWith("/_jobs/")) return jobsRoute(req, res, pk.split("/").slice(2), q);
+	const oc = /^\/_opencut\/([^/]+)$/.exec(pk);
+	if (oc && req.method === "GET") return opencutImport(res, oc[1], q.get("originals") === "1");
 	const files = /^\/_files\/([^/]+)(\/list)?$/.exec(pk);
 	if (files && req.method === "GET") return filesRoute(req, res, files[1], Boolean(files[2]));
 
