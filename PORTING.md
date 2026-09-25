@@ -63,6 +63,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/app/page.tsx` | OpenCut's marketing landing page is replaced by the ESTA session list (`@/esta/home`). |
 | `src/app/esta/[session]/page.tsx` | New route: the stage workspace (`@/esta/workspace`). |
 | `src/components/providers/editor-provider.tsx` | `EditorRuntimeBindings` is exported, so the workspace's embedded editor reuses OpenCut's shortcut, ripple and unsaved-changes wiring instead of copying it. |
+| `src/timeline/components/timeline-element.tsx` | Each clip's root node carries `data-element-id`. | Selecting a shot from the planner or picker scrolls its clip into view; OpenCut only auto-scrolls during playback. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
@@ -93,7 +94,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 - **Script panel** (`script-panel.tsx`, `line-editor.tsx`): a port of v2 `apps/studio`'s `WritingStageView` + `LineEditor` for `script.md` and the talking points in `script_metadata.json`.
 - **Tagged-script review** (`tagged-panel.tsx`): new in v3. It gives the audio skill's approval step a surface: the delivery markup with its tags as chips, tag-check, approve, and per-line redo through `expressive --only`.
 - **Requirements panel** (`requirements-panel.tsx`) edits `requirements.json` in place through a new `POST /_sessions/:id/requirements`, which runs v2's validators and preserves fields the form doesn't own.
-- **Timeline strip and preview** (`shots-panels.tsx`): plan-derived, sharing one selected shot with the planner and picker. The OpenCut timeline joins that shared selection in M3, when the native project exists.
+- **Timeline strip and preview** (`shots-panels.tsx`): plan-derived, sharing one selected shot with the planner and picker. The OpenCut timeline joins that shared selection through `opencut/shot-sync.tsx` (M3).
 
 ## M3 editor integration
 
@@ -117,6 +118,8 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - Edits go through OpenCut's undoable commands, so they are undoable, and they count as local edits for the render conflict banner.
   - `get_frame` renders with OpenCut's own scene builder and canvas renderer at the requested time, downscaled to 540 px on the long side.
   - One editor tab at a time: commands aren't addressed to a session, so two open workspaces would both apply them (v2 had the same limit).
+
+- **Shared shot selection** (`opencut/shot-sync.tsx`): clips keep render's ids, so plan shot N is `clip-shot-N` on whichever lane it sits on, crossfade split included. Choosing a shot in the planner, picker or shot strip selects its clip, moves the playhead to its start (unless playing) and scrolls it into view. Selecting a single shot clip on the timeline selects that shot in the other panels.
 
 ## Known baseline issues (not introduced by v3)
 

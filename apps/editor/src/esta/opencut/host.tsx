@@ -11,6 +11,7 @@ import { ApiError, CLIENT_ID, api, type FileEvent } from "../api";
 import { useChannel } from "../events";
 import { useWorkspace } from "../store";
 import { EstaCmdBridge } from "./bridge";
+import { ShotSync } from "./shot-sync";
 import { type EmitProgress, emitSession, projectIdFor } from "./emit";
 
 type Status = "idle" | "loading" | "ready" | "missing" | "error";
@@ -222,6 +223,7 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 		<OpenCutContext.Provider value={value}>
 			{status === "ready" && stage === "edit" && <EditorRuntimeBindings />}
 			{status === "ready" && <EstaCmdBridge session={session} />}
+			{status === "ready" && <ShotSync />}
 			{children}
 		</OpenCutContext.Provider>
 	);
