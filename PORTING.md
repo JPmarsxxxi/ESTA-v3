@@ -64,6 +64,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/app/esta/[session]/page.tsx` | New route: the stage workspace (`@/esta/workspace`). |
 | `src/components/providers/editor-provider.tsx` | `EditorRuntimeBindings` is exported, so the workspace's embedded editor reuses OpenCut's shortcut, ripple and unsaved-changes wiring instead of copying it. |
 | `src/timeline/components/timeline-element.tsx` | Each clip's root node carries `data-element-id`. | Selecting a shot from the planner or picker scrolls its clip into view; OpenCut only auto-scrolls during playback. |
+| `src/components/editor/export-button.tsx` | The export popover calls `exportBlock` (`src/esta/opencut/export-guard.ts`) and shows why export is blocked instead of the export controls. | Covers every export path: the full-page editor's header and the Edit stage's Editor project panel both use this popover. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
@@ -126,6 +127,8 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - Planner: saves go per shot, so a change to other shots merges silently (the open form keeps its edits). Only a change to a shot with unsaved edits raises the banner. While it is up, leaving an edited shot holds its edits instead of saving them; Keep mine writes the held shots, Take theirs drops them. Fixed along the way: Take theirs could still save the discarded shot, because the discard flag was reset before the old form unmounted.
   - Requirements: a draft remembers the file it started from. If the file changes before Save, the banner appears and Save waits for a choice.
   - Line editor: the selection toolbar sits below the lines (sticky to the panel bottom). Above them, it pushed the rows down between the two clicks of a double-click, so double-click-to-edit hit the wrong row.
+
+- **Export with originals** (`opencut/export-guard.ts`): each build records which media ids came from `assets/proxies/`. Export is blocked, with the reason and the fix, while any clip on the timeline still references one; Build for export (originals) clears the list. It reproduces v2's `from_openreel.py --originals` rule as a check instead of a step to remember. The Editor project panel carries OpenCut's own Export button, so a session exports without leaving the Edit stage.
 
 ## Known baseline issues (not introduced by v3)
 

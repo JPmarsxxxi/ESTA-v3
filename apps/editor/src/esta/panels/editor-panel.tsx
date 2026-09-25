@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { ExportButton } from "@/components/editor/export-button";
 import { useOpenCut } from "../opencut/host";
 
 export function ConflictBanner() {
@@ -24,7 +25,7 @@ export function ConflictBanner() {
 // are for editing; the export-bound build must reference the originals, or
 // OpenCut encodes the crf-23 proxies into the finished video.
 export function EditorPanel() {
-	const { projectId, built, progress, buildError, build } = useOpenCut();
+	const { projectId, status, built, progress, buildError, build } = useOpenCut();
 	const busy = progress !== null;
 	return (
 		<div className="text-sm">
@@ -37,6 +38,7 @@ export function EditorPanel() {
 					<Button size="sm" variant="outline" disabled={busy} onClick={() => build(true)}>
 						Build for export (originals)
 					</Button>
+					{built && !busy && status === "ready" && <ExportButton />}
 					{built && !busy && (
 						<Button size="sm" variant="secondary" asChild>
 							<Link href={`/editor/${projectId}`}>Full-page editor</Link>

@@ -34,6 +34,7 @@ import {
 } from "@/components/section";
 import { useEditor } from "@/editor/use-editor";
 import { DEFAULT_EXPORT_OPTIONS } from "@/export/defaults";
+import { exportBlock } from "@/esta/opencut/export-guard";
 
 function isExportFormat(value: string): value is ExportFormat {
 	return EXPORT_FORMAT_VALUES.some((formatValue) => formatValue === value);
@@ -143,6 +144,19 @@ function ExportPopover({
 	const handleCancel = () => {
 		editor.project.cancelExport();
 	};
+
+	const blocked = exportBlock(activeProject.metadata.id);
+	if (blocked) {
+		return (
+			<PopoverContent className="bg-background mr-4 flex w-80 flex-col gap-2 p-3 text-sm">
+				<h3 className="font-medium">Export blocked</h3>
+				<p className="text-muted-foreground text-xs">{blocked.reason}</p>
+				<a href={`/esta/${blocked.session}`} className="text-primary text-xs underline">
+					Open the session workspace
+				</a>
+			</PopoverContent>
+		);
+	}
 
 	return (
 		<PopoverContent className="bg-background mr-4 flex w-80 flex-col p-0">

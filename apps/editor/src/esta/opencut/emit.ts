@@ -346,6 +346,8 @@ export async function emitSession({ session, originals, onProgress = () => {} }:
 	await storageService.saveProject({ project });
 	onProgress({ phase: "save", done: 1, total: 1, label: "project" });
 	const missing = doc.media.filter((m) => m.missing).map((m) => m.url);
+	// What export must refuse: OpenCut encodes whatever the timeline references.
+	const proxied = [...doc.media, ...pendingMedia(doc)].filter((m) => !m.missing && m.url.includes("/assets/proxies/")).map((m) => m.id);
 	const hydrated = doc.pending.filter((p) => p.url).length;
-	return { projectId, originals: doc.originals, summary: { ...doc.summary, pending: doc.pending.length - hydrated, hydrated }, missing };
+	return { projectId, originals: doc.originals, summary: { ...doc.summary, pending: doc.pending.length - hydrated, hydrated }, missing, proxied };
 }

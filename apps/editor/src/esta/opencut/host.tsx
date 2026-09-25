@@ -16,7 +16,7 @@ import { type EmitProgress, emitSession, projectIdFor } from "./emit";
 
 type Status = "idle" | "loading" | "ready" | "missing" | "error";
 
-export type Built = { originals: boolean; at: number; source: number; summary: Record<string, unknown>; missing: string[] };
+export type Built = { originals: boolean; at: number; source: number; summary: Record<string, unknown>; missing: string[]; proxied: string[] };
 
 type Ctx = {
 	projectId: string;
@@ -40,9 +40,9 @@ export function useOpenCut() {
 	return ctx;
 }
 
-const builtKey = (session: string) => `esta.opencut.${session}`;
+export const builtKey = (session: string) => `esta.opencut.${session}`;
 
-function readBuilt(session: string): Built | null {
+export function readBuilt(session: string): Built | null {
 	try {
 		return JSON.parse(localStorage.getItem(builtKey(session)) || "null");
 	} catch {
@@ -144,7 +144,7 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 					try {
 						const source = await sourceMtime(session);
 						const r = await emitSession({ session, originals: mode, onProgress: setProgress });
-						const next = { originals: r.originals, at: Date.now(), source, summary: r.summary, missing: r.missing };
+						const next = { originals: r.originals, at: Date.now(), source, summary: r.summary, missing: r.missing, proxied: r.proxied };
 						builtRef.current = next;
 						setBuilt(next);
 						try {
