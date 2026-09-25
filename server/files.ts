@@ -11,10 +11,18 @@ export function onFileChange(fn: (ev: FileEvent) => void) {
 }
 
 // Writes made through this server carry the writing tab's id, so that tab can
-// tell its own save from an external write (terminal, chat, job).
-const selfWrites = new Map<string, { by: string; at: number }>();
+// tell its own save from an external write (terminal, chat, job). Called right
+// after the write: the tab owns exactly the file state it produced, so a
+// terminal write a moment later is still reported as external.
+const selfWrites = new Map<string, { by: string; sig: string }>();
 export function noteSelfWrite(absPath: string, by: unknown) {
-	if (typeof by === "string" && by) selfWrites.set(resolve(absPath), { by, at: Date.now() });
+	if (typeof by !== "string" || !by) return;
+	try {
+		const st = statSync(absPath);
+		selfWrites.set(resolve(absPath), { by, sig: `true:${st.mtimeMs}:${st.size}` });
+	} catch {
+		/* nothing written */
+	}
 }
 
 const pending = new Map<string, NodeJS.Timeout>();
@@ -43,7 +51,7 @@ function emit(abs: string) {
 	if (lastSeen.get(abs) === sig) return;
 	lastSeen.set(abs, sig);
 	const self = selfWrites.get(abs);
-	const by = self && Date.now() - self.at < 3000 ? self.by : null;
+	const by = self?.sig === sig ? self.by : null;
 	const ev: FileEvent = { session, path, exists, mtimeMs, size, by };
 	publish({ ch: "file", session, data: ev });
 	for (const fn of listeners) {

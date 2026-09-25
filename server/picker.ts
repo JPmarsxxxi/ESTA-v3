@@ -188,8 +188,8 @@ export async function pickerPick(req: IncomingMessage, res: ServerResponse) {
 			.pop();
 		if (prior) {
 			const restored = { ...prior, visual_verdict: "user_picked", visual_confidence: 100 };
-			noteSelfWrite(feed, by);
 			appendFileSync(feed, JSON.stringify(restored) + "\n", "utf8");
+			noteSelfWrite(feed, by);
 			updateAssetsJson(dir, body.shot, restored);
 			return json(res, 200, { ok: true, shot: body.shot, picked: restored, cleaned: 0, kept_shared: 0 });
 		}
@@ -210,8 +210,8 @@ export async function pickerPick(req: IncomingMessage, res: ServerResponse) {
 		visual_confidence: 100,
 		error: "",
 	};
-	noteSelfWrite(feed, by);
 	appendFileSync(feed, JSON.stringify(row) + "\n", "utf8");
+	noteSelfWrite(feed, by);
 	updateAssetsJson(dir, body.shot, row);
 
 	const cleaned: string[] = [];

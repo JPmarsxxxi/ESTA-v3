@@ -129,14 +129,32 @@ export function PlannerPanel() {
 	const [saved, setSaved] = useState<Set<number>>(new Set());
 	const [rewrites, setRewrites] = useState<Record<number, Rewrite>>({});
 	const [status, setStatus] = useState("Edits save themselves when you move on. Ctrl+S saves and advances.");
-	const [conflict, setConflict] = useState(false);
+	const [conflict, setConflictState] = useState(false);
 	const discarding = useRef(false);
+	// While a conflict is open, leaving an edited shot holds its edits here instead
+	// of saving them over the disk version; Keep mine writes them, Take theirs drops them.
+	const conflictRef = useRef(false);
+	const held = useRef(new Map<number, Shot>());
+	const disk = useRef<Shot[] | null>(null);
+	// Reset only after the re-keyed form has unmounted, or its save-on-leave
+	// would write the edits being discarded.
+	useEffect(() => {
+		discarding.current = false;
+	}, [version]);
+	const setConflict = useCallback((on: boolean) => {
+		conflictRef.current = on;
+		setConflictState(on);
+	}, []);
 	// Which shot is on screen now, readable by a command still running after the
 	// form that started it unmounted.
 	const viewedAt = useRef(0);
 	const dirtyRef = useRef(dirty);
+	const shotsRef = useRef(shots);
+	const selectedRef = useRef(selectedShot);
 	useEffect(() => {
 		dirtyRef.current = dirty;
+		shotsRef.current = shots;
+		selectedRef.current = selectedShot;
 	});
 
 	const load = useCallback(
@@ -157,13 +175,28 @@ export function PlannerPanel() {
 	);
 	useEffect(() => void load(), [load]);
 
-	// External write to plan.json (terminal, chat, reconcile): silent reload
-	// unless there are unsaved edits, which get a banner instead.
+	// External write to plan.json (terminal, chat, reconcile): silent reload,
+	// unless it changed a shot with unsaved edits, which gets a banner instead.
+	// Saves go per shot, so edits to other shots merge without asking.
 	useEffect(() => {
 		if (lastFile?.path !== "plan.json" || lastFile.by === CLIENT_ID || !lastFile.exists) return;
-		if (dirtyRef.current.size) return setConflict(true);
-		void load().then(() => setVersion((v) => v + 1));
-	}, [lastFile, load]);
+		const edited = dirtyRef.current;
+		if (!edited.size) {
+			void load().then(() => setVersion((v) => v + 1));
+			return;
+		}
+		void api<{ shots: Shot[] }>(`/_plan/api/plan?session=${encodeURIComponent(session)}`).then(({ shots: fresh }) => {
+			const before = new Map((shotsRef.current ?? []).map((s) => [s.shot_number, JSON.stringify(s)]));
+			const clash = fresh.some((s) => edited.has(s.shot_number) && before.get(s.shot_number) !== JSON.stringify(s));
+			if (clash) {
+				disk.current = fresh;
+				return setConflict(true);
+			}
+			setShots(fresh);
+			// The open form keeps its local state only if it has edits of its own.
+			if (selectedRef.current == null || !edited.has(selectedRef.current)) setVersion((v) => v + 1);
+		});
+	}, [lastFile, load, session, setConflict]);
 
 	const current = shots?.find((s) => s.shot_number === selectedShot) ?? null;
 	useEffect(() => {
@@ -270,13 +303,17 @@ export function PlannerPanel() {
 							what="plan.json"
 							onResolve={(keepMine) => {
 								setConflict(false);
-								if (keepMine) return;
+								const stash = [...held.current.values()];
+								held.current.clear();
+								if (keepMine) {
+									// Disk for everything else; the open form keeps its edits and saves as usual.
+									if (disk.current) setShots(disk.current);
+									void Promise.all(stash.map((shot) => saveShot({ session, shot }).then(() => onSaved({ shot, quiet: true }))));
+									return;
+								}
 								discarding.current = true;
 								setDirty(new Set());
-								void load().then(() => {
-									setVersion((v) => v + 1);
-									discarding.current = false;
-								});
+								void load().then(() => setVersion((v) => v + 1));
 							}}
 						/>
 					</div>
@@ -291,6 +328,11 @@ export function PlannerPanel() {
 							onRewriteStarted={() => setRewrites((prev) => ({ ...prev, [current.shot_number]: { status: "running" } }))}
 							onDirty={(d) => markDirty({ shot: current.shot_number, isDirty: d })}
 							shouldDiscard={() => discarding.current}
+							hold={(shot) => {
+								if (!conflictRef.current) return false;
+								held.current.set(shot.shot_number, shot);
+								return true;
+							}}
 							onSaved={onSaved}
 							onSaveAndAdvance={() => {
 								// Past the last shot, v2 goes back to the first one not saved yet.
@@ -335,6 +377,7 @@ function ShotForm({
 	onStatus,
 	onCommandDone,
 	shouldDiscard,
+	hold,
 	viewedAt,
 }: {
 	session: string;
@@ -343,6 +386,7 @@ function ShotForm({
 	onRewriteStarted: () => void;
 	onDirty: (dirty: boolean) => void;
 	shouldDiscard: () => boolean;
+	hold: (shot: Shot) => boolean;
 	onSaved: (args: { shot: Shot; quiet: boolean }) => void;
 	onSaveAndAdvance: () => void;
 	onStatus: (s: string) => void;
@@ -359,9 +403,9 @@ function ShotForm({
 	const [cmdStatus, setCmdStatus] = useState("");
 	const [appliedRewrite, setAppliedRewrite] = useState<Rewrite | null>(null);
 	const box = useRef<HTMLDivElement>(null);
-	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard });
+	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard, hold });
 	useEffect(() => {
-		latest.current = { f, isDirty, shot, onSaved, shouldDiscard };
+		latest.current = { f, isDirty, shot, onSaved, shouldDiscard, hold };
 	});
 	const onDirtyRef = useRef(onDirty);
 	useEffect(() => {
@@ -418,9 +462,10 @@ function ShotForm({
 		window.addEventListener("beforeunload", onUnload);
 		return () => {
 			window.removeEventListener("beforeunload", onUnload);
-			const { isDirty: wasDirty, shot: last, f: fields, onSaved: saved, shouldDiscard: discard } = latest.current;
+			const { isDirty: wasDirty, shot: last, f: fields, onSaved: saved, shouldDiscard: discard, hold: holdBack } = latest.current;
 			if (!wasDirty || discard()) return;
 			const next = collect({ shot: last, f: fields });
+			if (holdBack(next)) return;
 			void saveShot({ session, shot: next }).then(() => saved({ shot: next, quiet: true }));
 		};
 	}, [session]);

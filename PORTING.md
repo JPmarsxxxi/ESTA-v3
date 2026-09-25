@@ -32,7 +32,7 @@ Every v2 route is kept with its v2 behaviour, on one port (8787). Differences:
 - **Chat:** the headless session gets the `esta-opencut` MCP server through `--mcp-config` and pre-allows its tools (`--allowedTools mcp__esta-opencut`): `--print` runs skip project `.mcp.json` servers that were never approved. v2 opened a chat by holding `/chat/stream` open. `/chat/stream` still works; the UI uses `POST /chat/open` plus the multiplexed `/_events?chat=<id>` stream. Added `/chat/status` (liveness) and kept v2's `/chat/interrupt`.
 - **Live edit:** `/_cmd` also broadcasts on `/_events` (channel `cmd`). `delivered` counts both kinds of subscriber.
 - **Media:** files are served under both `/api/sessions/<id>/...` (v2's URL form) and the bare `/<id>/...` path the asset-server saw behind Vite's proxy.
-- **CORS** also allows the `X-Esta-Client` header. The editor tags its own writes with it, so file-change events can tell a tab's own save from an external write.
+- **CORS** also allows the `X-Esta-Client` header. The editor tags its own writes with it, so file-change events can tell a tab's own save from an external write. The tab owns exactly the file state its write produced (mtime and size, recorded right after the write), so a terminal or chat write a moment later is still reported as external.
 - **New routes:**
   - `/_events` (the one multiplexed SSE stream per tab)
   - `/_pipeline/:id` (state, plus `approve`, `force`, `template`, `flow`, `run`)
@@ -120,6 +120,12 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - One editor tab at a time: commands aren't addressed to a session, so two open workspaces would both apply them (v2 had the same limit).
 
 - **Shared shot selection** (`opencut/shot-sync.tsx`): clips keep render's ids, so plan shot N is `clip-shot-N` on whichever lane it sits on, crossfade split included. Choosing a shot in the planner, picker or shot strip selects its clip, moves the playhead to its start (unless playing) and scrolls it into view. Selecting a single shot clip on the timeline selects that shot in the other panels.
+
+- **Conflicts in the editable panels** (M3, SPEC decision 10). External change + no local edits reloads silently; external change + local edits shows Keep mine / Take theirs, and nothing is written either way until you choose.
+  - Script, talking points, tagged script (`doc.tsx`): autosave is suspended while the banner is up, and a queued save is cancelled, so Take theirs can't be overwritten a moment later.
+  - Planner: saves go per shot, so a change to other shots merges silently (the open form keeps its edits). Only a change to a shot with unsaved edits raises the banner. While it is up, leaving an edited shot holds its edits instead of saving them; Keep mine writes the held shots, Take theirs drops them. Fixed along the way: Take theirs could still save the discarded shot, because the discard flag was reset before the old form unmounted.
+  - Requirements: a draft remembers the file it started from. If the file changes before Save, the banner appears and Save waits for a choice.
+  - Line editor: the selection toolbar sits below the lines (sticky to the panel bottom). Above them, it pushed the rows down between the two clicks of a double-click, so double-click-to-edit hit the wrong row.
 
 ## Known baseline issues (not introduced by v3)
 

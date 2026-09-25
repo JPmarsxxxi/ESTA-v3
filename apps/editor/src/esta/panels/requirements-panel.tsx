@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ApiError, post } from "../api";
-import { useSessionDoc } from "../doc";
+import { ConflictBanner, useSessionDoc } from "../doc";
 import { useWorkspace } from "../store";
 import { Field, inputClass } from "../ui";
 
@@ -40,6 +40,8 @@ export function RequirementsPanel() {
 	const { session, pipeline } = useWorkspace();
 	const doc = useSessionDoc<Reqs>({ path: "requirements.json", parse: (t) => JSON.parse(t), serialize: (v) => JSON.stringify(v, null, 2) });
 	const [draft, setDraft] = useState<Form | null>(null);
+	// The file as it was when the draft began: a later disk change is a conflict.
+	const [draftBase, setDraftBase] = useState<string | null>(null);
 	const [errors, setErrors] = useState<Record<string, string>>({});
 	const [saved, setSaved] = useState<string | null>(null);
 
@@ -48,7 +50,12 @@ export function RequirementsPanel() {
 
 	// Untouched form follows disk (external edits show up live); a draft holds until saved.
 	const form = draft ?? formOf(doc.value);
-	const set = (k: keyof Form) => (e: { target: { value: string } }) => setDraft({ ...form, [k]: e.target.value });
+	const disk = JSON.stringify(doc.value);
+	const conflict = draft !== null && draftBase !== null && draftBase !== disk;
+	const set = (k: keyof Form) => (e: { target: { value: string } }) => {
+		if (!draft) setDraftBase(disk);
+		setDraft({ ...form, [k]: e.target.value });
+	};
 	const approved = Boolean(pipeline?.approvals.requirements);
 
 	const save = async () => {
@@ -75,6 +82,7 @@ export function RequirementsPanel() {
 
 	return (
 		<div className="space-y-3 p-3 text-sm">
+			{conflict && <ConflictBanner what="requirements.json" onResolve={(keepMine) => (keepMine ? setDraftBase(disk) : setDraft(null))} />}
 			{approved && draft && <div className="bg-caution/15 rounded-md px-2.5 py-1.5 text-xs">Requirements are already approved. Stages downstream won&apos;t re-run on their own after you change them.</div>}
 			<Field label="Topic" error={errors.topic}>
 				<input className={inputClass} value={form.topic} onChange={set("topic")} />
@@ -111,7 +119,7 @@ export function RequirementsPanel() {
 			</Field>
 			{errors._ && <p className="text-destructive text-xs">{errors._}</p>}
 			<div className="flex items-center gap-2">
-				<Button size="sm" disabled={!draft} onClick={save}>
+				<Button size="sm" disabled={!draft || conflict} onClick={save}>
 					Save requirements
 				</Button>
 				{draft && (

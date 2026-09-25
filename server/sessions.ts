@@ -278,8 +278,8 @@ export async function updateRequirements(req: IncomingMessage, res: ServerRespon
 		? built.example_scripts.map((e) => priorExamples.find((p) => p.text === e.text) ?? e)
 		: built.example_scripts;
 	const next = { ...prior, ...built, example_scripts: examples, session_id: prior.session_id ?? sessionId, created_at: prior.created_at ?? built.created_at };
-	noteSelfWrite(path, req.headers["x-esta-client"]);
 	writeFileSync(path, JSON.stringify(next, null, 2), "utf8");
+	noteSelfWrite(path, req.headers["x-esta-client"]);
 	if (built.script_text) writeFileSync(resolve(dir, "script_uploaded.txt"), built.script_text, "utf8");
 	json(res, 200, { ok: true, requirements: next });
 }

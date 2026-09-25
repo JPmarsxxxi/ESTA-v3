@@ -23,10 +23,17 @@ export function useSessionDoc<T>({
 	const [value, setValue] = useState<T | null>(null);
 	const [missing, setMissing] = useState(false);
 	const [saving, setSaving] = useState(false);
-	const [conflict, setConflict] = useState<T | null>(null);
+	const [conflict, setConflictState] = useState<T | null>(null);
 	const baseline = useRef<string | null>(null);
+	// While the banner is up nothing autosaves: either choice must stay possible.
+	const held = useRef(false);
 	const dirty = useRef(false);
 	const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+	const setConflict = useCallback((disk: T | null) => {
+		held.current = disk !== null;
+		if (held.current && timer.current) clearTimeout(timer.current);
+		setConflictState(disk);
+	}, []);
 	const parseRef = useRef(parse);
 	const serializeRef = useRef(serialize);
 	useEffect(() => {
@@ -63,7 +70,7 @@ export function useSessionDoc<T>({
 			setMissing(false);
 			setValue(r.parsed);
 		});
-	}, [lastFile, path, fetchDisk]);
+	}, [lastFile, path, fetchDisk, setConflict]);
 
 	const write = useCallback(
 		async (next: T) => {
@@ -91,7 +98,7 @@ export function useSessionDoc<T>({
 			setValue(next);
 			dirty.current = true;
 			if (timer.current) clearTimeout(timer.current);
-			timer.current = setTimeout(() => void write(next), debounceMs);
+			if (!held.current) timer.current = setTimeout(() => void write(next), debounceMs);
 		},
 		[write, debounceMs],
 	);
@@ -107,7 +114,7 @@ export function useSessionDoc<T>({
 			}
 			setConflict(null);
 		},
-		[conflict, value, write],
+		[conflict, value, write, setConflict],
 	);
 
 	return { value, missing, saving, conflict: conflict !== null, change, resolve };

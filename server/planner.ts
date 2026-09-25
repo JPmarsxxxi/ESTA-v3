@@ -46,8 +46,8 @@ export async function planSave(req: IncomingMessage, res: ServerResponse) {
 	// Back up before the first overwrite so a bad edit is recoverable.
 	const bak = resolve(dir, "plan.json.pre-edit.bak");
 	if (!existsSync(bak)) writeFileSync(bak, readFileSync(planPath, "utf8"), "utf8");
-	noteSelfWrite(planPath, req.headers["x-esta-client"]);
 	writeFileSync(planPath, JSON.stringify(plan, null, 2), "utf8");
+	noteSelfWrite(planPath, req.headers["x-esta-client"]);
 	json(res, 200, { ok: true, shot_number: shot.shot_number });
 }
 

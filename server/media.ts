@@ -95,8 +95,8 @@ export async function serveSessionFile(req: IncomingMessage, res: ServerResponse
 		if (!existsSync(dirname(filePath))) return send(res, 404, "Parent directory missing");
 		try {
 			const body = await readRaw(req);
-			noteSelfWrite(filePath, req.headers["x-esta-client"]);
 			writeFileSync(filePath, body);
+			noteSelfWrite(filePath, req.headers["x-esta-client"]);
 			const st = statSync(filePath);
 			return json(res, 200, { ok: true, size: st.size, mtimeMs: st.mtimeMs });
 		} catch (e) {
