@@ -41,7 +41,7 @@ Every v2 route is kept with its v2 behaviour, on one port (8787). Differences:
   - `/_sessions/import`
   - `/_preflight`
   - `/_opencut/:id[?originals=1]`: runs `from_openreel.py` into `.esta/opencut/` and returns its intermediate, with each media file's size and mtime (or `missing`). It adds `pending`: the early render pass's stream-pending shots (`media-shot-N` with no file), which `from_openreel.py` drops. Each one that has landed since render ran is filled in from `assets.json` plus `assets_progress.jsonl`, merged the way render's `_load_asset_shots` merges them, with the same proxy preference.
-- **Jobs** are spawned detached, so a Kaggle run survives a backend restart. On restart, a job whose process died is marked `interrupted`. One still running is tracked as detached, and resolves to done or interrupted from disk when it exits.
+- **Jobs** are spawned detached, with their output written to `.esta/jobs/<id>.out` rather than piped to the backend, so a Kaggle run survives a backend restart (every edit under `server/` in dev). The live log is rendered from that file. On restart, a job whose process died is marked `interrupted`; one still running has its log rebuilt from the file and followed, and resolves to done or interrupted from disk when it exits.
 
 ## Pipeline state
 

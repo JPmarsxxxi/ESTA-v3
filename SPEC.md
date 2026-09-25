@@ -94,34 +94,34 @@ Not copied: `node_modules`, `sessions/` (imported on demand), `yolov8m.pt` and c
 ## Acceptance criteria
 
 M1
-- [ ] `bun install` then one documented command starts the editor and backend. Opening `http://localhost:3000` shows the session list. Both commands are recorded in CLAUDE.md "Tech stack & commands".
-- [ ] `diff -r` of v2 `tools/` vs v3 `tools/` shows only the excluded files and the changes listed in `PORTING.md`.
-- [ ] Every v2 skill is present in `.claude/skills/`, and `/requirements`, `/plan` etc. are invocable from terminal Claude Code in the v3 repo.
-- [ ] Creating a session from the UI writes `sessions/<slug>-<date>/requirements.json` with the same fields as v2's requirements skill.
-- [ ] "Import from v2" copies `do-alphas-even-exist-2026-09-16` in, and its stage rail state matches `python tools/pipeline/conductor.py next --session sessions/<id>`.
-- [ ] A stage whose `needs` are missing is locked and shows the missing file names. Force unlocks it and writes the override into `pipeline.json`.
-- [ ] Approve on requirements/script/tagged-script/plan is required before the next stage unlocks, and is persisted in `pipeline.json`.
-- [ ] Starting timestamps shows a running job in the Jobs panel with a live log; cancel kills the process; retry restarts it.
-- [ ] The chat panel can run "what runs next?" and gets the same answer as the conductor CLI.
+- [x] `bun install` then one documented command starts the editor and backend. Opening `http://localhost:3000` shows the session list. Both commands are recorded in CLAUDE.md "Tech stack & commands".
+- [x] `diff -r` of v2 `tools/` vs v3 `tools/` shows only the excluded files and the changes listed in `PORTING.md`.
+- [x] Every v2 skill is present in `.claude/skills/`, and `/requirements`, `/plan` etc. are invocable from terminal Claude Code in the v3 repo.
+- [x] Creating a session from the UI writes `sessions/<slug>-<date>/requirements.json` with the same fields as v2's requirements skill.
+- [x] "Import from v2" copies `do-alphas-even-exist-2026-09-16` in, and its stage rail state matches `python tools/pipeline/conductor.py next --session sessions/<id>`.
+- [x] A stage whose `needs` are missing is locked and shows the missing file names. Force unlocks it and writes the override into `pipeline.json`.
+- [x] Approve on requirements/script/tagged-script/plan is required before the next stage unlocks, and is persisted in `pipeline.json`.
+- [x] Starting timestamps shows a running job in the Jobs panel with a live log; cancel kills the process; retry restarts it.
+- [x] The chat panel can run "what runs next?" and gets the same answer as the conductor CLI.
 
 M2
-- [ ] Every field and action in v2's planner (including Rewrite and the structural commands split/merge/add overlay) works in the React panel and produces the same `plan.json` as v2's page for the same input.
-- [ ] Every picker action (candidates, pick, refetch, sources, jobs) works in the React panel, and picking writes `assets_progress.jsonl` as v2 does.
-- [ ] Selecting shot N in the planner selects it on the timeline, and vice versa.
+- [x] Every field and action in v2's planner (including Rewrite and the structural commands split/merge/add overlay) works in the React panel and produces the same `plan.json` as v2's page for the same input.
+- [x] Every picker action (candidates, pick, refetch, sources, jobs) works in the React panel, and picking writes `assets_progress.jsonl` as v2 does.
+- [x] Selecting shot N in the planner selects it on the timeline, and vice versa.
 
 M3
-- [ ] After the final render pass, the editor shows the native OpenCut project with no `/esta-seed` step. Clip count, track mapping and media match `from_openreel.py`'s mapping for the same session.
-- [ ] Re-running render updates the open timeline without a page reload.
-- [ ] In the chat panel, "make shot 3 two seconds" resizes the correct clip live (verified on a crossfaded session).
-- [ ] `get_frame` from chat returns a composited frame of the current timeline.
-- [ ] Editing `plan.json` from the terminal while the planner is open: with no local edits it reloads silently; with local edits the Keep mine / Take theirs banner appears.
-- [ ] An exported video's source references are originals, not proxies (checked via ffprobe resolution against the originals).
+- [x] After the final render pass, the editor shows the native OpenCut project with no `/esta-seed` step. Clip count, track mapping and media match `from_openreel.py`'s mapping for the same session.
+- [x] Re-running render updates the open timeline without a page reload.
+- [x] In the chat panel, "make shot 3 two seconds" resizes the correct clip live (verified on a crossfaded session).
+- [x] `get_frame` from chat returns a composited frame of the current timeline.
+- [x] Editing `plan.json` from the terminal while the planner is open: with no local edits it reloads silently; with local edits the Keep mine / Take theirs banner appears.
+- [x] An exported video's source references are originals, not proxies (checked via ffprobe resolution against the originals).
 
 M4
 - [ ] `PARITY.md` lists every v2 `apps/studio` feature with a status, and every "dropped" entry is approved by the user.
 - [ ] Every "port" entry is usable in the editor (a manual check per row, ticked in `PARITY.md`).
 
 Global
-- [ ] Typecheck passes for `apps/editor` and `server/`, and lint passes for the code ESTA owns (`apps/editor/src/esta/`, ESTA routes, `server/`, `scripts/`); vendored OpenCut code keeps its upstream lint baseline (see `PORTING.md`). Commands recorded in CLAUDE.md.
+- [x] Typecheck passes for `apps/editor` and `server/`, and lint passes for the code ESTA owns (`apps/editor/src/esta/`, ESTA routes, `server/`, `scripts/`); vendored OpenCut code keeps its upstream lint baseline (see `PORTING.md`). Commands recorded in CLAUDE.md.
 - [ ] An end-to-end run of `standard-vo` on a short test topic reaches an exported video entirely from the UI, without touching the terminal.
 - [ ] The same end-to-end run using the `found-audio-collage` template reaches the Edit stage.
