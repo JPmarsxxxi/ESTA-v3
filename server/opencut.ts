@@ -5,8 +5,8 @@ import { resolve } from "node:path";
 import { PY_ENV, REPO_ROOT, ROOT, STATE_DIR, estaPython, fileToUrl, json, sessionDir, type Json } from "./lib.ts";
 
 type Media = Json & { url: string };
-type Clip = { id: string; mediaId: string; startTime: number; duration: number };
-type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; url?: string; mediaType?: string; inPoint?: number; size?: number; mtimeMs?: number };
+type Clip = { id: string; mediaId: string; startTime: number; duration: number; transform?: Json };
+type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; transform?: Json; url?: string; mediaType?: string; inPoint?: number; size?: number; mtimeMs?: number };
 
 const fileStat = (url: string) => {
 	try {
@@ -56,7 +56,7 @@ function pendingShots(dir: string, session: string, originals: boolean): Pending
 			const media = items.get(clip.mediaId);
 			const shot = /^media-shot-(\d+)$/.exec(clip.mediaId);
 			if (!media || media.originalUrl || !shot) continue;
-			const p: Pending = { clipId: clip.id, shot: Number(shot[1]), track: track.name, name: String(media.name ?? ""), startTime: clip.startTime, duration: clip.duration };
+			const p: Pending = { clipId: clip.id, shot: Number(shot[1]), track: track.name, name: String(media.name ?? ""), startTime: clip.startTime, duration: clip.duration, transform: clip.transform };
 			const asset = feed[shot[1]];
 			if (asset?.ok && asset.file) {
 				let url = fileToUrl(asset.file, session);

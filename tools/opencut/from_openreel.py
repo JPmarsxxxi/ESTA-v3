@@ -85,7 +85,8 @@ def _video_element(clip: dict, media: dict) -> dict:
     return {
         "clipId": clip.get("id"),
         "mediaId": clip["mediaId"],
-        "kind": kind,  # "video" | "image"
+        "kind": kind,
+        "transform": clip.get("transform"),  # "video" | "image"
         "name": media.get("name", "")[:80],
         "startTime": round(float(clip.get("startTime", 0)), 3),
         "duration": round(float(clip.get("duration", 0)), 3),

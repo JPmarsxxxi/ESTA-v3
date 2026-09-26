@@ -1,6 +1,7 @@
 import { upsertPathKeyframe } from "@/animation";
 import { DEFAULT_BACKGROUND_COLOR } from "@/background/color";
 import { processMediaAssets } from "@/media/processing";
+import type { ParamValues } from "@/params";
 import type { MediaType } from "@/media/types";
 import type { TProject } from "@/project/types";
 import { CURRENT_PROJECT_VERSION } from "@/services/storage/migrations";
@@ -34,6 +35,9 @@ type ImportMedia = {
 	missing?: boolean;
 };
 type ImportKeyframe = { time: number; property: string; value: number };
+// OpenReel's clip transform: position in fractions of the frame from centre,
+// scale relative to the fitted size, fitted by "cover" (fill) or "contain".
+type ImportTransform = { position?: { x: number; y: number }; scale?: { x: number; y: number }; rotation?: number; opacity?: number; fitMode?: string };
 type ImportVideo = {
 	clipId?: string | null;
 	mediaId: string;
@@ -46,13 +50,15 @@ type ImportVideo = {
 	sourceDuration: number;
 	speed?: number | null;
 	keyframes: ImportKeyframe[];
+	transform?: ImportTransform | null;
 };
 type ImportAudio = Omit<ImportVideo, "kind" | "speed" | "keyframes"> & { volume: number };
 type ImportText = { startTime: number; duration: number; content: string; params: Record<string, string | number | boolean>; keyframes: ImportKeyframe[] };
 type Lane<T> = { name: string; elements: T[]; muted: boolean };
 // A stream-pending shot of render's early pass; url is set once its asset landed.
-type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; url?: string; mediaType?: "video" | "image"; inPoint?: number; size?: number; mtimeMs?: number };
-type MediaInfo = { duration: number };
+type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; transform?: ImportTransform | null; url?: string; mediaType?: "video" | "image"; inPoint?: number; size?: number; mtimeMs?: number };
+type MediaInfo = { duration: number; width: number; height: number };
+type Canvas = { width: number; height: number };
 
 export type EstaImport = {
 	project: { id: string; name: string; width: number; height: number; fps: number };
@@ -108,16 +114,52 @@ function withKeyframes<T extends TimelineElement>({ element, keyframes }: { elem
 const clampKeyframes = ({ keyframes, duration }: { keyframes: ImportKeyframe[]; duration: number }) =>
 	keyframes.map((k) => ({ ...k, time: Math.min(Math.max(k.time, 0), duration) }));
 
-function visualElement({ clip, muted }: { clip: ImportVideo; muted: boolean }): VideoElement | ImageElement {
+// OpenCut draws a clip at scale 1 fitted inside the canvas ("contain") and
+// positions it in pixels from centre. Render fills the frame ("cover") unless a
+// composite panel asks for contain, so cover becomes a scale factor from the
+// clip's real aspect, applied to render's scale keyframes (Ken Burns, zoom) too.
+function placement({ clip, canvas, media }: { clip: ImportVideo; canvas: Canvas; media?: MediaInfo }): { fit: number; params: ParamValues } {
+	const tr = clip.transform;
+	if (!tr) return { fit: 1, params: {} };
+	const fx = media?.width ? canvas.width / media.width : 0;
+	const fy = media?.height ? canvas.height / media.height : 0;
+	const fit = tr.fitMode === "contain" || !fx || !fy ? 1 : Math.max(fx, fy) / Math.min(fx, fy);
+	return {
+		fit,
+		params: {
+			"transform.positionX": Math.round((tr.position?.x ?? 0) * canvas.width),
+			"transform.positionY": Math.round((tr.position?.y ?? 0) * canvas.height),
+			"transform.scaleX": (tr.scale?.x ?? 1) * fit,
+			"transform.scaleY": (tr.scale?.y ?? 1) * fit,
+			"transform.rotate": tr.rotation ?? 0,
+			opacity: tr.opacity ?? 1,
+		},
+	};
+}
+
+function visualElement({ clip, muted, canvas, media }: { clip: ImportVideo; muted: boolean; canvas: Canvas; media?: MediaInfo }): VideoElement | ImageElement {
 	const base = buildElementFromMedia({ mediaId: clip.mediaId, mediaType: clip.kind, name: clip.name, duration: t(clip.duration), startTime: t(clip.startTime) });
+	const { fit, params } = placement({ clip, canvas, media });
 	const id = clip.clipId || generateUUID();
-	const keyframes = clampKeyframes({ keyframes: clip.keyframes, duration: clip.duration });
-	if (base.type === "image") return withKeyframes({ element: { ...base, id }, keyframes });
+	const keyframes = clampKeyframes({ keyframes: clip.keyframes, duration: clip.duration }).map((k) =>
+		k.property.startsWith("scale.")
+			? { ...k, value: k.value * fit }
+			: k.property === "position.x"
+				? { ...k, value: k.value * canvas.width }
+				: k.property === "position.y"
+					? { ...k, value: k.value * canvas.height }
+					: k,
+	);
+	if (base.type === "image") {
+		const image: ImageElement = { ...base, id, params: { ...base.params, ...params } };
+		return withKeyframes({ element: image, keyframes });
+	}
 	if (base.type !== "video") throw new Error(`unexpected element type ${base.type}`);
 	const rate = clip.speed && clip.speed > 0 ? clip.speed : 1;
 	const element: VideoElement = {
 		...base,
 		id,
+		params: { ...base.params, ...params },
 		trimStart: t(clip.inPoint),
 		// OpenCut's trim is what is cut off each end of the source; OpenReel's is the kept window.
 		trimEnd: clip.sourceDuration > 0 ? t(clip.sourceDuration - clip.outPoint) : ZERO_MEDIA_TIME,
@@ -191,7 +233,7 @@ function pendingMedia(doc: EstaImport): ImportMedia[] {
 }
 
 function pendingClip({ p, info }: { p: Pending; info: Map<string, MediaInfo> }): ImportVideo {
-	const base = { clipId: p.clipId, startTime: p.startTime, duration: p.duration, keyframes: [] };
+	const base = { clipId: p.clipId, startTime: p.startTime, duration: p.duration, keyframes: [], transform: p.transform };
 	if (!p.url) return { ...base, mediaId: placeholderId(p.shot), kind: "image", name: `Shot ${p.shot}: fetching`, inPoint: 0, outPoint: p.duration, sourceDuration: 0 };
 	const mediaId = `media-shot-${p.shot}`;
 	const src = info.get(mediaId)?.duration ?? 0;
@@ -212,7 +254,7 @@ export function buildScene({ doc, info }: { doc: EstaImport; info: Map<string, M
 		id: generateUUID(),
 		name,
 		type: "video",
-		elements: clips.map((clip) => visualElement({ clip, muted })),
+		elements: clips.map((clip) => visualElement({ clip, muted, canvas: doc.project, media: info.get(clip.mediaId) })),
 		muted,
 		hidden: false,
 	});
@@ -275,7 +317,7 @@ async function syncMedia({ projectId, media, onProgress }: { projectId: string; 
 		const have = stored.get(m.id);
 		const fresh = m.url ? have && have.size === m.size && have.lastModified === m.mtimeMs : have;
 		if (have && fresh) {
-			info.set(m.id, { duration: m.sourceDuration || have.duration || 0 });
+			info.set(m.id, { duration: m.sourceDuration || have.duration || 0, width: m.width || have.width || 0, height: m.height || have.height || 0 });
 		} else {
 			let file: File;
 			if (m.url) {
@@ -304,7 +346,7 @@ async function syncMedia({ projectId, media, onProgress }: { projectId: string; 
 					thumbnailUrl: probe?.thumbnailUrl,
 				},
 			});
-			info.set(m.id, { duration });
+			info.set(m.id, { duration, width: m.width || probe?.width || 0, height: m.height || probe?.height || 0 });
 		}
 		done++;
 	}

@@ -36,7 +36,7 @@ A port row is ticked when a manual check in the editor passes.
 | Crop (`CropSection`, `CropModeView`) | [ ] port P2 | Crop edges per clip (OpenCut only has masks) |
 | Blend modes and opacity (`BlendingSection`) | native | OpenCut Blending section |
 | Masks (`MaskSection`) | native | OpenCut masks: 9 shapes plus freeform |
-| Composite shot layouts: render's per-clip `transform` for multi-panel shots | [ ] port P1 | `from_openreel.py` drops clip `transform`, so composite panels land full-frame on top of each other. Carry it into OpenCut position/scale |
+| Composite shot layouts: render's per-clip `transform` for multi-panel shots | [x] port P1 | Done: `from_openreel.py` dropped clip `transform`, so composite panels land full-frame on top of each other. Carry it into OpenCut position/scale |
 | Motion presets: Ken Burns, zoom, pan, shake (`MotionPresetsPanel`, `motion-presets`) | [ ] port P2 | One-click keyframe presets. Render's own Ken Burns and zoom already arrive as keyframes |
 | Emphasis animations: pulse, shake, pop (`EmphasisAnimationSection`) | [ ] port P2 | Keyframe presets on a clip |
 | Motion path editing on the canvas (`MotionPathSection`, `MotionPathHandles`, `MotionPathOverlay`) | [ ] port P3 | Position keyframes work today; this adds dragging the path in the preview |

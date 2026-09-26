@@ -18,7 +18,7 @@ Every deviation from a verbatim copy of ESTA-v2, and every change to vendored Op
 
 | File | Change | Why |
 |---|---|---|
-| `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id). | The main track's `transitions` name clips by id; without it the emitter can't tell which neighbouring pair a crossfade belongs to. |
+| `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id); video elements also carry the clip's `transform`. | The main track's `transitions` name clips by id, so without it the emitter can't tell which neighbouring pair a crossfade belongs to. Without the transform, composite panels land full-frame and every clip loses render's cover fit. |
 | `tools/opencut/mcp-server.mjs` | The never-acknowledged error reads `out.delivered` (it referenced an undefined `delivered`, so it threw instead of reporting). Its hints point at the session's Edit stage instead of `/esta-seed`. | A bug in v2, and the seed page no longer exists. |
 
 ## Backend (`server/`, replaces `asset-server.mjs` + `chat-bridge.mjs`)
@@ -101,6 +101,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 
 - **Native emitter** (`src/esta/opencut/emit.ts`): the TS module SPEC allows in place of `tools/opencut/emit.py`. It takes `from_openreel.py`'s intermediate from `/_opencut/:id`, so the track mapping, proxy choice and caption chunking stay v2's code, and builds the native project with OpenCut's own builders (`buildElementFromMedia`, `buildTextElement`, `upsertPathKeyframe`, `mediaTimeFromSeconds`). It saves the project as `esta-<session>` and its media into OpenCut's per-project store. A rebuild downloads only files whose size or mtime changed and drops media the new revision no longer uses. The project's background and timeline view survive a rebuild.
   - Trim: `trimStart = inPoint`, `trimEnd = sourceDuration - outPoint`. `speed` becomes `retime.rate`.
+  - Placement: OpenCut draws a clip at scale 1 fitted inside the canvas and positions it in pixels from centre. Render's transform (position in frame fractions from centre, scale, `fitMode`) maps onto that; `cover`, render's default, becomes a scale factor from the clip's real aspect, and render's scale keyframes (Ken Burns, zoom) get the same factor. Composite panels (`contain`) keep their exact position and scale.
   - Volume: OpenReel's linear gain becomes OpenCut's dB (`20·log10`, 0 -> -60 dB).
   - Video lanes keep render's `muted` on the track and turn off `isSourceAudioEnabled`, so clip audio never competes with the voiceover.
   - Keyframes: `scale.x/y`, `position.x/y`, `rotation`, `opacity` map to OpenCut's `transform.*` and `opacity` paths, linear.
