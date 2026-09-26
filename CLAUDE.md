@@ -12,6 +12,7 @@ ESTA-v2's AI video factory (topic -> script -> voiceover -> plan -> assets -> ed
 - Backend only: `bun run server`
 - Typecheck: `bun run typecheck` (editor + server)
 - Lint: `bun run lint` (ESTA frontend code + server). `bun run lint:all` also lints the vendored OpenCut code, which carries upstream's own baseline errors.
+- OpenCut's wasm (compositor, effects, masks): Rust source in `rust/`, built into the committed `packages/opencut-wasm/` by `bun run build:wasm` (needs `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`). Only needed after changing `rust/`. Rust tests: `cargo test -p effects`.
 - Test: `bun test` in `apps/editor` runs OpenCut's unit tests (its timeline tests fail upstream too: wasm doesn't initialise under bun). Pipeline state is checked against `python tools/pipeline/conductor.py next --session sessions/<id>`.
 
 ## Code style

@@ -59,7 +59,7 @@ A port row is ticked when a manual check in the editor passes.
 | v2 feature (source) | Status | v3 / plan |
 |---|---|---|
 | Blur | native | OpenCut effects (its only effect) |
-| Basic colour: brightness, contrast, saturation, hue (`VideoEffectsSection`) | [ ] port P1 | Stock clips from different sources need matching |
+| Basic colour: brightness, contrast, saturation, hue (`VideoEffectsSection`) | [ ] port P1 | Built: a Color effect in the Effects tab, on a new `color-adjust` shader in the rebuilt wasm. Shader verified on known pixels; the in-editor check waits for a browser with a real GPU (this sandbox can't upload frames to WebGPU) |
 | Other video effects: vignette, film grain, glow, shadow, chromatic aberration, motion/radial blur (`VideoEffectsSection`) | [ ] port P2 | As OpenCut effect definitions |
 | Colour grading: wheels, curves, HSL (`ColorGradingSection`, `ColorWheelsControl`, `CurvesEditor`, `HSLControls`) | [ ] port P2 | |
 | LUTs (`LUTLoader`) | [ ] port P2 | Load a .cube LUT as an effect |

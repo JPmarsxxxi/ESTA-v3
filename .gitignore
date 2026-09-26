@@ -29,3 +29,6 @@ node_modules/
 .esta/
 
 .claude/settings.local.json
+
+# Rust build output (rust/, built into packages/opencut-wasm)
+/target/

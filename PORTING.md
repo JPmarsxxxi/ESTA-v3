@@ -54,7 +54,9 @@ Every v2 route is kept with its v2 behaviour, on one port (8787). Differences:
 
 ## Vendored OpenCut (`apps/editor/`)
 
-Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/opencut-app/opencut-classic`), `apps/web` only. `rust/` and `apps/desktop` are not vendored: the web app uses the published `opencut-wasm` npm package. Root `eslint.config.mjs`, `eslint/`, `biome.json`, `tsconfig.json` and `bun.lock` were copied alongside it.
+Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/opencut-app/opencut-classic`), `apps/web`. `apps/desktop` is not vendored.
+
+`rust/` (the compositor, effects and masks behind the `opencut-wasm` package) is vendored from the same commit since M4, because new effects need new shaders compiled into it. The root `Cargo.toml` is a trimmed copy of upstream's workspace without `apps/desktop`; `Cargo.lock` is upstream's. `bun run build:wasm` (`scripts/build-wasm.ts`, needs `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`) builds it into `packages/opencut-wasm/`, which is committed and linked as a bun workspace package (`"opencut-wasm": "workspace:*"` in the root and editor `package.json`), so running ESTA needs no Rust toolchain. An unmodified build reproduces the published 0.2.10 package (3,035,379 vs 3,037,899 bytes after `wasm-opt -O`, a different binaryen build). Root `eslint.config.mjs`, `eslint/`, `biome.json`, `tsconfig.json` and `bun.lock` were copied alongside it.
 
 ### Mount points (OpenCut files changed to host ESTA)
 
@@ -65,13 +67,14 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/components/providers/editor-provider.tsx` | `EditorRuntimeBindings` is exported, so the workspace's embedded editor reuses OpenCut's shortcut, ripple and unsaved-changes wiring instead of copying it. |
 | `src/timeline/components/timeline-element.tsx` | Each clip's root node carries `data-element-id`. | Selecting a shot from the planner or picker scrolls its clip into view; OpenCut only auto-scrolls during playback. |
 | `src/components/editor/export-button.tsx` | The export popover calls `exportBlock` (`src/esta/opencut/export-guard.ts`) and shows why export is blocked instead of the export controls. | Covers every export path: the full-page editor's header and the Edit stage's Editor project panel both use this popover. |
+| `src/effects/definitions/color.ts`, `src/effects/definitions/index.ts` | New Color effect (brightness, contrast, saturation, hue) registered next to Blur. | PARITY P1: matching stock clips from different sources. Renders with the `color-adjust` shader below. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
 
 | File | Change | Why |
 |---|---|---|
-| `package.json` | Renamed `@esta/editor`; added `remark-gfm` (chat markdown tables) and `bun-types` (the missing dependency of `@types/bun`). | |
+| `package.json` | Renamed `@esta/editor`; added `remark-gfm` (chat markdown tables) and `bun-types` (the missing dependency of `@types/bun`); `opencut-wasm` points at the workspace package built from `rust/`. | |
 | `tsconfig.json` | `"types": ["bun"]` | TypeScript 6 no longer loads `@types/*` automatically, so the `bun:test` imports failed to typecheck. |
 | `src/types/css.d.ts` | `declare module "*.css"` | TypeScript 6 checks side-effect imports (`import "./globals.css"`). |
 | `src/export/defaults.ts` | Export quality `very_high` | Carried over from v2's OpenCut spike, where exports are finals for a monetised channel. |
@@ -130,6 +133,13 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - Line editor: the selection toolbar sits below the lines (sticky to the panel bottom). Above them, it pushed the rows down between the two clicks of a double-click, so double-click-to-edit hit the wrong row.
 
 - **Export with originals** (`opencut/export-guard.ts`): each build records which media ids came from `assets/proxies/`. Export is blocked, with the reason and the fix, while any clip on the timeline still references one; Build for export (originals) clears the list. It reproduces v2's `from_openreel.py --originals` rule as a check instead of a step to remember. The Editor project panel carries OpenCut's own Export button, so a session exports without leaving the Edit stage.
+
+### Changes to vendored `rust/`
+
+| File | Change | Why |
+|---|---|---|
+| `crates/effects/src/pipeline.rs` | Effect shaders come from a table; each declares which uniforms fill the shared `scalars` slot and whether it takes `u_direction`. Uniform packing reads that table instead of blur's three names. Unit tests cover blur's packing (unchanged), the new shader's and the errors. | Upstream hard-coded blur's uniforms, so no second effect could pass values. |
+| `crates/effects/src/shaders/color_adjust.wgsl` | New: brightness, contrast, saturation, hue rotation on straight alpha. | The Color effect. Checked on known pixels through WebGPU (identity, luminance greys, +51 brightness, 120° hue maps red to green). |
 
 ## Known baseline issues (not introduced by v3)
 
