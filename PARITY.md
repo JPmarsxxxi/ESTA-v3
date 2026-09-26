@@ -61,8 +61,8 @@ A port row is ticked when a manual check in the editor passes.
 | Blur | native | OpenCut effects (its only effect) |
 | Basic colour: brightness, contrast, saturation, hue (`VideoEffectsSection`) | [ ] port P1 | Built: a Color effect in the Effects tab, on a new `color-adjust` shader in the rebuilt wasm. Shader verified on known pixels; the in-editor check waits for a browser with a real GPU (this sandbox can't upload frames to WebGPU) |
 | Other video effects: vignette, film grain, glow, shadow, chromatic aberration, motion/radial blur (`VideoEffectsSection`) | [ ] port P2 | As OpenCut effect definitions |
-| Colour grading: wheels, curves, HSL (`ColorGradingSection`, `ColorWheelsControl`, `CurvesEditor`, `HSLControls`) | [ ] port P2 | |
-| LUTs (`LUTLoader`) | [ ] port P2 | Load a .cube LUT as an effect |
+| Colour grading: wheels, curves, HSL (`ColorGradingSection`, `ColorWheelsControl`, `CurvesEditor`, `HSLControls`) | [ ] port P2 | Built: a Grade effect with wheels (plus lift, gamma, gain), curves and HSL, v2's maths, baked into a 3D LUT on a new `lut-3d` shader. Bake and shader verified (unit tests; known pixels through WebGPU); the in-editor look waits for a browser with WebGPU, since this sandbox's WebGL fallback samples every effect wrongly, upstream Blur included |
+| LUTs (`LUTLoader`) | [ ] port P2 | Built: the Grade effect loads a 3D `.cube` (any size, resampled to 33) with a mix slider; stored in the project. Parser tested; in the editor the LUT reaches the shader correctly. Same in-editor check as the row above |
 | Filter presets (`FilterPresetsPanel`) | [ ] port P2 | Saved combinations of the effects above |
 | Adjustment layer (`AdjustmentLayerSection`) | native | OpenCut effect tracks apply to the layers below (its Adjustment tab is a stub; effects are added from the Effects tab) |
 | Green screen / chroma key (`GreenScreenSection`) | [ ] port P3 | |

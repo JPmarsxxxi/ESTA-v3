@@ -83,6 +83,8 @@ fn map_effect_passes(effect_passes: Vec<EffectPassInput>) -> Vec<EffectPass> {
                     (uniform.name, value)
                 })
                 .collect(),
+            // Standalone passes (effect previews) have no uploaded textures to name.
+            lut: None,
         })
         .collect()
 }

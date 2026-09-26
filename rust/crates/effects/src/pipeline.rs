@@ -30,6 +30,12 @@ const SHADERS: &[ShaderSpec] = &[
         scalars: &["u_brightness", "u_contrast", "u_saturation", "u_hue"],
         direction: false,
     },
+    ShaderSpec {
+        id: "lut-3d",
+        source: include_str!("shaders/lut_3d.wgsl"),
+        scalars: &["u_size", "u_intensity"],
+        direction: false,
+    },
 ];
 
 pub struct ApplyEffectsOptions<'a> {
@@ -42,6 +48,9 @@ pub struct ApplyEffectsOptions<'a> {
 pub struct EffectPipeline {
     uniform_bind_group_layout: wgpu::BindGroupLayout,
     pipelines: HashMap<String, wgpu::RenderPipeline>,
+    // Bound at group 2 for passes without a lookup table, since every
+    // pipeline's layout has the slot.
+    empty_lut: wgpu::Texture,
 }
 
 #[derive(Debug, Error)]
@@ -107,6 +116,7 @@ impl EffectPipeline {
                     bind_group_layouts: &[
                         Some(context.texture_sampler_bind_group_layout()),
                         Some(&uniform_bind_group_layout),
+                        Some(context.texture_sampler_bind_group_layout()),
                     ],
                     immediate_size: 0,
                 });
@@ -159,9 +169,12 @@ impl EffectPipeline {
             .map(|spec| (spec.id.to_string(), build_pipeline(spec)))
             .collect::<HashMap<_, _>>();
 
+        let empty_lut = context.create_render_texture(1, 1, "effects-empty-lut");
+
         Self {
             uniform_bind_group_layout,
             pipelines,
+            empty_lut,
         }
     }
 
@@ -250,6 +263,28 @@ impl EffectPipeline {
                             resource: uniform_buffer.as_entire_binding(),
                         }],
                     });
+            let lut_view = pass
+                .lut
+                .as_ref()
+                .unwrap_or(&self.empty_lut)
+                .create_view(&wgpu::TextureViewDescriptor::default());
+            let lut_bind_group =
+                context
+                    .device()
+                    .create_bind_group(&wgpu::BindGroupDescriptor {
+                        label: Some("effects-lut-bind-group"),
+                        layout: context.texture_sampler_bind_group_layout(),
+                        entries: &[
+                            wgpu::BindGroupEntry {
+                                binding: 0,
+                                resource: wgpu::BindingResource::TextureView(&lut_view),
+                            },
+                            wgpu::BindGroupEntry {
+                                binding: 1,
+                                resource: wgpu::BindingResource::Sampler(context.linear_sampler()),
+                            },
+                        ],
+                    });
             let pipeline = self.pipelines.get(&pass.shader).ok_or_else(|| {
                 EffectsError::UnknownEffectShader {
                     shader: pass.shader.clone(),
@@ -277,6 +312,7 @@ impl EffectPipeline {
                 render_pass.set_vertex_buffer(0, context.fullscreen_quad().slice(..));
                 render_pass.set_bind_group(0, &texture_bind_group, &[]);
                 render_pass.set_bind_group(1, &uniform_bind_group, &[]);
+                render_pass.set_bind_group(2, &lut_bind_group, &[]);
                 render_pass.draw(0..6, 0..1);
             }
 
@@ -379,6 +415,7 @@ mod tests {
                 .iter()
                 .map(|(k, v)| (k.to_string(), v.clone()))
                 .collect::<HashMap<_, _>>(),
+            lut: None,
         }
     }
 
@@ -420,6 +457,37 @@ mod tests {
         .unwrap();
         assert_eq!(packed.direction, [0.0, 0.0]);
         assert_eq!(packed.scalars, [0.1, 0.2, -0.5, 30.0]);
+    }
+
+    #[test]
+    fn every_shader_parses_and_validates() {
+        for spec in SHADERS {
+            let module = wgpu::naga::front::wgsl::parse_str(spec.source)
+                .unwrap_or_else(|e| panic!("{}: {}", spec.id, e.emit_to_string(spec.source)));
+            wgpu::naga::valid::Validator::new(
+                wgpu::naga::valid::ValidationFlags::all(),
+                wgpu::naga::valid::Capabilities::empty(),
+            )
+            .validate(&module)
+            .unwrap_or_else(|e| panic!("{}: {e:?}", spec.id));
+        }
+    }
+
+    #[test]
+    fn packs_lut_size_and_intensity() {
+        let packed = pack_effect_uniforms(
+            &pass(
+                "lut-3d",
+                &[
+                    ("u_intensity", UniformValue::Number(0.75)),
+                    ("u_size", UniformValue::Number(33.0)),
+                ],
+            ),
+            10,
+            10,
+        )
+        .unwrap();
+        assert_eq!(packed.scalars, [33.0, 0.75, 0.0, 0.0]);
     }
 
     #[test]

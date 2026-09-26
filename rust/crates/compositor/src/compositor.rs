@@ -493,7 +493,7 @@ impl Compositor {
     ) -> Result<wgpu::Texture, CompositorError> {
         let mut current = self.copy_texture(context, encoder, source, width, height);
         for group in effect_pass_groups {
-            let passes = map_effect_passes(group);
+            let passes = map_effect_passes(group, &self.textures)?;
             current = self.effects.apply_with_encoder(
                 context,
                 encoder,
@@ -849,10 +849,26 @@ impl Compositor {
     }
 }
 
-fn map_effect_passes(passes: &[EffectPassDescriptor]) -> Vec<EffectPass> {
+fn map_effect_passes(
+    passes: &[EffectPassDescriptor],
+    textures: &TextureStore,
+) -> Result<Vec<EffectPass>, CompositorError> {
     passes
         .iter()
-        .map(|pass| EffectPass {
+        .map(|pass| {
+            let lut = match &pass.lut {
+                Some(id) => Some(
+                    textures
+                        .get(id)
+                        .ok_or_else(|| CompositorError::MissingTexture {
+                            texture_id: id.clone(),
+                        })?
+                        .texture()
+                        .clone(),
+                ),
+                None => None,
+            };
+            Ok(EffectPass {
             shader: pass.shader.clone(),
             uniforms: pass
                 .uniforms
@@ -865,6 +881,8 @@ fn map_effect_passes(passes: &[EffectPassDescriptor]) -> Vec<EffectPass> {
                     (name.clone(), uniform_value)
                 })
                 .collect(),
+                lut,
+            })
         })
         .collect()
 }

@@ -23,7 +23,10 @@ pub struct CanvasClearDescriptor {
 #[serde(tag = "type", rename_all = "camelCase")]
 pub enum FrameItemDescriptor {
     Layer(LayerDescriptor),
+    // rename_all on the enum renames variants, not their fields; the
+    // renderer sends this one camelCased like every other field.
     SceneEffect {
+        #[serde(rename = "effectPassGroups")]
         effect_pass_groups: Vec<Vec<EffectPassDescriptor>>,
     },
 }
@@ -65,6 +68,9 @@ pub struct LayerMaskDescriptor {
 pub struct EffectPassDescriptor {
     pub shader: String,
     pub uniforms: HashMap<String, EffectUniformValueDescriptor>,
+    /// Id of an uploaded texture holding the pass's lookup table.
+    #[serde(default)]
+    pub lut: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -80,4 +86,26 @@ pub struct CanvasTextureDescriptor {
     pub id: String,
     pub width: u32,
     pub height: u32,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // The shape the editor's frame-descriptor.ts sends.
+    #[test]
+    fn reads_scene_effects_and_lut_passes_as_the_renderer_sends_them() {
+        let items: Vec<FrameItemDescriptor> = serde_json::from_str(
+            r#"[{"type": "sceneEffect", "effectPassGroups": [[
+                {"shader": "lut-3d", "uniforms": {"u_size": 33, "u_intensity": 1}, "lut": "esta-grade-0"},
+                {"shader": "gaussian-blur", "uniforms": {"u_sigma": 2, "u_step": 1, "u_direction": [1, 0]}}
+            ]]}]"#,
+        )
+        .unwrap();
+        let FrameItemDescriptor::SceneEffect { effect_pass_groups } = &items[0] else {
+            panic!("not a scene effect");
+        };
+        assert_eq!(effect_pass_groups[0][0].lut.as_deref(), Some("esta-grade-0"));
+        assert_eq!(effect_pass_groups[0][1].lut, None);
+    }
 }
