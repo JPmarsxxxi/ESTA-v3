@@ -51,8 +51,8 @@ A port row is ticked when a manual check in the editor passes.
 
 | v2 feature (source) | Status | v3 / plan |
 |---|---|---|
-| Crossfade between clips (render's `transitions`) | native (emulated) | M3 emitter: Main/Main B lanes with an opacity fade. Works, but isn't editable as a transition |
-| Clip transitions: crossfade, dip to black/white, wipe, slide, zoom, push (`ClipTransitionSection`, `TransitionInspector`, `transition-bridge`) | [ ] port P1 | A real transition between two clips (OpenCut's Transitions tab is an empty stub). The emitter then maps render's crossfades onto it instead of the A/B split |
+| Crossfade between clips (render's `transitions`) | native | Render's crossfades arrive as editable crossfades in the Transitions tab (see below) |
+| Clip transitions: crossfade, dip to black/white, wipe, slide, zoom, push (`ClipTransitionSection`, `TransitionInspector`, `transition-bridge`) | [x] port P1 | Done: OpenCut's Transitions tab lists every cut; crossfade, dip to black, slide and push, with a length, undoable. Built from overlapping lanes plus tagged keyframes. Checked on rendered frames (dip reaches black at the cut, push is half and half at its midpoint). Dip to white, wipe and zoom remain (P2) |
 
 ## Colour and effects
 

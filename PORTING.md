@@ -68,6 +68,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/timeline/components/timeline-element.tsx` | Each clip's root node carries `data-element-id`. | Selecting a shot from the planner or picker scrolls its clip into view; OpenCut only auto-scrolls during playback. |
 | `src/components/editor/export-button.tsx` | The export popover calls `exportBlock` (`src/esta/opencut/export-guard.ts`) and shows why export is blocked instead of the export controls. | Covers every export path: the full-page editor's header and the Edit stage's Editor project panel both use this popover. |
 | `src/effects/definitions/color.ts`, `src/effects/definitions/index.ts` | New Color effect (brightness, contrast, saturation, hue) registered next to Blur. | PARITY P1: matching stock clips from different sources. Renders with the `color-adjust` shader below. |
+| `src/components/editor/panels/assets/index.tsx` | The Transitions tab (an upstream "coming soon" stub) renders ESTA's `TransitionsView`. | OpenCut has no transitions; see M4 below. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
@@ -133,6 +134,10 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
   - Line editor: the selection toolbar sits below the lines (sticky to the panel bottom). Above them, it pushed the rows down between the two clicks of a double-click, so double-click-to-edit hit the wrong row.
 
 - **Export with originals** (`opencut/export-guard.ts`): each build records which media ids came from `assets/proxies/`. Export is blocked, with the reason and the fix, while any clip on the timeline still references one; Build for export (originals) clears the list. It reproduces v2's `from_openreel.py --originals` rule as a check instead of a step to remember. The Editor project panel carries OpenCut's own Export button, so a session exports without leaving the Edit stage.
+
+## M4 editor parity
+
+- **Transitions** (`opencut/transitions.ts`, `opencut/transitions-view.tsx`): OpenCut has no transition object, so a transition is the two clips of a cut overlapping on different lanes plus keyframes on them (opacity, `transform.positionX`). The keyframes carry a tagged id (`esta-tx|side|type|duration|run|n`), which is how a transition is read back, changed and removed; `run` is how far the outgoing clip was extended to overlap, and removing the transition gives it back. Types: crossfade, dip to black, slide, push. One planner serves the emitter (render's crossfades arrive as editable crossfades) and the Transitions tab, which lists every cut between consecutive shots with a type and a length. A change is one undoable command; an overlapping type moves the incoming clip to the `Main B` lane when both sit on one lane, and the overlap is capped by the outgoing clip's remaining source and the next clip on its lane.
 
 ### Changes to vendored `rust/`
 

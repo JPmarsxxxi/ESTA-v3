@@ -5,12 +5,13 @@ import { upsertPathKeyframe } from "@/animation";
 import { EditorCore } from "@/core";
 import { CanvasRenderer } from "@/services/renderer/canvas-renderer";
 import { buildScene } from "@/services/renderer/scene-builder";
-import type { SceneTracks, TimelineElement, TimelineTrack } from "@/timeline";
+import type { TimelineElement } from "@/timeline";
 import { resolveAnimationTarget } from "@/timeline/animation-targets";
 import { VOLUME_DB_MAX, VOLUME_DB_MIN } from "@/timeline/audio-constants";
 import { mediaTimeFromSeconds, mediaTimeToSeconds, type MediaTime } from "@/wasm";
 import { BACKEND } from "../api";
 import { useChannel } from "../events";
+import { allTracks, find, shots } from "./tracks";
 
 // The live-edit channel of tools/opencut/mcp-server.mjs: commands arrive on the
 // "cmd" event channel, results go back through /_ack and /_frame, and the
@@ -33,25 +34,6 @@ const sec = (t: MediaTime | undefined) => (t === undefined ? 0 : Math.round(medi
 const ticks = (s: number) => mediaTimeFromSeconds({ seconds: Math.max(0, s) });
 const toDb = (v: number) => (v > 0 ? Math.min(VOLUME_DB_MAX, Math.max(VOLUME_DB_MIN, 20 * Math.log10(v))) : VOLUME_DB_MIN);
 const fromDb = (db: number) => (db <= VOLUME_DB_MIN ? 0 : Math.round(10 ** (db / 20) * 1000) / 1000);
-
-const allTracks = (t: SceneTracks): TimelineTrack[] => [...t.overlay, t.main, ...t.audio];
-
-// "Shot N" is the Nth clip by start time across the main track and the
-// crossfade lanes (named "Main*"): the A/B split is a render device, not an
-// order change.
-function shots(t: SceneTracks) {
-	return [t.main, ...t.overlay.filter((tr) => tr.type === "video" && tr.name.startsWith("Main"))]
-		.flatMap((track) => track.elements.map((element) => ({ trackId: track.id, element })))
-		.sort((a, b) => a.element.startTime - b.element.startTime);
-}
-
-function find({ t, id }: { t: SceneTracks; id: string }) {
-	for (const track of allTracks(t)) {
-		const element = track.elements.find((e) => e.id === id);
-		if (element) return { trackId: track.id, element };
-	}
-	return null;
-}
 
 function snapshot(session: string) {
 	const editor = EditorCore.getInstance();

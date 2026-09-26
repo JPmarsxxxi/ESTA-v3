@@ -18,6 +18,7 @@ import { getProjectDurationFromScenes } from "@/timeline/scenes";
 import { generateUUID } from "@/utils/id";
 import { ZERO_MEDIA_TIME, mediaTimeFromSeconds } from "@/wasm";
 import { api } from "../api";
+import { planTransition } from "./transitions";
 
 // The intermediate tools/opencut/from_openreel.py writes (served by /_opencut/:id).
 type ImportMedia = {
@@ -34,7 +35,7 @@ type ImportMedia = {
 	mtimeMs?: number;
 	missing?: boolean;
 };
-type ImportKeyframe = { time: number; property: string; value: number };
+type ImportKeyframe = { time: number; property: string; value: number; id?: string };
 // OpenReel's clip transform: position in fractions of the frame from centre,
 // scale relative to the fitted size, fitted by "cover" (fill) or "contain".
 type ImportTransform = { position?: { x: number; y: number }; scale?: { x: number; y: number }; rotation?: number; opacity?: number; fitMode?: string };
@@ -87,6 +88,7 @@ const KEYFRAME_PATHS: Record<string, string> = {
 	"position.y": "transform.positionY",
 	rotation: "transform.rotate",
 	opacity: "opacity",
+	"transform.positionX": "transform.positionX",
 };
 
 const t = (seconds: number) => mediaTimeFromSeconds({ seconds: Math.max(0, seconds) });
@@ -104,6 +106,7 @@ function withKeyframes<T extends TimelineElement>({ element, keyframes }: { elem
 			time: t(k.time),
 			value: k.value,
 			interpolation: "linear",
+			keyframeId: k.id,
 			channelLayout: target.channelLayout,
 			coerceValue: target.coerceValue,
 		});
@@ -209,13 +212,18 @@ function splitCrossfades(main: Lane<ImportVideo> & { transitions: EstaImport["tr
 		if (!d || !next) return;
 		const rate = clip.speed && clip.speed > 0 ? clip.speed : 1;
 		const spare = clip.kind === "image" || clip.sourceDuration <= 0 ? d : (clip.sourceDuration - clip.outPoint) / rate;
-		const run = Math.min(d, spare);
-		if (run < 0.02) return;
-		const end = clip.duration;
-		clip.duration += run;
-		clip.outPoint += run * rate;
-		if (i % 2 === 1) clip.keyframes.push({ time: end, property: "opacity", value: 1 }, { time: end + run, property: "opacity", value: 0 });
-		else next.keyframes.push({ time: 0, property: "opacity", value: 0 }, { time: run, property: "opacity", value: 1 });
+		const plan = planTransition({
+			type: "crossfade",
+			duration: d,
+			a: { duration: clip.duration, spare, top: i % 2 === 1, baseX: 0 },
+			b: { duration: next.duration, spare: 0, top: (i + 1) % 2 === 1, baseX: 0 },
+			width: 0,
+		});
+		if (!plan) return;
+		clip.duration += plan.run;
+		clip.outPoint += plan.run * rate;
+		clip.keyframes.push(...plan.out);
+		next.keyframes.push(...plan.in);
 	});
 	return lanes;
 }
