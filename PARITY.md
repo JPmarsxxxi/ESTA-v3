@@ -102,7 +102,7 @@ A port row is ticked when a manual check in the editor passes.
 | v2 feature (source) | Status | v3 / plan |
 |---|---|---|
 | Export: format, quality, with/without audio (`ExportDialog`) | native | OpenCut export, with v3's originals-only guard (M3) |
-| Export presets: YouTube, Shorts, TikTok, Reels, Instagram, X, LinkedIn, 4K, ProRes (`export-presets`) | [ ] port P2 | Platform presets for resolution, fps and bitrate. ProRes isn't encodable in the browser, so those presets are dropped with it |
+| Export presets: YouTube, Shorts, TikTok, Reels, Instagram, X, LinkedIn, 4K, ProRes (`export-presets`) | [x] port P2 | Done: a Preset picker in the export popover with v2's MP4 and WebM presets (size, fps, video and audio bitrate), filtered to the project's shape. ProRes, H.265 and MOV presets are left out (not encodable in the browser). Checked with a WebM export scaled 1920x1080 to 1280x720; MP4 presets need Chrome's H.264 encoder, which this sandbox lacks |
 | Auto-save and crash recovery (`auto-save`, `RecoveryDialog`, `useProjectRecovery`, `media-recovery`) | native | OpenCut autosave to IndexedDB/OPFS; the project is rebuilt from render at any time |
 | Session file sync and write-back to `<id>.openreel.json` (`session-file-sync`, `disk-sync`) | native | M3: the project follows render and conflicts ask. Edits live in the OpenCut project instead of being written back to the render file |
 | Placeholder hydration and asset streaming (`hydrate-placeholders`, `stream-assets`) | native | M3 pending shots |
