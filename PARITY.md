@@ -78,7 +78,7 @@ A port row is ticked when a manual check in the editor passes.
 | Text: font, size, colour, alignment, background box (`TextSection`, `EnhancedTextPreview`) | native | OpenCut Text section |
 | Text stroke and shadow (`TextSection`) | [ ] port P2 | OpenCut text has no stroke or shadow; high-contrast captions over busy footage need them |
 | Text in/out animations: fade, slide, typewriter, bounce, pop (`TextAnimationSection`) | [ ] port P2 | Fade/slide/pop as keyframe presets; typewriter needs per-character reveal |
-| Karaoke / word-highlight captions: render's `animationStyle: "karaoke"` with word timings (`caption-animation-renderer`) | [ ] port P1 | Today captions are 3-word phrases with a pop-in (v2's own OpenCut path did the same). Word highlight is the caption look render asks for |
+| Karaoke / word-highlight captions: render's `animationStyle: "karaoke"` with word timings (`caption-animation-renderer`) | [x] port P1 | Done: each phrase highlights word by word from render's timings (spoken words yellow, the current word filling left to right, upcoming white). Checked on rendered frames mid-word and between words |
 | Auto captions from audio (`AutoCaptionPanel`) | native | OpenCut Captions tab (in-browser Whisper) plus SRT/ASS import. ESTA's own captions come from timestamps via render |
 | Audio-text sync: offset captions against audio (`AudioTextSyncPanel`, `audio-text-sync-bridge`) | [ ] port P3 | Kept at the user's request (2026-09-26) rather than dropped. Not used by the pipeline today: Captions come from faster-whisper word timings on the final audio, so they're already in sync. |
 | Script view (`ScriptViewDialog`) | native | v3 Script panel |

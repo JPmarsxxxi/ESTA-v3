@@ -18,7 +18,7 @@ Every deviation from a verbatim copy of ESTA-v2, and every change to vendored Op
 
 | File | Change | Why |
 |---|---|---|
-| `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id); video elements also carry the clip's `transform`. | The main track's `transitions` name clips by id, so without it the emitter can't tell which neighbouring pair a crossfade belongs to. Without the transform, composite panels land full-frame and every clip loses render's cover fit. |
+| `tools/opencut/from_openreel.py` | Video and audio elements carry `clipId` (the OpenReel clip id); video elements also carry the clip's `transform`; each caption phrase carries its `words` ([start, end] from the phrase start) and render's `highlight` colour. | The main track's `transitions` name clips by id, so without it the emitter can't tell which neighbouring pair a crossfade belongs to. Without the transform, composite panels land full-frame and every clip loses render's cover fit. Without the word timings, render's karaoke captions can only be flat phrases. |
 | `tools/opencut/mcp-server.mjs` | The never-acknowledged error reads `out.delivered` (it referenced an undefined `delivered`, so it threw instead of reporting). Its hints point at the session's Edit stage instead of `/esta-seed`. | A bug in v2, and the seed page no longer exists. |
 
 ## Backend (`server/`, replaces `asset-server.mjs` + `chat-bridge.mjs`)
@@ -69,6 +69,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 | `src/components/editor/export-button.tsx` | The export popover calls `exportBlock` (`src/esta/opencut/export-guard.ts`) and shows why export is blocked instead of the export controls. | Covers every export path: the full-page editor's header and the Edit stage's Editor project panel both use this popover. |
 | `src/effects/definitions/color.ts`, `src/effects/definitions/index.ts` | New Color effect (brightness, contrast, saturation, hue) registered next to Blur. | PARITY P1: matching stock clips from different sources. Renders with the `color-adjust` shader below. |
 | `src/components/editor/panels/assets/index.tsx` | The Transitions tab (an upstream "coming soon" stub) renders ESTA's `TransitionsView`. | OpenCut has no transitions; see M4 below. |
+| `src/services/renderer/resolve.ts`, `src/services/renderer/nodes/text-node.ts` | The resolved text state keeps its `localTime`; drawing a caption that carries `esta.karaoke` word timings hands the words to ESTA's karaoke drawer (the background is still OpenCut's). | Karaoke captions (M4). OpenCut draws text on a 2D canvas in TypeScript, so this needs no wasm change. |
 | `src/app/layout.tsx` | Removed the BotID client, the dev-only React Scan overlay (it covered the chat panel) and the Databuddy analytics script. The app is local-only and single-user. |
 
 ### Other changes
@@ -138,6 +139,8 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 ## M4 editor parity
 
 - **Transitions** (`opencut/transitions.ts`, `opencut/transitions-view.tsx`): OpenCut has no transition object, so a transition is the two clips of a cut overlapping on different lanes plus keyframes on them (opacity, `transform.positionX`). The keyframes carry a tagged id (`esta-tx|side|type|duration|run|n`), which is how a transition is read back, changed and removed; `run` is how far the outgoing clip was extended to overlap, and removing the transition gives it back. Types: crossfade, dip to black, slide, push. One planner serves the emitter (render's crossfades arrive as editable crossfades) and the Transitions tab, which lists every cut between consecutive shots with a type and a length. A change is one undoable command; an overlapping type moves the incoming clip to the `Main B` lane when both sit on one lane, and the overlap is capped by the outgoing clip's remaining source and the next clip on its lane.
+
+- **Karaoke captions** (`opencut/karaoke.ts`): v2's karaoke look on render's captions. Spoken words take the highlight colour (render's `#fde047`), upcoming words the text colour, and the current word fills left to right at 1.05x, as in v2's `caption-animation-renderer`. The phrases stay `from_openreel.py`'s 3-word chunks; each carries its word timings in the `esta.karaoke` param, and the drawer places words on OpenCut's own measured lines. A caption edited so its words no longer match its timings is drawn plain.
 
 ### Changes to vendored `rust/`
 

@@ -235,6 +235,10 @@ def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920)
                 "content": content,
                 "params": dict(caption_style),
                 "keyframes": keyframes,
+                # Karaoke timing per word, seconds from the caption's start.
+                "words": [[round(float(w.get("startTime", 0)) - start, 3), round(float(w.get("endTime", 0)) - start, 3)]
+                          for w in chunk if str(w.get("text", "")).strip()],
+                "highlight": (sub.get("style") or {}).get("highlightColor"),
             })
 
     # Hold each caption until the next one starts. A chunk only spans its own

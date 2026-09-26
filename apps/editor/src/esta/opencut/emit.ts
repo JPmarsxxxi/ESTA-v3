@@ -18,6 +18,7 @@ import { getProjectDurationFromScenes } from "@/timeline/scenes";
 import { generateUUID } from "@/utils/id";
 import { ZERO_MEDIA_TIME, mediaTimeFromSeconds } from "@/wasm";
 import { api } from "../api";
+import { KARAOKE_PARAM } from "./karaoke";
 import { planTransition } from "./transitions";
 
 // The intermediate tools/opencut/from_openreel.py writes (served by /_opencut/:id).
@@ -54,7 +55,7 @@ type ImportVideo = {
 	transform?: ImportTransform | null;
 };
 type ImportAudio = Omit<ImportVideo, "kind" | "speed" | "keyframes"> & { volume: number };
-type ImportText = { startTime: number; duration: number; content: string; params: Record<string, string | number | boolean>; keyframes: ImportKeyframe[] };
+type ImportText = { startTime: number; duration: number; content: string; params: Record<string, string | number | boolean>; keyframes: ImportKeyframe[]; words?: [number, number][]; highlight?: string | null };
 type Lane<T> = { name: string; elements: T[]; muted: boolean };
 // A stream-pending shot of render's early pass; url is set once its asset landed.
 type Pending = { clipId: string; shot: number; track: string; name: string; startTime: number; duration: number; transform?: ImportTransform | null; url?: string; mediaType?: "video" | "image"; inPoint?: number; size?: number; mtimeMs?: number };
@@ -190,7 +191,8 @@ function audioElement(clip: ImportAudio): AudioElement {
 }
 
 function textElement({ block, index }: { block: ImportText; index: number }): TextElement {
-	const base = buildTextElement({ raw: { name: block.content.slice(0, 40), duration: t(block.duration), params: { ...block.params, content: block.content } }, startTime: t(block.startTime) });
+	const karaoke: ParamValues = block.words?.length ? { [KARAOKE_PARAM]: JSON.stringify({ words: block.words, highlight: block.highlight || "#fde047" }) } : {};
+	const base = buildTextElement({ raw: { name: block.content.slice(0, 40), duration: t(block.duration), params: { ...block.params, content: block.content, ...karaoke } }, startTime: t(block.startTime) });
 	if (base.type !== "text") throw new Error("unexpected text element");
 	return withKeyframes({ element: { ...base, id: `esta-caption-${index}` }, keyframes: clampKeyframes({ keyframes: block.keyframes, duration: block.duration }) });
 }

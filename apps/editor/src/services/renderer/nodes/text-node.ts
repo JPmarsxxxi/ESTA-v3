@@ -4,6 +4,8 @@ import type { EffectPass } from "@/effects/types";
 import type { BlendMode, Transform } from "@/rendering";
 import { drawMeasuredTextLayout } from "@/text/primitives";
 import type { MeasuredTextElement } from "@/text/measure-element";
+import { drawKaraokeText, karaokeFits, karaokeOf } from "@/esta/opencut/karaoke";
+import { TICKS_PER_SECOND } from "@/wasm";
 
 export type TextNodeParams = TextElement & {
 	transform: Transform;
@@ -21,6 +23,7 @@ export interface ResolvedTextNodeState {
 	backgroundColor: string;
 	effectPasses: EffectPass[][];
 	measuredText: MeasuredTextElement;
+	localTime: number;
 }
 
 export class TextNode extends BaseNode<TextNodeParams, ResolvedTextNodeState> {}
@@ -48,14 +51,26 @@ export function renderTextToContext({
 		ctx.rotate((resolved.transform.rotate * Math.PI) / 180);
 	}
 
+	const karaoke = karaokeOf(node.params.params);
+	const wordByWord = karaoke !== null && karaokeFits({ layout: resolved.measuredText, karaoke });
 	drawMeasuredTextLayout({
 		ctx,
 		layout: resolved.measuredText,
-		textColor: resolved.textColor,
+		textColor: wordByWord ? "transparent" : resolved.textColor,
 		background: resolved.measuredText.resolvedBackground,
 		backgroundColor: resolved.backgroundColor,
 		textBaseline: baseline,
 	});
+	if (karaoke && wordByWord) {
+		drawKaraokeText({
+			ctx,
+			layout: resolved.measuredText,
+			karaoke,
+			time: resolved.localTime / TICKS_PER_SECOND,
+			textColor: resolved.textColor,
+			textBaseline: baseline,
+		});
+	}
 
 	ctx.restore();
 }
