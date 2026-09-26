@@ -76,7 +76,7 @@ A port row is ticked when a manual check in the editor passes.
 | v2 feature (source) | Status | v3 / plan |
 |---|---|---|
 | Text: font, size, colour, alignment, background box (`TextSection`, `EnhancedTextPreview`) | native | OpenCut Text section |
-| Text stroke and shadow (`TextSection`) | [ ] port P2 | OpenCut text has no stroke or shadow; high-contrast captions over busy footage need them |
+| Text stroke and shadow (`TextSection`) | [x] port P2 | Done: every text clip has an outline (width, colour) and a drop shadow (colour, opacity, blur, offset) in the Text tab, keyframable, karaoke captions included. Checked on rendered frames |
 | Text in/out animations: fade, slide, typewriter, bounce, pop (`TextAnimationSection`) | [ ] port P2 | Fade/slide/pop as keyframe presets; typewriter needs per-character reveal |
 | Karaoke / word-highlight captions: render's `animationStyle: "karaoke"` with word timings (`caption-animation-renderer`) | [x] port P1 | Done: each phrase highlights word by word from render's timings (spoken words yellow, the current word filling left to right, upcoming white). Checked on rendered frames mid-word and between words |
 | Auto captions from audio (`AutoCaptionPanel`) | native | OpenCut Captions tab (in-browser Whisper) plus SRT/ASS import. ESTA's own captions come from timestamps via render |

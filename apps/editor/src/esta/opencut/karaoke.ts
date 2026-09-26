@@ -39,6 +39,7 @@ export function drawKaraokeText({
 	time,
 	textColor,
 	textBaseline,
+	outline,
 }: {
 	ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D;
 	layout: MeasuredTextLayout;
@@ -46,11 +47,13 @@ export function drawKaraokeText({
 	time: number;
 	textColor: string;
 	textBaseline: CanvasTextBaseline;
+	outline: { color: string; width: number } | null;
 }) {
 	ctx.font = layout.fontString;
 	ctx.textAlign = "left";
 	ctx.textBaseline = textBaseline;
 	setCanvasLetterSpacing({ ctx, letterSpacingPx: layout.letterSpacing });
+	const placed: { word: string; x: number; y: number; start: number; end: number }[] = [];
 	let index = 0;
 	layout.lines.forEach((line, lineIndex) => {
 		const y = lineIndex * layout.lineHeightPx - layout.block.visualCenterOffset;
@@ -58,26 +61,38 @@ export function drawKaraokeText({
 		const x0 = layout.textAlign === "center" ? -width / 2 : layout.textAlign === "right" ? -width : 0;
 		for (const match of wordsIn(line)) {
 			const [start, end] = karaoke.words[index++];
-			const word = match[0];
-			const x = x0 + ctx.measureText(line.slice(0, match.index)).width;
-			if (time >= end || time < start) {
-				ctx.fillStyle = time >= end ? karaoke.highlight : textColor;
-				ctx.fillText(word, x, y);
-				continue;
-			}
-			const w = ctx.measureText(word).width;
-			const progress = Math.min(1, Math.max(0, (time - start) / Math.max(end - start, 0.001)));
-			ctx.save();
-			ctx.translate(x + w / 2, y);
-			ctx.scale(ACTIVE_SCALE, ACTIVE_SCALE);
-			ctx.fillStyle = textColor;
-			ctx.fillText(word, -w / 2, 0);
-			ctx.beginPath();
-			ctx.rect(-w / 2, -layout.lineHeightPx, w * progress, layout.lineHeightPx * 2);
-			ctx.clip();
-			ctx.fillStyle = karaoke.highlight;
-			ctx.fillText(word, -w / 2, 0);
-			ctx.restore();
+			placed.push({ word: match[0], x: x0 + ctx.measureText(line.slice(0, match.index)).width, y, start, end });
 		}
 	});
+	// Every outline goes down before any fill, so a thick outline never covers a neighbouring word.
+	const passes = outline ? (["stroke", "fill"] as const) : (["fill"] as const);
+	for (const pass of passes) {
+		if (pass === "stroke" && outline) {
+			ctx.strokeStyle = outline.color;
+			ctx.lineWidth = outline.width;
+			ctx.lineJoin = "round";
+		}
+		for (const { word, x, y, start, end } of placed) {
+			const active = time >= start && time < end;
+			const w = ctx.measureText(word).width;
+			ctx.save();
+			ctx.translate(x + w / 2, y);
+			if (active) ctx.scale(ACTIVE_SCALE, ACTIVE_SCALE);
+			if (pass === "stroke") ctx.strokeText(word, -w / 2, 0);
+			else if (!active) {
+				ctx.fillStyle = time >= end ? karaoke.highlight : textColor;
+				ctx.fillText(word, -w / 2, 0);
+			} else {
+				const progress = Math.min(1, Math.max(0, (time - start) / Math.max(end - start, 0.001)));
+				ctx.fillStyle = textColor;
+				ctx.fillText(word, -w / 2, 0);
+				ctx.beginPath();
+				ctx.rect(-w / 2, -layout.lineHeightPx, w * progress, layout.lineHeightPx * 2);
+				ctx.clip();
+				ctx.fillStyle = karaoke.highlight;
+				ctx.fillText(word, -w / 2, 0);
+			}
+			ctx.restore();
+		}
+	}
 }
