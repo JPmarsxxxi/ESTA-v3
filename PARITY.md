@@ -91,7 +91,7 @@ A port row is ticked when a manual check in the editor passes.
 | Audio mixer: channel strips, faders, pan, meters, mute/solo (`AudioMixer`, `ChannelStrip`) | [ ] port P2 | A mixer panel over the audio tracks |
 | Audio effects: EQ, compressor, pan (`AudioEffectsSection`, `audio-bridge-effects`) | [ ] port P2 | |
 | Audio effects: reverb, delay (`AudioEffectsSection`) | [ ] port P3 | |
-| Auto ducking of music under voice (`AudioDuckingSection`) | [ ] port P2 | Volume keyframes on the music from the voice track's speech. `tools/audio/mix.py --bake` does this in the pipeline today |
+| Auto ducking of music under voice (`AudioDuckingSection`) | [x] port P2 | Done: a music clip's Audio tab ducks it under the voice track's speech as volume keyframes, with v2's four presets; re-apply and remove are undoable. Checked in the editor on a mock voice with gaps (keys land on the speech), plus unit tests |
 | Noise reduction (`NoiseReductionSection`) | [ ] port P3 | For self-recorded VO |
 | Auto cut silence (`AutoCutSilenceSection`, `silence-cut-bridge`) | [ ] port P3 | Kept at the user's request (2026-09-26) rather than dropped. Not used by the pipeline today: `tools/audio/tighten.py` cuts dead air in the pipeline before timestamps, so the timeline never gets it. |
 | Music and sound library (`MusicLibraryPanel`) | native | OpenCut Sounds tab (Freesound) plus render's SFX from the plan. Search needs a real `FREESOUND_API_KEY` in `apps/editor/.env.local`; `scripts/dev.ts` writes a placeholder |

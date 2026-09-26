@@ -29,6 +29,7 @@ import { SpeedTab } from "@/speed/components/speed-tab";
 import { GraphicTab } from "@/graphics/components/graphic-tab";
 import { OcShapesIcon } from "@/components/icons";
 import { TEXT_STYLE_KEYS } from "@/esta/opencut/text-style-params";
+import { DuckingSection } from "@/esta/opencut/ducking-section";
 
 const TRANSFORM_PARAM_KEYS = [
 	"transform.positionX",
@@ -127,12 +128,15 @@ function buildAudioTab({
 		label: "Audio",
 		icon: <HugeiconsIcon icon={MusicNote03Icon} size={16} />,
 		content: ({ trackId }) => (
-			<ElementParamsTab
-				element={element}
-				trackId={trackId}
-				paramKeys={AUDIO_PARAM_KEYS}
-				sectionKey="audio"
-			/>
+			<>
+				<ElementParamsTab
+					element={element}
+					trackId={trackId}
+					paramKeys={AUDIO_PARAM_KEYS}
+					sectionKey="audio"
+				/>
+				{element.type === "audio" && <DuckingSection element={element} trackId={trackId} />}
+			</>
 		),
 	};
 }
