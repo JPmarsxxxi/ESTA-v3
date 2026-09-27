@@ -16,7 +16,7 @@ Concretely:
 
 - Cloud hosting, auth, multi-user, deploy targets (Cloudflare functions, wrangler). Local single user only.
 - Mobile or small-screen support. Desktop Chrome only.
-- New pipeline capabilities beyond v2. `post` and `profile-update` stay unbuilt.
+- New pipeline capabilities beyond v2 in M1–M4. `post` and `profile-update` stay unbuilt. (Part 2, M5, is a user-requested exception: inspo matching.)
 - Rewriting or improving the Python tools. `tools/` is copied verbatim; the only allowed changes are integration fixes (paths, progress output), each listed in `PORTING.md` with the reason.
 - Keeping OpenReel as an editor. Its features are ported into the OpenCut-based editor (M4). The OpenReel engine itself and its custom agent layer (`bridges/` + `ChatPanel` as an agent) are not carried over.
 - Changing `render/run.py` output. It still writes `<session-id>.openreel.json`.
@@ -125,3 +125,204 @@ Global
 - [x] Typecheck passes for `apps/editor` and `server/`, and lint passes for the code ESTA owns (`apps/editor/src/esta/`, ESTA routes, `server/`, `scripts/`); vendored OpenCut code keeps its upstream lint baseline (see `PORTING.md`). Commands recorded in CLAUDE.md.
 - [ ] An end-to-end run of `standard-vo` on a short test topic reaches an exported video entirely from the UI, without touching the terminal.
 - [ ] The same end-to-end run using the `found-audio-collage` template reaches the Edit stage.
+
+---
+
+# Part 2 — Inspo match (M5)
+
+Decided with the user on 2026-09-27. Part 1's rules still apply: ESTA code in `apps/editor/src/esta/` and `server/`, OpenCut edits and any change to v2-copied files logged in `PORTING.md`, lean code, no emojis.
+
+## Goal
+
+Make generated videos follow the user's inspo videos measurably, not only by vibe. Today style-analysis measures two pacing numbers (cuts per minute, mean shot length, from a crude brightness-diff cut detector on two 60 s clips per video) and hands the rest to the plan skill as prose; nothing ever checks the result against the inspo.
+
+M5 adds:
+1. **Search queries that follow the shot.** In the planner, rewriting a shot, changing its type, or splitting it re-derives that shot's search queries (per half for a split), unless the user has edited the queries by hand.
+2. **An inspo profile**, measured from the whole inspo videos with small free models chosen by a bake-off (M5.1), cached per video.
+3. **A similarity score** in five sections, computed for the plan and for the final edit:
+   - a. asset distribution
+   - b. colour and grading
+   - c. thematic adherence
+   - d. complexity (overlays, on-screen text, multi-panel shots, clips per shot, variety)
+   - e. shot duration, mean **and** median
+4. **Targeted auto-adjust.** A new `match` pipeline step that, when the score is under the pass mark, nudges only the failing sections (split/merge, retype, overlays, composites, requery, colour grade), then re-scores, for at most 3 rounds.
+5. **A score card** in the Plan stage.
+
+The division of labour: local models and scripts do the looking and the arithmetic; Claude only reads the numeric report and makes the judgement calls (which shots to retype or requery, what the new queries are).
+
+## Non-goals / out of scope
+
+- **Script similarity.** Scoring the script against the inspo narration (pace, sentence length, hook shape, second-person/question rate, structure beats, a Claude check with a threshold and revise loop) is a later build. Record only: the inspo transcripts that style-analysis already produces are its input. Not built in M5.
+- A full re-plan when the score is low. Adjust only edits the shots it needs to.
+- Changing shots the user edited by hand (they are locked; see Key decisions).
+- Scoring audio, music, SFX or transitions.
+- Editing `tools/style_analysis/` or the plan skill's generation logic. M5 adds new tools beside them; `style_analysis.json` and `plan.json` keep their schemas (new optional fields only, listed below).
+- Fine-tuning any model. The bake-off only selects among existing checkpoints.
+- An Adjust button. Adjust runs as a pipeline step; the card has only a cheap **Re-score** (no Claude).
+
+## Files & interfaces involved
+
+New, owned by v3 (not v2 copies):
+- `tools/match/` (Python, `esta` env except the Kaggle lane):
+  - `inspo.py` — resolve inspo sources, download whole videos, build and cache profiles.
+  - `cuts.py` — cut detection, wrapping the winning detector.
+  - `colour.py` — per-shot colour statistics (no model).
+  - `embed.py` — image (and, for plan estimates, text) embeddings with the winning model.
+  - `tag_kaggle.py` — `push` / `status` / `apply` for shot tagging on Kaggle, following the `tools/genvideo/run.py` + `tools/kaggle_lane.py` pattern; runs on the **system** python, like the other Kaggle lanes.
+  - `score.py` — `python tools/match/score.py --session sessions/<id> --stage plan|final`, writes `match_report.json`.
+  - `adjust.py` — deterministic operations: split/merge (calls `tools/plan/ops.py`), retype, add/remove overlay, make composite, mark requery, write grades.
+  - `bakeoff/` — answer-key tooling, candidate runners and a results report for M5.1.
+  - Unit tests under `tools/match/tests/` (pytest, synthetic data, no GPU).
+- `.claude/skills/match/SKILL.md` — the pipeline step: run `score.py`, read the report, choose and apply adjustments, re-score; announce as other skills do.
+- `apps/editor/src/esta/panels/match-panel.tsx` — the score card, added to the Plan stage preset in `workspace.tsx`.
+- `server/match.ts` — `GET /_match/:id` (latest report and history), `POST /_match/:id/rescore` (runs `score.py` as a job); route in `server/index.ts`.
+- Repo-level cache: `cache/inspo/<source-hash>/` (`video.mp4`, `profile.json`, keyframes, embeddings). Gitignored.
+
+Per-session artifacts:
+- `inspo.json` — the inspo sources: `[{kind: "youtube"|"local", ref, source: "user_provided"|"auto_search"}]`. Written by `inspo.py`. For sessions that predate it, derived from `style_examples/<id>_start.mp4` names (YouTube ids) and `style_extraction.json`'s `source`.
+- `match_report.json` — see Scoring. Keeps a `history` of every score and adjust round.
+- `match_grades.json` — per-shot Grade effect parameters (the M4 Grade effect's `grade` JSON) written by the colour adjust.
+
+Changed (v2 copies, so each change is logged in `PORTING.md`):
+- `tools/pipeline/contracts.json`, `tools/pipeline/templates.json` — add the `match` skill (needs `plan.json` and `style_analysis.json`; produces `match_report.json`), run after `plan` and again after the final `render`, in both templates.
+- `server/planner.ts` (v3) — rewrite system prompt and the new requery endpoint (see decision 1).
+- `apps/editor/src/esta/panels/planner-panel.tsx` (v3) — pinned queries, stale marker, auto requery on type change.
+- `apps/editor/src/esta/opencut/emit.ts` (v3) — apply `match_grades.json` as Grade effects at Build project.
+
+New optional `plan.json` fields:
+- `visual.queries_pinned: true` — hand-edited queries.
+- `visual.queries_stale: true` — queries changed, asset not yet re-fetched.
+- `locked: true` — the shot was edited by hand; adjust must not touch it.
+
+`config.yaml`: a new `match` block holding the weights, pass marks, max rounds and the chosen models (filled by M5.1).
+
+## Key decisions & tradeoffs
+
+1. **Queries follow the shot, folded into existing calls.**
+   - Rewrite: `REWRITE_SYSTEM` must return `search_queries` whenever it changes `desc` or `type`.
+   - Type change (planner dropdown) and split: one small Haiku call per shot via `POST /_plan/api/requery` (`{session, shot_number}`), which returns `desc`-consistent `search_sources` following the plan skill's `search_sources` rules for the new type. For a split it runs once per half, on that half's spoken words, and may also rewrite each half's `desc`. Cost is shown in the UI like Rewrite.
+   - Queries typed by hand set `queries_pinned`, and auto-follow then skips that shot (the planner shows "queries pinned" with an Unpin control).
+   - `tools/plan/ops.py` is not modified: the backend calls requery after `split` returns.
+2. **Changed queries mark the asset stale, then fetch in the background.** The old clip stays on the timeline, visibly marked stale, until the new pick replaces it through the existing picker refetch path (`/_picker/api/refetch`, `assets_progress.jsonl`). A split no longer relies on the cloned parent clip once its halves are re-fetched.
+3. **Bake-off before building the scorer (M5.1).** Model accuracy on these exact jobs is unproven, so candidates are measured on an answer key built from the user's own inspo videos. Only winners that clear the bar are used; a tag no model gets right enough is dropped from scoring rather than trusted.
+4. **Tagging always runs on Kaggle (user decision).** The shot tagger (vision-language model) runs as a detached Kaggle job on the free T4, like `ai-video`. Cuts, colour and embeddings run locally in the `esta` env (small; the local GPU is 4 GB).
+   - The tradeoff, accepted: each Kaggle run adds minutes of queue, install and model download, and uses the shared 30 GPU h/week.
+   - Mitigations: inspo profiles are cached per video, so an inspo is tagged once ever; final-edit tagging only sends shots whose asset changed since the last tagging.
+5. **Inspo depth: the whole video, up to 10 minutes.** Longer videos are sampled as evenly spaced chunks totalling 10 minutes.
+6. **Several inspos form one combined target.** All their shots are pooled into one profile, weighted by duration.
+7. **Auto-searched inspo (no user inspo) is treated like user inspo:** scored and adjusted.
+8. **Scoring runs twice.**
+   - Plan stage: from `plan.json`, before downloads.
+   - Final edit: from the rendered project with real media, after assets and the final render.
+   - Colour cannot be judged from a plan, so at the plan stage it shows "n/a" and is left out of the overall score (weights renormalised).
+   - Theme at the plan stage is an estimate (text embedding of `desc` and queries against inspo keyframe embeddings) and is labelled as one.
+9. **Weights and pass marks.**
+   - Overall = weighted mean of the sections, with shot duration weighted 2 and the others 1.
+   - Pass = overall ≥ 80 and every section ≥ 70.
+   - All stored in `config.yaml` `match`, so there are no per-session controls.
+10. **Adjust is targeted, ordered and capped.**
+    - Each round fixes only the sections under their mark, structure first: e duration → a asset mix → d complexity → c theme → b colour, since splits and retypes change what later sections see.
+    - At most 3 rounds. A round that doesn't raise any failing section by ≥ 1 point stops the loop early.
+    - Claude is called only to choose shots and write queries for a, c and d, with only the failing section's report and candidate shots in context.
+    - Operations per section:
+      - **e:** split the longest shots at word boundaries (`ops.py split`), merge adjacent short shots (`ops.py merge`). At the final stage it may also move cut points to a neighbouring word boundary (≤ 0.5 s) in `plan.json` and re-render.
+      - **a:** retype shots whose spoken line suits the under-represented type; the new type's queries come from decision 1.
+      - **d:** add or remove `overlay` blocks; turn a shot into a `composite` (render's existing `layout` presets: `side_by_side`, `stack`, `triptych`, `inset`; at most 3 slots).
+      - **c:** requery the least on-theme shots (stale then background fetch, decision 2).
+      - **b:** compute a per-shot correction toward the inspo colour target and write it to `match_grades.json`. The emitter applies it as a Grade effect, so no re-download is needed and it survives rebuilds.
+11. **Hand-edited shots are locked.** Any planner save that changes a shot's fields sets `locked`. Adjust never edits locked shots. When a section can't reach its mark because of locked shots, the card says so.
+12. **Score card only in the Plan stage.** Two columns, Plan and Final edit. Per section: score, pass/fail and the measured numbers (e.g. "median 1.8 s vs inspo 1.2 s"). Also shown: the overall score, the status ("tagging on Kaggle…", "n/a at plan"), the adjust history (what each round changed) and Re-score.
+
+### M5.1 bake-off design
+- **Answer key:** 2–3 of the user's inspo videos (about 100 shots), chosen by the user, stored under `tools/match/bakeoff/key/`.
+  - Cuts: proposed by the union of all cut candidates, confirmed or rejected by Claude from frame strips, plus a scan of 1 s contact sheets for missed cuts.
+  - Per-shot labels, drafted by Claude from keyframes:
+    - kind: `footage` / `still` / `graphic` (motion graphic, text card) / `ai` / `talking_head` / `screen` / `meme`
+    - `text_on_screen` (bool)
+    - `panels` (1, 2, 3+)
+    - `overlay` (bool)
+    - `clips_in_shot` (int)
+  - The user spot-checks at least 10 shots in a simple review page before the key is frozen.
+- **Candidates:**
+  - Cuts: TransNetV2, AutoShot, PySceneDetect `AdaptiveDetector`.
+  - Tagging (on Kaggle): Qwen3-VL-8B, Qwen3-VL-4B, Gemma 3 4B, plus Florence-2-large for `text_on_screen` only.
+  - Theme embeddings: SigLIP 2, CLIP ViT-B/32 (the current one), DINOv3 (small).
+- **Metrics and bars:**
+  - Cuts: F1 with ±0.1 s tolerance; bar ≥ 0.90.
+  - Tags: per-tag accuracy (macro-F1 for `kind`); bar ≥ 0.85 per tag.
+  - Theme: AUC of same-inspo vs different-style shot pairs (different-style frames from a second style with no overlap); bar ≥ 0.80. The same pairs give the calibration curve that maps similarity to 0–100.
+  - Speed and cost are recorded per candidate (seconds per minute of video; GPU minutes).
+- **Output:** `tools/match/bakeoff/results.md` (a table per job, the winner and why), and the winners written to `config.yaml` `match.models`. Checkpoint: the user approves the winners before M5.3.
+
+### Scoring formulas (sections are 0–100)
+- **a. Asset distribution:** duration-weighted share of shots per kind; score = 100 × (1 − total variation distance) between ours and the inspo's.
+  - Plan kinds come from `visual.type`: `REAL_FOOTAGE` → footage, `REAL_IMAGE` → still, `MOTION_GRAPHICS` → graphic, `AI_VIDEO` or a `generate` block → ai. A `composite` counts as its slot-0 kind.
+  - Final kinds come from tags.
+- **b. Colour and grading** (final only): per-shot mean L\*, L\* standard deviation (contrast), mean chroma (saturation), mean a\* and b\* (tint, warmth) and colourfulness, from 3 keyframes per shot.
+  - Per feature: Wasserstein distance between our and the inspo's per-shot distributions, divided by the inspo's interquartile range (floored so a very uniform inspo can't divide by ~0).
+  - Score = 100 × exp(−mean normalised distance).
+  - The per-feature numbers are kept for the colour adjust.
+- **c. Thematic adherence:** for each of our shots, the highest calibrated similarity to any inspo keyframe; the score is the duration-weighted mean. Final uses image embeddings; plan uses text embeddings (labelled an estimate).
+- **d. Complexity:** four per-shot rates, compared to the inspo's: share with an overlay, share with on-screen text, mean panels, mean clips per shot. Plus variety: the number of distinct kinds per minute.
+  - Each rate's sub-score = 100 × (1 − min(1, |ours − inspo| / max(inspo, floor))); the section is their mean.
+  - Plan values come from `plan.json`: `overlay`, `text.caption`, `composite` slots.
+  - Final values come from the rendered project and tags.
+- **e. Shot duration:** mean and median separately, each sub-score = 100 × max(0, 1 − |ours − inspo| / inspo); the section is their average.
+  - Plan uses `plan.json` start/end (real timing once reconciled; the card marks estimated timing).
+  - Final uses clip durations on the rendered timeline (crossfade lanes flattened as in Part 1).
+  - Tags dropped by the bake-off are excluded from a and d, and the report says which.
+
+## Edge cases
+
+- No inspo at all and style-analysis has not run: `match` is gated on `style_analysis.json`, as `plan` is.
+- An inspo can't be downloaded (private, region-locked, removed): profile the rest and list the failures on the card. If none can be downloaded, score only e from `style_analysis.json`'s pacing numbers and say so.
+- A local inspo file path that moved: reported as missing, never guessed.
+- Inspo longer than 10 minutes: evenly spaced chunks (decision 5). Shorter than 30 s: used whole, with a note that the profile is thin.
+- A video with no detected cuts (one continuous shot) or very frequent flashes: the detector's raw output is kept, and shots under 2 frames merge into their neighbour before scoring.
+- Kaggle unavailable, over quota or failing: tag-dependent parts (final a, d, and the kind-based parts of the inspo profile) show "pending: Kaggle" with the error. Adjust doesn't act on sections that can't be scored. Cuts, colour, theme and duration still score. Retry is in the Jobs panel.
+- `esta` env missing: the card shows the same blocking notice as other Python stages.
+- Every shot locked: adjust makes no changes and reports it.
+- A split or merge renumbers shots: `match_grades.json` and the report history reference shots by id (the spoken-line identity the planner already uses), not by number.
+- An adjust round makes a section worse: that round's plan edits are reverted from the `ops.py` backups, and the loop stops.
+- The user edits the plan while `match` is adjusting: the file-watch conflict banner (Part 1) applies; adjust re-reads `plan.json` before each operation and skips shots that became locked.
+- Requery returns nothing usable (Haiku error, empty list): the shot keeps its old queries, is not marked stale, and the error is shown on the shot.
+- Type changed back before the requery finishes: only the latest request's result is applied.
+- Re-score with no plan changes: returns the cached report (same inputs hash), no recompute.
+- A composite would need more than 3 slots: capped at 3, as render's `MAX_COMPOSITE_SLOTS`.
+
+## Acceptance criteria
+
+M5.1 Bake-off
+- [ ] `tools/match/bakeoff/key/` holds the answer key for 2–3 user-chosen inspo videos (≥ 80 shots total), with ≥ 10 shots marked as user-checked.
+- [ ] One command per job runs every candidate against the key and writes `tools/match/bakeoff/results.md` with F1 / accuracy / AUC, speed and GPU cost per candidate.
+- [ ] Each job's winner clears its bar (cuts F1 ≥ 0.90, each used tag ≥ 0.85, theme AUC ≥ 0.80), or the results list which tags or jobs have no passing model and are dropped.
+- [ ] The winners are recorded in `config.yaml` `match.models` and approved by the user.
+
+M5.2 Queries follow the shot
+- [ ] Rewrite with an instruction that changes `desc` or `type` returns and applies new `search_sources` (checked with a stubbed `claude`).
+- [ ] Changing a shot's type in the planner calls `/_plan/api/requery` and updates its queries; the shot is marked `queries_stale`, and after the background refetch the new asset replaces the old one on the timeline.
+- [ ] Splitting shot N produces two shots whose queries differ and each match their own half's spoken words; neither half keeps the parent's cloned asset once refetched.
+- [ ] Editing the queries by hand sets `queries_pinned`; a later rewrite, type change or split of that shot leaves its queries unchanged until Unpin.
+
+M5.3 Inspo profile
+- [ ] `python tools/match/inspo.py profile --session sessions/<id>` downloads the whole inspo videos (≤ 10 min each), runs cuts, colour and embeddings locally, pushes tagging to Kaggle, and writes `cache/inspo/<hash>/profile.json` with per-shot duration, colour features, embeddings path and tags.
+- [ ] Running it again for the same video reuses the cache (no download, no Kaggle run).
+- [ ] An older session with no `inspo.json` gets one derived from `style_examples/`.
+
+M5.4 Scoring and score card
+- [ ] `score.py --stage plan` on a mock session writes `match_report.json` with a–e (b = n/a), the overall score, pass/fail per the config marks, and the measured numbers behind each section.
+- [ ] `score.py --stage final` on a mock rendered session fills all five sections.
+- [ ] Unit tests: identical plan and inspo distributions score 100 on a, d, e; known shifted inputs score within ±2 of hand-computed values for each formula.
+- [ ] The Plan stage shows the Match card with Plan and Final columns, per-section numbers, pass marks and adjust history; Re-score runs as a job and refreshes the card.
+
+M5.5 Auto-adjust
+- [ ] The `match` step is in `contracts.json` and both templates. `validate_flow.py` passes, and `conductor.py next` names `match` after `plan` and after the final render.
+- [ ] On a mock session whose median shot length is double the inspo's, one round of adjust splits shots and raises section e without touching locked shots or any passing section's data.
+- [ ] Adjust stops at 3 rounds, or earlier when passing or not improving, and records each round in `match_report.json` history.
+- [ ] A colour adjust writes `match_grades.json`, and Build project applies those Grade effects to the right clips (checked on the native project's effect params).
+- [ ] A round that lowers a section is reverted.
+
+Global
+- [ ] `bun run typecheck` and `bun run lint` pass; `pytest tools/match/tests` passes.
+- [ ] `PORTING.md` lists every change to v2-copied files (contracts, templates) made for M5.
+- [ ] An end-to-end run on the user's PC with a real inspo reaches a final score, with any adjust rounds visible on the card (user check; this sandbox has no conda or Kaggle).
