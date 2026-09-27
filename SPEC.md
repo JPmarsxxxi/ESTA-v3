@@ -171,7 +171,7 @@ New, owned by v3 (not v2 copies):
   - `tag_kaggle.py` — `push` / `status` / `apply` for shot tagging on Kaggle, following the `tools/genvideo/run.py` + `tools/kaggle_lane.py` pattern; runs on the **system** python, like the other Kaggle lanes.
   - `score.py` — `python tools/match/score.py --session sessions/<id> --stage plan|final`, writes `match_report.json`.
   - `adjust.py` — deterministic operations: split/merge (calls `tools/plan/ops.py`), retype, add/remove overlay, make composite, mark requery, write grades.
-  - `bakeoff/` — answer-key tooling, candidate runners and a results report for M5.1.
+  - `bakeoff/` — answer-key tooling, one Kaggle notebook that runs every candidate (`bakeoff/kaggle.py push|status|apply`, same lane pattern and system python), and a results report for M5.1.
   - Unit tests under `tools/match/tests/` (pytest, synthetic data, no GPU).
 - `.claude/skills/match/SKILL.md` — the pipeline step: run `score.py`, read the report, choose and apply adjustments, re-score; announce as other skills do.
 - `apps/editor/src/esta/panels/match-panel.tsx` — the score card, added to the Plan stage preset in `workspace.tsx`.
@@ -205,7 +205,8 @@ New optional `plan.json` fields:
    - `tools/plan/ops.py` is not modified: the backend calls requery after `split` returns.
 2. **Changed queries mark the asset stale, then fetch in the background.** The old clip stays on the timeline, visibly marked stale, until the new pick replaces it through the existing picker refetch path (`/_picker/api/refetch`, `assets_progress.jsonl`). A split no longer relies on the cloned parent clip once its halves are re-fetched.
 3. **Bake-off before building the scorer (M5.1).** Model accuracy on these exact jobs is unproven, so candidates are measured on an answer key built from the user's own inspo videos. Only winners that clear the bar are used; a tag no model gets right enough is dropped from scoring rather than trusted.
-4. **Tagging always runs on Kaggle (user decision).** The shot tagger (vision-language model) runs as a detached Kaggle job on the free T4, like `ai-video`. Cuts, colour and embeddings run locally in the `esta` env (small; the local GPU is 4 GB).
+4. **Where things run (user decision).** The whole M5.1 bake-off runs on Kaggle: every candidate (cuts, tagging, theme) in one notebook on the same T4, so the comparison is fair and nothing has to be installed locally for it. In everyday use only shot tagging runs on Kaggle; cuts, colour, embeddings, scoring and adjust run locally, because they take seconds there and a Kaggle round-trip would add minutes to every score.
+   **Tagging always runs on Kaggle.** The shot tagger (vision-language model) runs as a detached Kaggle job on the free T4, like `ai-video`. Cuts, colour and embeddings run locally in the `esta` env (small; the local GPU is 4 GB).
    - The tradeoff, accepted: each Kaggle run adds minutes of queue, install and model download, and uses the shared 30 GPU h/week.
    - Mitigations: inspo profiles are cached per video, so an inspo is tagged once ever; final-edit tagging only sends shots whose asset changed since the last tagging.
 5. **Inspo depth: the whole video, up to 10 minutes.** Longer videos are sampled as evenly spaced chunks totalling 10 minutes.
@@ -243,15 +244,15 @@ New optional `plan.json` fields:
     - `overlay` (bool)
     - `clips_in_shot` (int)
   - The user spot-checks at least 10 shots in a simple review page before the key is frozen.
-- **Candidates:**
+- **Candidates (all run in the one Kaggle notebook):**
   - Cuts: TransNetV2, AutoShot, PySceneDetect `AdaptiveDetector`.
-  - Tagging (on Kaggle): Qwen3-VL-8B, Qwen3-VL-4B, Gemma 3 4B, plus Florence-2-large for `text_on_screen` only.
+  - Tagging: Qwen3-VL-8B, Qwen3-VL-4B, Gemma 3 4B, plus Florence-2-large for `text_on_screen` only.
   - Theme embeddings: SigLIP 2, CLIP ViT-B/32 (the current one), DINOv3 (small).
 - **Metrics and bars:**
   - Cuts: F1 with ±0.1 s tolerance; bar ≥ 0.90.
   - Tags: per-tag accuracy (macro-F1 for `kind`); bar ≥ 0.85 per tag.
   - Theme: AUC of same-inspo vs different-style shot pairs (different-style frames from a second style with no overlap); bar ≥ 0.80. The same pairs give the calibration curve that maps similarity to 0–100.
-  - Speed and cost are recorded per candidate (seconds per minute of video; GPU minutes).
+  - Speed and cost are recorded per candidate (seconds per minute of video on the T4; GPU minutes). For the local jobs (cuts, theme), the winner must also run in the `esta` env on the user's 4 GB GPU or CPU; the user runs one local timing check before approving.
 - **Output:** `tools/match/bakeoff/results.md` (a table per job, the winner and why), and the winners written to `config.yaml` `match.models`. Checkpoint: the user approves the winners before M5.3.
 
 ### Scoring formulas (sections are 0–100)
@@ -294,7 +295,8 @@ New optional `plan.json` fields:
 
 M5.1 Bake-off
 - [ ] `tools/match/bakeoff/key/` holds the answer key for 2–3 user-chosen inspo videos (≥ 80 shots total), with ≥ 10 shots marked as user-checked.
-- [ ] One command per job runs every candidate against the key and writes `tools/match/bakeoff/results.md` with F1 / accuracy / AUC, speed and GPU cost per candidate.
+- [ ] `python tools/match/bakeoff/kaggle.py push` runs every candidate for all three jobs in one Kaggle notebook; `apply` pulls the outputs and writes `tools/match/bakeoff/results.md` with F1 / accuracy / AUC, speed and GPU cost per candidate.
+- [ ] The winning cut detector and theme model run locally in the `esta` env on the user's PC (timing noted in `results.md`).
 - [ ] Each job's winner clears its bar (cuts F1 ≥ 0.90, each used tag ≥ 0.85, theme AUC ≥ 0.80), or the results list which tags or jobs have no passing model and are dropped.
 - [ ] The winners are recorded in `config.yaml` `match.models` and approved by the user.
 
