@@ -7,7 +7,7 @@ import { onFileChange, startWatcher } from "./files.ts";
 import { serveSessionFile, streamAssets } from "./media.ts";
 import { handleAck, handleFrame, handleState, injectCmd, streamCmds } from "./livecmd.ts";
 import { pickerCandidates, pickerJobs, pickerPick, pickerRefetch, pickerShots, pickerSources } from "./picker.ts";
-import { planCommand, planCommandStatus, planRewrite, planRewriteStatus, planSave, planShots } from "./planner.ts";
+import { planCommand, planCommandStatus, planRequery, planRequeryStatus, planRewrite, planRewriteStatus, planSave, planShots } from "./planner.ts";
 import { chatHealth, chatInterrupt, chatOpen, chatSend, chatStatus, chatStop, chatStream, stopAllChats } from "./chat.ts";
 import { createSession, importSession, listAllSessions, listSessions, listV2Sessions, updateRequirements } from "./sessions.ts";
 import { activeJobs, cancelJob, getJob, jobLog, listJobs, loadJobs, onJobEnd, retryJob, setProgress, startJob, type Job } from "./jobs.ts";
@@ -251,6 +251,8 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	if (is("GET", "/_plan/api/rewrite")) return planRewriteStatus(res, q);
 	if (is("POST", "/_plan/api/command")) return planCommand(req, res);
 	if (is("GET", "/_plan/api/command")) return planCommandStatus(res, q);
+	if (is("POST", "/_plan/api/requery")) return planRequery(req, res);
+	if (is("GET", "/_plan/api/requery")) return planRequeryStatus(res, q);
 
 	if (is("GET", "/_cmd_stream")) return streamCmds(req, res);
 	if (is("POST", "/_cmd")) return injectCmd(req, res);

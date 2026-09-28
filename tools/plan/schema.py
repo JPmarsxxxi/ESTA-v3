@@ -3,11 +3,21 @@
 from typing import TypedDict
 
 
-class Visual(TypedDict):
-    type: str          # REAL_FOOTAGE | REAL_IMAGE | MOTION_GRAPHICS
+class SearchSource(TypedDict):
+    source: str
+    queries: list[str]
+
+
+class Visual(TypedDict, total=False):
+    type: str                    # REAL_FOOTAGE | REAL_IMAGE | MOTION_GRAPHICS
     desc: str
-    search_query: str  # 3-5 word query used by assets skill
+    specificity: str             # low | medium | high — drives search_sources ordering
+    search_query: str            # 3-5 word query, legacy fallback (search_sources[0].queries[0])
+    search_sources: list[SearchSource]
     fx: list[str]
+    queries_pinned: bool         # hand-edited queries — auto-follow (retype/split) skips this shot
+    queries_stale: bool          # queries changed, asset not yet re-fetched by the picker
+    locked: bool                 # shot edited by hand — M5's match:adjust must not touch it
 
 
 class TextOverlay(TypedDict):

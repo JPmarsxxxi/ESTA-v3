@@ -30,5 +30,14 @@ node_modules/
 
 .claude/settings.local.json
 
+# M5.1 bake-off — regenerable Kaggle scratch (build dirs, downloaded outputs,
+# kernel-state refs) and the answer key itself (binary frames + JSON, rebuilt
+# from the user's own inspo videos via key_build.py). Source stays tracked.
+tools/match/bakeoff/key/
+tools/match/bakeoff/*_build/
+tools/match/bakeoff/*_out/
+tools/match/bakeoff/*_kernel.json
+tools/match/bakeoff/bakeoff_summary.json
+
 # Rust build output (rust/, built into packages/opencut-wasm)
 /target/
