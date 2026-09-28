@@ -515,7 +515,8 @@ def cmd_apply(args: argparse.Namespace) -> None:
     if not preds_path.exists():
         raise FileNotFoundError(f"no bakeoff_preds.json in {out_dir} — check `status` first")
     merged = _merge(json.loads(preds_path.read_text(encoding="utf-8")))
-    gt = _load_gt()
+    # A manual notebook run saves the key it used as gt.json next to its predictions.
+    gt = json.loads(Path(args.gt).read_text(encoding="utf-8")) if args.gt else _load_gt()
     scored = _score(merged, gt)
 
     report.start_fresh({"kernel": ref, "errors": merged.get("errors", {})})
@@ -612,6 +613,7 @@ def main() -> None:
     a.add_argument("--kernel", default="")
     a.add_argument("--output-dir", default="")
     a.add_argument("--skip-download", action="store_true")
+    a.add_argument("--gt", default="", help="Answer key JSON saved by a manual notebook run (gt.json)")
 
     ap = sub.add_parser("approve")
     ap.add_argument("--cuts", default="")

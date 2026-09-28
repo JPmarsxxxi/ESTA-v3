@@ -29,6 +29,12 @@ python tools/match/bakeoff/kaggle.py apply
 already decided (TransNetV2) and don't need re-running. DINOv3 needs its licence
 granted first; until then it errors on its own without affecting the rest.
 
+No API keys at hand: `manual_run.ipynb` (built by `manual_notebook.py`) runs the
+same bake-off from the kaggle.com website. It reads the answer key and HF token
+from the previous run's notebook attached as an input, prints the scores, and
+saves `bakeoff_preds.json` + `gt.json`; merge them later with
+`kaggle.py apply --skip-download --output-dir <dir> --gt <dir>/gt.json`.
+
 M5.2: requery now also refetches the shot's clip in the background (the assets
 skill's `shot` fetch, as a tracked job) once the assets stage has run, and clears
 `queries_stale` when it lands. Still to be clicked through in a browser on a real

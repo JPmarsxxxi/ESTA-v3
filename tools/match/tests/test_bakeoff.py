@@ -151,3 +151,14 @@ def test_report_table_formats_header_and_rows():
     assert lines[0] == "| a | b |"
     assert lines[1] == "|---|---|"
     assert lines[2] == "| 1 | 2 |"
+
+
+def test_manual_notebook_builds_and_every_cell_parses():
+    import json as _json
+
+    from tools.match.bakeoff import manual_notebook
+    nb = _json.loads(manual_notebook.build().read_text(encoding="utf-8"))
+    cells = ["".join(c["source"]) for c in nb["cells"]]
+    for c in cells:
+        ast.parse(c)
+    assert not any(p in "".join(cells) for p in ("__GT__", "__JOBS__", "__MODELS__", "__HF_TOKEN__", "__IN_"))
