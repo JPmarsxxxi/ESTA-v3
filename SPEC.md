@@ -238,7 +238,7 @@ New optional `plan.json` fields:
 - **Answer key:** 2–3 of the user's inspo videos (about 100 shots), chosen by the user, stored under `tools/match/bakeoff/key/`.
   - Cuts: proposed by the union of all cut candidates, confirmed or rejected by Claude from frame strips, plus a scan of 1 s contact sheets for missed cuts.
   - Per-shot labels, drafted by Claude from keyframes:
-    - kind: `footage` / `still` / `graphic` (motion graphic, text card) / `ai` / `talking_head` / `screen` / `meme`
+    - kind: `footage` / `still` / `graphic` (motion graphic, text card) / `ai` / `talking_head` / `screen` / `meme`. Scoring folds these into five classes that map onto plan types: `screen` and `ai` count as `footage` (no model can tell AI footage from real). Section a uses the same five.
     - `text_on_screen` (bool)
     - `panels` (1, 2, 3+)
     - `overlay` (bool)
@@ -246,13 +246,15 @@ New optional `plan.json` fields:
   - The user spot-checks at least 10 shots in a simple review page before the key is frozen.
 - **Candidates (all run in the one Kaggle notebook):**
   - Cuts: TransNetV2, AutoShot, PySceneDetect `AdaptiveDetector`.
-  - Tagging: Qwen3-VL-8B, Qwen3-VL-4B, Gemma 3 4B, plus Florence-2-large for `text_on_screen` only.
+  - Tagging: Qwen3-VL-8B, Qwen3-VL-4B, Gemma 3 4B, Gemma 4 E4B, each scored on every tag field. Each is shown three frames per shot (20/50/80 %) downscaled to 448 px, with a locally measured motion level (none/low/high) as a hint, since one keyframe can't show whether a shot moves. Models load fp16 (the T4 has no bf16 hardware) and fall back to bf16 when their first answers are unparseable.
+  - Dropped after the first runs: AutoShot (no reachable checkpoint) and Florence-2 (three transformers incompatibilities, and `text_on_screen` has passing models).
   - Theme embeddings: SigLIP 2, CLIP ViT-B/32 (the current one), DINOv3 (small).
 - **Metrics and bars:**
   - Cuts: F1 with ±0.1 s tolerance; bar ≥ 0.90.
-  - Tags: per-tag accuracy (macro-F1 for `kind`); bar ≥ 0.85 per tag.
+  - Tags: balanced accuracy (mean per-class recall) per tag; bar ≥ 0.85, shown next to the always-guess-the-majority baseline. A field whose answer key holds a single value is reported untestable and not used, since always guessing it would score 100 %.
   - Theme: AUC of same-inspo vs different-style shot pairs (different-style frames from a second style with no overlap); bar ≥ 0.80. The same pairs give the calibration curve that maps similarity to 0–100.
   - Speed and cost are recorded per candidate (seconds per minute of video on the T4; GPU minutes). For the local jobs (cuts, theme), the winner must also run in the `esta` env on the user's 4 GB GPU or CPU; the user runs one local timing check before approving.
+- **Mechanics:** the kernel records raw predictions only; `kaggle.py apply` scores them locally (`tools/match/bakeoff/scoring.py`) and merges them with earlier runs, so `push --only <jobs> --models <names>` re-runs part of the bake-off without paying for the rest. `kaggle.py labels` prints the answer key's label counts.
 - **Output:** `tools/match/bakeoff/results.md` (a table per job, the winner and why), and the winners written to `config.yaml` `match.models`. Checkpoint: the user approves the winners before M5.3.
 
 ### Scoring formulas (sections are 0–100)
@@ -297,7 +299,7 @@ M5.1 Bake-off
 - [ ] `tools/match/bakeoff/key/` holds the answer key for 2–3 user-chosen inspo videos (≥ 80 shots total), with ≥ 10 shots marked as user-checked.
 - [ ] `python tools/match/bakeoff/kaggle.py push` runs every candidate for all three jobs in one Kaggle notebook; `apply` pulls the outputs and writes `tools/match/bakeoff/results.md` with F1 / accuracy / AUC, speed and GPU cost per candidate.
 - [ ] The winning cut detector and theme model run locally in the `esta` env on the user's PC (timing noted in `results.md`).
-- [ ] Each job's winner clears its bar (cuts F1 ≥ 0.90, each used tag ≥ 0.85, theme AUC ≥ 0.80), or the results list which tags or jobs have no passing model and are dropped.
+- [ ] Each job's winner clears its bar (cuts F1 ≥ 0.90, each used tag balanced accuracy ≥ 0.85, theme AUC ≥ 0.80), or the results list which tags or jobs have no passing model, or are untestable on this key, and are dropped.
 - [ ] The winners are recorded in `config.yaml` `match.models` and approved by the user.
 
 M5.2 Queries follow the shot

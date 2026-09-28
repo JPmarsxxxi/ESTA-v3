@@ -1,4 +1,41 @@
-# M5.1 bake-off — final status (autonomous overnight build, 2026-09-27/28)
+# M5.1 bake-off — status
+
+## Update 2026-09-28 (cloud session)
+
+The first results raised four problems; all are fixed in code, none re-run yet:
+
+1. **Tagging was too slow** (about 45 s a shot, 50-63 GPU-min for 77 shots). Models
+   ran in bf16, which the T4 only emulates, on full-resolution frames. Now: fp16
+   (bf16 fallback if a model's first answers are garbage), frames capped at 448 px,
+   80 new tokens instead of 150. Expect several times faster.
+2. **1.000 scores on panels / clips_in_shot were probably meaningless**: if every
+   shot in the key has the same answer, always guessing it scores 100 %. Scoring is
+   now balanced accuracy next to the always-guess baseline, and a field with one
+   value in the key is reported untestable. Check with `kaggle.py labels`.
+3. **kind** now uses five classes (screen and ai fold into footage), three frames
+   per shot and a measured motion hint. Gemma 4 E4B is in the tagger list.
+4. **Theme / partial re-runs**: the kernel records raw predictions only; `apply`
+   scores them locally with `scoring.py` and merges with earlier runs. The SigLIP 2
+   / CLIP fix now reads the projected `pooler_output` instead of averaging patches.
+
+Next run:
+```
+python tools/match/bakeoff/kaggle.py labels          # label counts in the key
+python tools/match/bakeoff/kaggle.py push --only tags,theme
+python tools/match/bakeoff/kaggle.py status
+python tools/match/bakeoff/kaggle.py apply
+```
+`--models gemma4-e4b` (or any candidate names) narrows a run further. Cuts are
+already decided (TransNetV2) and don't need re-running. DINOv3 needs its licence
+granted first; until then it errors on its own without affecting the rest.
+
+M5.2: requery now also refetches the shot's clip in the background (the assets
+skill's `shot` fetch, as a tracked job) once the assets stage has run, and clears
+`queries_stale` when it lands. Still to be clicked through in a browser on a real
+session.
+
+
+## Earlier: overnight build
 
 ## What's done
 

@@ -1,20 +1,20 @@
-"""The real M5.1 bake-off: score every candidate model against the frozen answer
-key, on Kaggle's free GPU. Three jobs, all in one kernel — see the module docstring
-in candidates.py for why sequencing four VLMs + three embedders on a 16GB T4 is
-the real risk here, not total GPU-time.
+"""The real M5.1 bake-off on Kaggle's free GPU, against the frozen answer key.
 
-Cuts: TransNetV2, PySceneDetect (AutoShot skipped — see candidates.py).
-Tags: Qwen3-VL-8B (4-bit), Qwen3-VL-4B, Gemma3-4B (all chat-prompted for the full
-  label set), Florence-2-large (OCR task prompt, text_on_screen only).
-Theme: SigLIP2, CLIP ViT-B/32, DINOv3-small (centroid-cosine-similarity AUC of
-  our shots vs the negative-style pool).
+Cuts: TransNetV2, PySceneDetect (AutoShot has no reachable checkpoint).
+Tags: Qwen3-VL-8B (4-bit), Qwen3-VL-4B, Gemma 3 4B, Gemma 4 E4B, each shown three
+  frames per shot and asked for the full label set. (Florence-2 was dropped
+  after three transformers incompatibilities; text_on_screen has passing VLMs.)
+Theme: SigLIP 2, CLIP ViT-B/32, DINOv3 small.
 
-Same push/status/apply shape as genvideo/candidates.py, plus `approve` — the
-explicit, human-triggered gate that writes config.yaml (never automatic).
+The kernel records raw predictions only; `apply` scores them locally with
+scoring.py and merges them with earlier runs, so `push --only theme` (or
+`--models gemma4-e4b`) re-runs one job or model without paying for the rest.
+`approve` is the explicit, human-triggered gate that writes config.yaml.
 """
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,7 +25,7 @@ from tools.kaggle_lane import (  # noqa: E402
     ACCELERATORS, ensure_dataset, fetch_output, kaggle_username, kernel_status,
     push_kernel, slugify, use_utf8_stdout, wait_dataset_ready, write_kernel_dir,
 )
-from tools.match.bakeoff import report  # noqa: E402
+from tools.match.bakeoff import report, scoring  # noqa: E402
 from tools.match.bakeoff.common import HERE, KEY_DIR, NEGATIVE_DIR  # noqa: E402
 
 use_utf8_stdout()
@@ -33,54 +33,56 @@ use_utf8_stdout()
 MAX_NOTEBOOK_BYTES = 512 * 1024  # everything bulky rides in datasets, not inlined
 BARS = {"cuts": 0.90, "tags": 0.85, "theme": 0.80}
 
-NOTEBOOK_CODE = r'''# ESTA - M5.1 bake-off: score cut/tag/theme candidates against the frozen answer key.
+NOTEBOOK_CODE = r"""# ESTA - M5.1 bake-off: run cut/tag/theme candidates and record their raw
+# predictions. Scoring happens locally (tools/match/bakeoff/scoring.py).
 import subprocess, sys, json, os, gc, glob, traceback, time
 
 subprocess.run([sys.executable, "-m", "pip", "install", "-q",
-                "scenedetect[opencv]", "transnetv2-pytorch", "scikit-learn",
+                "scenedetect[opencv]", "transnetv2-pytorch",
                 "git+https://github.com/huggingface/transformers", "accelerate",
                 "bitsandbytes", "einops", "timm"], check=False)
 
 import numpy as np
 import torch
-from sklearn.metrics import roc_auc_score
+import cv2
+from PIL import Image
 
 GT = json.loads(__GT__)
+JOBS = set(__JOBS__)
+MODELS = set(__MODELS__)
 HF_TOKEN = __HF_TOKEN__
 OUT = "/kaggle/working"
 WORK = "/kaggle/temp"
-
-def _resolve_input_dir(expected_slug, must_contain):
-    """/kaggle/input/<slug> sometimes doesn't match the dataset's own slug when
-    more than one dataset is attached to a kernel — glob for whichever mounted
-    directory actually holds the expected file rather than trust the name.
-
-    With 2+ datasets attached, Kaggle nests them under
-    /kaggle/input/datasets/<owner>/<slug>/ instead of mounting each directly at
-    /kaggle/input/<slug>/ — confirmed by dumping /kaggle/input's own listing on a
-    failed run (it printed just ['datasets']). Recursive search covers both shapes."""
-    direct = os.path.join("/kaggle/input", expected_slug)
-    if os.path.exists(os.path.join(direct, must_contain)):
-        return direct
-    hits = glob.glob(os.path.join("/kaggle/input", "**", must_contain), recursive=True)
-    if hits:
-        return os.path.dirname(hits[0])
-    print("[esta] /kaggle/input contents:", os.listdir("/kaggle/input") if os.path.isdir("/kaggle/input") else "MISSING")
-    for root, dirs, files in os.walk("/kaggle/input"):
-        print("[esta]  ", root, "->", files[:5], dirs[:5])
-    return direct  # fall through — callers already handle a missing file per-candidate
-
-IN_VIDEOS = _resolve_input_dir(__IN_VIDEOS_SLUG__, __IN_VIDEOS_PROBE__)
-IN_FRAMES = _resolve_input_dir(__IN_FRAMES_SLUG__, __IN_FRAMES_PROBE__)
+MAX_SIDE = 448
 os.makedirs(WORK, exist_ok=True)
 if HF_TOKEN:
     os.environ["HF_TOKEN"] = HF_TOKEN
 os.environ["HF_HOME"] = "/kaggle/temp/hf"
 
-results = {"cuts": {}, "tags": {}, "theme": {}, "errors": {}}
+def wanted(job, name):
+    return job in JOBS and (not MODELS or name in MODELS)
+
+def _resolve_input_dir(expected_slug, must_contain):
+    # With 2+ datasets attached, Kaggle mounts them under
+    # /kaggle/input/datasets/<owner>/<slug>/ rather than /kaggle/input/<slug>/.
+    direct = os.path.join("/kaggle/input", expected_slug)
+    if os.path.exists(os.path.join(direct, must_contain)):
+        return direct
+    hits = glob.glob(os.path.join("/kaggle/input", "**", must_contain), recursive=True)
+    return os.path.dirname(hits[0]) if hits else direct
+
+IN_VIDEOS = _resolve_input_dir(__IN_VIDEOS_SLUG__, __IN_VIDEOS_PROBE__)
+IN_FRAMES = _resolve_input_dir(__IN_FRAMES_SLUG__, __IN_FRAMES_PROBE__)
+
+# The T4 has no bf16 hardware: bf16 runs emulated and several times slower.
+# fp16 is native, but some models (Gemma in particular) overflow in fp16, so a
+# model is loaded fp16 first and reloaded bf16 if its first answers are garbage.
+FAST = torch.float16 if torch.cuda.is_available() and not torch.cuda.is_bf16_supported() else torch.bfloat16
+
+results = {"cuts": {}, "tags": {}, "theme": {}, "timing": {}, "errors": {}, "dtype": {}}
 
 def finish():
-    with open(os.path.join(OUT, "bakeoff_results.json"), "w") as fh:
+    with open(os.path.join(OUT, "bakeoff_preds.json"), "w") as fh:
         json.dump(results, fh)
     print("ESTA_BAKEOFF_RESULT::" + json.dumps({"ok": True}))
 
@@ -89,397 +91,248 @@ def purge():
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
 
-def f1_cuts(pred, gt, tol=0.1):
-    gt_used = [False] * len(gt)
-    tp = 0
-    for p in sorted(pred):
-        best_j, best_d = -1, tol + 1e-9
-        for j, g in enumerate(sorted(gt)):
-            if gt_used[j]:
-                continue
-            d = abs(p - g)
-            if d <= tol and d < best_d:
-                best_d, best_j = d, j
-        if best_j >= 0:
-            gt_used[best_j] = True
-            tp += 1
-    fp, fn = len(pred) - tp, len(gt) - tp
-    precision = tp / (tp + fp) if (tp + fp) else 0.0
-    recall = tp / (tp + fn) if (tp + fn) else 0.0
-    return 2 * precision * recall / (precision + recall) if (precision + recall) else 0.0
+def timed(key, t0):
+    dur_min = sum(GT[s]["duration"] for s in GT) / 60
+    secs = time.time() - t0
+    results["timing"][key] = {"sec_per_min": secs / dur_min,
+                              "gpu_min": secs / 60 if torch.cuda.is_available() else 0.0}
+
+def video_path(slug):
+    src = os.path.join(IN_VIDEOS, GT[slug]["video_file"])
+    dst = os.path.join(WORK, GT[slug]["video_file"])
+    if not os.path.exists(dst):
+        import shutil
+        shutil.copy(src, dst)
+    return dst
 
 # ============================== CUTS ==========================================
-all_gt_cuts = {slug: v["cuts"][1:-1] for slug, v in GT.items()}  # interior only
-
-# -- PySceneDetect --
-t0 = time.time()
-try:
-    from scenedetect import detect, AdaptiveDetector
-    preds = {}
-    for slug, v in GT.items():
-        path = os.path.join(IN_VIDEOS, v["video_file"])
-        scenes = detect(path, AdaptiveDetector())
-        preds[slug] = [s[0].get_seconds() for s in scenes[1:]]
-    scored = [f1_cuts(preds[s], all_gt_cuts[s]) for s in GT]
-    weights = [len(all_gt_cuts[s]) for s in GT]
-    f1 = sum(s * w for s, w in zip(scored, weights)) / sum(weights) if sum(weights) else 0.0
-    dur_min = sum(GT[s]["duration"] for s in GT) / 60
-    results["cuts"]["pyscenedetect"] = {"f1": f1, "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": 0.0}
-except Exception as e:
-    results["errors"]["cuts:pyscenedetect"] = str(e)[:300]
-    traceback.print_exc()
-finish()
-
-# -- TransNetV2 -- (CSV format: cli.py::process_video_to_output — see candidates.py)
-t0 = time.time()
-try:
-    import csv
-    preds = {}
-    for slug, v in GT.items():
-        src = os.path.join(IN_VIDEOS, v["video_file"])
-        dst = os.path.join(WORK, v["video_file"])
-        if not os.path.exists(dst):
-            import shutil
-            shutil.copy(src, dst)
-        out_csv = os.path.join(WORK, slug + "_tn2.csv")
-        r = subprocess.run(["transnetv2_pytorch", dst, "--output", out_csv, "--quiet"],
-                           capture_output=True, text=True, timeout=1800)
-        if r.returncode != 0 or not os.path.exists(out_csv):
-            raise RuntimeError("transnetv2_pytorch failed: " + (r.stderr or r.stdout)[-300:])
-        with open(out_csv, newline="") as fh:
-            rows = list(csv.DictReader(fh))
-        preds[slug] = [round(float(row["end_time"]), 3) for row in rows[:-1]]
-    scored = [f1_cuts(preds[s], all_gt_cuts[s]) for s in GT]
-    weights = [len(all_gt_cuts[s]) for s in GT]
-    f1 = sum(s * w for s, w in zip(scored, weights)) / sum(weights) if sum(weights) else 0.0
-    dur_min = sum(GT[s]["duration"] for s in GT) / 60
-    gpu_min = (time.time() - t0) / 60 if torch.cuda.is_available() else 0.0
-    results["cuts"]["transnetv2"] = {"f1": f1, "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": gpu_min}
-except Exception as e:
-    results["errors"]["cuts:transnetv2"] = str(e)[:300]
-    traceback.print_exc()
-purge()
-finish()
-
-results["errors"]["cuts:autoshot"] = "no reachable AutoShot checkpoint (upstream is Baidu-only)"
-
-# ============================== TAGS ==========================================
-ALL_SHOTS = []  # (slug, shot_id, frame_path, gt_label)
-for slug, v in GT.items():
-    for s in v["shots"]:
-        p = os.path.join(IN_FRAMES, "%s__shot_%03d.jpg" % (slug, int(s["shot_id"])))
-        if os.path.exists(p):
-            ALL_SHOTS.append((slug, s["shot_id"], p, s))
-
-KIND_CLASSES = ["footage", "still", "graphic", "ai", "talking_head", "screen", "meme"]
-LABEL_FIELDS = ["kind", "text_on_screen", "panels", "overlay", "clips_in_shot"]
-
-def macro_f1_kind(preds, gts):
-    per_class = {}
-    for c in KIND_CLASSES:
-        support = sum(1 for g in gts if g == c)
-        if support == 0:
-            continue
-        tp = sum(1 for p, g in zip(preds, gts) if p == c and g == c)
-        fp = sum(1 for p, g in zip(preds, gts) if p == c and g != c)
-        fn = sum(1 for p, g in zip(preds, gts) if p != c and g == c)
-        precision = tp / (tp + fp) if (tp + fp) else 0.0
-        recall = tp / (tp + fn) if (tp + fn) else 0.0
-        f1 = 2 * precision * recall / (precision + recall) if (precision + recall) else 0.0
-        per_class[c] = {"f1": f1, "support": support}
-    macro = sum(v["f1"] for v in per_class.values()) / len(per_class) if per_class else 0.0
-    return macro, per_class
-
-def parse_label_json(text):
-    try:
-        start, end = text.index("{"), text.rindex("}") + 1
-        obj = json.loads(text[start:end])
-        return {
-            "kind": str(obj.get("kind", "")).strip().lower(),
-            "text_on_screen": bool(obj.get("text_on_screen", False)),
-            "panels": int(obj.get("panels", 1)),
-            "overlay": bool(obj.get("overlay", False)),
-            "clips_in_shot": int(obj.get("clips_in_shot", 1)),
-        }
-    except Exception:
-        return None
-
-PROMPT = (
-    "Look at this single video shot's keyframe. Reply with ONLY a JSON object, no "
-    "other text:\n"
-    '{"kind": one of ["footage","still","graphic","ai","talking_head","screen","meme"], '
-    '"text_on_screen": true/false (any on-screen text/captions visible), '
-    '"panels": 1, 2, or 3 (3 means 3 or more split-screen panels), '
-    '"overlay": true/false (a graphic/text overlay floating over footage), '
-    '"clips_in_shot": integer, normally 1}\n'
-    'kind meanings: footage=real camera footage, still=static image/screenshot with no '
-    'motion, graphic=motion graphic or animated content, ai=visibly AI-generated, '
-    'talking_head=person speaking to camera, screen=screen recording/game UI, meme=meme '
-    'template or reaction clip.'
-)
-
-def score_tag_predictions(preds_by_shot):
-    """preds_by_shot: {(slug, shot_id): label_dict or None}. -> per-field scores."""
-    scored = {}
-    kinds_p, kinds_g = [], []
-    for (slug, sid, _, gt) in ALL_SHOTS:
-        pred = preds_by_shot.get((slug, sid))
-        if pred is None:
-            continue
-        kinds_p.append(pred["kind"])
-        kinds_g.append(gt["kind"])
-    macro, per_class = macro_f1_kind(kinds_p, kinds_g)
-    scored["kind"] = {"macro_f1": macro, "per_class": per_class}
-    for field in ("text_on_screen", "panels", "overlay", "clips_in_shot"):
-        correct, total = 0, 0
-        for (slug, sid, _, gt) in ALL_SHOTS:
-            pred = preds_by_shot.get((slug, sid))
-            if pred is None:
-                continue
-            total += 1
-            if pred[field] == gt[field]:
-                correct += 1
-        scored[field] = {"accuracy": correct / total if total else 0.0, "support": total}
-    return scored
-
-def run_vlm_qwen(model_id, load_kwargs):
-    from transformers import Qwen3VLForConditionalGeneration, AutoProcessor
-    from PIL import Image
-    processor = AutoProcessor.from_pretrained(model_id)
-    model = Qwen3VLForConditionalGeneration.from_pretrained(model_id, **load_kwargs)
-    preds = {}
-    for slug, sid, path, gt in ALL_SHOTS:
-        img = Image.open(path).convert("RGB")
-        messages = [{"role": "user", "content": [{"type": "image", "image": img},
-                                                  {"type": "text", "text": PROMPT}]}]
-        inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
-                                               return_tensors="pt", return_dict=True).to(model.device)
-        with torch.no_grad():
-            out = model.generate(**inputs, max_new_tokens=150, do_sample=False)
-        text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-        preds[(slug, sid)] = parse_label_json(text)
-    del model
-    purge()
-    return preds
-
-def run_vlm_gemma(model_id):
-    from transformers import AutoProcessor, Gemma3ForConditionalGeneration
-    from PIL import Image
-    processor = AutoProcessor.from_pretrained(model_id, use_fast=False)
-    model = Gemma3ForConditionalGeneration.from_pretrained(
-        model_id, torch_dtype=torch.bfloat16, device_map="auto")
-    preds = {}
-    for slug, sid, path, gt in ALL_SHOTS:
-        img = Image.open(path).convert("RGB")
-        messages = [{"role": "user", "content": [{"type": "image", "image": img},
-                                                  {"type": "text", "text": PROMPT}]}]
-        inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
-                                               return_tensors="pt", return_dict=True).to(model.device)
-        with torch.no_grad():
-            out = model.generate(**inputs, max_new_tokens=150, do_sample=False)
-        text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-        preds[(slug, sid)] = parse_label_json(text)
-    del model
-    purge()
-    return preds
-
-def run_vlm_gemma4(model_id):
-    # 8B raw params but an "effective 4B" footprint via Per-Layer Embedding
-    # offloading — same bf16/no-quantization treatment as gemma3-4b, not the
-    # 4-bit path qwen3-vl-8b needs. sdpa + AutoModelForImageTextToText and
-    # left padding are what the model's own docs specify.
-    from transformers import AutoModelForImageTextToText, AutoProcessor
-    from PIL import Image
-    processor = AutoProcessor.from_pretrained(model_id, padding_side="left")
-    model = AutoModelForImageTextToText.from_pretrained(
-        model_id, device_map="auto", attn_implementation="sdpa")
-    preds = {}
-    for slug, sid, path, gt in ALL_SHOTS:
-        img = Image.open(path).convert("RGB")
-        messages = [{"role": "user", "content": [{"type": "image", "image": img},
-                                                  {"type": "text", "text": PROMPT}]}]
-        inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
-                                               return_tensors="pt", return_dict=True).to(model.device)
-        with torch.no_grad():
-            out = model.generate(**inputs, max_new_tokens=150, do_sample=False)
-        text = processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
-        preds[(slug, sid)] = parse_label_json(text)
-    del model
-    purge()
-    return preds
-
-def run_florence_text_on_screen():
-    from transformers import AutoModelForCausalLM, AutoProcessor, PretrainedConfig
-    from PIL import Image
-    model_id = "microsoft/Florence-2-large"
-    dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-    # Florence-2's pinned remote code reads self.forced_bos_token_id inside its own
-    # Florence2LanguageConfig.__init__, before base PretrainedConfig.__init__ has set
-    # it as an instance attribute — AttributeError, and it happens INSIDE
-    # from_pretrained() itself, too early for any post-hoc patch on the returned
-    # model. A class-level default on the base config makes normal attribute lookup
-    # (instance -> class) find it either way.
-    if not hasattr(PretrainedConfig, "forced_bos_token_id"):
-        PretrainedConfig.forced_bos_token_id = None
-    # Same story one layer up: newer transformers auto-selects an attention
-    # implementation by checking model_class._supports_sdpa, which Florence-2's
-    # custom PreTrainedModel subclass never declares. Forcing eager sidesteps the
-    # check entirely rather than patching another missing class attribute.
-    model = AutoModelForCausalLM.from_pretrained(
-        model_id, torch_dtype=dtype, trust_remote_code=True, attn_implementation="eager").to(
-        "cuda" if torch.cuda.is_available() else "cpu")
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
-    preds = {}
-    for slug, sid, path, gt in ALL_SHOTS:
-        img = Image.open(path).convert("RGB")
-        task = "<OCR>"
-        inputs = processor(text=task, images=img, return_tensors="pt").to(model.device, dtype)
-        with torch.no_grad():
-            out_ids = model.generate(input_ids=inputs["input_ids"], pixel_values=inputs["pixel_values"],
-                                     max_new_tokens=256, num_beams=1)
-        text = processor.batch_decode(out_ids, skip_special_tokens=True)[0]
-        # text_on_screen only — a handful of stray OCR characters on a busy frame is
-        # noise, not real on-screen text.
-        preds[(slug, sid)] = {"text_on_screen": len(text.strip()) >= 4}
-    del model
-    purge()
-    return preds
-
-tag_timing = {}
-from transformers import BitsAndBytesConfig
-bnb_4bit = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=torch.bfloat16)
-for name, fn in [
-    ("qwen3-vl-8b", lambda: run_vlm_qwen("Qwen/Qwen3-VL-8B-Instruct",
-        dict(dtype=torch.bfloat16, device_map="auto", quantization_config=bnb_4bit))),
-    ("qwen3-vl-4b", lambda: run_vlm_qwen("Qwen/Qwen3-VL-4B-Instruct",
-        dict(dtype=torch.bfloat16, device_map="auto"))),
-    ("gemma3-4b", lambda: run_vlm_gemma("google/gemma-3-4b-it")),
-    ("gemma4-e4b", lambda: run_vlm_gemma4("google/gemma-4-E4B-it")),
-]:
+if wanted("cuts", "pyscenedetect"):
     t0 = time.time()
     try:
-        preds = fn()
-        scored = score_tag_predictions(preds)
-        dur_min = sum(GT[s]["duration"] for s in GT) / 60
-        gpu_min = (time.time() - t0) / 60 if torch.cuda.is_available() else 0.0
-        for field, sc in scored.items():
-            results["tags"].setdefault(field, {})[name] = {
-                **sc, "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": gpu_min}
+        from scenedetect import detect, AdaptiveDetector
+        results["cuts"]["pyscenedetect"] = {
+            slug: [sc[0].get_seconds() for sc in detect(video_path(slug), AdaptiveDetector())[1:]] for slug in GT}
+        timed("cuts:pyscenedetect", t0)
     except Exception as e:
-        results["errors"]["tags:" + name] = str(e)[:300]
+        results["errors"]["cuts:pyscenedetect"] = str(e)[:300]
         traceback.print_exc()
     finish()
 
-t0 = time.time()
-try:
-    preds = run_florence_text_on_screen()
-    correct = sum(1 for (slug, sid, _, gt) in ALL_SHOTS
-                 if (slug, sid) in preds and preds[(slug, sid)]["text_on_screen"] == gt["text_on_screen"])
-    total = len(ALL_SHOTS)
-    dur_min = sum(GT[s]["duration"] for s in GT) / 60
-    gpu_min = (time.time() - t0) / 60 if torch.cuda.is_available() else 0.0
-    results["tags"].setdefault("text_on_screen", {})["florence2-large"] = {
-        "accuracy": correct / total if total else 0.0, "support": total,
-        "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": gpu_min}
-except Exception as e:
-    results["errors"]["tags:florence2-large"] = str(e)[:300]
-    traceback.print_exc()
-purge()
-finish()
-
-# ============================== THEME =========================================
-neg_frames = sorted(glob.glob(os.path.join(IN_FRAMES, "negative__*.jpg")))
-pos_frames = [(slug, sid, path) for slug, sid, path, gt in ALL_SHOTS]
-
-def _pool_vec(arr):
-    """get_image_features() sometimes returns unpooled per-patch features
-    (e.g. SigLIP2 here: shape (196, hidden) not (hidden,)) rather than one
-    pooled vector — mean over every axis but the last collapses it to one."""
-    while arr.ndim > 1:
-        arr = arr.mean(axis=0)
-    return arr
-
-def embed_all(embed_fn):
-    pos_emb = np.stack([embed_fn(p) for _, _, p in pos_frames])
-    neg_emb = np.stack([embed_fn(p) for p in neg_frames])
-    embeddings = np.concatenate([pos_emb, neg_emb], axis=0)
-    labels = np.array([1] * len(pos_emb) + [0] * len(neg_emb))
-    centroid = pos_emb.mean(axis=0)
-    centroid = centroid / (np.linalg.norm(centroid) + 1e-9)
-    normed = embeddings / (np.linalg.norm(embeddings, axis=1, keepdims=True) + 1e-9)
-    sims = normed @ centroid
-    return roc_auc_score(labels, sims)
-
-def siglip_embed():
-    from transformers import AutoModel, AutoProcessor
-    from PIL import Image
-    model_id = "google/siglip2-base-patch16-224"
-    processor = AutoProcessor.from_pretrained(model_id)
-    model = AutoModel.from_pretrained(model_id, device_map="auto").eval()
-    def fn(path):
-        img = Image.open(path).convert("RGB")
-        inputs = processor(images=[img], return_tensors="pt").to(model.device)
-        with torch.no_grad():
-            feat = model.get_image_features(**inputs)
-        return _pool_vec(feat[0].float().cpu().numpy())
-    auc = embed_all(fn)
-    del model
-    purge()
-    return auc
-
-def clip_embed():
-    from transformers import CLIPModel, CLIPProcessor
-    from PIL import Image
-    model_id = "openai/clip-vit-base-patch32"
-    processor = CLIPProcessor.from_pretrained(model_id)
-    model = CLIPModel.from_pretrained(model_id).to("cuda" if torch.cuda.is_available() else "cpu").eval()
-    def fn(path):
-        img = Image.open(path).convert("RGB")
-        inputs = processor(images=[img], return_tensors="pt").to(model.device)
-        with torch.no_grad():
-            feat = model.get_image_features(**inputs)
-        return _pool_vec(feat[0].float().cpu().numpy())
-    auc = embed_all(fn)
-    del model
-    purge()
-    return auc
-
-def dinov3_embed():
-    from transformers import AutoImageProcessor, AutoModel
-    from PIL import Image
-    model_id = "facebook/dinov3-convnext-small-pretrain-lvd1689m"
-    processor = AutoImageProcessor.from_pretrained(model_id)
-    model = AutoModel.from_pretrained(model_id).to("cuda" if torch.cuda.is_available() else "cpu").eval()
-    def fn(path):
-        img = Image.open(path).convert("RGB")
-        inputs = processor(images=img, return_tensors="pt").to(model.device)
-        with torch.no_grad():
-            out = model(**inputs)
-        pooled = getattr(out, "pooler_output", None)
-        if pooled is None:
-            pooled = out.last_hidden_state.mean(dim=1)
-        return _pool_vec(pooled[0].float().cpu().numpy())
-    auc = embed_all(fn)
-    del model
-    purge()
-    return auc
-
-dur_min_all = sum(GT[s]["duration"] for s in GT) / 60
-for name, fn in [("siglip2", siglip_embed), ("clip-vit-b32", clip_embed), ("dinov3-small", dinov3_embed)]:
+if wanted("cuts", "transnetv2"):
     t0 = time.time()
     try:
-        auc = fn()
-        gpu_min = (time.time() - t0) / 60 if torch.cuda.is_available() else 0.0
-        results["theme"][name] = {"auc": auc, "sec_per_min": (time.time() - t0) / dur_min_all,
-                                  "gpu_min": gpu_min}
+        import csv
+        preds = {}
+        for slug in GT:
+            out_csv = os.path.join(WORK, slug + "_tn2.csv")
+            r = subprocess.run(["transnetv2_pytorch", video_path(slug), "--output", out_csv, "--quiet"],
+                               capture_output=True, text=True, timeout=1800)
+            if r.returncode != 0 or not os.path.exists(out_csv):
+                raise RuntimeError("transnetv2_pytorch failed: " + (r.stderr or r.stdout)[-300:])
+            with open(out_csv, newline="") as fh:
+                rows = list(csv.DictReader(fh))
+            preds[slug] = [round(float(row["end_time"]), 3) for row in rows[:-1]]
+        results["cuts"]["transnetv2"] = preds
+        timed("cuts:transnetv2", t0)
+    except Exception as e:
+        results["errors"]["cuts:transnetv2"] = str(e)[:300]
+        traceback.print_exc()
+    purge()
+    finish()
+
+# ============================== SHOTS =========================================
+# Shot i spans cuts[i-1]..cuts[i]. Three frames per shot (one keyframe can't
+# show whether a shot moves), downscaled so a VLM spends few tokens on each,
+# plus a measured motion level the prompt passes on as a hint.
+def shot_frames(slug, shot_id):
+    cuts = GT[slug]["cuts"]
+    i = int(shot_id)
+    a, b = cuts[i - 1], cuts[i]
+    cap = cv2.VideoCapture(video_path(slug))
+    def grab(t):
+        cap.set(cv2.CAP_PROP_POS_MSEC, t * 1000)
+        ok, img = cap.read()
+        return img if ok else None
+    frames = []
+    for f in (0.2, 0.5, 0.8):
+        img = grab(a + (b - a) * f)
+        if img is not None:
+            h, w = img.shape[:2]
+            k = MAX_SIDE / max(h, w)
+            frames.append(Image.fromarray(cv2.cvtColor(cv2.resize(img, (int(w * k), int(h * k))), cv2.COLOR_BGR2RGB)))
+    grays = []
+    for k in range(8):
+        img = grab(a + (b - a) * (0.05 + 0.9 * k / 7))
+        if img is not None:
+            grays.append(cv2.cvtColor(cv2.resize(img, (160, 90)), cv2.COLOR_BGR2GRAY).astype(np.float32))
+    cap.release()
+    motion = float(np.mean([np.abs(x - y).mean() for x, y in zip(grays, grays[1:])])) if len(grays) > 1 else 0.0
+    return frames, motion
+
+SHOTS = []  # (key, frames, motion)
+if "tags" in JOBS:
+    for slug, v in GT.items():
+        for s in v["shots"]:
+            try:
+                frames, motion = shot_frames(slug, s["shot_id"])
+                if frames:
+                    SHOTS.append((f"{slug}/{s['shot_id']}", frames, motion))
+            except Exception as e:
+                results["errors"][f"frames:{slug}/{s['shot_id']}"] = str(e)[:200]
+    results["motion"] = {k: m for k, _, m in SHOTS}
+
+PROMPT = (
+    "These are 3 frames (start, middle, end) from ONE shot of an edited short-form video. "
+    "Measured motion across the shot: {motion}. Reply with ONLY a JSON object:\n"
+    '{{"kind": one of ["footage","still","graphic","talking_head","meme"], '
+    '"text_on_screen": true/false, "panels": 1, 2 or 3, "overlay": true/false, '
+    '"clips_in_shot": integer}}\n'
+    "kind: footage = real camera footage, screen recording or game capture; "
+    "still = a photo or screenshot shown without its own motion (a slow zoom or pan on it is still a still); "
+    "graphic = motion graphic, animated text card, chart or title card; "
+    "talking_head = a person speaking to camera; meme = meme template or reaction clip. "
+    "text_on_screen = any readable words or numbers on screen, captions included. "
+    "panels = how many separate pictures share the frame side by side or stacked (3 = 3 or more). "
+    "overlay = a graphic, sticker or text card floating over footage. "
+    "clips_in_shot = how many different source clips appear within this one shot."
+)
+
+def motion_word(m):
+    return "none" if m < 1.0 else "low" if m < 4.0 else "high"
+
+def parse_label_json(text):
+    try:
+        obj = json.loads(text[text.index("{"): text.rindex("}") + 1])
+        return {"kind": str(obj.get("kind", "")).strip().lower(),
+                "text_on_screen": bool(obj.get("text_on_screen", False)),
+                "panels": int(obj.get("panels", 1)), "overlay": bool(obj.get("overlay", False)),
+                "clips_in_shot": int(obj.get("clips_in_shot", 1))}
+    except Exception:
+        return None
+
+def run_vlm(load, ask):
+    # load(dtype) -> (model, processor); ask(model, processor, frames, prompt) -> text.
+    preds = {}
+    for dtype in (FAST, torch.bfloat16) if FAST != torch.bfloat16 else (torch.bfloat16,):
+        model, processor = load(dtype)
+        preds = {}
+        for n, (key, frames, motion) in enumerate(SHOTS):
+            preds[key] = parse_label_json(ask(model, processor, frames, PROMPT.format(motion=motion_word(motion))))
+            # fp16 overflow shows up as unparseable output from the start; retry in bf16.
+            if n == 3 and dtype != torch.bfloat16 and sum(p is None for p in preds.values()) >= 3:
+                break
+        else:
+            del model
+            purge()
+            return preds, str(dtype)
+        del model
+        purge()
+    return preds, "bfloat16"
+
+def chat_ask(model, processor, frames, prompt):
+    messages = [{"role": "user", "content": [*({"type": "image", "image": f} for f in frames),
+                                              {"type": "text", "text": prompt}]}]
+    inputs = processor.apply_chat_template(messages, tokenize=True, add_generation_prompt=True,
+                                           return_tensors="pt", return_dict=True).to(model.device)
+    with torch.no_grad():
+        out = model.generate(**inputs, max_new_tokens=80, do_sample=False)
+    return processor.decode(out[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
+
+def qwen_loader(model_id, four_bit=False):
+    def load(dtype):
+        from transformers import Qwen3VLForConditionalGeneration, AutoProcessor, BitsAndBytesConfig
+        kw = dict(dtype=dtype, device_map="auto")
+        if four_bit:
+            kw["quantization_config"] = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_compute_dtype=dtype)
+        processor = AutoProcessor.from_pretrained(model_id)
+        return Qwen3VLForConditionalGeneration.from_pretrained(model_id, **kw), processor
+    return load
+
+def auto_loader(model_id, **proc_kw):
+    def load(dtype):
+        from transformers import AutoModelForImageTextToText, AutoProcessor
+        processor = AutoProcessor.from_pretrained(model_id, **proc_kw)
+        return AutoModelForImageTextToText.from_pretrained(model_id, dtype=dtype, device_map="auto"), processor
+    return load
+
+TAGGERS = [
+    ("qwen3-vl-8b", qwen_loader("Qwen/Qwen3-VL-8B-Instruct", four_bit=True)),
+    ("qwen3-vl-4b", qwen_loader("Qwen/Qwen3-VL-4B-Instruct")),
+    ("gemma3-4b", auto_loader("google/gemma-3-4b-it")),
+    ("gemma4-e4b", auto_loader("google/gemma-4-E4B-it", padding_side="left")),
+]
+for name, load in TAGGERS:
+    if not wanted("tags", name):
+        continue
+    t0 = time.time()
+    try:
+        preds, used = run_vlm(load, chat_ask)
+        results["tags"][name] = preds
+        results["dtype"][name] = used
+        timed("tags:" + name, t0)
+    except Exception as e:
+        results["errors"]["tags:" + name] = str(e)[:300]
+        traceback.print_exc()
+    purge()
+    finish()
+
+# ============================== THEME =========================================
+def image_embedding(out):
+    # Newer transformers return a ModelOutput from get_image_features; the
+    # embedding is its pooler_output (projected), not the per-patch states.
+    if isinstance(out, torch.Tensor):
+        return out[0]
+    pooled = getattr(out, "pooler_output", None)
+    return pooled[0] if pooled is not None else out.last_hidden_state[0].mean(dim=0)
+
+def theme_sims(embed):
+    pos = [p for p in sorted(glob.glob(os.path.join(IN_FRAMES, "*__shot_*.jpg"))) if not os.path.basename(p).startswith("negative__")]
+    neg = sorted(glob.glob(os.path.join(IN_FRAMES, "negative__*.jpg")))
+    def norm(v):
+        v = v.float().cpu().numpy().reshape(-1)
+        return v / (np.linalg.norm(v) + 1e-9)
+    pe = np.stack([norm(embed(Image.open(p).convert("RGB"))) for p in pos])
+    ne = np.stack([norm(embed(Image.open(p).convert("RGB"))) for p in neg])
+    # Leave-one-out centroid, so a frame isn't scored against itself.
+    total = pe.sum(axis=0)
+    pos_sims = [float(v @ ((total - v) / (np.linalg.norm(total - v) + 1e-9))) for v in pe]
+    centroid = total / (np.linalg.norm(total) + 1e-9)
+    return {"pos": pos_sims, "neg": [float(v @ centroid) for v in ne]}
+
+def hf_image_embedder(model_cls, proc_cls, model_id, via_features=True):
+    import transformers
+    processor = getattr(transformers, proc_cls).from_pretrained(model_id)
+    model = getattr(transformers, model_cls).from_pretrained(model_id).to(
+        "cuda" if torch.cuda.is_available() else "cpu").eval()
+    def embed(img):
+        inputs = processor(images=[img], return_tensors="pt").to(model.device)
+        with torch.no_grad():
+            return image_embedding(model.get_image_features(**inputs) if via_features else model(**inputs))
+    return model, embed
+
+EMBEDDERS = [
+    ("siglip2", ("AutoModel", "AutoProcessor", "google/siglip2-base-patch16-224", True)),
+    ("clip-vit-b32", ("CLIPModel", "CLIPProcessor", "openai/clip-vit-base-patch32", True)),
+    ("dinov3-small", ("AutoModel", "AutoImageProcessor", "facebook/dinov3-convnext-small-pretrain-lvd1689m", False)),
+]
+for name, spec in EMBEDDERS:
+    if not wanted("theme", name):
+        continue
+    t0 = time.time()
+    try:
+        model, embed = hf_image_embedder(*spec)
+        results["theme"][name] = theme_sims(embed)
+        del model
+        timed("theme:" + name, t0)
     except Exception as e:
         results["errors"]["theme:" + name] = str(e)[:300]
         traceback.print_exc()
+    purge()
     finish()
 
 finish()
 print("ESTA_BAKEOFF_DONE")
-'''
+"""
 
 
 def _load_gt() -> dict:
@@ -499,7 +352,15 @@ def _state_path() -> Path:
     return HERE / "bakeoff_kernel.json"
 
 
+JOBS = ("cuts", "tags", "theme")
+
+
 def cmd_push(args: argparse.Namespace) -> None:
+    jobs = [j.strip() for j in args.only.split(",") if j.strip()] or list(JOBS)
+    unknown = set(jobs) - set(JOBS)
+    if unknown:
+        raise ValueError(f"unknown job(s) {sorted(unknown)}; choose from {JOBS}")
+    models = [m.strip() for m in args.models.split(",") if m.strip()]
     frozen = KEY_DIR / "frozen.json"
     if not frozen.exists():
         raise RuntimeError("answer key is not frozen — run key_build.py freeze first")
@@ -535,11 +396,12 @@ def cmd_push(args: argparse.Namespace) -> None:
     if not wait_dataset_ready(frames_dataset):
         raise RuntimeError("frames dataset never reached ready state")
 
-    hf_token = ""
+    # HF_TOKEN in the environment (a cloud session's secret) wins over config.yaml.
+    hf_token = os.environ.get("HF_TOKEN", "")
     try:
         import yaml
         cfg = yaml.safe_load((HERE.parents[2] / "config.yaml").read_text(encoding="utf-8"))
-        hf_token = (cfg.get("apis", {}) or {}).get("hf_token", "") or ""
+        hf_token = hf_token or (cfg.get("apis", {}) or {}).get("hf_token", "") or ""
     except Exception:
         pass
 
@@ -555,6 +417,8 @@ def cmd_push(args: argparse.Namespace) -> None:
         .replace("__IN_FRAMES_SLUG__", repr(frames_dataset.split("/", 1)[-1]))
         .replace("__IN_FRAMES_PROBE__", repr(any_frame))
         .replace("__HF_TOKEN__", repr(hf_token))
+        .replace("__JOBS__", repr(jobs))
+        .replace("__MODELS__", repr(models))
     )
 
     kernel_id = f"{kaggle_username()}/{slugify('esta-bakeoff-main-kernel')}"
@@ -571,9 +435,11 @@ def cmd_push(args: argparse.Namespace) -> None:
         raise ValueError(f"notebook is {size / 1e6:.1f} MB — over the {MAX_NOTEBOOK_BYTES / 1e6:.1f} MB ceiling")
 
     ok, log = push_kernel(kernel_build)
-    state = {"kernel": kernel_id, "videos_dataset": videos_dataset, "frames_dataset": frames_dataset}
+    state = {"kernel": kernel_id, "videos_dataset": videos_dataset, "frames_dataset": frames_dataset,
+             "jobs": jobs, "models": models}
     _state_path().write_text(json.dumps(state, indent=2), encoding="utf-8")
-    print(json.dumps({"ok": ok, "kernel": kernel_id, "url": f"https://www.kaggle.com/code/{kernel_id}",
+    print(json.dumps({"ok": ok, "kernel": kernel_id, "jobs": jobs, "models": models,
+                      "url": f"https://www.kaggle.com/code/{kernel_id}",
                       "log": log[-400:]}, ensure_ascii=False))
 
 
@@ -594,13 +460,49 @@ def cmd_status(args: argparse.Namespace) -> None:
     print(json.dumps({"ok": bool(state), "kernel": ref, "state": state, "raw": raw}, ensure_ascii=False))
 
 
-def _pick_winner(candidates: dict, metric: str, bar: float) -> tuple[str, str, list[str]]:
-    passing = {k: v for k, v in candidates.items() if v.get(metric, 0) >= bar}
+def _pick_winner(scores: dict, bar: float) -> tuple[str, str]:
+    passing = {k: v for k, v in scores.items() if v >= bar}
     if not passing:
-        return "", "no candidate cleared the bar", list(candidates)
-    winner = max(passing, key=lambda k: passing[k][metric])
-    why = f"highest {metric} ({passing[winner][metric]:.3f}) among candidates clearing {bar}"
-    return winner, why, []
+        return "", "no candidate cleared the bar"
+    winner = max(passing, key=passing.get)
+    return winner, f"highest score ({passing[winner]:.3f}) among candidates clearing {bar}"
+
+
+MERGED = HERE / "bakeoff_out" / "bakeoff_preds_all.json"
+
+
+def _merge(raw: dict) -> dict:
+    """Newer runs replace a candidate's predictions; candidates a run didn't
+    include keep their earlier ones."""
+    merged = json.loads(MERGED.read_text(encoding="utf-8")) if MERGED.exists() else {}
+    for section in ("cuts", "tags", "theme", "timing", "dtype", "motion"):
+        merged.setdefault(section, {}).update(raw.get(section, {}))
+    ran = set(raw.get("cuts", {})) | set(raw.get("tags", {})) | set(raw.get("theme", {}))
+    errors = {k: v for k, v in merged.get("errors", {}).items() if k.split(":", 1)[-1] not in ran}
+    merged["errors"] = {**errors, **raw.get("errors", {})}
+    MERGED.write_text(json.dumps(merged), encoding="utf-8")
+    return merged
+
+
+def _score(preds: dict, gt: dict) -> dict:
+    timing = preds.get("timing", {})
+    t = lambda key: {"sec_per_min": timing.get(key, {}).get("sec_per_min", 0), "gpu_min": timing.get(key, {}).get("gpu_min", 0)}
+    gt_cuts = {slug: v["cuts"][1:-1] for slug, v in gt.items()}
+    cuts = {}
+    for name, by_slug in preds.get("cuts", {}).items():
+        weights = {slug: len(gt_cuts[slug]) for slug in gt}
+        f1 = sum(scoring.f1_cuts(by_slug.get(slug, []), gt_cuts[slug]) * w for slug, w in weights.items())
+        cuts[name] = {"score": f1 / (sum(weights.values()) or 1), **t("cuts:" + name)}
+    tags = {name: {**scoring.score_tags(p, gt), **t("tags:" + name), "dtype": preds.get("dtype", {}).get(name, "")}
+            for name, p in preds.get("tags", {}).items()}
+    theme = {name: {"score": scoring.auc(v["pos"], v["neg"]), **t("theme:" + name)}
+             for name, v in preds.get("theme", {}).items()}
+    return {"cuts": cuts, "tags": tags, "theme": theme}
+
+
+def _tag_score(field: str, sc: dict) -> float:
+    # kind has five classes: balanced accuracy is its mean per-class recall.
+    return sc["balanced_accuracy"] if sc.get("testable") else 0.0
 
 
 def cmd_apply(args: argparse.Namespace) -> None:
@@ -609,77 +511,78 @@ def cmd_apply(args: argparse.Namespace) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
     if not args.skip_download:
         fetch_output(ref, out_dir)
+    preds_path = out_dir / "bakeoff_preds.json"
+    if not preds_path.exists():
+        raise FileNotFoundError(f"no bakeoff_preds.json in {out_dir} — check `status` first")
+    merged = _merge(json.loads(preds_path.read_text(encoding="utf-8")))
+    gt = _load_gt()
+    scored = _score(merged, gt)
 
-    results_path = out_dir / "bakeoff_results.json"
-    if not results_path.exists():
-        raise FileNotFoundError(f"no bakeoff_results.json in {out_dir} — check `status` first")
-    raw = json.loads(results_path.read_text(encoding="utf-8"))
+    report.start_fresh({"kernel": ref, "errors": merged.get("errors", {})})
+    report.write_label_counts(scoring.label_counts(gt))
 
-    report.start_fresh({"kernel": ref, "errors": raw.get("errors", {})})
-
-    cuts_rows = [{"candidate": k, "score": v["f1"], "sec_per_min": v.get("sec_per_min", 0),
-                 "gpu_min": v.get("gpu_min", 0)} for k, v in raw.get("cuts", {}).items()]
-    cuts_winner, cuts_why, cuts_dropped = _pick_winner(
-        {k: {"f1": v["f1"]} for k, v in raw.get("cuts", {}).items()}, "f1", BARS["cuts"])
-    report.write_job_table("Cuts", "F1", BARS["cuts"], cuts_rows, cuts_winner, cuts_why, cuts_dropped)
+    winners = {}
+    cuts_scores = {k: v["score"] for k, v in scored["cuts"].items()}
+    winners["cuts"], why = _pick_winner(cuts_scores, BARS["cuts"])
+    report.write_job_table("Cuts", "F1", BARS["cuts"],
+                           [{"candidate": k, **v} for k, v in scored["cuts"].items()], winners["cuts"], why)
 
     tag_winners = {}
-    for field, candidates in raw.get("tags", {}).items():
-        metric = "macro_f1" if field == "kind" else "accuracy"
-        rows = [{"candidate": k, "score": v.get(metric, 0), "sec_per_min": v.get("sec_per_min", 0),
-                 "gpu_min": v.get("gpu_min", 0), "support": v.get("support", "")}
-                for k, v in candidates.items()]
-        winner, why, dropped = _pick_winner(
-            {k: {metric: v.get(metric, 0)} for k, v in candidates.items()}, metric, BARS["tags"])
-        report.write_job_table(f"Tags: {field}", metric, BARS["tags"], rows, winner, why, dropped)
+    for field in scoring.TAG_FIELDS:
+        per_model = {k: v["fields"][field] for k, v in scored["tags"].items()}
+        field_scores = {k: _tag_score(field, sc) for k, sc in per_model.items()}
+        winner, why = _pick_winner(field_scores, BARS["tags"])
+        untestable = [sc.get("reason") for sc in per_model.values() if not sc.get("testable")]
+        if untestable and not any(sc.get("testable") for sc in per_model.values()):
+            why = f"not testable: {untestable[0]}"
+        rows = [{"candidate": k, "score": field_scores[k], "accuracy": sc.get("accuracy", 0),
+                 "baseline": sc.get("baseline", 0), "support": sc.get("n", 0),
+                 "sec_per_min": scored["tags"][k]["sec_per_min"], "gpu_min": scored["tags"][k]["gpu_min"]}
+                for k, sc in per_model.items()]
+        report.write_tag_table(field, BARS["tags"], rows, winner, why)
         if winner:
             tag_winners[field] = winner
 
-    theme_rows = [{"candidate": k, "score": v["auc"], "sec_per_min": v.get("sec_per_min", 0),
-                  "gpu_min": v.get("gpu_min", 0)} for k, v in raw.get("theme", {}).items()]
-    theme_winner, theme_why, theme_dropped = _pick_winner(
-        {k: {"auc": v["auc"]} for k, v in raw.get("theme", {}).items()}, "auc", BARS["theme"])
-    report.write_job_table("Theme embeddings", "AUC", BARS["theme"], theme_rows,
-                           theme_winner, theme_why, theme_dropped)
+    theme_scores = {k: v["score"] for k, v in scored["theme"].items()}
+    winners["theme"], why = _pick_winner(theme_scores, BARS["theme"])
+    report.write_job_table("Theme embeddings", "AUC", BARS["theme"],
+                           [{"candidate": k, **v} for k, v in scored["theme"].items()], winners["theme"], why)
 
-    summary = {"cuts_winner": cuts_winner, "tag_winners": tag_winners, "theme_winner": theme_winner,
-              "errors": raw.get("errors", {})}
+    summary = {"cuts_winner": winners["cuts"], "tag_winners": tag_winners, "theme_winner": winners["theme"],
+               "scored": scored, "errors": merged.get("errors", {})}
     (HERE / "bakeoff_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-    print(json.dumps({"ok": True, "kernel": ref, **summary, "results_md": str(report.RESULTS_PATH)},
-                     ensure_ascii=False))
+    print(json.dumps({"ok": True, "kernel": ref, "cuts_winner": winners["cuts"], "tag_winners": tag_winners,
+                      "theme_winner": winners["theme"], "results_md": str(report.RESULTS_PATH)}, ensure_ascii=False))
+
+
+def cmd_labels(args: argparse.Namespace) -> None:
+    print(json.dumps(scoring.label_counts(_load_gt()), indent=2))
 
 
 def cmd_approve(args: argparse.Namespace) -> None:
     summary_path = HERE / "bakeoff_summary.json"
     if not summary_path.exists():
         raise RuntimeError("no bakeoff_summary.json — run `apply` first")
-    summary = json.loads(summary_path.read_text(encoding="utf-8"))
-    raw = json.loads((HERE / "bakeoff_out" / "bakeoff_results.json").read_text(encoding="utf-8"))
-
+    scored = json.loads(summary_path.read_text(encoding="utf-8"))["scored"]
     dropped = set(t.strip() for t in args.drop_tag.split(",") if t.strip())
+
+    def check(job: str, name: str, score: float, bar: float) -> None:
+        if score < bar and job not in dropped:
+            raise ValueError(f"{job}={name} scored {score:.3f}, below bar {bar} — pass --drop-tag {job} to accept anyway")
+
     winners = {}
     if args.cuts:
-        f1 = raw["cuts"].get(args.cuts, {}).get("f1", 0)
-        if f1 < BARS["cuts"] and "cuts" not in dropped:
-            raise ValueError(f"{args.cuts} scored {f1:.3f} f1, below bar {BARS['cuts']} "
-                             f"— pass --drop-tag cuts to accept anyway")
+        check("cuts", args.cuts, scored["cuts"].get(args.cuts, {}).get("score", 0), BARS["cuts"])
         winners["cuts"] = args.cuts
     if args.theme:
-        auc = raw["theme"].get(args.theme, {}).get("auc", 0)
-        if auc < BARS["theme"] and "theme" not in dropped:
-            raise ValueError(f"{args.theme} scored {auc:.3f} auc, below bar {BARS['theme']} "
-                             f"— pass --drop-tag theme to accept anyway")
+        check("theme", args.theme, scored["theme"].get(args.theme, {}).get("score", 0), BARS["theme"])
         winners["theme"] = args.theme
     for pair in args.tags.split(","):
         if not pair.strip():
             continue
-        field, model = pair.split("=", 1)
-        field, model = field.strip(), model.strip()
-        metric = "macro_f1" if field == "kind" else "accuracy"
-        score = raw["tags"].get(field, {}).get(model, {}).get(metric, 0)
-        if score < BARS["tags"] and field not in dropped:
-            raise ValueError(f"{field}={model} scored {score:.3f}, below bar {BARS['tags']} "
-                             f"— pass --drop-tag {field} to accept anyway")
+        field, model = (x.strip() for x in pair.split("=", 1))
+        sc = scored["tags"].get(model, {}).get("fields", {}).get(field, {})
+        check(field, model, _tag_score(field, sc), BARS["tags"])
         winners[field] = model
 
     config_path = HERE.parents[2] / "config.yaml"
@@ -688,8 +591,7 @@ def cmd_approve(args: argparse.Namespace) -> None:
     cfg.setdefault("match", {})["models"] = winners
     config_path.write_text(yaml.safe_dump(cfg, sort_keys=False), encoding="utf-8")
 
-    timestamp = datetime.now(timezone.utc).isoformat()
-    report.append_writeback_log(winners, timestamp, sorted(dropped))
+    report.append_writeback_log(winners, datetime.now(timezone.utc).isoformat(), sorted(dropped))
     print(json.dumps({"ok": True, "winners": winners, "dropped": sorted(dropped)}, ensure_ascii=False))
 
 
@@ -697,7 +599,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="The real M5.1 bake-off, scored against the frozen answer key")
     sub = parser.add_subparsers(dest="mode", required=True)
 
-    sub.add_parser("push")
+    pu = sub.add_parser("push")
+    pu.add_argument("--only", default="", help="Comma-separated jobs to run: cuts,tags,theme (default all)")
+    pu.add_argument("--models", default="", help="Comma-separated candidate names to run (default all)")
+
+    sub.add_parser("labels", help="Print the answer key's label counts per tag field")
 
     s = sub.add_parser("status")
     s.add_argument("--kernel", default="")
@@ -715,7 +621,8 @@ def main() -> None:
 
     args = parser.parse_args()
     try:
-        {"push": cmd_push, "status": cmd_status, "apply": cmd_apply, "approve": cmd_approve}[args.mode](args)
+        {"push": cmd_push, "status": cmd_status, "apply": cmd_apply, "labels": cmd_labels,
+         "approve": cmd_approve}[args.mode](args)
     except Exception as exc:  # noqa: BLE001 — CLI contract is a JSON error object
         print(json.dumps({"ok": False, "error": str(exc)}))
         sys.exit(1)

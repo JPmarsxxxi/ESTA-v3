@@ -4,6 +4,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { resolve } from "node:path";
 import { PY_ENV, REPO_ROOT, ROOT, claudeBin, estaPython, json, readBody, sessionDir } from "./lib.ts";
 import { noteSelfWrite } from "./files.ts";
+import { onJobEnd, startJob } from "./jobs.ts";
 
 // Plan editor API, ported from v2 asset-server.mjs.
 
@@ -345,10 +346,45 @@ async function runRequery({ session, shotNumber }: { session: string; shotNumber
 			freshVisual.queries_pinned = false;
 			freshShots[idx].visual = freshVisual;
 			writeFileSync(planPath, JSON.stringify(freshPlan, null, 2), "utf8");
+			refetchShot({ session, shotNumber, query: freshVisual.search_query });
 			resolvePromise({ ok: true, shot_number: shotNumber, search_sources: proposal.search_sources, cost: env2?.total_cost_usd || 0 });
 		});
 	});
 }
+
+// Once the assets stage has run, a requeried shot's clip is fetched again in the
+// background with the assets skill's own single-shot fetch, which publishes to
+// assets_progress.jsonl; the old clip stays until then, and the stale mark
+// clears when the new one lands. Before assets has run there is nothing to replace.
+const REFETCHES = new Map<string, { session: string; shotNumber: number; query: string }>();
+
+function refetchShot({ session, shotNumber, query }: { session: string; shotNumber: number; query: string }) {
+	const dir = sessionDir(session);
+	const py = estaPython();
+	if (!dir || !py || !["assets_progress.jsonl", "assets.json"].some((f) => existsSync(resolve(dir, f)))) return;
+	const job = startJob({
+		session, stage: "assets", action: "refetch-shot", label: `Refetch shot ${shotNumber} (new search)`, kind: "tool",
+		cmd: py, args: ["tools/assets/run.py", "shot", "--session", `sessions/${session}`, "--n", String(shotNumber)],
+	});
+	REFETCHES.set(job.id, { session, shotNumber, query });
+}
+
+onJobEnd((job) => {
+	const r = REFETCHES.get(job.id);
+	if (!r) return;
+	REFETCHES.delete(job.id);
+	if (job.status !== "done") return;
+	const dir = sessionDir(r.session);
+	const planPath = dir && resolve(dir, "plan.json");
+	if (!planPath || !existsSync(planPath)) return;
+	const plan = JSON.parse(readFileSync(planPath, "utf8"));
+	// The number may have moved since (a split or merge): only clear the mark on
+	// the shot that still carries the queries this fetch used.
+	const shot = (plan.shots || []).find((s: Row) => s.shot_number === r.shotNumber && s.visual?.search_query === r.query);
+	if (!shot?.visual?.queries_stale) return;
+	delete shot.visual.queries_stale;
+	writeFileSync(planPath, JSON.stringify(plan, null, 2), "utf8");
+});
 
 export async function planRequery(req: IncomingMessage, res: ServerResponse) {
 	let body: Row;

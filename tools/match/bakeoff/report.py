@@ -38,6 +38,30 @@ def write_job_table(job_name: str, metric_name: str, bar: float, rows: list[dict
     _append("\n".join(section) + "\n")
 
 
+def write_label_counts(counts: dict) -> None:
+    lines = ["### Answer key label counts", "",
+             "A field where one answer dominates is easy to score well on by always guessing it;",
+             "the tag tables below compare every model against that guess.", ""]
+    for field, c in counts.items():
+        lines.append(f"- `{field}`: " + ", ".join(f"{k} x{v}" for k, v in sorted(c.items(), key=lambda kv: -kv[1])))
+    _append("\n".join(lines) + "\n\n")
+
+
+def write_tag_table(field: str, bar: float, rows: list[dict], winner: str, why: str) -> None:
+    """rows: [{"candidate", "score" (balanced accuracy), "accuracy", "baseline", "support", "sec_per_min", "gpu_min"}]."""
+    table_rows = []
+    for r in sorted(rows, key=lambda x: -x["score"]):
+        passed = "PASS" if r["score"] >= bar else "fail"
+        mark = " **<- winner**" if r["candidate"] == winner else ""
+        table_rows.append([r["candidate"], f"{r['score']:.3f}", f"{r['accuracy']:.3f}", f"{r['baseline']:.3f}",
+                           r["support"], f"{r['sec_per_min']:.1f}", f"{r['gpu_min']:.2f}", passed + mark])
+    section = [f"### Tags: {field} (bar: balanced accuracy >= {bar})", "",
+               _table(["candidate", "balanced acc", "accuracy", "always-majority", "n", "sec/min video", "GPU-min", "status"],
+                      table_rows),
+               "", f"**Winner: {winner or 'none'}** — {why}"]
+    _append("\n".join(section) + "\n")
+
+
 def append_local_timing(job_name: str, model_name: str, seconds_per_min: float, device: str) -> None:
     _append(f"\n**Local timing ({job_name}, {model_name}):** {seconds_per_min:.2f} s/min "
            f"of video, on {device}.\n")
