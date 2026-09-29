@@ -30,6 +30,14 @@ from tools.match.common import (  # noqa: E402
 from tools.plan import ops  # noqa: E402
 
 KIND_TYPE = {"footage": "REAL_FOOTAGE", "still": "REAL_IMAGE", "graphic": "MOTION_GRAPHICS", "meme": "REAL_FOOTAGE"}
+RETYPE_NOTE = {
+    "footage": "The desc must describe real camera footage (people, places, reactions, objects), never a terminal, chart, UI or text card.",
+    "still": "The desc must describe a real photo or painting, never a terminal, chart, UI or text card.",
+    "graphic": "The desc must describe a generated graphic in the inspo's grammar (terminal card, chart, stat card).",
+    "meme": "A meme or reaction clip: the desc names the reaction, and giphy leads the sources.",
+}
+NUMBER = re.compile(r"\d")
+GRAPHIC_DESC = re.compile(r"terminal|monospace|amber|shell|command line|text card|stat card|\bchart|dashboard|heatmap|\bui\b", re.I)
 BACKED_UP = ["plan.json", "plan_progress.jsonl", "assets_progress.jsonl", "assets.json", "match_grades.json"]
 
 # The planner's requery rules (server/planner.ts REQUERY_SYSTEM), extended to a batch.
@@ -136,8 +144,9 @@ def fix_duration(session: Path, rep: dict, tasks: dict) -> list[str]:
                 # Shots after the split moved up by one, and so do their tasks.
                 for k in sorted([k for k in tasks if k > a], reverse=True):
                     tasks[k + 1] = tasks.pop(k)
-                tasks[a] = {"task": "requery", "why": "split: first half"}
-                tasks[b] = {"task": "requery", "why": "split: second half"}
+                half = " The desc must show what this half's own spoken words say; the two halves must not show the same thing."
+                tasks[a] = {"task": "requery", "why": "split: first half." + half}
+                tasks[b] = {"task": "requery", "why": "split: second half." + half}
                 changes.append(f"split shot {s['shot_number']} at '{word}'")
     else:
         need = max(1, round(0.7 * (len(shots) - want)))
@@ -179,8 +188,10 @@ def fix_mix(session: Path, rep: dict, tasks: dict, emb) -> list[str]:
         return []
     vecs, np = _inspo_kind_vectors(session, classes)
     total = sum(s["dur"] for s in rep["shots"])
+    # A spoken line that carries numbers is data, and data belongs on a graphic:
+    # retyping it to footage leaves stock search hunting for a chart.
     cands = [s for s in rep["shots"] if not s["locked"] and s[kind_key] in over and s["n"] not in tasks
-             and s["panels"] == 1]
+             and s["panels"] == 1 and not (s[kind_key] == "graphic" and NUMBER.search(s["audio"]))]
     if not cands:
         return []
     text = emb.siglip_texts([f"{s['audio']} {s['desc']}" for s in cands])
@@ -204,14 +215,10 @@ def fix_mix(session: Path, rep: dict, tasks: dict, emb) -> list[str]:
             shot["visual"]["type"] = KIND_TYPE[kind]
             used.add(s["n"])
             got += s["dur"]
-            tasks[s["n"]] = {"task": "retype", "why": f"retyped {s[kind_key]} -> {kind}"
-                             + (" (a meme/reaction clip: lead with giphy)" if kind == "meme" else "")}
+            tasks[s["n"]] = {"task": "retype", "why": f"retyped {s[kind_key]} -> {kind}. " + RETYPE_NOTE[kind]}
             changes.append(f"retyped shot {s['n']} {s[kind_key]} -> {kind}")
     save_plan(session, plan)
     return changes
-
-
-NUMBER = re.compile(r"\d")
 
 
 def fix_complexity(session: Path, rep: dict, tasks: dict) -> list[str]:
@@ -351,12 +358,20 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
             s["overlay"]["caption"] = str(o["caption"])
             s["overlay"]["desc"] = s["overlay"]["desc"] or str(o["caption"])
         changed.append(s["shot_number"])
+    # The model sometimes keeps a graphic's description through a retype to
+    # footage; stock search can't film a terminal card, so undo those retypes.
+    for n, t in tasks.items():
+        s = shot_by_n(plan, n)
+        if t["task"] == "retype" and s and s["visual"].get("type") != "MOTION_GRAPHICS" and GRAPHIC_DESC.search(s["visual"].get("desc", "")):
+            s["visual"]["type"] = "MOTION_GRAPHICS"
+            changed.append(f"kept shot {n} a graphic (its desc still describes one)")
     # Overlays whose caption never arrived would render empty; drop them.
     for s in plan["shots"]:
         if s.get("overlay") is not None and not s["overlay"].get("caption"):
             s.pop("overlay")
     save_plan(session, plan)
-    return [f"reworded {len(changed)} shots"] + [f"note: a wording batch failed ({e[:120]})" for e in errors], cost
+    kept = [c for c in changed if isinstance(c, str)]
+    return [f"reworded {len(changed) - len(kept)} shots"] + kept + [f"note: a wording batch failed ({e[:120]})" for e in errors], cost
 
 
 # ── Final-stage follow-through ───────────────────────────────────────────────
