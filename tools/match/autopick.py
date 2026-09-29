@@ -65,8 +65,10 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     from tools.match.common import Embedder
     plan = read_json(session / "plan.json", {}) or {}
     mg = {str(s.get("key")) for s in (read_json(session / "motion_graphics.json", {}) or {}).get("slots", []) if s.get("ok")}
-    wanted = [s for s in plan.get("shots", []) if (shots is None or s["shot_number"] in shots)
-              and str(s["shot_number"]) not in mg and not s.get("locked_asset")]
+    # Graphics are generated (motion-graphics skill); stock for them is only a
+    # fallback, fetched when a shot is named explicitly.
+    wanted = [s for s in plan.get("shots", []) if (s["shot_number"] in shots if shots is not None
+              else (s.get("visual") or {}).get("type") != "MOTION_GRAPHICS") and str(s["shot_number"]) not in mg]
     log(f"[autopick] gathering candidates for {len(wanted)} shots")
     with ThreadPoolExecutor(max_workers=4) as pool:
         manifests = dict(zip([s["shot_number"] for s in wanted],
