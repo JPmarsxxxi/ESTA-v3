@@ -106,4 +106,4 @@ Gemma 4 E4B re-tagged the 77 answer-key shots through the everyday tag lane (`to
 
 `panels` and `clips_in_shot` stay out of scoring: every answer-key shot is 1/1, so no model's score on them means anything. All tags run on `gemma4-e4b` in one pass, 5x cheaper than Qwen3-VL-8B.
 
-**Local timing (theme, dinov3-small):** about 3.3 s per 3 keyframes on cuda (RTX A2000 4 GB), system python. SigLIP 2 (text-image, added as a pick): about 2 s for the same.
+**Local timing (theme, dinov3-small):** 32 ms per keyframe on cuda (RTX A2000 4 GB, system python), about 2.0 s per minute of video at the inspo profile's 3 keyframes per shot. SigLIP 2 (text-image, added as a pick): 31 ms per keyframe.
