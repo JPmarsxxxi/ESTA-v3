@@ -50,7 +50,7 @@ def log(m: str) -> None:
 
 def _gather(session: Path, n: int, per_source: int) -> dict:
     r = run_esta(["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n),
-                  "--per-source", str(per_source)], timeout=2400)
+                  "--per-source", str(per_source), "--max-queries", "1"], timeout=2400)
     return read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {"candidates": [], "error": r.stderr[-200:]}
 
 

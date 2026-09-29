@@ -92,3 +92,18 @@ Approved 2026-09-29T04:00:53.874741+00:00. Winners written to `config.yaml` `mat
 Dropped (no passing candidate): kind
 
 **Local timing (cuts, transnetv2):** 8.60 s/min of video, on cuda.
+
+## Kind in merged classes (re-run 2026-09-29)
+
+Gemma 4 E4B re-tagged the 77 answer-key shots through the everyday tag lane (`tools/match/tag.py validate`) with the bake-off prompt, then scored with fine kinds merged into what the plan can express (`screen` joins graphic: terminal and UI cards are built as MOTION_GRAPHICS).
+
+| grouping | macro-F1 | accuracy | class-share error (TVD) |
+|---|---|---|---|
+| 4 classes (footage, still, graphic, meme) | 0.442 | 0.818 | 0.13 |
+| 3 classes (meme folded into footage) | 0.491 | 0.870 | 0.10 |
+
+**Used: 3 classes, with a warning.** Accuracy clears 0.85; macro-F1 does not, because the key has only 2 stills (F1 0) and 3 graphics, and memes are read as graphics (5 of 12). The asset-mix section compares duration-weighted class shares, so its measurement error is about the share error above, roughly 10 points. `config.yaml` `match.kind_classes: 3`.
+
+`panels` and `clips_in_shot` stay out of scoring: every answer-key shot is 1/1, so no model's score on them means anything. All tags run on `gemma4-e4b` in one pass, 5x cheaper than Qwen3-VL-8B.
+
+**Local timing (theme, dinov3-small):** about 3.3 s per 3 keyframes on cuda (RTX A2000 4 GB), system python. SigLIP 2 (text-image, added as a pick): about 2 s for the same.
