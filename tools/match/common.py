@@ -172,12 +172,28 @@ def save_jpg(arr, path: Path, max_side: int = 640) -> Path:
 COLOUR_FEATURES = ["L_mean", "L_std", "chroma", "a_mean", "b_mean", "colourfulness"]
 
 
+def crop_content(frame):
+    """The picture inside letterbox or pillarbox bars. Inspos often float footage
+    on a black field; measured whole, the bars would read as a dark grade and the
+    colour adjust would crush our footage to match. Frames that are black by design
+    (terminal cards) have no mostly-lit rows and stay whole."""
+    import numpy as np
+    lit = frame.max(axis=2) > 30
+    rows = np.where(lit.mean(axis=1) > 0.6)[0]
+    if len(rows) < 0.1 * frame.shape[0]:
+        return frame
+    band = frame[rows.min(): rows.max() + 1]
+    cols = np.where((band.max(axis=2) > 30).mean(axis=0) > 0.6)[0]
+    return band[:, cols.min(): cols.max() + 1] if len(cols) >= 0.1 * frame.shape[1] else band
+
+
 def colour_features(frames) -> dict:
     """CIELAB statistics (L* 0-100) plus Hasler-Susstrunk colourfulness, mean over frames."""
     import cv2
     import numpy as np
     acc = {k: [] for k in COLOUR_FEATURES}
     for f in frames:
+        f = crop_content(f)
         small = cv2.resize(f, (160, max(1, int(160 * f.shape[0] / max(f.shape[1], 1)))))
         lab = cv2.cvtColor(small.astype("float32") / 255.0, cv2.COLOR_RGB2LAB)
         L, a, b = lab[..., 0], lab[..., 1], lab[..., 2]

@@ -255,8 +255,12 @@ def fix_colour(session: Path, rep: dict) -> list[str]:
     from tools.match.common import media_frames
     from tools.match.grade import fit_grade
     inspo = scorer.load_inspo(session)
-    target = {k: statistics.median(t["colour"][k] for t in inspo["shots"]) for k in COLOUR_FEATURES}
-    scale = {k: max(scorer._iqr([t["colour"][k] for t in inspo["shots"]]), scorer.COLOUR_FLOOR[k]) for k in COLOUR_FEATURES}
+    # Grades apply to footage and stills, so their target is the inspo's picture
+    # shots: black-field graphics and flash frames would pull everything dark.
+    pics = [t for t in inspo["shots"] if t["colour"]["L_mean"] > 8
+            and kind_group((t.get("tags") or {}).get("kind", "footage"), rep["kind_classes"]) != "graphic"] or inspo["shots"]
+    target = {k: statistics.median(t["colour"][k] for t in pics) for k in COLOUR_FEATURES}
+    scale = {k: max(scorer._iqr([t["colour"][k] for t in pics]), scorer.COLOUR_FLOOR[k]) for k in COLOUR_FEATURES}
     grades = read_json(session / "match_grades.json", {}) or {}
     clips = grades.setdefault("clips", {})
     changes = []

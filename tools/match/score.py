@@ -245,7 +245,7 @@ def section_d(ours, inspo, stage, classes, dropped):
         "variety": (_variety(ours, kind_key),
                     _variety([{"dur": t["dur"], "k": kind_group(t["tags"]["kind"], classes)} for t in it], "k")),
     }
-    skip = {"panels": "panels" in dropped, "clips": "clips_in_shot" in dropped}
+    skip = {"panels": "panels" in dropped, "clips": "clips_in_shot" in dropped, "overlay": "overlay" in dropped}
     subs, detail = [], {}
     for k, (o, i) in rates.items():
         if skip.get(k):
