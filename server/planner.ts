@@ -4,6 +4,7 @@ import { spawn, type ChildProcess } from "node:child_process";
 import { resolve } from "node:path";
 import { PY_ENV, REPO_ROOT, ROOT, claudeBin, estaPython, json, readBody, sessionDir } from "./lib.ts";
 import { noteSelfWrite } from "./files.ts";
+import { startJob } from "./jobs.ts";
 
 // Plan editor API, ported from v2 asset-server.mjs.
 
@@ -42,6 +43,13 @@ export async function planSave(req: IncomingMessage, res: ServerResponse) {
 	const shots: Row[] = plan.shots || [];
 	const idx = shots.findIndex((s) => s.shot_number === shot.shot_number);
 	if (idx < 0) return json(res, 404, { error: `no shot ${shot.shot_number}` });
+	// A save from the planner is a hand edit: the inspo adjust must leave it alone.
+	shot.locked = true;
+	const sources = (s: Row) => JSON.stringify((s.visual || {}).search_sources || []);
+	if (sources(shots[idx]) !== sources(shot) && hasAsset(dir, shot.shot_number)) {
+		shot.visual = { ...(shot.visual || {}), queries_stale: true };
+		scheduleRefetch(String(body.session), Number(shot.shot_number));
+	}
 	shots[idx] = shot;
 	// Back up before the first overwrite so a bad edit is recoverable.
 	const bak = resolve(dir, "plan.json.pre-edit.bak");
@@ -49,6 +57,43 @@ export async function planSave(req: IncomingMessage, res: ServerResponse) {
 	writeFileSync(planPath, JSON.stringify(plan, null, 2), "utf8");
 	noteSelfWrite(planPath, req.headers["x-esta-client"]);
 	json(res, 200, { ok: true, shot_number: shot.shot_number });
+}
+
+function hasAsset(dir: string, n: number) {
+	const feed = resolve(dir, "assets_progress.jsonl");
+	if (!existsSync(feed)) return false;
+	return readFileSync(feed, "utf8").split("\n").some((l) => {
+		try {
+			const r = JSON.parse(l);
+			return r.shot_number === n && r.ok;
+		} catch {
+			return false;
+		}
+	});
+}
+
+// Changed queries mark the shot stale; its asset is re-picked in the
+// background (tools/match/autopick.py). Edits arriving close together share one
+// job, since each job is a Kaggle round-trip.
+const STALE = new Map<string, { shots: Set<number>; timer: ReturnType<typeof setTimeout> }>();
+function scheduleRefetch(session: string, n: number) {
+	const entry = STALE.get(session) ?? { shots: new Set<number>(), timer: setTimeout(() => {}, 0) };
+	entry.shots.add(n);
+	clearTimeout(entry.timer);
+	entry.timer = setTimeout(() => {
+		STALE.delete(session);
+		const shots = [...entry.shots].sort((a, b) => a - b);
+		startJob({
+			session,
+			stage: "assets",
+			action: "autopick-stale",
+			label: `Refetch stale shot${shots.length > 1 ? "s" : ""} ${shots.join(", ")}`,
+			kind: "tool",
+			cmd: "python",
+			args: ["tools/match/autopick.py", "--session", `sessions/${session}`, "--shots", shots.join(",")],
+		});
+	}, 20000);
+	STALE.set(session, entry);
 }
 
 // One headless `claude -p` per click (lean system prompt, Haiku). Nothing
@@ -258,6 +303,8 @@ export function planCommandStatus(res: ServerResponse, query: URLSearchParams) {
 // follow-up to an edit the user already made (retype, split), not a rewrite
 // they're asking for, so there's nothing to review before it lands.
 const REQUERIES = new Map<string, Row>();
+// Only the latest requery of a shot applies (a type changed and changed back).
+const REQUERY_GEN = new Map<string, number>();
 
 const REQUERY_SYSTEM =
 	"You pick search_sources for ONE video shot, following these rules exactly. " +
@@ -281,6 +328,9 @@ const REQUERY_SYSTEM =
 	"image / graphic-description for MOTION_GRAPHICS.";
 
 async function runRequery({ session, shotNumber }: { session: string; shotNumber: number }): Promise<Row> {
+	const key = `${session}:${shotNumber}`;
+	const gen = (REQUERY_GEN.get(key) ?? 0) + 1;
+	REQUERY_GEN.set(key, gen);
 	const dir = sessionDir(session);
 	if (!dir) return { ok: false, error: "bad session" };
 	const planPath = resolve(dir, "plan.json");
@@ -327,6 +377,7 @@ async function runRequery({ session, shotNumber }: { session: string; shotNumber
 			} catch {
 				proposal = null;
 			}
+			if (REQUERY_GEN.get(key) !== gen) return resolvePromise({ ok: true, skipped: "superseded" });
 			if (!proposal || !Array.isArray(proposal.search_sources)) {
 				return resolvePromise({ ok: false, error: "model did not return search_sources: " + raw.slice(0, 200) });
 			}
@@ -341,8 +392,11 @@ async function runRequery({ session, shotNumber }: { session: string; shotNumber
 			freshVisual.search_sources = proposal.search_sources;
 			freshVisual.search_query = proposal.search_sources[0]?.queries?.[0] || freshVisual.search_query || "";
 			if (proposal.desc) freshVisual.desc = String(proposal.desc);
-			freshVisual.queries_stale = true;
 			freshVisual.queries_pinned = false;
+			if (hasAsset(dir, shotNumber)) {
+				freshVisual.queries_stale = true;
+				scheduleRefetch(session, shotNumber);
+			}
 			freshShots[idx].visual = freshVisual;
 			writeFileSync(planPath, JSON.stringify(freshPlan, null, 2), "utf8");
 			resolvePromise({ ok: true, shot_number: shotNumber, search_sources: proposal.search_sources, cost: env2?.total_cost_usd || 0 });
@@ -360,9 +414,9 @@ export async function planRequery(req: IncomingMessage, res: ServerResponse) {
 	const shotNumber = Number(body.shot_number);
 	if (!body.session || Number.isNaN(shotNumber)) return json(res, 400, { error: "need session + shot_number" });
 	const key = `${body.session}:${shotNumber}`;
-	if (REQUERIES.get(key)?.status === "running") return json(res, 409, { error: "already requerying this shot" });
 	REQUERIES.set(key, { status: "running", started: Date.now() });
 	runRequery({ session: String(body.session), shotNumber }).then((r) => {
+		if (r.skipped === "superseded") return;
 		REQUERIES.set(key, r.ok ? { status: "done", ...r } : { status: "error", error: r.error });
 	});
 	json(res, 202, { ok: true, shot: shotNumber, status: "running" });

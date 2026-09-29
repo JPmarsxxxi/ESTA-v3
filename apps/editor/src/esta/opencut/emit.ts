@@ -1,6 +1,7 @@
 import { upsertPathKeyframe } from "@/animation";
 import { DEFAULT_BACKGROUND_COLOR } from "@/background/color";
 import { processMediaAssets } from "@/media/processing";
+import type { Effect } from "@/effects/types";
 import type { ParamValues } from "@/params";
 import type { MediaType } from "@/media/types";
 import type { TProject } from "@/project/types";
@@ -141,10 +142,14 @@ function placement({ clip, canvas, media }: { clip: ImportVideo; canvas: Canvas;
 	};
 }
 
-function visualElement({ clip, muted, canvas, media }: { clip: ImportVideo; muted: boolean; canvas: Canvas; media?: MediaInfo }): VideoElement | ImageElement {
+// The inspo match's colour adjust (tools/match/adjust.py), as the M4 Grade effect.
+const gradeEffects = (grade?: string): Effect[] => (grade ? [{ id: generateUUID(), type: "grade", params: { intensity: 100, grade }, enabled: true }] : []);
+
+function visualElement({ clip, muted, canvas, media, grade }: { clip: ImportVideo; muted: boolean; canvas: Canvas; media?: MediaInfo; grade?: string }): VideoElement | ImageElement {
 	const base = buildElementFromMedia({ mediaId: clip.mediaId, mediaType: clip.kind, name: clip.name, duration: t(clip.duration), startTime: t(clip.startTime) });
 	const { fit, params } = placement({ clip, canvas, media });
 	const id = clip.clipId || generateUUID();
+	const effects = gradeEffects(grade);
 	const keyframes = clampKeyframes({ keyframes: clip.keyframes, duration: clip.duration }).map((k) =>
 		k.property.startsWith("scale.")
 			? { ...k, value: k.value * fit }
@@ -155,7 +160,7 @@ function visualElement({ clip, muted, canvas, media }: { clip: ImportVideo; mute
 					: k,
 	);
 	if (base.type === "image") {
-		const image: ImageElement = { ...base, id, params: { ...base.params, ...params } };
+		const image: ImageElement = { ...base, id, params: { ...base.params, ...params }, ...(effects.length && { effects }) };
 		return withKeyframes({ element: image, keyframes });
 	}
 	if (base.type !== "video") throw new Error(`unexpected element type ${base.type}`);
@@ -171,6 +176,7 @@ function visualElement({ clip, muted, canvas, media }: { clip: ImportVideo; mute
 		// Render mutes the video lanes so source audio never competes with the voiceover.
 		isSourceAudioEnabled: !muted,
 		...(rate !== 1 && { retime: { rate } }),
+		...(effects.length && { effects }),
 	};
 	return withKeyframes({ element, keyframes });
 }
@@ -252,7 +258,7 @@ function pendingClip({ p, info }: { p: Pending; info: Map<string, MediaInfo> }):
 	return { ...base, mediaId, kind: "video", name: p.name, inPoint, outPoint: src > 0 ? Math.min(inPoint + p.duration, src) : inPoint + p.duration, sourceDuration: src };
 }
 
-export function buildScene({ doc, info }: { doc: EstaImport; info: Map<string, MediaInfo> }): TScene {
+export function buildScene({ doc, info, grades = {} }: { doc: EstaImport; info: Map<string, MediaInfo>; grades?: Record<string, string> }): TScene {
 	const present = new Set(info.keys());
 	const keep = <T extends { mediaId: string }>(els: T[]) => els.filter((e) => present.has(e.mediaId));
 	const pending = doc.pending.map((p) => ({ track: p.track, clip: pendingClip({ p, info }) })).filter((x) => present.has(x.clip.mediaId));
@@ -264,7 +270,7 @@ export function buildScene({ doc, info }: { doc: EstaImport; info: Map<string, M
 		id: generateUUID(),
 		name,
 		type: "video",
-		elements: clips.map((clip) => visualElement({ clip, muted, canvas: doc.project, media: info.get(clip.mediaId) })),
+		elements: clips.map((clip) => visualElement({ clip, muted, canvas: doc.project, media: info.get(clip.mediaId), grade: clip.clipId ? grades[clip.clipId] : undefined })),
 		muted,
 		hidden: false,
 	});
@@ -370,7 +376,8 @@ export async function emitSession({ session, originals, onProgress = () => {} }:
 	const doc = await api<EstaImport>(`/_opencut/${encodeURIComponent(session)}${originals ? "?originals=1" : ""}`);
 	const projectId = projectIdFor(session);
 	const info = await syncMedia({ projectId, media: [...doc.media, ...pendingMedia(doc)], onProgress });
-	const scene = buildScene({ doc, info });
+	const { grades } = await api<{ grades: Record<string, string> }>(`/_match/${encodeURIComponent(session)}/grades`).catch(() => ({ grades: {} }));
+	const scene = buildScene({ doc, info, grades });
 
 	onProgress({ phase: "save", done: 0, total: 1, label: "project" });
 	const previous = await storageService.loadProject({ id: projectId });

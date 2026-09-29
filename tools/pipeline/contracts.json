@@ -301,6 +301,40 @@
         "*.openreel.json"
       ],
       "notes": "Deterministic assembler (no LLM). Writes <session>.openreel.json — the goal artifact the OpenReel web editor loads directly. Filename uses the session folder slug so each project on disk has a recognizable name."
+    },
+    "match": {
+      "default_mode": "plan",
+      "modes": {
+        "plan": {
+          "status": "built",
+          "needs": [
+            "plan.json",
+            "style_analysis.json"
+          ],
+          "produces": [
+            "match_plan.json"
+          ],
+          "notes": "Scores plan.json against the inspo profile (tools/match/inspo.py) and nudges failing sections until pass (tools/match/adjust.py)."
+        },
+        "final": {
+          "status": "built",
+          "needs": [
+            "*.openreel.json",
+            "style_analysis.json"
+          ],
+          "produces": [
+            "match_final.json"
+          ],
+          "notes": "Scores the rendered edit with real media (colour included); grades, refetches via auto-pick and re-renders until pass."
+        }
+      },
+      "optional_produces": [
+        "inspo.json",
+        "inspo_profiles.json",
+        "match_grades.json",
+        "autopick.json"
+      ],
+      "notes": "M5 inspo match (v3). Runs on the system python; tagging and auto-pick judging run on Kaggle."
     }
   }
 }

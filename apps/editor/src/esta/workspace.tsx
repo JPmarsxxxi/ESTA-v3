@@ -15,6 +15,7 @@ import { FilesPanel } from "./panels/files-panel";
 import { PipelinePanel } from "./panels/pipeline-panel";
 import { PlannerPanel } from "./panels/planner-panel";
 import { PickerPanel } from "./panels/picker-panel";
+import { MatchPanel } from "./panels/match-panel";
 import { ScriptPanel } from "./panels/script-panel";
 import { RequirementsPanel } from "./panels/requirements-panel";
 import { TaggedPanel } from "./panels/tagged-panel";
@@ -34,6 +35,7 @@ export const PANELS: Record<string, { title: string; Component: ComponentType }>
 	tagged: { title: "Tagged script", Component: TaggedPanel },
 	planner: { title: "Plan editor", Component: PlannerPanel },
 	picker: { title: "Shot picker", Component: PickerPanel },
+	match: { title: "Inspo match", Component: MatchPanel },
 	timeline: { title: "Shot strip", Component: TimelinePanel },
 	preview: { title: "Shot preview", Component: PreviewPanel },
 	editor: { title: "Editor project", Component: EditorPanel },
@@ -55,7 +57,7 @@ const PRESETS: Record<string, Layout> = {
 	voice: [["stage", "jobs"], ["tagged"], ["chat"]],
 	timestamps: [["stage", "jobs"], ["files"], ["chat"]],
 	style: [["stage", "jobs"], ["files"], ["chat"]],
-	plan: [["stage", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
+	plan: [["stage", "match", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
 	assets: [["stage", "jobs"], ["picker"], ["preview", "chat"]],
 	edit: [["stage", "editor", "jobs"], ["oc-preview", "oc-timeline"], ["oc-properties", "oc-assets", "chat"]],
 };

@@ -295,7 +295,7 @@ export function PlannerPanel() {
 				</div>
 				{shots.map((s) => {
 					const v = s.visual || {};
-					const tags = [v.type, (v.fx || []).join("+"), s.audio_layer?.sfx?.length ? "sfx" : "", s.overlay ? "overlay" : "", v.queries_stale ? "stale asset" : "", v.queries_pinned ? "pinned" : ""].filter(Boolean).join(" · ");
+					const tags = [v.type, (v.fx || []).join("+"), s.audio_layer?.sfx?.length ? "sfx" : "", s.overlay ? "overlay" : "", v.queries_stale ? "stale asset" : "", v.queries_pinned ? "pinned" : "", s.locked ? "locked" : ""].filter(Boolean).join(" · ");
 					const rw = rewrites[s.shot_number]?.status;
 					const dot = rw === "running" ? "bg-primary animate-pulse" : rw === "done" ? "bg-violet-500" : dirty.has(s.shot_number) ? "bg-caution animate-pulse" : saved.has(s.shot_number) ? "bg-constructive" : "bg-muted";
 					return (
@@ -433,10 +433,12 @@ function ShotForm({
 	const [cmd, setCmd] = useState("");
 	const [cmdStatus, setCmdStatus] = useState("");
 	const [appliedRewrite, setAppliedRewrite] = useState<Rewrite | null>(null);
+	// A rewrite that brought its own queries already fits the new type; requerying would overwrite them.
+	const [rewroteQueries, setRewroteQueries] = useState(false);
 	const box = useRef<HTMLDivElement>(null);
-	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand });
+	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand, rewroteQueries });
 	useEffect(() => {
-		latest.current = { f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand };
+		latest.current = { f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand, rewroteQueries };
 	});
 	const onDirtyRef = useRef(onDirty);
 	useEffect(() => {
@@ -482,7 +484,7 @@ function ShotForm({
 					setQueriesPinned(true);
 				}
 				latest.current.onSaved({ shot: next, quiet });
-				if (typeChanged && !v.queries_pinned) {
+				if (typeChanged && !v.queries_pinned && !latest.current.rewroteQueries) {
 					initialType.current = v.type;
 					startRequery(next.shot_number);
 				}
@@ -552,6 +554,7 @@ function ShotForm({
 			const { next, changed } = applyProposal({ f, p: rewrite.proposal, shot });
 			const c = rewrite.cost ? ` · $${Number(rewrite.cost).toFixed(3)}` : "";
 			setF(next);
+			if (changed.includes("queries")) setRewroteQueries(true);
 			if (changed.length) setIsDirty(true);
 			setAiStatus(changed.length ? `proposed: ${changed.join(", ")}${c}. Review and save (Ctrl+S), or move on to keep it.` : `AI suggested no change${c}`);
 		}

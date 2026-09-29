@@ -41,3 +41,4 @@ tools/match/bakeoff/bakeoff_summary.json
 
 # Rust build output (rust/, built into packages/opencut-wasm)
 /target/
+cache/

@@ -114,8 +114,19 @@ export const ACTIONS: Action[] = [
 	{ id: "reconcile", stage: "timestamps", label: "Reconcile plan timing", kind: "tool", python: "esta", needs: ["timestamps.json", "plan.json"], args: (_p, s) => ["tools/timestamps/run.py", "reconcile", "--session", S(s)] },
 	{ id: "style-analysis", stage: "style", label: "Analyse reference style", hint: "Downloads reference clips, extracts frames, then synthesises style_analysis.json.", kind: "skill", step: "style-analysis", args: skill("style-analysis"), produces: ["style_analysis.json"] },
 	{ id: "plan", stage: "plan", label: "Generate plan (bulk)", kind: "skill", step: "plan", args: skill("plan", "Mode: bulk. Stop after plan.json is written and reconciled; do not run render or assets."), produces: ["plan.json"], progress: "plan" },
+	{
+		id: "match-plan", stage: "plan", label: "Match the inspo (score + adjust)", kind: "tool", python: "system", step: "match:plan",
+		hint: "Profiles the inspo (tags on Kaggle), scores the plan and nudges failing sections until it passes.",
+		args: (_p, s) => ["tools/match/run.py", "--session", S(s), "--stage", "plan"], produces: ["match_plan.json"],
+	},
 	{ id: "early-render", stage: "plan", label: "Early render (placeholders + VO + subs)", kind: "tool", python: "esta", needs: ["plan.json"], args: (_p, s) => ["tools/render/run.py", "build", "--session", S(s)] },
 	{ id: "fetch-assets", stage: "assets", label: "Fetch all shots (bulk)", kind: "tool", python: "esta", step: "assets", args: (_p, s) => ["tools/assets/run.py", "fetch", "--session", S(s)], produces: ["assets.json"], progress: "assets" },
+	{
+		id: "autopick", stage: "assets", label: "Auto-pick all shots (inspo + Gemma)", kind: "tool", python: "system", step: "assets",
+		hint: "Gathers candidates per shot, ranks them against the shot and the inspo, and has Gemma choose on Kaggle.",
+		args: (_p, s) => ["tools/match/autopick.py", "--session", S(s)], produces: ["assets.json"], progress: "assets",
+	},
+	{ id: "autopick-stale", stage: "assets", label: "Refetch stale shots", kind: "tool", python: "system", needs: ["plan.json"], args: (_p, s) => ["tools/match/autopick.py", "--session", S(s), "--stale"] },
 	{ id: "motion-graphics", stage: "assets", label: "Generate motion graphics", kind: "skill", step: "motion-graphics", args: skill("motion-graphics"), produces: ["motion_graphics.json"] },
 	{
 		id: "genvideo-push", stage: "assets", label: "AI video: push to Kaggle", kind: "tool", python: "system", needs: ["plan.json"],
@@ -128,6 +139,11 @@ export const ACTIONS: Action[] = [
 	{ id: "tighten", stage: "edit", label: "Tighten dead air", kind: "tool", python: "esta", needs: ["audio.wav", "timestamps.json"], args: (_p, s) => ["tools/audio/tighten.py", "--session", S(s)] },
 	{ id: "mix", stage: "edit", label: "Mix + bake loudness", kind: "tool", python: "esta", needs: ["audio.wav"], args: (_p, s) => ["tools/audio/mix.py", "--session", S(s), "--bake"] },
 	{ id: "render", stage: "edit", label: "Final render", kind: "tool", python: "esta", step: "render", args: (_p, s) => ["tools/render/run.py", "build", "--session", S(s)], produces: ["*.openreel.json"] },
+	{
+		id: "match-final", stage: "edit", label: "Match the inspo (final edit)", kind: "tool", python: "system", step: "match:final",
+		hint: "Scores the rendered edit (colour included), grades, refetches and re-renders until it passes.",
+		args: (_p, s) => ["tools/match/run.py", "--session", S(s), "--stage", "final"], produces: ["match_final.json"],
+	},
 	{ id: "proxies", stage: "edit", label: "Generate editing proxies", kind: "tool", python: "esta", needs: ["plan.json"], args: (_p, s) => ["tools/media/proxy.py", "generate", "--session", S(s)] },
 ];
 
