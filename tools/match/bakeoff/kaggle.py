@@ -77,7 +77,7 @@ if HF_TOKEN:
     os.environ["HF_TOKEN"] = HF_TOKEN
 os.environ["HF_HOME"] = "/kaggle/temp/hf"
 
-results = {"cuts": {}, "tags": {}, "theme": {}, "errors": {}}
+results = {"cuts": {}, "tags": {}, "theme": {}, "tag_predictions": {}, "errors": {}}
 
 def finish():
     with open(os.path.join(OUT, "bakeoff_results.json"), "w") as fh:
@@ -365,6 +365,8 @@ for name, fn in [
         for field, sc in scored.items():
             results["tags"].setdefault(field, {})[name] = {
                 **sc, "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": gpu_min}
+        results["tag_predictions"][name] = {
+            f"{slug}|{sid}": pred for (slug, sid), pred in preds.items()}
     except Exception as e:
         results["errors"]["tags:" + name] = str(e)[:300]
         traceback.print_exc()
@@ -381,6 +383,8 @@ try:
     results["tags"].setdefault("text_on_screen", {})["florence2-large"] = {
         "accuracy": correct / total if total else 0.0, "support": total,
         "sec_per_min": (time.time() - t0) / dur_min, "gpu_min": gpu_min}
+    results["tag_predictions"]["florence2-large"] = {
+        f"{slug}|{sid}": pred for (slug, sid), pred in preds.items()}
 except Exception as e:
     results["errors"]["tags:florence2-large"] = str(e)[:300]
     traceback.print_exc()
@@ -649,6 +653,78 @@ def cmd_apply(args: argparse.Namespace) -> None:
                      ensure_ascii=False))
 
 
+def cmd_predictions_html(args: argparse.Namespace) -> None:
+    out_dir = Path(args.output_dir) if args.output_dir else HERE / "bakeoff_out"
+    results_path = out_dir / "bakeoff_results.json"
+    if not results_path.exists():
+        raise FileNotFoundError(f"no bakeoff_results.json in {out_dir} — run apply first")
+    raw = json.loads(results_path.read_text(encoding="utf-8"))
+    tag_preds = raw.get("tag_predictions", {})
+    if not tag_preds:
+        raise RuntimeError("bakeoff_results.json has no tag_predictions — re-run push/apply "
+                           "with the current kaggle.py (older runs didn't save per-shot predictions)")
+    models = sorted(tag_preds)
+    fields = ["kind", "text_on_screen", "panels", "overlay", "clips_in_shot"]
+
+    rows = []
+    for vdir in sorted(KEY_DIR.iterdir()):
+        if not vdir.is_dir() or vdir.name == "negative_style":
+            continue
+        shots_path, cuts_path = vdir / "shots.json", vdir / "cuts.json"
+        if not shots_path.exists() or not cuts_path.exists():
+            continue
+        shots = json.loads(shots_path.read_text(encoding="utf-8"))
+        cuts = json.loads(cuts_path.read_text(encoding="utf-8"))["cuts"]
+        for s in shots:
+            idx = int(s["shot_id"])
+            frame = vdir / "shot_frames" / f"shot_{idx:03d}.jpg"
+            key = f"{vdir.name}|{s['shot_id']}"
+            rows.append({
+                "video": vdir.name, "shot_id": s["shot_id"],
+                "start": cuts[idx - 1], "end": cuts[idx],
+                "frame": str(frame.relative_to(KEY_DIR)) if frame.exists() else "",
+                "gt": s, "preds": {m: tag_preds.get(m, {}).get(key) for m in models},
+            })
+
+    html = ["<!doctype html><meta charset='utf-8'><title>M5.1 model predictions</title>",
+            "<style>body{font-family:sans-serif;background:#111;color:#eee;font-size:12px}",
+            "table{border-collapse:collapse;width:100%}td,th{border:1px solid #444;padding:3px 5px;"
+            "text-align:left;white-space:nowrap}img{width:120px;display:block}",
+            ".ok{color:#4ade80}.bad{color:#f87171}.gt{color:#facc15;font-weight:bold}",
+            "th.model{text-align:center}</style>",
+            f"<h2>Model predictions vs ground truth — {len(rows)} shots, {len(models)} models</h2>",
+            "<table><tr><th>frame</th><th>shot</th><th class=gt>ground truth</th>"]
+    for m in models:
+        html.append(f"<th class=model colspan={len(fields)}>{m}</th>")
+    html.append("</tr><tr><th></th><th></th><th class=gt>" + "/".join(fields) + "</th>")
+    for _ in models:
+        for f in fields:
+            html.append(f"<th>{f[:4]}</th>")
+    html.append("</tr>")
+    for r in rows:
+        img = f"<img src='{r['frame']}'>" if r["frame"] else "(no frame)"
+        gt = r["gt"]
+        html.append(f"<tr><td>{img}</td><td>{r['video']}<br>{r['shot_id']} "
+                    f"({r['start']:.1f}-{r['end']:.1f}s)</td>"
+                    f"<td class=gt>{gt['kind']}<br>{gt['text_on_screen']}/{gt['panels']}/"
+                    f"{gt['overlay']}/{gt['clips_in_shot']}</td>")
+        for m in models:
+            pred = r["preds"].get(m)
+            if pred is None:
+                html.append(f"<td colspan={len(fields)}>—</td>")
+                continue
+            for f in fields:
+                got, want = pred.get(f), gt.get(f)
+                cls = "ok" if got == want else "bad"
+                html.append(f"<td class={cls}>{got}</td>")
+        html.append("</tr>")
+    html.append("</table>")
+    out_path = KEY_DIR / "predictions.html"
+    out_path.write_text("\n".join(html), encoding="utf-8")
+    print(json.dumps({"ok": True, "rows": len(rows), "models": models, "path": str(out_path)},
+                     ensure_ascii=False))
+
+
 def cmd_approve(args: argparse.Namespace) -> None:
     summary_path = HERE / "bakeoff_summary.json"
     if not summary_path.exists():
@@ -713,9 +789,13 @@ def main() -> None:
     ap.add_argument("--tags", default="", help="field=model,field=model,...")
     ap.add_argument("--drop-tag", default="", help="Comma-separated fields to accept below bar")
 
+    ph = sub.add_parser("predictions-html")
+    ph.add_argument("--output-dir", default="")
+
     args = parser.parse_args()
     try:
-        {"push": cmd_push, "status": cmd_status, "apply": cmd_apply, "approve": cmd_approve}[args.mode](args)
+        {"push": cmd_push, "status": cmd_status, "apply": cmd_apply, "approve": cmd_approve,
+         "predictions-html": cmd_predictions_html}[args.mode](args)
     except Exception as exc:  # noqa: BLE001 — CLI contract is a JSON error object
         print(json.dumps({"ok": False, "error": str(exc)}))
         sys.exit(1)

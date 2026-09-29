@@ -234,6 +234,16 @@ New optional `plan.json` fields:
 11. **Hand-edited shots are locked.** Any planner save that changes a shot's fields sets `locked`. Adjust never edits locked shots. When a section can't reach its mark because of locked shots, the card says so.
 12. **Score card only in the Plan stage.** Two columns, Plan and Final edit. Per section: score, pass/fail and the measured numbers (e.g. "median 1.8 s vs inspo 1.2 s"). Also shown: the overall score, the status ("tagging on Kaggle…", "n/a at plan"), the adjust history (what each round changed) and Re-score.
 
+### Revisions decided with the user on 2026-09-29
+These override the text above where they conflict.
+- **Local models run on the system python, not `esta`.** `esta` pins `transformers==4.33.3` for XTTS, which predates DINOv3 and SigLIP 2. The system python already hosts the Kaggle CLI, TransNetV2 and a CUDA torch, so cuts, embeddings and colour run there (`python tools/match/...`), like the Kaggle lanes.
+- **SigLIP 2 joins the picks as the text-image model.** DINOv3 is image-only, so it cannot compare a shot's text (plan-stage theme) or a candidate's fit to its description. SigLIP 2 passed the theme bar (AUC 0.974). DINOv3 stays the image-image model (inspo look).
+- **`kind` is measured in merged classes**, whichever of these clears the tag bar on a re-run of the answer key: 4 classes `footage` (footage, talking_head, screen, ai), `still`, `graphic`, `meme`; or 3 classes with `meme` folded into `footage`. Plan kinds: `REAL_FOOTAGE`/`AI_VIDEO` → footage, `REAL_IMAGE` → still, `MOTION_GRAPHICS` → graphic, and (4-class only) a non-graphic shot whose first search source is giphy → meme.
+- **`panels` and `clips_in_shot` are unmeasured** (every answer-key shot is 1/1), so their scores carry no weight in picking a model. All tags run on `gemma4-e4b` in one pass per keyframe, 5x cheaper than Qwen3-VL-8B; `clips_in_shot` moves off Qwen for that reason.
+- **Adjust runs until pass**, not 3 rounds: it stops on pass, on a round that fails to raise the overall score by at least 1 point (that round is reverted), or at a safety cap of 8 rounds.
+- **Auto-pick replaces the default asset picks.** `tools/match/autopick.py` gathers candidates per shot (`assets/run.py candidates`), ranks them locally by SigLIP 2 fit to the shot's desc and spoken line plus DINOv3 similarity to the inspo's keyframes, and sends each shot's top 3 to Gemma 4 on Kaggle in one batched job to choose (and reject watermarked or off-topic ones). Picks are written as `visual_verdict: "auto_picked"`. A stale shot (decision 2) is refetched through the same path.
+- **Two report files.** `match_plan.json` (plan stage) and `match_final.json` (final stage), each with sections, overall, pass and history; the conductor tracks them as `match:plan` and `match:final`.
+
 ### M5.1 bake-off design
 - **Answer key:** 2–3 of the user's inspo videos (about 100 shots), chosen by the user, stored under `tools/match/bakeoff/key/`.
   - Cuts: proposed by the union of all cut candidates, confirmed or rejected by Claude from frame strips, plus a scan of 1 s contact sheets for missed cuts.
