@@ -88,7 +88,8 @@ print("ESTA_VLM_DONE", len(results), "ok,", len(errors), "errors")
 
 
 def _name(job: Path) -> str:
-    return slugify("esta-vlm", job.name)[:40] + "-" + hashlib.sha1(str(job.resolve()).encode()).hexdigest()[:6]
+    # Kaggle caps slugs at 50 and the dataset adds "-data": 38 + 1 + 6 + 5 = 50.
+    return slugify("esta-vlm", job.name)[:38].rstrip("-") + "-" + hashlib.sha1(str(job.resolve()).encode()).hexdigest()[:6]
 
 
 def cmd_push(job: Path) -> dict:
