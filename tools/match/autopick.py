@@ -56,9 +56,17 @@ def _gather(session: Path, n: int, per_source: int) -> dict:
     queries = [q for e in (shot.get("visual") or {}).get("search_sources") or [] for q in (e.get("queries") or [])[:1]]
     if have and have.get("candidates") and set(queries) <= set(have.get("queries", [])):
         return have
-    r = run_esta(["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n),
-                  "--per-source", str(per_source), "--max-queries", "1"], timeout=2400)
-    return read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {"candidates": [], "error": r.stderr[-200:]}
+    # One query per source keeps downloads bounded; an empty result widens to
+    # every query, then to stock video sources (a retype can leave a footage
+    # shot with image-only sources).
+    base = ["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n), "--per-source", str(per_source)]
+    r = None
+    for extra in (["--max-queries", "1"], [], ["--sources", "pexels_video,pixabay_video,giphy"]):
+        r = run_esta(base + extra, timeout=2400)
+        got = read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {}
+        if got.get("candidates"):
+            return got
+    return {"candidates": [], "error": r.stderr[-200:]}
 
 
 def _style_line(session: Path) -> str:
