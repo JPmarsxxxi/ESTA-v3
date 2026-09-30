@@ -49,6 +49,13 @@ def log(m: str) -> None:
 
 
 def _gather(session: Path, n: int, per_source: int) -> dict:
+    # A shot gathered earlier with the same queries is reused (the run may have been cut off).
+    have = read_json(session / "assets" / "candidates" / f"shot_{n}.json")
+    plan = read_json(session / "plan.json", {}) or {}
+    shot = next((s for s in plan.get("shots", []) if s["shot_number"] == n), {})
+    queries = [q for e in (shot.get("visual") or {}).get("search_sources") or [] for q in (e.get("queries") or [])[:1]]
+    if have and have.get("candidates") and set(queries) <= set(have.get("queries", [])):
+        return have
     r = run_esta(["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n),
                   "--per-source", str(per_source), "--max-queries", "1"], timeout=2400)
     return read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {"candidates": [], "error": r.stderr[-200:]}
