@@ -50,6 +50,15 @@ os.environ["HF_HOME"] = "/kaggle/temp/hf"
 hits = glob.glob(os.path.join("/kaggle/input", "**", PROBE), recursive=True)
 IN = os.path.dirname(hits[0]) if hits else "/kaggle/input"
 REQ = json.load(open(os.path.join(IN, "requests.json")))
+# Images ride in one zip (one upload instead of hundreds); Kaggle may or may not
+# have unpacked it, so index every image by name wherever it landed.
+import zipfile
+for z in glob.glob(os.path.join("/kaggle/input", "**", "images.zip"), recursive=True):
+    zipfile.ZipFile(z).extractall("/kaggle/temp/img")
+PATHS = {}
+for root in ("/kaggle/input", "/kaggle/temp/img"):
+    for f in glob.glob(os.path.join(root, "**", "*.jpg"), recursive=True):
+        PATHS.setdefault(os.path.basename(f), f)
 results, errors = {}, {}
 
 def finish(done=False):
@@ -69,7 +78,7 @@ else:
 t0 = time.time()
 for i, r in enumerate(REQ["requests"]):
     try:
-        content = [{"type": "image", "image": Image.open(os.path.join(IN, p)).convert("RGB")} for p in r["images"]]
+        content = [{"type": "image", "image": Image.open(PATHS[p]).convert("RGB")} for p in r["images"]]
         content.append({"type": "text", "text": r["prompt"]})
         inputs = processor.apply_chat_template([{"role": "user", "content": content}], tokenize=True,
             add_generation_prompt=True, return_tensors="pt", return_dict=True).to(model.device)
@@ -103,11 +112,10 @@ def cmd_push(job: Path) -> dict:
     if build.exists():
         shutil.rmtree(build)
     build.mkdir(parents=True)
-    for r in spec["requests"]:
-        for img in r["images"]:
-            dst = build / img
-            if not dst.exists():
-                shutil.copy(job / "images" / img, dst)
+    import zipfile
+    with zipfile.ZipFile(build / "images.zip", "w", zipfile.ZIP_STORED) as z:
+        for img in sorted({i for r in spec["requests"] for i in r["images"]}):
+            z.write(job / "images" / img, img)
     (build / "requests.json").write_text(json.dumps(spec), encoding="utf-8")
     probe = f"{name}-requests.json"
     (build / probe).write_text("{}", encoding="utf-8")
