@@ -174,15 +174,22 @@ def _iqr(vals):
     return q[2] - q[0]
 
 
-def section_b(ours, inspo):
-    rows = [s for s in ours if s.get("features")]
-    if not rows:
-        return None, "no downloaded media to measure"
+def picture(colour: dict, kind: str) -> bool:
+    """Footage and stills: what a grade can change. Graphics and black flash
+    frames are left out, or the shot mix (section a) would read as a colour gap."""
+    return kind != "graphic" and colour["L_mean"] > 8
+
+
+def section_b(ours, inspo, classes=3):
+    rows = [s for s in ours if s.get("features") and picture(s["features"]["colour"], s.get("final_kind", s["kind"]))]
+    pics = [t for t in inspo["shots"] if picture(t["colour"], kind_group((t.get("tags") or {}).get("kind", "footage"), classes))]
+    if not rows or not pics:
+        return None, "no picture shots to measure"
     per, detail = [], {}
     for f in COLOUR_FEATURES:
         u = [s["features"]["colour"][f] for s in rows]
-        v = [t["colour"][f] for t in inspo["shots"]]
-        dist = _wasserstein(u, [s["dur"] or 0.01 for s in rows], v, [t["dur"] or 0.01 for t in inspo["shots"]])
+        v = [t["colour"][f] for t in pics]
+        dist = _wasserstein(u, [s["dur"] or 0.01 for s in rows], v, [t["dur"] or 0.01 for t in pics])
         norm = dist / max(_iqr(v), COLOUR_FLOOR[f])
         per.append(norm)
         detail[f] = {"ours_median": round(statistics.median(u), 2), "inspo_median": round(statistics.median(v), 2),
@@ -326,7 +333,7 @@ def score(session: Path, stage: str, round_no: int | None = None, note: str = ""
     sections, notes = {}, {}
     fns = {
         "a": lambda: section_a(ours, inspo, classes, stage),
-        "b": lambda: section_b(ours, inspo) if stage == "final" else (None, "n/a at plan: colour needs real media"),
+        "b": lambda: section_b(ours, inspo, classes) if stage == "final" else (None, "n/a at plan: colour needs real media"),
         "c": lambda: section_c(ours, inspo, stage, emb),
         "d": lambda: section_d(ours, inspo, stage, classes, dropped),
         "e": lambda: section_e(ours, inspo),
