@@ -242,6 +242,9 @@ These override the text above where they conflict.
 - **`panels` and `clips_in_shot` are unmeasured** (every answer-key shot is 1/1), so their scores carry no weight in picking a model. All tags run on `gemma4-e4b` in one pass per keyframe, 5x cheaper than Qwen3-VL-8B; `clips_in_shot` moves off Qwen for that reason.
 - **Adjust runs until pass**, not 3 rounds: it stops on pass, on a round that fails to raise the overall score by at least 1 point (that round is reverted), or at a safety cap of 8 rounds.
 - **Auto-pick replaces the default asset picks.** `tools/match/autopick.py` gathers candidates per shot (`assets/run.py candidates`), ranks them locally by SigLIP 2 fit to the shot's desc and spoken line plus DINOv3 similarity to the inspo's keyframes, and sends each shot's top 3 to Gemma 4 on Kaggle in one batched job to choose (and reject watermarked or off-topic ones). Picks are written as `visual_verdict: "auto_picked"`. A stale shot (decision 2) is refetched through the same path.
+- **Final-stage kinds come from what was placed** (a HyperFrames clip is a graphic, an image file a still, otherwise the plan's kind), not from tags: Gemma reads static stock video as stills (F1 0 on the answer key). Only the inspo is tagged.
+- **Colour compares picture shots only** (footage and stills above near-black), the set a grade can change; otherwise the shot mix reads as a colour gap. The colour adjust is rank-preserving: each shot is graded toward the inspo's value at its own quantile, which is what minimises the Wasserstein distance the section scores.
+- **The overlay rate is out of complexity.** Gemma counts speech captions as overlays even when told not to, and every ESTA render carries subtitles.
 - **Two report files.** `match_plan.json` (plan stage) and `match_final.json` (final stage), each with sections, overall, pass and history; the conductor tracks them as `match:plan` and `match:final`.
 
 ### M5.1 bake-off design

@@ -258,32 +258,45 @@ def fix_theme(session: Path, rep: dict, tasks: dict) -> list[str]:
 
 
 def fix_colour(session: Path, rep: dict) -> list[str]:
-    import statistics
+    """Grade picture shots so their colour distribution matches the inspo's.
+
+    Section b is a Wasserstein distance between distributions, and in one
+    dimension the transport that minimises it is rank-preserving: each shot
+    takes the inspo's value at its own quantile. Pulling every shot to the
+    median would shrink our spread instead (measured: +0.2 overall)."""
+    import numpy as np
     from tools.match.common import media_frames
     from tools.match.grade import fit_grade
     inspo = scorer.load_inspo(session)
-    # Grades apply to footage and stills, so their target is the inspo's picture
-    # shots: black-field graphics and flash frames would pull everything dark.
     pics = [t for t in inspo["shots"] if scorer.picture(t["colour"], kind_group((t.get("tags") or {}).get("kind", "footage"),
                                                                            rep["kind_classes"]))] or inspo["shots"]
-    target = {k: statistics.median(t["colour"][k] for t in pics) for k in COLOUR_FEATURES}
     scale = {k: max(scorer._iqr([t["colour"][k] for t in pics]), scorer.COLOUR_FLOOR[k]) for k in COLOUR_FEATURES}
     grades = read_json(session / "match_grades.json", {}) or {}
     clips = grades.setdefault("clips", {})
+    rows = [s for s in rep["shots"] if not s["locked"] and (s.get("asset") or {}).get("ok") and s.get("colour")
+            and scorer.picture(s["colour"], s.get("final_kind", s["kind"]))]
+    if not rows:
+        return []
+    # Raw (ungraded) colour, so a refit starts from the footage, not from its last grade.
+    raw = [clips.get(scorer.grade_key(s["asset"]), {}).get("before") or s["colour"] for s in rows]
+    targets = [{} for _ in rows]
+    for k in COLOUR_FEATURES:
+        theirs = np.array([t["colour"][k] for t in pics])
+        ranks = np.argsort(np.argsort([r[k] for r in raw]))
+        for i, rank in enumerate(ranks):
+            targets[i][k] = float(np.quantile(theirs, (rank + 0.5) / len(rows)))
     changes = []
-    for s in rep["shots"]:
-        a = s.get("asset") or {}
-        if s["locked"] or not a.get("ok") or s.get("final_kind", s["kind"]) == "graphic" or not s.get("colour"):
+    for s, r, target in zip(rows, raw, targets):
+        dist = sum(abs(r[k] - target[k]) / scale[k] for k in COLOUR_FEATURES) / len(COLOUR_FEATURES)
+        key = scorer.grade_key(s["asset"])
+        if dist < 0.25:
+            clips.pop(key, None)
             continue
-        key = scorer.grade_key(a)
-        dist = sum(abs(s["colour"][k] - target[k]) / scale[k] for k in COLOUR_FEATURES) / len(COLOUR_FEATURES)
-        if dist < 0.5 or key in clips:
-            continue
-        path = Path(a["file"]) if Path(a["file"]).is_absolute() else REPO_ROOT / a["file"]
-        frames = media_frames(path, a["in"], a["out"] or a["in"] + s["dur"])
+        path = Path(s["asset"]["file"]) if Path(s["asset"]["file"]).is_absolute() else REPO_ROOT / s["asset"]["file"]
+        frames = media_frames(path, s["asset"]["in"], s["asset"]["out"] or s["asset"]["in"] + s["dur"])
         if not frames:
             continue
-        grade, expected, before = fit_grade(frames, target, scale)
+        grade, expected, before = fit_grade(frames, target, scale, 0.85)
         clips[key] = {"shot": s["n"], "grade": grade, "expected": expected, "before": before}
         changes.append(f"graded shot {s['n']}")
     write_json(session / "match_grades.json", grades)
