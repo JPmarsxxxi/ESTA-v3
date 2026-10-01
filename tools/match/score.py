@@ -286,6 +286,7 @@ def _inputs_hash(session: Path, stage: str) -> str:
         p = session / n
         h.update(p.read_bytes() if p.exists() else b"-")
     h.update(json.dumps(match_config(), sort_keys=True).encode())
+    h.update(Path(__file__).read_bytes())  # a scoring change must not return a cached report
     return h.hexdigest()[:16]
 
 
