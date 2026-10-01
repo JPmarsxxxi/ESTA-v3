@@ -1,0 +1,28 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-16",
+  "source": "user_provided",
+  "videos_analyzed": 1,
+  "pacing_patterns": {
+    "cuts_per_minute": 12.39,
+    "avg_shot_duration": 4.841
+  },
+  "energy_level": "high",
+  "pacing": "moderate",
+  "visual_style": "graphic-heavy",
+  "dominant_content_type": "text graphics or title cards",
+  "shot_patterns": "Two alternating registers, roughly 50/50 across the sampled sequences, both sitting on a pure black field — nothing is ever full-bleed. (1) AMBER TERMINAL GRAPHICS as the connective tissue: monospace command cards that type themselves out with a block cursor ('> backtests_', '> market_n_') marking each section change, and — the signature move — the data visualisation rendered in the same terminal skin rather than as a normal chart: a step-line equity curve in amber on black, plain tick axis labelled 0 to 912, under a prompt line '$ replot alpha_042.equity --x trade', with results as dotted-leader stats ('sharpe ...... 1.94   ret ...... +186%') and the punchline delivered as a shell comment ('# looks great'). (2) LETTERBOXED FOUND FOOTAGE in the middle band for every emotional beat: sports crowd reactions (WNBA bench, cricket spectators glancing round), deadpan political portraits (Putin), and classical paintings used as memes (gilded frame, Italian pinched-hand gesture). Cuts are unhurried for meme content — 12.4 a minute, ~4.8s a shot — so each joke and each number gets room to land rather than being machine-gunned.",
+  "audio_character": "Fast, slangy, first-person narration carrying the whole piece — conversational and emphatic rather than scripted-formal ('you're wasting your time', 'which is crazy if you know ball'), running ahead of the cuts so the visuals punctuate the voice instead of driving it. Whisper's per-window transcripts cover speech only, so the presence and level of a music bed or SFX layer could not be assessed from this extraction — worth confirming by ear before the mix.",
+  "caption_style": "Huge white all-caps sans, heavy weight, 2-4 words per card, centred in the lower third over a subtle dark translucent box, cut word-by-word in time with the voice (karaoke). Present on every footage shot; absent from the terminal cards, which carry their own type.",
+  "keywords": [
+    "terminal-amber-on-black",
+    "monospace-data-viz",
+    "letterboxed-memes",
+    "karaoke-caps-captions",
+    "self-deprecating",
+    "quant-notebook",
+    "deadpan-reaction-cuts",
+    "black-field-framing"
+  ],
+  "notes_for_plan": "Reference is 9:16 vertical; this session renders 16:9 wide, so read the grammar (black field, terminal cards, letterboxed footage band, lower-third captions) rather than the framing — the middle band becomes a centred pillarboxed inset at 16:9, and the terminal cards gain horizontal room for wider stat lines. Critically, the terminal cards and the equity curves are MOTION GRAPHICS, not stock: they should be authored as HTML/CSS/GSAP through the motion-graphics skill (amber #FFA500-ish on near-black, monospace, typing cursor, step-line paths drawing left to right), not searched for on Pexels. That maps cleanly onto the 'funny with real charts' brief — the charts ARE the aesthetic, and the real numbers in the script (Sharpe 5.28, IC 0.0205, DSR 0.887 vs 0.988) are the natural content for them. Stock/meme fetch should target the reaction beats instead, which is where the script's six bracket directions already point.",
+  "timestamp": "2026-09-17T21:47:54.424713"
+}

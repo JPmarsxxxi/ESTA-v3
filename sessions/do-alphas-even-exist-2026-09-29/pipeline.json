@@ -1,0 +1,210 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-29",
+  "created_at": "2026-09-29T23:05:50.948841",
+  "template": "standard-vo",
+  "goal": "*.openreel.json",
+  "approved": true,
+  "steps": [
+    {
+      "order": 1,
+      "skill": "requirements",
+      "mode": null,
+      "token": "requirements",
+      "needs": [],
+      "produces": [
+        "requirements.json",
+        "conversation.jsonl"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 2,
+      "skill": "research",
+      "mode": null,
+      "token": "research",
+      "needs": [
+        "requirements.json"
+      ],
+      "produces": [
+        "research.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 3,
+      "skill": "scriptwriter",
+      "mode": "author",
+      "token": "scriptwriter:author",
+      "needs": [
+        "requirements.json",
+        "research.json"
+      ],
+      "produces": [
+        "script.md",
+        "script_metadata.json"
+      ],
+      "parallel": false,
+      "status": "skipped"
+    },
+    {
+      "order": 4,
+      "skill": "audio",
+      "mode": "clone",
+      "token": "audio:clone",
+      "needs": [
+        "script.md"
+      ],
+      "produces": [
+        "audio.wav",
+        "audio_metadata.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 5,
+      "skill": "timestamps",
+      "mode": null,
+      "token": "timestamps",
+      "needs": [
+        "audio.wav"
+      ],
+      "produces": [
+        "timestamps.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 6,
+      "skill": "style-analysis",
+      "mode": null,
+      "token": "style-analysis",
+      "needs": [
+        "requirements.json"
+      ],
+      "produces": [
+        "style_analysis.json",
+        "style_examples/"
+      ],
+      "parallel": true,
+      "status": "pending"
+    },
+    {
+      "order": 7,
+      "skill": "plan",
+      "mode": null,
+      "token": "plan",
+      "needs": [
+        "script.md",
+        "style_analysis.json"
+      ],
+      "produces": [
+        "plan.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 8,
+      "skill": "match",
+      "mode": "plan",
+      "token": "match:plan",
+      "needs": [
+        "plan.json",
+        "style_analysis.json"
+      ],
+      "produces": [
+        "match_plan.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 9,
+      "skill": "assets",
+      "mode": null,
+      "token": "assets",
+      "needs": [
+        "plan.json"
+      ],
+      "produces": [
+        "assets.json",
+        "assets/"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 10,
+      "skill": "motion-graphics",
+      "mode": null,
+      "token": "motion-graphics",
+      "needs": [
+        "plan.json"
+      ],
+      "produces": [
+        "motion_graphics.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 11,
+      "skill": "render",
+      "mode": null,
+      "token": "render",
+      "needs": [
+        "plan.json",
+        "assets.json",
+        "audio.wav",
+        "audio_metadata.json",
+        "timestamps.json",
+        "requirements.json"
+      ],
+      "produces": [
+        "*.openreel.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    },
+    {
+      "order": 12,
+      "skill": "match",
+      "mode": "final",
+      "token": "match:final",
+      "needs": [
+        "*.openreel.json",
+        "style_analysis.json"
+      ],
+      "produces": [
+        "match_final.json"
+      ],
+      "parallel": false,
+      "status": "pending"
+    }
+  ],
+  "ui": {
+    "approvals": {
+      "requirements": {
+        "at": "2026-09-22T22:12:08.447Z",
+        "by": "import"
+      },
+      "script": {
+        "at": "2026-09-22T22:12:08.447Z",
+        "by": "import"
+      },
+      "tagged_script": {
+        "at": "2026-09-22T22:12:08.447Z",
+        "by": "import"
+      },
+      "plan": {
+        "at": "2026-09-29T22:30:14.235Z",
+        "by": "user"
+      }
+    },
+    "overrides": {}
+  }
+}

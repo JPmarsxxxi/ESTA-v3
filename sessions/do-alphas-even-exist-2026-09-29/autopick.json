@@ -1,0 +1,170 @@
+{
+  "last": {
+    "picked": 23,
+    "lane": "local ranking",
+    "no_candidates": [],
+    "shots": {
+      "91": {
+        "file": "pexels_6781557.mp4",
+        "why": "local rank",
+        "fit": 0.114,
+        "look": 0.221,
+        "of": 4
+      },
+      "94": {
+        "file": "pexels_3868419.jpg",
+        "why": "local rank",
+        "fit": 0.143,
+        "look": 0.457,
+        "of": 4
+      },
+      "106": {
+        "file": "pexels_7055350.mp4",
+        "why": "local rank",
+        "fit": 0.168,
+        "look": 0.207,
+        "of": 4
+      },
+      "108": {
+        "file": "pexels_7579954.mp4",
+        "why": "local rank",
+        "fit": 0.073,
+        "look": 0.813,
+        "of": 4
+      },
+      "121": {
+        "file": "pixabay_9566.mp4",
+        "why": "local rank",
+        "fit": 0.081,
+        "look": 0.739,
+        "of": 4
+      },
+      "128": {
+        "file": "giphy_mw29zTVSce0N6zbnCm.mp4",
+        "why": "local rank",
+        "fit": 0.105,
+        "look": 0.111,
+        "of": 4
+      },
+      "129": {
+        "file": "pixabay_5793625.jpg",
+        "why": "local rank",
+        "fit": 0.089,
+        "look": 0.077,
+        "of": 4
+      },
+      "135": {
+        "file": "pexels_27822161.mp4",
+        "why": "local rank",
+        "fit": 0.147,
+        "look": 0.268,
+        "of": 4
+      },
+      "165": {
+        "file": "pexels_18900594.mp4",
+        "why": "local rank",
+        "fit": 0.125,
+        "look": 0.1,
+        "of": 2
+      },
+      "169": {
+        "file": "pexels_7579953.mp4",
+        "why": "local rank",
+        "fit": 0.141,
+        "look": 0.88,
+        "of": 4
+      },
+      "170": {
+        "file": "pexels_7579574.mp4",
+        "why": "local rank",
+        "fit": 0.115,
+        "look": 0.406,
+        "of": 4
+      },
+      "171": {
+        "file": "pexels_7580430.mp4",
+        "why": "local rank",
+        "fit": 0.113,
+        "look": 0.861,
+        "of": 4
+      },
+      "174": {
+        "file": "pexels_7578613.mp4",
+        "why": "local rank",
+        "fit": 0.111,
+        "look": 0.914,
+        "of": 4
+      },
+      "178": {
+        "file": "pexels_6337501.jpg",
+        "why": "local rank",
+        "fit": 0.09,
+        "look": 0.322,
+        "of": 4
+      },
+      "179": {
+        "file": "pexels_8727522.jpg",
+        "why": "local rank",
+        "fit": 0.117,
+        "look": 0.268,
+        "of": 4
+      },
+      "183": {
+        "file": "pexels_18382358.mp4",
+        "why": "local rank",
+        "fit": 0.146,
+        "look": 0.202,
+        "of": 4
+      },
+      "186": {
+        "file": "yt_p0qMxFY29WA.mp4",
+        "why": "local rank",
+        "fit": 0.11,
+        "look": 0.429,
+        "of": 4
+      },
+      "194": {
+        "file": "pexels_3044698.mp4",
+        "why": "local rank",
+        "fit": 0.125,
+        "look": 0.282,
+        "of": 2
+      },
+      "196": {
+        "file": "pexels_35475096.mp4",
+        "why": "local rank",
+        "fit": 0.075,
+        "look": 0.47,
+        "of": 4
+      },
+      "198": {
+        "file": "pexels_8865886.mp4",
+        "why": "local rank",
+        "fit": 0.132,
+        "look": 0.229,
+        "of": 3
+      },
+      "201": {
+        "file": "pixabay_38388.mp4",
+        "why": "local rank",
+        "fit": 0.099,
+        "look": 0.094,
+        "of": 2
+      },
+      "202": {
+        "file": "pixabay_496.mp4",
+        "why": "local rank",
+        "fit": 0.077,
+        "look": 0.127,
+        "of": 2
+      },
+      "208": {
+        "file": "giphy_R8DVURV4cHjfOV5Dco.mp4",
+        "why": "local rank",
+        "fit": 0.059,
+        "look": 0.255,
+        "of": 2
+      }
+    }
+  }
+}

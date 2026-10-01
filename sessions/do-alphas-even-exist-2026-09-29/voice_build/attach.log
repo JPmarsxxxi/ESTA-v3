@@ -1,0 +1,18 @@
+﻿[attach] re-joining isijolajesupelumi/esta-vo-run-do-alphas-even-exist-2026-09 without re-pushing
+[21:44:35] running
+[21:45:21] running
+[21:46:07] running
+[21:46:54] running
+[21:47:40] running
+[21:48:27] running
+[21:49:13] running
+[21:49:59] running
+[21:50:48] running
+[21:51:34] running
+[21:52:22] running
+[21:53:08] running
+[21:53:54] running
+[21:54:40] running
+[21:55:26] running
+[21:56:28] error
+{"ok": false, "error": "kernels output failed: HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/kernels.KernelsApiService/ListKernelSessionOutput (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1032)')))\n"}
