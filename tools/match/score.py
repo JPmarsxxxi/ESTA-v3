@@ -307,28 +307,19 @@ def score(session: Path, stage: str, round_no: int | None = None, note: str = ""
     emb = Embedder()
     if stage == "final":
         _asset_features(session, ours, emb)
-        from tools.match.tag import tag_frames
-        frames = {str(s["n"]): Path(s["features"]["keyframe"]) for s in ours if s.get("features")}
-        tagged = {}
-        try:
-            tagged = tag_frames(frames, f"final-{session.name}-{ih[:6]}", log=log) if frames else {}
-        except Exception as e:  # noqa: BLE001 - Kaggle down: tag-dependent sections go pending
-            log(f"[score] tagging failed: {e}")
         grades = read_json(session / "match_grades.json", {}) or {}
         for s in ours:
-            t = tagged.get(str(s["n"]))
-            s["final_kind"] = kind_group(t["kind"], classes) if t else s["kind"]
-            if t:
-                s["overlay"] = s["overlay"] or t.get("overlay_extra", False)
-                s["text"] = s["text"] or t["text_on_screen"]
-            s["tagged"] = bool(t)
+            # Our own clips' kind is known from what was placed, so only the inspo
+            # needs tagging: Gemma reads static stock video as stills (F1 0 in the
+            # answer-key run), which would invent an asset-mix gap.
+            a = s["asset"]
+            s["final_kind"] = ("graphic" if a["source"] == "hyperframes" else
+                               "still" if Path(a["file"]).suffix.lower() in {".jpg", ".jpeg", ".png", ".webp", ".gif"} else s["kind"])
             # A grade applied at Build moves the shot's colour toward the target;
             # measure what will be exported, not the raw download.
             g = (grades.get("clips") or {}).get(grade_key(s["asset"]))
             if g and s.get("features"):
                 s["features"]["colour"] = {**s["features"]["colour"], **g.get("expected", {})}
-        if frames and not tagged:
-            inspo["tagged"] = False
 
     sections, notes = {}, {}
     fns = {
