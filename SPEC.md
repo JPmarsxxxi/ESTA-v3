@@ -525,3 +525,97 @@ M6.6 Generated shots copy the inspo
 Global
 - [ ] `bun run typecheck` and `bun run lint` pass; `pytest tools/match/tests` passes.
 - [ ] End-to-end on the user's PC (needs `assets/` and the local GPU): the first-minute harness reruns with M6 and reports describe cost, validator pass, and the new score next to the M5 numbers in the experiment README.
+
+# Part 4 — Characters and talking shots (M7)
+
+Decided with the user on 2026-10-02, with a same-day deadline, so M7 reuses what exists and adds as little as possible. Parts 1–3 still apply.
+
+## Goal
+
+Let a video be made largely or wholly of AI-generated shots, realistic people or cartoon characters, that stay on-model from shot to shot and can speak the voiceover with lip-sync. All of it runs free on Kaggle's GPUs through the lanes the repo already has.
+
+It adds two things on top of `tools/genvideo` (AI video) and `tools/genchar` (character design):
+1. **A character reference per shot.** A shot names a character. Its AI clip is generated image-to-video from that character's picked design, in the session's look (realistic, cartoon or anime), so the character stays the same person across shots.
+2. **Lip-sync for talking shots.** A shot marked as talking gets its generated clip lip-synced to that shot's slice of the voiceover.
+
+## What other projects do, and what applies here
+
+- **OpenMontage** ([calesthio/OpenMontage](https://github.com/calesthio/OpenMontage), AGPL-3.0):
+  - Runs Wan 2.2 through ComfyUI 4-step workflows (`tools/_comfyui/workflows/wan22-*-4step.json`) on a capable GPU.
+  - Paid Kling for avatars.
+  - Wav2Lip or MuseTalk for lip-sync (`tools/avatar/lip_sync.py`).
+  - SVG-rigged GSAP puppets for its cartoon pipeline.
+  - Its split is the one taken here: a video model makes the shot, a separate lip-sync model makes it talk. No code is copied (AGPL).
+- **Wan 2.2 / InfiniteTalk / Wan S2V** are bf16-native. The repo's own registry already measured Wan 2.2 5B on Kaggle (`tools/genvideo/run.py`, `wan5b`): T4 and P100 have no native bf16, so it falls back to fp16 and "crawls". InfiniteTalk (on Wan 2.1 14B) has the same problem, so it is out.
+- **HunyuanVideo 1.5** (`hunyuan`, `hunyuan-hq`), fp16-native and step-distilled, is the registry's "best quality that still fits a free T4". It stays the video model.
+- **Lip-sync on a 16 GB T4:**
+  - LatentSync 1.6 needs 18 GB, so it doesn't fit.
+  - **LatentSync 1.5** needs ~8 GB in fp16 and is the default ([bytedance/LatentSync](https://github.com/bytedance/LatentSync)).
+  - MuseTalk 1.5 (~4 GB) is the named alternative if LatentSync fails on the T4 ([TMElyralab/MuseTalk](https://github.com/TMElyralab/MuseTalk)).
+  - Both repaint the mouth of an existing clip of a face (video-to-video). They are strongest on realistic faces and weaker on flat cartoons.
+
+## Non-goals / out of scope
+
+- Training character or style LoRAs (genchar's step 2). Consistency here comes from image-to-video seeded with the same reference image; a LoRA is the later upgrade.
+- Wan 2.2, InfiniteTalk or any bf16 model on Kaggle's free GPUs.
+- SVG/GSAP puppet characters.
+- Two characters speaking in one shot, or one shot's speech split between characters.
+- Lip-sync quality guarantees on flat cartoon faces: it is attempted, and a failure keeps the silent clip.
+- Changing render: talking clips arrive through `assets_progress.jsonl` like every other generated clip.
+
+## Files & interfaces involved
+
+Changed (v2 copies; each logged in `PORTING.md`):
+- `tools/genchar/run.py`:
+  - A `realistic` model entry (an fp16 photoreal SDXL finetune, chosen at implementation from those that load in diffusers fp16), beside `animagine` and `sdxl`.
+  - `pick` also copies the chosen variation's image to `characters/<name>/ref.png`, the reference genvideo reads.
+- `tools/genvideo/run.py`:
+  - **Character seeding:** a shot whose `visual.generate.character` is `<name>` is generated image-to-video from `characters/<name>/ref.png` (scaled and cropped like `attach_seed_images`), ahead of any `--seed-from-assets` frame. The prompt gets the session look's style words.
+  - **Lip-sync step:** after generation, every shot with `visual.generate.talk: true` is lip-synced on the same Kaggle run with LatentSync 1.5, against that shot's slice of `audio.wav`. The slice is cut locally with ffmpeg and uploaded with the job. The synced clip is the one `apply` writes; a failed sync keeps the silent clip and records why.
+  - New CLI flag `--lipsync latentsync|musetalk|off` (default `latentsync`).
+- `.claude/skills/plan/SKILL.md`: when `requirements.look` is set, AI shots carry `generate.character` (when a named character is on screen) and `generate.talk: true` (when that character says the line).
+- `.claude/skills/ai-video/SKILL.md`: documents `character`, `talk` and `--lipsync`.
+- `tools/requirements` (schema) and the `requirements` skill: optional `look: realistic|cartoon|anime` and `look_style` (free text, e.g. "flat bold-outline yellow-skinned sitcom cartoon").
+
+Per-character files: `characters/<name>/ref.png` (new), next to genchar's existing outputs.
+
+## Key decisions & tradeoffs
+
+1. **Reuse the lanes.** Video stays `hunyuan` (or `hunyuan-hq` for hero shots) and character design stays genchar. M7 adds a seed image and a lip-sync pass to the existing Kaggle job, not a new lane or service.
+2. **Consistency by reference image, not LoRA.** Every shot of a character starts from the same `ref.png`, which holds face, outfit and palette. It is weaker than a trained LoRA over long or wide-angle shots, but it is buildable today. A LoRA can replace it later without changing the plan fields.
+3. **Generate first, then lip-sync.** HunyuanVideo makes the motion and acting; LatentSync 1.5 repaints only the mouth to the line. One Kaggle run does both, so a talking shot costs one queue wait.
+4. **The look is a session setting.** `look` and `look_style` live in `requirements.json`:
+   - genchar uses them to pick its model: realistic → `realistic`, anime → `animagine`, cartoon → `sdxl` plus `look_style`.
+   - genvideo appends `look_style` to every prompt.
+   Realistic and cartoon videos therefore use the same code.
+5. **Failures degrade, never block.** A shot whose generation fails keeps its stock fallback (as today). A talking shot whose lip-sync fails keeps its silent generated clip. Both are flagged on the review page (Part 3, M6.5).
+
+## Edge cases
+
+- **The named character has no `ref.png`:** the shot is generated text-to-video with the character's `desc` from genchar's `character.json`, and the report says so.
+- **The talking shot's line is empty or under 0.5 s:** no lip-sync.
+- **LatentSync finds no face** (wide shot, back of head, a flat cartoon it can't read): keep the silent clip and record "no face".
+- **The voiceover slice is longer than the generated clip** (HunyuanVideo makes ~5 s): render's fill rule (Part 3, decision 11b) already slows or repeats the clip. Lip-sync runs on the filled length, so the cut audio slice matches what plays.
+- **Kaggle out of quota:** as today, the shot keeps its fallback and the job can be re-pushed.
+
+## Milestones
+
+- **M7.1 Look and character references** (today): `look` fields, genchar `realistic` model and `ref.png`, genvideo character seeding, plan and ai-video skill text.
+- **M7.2 Talking shots** (today if time allows): LatentSync 1.5 pass in the genvideo job, audio slicing, `--lipsync`, fallback.
+
+## Acceptance criteria
+
+M7.1
+- [ ] `genchar pick` writes `characters/<name>/ref.png`, a copy of the chosen variation (unit test on a fake explore dir).
+- [ ] `genvideo push --dry-run` on a plan with `generate.character` builds an image-to-video job seeded from that `ref.png` at the model's size, and the prompt carries `look_style` (unit test, no Kaggle).
+- [ ] A missing `ref.png` falls back to text-to-video with the character's `desc` and is reported.
+- [ ] `requirements.json` accepts `look`/`look_style`, and the plan and ai-video skills document `character`/`talk`. `PORTING.md` logs every v2-copy change.
+
+M7.2
+- [ ] `push` cuts each talking shot's voiceover slice with ffmpeg and ships it with the job; the generated notebook runs LatentSync 1.5 after generation for exactly those shots (dry-run test inspects the job).
+- [ ] `apply` writes the synced clip when present, else the silent clip with a recorded reason (unit test on fake Kaggle output).
+- [ ] `--lipsync off` produces the M7.1 behaviour unchanged.
+
+Global
+- [ ] `pytest tools/match/tests` plus the new genvideo/genchar tests pass; `bun run lint` passes.
+- [ ] User check on Kaggle: one realistic and one cartoon character, three shots each with one talking. Record the minutes per shot and whether the face holds across shots.
