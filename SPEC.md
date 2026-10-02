@@ -374,7 +374,7 @@ Every comparable tool works the other way round: measure the reference per shot,
 ## Files & interfaces involved
 
 New (v3-owned):
-- `tools/match/describe.py` — Haiku describe lane. `describe_shots(items, job_name) -> {id: answer}`; batches of 10 keyframes per `claude -p` call, 4 calls in parallel, lean flags (`--strict-mcp-config --setting-sources "" --tools "" --max-turns 1`, short `--system-prompt`, stream-json input with inline base64 images). Cache `cache/describe.json` keyed by keyframe sha1 + prompt version. CLI: `python tools/match/describe.py inspo --session sessions/<id>`.
+- `tools/match/describe.py` — Haiku describe lane. `describe_shots(items, log) -> {answers: {id: answer}, cost_usd, wall_secs, errors}`; batches of 10 keyframes per `claude -p` call, 4 calls in parallel, lean flags (`--strict-mcp-config --setting-sources "" --tools "" --max-turns 1`, short `--system-prompt`, stream-json input with inline base64 images). Cache `cache/describe.json` keyed by keyframe sha1 + prompt version. CLI: `python tools/match/describe.py inspo --session sessions/<id>`.
 - `tools/match/speech.py` — words spoken over each inspo shot (faster-whisper `small` with word timestamps; CUDA, CPU int8 fallback), cached as `cache/inspo/<hash>/words.json`.
 - `tools/match/motion.py` — per-shot camera move and boundary fades from frames (OpenCV ORB + RANSAC similarity transform between frames at 20 % and 80 % of the shot, plus a 5-frame jitter check; mean luma over the first and last 0.5 s).
 - `tools/match/slots.py` — `python tools/match/slots.py --session sessions/<id>` writes `slots.json` (the proposed cut).

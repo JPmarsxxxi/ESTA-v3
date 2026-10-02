@@ -116,3 +116,45 @@ def test_grade_identity_and_direction():
 def test_curve_table_matches_endpoints():
     t = curve_table([[0, 0], [0.5, 0.7], [1, 1]])
     assert abs(t[0]) < 1e-6 and abs(t[255] - 1) < 1e-6 and t[128] > 0.65
+
+
+def _profile(tmp_path, n_shots, n_tagged):
+    import json
+    d = tmp_path / "prof"
+    d.mkdir()
+    shots = [{"id": f"s{i}", "start": 2.0 * i, "end": 2.0 * i + 2, "dur": 2.0,
+              **({"tags": {**TAGS, "kind": "footage"}} if i < n_tagged else {})} for i in range(n_shots)]
+    calib = {"dino": {"lo": 0.2, "hi": 0.8}, "siglip_text": {"lo": 0.0, "hi": 0.1}}
+    (d / "profile.json").write_text(json.dumps({"source": {"ref": "x"}, "duration": 60.0, "shots": shots,
+                                                "calibration": calib, "tags_status": "partial"}))
+    np.savez(d / "embeddings.npz", dino=np.zeros((n_shots, 4)), siglip=np.zeros((n_shots, 4)))
+    sess = tmp_path / "sess"
+    sess.mkdir()
+    (sess / "inspo_profiles.json").write_text(json.dumps({"profiles": [str(d)], "failed": []}))
+    return sess
+
+
+def test_ninety_percent_described_still_scores(tmp_path):
+    insp = S.load_inspo(_profile(tmp_path, 10, 9))
+    assert insp["tagged"]
+    a, why = S.section_a(ours([2.0] * 3, ["footage"] * 3), insp, 3, "plan")
+    assert a["score"] == 100 and not why
+
+
+def test_under_ninety_percent_is_pending(tmp_path):
+    insp = S.load_inspo(_profile(tmp_path, 10, 8))
+    a, why = S.section_a(ours([2.0], ["footage"]), insp, 3, "plan")
+    assert a is None and "pending: describe" in why
+
+
+def test_our_text_ignores_subtitles(tmp_path):
+    import json
+    shots = [
+        {"shot_number": 1, "start": 0, "end": 2, "visual": {"type": "REAL_FOOTAGE"}},
+        {"shot_number": 2, "start": 2, "end": 4, "visual": {"type": "MOTION_GRAPHICS"}},
+        {"shot_number": 3, "start": 4, "end": 6, "visual": {"type": "REAL_FOOTAGE"}, "overlay": {"caption": "+186%"}},
+        {"shot_number": 4, "start": 6, "end": 8, "visual": {"type": "REAL_FOOTAGE"}, "text": {"caption": "ALPHA"}},
+    ]
+    (tmp_path / "plan.json").write_text(json.dumps({"shots": shots}))
+    (tmp_path / "timestamps.json").write_text("{}")  # subtitles exist; they must not count
+    assert [s["text"] for s in S.our_shots(tmp_path, "plan", 3)] == [False, True, True, True]

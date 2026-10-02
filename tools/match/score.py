@@ -69,7 +69,8 @@ def load_inspo(session: Path):
         "dino": np.concatenate(dino), "siglip": np.concatenate(sig),
         "calib": {"dino": {"lo": avg("dino", "lo"), "hi": avg("dino", "hi")},
                   "siglip_text": {"lo": avg("siglip_text", "lo"), "hi": avg("siglip_text", "hi")}},
-        "tagged": all("tags" in s for s in shots),
+        # A failed describe batch must not blank a and d: score from the described shots once 90 % are in.
+        "tagged": sum("tags" in s for s in shots) >= 0.9 * len(shots),
         "notes": notes,
     }
 
@@ -157,7 +158,7 @@ def _shares(items: list[tuple[str, float]]) -> dict:
 
 def section_a(ours, inspo, classes, stage):
     if not inspo["tagged"]:
-        return None, "pending: Kaggle tags for the inspo"
+        return None, "pending: describe (under 90 % of inspo shots described)"
     mine = _shares([(s["final_kind"] if stage == "final" else s["kind"], s["dur"]) for s in ours])
     theirs = _shares([(kind_group(t["tags"]["kind"], classes), t["dur"]) for t in inspo["shots"] if "tags" in t])
     tvd = 0.5 * sum(abs(mine.get(k, 0) - theirs.get(k, 0)) for k in set(mine) | set(theirs))
@@ -238,7 +239,7 @@ def _variety(rows, key):
 
 def section_d(ours, inspo, stage, classes, dropped):
     if not inspo["tagged"]:
-        return None, "pending: Kaggle tags for the inspo"
+        return None, "pending: describe (under 90 % of inspo shots described)"
     it = [t for t in inspo["shots"] if "tags" in t]
     tot_i = sum(t["dur"] for t in it) or 1.0
     tot_o = sum(s["dur"] for s in ours) or 1.0
