@@ -1,6 +1,8 @@
 """The `match` pipeline step: profile the inspo, score, adjust until pass.
 
-    python tools/match/run.py --session sessions/<id> --stage plan|final
+    python tools/match/run.py --session sessions/<id> --stage profile|plan|final
+
+`profile` builds the inspo profiles only (runs before plan: the mapped plan cuts against them).
 
 System python. Inspo shots are described by Haiku (tools/match/describe.py); auto-pick judging still
 goes to Kaggle (tools/match/vlm_kaggle.py) until M6.3.
@@ -21,7 +23,7 @@ def main() -> None:
     utf8_stdout()
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--session", required=True)
-    ap.add_argument("--stage", required=True, choices=["plan", "final"])
+    ap.add_argument("--stage", required=True, choices=["profile", "plan", "final"])
     a = ap.parse_args()
     session = Path(a.session)
     log = lambda m: print(m, flush=True)  # noqa: E731
@@ -29,6 +31,9 @@ def main() -> None:
         prof = inspo.profile(session, log=log)
         if not prof["profiles"]:
             raise RuntimeError("no inspo could be profiled: " + json.dumps(prof["failed"])[:300])
+        if a.stage == "profile":
+            print(json.dumps({"ok": True, "profiles": prof["profiles"], "failed": prof["failed"]}))
+            return
         rep = adjust.run(session, a.stage)
         log(score.summary(rep))
         for r in rep["adjust"]["rounds"]:

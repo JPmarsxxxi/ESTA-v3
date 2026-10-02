@@ -25,6 +25,8 @@ Every deviation from a verbatim copy of ESTA-v2, and every change to vendored Op
 | `tools/motiongraphics/build.py` | Canvas size follows `requirements.orientation` (1920x1080 for horizontal, 1080x1080 square, else 1080x1920), and `data-resolution` with it. | v2 hard-coded portrait, so a horizontal session's graphics rendered 1080x1920 and render stretched them into a 16:9 frame. |
 | `tools/assets/run.py` | `candidates --max-queries N`: only the first N queries of each source are searched (default 0 = all, as before). | M5 auto-pick gathers candidates for every shot of a video; one query per source keeps it to a handful of downloads per shot. |
 | `tools/pipeline/contracts.json`, `tools/pipeline/templates.json` | New `match` skill with modes `plan` (needs `plan.json`, `style_analysis.json`; produces `match_plan.json`) and `final` (needs `*.openreel.json`, `style_analysis.json`; produces `match_final.json`). Both templates run `match:plan` after `plan` and `match:final` after `render`. | M5 inspo match (SPEC.md Part 2). Two produced files, not one, because conductor.py counts a step done by its outputs, and a single `match_report.json` would mark the final pass done at the plan stage. |
+| `tools/pipeline/contracts.json`, `tools/pipeline/templates.json` (M6) | New `match:profile` mode (needs `style_analysis.json`, produces `inspo_profiles.json`), run right after `style-analysis` in both templates; `plan` gains the optional need `inspo_profiles.json`; `slots.json` and `plan_validation.json` join match's optional outputs. | SPEC.md Part 3 (M6.2): a mapped plan cuts against the inspo profile, so the profile has to exist before `plan`. Not marked `parallel`: that flag means "needs only `requirements.json`" to the server's stage gating, and this step needs `style_analysis.json`. |
+| `.claude/skills/plan/SKILL.md` (M6) | New "Mapped mode" section: when `inspo_profiles.json` and `timestamps.json` exist, shots come from `tools/match/slots.py` (one per inspo-mapped slot, real timing, cuts on word boundaries), carry `ref_shot` / `ref_target_dur` / `camera` / `transition_in/out`, are written with `timing_source: "timestamps"` (so reconcile skips them) and must pass `tools/match/validate_plan.py`, which rejects only the failing sections. Without those files the skill plans exactly as in v2. | SPEC.md Part 3: one-shot-per-sentence at style-analysis's mean shot length produced pacing far off the inspo, a plan that stopped 79 s before the voiceover and 44 gaps of black after reconcile. |
 
 ## Backend (`server/`, replaces `asset-server.mjs` + `chat-bridge.mjs`)
 
@@ -176,6 +178,11 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 - **Build.** `emit.ts` asks `/_match/<id>/grades` for per-clip Grade effects (from `match_grades.json`, keyed by file and in point, so grades survive renumbering).
 - **HyperFrames** is now a root dev dependency (`hyperframes@^0.6.88`, as v2), so the motion-graphics skill finds `node_modules/.bin/hyperframes`; M1 had missed it.
 - **Assets.** A new Assets action, "Auto-pick all shots", replaces the default picks: candidates per shot, ranked by SigLIP 2 and DINOv3 against the shot and the inspo, judged by Gemma 4 on Kaggle.
+
+## M6 inspo match v2
+
+- **Describe lane.** Inspo shots are described by Claude Haiku through `claude -p` with `--strict-mcp-config --setting-sources "" --tools ""` (`tools/match/describe.py`); without those flags each call carries ~29k tokens of MCP tools and skills. `adjust.py`'s wording call uses the same flags. Gemma's tagger (`tag.py`, `vlm_kaggle.py`) is no longer called for inspo tags.
+- **Stage rail.** `match:profile` sits in the Style stage (`server/pipeline.ts`), with a "Profile the inspo" action (`server/actions.ts`).
 
 ## Known baseline issues (not introduced by v3)
 

@@ -29,6 +29,37 @@ Two modes. `pipeline.json`'s plan step decides (`plan:bulk` / `plan:manual`); a 
 - **bulk** (default) — everything below as written: two-pass generation, all shots streamed to `plan_progress.jsonl` immediately.
 - **manual** (hands-on) — the per-line approval loop in the "Manual mode" section. Same shot JSON, same streaming file, same downstream contracts; the ONLY difference is each line waits for the user's approval before it is appended.
 
+## Mapped mode (copy the inspo shot by shot)
+
+**When both `sessions/<id>/inspo_profiles.json` (from `match:profile`) and `sessions/<id>/timestamps.json` exist, plan in mapped mode** (SPEC.md Part 3, M6.2). Every shot is the counterpart of one inspo shot, its `ref_shot`: it copies that shot's length (real seconds), kind and look. Bulk and manual both apply: manual just shows each slot's card for approval. Without either file, skip this section and plan exactly as below.
+
+Mapped mode replaces "Derive pacing", "Timing estimation" and the one-shot-per-sentence rule. Everything else (shot JSON fields, `search_sources`/specificity/override rules, overlay/sfx/caption rules, streaming to `plan_progress.jsonl`, the early render, the hand-off) still applies.
+
+1. **Propose the cut.** Run (system python, seconds):
+   ```bash
+   python tools/match/slots.py --session sessions/<id>
+   ```
+   Read `slots.json`: `slots[]` (each `start`, `end`, `target_dur`, `ref_shot`, `alts`, `words`) tile the voiceover from 0 to `voice_end` with every cut on a word boundary; `refs{}` describes each inspo shot (`kind`, `content`, `description`, `sourcing_hint`, `text_extra`, `overlay_extra`, `motion`).
+2. **Pass 1 — one shot per slot, pick its ref and type.**
+   - Default ref: the slot's `ref_shot`. You may instead take one of its `alts` (inspo shots within ±3 positions) when that shot's description fits the slot's `words` clearly better — e.g. the positional ref is a reaction meme but the line is a sober statistic. Record why in `ref_swap` (one short phrase). Never take a ref outside `alts`.
+   - `visual.type` follows the chosen ref's `kind`: footage → `REAL_FOOTAGE`, still → `REAL_IMAGE`, graphic → `MOTION_GRAPHICS`.
+   - Slot boundaries stay as proposed, with two exceptions: merge two adjacent slots when their combined length is within 1.35 × the first slot's `target_dur` and the words read as one visual idea; split a slot at an inner word boundary when its words hold two distinct visual ideas. A merged shot keeps the first slot's ref and the sum of both targets; split halves keep the slot's ref and half its target each.
+3. **Pass 2 — fill every field per shot,** streaming each line to `plan_progress.jsonl` as in bulk mode:
+   - `start`/`end` and `start_est`/`end_est` = the slot's `start`/`end`, exactly (no 150 wpm estimate); `audio` = the slot's `words`.
+   - `ref_shot` (chosen ref id), `ref_target_dur` (the slot's `target_dur`, even when the ref was swapped: the rhythm stays positional), `ref_swap` (only when swapped).
+   - `visual.desc`: this line's content shown the way the ref shows things — same framing (`content`: single_focus / multi_subject / background / text_card / ui_chart), same register as its `description`. Never copy the inspo's subject matter; copy its treatment.
+   - `search_sources`: the existing specificity rules decide the sources; the ref's `sourcing_hint` shapes the query wording (adapted to this topic).
+   - `text.caption` only when the ref has `text_extra: true`; an `overlay` only when the ref has `overlay_extra: true` and the shot is not `MOTION_GRAPHICS`. This keeps the on-screen-text rate at the inspo's.
+   - `camera`: `{"move", "amount"}` from the ref's `motion` when it has one (omit otherwise); `transition_in` / `transition_out`: `fade_black` / `fade_white` when the ref's `motion.fade_in` / `fade_out` is `black` / `white`, else `cut`.
+4. **Write `plan.json`** with `"timing_source": "timestamps"` and `editing_notes.method: "inspo-mapped"` (reconcile then skips it: the timing is already real). Do NOT run reconcile.
+5. **Validate, section by section.**
+   ```bash
+   python tools/match/validate_plan.py --session sessions/<id>
+   ```
+   Exit 0: done. Exit 1: read `plan_validation.json`. Each entry in `failures` is a section (`section: [first, last]` shot numbers) with its `problems` and a `fix`. Rewrite **only** those sections, following each `fix`; every shot listed in `frozen` must stay byte-identical. Shots listed in a failure's `locked` were edited by hand: never rewrite them, tell the user they need a hand fix. Re-run the validator; at most 3 attempts, then stop and show the remaining failures to the user in plain words. If a rewrite changes the queries of a shot already streamed, set `visual.queries_stale: true` so its asset is refetched.
+
+Show the summary with the slot median against the inspo median (`median_slot` / `median_inspo` in `slots.json`) and how many shots swapped refs, instead of the cuts-per-minute line.
+
 ## Derive pacing from style analysis
 
 From `style_analysis.json`:

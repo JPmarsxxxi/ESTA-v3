@@ -109,7 +109,7 @@ export const STAGES: Array<{ id: string; label: string; skills: string[]; checkp
 	{ id: "script", label: "Script", skills: ["scriptwriter"], checkpoint: "script" },
 	{ id: "voice", label: "Voice", skills: ["audio"] },
 	{ id: "timestamps", label: "Timestamps", skills: ["timestamps"] },
-	{ id: "style", label: "Style", skills: ["style-analysis"] },
+	{ id: "style", label: "Style", skills: ["style-analysis", "match:profile"] },
 	// Stage membership is by skill, or by token where one skill spans stages (match).
 	{ id: "plan", label: "Plan", skills: ["plan", "match:plan"], checkpoint: "plan" },
 	{ id: "assets", label: "Assets", skills: ["assets", "motion-graphics", "ai-video"] },

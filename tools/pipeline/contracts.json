@@ -210,7 +210,8 @@
       ],
       "optional_needs": [
         "research.json",
-        "timestamps.json"
+        "timestamps.json",
+        "inspo_profiles.json"
       ],
       "produces": [
         "plan.json"
@@ -229,7 +230,7 @@
           "notes": "Hands-on per-line loop: one shot card is planned and shown for user approval; ON APPROVE the line is appended to plan_progress.jsonl (assets fetches it in background) and the NEXT card is presented immediately — approval and fetching overlap so the user never waits. Approval gates the plan idea only (option A); the user judges fetched picks visually on the live timeline and says 'redo shot N' (assets run.py shot). A render pass runs after each fetch so the editor fills in shot by shot. plan.json is assembled from the approved lines when the loop finishes."
         }
       },
-      "notes": "Estimates timing at 150 wpm; reconciles to real timing when timestamps.json is present. Bare 'plan' tokens resolve to plan:bulk via default_mode (backward compatible)."
+      "notes": "Estimates timing at 150 wpm; reconciles to real timing when timestamps.json is present. Bare 'plan' tokens resolve to plan:bulk via default_mode (backward compatible). Mapped mode (SPEC.md Part 3): when inspo_profiles.json and timestamps.json both exist, shots are cut from slots.json (each the counterpart of one inspo shot) and must pass tools/match/validate_plan.py."
     },
     "assets": {
       "needs": [
@@ -305,6 +306,16 @@
     "match": {
       "default_mode": "plan",
       "modes": {
+        "profile": {
+          "status": "built",
+          "needs": [
+            "style_analysis.json"
+          ],
+          "produces": [
+            "inspo_profiles.json"
+          ],
+          "notes": "Profiles the inspo videos (cuts, colour, embeddings, transcript, Haiku descriptions). Runs before plan: a mapped plan cuts against it (tools/match/slots.py)."
+        },
         "plan": {
           "status": "built",
           "needs": [
@@ -330,11 +341,12 @@
       },
       "optional_produces": [
         "inspo.json",
-        "inspo_profiles.json",
         "match_grades.json",
-        "autopick.json"
+        "autopick.json",
+        "slots.json",
+        "plan_validation.json"
       ],
-      "notes": "M5 inspo match (v3). Runs on the system python; tagging and auto-pick judging run on Kaggle."
+      "notes": "Inspo match (v3, M5/M6). Runs on the system python; inspo shots are described by Haiku, auto-pick judging runs on Kaggle until M6.3."
     }
   }
 }

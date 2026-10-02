@@ -15,11 +15,14 @@ Makes the video follow its inspo measurably. Local models do the looking and the
 ## Invocation
 
 ```bash
+python tools/match/run.py --session sessions/<id> --stage profile # after style-analysis, before plan
 python tools/match/run.py --session sessions/<id> --stage plan    # after plan
 python tools/match/run.py --session sessions/<id> --stage final   # after the final render
 ```
 
 It runs in the background (describing an inspo takes ~3-5 minutes and ~$0.40-0.60 of Haiku the first time it is seen; it is cached after). What it does:
+
+`--stage profile` stops after step 1: it exists so the plan skill's mapped mode (`tools/match/slots.py`) has the inspo shots to cut against. The plan and final stages reuse the cached profile.
 
 1. `inspo.py profile`: resolves `inspo.json` (from style-analysis output for older sessions), downloads each inspo (whole video up to 10 minutes), cuts it with TransNetV2, measures colour, embeds keyframes (DINOv3, SigLIP 2), transcribes it, and has Haiku describe each shot from its keyframe and the words spoken over it (description, kind, content, sourcing hint, subtitle-blind text and overlay flags; `tools/match/describe.py`). Cached in `cache/inspo/<hash>/`.
 2. `score.py`: writes `match_plan.json` / `match_final.json` with sections a-e, the overall score and pass/fail (overall >= 80 and every section >= 70; weights in `config.yaml` `match`).

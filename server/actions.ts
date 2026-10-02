@@ -113,10 +113,15 @@ export const ACTIONS: Action[] = [
 	},
 	{ id: "reconcile", stage: "timestamps", label: "Reconcile plan timing", kind: "tool", python: "esta", needs: ["timestamps.json", "plan.json"], args: (_p, s) => ["tools/timestamps/run.py", "reconcile", "--session", S(s)] },
 	{ id: "style-analysis", stage: "style", label: "Analyse reference style", hint: "Downloads reference clips, extracts frames, then synthesises style_analysis.json.", kind: "skill", step: "style-analysis", args: skill("style-analysis"), produces: ["style_analysis.json"] },
+	{
+		id: "match-profile", stage: "style", label: "Profile the inspo", kind: "tool", python: "system", step: "match:profile",
+		hint: "Cuts the inspo into shots, measures colour and embeddings, transcribes it and has Haiku describe each shot. The mapped plan cuts against this.",
+		args: (_p, s) => ["tools/match/run.py", "--session", S(s), "--stage", "profile"], produces: ["inspo_profiles.json"],
+	},
 	{ id: "plan", stage: "plan", label: "Generate plan (bulk)", kind: "skill", step: "plan", args: skill("plan", "Mode: bulk. Stop after plan.json is written and reconciled; do not run render or assets."), produces: ["plan.json"], progress: "plan" },
 	{
 		id: "match-plan", stage: "plan", label: "Match the inspo (score + adjust)", kind: "tool", python: "system", step: "match:plan",
-		hint: "Profiles the inspo (tags on Kaggle), scores the plan and nudges failing sections until it passes.",
+		hint: "Scores the plan against the inspo profile and nudges failing sections until it passes.",
 		args: (_p, s) => ["tools/match/run.py", "--session", S(s), "--stage", "plan"], produces: ["match_plan.json"],
 	},
 	{ id: "early-render", stage: "plan", label: "Early render (placeholders + VO + subs)", kind: "tool", python: "esta", needs: ["plan.json"], args: (_p, s) => ["tools/render/run.py", "build", "--session", S(s)] },
