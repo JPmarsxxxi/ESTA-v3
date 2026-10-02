@@ -105,31 +105,44 @@ def _call(argv: list[str], message: str) -> str:
     return r.stdout or r.stderr
 
 
-def run_batch(batch: list[dict], cfg: dict) -> dict:
-    content = []
-    for it in batch:
-        said = it.get("words", "")
-        content.append({"type": "text", "text": f"Shot {it['id']}" + (f' (spoken over it: "{said}")' if said else "") + ":"})
-        content.append({"type": "image", "source": {"type": "base64", "media_type": "image/jpeg",
-                                                    "data": _jpeg_b64(it["image"], cfg["max_side"])}})
-    content.append({"type": "text", "text": PROMPT + f"\n\nThere are {len(batch)} shots. Reply with ONLY one JSON "
-                    'object mapping each shot id to its answer, e.g. {"' + batch[0]["id"] + '": {"description": ...}}.'})
+def ask(content: list[dict], system: str, model: str) -> dict:
+    """One `claude -p` turn over inline text and images, answer parsed as a JSON object; retried once.
+    Returns {"answer", "cost", "secs", "attempts"} or {"error", "secs"}. The auto-pick judge uses it too."""
     msg = json.dumps({"type": "user", "message": {"role": "user", "content": content}})
-    argv = [claude_bin(), "-p", "--model", cfg["model"], "--input-format", "stream-json", "--output-format",
-            "stream-json", "--verbose", "--system-prompt", SYSTEM, *LEAN_CLAUDE]
+    argv = [claude_bin(), "-p", "--model", model, "--input-format", "stream-json", "--output-format",
+            "stream-json", "--verbose", "--system-prompt", system, *LEAN_CLAUDE]
     t0 = time.time()
+    err = ""
     for attempt in (1, 2):
         out = _call(argv, msg)
         try:
             env = next(e for e in (json.loads(line) for line in out.splitlines() if line.startswith("{"))
                        if e.get("type") == "result")
             text = env.get("result", "")
-            ans = json.loads(text[text.index("{"): text.rindex("}") + 1])
-            return {"answers": {k: normalise(v) for k, v in ans.items() if isinstance(v, dict)},
+            return {"answer": json.loads(text[text.index("{"): text.rindex("}") + 1]),
                     "cost": float(env.get("total_cost_usd") or 0), "secs": time.time() - t0, "attempts": attempt}
-        except Exception as e:  # noqa: BLE001 - one retry, then these shots stay undescribed
+        except Exception as e:  # noqa: BLE001 - one retry, then the caller keeps its fallback
             err = f"{e}: {out[-300:]}"
-    return {"answers": {}, "error": err, "ids": [it["id"] for it in batch], "secs": time.time() - t0}
+    return {"error": err, "secs": time.time() - t0}
+
+
+def image_block(image: Path, max_side: int) -> dict:
+    return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": _jpeg_b64(image, max_side)}}
+
+
+def run_batch(batch: list[dict], cfg: dict) -> dict:
+    content = []
+    for it in batch:
+        said = it.get("words", "")
+        content.append({"type": "text", "text": f"Shot {it['id']}" + (f' (spoken over it: "{said}")' if said else "") + ":"})
+        content.append(image_block(it["image"], cfg["max_side"]))
+    content.append({"type": "text", "text": PROMPT + f"\n\nThere are {len(batch)} shots. Reply with ONLY one JSON "
+                    'object mapping each shot id to its answer, e.g. {"' + batch[0]["id"] + '": {"description": ...}}.'})
+    res = ask(content, SYSTEM, cfg["model"])
+    if "error" in res:
+        return {"answers": {}, "error": res["error"], "ids": [it["id"] for it in batch], "secs": res["secs"]}
+    return {"answers": {k: normalise(v) for k, v in res["answer"].items() if isinstance(v, dict)},
+            "cost": res["cost"], "secs": res["secs"], "attempts": res["attempts"]}
 
 
 def describe_shots(items: list[dict], log=print) -> dict:

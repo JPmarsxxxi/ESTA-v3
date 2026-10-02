@@ -4,8 +4,8 @@
 
 `profile` builds the inspo profiles only (runs before plan: the mapped plan cuts against them).
 
-System python. Inspo shots are described by Haiku (tools/match/describe.py); auto-pick judging still
-goes to Kaggle (tools/match/vlm_kaggle.py) until M6.3.
+System python. Inspo shots are described and auto-pick candidates judged by Haiku (tools/match/describe.py);
+nothing in the match path uses Kaggle.
 """
 
 import argparse

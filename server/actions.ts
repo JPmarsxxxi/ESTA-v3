@@ -127,8 +127,8 @@ export const ACTIONS: Action[] = [
 	{ id: "early-render", stage: "plan", label: "Early render (placeholders + VO + subs)", kind: "tool", python: "esta", needs: ["plan.json"], args: (_p, s) => ["tools/render/run.py", "build", "--session", S(s)] },
 	{ id: "fetch-assets", stage: "assets", label: "Fetch all shots (bulk)", kind: "tool", python: "esta", step: "assets", args: (_p, s) => ["tools/assets/run.py", "fetch", "--session", S(s)], produces: ["assets.json"], progress: "assets" },
 	{
-		id: "autopick", stage: "assets", label: "Auto-pick all shots (inspo + Gemma)", kind: "tool", python: "system", step: "assets",
-		hint: "Gathers candidates per shot, ranks them against the shot and the inspo, and has Gemma choose on Kaggle.",
+		id: "autopick", stage: "assets", label: "Auto-pick all shots (inspo + Haiku)", kind: "tool", python: "system", step: "assets",
+		hint: "Gathers candidates per shot, keeps those long enough and of the shot's kind, ranks them against the shot and its inspo shot, and has Haiku choose.",
 		args: (_p, s) => ["tools/match/autopick.py", "--session", S(s)], produces: ["assets.json"], progress: "assets",
 	},
 	{ id: "autopick-stale", stage: "assets", label: "Refetch stale shots", kind: "tool", python: "system", needs: ["plan.json"], args: (_p, s) => ["tools/match/autopick.py", "--session", S(s), "--stale"] },

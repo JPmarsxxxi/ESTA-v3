@@ -3,15 +3,19 @@
     python tools/match/autopick.py --session sessions/<id> [--shots 3,7,12] [--per-source 2]
 
 1. Gathers candidates per shot (`assets/run.py candidates`, the picker's path).
-2. Ranks them locally: SigLIP 2 fit to the shot's desc and spoken line, plus
-   DINOv3 closeness to the inspo's keyframes, minus a penalty for reusing a
-   file another shot already shows.
-3. Sends each shot's top three to Gemma 4 on Kaggle in one batch to pick the
-   best and reject unusable ones (watermarks, wrong subject, junk).
-4. Writes the pick to assets_progress.jsonl (visual_verdict "auto_picked") and
+2. Hard filters, in the order of SPEC.md Part 3 decision 11: a video must be at
+   least as long as the shot (else the longest one, flagged short_clip), and
+   its kind must match the shot's (video for footage, image for a still; giphy
+   loops fit either).
+3. Ranks the survivors: SigLIP 2 fit to the shot's desc and spoken line, plus
+   DINOv3 closeness to the shot's ref_shot keyframe (the whole inspo when the
+   shot has no ref), minus a penalty for reusing a file another shot shows.
+4. Haiku judges each shot's top three against the ref keyframe, 10 shots per
+   call, and may reject them (watermarks, wrong subject, junk).
+5. Writes the pick to assets_progress.jsonl (visual_verdict "auto_picked") and
    assets.json, and clears the shot's queries_stale.
 
-Without Kaggle the local ranking decides, and the report says so.
+Without `claude` the local ranking decides, and the report says so.
 """
 
 import argparse
@@ -26,22 +30,78 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match import score as scorer  # noqa: E402
-from tools.match import vlm_kaggle  # noqa: E402
 from tools.match.common import (  # noqa: E402
-    REPO_ROOT, media_frames, read_json, run_esta, save_jpg, utf8_stdout, write_json,
+    REPO_ROOT, match_config, media_frames, read_json, run_esta, save_jpg, utf8_stdout, write_json,
 )
+from tools.match.describe import ask, image_block  # noqa: E402
 
-JOBS_DIR = REPO_ROOT / "cache" / "vlm_jobs"
+JOBS_DIR = REPO_ROOT / "cache" / "pick"
 FINALISTS = 3
+JUDGE_BATCH = 10
+SHOT_KIND = {"REAL_IMAGE": "still", "MOTION_GRAPHICS": "graphic"}
+JUDGE_SYSTEM = "You pick stock footage for a video editor. Reply with only the requested JSON."
 
-PICK_PROMPT = (
-    "You pick stock footage for one shot of a YouTube video, the way its creator would. "
-    "The images are candidate clips, numbered 1 to {k} in order.\n"
-    "Shot description: {desc}\nSpoken line over it: {audio}\nThe creator's style: {style}\n"
-    "Reject a candidate if it has a visible watermark or logo, shows the wrong subject, "
-    "is blurry or broken, or is off-tone for the line. Reply with ONLY a JSON object: "
-    '{{"best": <number>, "reject": [<numbers>], "why": "<one short reason>"}}'
+JUDGE_PROMPT = (
+    "Each shot above shows the INSPO frame the shot must feel like (its look, framing and treatment, not its subject), "
+    "then candidate clips numbered 1 to 3. Pick the candidate a creator copying that inspo would use for the spoken "
+    "line. Reject a candidate if it has a visible watermark or logo, shows the wrong subject, is blurry or broken, or "
+    "is off-tone for the line. Reply with ONLY one JSON object mapping each shot id to "
+    '{"best": <number>, "reject": [<numbers>], "why": "<one short reason>"}.'
 )
+
+
+def cand_kind(c: dict) -> str:
+    if c.get("source") == "giphy":
+        return "any"
+    return "still" if c.get("asset_type") == "image" else "footage"
+
+
+def filter_candidates(shot: dict, cands: list[dict]) -> tuple[list[dict], bool]:
+    """Hard filters before ranking: kind, then length. Returns (survivors, short_clip)."""
+    kind = SHOT_KIND.get((shot.get("visual") or {}).get("type"), "footage")
+    # A graphic is generated; stock for it is only the named-shot fallback, so any kind will do.
+    same = cands if kind == "graphic" else [c for c in cands if cand_kind(c) in ("any", kind)]
+    dur = float(shot.get("end", 0) or 0) - float(shot.get("start", 0) or 0)
+    timed = [c for c in same if cand_kind(c) == "footage"]
+    long_enough = [c for c in same if cand_kind(c) != "footage"
+                   or (c.get("source_duration") or 0) - (c.get("in_point") or 0) >= dur - 0.05]
+    if long_enough or not timed:
+        return long_enough, False
+    # Nothing fills the shot: the longest clip, flagged (render holds its last frame).
+    return [max(timed, key=lambda c: (c.get("source_duration") or 0) - (c.get("in_point") or 0))], True
+
+
+def judge(items: list[dict], log=print) -> tuple[dict, float, list[str]]:
+    """items: [{"n", "ref_image", "ref_desc", "desc", "audio", "finals": [jpg]}] -> ({n: verdict}, cost, errors)."""
+    cfg = match_config()["describe"]
+    batches = [items[i:i + JUDGE_BATCH] for i in range(0, len(items), JUDGE_BATCH)]
+
+    def one(batch):
+        content = []
+        for it in batch:
+            content.append({"type": "text", "text": f"Shot {it['n']}. Spoken line: \"{it['audio']}\". Planned: {it['desc']}"
+                            + (f" INSPO frame ({it['ref_desc']}):" if it.get("ref_image") else " (no inspo frame)")})
+            if it.get("ref_image"):
+                content.append(image_block(it["ref_image"], cfg["max_side"]))
+            for j, f in enumerate(it["finals"], 1):
+                content.append({"type": "text", "text": f"Shot {it['n']} candidate {j}:"})
+                content.append(image_block(f, cfg["max_side"]))
+        content.append({"type": "text", "text": JUDGE_PROMPT})
+        return ask(content, JUDGE_SYSTEM, cfg["model"])
+
+    log(f"[autopick] Haiku judges {len(items)} shots in {len(batches)} calls")
+    with ThreadPoolExecutor(cfg["workers"]) as pool:
+        results = list(pool.map(one, batches))
+    verdicts, cost, errors = {}, 0.0, []
+    for res in results:
+        cost += res.get("cost", 0.0)
+        if "error" in res:
+            errors.append(res["error"][:200])
+            continue
+        for k, v in res["answer"].items():
+            if str(k).isdigit() and isinstance(v, dict):
+                verdicts[int(k)] = v
+    return verdicts, cost, errors
 
 
 def log(m: str) -> None:
@@ -69,12 +129,6 @@ def _gather(session: Path, n: int, per_source: int) -> dict:
     return {"candidates": [], "error": r.stderr[-200:]}
 
 
-def _style_line(session: Path) -> str:
-    s = read_json(session / "style_analysis.json", {}) or {}
-    return "; ".join(str(x) for x in (s.get("visual_style"), s.get("dominant_content_type"),
-                                      ", ".join(s.get("keywords") or [])) if x)[:400]
-
-
 def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=log) -> dict:
     import numpy as np
     from tools.match.common import Embedder
@@ -94,13 +148,22 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     feed_rows = scorer._asset_rows(session)
     used = {Path(str(r.get("file", ""))).name for k, r in feed_rows.items()
             if r.get("ok") and not (k.isdigit() and int(k) in manifests)}
-    job = JOBS_DIR / ("pick-" + session.name[:30] + "-" + hashlib.sha1(json.dumps(sorted(manifests)).encode()).hexdigest()[:8])
-    (job / "images").mkdir(parents=True, exist_ok=True)
-    style = _style_line(session)
-    ranked, requests = {}, []
+    job = JOBS_DIR / (session.name[:30] + "-" + hashlib.sha1(json.dumps(sorted(manifests)).encode()).hexdigest()[:8])
+    job.mkdir(parents=True, exist_ok=True)
+    ref_row, ref_image = {}, {}
+    if inspo:
+        idx = read_json(session / "inspo_profiles.json", {}) or {}
+        kf = {sh["id"]: REPO_ROOT / rel / sh["keyframe"] for rel in idx.get("profiles", [])
+              for sh in (read_json(REPO_ROOT / rel / "profile.json", {}) or {}).get("shots", []) if sh.get("keyframe")}
+        for i, sh in enumerate(inspo["shots"]):
+            ref_row[sh["id"]] = i
+            if sh["id"] in kf and kf[sh["id"]].exists():
+                ref_image[sh["id"]] = kf[sh["id"]]
+    ranked, items, short = {}, [], {}
     for s in wanted:
         n = s["shot_number"]
         cands = [c for c in manifests[n].get("candidates", []) if Path(REPO_ROOT / c["file"]).exists() or Path(c["file"]).exists()]
+        cands, short[n] = filter_candidates(s, cands)
         if not cands:
             continue
         rows = []
@@ -118,7 +181,11 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
         text = emb.siglip_texts([f"{v.get('desc', '')}. {s.get('audio', '')}"[:300]])[0]
         mids = [f[len(f) // 2] for _, f in rows]
         fit = emb.siglip_images(mids) @ text
-        look = (emb.dino(mids) @ inspo["dino"].T).max(axis=1) if inspo else np.zeros(len(rows))
+        ref = ref_row.get(s.get("ref_shot"))
+        if ref is not None:
+            look = emb.dino(mids) @ inspo["dino"][ref]
+        else:
+            look = (emb.dino(mids) @ inspo["dino"].T).max(axis=1) if inspo else np.zeros(len(rows))
         z = lambda x: (x - x.mean()) / (x.std() + 1e-6) if len(x) > 1 else x * 0  # noqa: E731
         reuse = np.array([1.0 if Path(c["file"]).name in used else 0.0 for c, _ in rows])
         total = 0.6 * z(fit) + 0.4 * z(look) - 1.0 * reuse
@@ -126,28 +193,19 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
         ranked[n] = [(rows[i][0], float(total[i]), float(fit[i]), float(look[i])) for i in order]
         finals = order[:FINALISTS]
         if len(finals) > 1:
-            names = []
-            for j, i in enumerate(finals):
-                name = f"s{n}_{j + 1}.jpg"
-                save_jpg(mids[i], job / "images" / name, max_side=512)
-                names.append(name)
-            requests.append({"id": str(n), "images": names, "max_new_tokens": 120,
-                             "prompt": PICK_PROMPT.format(k=len(names), desc=v.get("desc", ""), audio=s.get("audio", ""),
-                                                          style=style)})
+            paths = [save_jpg(mids[i], job / f"s{n}_{j + 1}.jpg", max_side=512) for j, i in enumerate(finals)]
+            rs = inspo["shots"][ref] if ref is not None else {}
+            items.append({"n": n, "finals": paths, "desc": v.get("desc", ""), "audio": s.get("audio", ""),
+                          "ref_image": ref_image.get(s.get("ref_shot")),
+                          "ref_desc": (rs.get("tags") or {}).get("description", "")})
 
-    verdicts, lane = {}, "local ranking"
-    if requests:
-        write_json(job / "requests.json", {"model": "gemma4-e4b", "requests": requests})
+    verdicts, lane, judge_cost = {}, "local ranking", 0.0
+    if items:
         try:
-            vlm_kaggle.run(job, log=log)
-            for sid, text in (read_json(job / "results.json", {}) or {}).items():
-                try:
-                    verdicts[int(sid)] = json.loads(text[text.index("{"): text.rindex("}") + 1])
-                except Exception:
-                    pass
-            lane = "gemma4-e4b on Kaggle"
-        except Exception as e:  # noqa: BLE001 - Kaggle down: the local ranking stands
-            log(f"[autopick] Kaggle unavailable, using local ranking: {e}")
+            verdicts, judge_cost, errors = judge(items, log)
+            lane = "haiku judge" + (f" ({len(errors)} failed calls: local ranking there)" if errors else "")
+        except Exception as e:  # noqa: BLE001 - claude missing or failing: the local ranking stands
+            log(f"[autopick] judge unavailable, using local ranking: {e}")
 
     feed = session / "assets_progress.jsonl"
     picked, report = 0, {}
@@ -160,10 +218,10 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                 best = int(vd.get("best") or 1) if str(vd.get("best", "")).isdigit() else 1
                 finals = cands[:FINALISTS]
                 if 1 <= best <= len(finals) and best not in reject:
-                    choice, why = finals[best - 1], f"gemma: {vd.get('why', '')}"[:200]
+                    choice, why = finals[best - 1], f"haiku: {vd.get('why', '')}"[:200]
                 else:
                     keep = [c for j, c in enumerate(finals, 1) if j not in reject]
-                    choice, why = (keep[0] if keep else finals[0]), f"gemma rejected its pick; next best ({vd.get('why', '')})"[:200]
+                    choice, why = (keep[0] if keep else finals[0]), f"haiku rejected its pick; next best ({vd.get('why', '')})"[:200]
             c, total, fit, look = choice
             row = {"shot_number": n, "ok": True, "source": c["source"], "asset_type": c["asset_type"],
                    "url": c.get("url", ""), "file": c["file"], "search_query": c.get("query", ""),
@@ -172,7 +230,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                    "error": ""}
             fh.write(json.dumps(row) + "\n")
             report[n] = {"file": Path(c["file"]).name, "why": why, "fit": round(fit, 3), "look": round(look, 3),
-                         "of": len(cands)}
+                         "of": len(cands), **({"short_clip": True} if short.get(n) else {})}
             picked += 1
 
     rows = scorer._asset_rows(session)
@@ -187,7 +245,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             (s.get("visual") or {}).pop("queries_stale", None)
     (session / "plan.json").write_text(json.dumps(plan, indent=2, ensure_ascii=False), encoding="utf-8")
     missing = [s["shot_number"] for s in wanted if s["shot_number"] not in ranked]
-    out = {"picked": picked, "lane": lane, "no_candidates": missing, "shots": report}
+    out = {"picked": picked, "lane": lane, "judge_cost_usd": round(judge_cost, 4), "no_candidates": missing,
+           "short_clip": sorted(n for n, v in short.items() if v), "shots": report}
     write_json(session / "autopick.json", {**(read_json(session / "autopick.json", {}) or {}), **{"last": out}})
     return out
 

@@ -1,6 +1,6 @@
 ---
 name: match
-description: Inspo match (v3, M5). Measures the whole inspo videos shot by shot, scores the plan (mode plan) or the rendered edit (mode final) against them in five sections (asset mix, colour, theme, complexity, shot duration), and nudges only the failing sections until the score passes. Runs after plan and again after the final render. System python; inspo shots are described by Haiku, auto-pick judging runs on Kaggle (until M6.3).
+description: Inspo match (v3, M5). Measures the whole inspo videos shot by shot, scores the plan (mode plan) or the rendered edit (mode final) against them in five sections (asset mix, colour, theme, complexity, shot duration), and nudges only the failing sections until the score passes. Runs after plan and again after the final render. System python; inspo shots are described and auto-pick candidates judged by Haiku; no Kaggle.
 ---
 
 # Match Skill
@@ -10,7 +10,7 @@ Makes the video follow its inspo measurably. Local models do the looking and the
 ## Preflight
 
 1. `sessions/<id>/plan.json` and `style_analysis.json` exist (mode final also needs `<id>.openreel.json`). If not, say which step is missing and stop.
-2. The system python runs these tools (`python`, not `conda run -n esta`): `esta` pins transformers 4.33, which predates DINOv3 and SigLIP 2. The `claude` CLI must be on PATH (the describe lane); the Kaggle CLI must be authenticated (`~/.kaggle/kaggle.json`) for auto-pick judging.
+2. The system python runs these tools (`python`, not `conda run -n esta`): `esta` pins transformers 4.33, which predates DINOv3 and SigLIP 2. The `claude` CLI must be on PATH (the describe lane and the auto-pick judge).
 
 ## Invocation
 
