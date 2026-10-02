@@ -17,8 +17,8 @@ type Section = {
 	features?: Record<string, { ours_median: number; inspo_median: number }>;
 	estimate?: boolean;
 	rates?: Record<string, Pair>;
-	mean?: Pair;
 	median?: Pair;
+	shape?: { ks: number };
 };
 type Report = {
 	overall: number;
@@ -56,7 +56,7 @@ function measured({ k, s }: { k: string; s: Section | undefined }): string {
 		return Object.entries(s.rates ?? {})
 			.map(([r, v]) => `${r} ${v.ours} vs ${v.inspo}`)
 			.join(" · ");
-	if (k === "e" && s.mean && s.median) return `mean ${s.mean.ours}s vs ${s.mean.inspo}s · median ${s.median.ours}s vs ${s.median.inspo}s`;
+	if (k === "e" && s.median) return `median ${s.median.ours}s vs ${s.median.inspo}s` + (s.shape ? ` · shape KS ${s.shape.ks}` : "");
 	return "";
 }
 

@@ -238,7 +238,8 @@ def patch() -> None:
 
     def run(cmd, *a, **kw):
         # Same lean flags as the describe lane: no MCP tools or skills in each call.
-        if isinstance(cmd, list) and cmd and "claude" in Path(str(cmd[0])).name.lower():
+        if isinstance(cmd, list) and cmd and "claude" in Path(str(cmd[0])).name.lower() \
+                and "--strict-mcp-config" not in cmd:
             cmd = [*cmd, "--strict-mcp-config", "--setting-sources", "", "--tools", ""]
         return orig_run(cmd, *a, **kw)
     adjust.subprocess.run = run

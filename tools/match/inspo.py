@@ -1,9 +1,10 @@
 """Inspo profile: the whole inspo videos measured shot by shot, cached per video.
 
     python tools/match/inspo.py resolve --session sessions/<id>   # write inspo.json
-    python tools/match/inspo.py profile --session sessions/<id>   # build/reuse profiles, tag on Kaggle
+    python tools/match/inspo.py profile --session sessions/<id>   # build/reuse profiles, describe with Haiku
 
-cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, tags),
+cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, words, tags),
+words.json (the inspo transcript),
 embeddings.npz (per-shot DINOv3 and SigLIP 2), keyframes/.
 """
 
@@ -151,24 +152,38 @@ def build_profile(src: dict, emb: Embedder, style_texts: list[str], log=print) -
     return d
 
 
-def tag_profile(d: Path, log=print) -> None:
-    from tools.match.tag import tag_frames
+def describe_profile(d: Path, log=print) -> dict:
+    """Haiku describes every shot from its keyframe and the words spoken over it (SPEC.md Part 3, M6.1)."""
+    from tools.match.describe import describe_shots
+    from tools.match.speech import profile_words, words_in
     prof = read_json(d / "profile.json")
-    if prof.get("tags_status") == "done" and all("overlay_extra" in s.get("tags", {}) for s in prof["shots"]):
-        return
-    frames = {s["id"]: d / s["keyframe"] for s in prof["shots"]}
+    if prof.get("tags_status") == "done" and all("content" in s.get("tags", {}) for s in prof["shots"]):
+        return {"profile": d.name, "status": "done", **prof.get("describe", {}), "error": ""}
     try:
-        labels = tag_frames(frames, f"inspo-{prof['hash']}", log=log)
+        words = profile_words(d, log)
+    except Exception as e:  # noqa: BLE001 - no whisper: describe from the images alone
+        log(f"[inspo] transcription skipped: {str(e)[:160]}")
+        words = []
+    for s in prof["shots"]:
+        s["words"] = words_in(words, s["start"], s["end"])
+    try:
+        res = describe_shots([{"id": s["id"], "image": d / s["keyframe"], "words": s["words"]} for s in prof["shots"]], log)
         for s in prof["shots"]:
-            if s["id"] in labels:
-                s["tags"] = labels[s["id"]]
+            a = res["answers"].get(s["id"])
+            if a:
+                # text_on_screen/overlay mirror the subtitle-blind answers so M5 readers keep working.
+                s["tags"] = {**a, "text_on_screen": a["text_extra"], "overlay": a["overlay_extra"],
+                             "panels": 1, "clips_in_shot": 1}
         prof["tags_status"] = "done" if all("tags" in s for s in prof["shots"]) else "partial"
-        prof["tags_error"] = ""
-    except Exception as e:  # noqa: BLE001 - Kaggle down or over quota: profile stays usable
+        prof["tags_error"] = "; ".join(res["errors"])[:300]
+        prof["describe"] = {"cost_usd": res["cost_usd"], "wall_secs": res["wall_secs"],
+                            "described": sum("tags" in s for s in prof["shots"])}
+    except Exception as e:  # noqa: BLE001 - claude missing or failing: profile stays usable without tags
         prof["tags_status"] = "pending"
         prof["tags_error"] = str(e)[:300]
     prof["complete"] = prof["tags_status"] == "done"
     write_json(d / "profile.json", prof)
+    return {"profile": d.name, "status": prof["tags_status"], **prof.get("describe", {}), "error": prof["tags_error"]}
 
 
 def profile(session: Path, log=print) -> dict:
@@ -181,7 +196,7 @@ def profile(session: Path, log=print) -> dict:
     for src in sources:
         try:
             d = build_profile(src, emb, texts, log)
-            tag_profile(d, log)
+            describe_profile(d, log)
             done.append(str(d.relative_to(REPO_ROOT)).replace("\\", "/"))
         except Exception as e:  # noqa: BLE001 - one bad inspo must not sink the rest
             failed.append({"ref": src["ref"], "error": str(e)[:300]})

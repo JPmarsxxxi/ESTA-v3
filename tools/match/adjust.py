@@ -14,7 +14,6 @@ queries, overlay captions) is one batched Haiku call per round.
 
 import argparse
 import json
-import os
 import re
 import shutil
 import subprocess
@@ -25,7 +24,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match import score as scorer  # noqa: E402
 from tools.match.common import (  # noqa: E402
-    COLOUR_FEATURES, REPO_ROOT, kind_group, match_config, read_json, run_esta, utf8_stdout, write_json,
+    COLOUR_FEATURES, LEAN_CLAUDE, REPO_ROOT, claude_bin, kind_group, match_config, read_json, run_esta, utf8_stdout,
+    write_json,
 )
 from tools.plan import ops  # noqa: E402
 
@@ -305,14 +305,6 @@ def fix_colour(session: Path, rep: dict) -> list[str]:
 
 # ── Wording (one Haiku call per round) ───────────────────────────────────────
 
-def claude_bin() -> str:
-    for p in (os.environ.get("CLAUDE_BIN"), os.environ.get("CLAUDE_CODE_EXECPATH"),
-              str(Path.home() / "AppData" / "Roaming" / "npm" / "node_modules" / "@anthropic-ai" / "claude-code" / "bin" / "claude.exe")):
-        if p and Path(p).exists():
-            return p
-    return "claude"
-
-
 def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], float]:
     if not tasks:
         return [], 0.0
@@ -334,7 +326,7 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
                   f"queries to sit in the inspo's grammar; when queries_pinned is true keep the queries and only write "
                   f"desc/caption):\n{json.dumps(chunk, ensure_ascii=False)}\n\nReturn ONLY the JSON object.")
         r = subprocess.run([claude_bin(), "-p", prompt, "--system-prompt", WRITER_SYSTEM, "--model",
-                            "claude-haiku-4-5-20251001", "--output-format", "json"], capture_output=True, text=True,
+                            "claude-haiku-4-5-20251001", "--output-format", "json", *LEAN_CLAUDE], capture_output=True, text=True,
                            encoding="utf-8", errors="replace", cwd=REPO_ROOT, timeout=900)
         try:
             env = json.loads(r.stdout)

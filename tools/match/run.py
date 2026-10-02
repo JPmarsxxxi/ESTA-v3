@@ -2,7 +2,8 @@
 
     python tools/match/run.py --session sessions/<id> --stage plan|final
 
-System python. Tagging and auto-pick judging go to Kaggle (tools/match/vlm_kaggle.py).
+System python. Inspo shots are described by Haiku (tools/match/describe.py); auto-pick judging still
+goes to Kaggle (tools/match/vlm_kaggle.py) until M6.3.
 """
 
 import argparse

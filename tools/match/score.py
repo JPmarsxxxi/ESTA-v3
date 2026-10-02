@@ -92,7 +92,6 @@ def _asset_rows(session: Path) -> dict:
 
 def our_shots(session: Path, stage: str, classes: int) -> list[dict]:
     plan = read_json(session / "plan.json", {}) or {}
-    subs = (session / "timestamps.json").exists()
     assets = _asset_rows(session) if stage == "final" else {}
     out = []
     for s in plan.get("shots", []):
@@ -105,7 +104,9 @@ def our_shots(session: Path, stage: str, classes: int) -> list[dict]:
             "locked": bool(s.get("locked")), "dur": max(end - start, 0.0), "start": start,
             "type": v.get("type", ""), "kind": plan_kind(s, classes),
             "overlay": bool(s.get("overlay")),
-            "text": bool((s.get("text") or {}).get("caption")) or subs or v.get("type") == "MOTION_GRAPHICS",
+            # Burned-in subtitles never count: the inspo side asks for text other than speech subtitles.
+            "text": bool((s.get("text") or {}).get("caption")) or bool((s.get("overlay") or {}).get("caption"))
+                    or v.get("type") == "MOTION_GRAPHICS",
             "panels": min(len(comp), 3) if comp else 1, "clips": 1,
             "desc": v.get("desc", ""), "queries": [q for e in v.get("search_sources") or [] for q in e.get("queries") or []],
             "audio": s.get("audio", ""),
@@ -246,7 +247,7 @@ def section_d(ours, inspo, stage, classes, dropped):
         "overlay": (sum(s["dur"] for s in ours if s["overlay"]) / tot_o,
                     sum(t["dur"] for t in it if t["tags"].get("overlay_extra", t["tags"]["overlay"])) / tot_i),
         "text": (sum(s["dur"] for s in ours if s["text"]) / tot_o,
-                 sum(t["dur"] for t in it if t["tags"]["text_on_screen"]) / tot_i),
+                 sum(t["dur"] for t in it if t["tags"].get("text_extra", t["tags"]["text_on_screen"])) / tot_i),
         "panels": (statistics.mean(s["panels"] for s in ours), statistics.mean(t["tags"]["panels"] for t in it)),
         "clips": (statistics.mean(s["clips"] for s in ours), statistics.mean(t["tags"]["clips_in_shot"] for t in it)),
         "variety": (_variety(ours, kind_key),
@@ -265,16 +266,21 @@ def section_d(ours, inspo, stage, classes, dropped):
 
 
 def section_e(ours, inspo):
+    """Median and distribution shape (SPEC.md Part 3, decision 10). Shot lengths are skewed, so the
+    median is the pace measure; the mean is reported for adjust's split/merge targets only."""
+    from scipy.stats import ks_2samp
     o = [s["dur"] for s in ours if s["dur"] > 0]
     i = [t["dur"] for t in inspo["shots"]]
     if not o:
         return None, "no shots"
-    om, imn = statistics.mean(o), statistics.mean(i)
     omed, imed = statistics.median(o), statistics.median(i)
-    sub = lambda a, b: 100 * max(0.0, 1 - abs(a - b) / b)  # noqa: E731
-    return {"score": round((sub(om, imn) + sub(omed, imed)) / 2, 1),
-            "mean": {"ours": round(om, 2), "inspo": round(imn, 2)},
-            "median": {"ours": round(omed, 2), "inspo": round(imed, 2)}}, ""
+    ks = float(ks_2samp(o, i).statistic)
+    median_sub = 100 * max(0.0, 1 - abs(omed - imed) / imed)
+    shape_sub = 100 * (1 - ks)
+    return {"score": round((median_sub + shape_sub) / 2, 1),
+            "median": {"ours": round(omed, 2), "inspo": round(imed, 2), "score": round(median_sub, 1)},
+            "shape": {"ks": round(ks, 3), "score": round(shape_sub, 1)},
+            "mean": {"ours": round(statistics.mean(o), 2), "inspo": round(statistics.mean(i), 2)}}, ""
 
 
 # ── Report ───────────────────────────────────────────────────────────────────

@@ -24,11 +24,17 @@ DEFAULT_MATCH = {
     "pass_section": 70,
     "max_rounds": 8,
     "min_gain": 1.0,
-    "kind_classes": 4,
+    # The describe lane answers footage/still/graphic only, so meme folds into footage.
+    "kind_classes": 3,
     "models": {"cuts": "transnetv2", "theme": "dinov3-small", "text_image": "siglip2",
-               "tags": "gemma4-e4b"},
+               "tags": "haiku"},
     "dropped_tags": ["panels", "clips_in_shot"],
+    "describe": {"model": "haiku", "batch": 10, "workers": 4, "max_side": 384},
 }
+
+# Without these every `claude -p` call carries ~29k tokens of MCP tool
+# definitions and skills: 7x the cost of the work itself (describe bake-off).
+LEAN_CLAUDE = ["--strict-mcp-config", "--setting-sources", "", "--tools", "", "--max-turns", "1"]
 
 MODEL_IDS = {
     "dinov3-small": "facebook/dinov3-convnext-small-pretrain-lvd1689m",
@@ -311,6 +317,14 @@ def detect_cuts(video: Path) -> list[float]:
             bounds.append(c)
     bounds.append(round(dur, 3))
     return bounds
+
+
+def claude_bin() -> str:
+    for p in (os.environ.get("CLAUDE_BIN"), os.environ.get("CLAUDE_CODE_EXECPATH"),
+              str(Path.home() / "AppData" / "Roaming" / "npm" / "node_modules" / "@anthropic-ai" / "claude-code" / "bin" / "claude.exe")):
+        if p and Path(p).exists():
+            return p
+    return "claude"
 
 
 def run_esta(args: list[str], timeout: int = 3600) -> subprocess.CompletedProcess:
