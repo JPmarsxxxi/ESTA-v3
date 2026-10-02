@@ -120,6 +120,23 @@ def split_word(session: Path, shot: dict) -> str | None:
 
 # ── Section fixes ────────────────────────────────────────────────────────────
 
+def _set_targets(session: Path, targets: dict) -> None:
+    plan = load_plan(session)
+    for n, t in targets.items():
+        sh = shot_by_n(plan, n)
+        if sh:
+            sh["ref_target_dur"] = round(t, 3)
+    save_plan(session, plan)
+
+
+def validator_problems(session: Path) -> list[str] | None:
+    """The mapped plan's validator problems, or None for a plan that isn't mapped (no ref_shot anywhere)."""
+    from tools.match import validate_plan
+    if not any(s.get("ref_shot") for s in load_plan(session).get("shots", [])) or not (session / "timestamps.json").exists():
+        return None
+    return [p for f in validate_plan.validate(session)["failures"] for p in f["problems"]]
+
+
 def fix_duration(session: Path, rep: dict, tasks: dict) -> list[str]:
     e = rep["sections"]["e"]
     target_mean, target_med = e["mean"]["inspo"], e["median"]["inspo"]
@@ -141,6 +158,9 @@ def fix_duration(session: Path, rep: dict, tasks: dict) -> list[str]:
             res = ops.split(session, s["shot_number"], word)
             if res.get("ok"):
                 a, b = res["into"]
+                # ops.split copies the parent into both halves; each half owns half of its ref target.
+                if s.get("ref_target_dur"):
+                    _set_targets(session, {a: s["ref_target_dur"] / 2, b: s["ref_target_dur"] / 2})
                 # Shots after the split moved up by one, and so do their tasks.
                 for k in sorted([k for k in tasks if k > a], reverse=True):
                     tasks[k + 1] = tasks.pop(k)
@@ -159,6 +179,8 @@ def fix_duration(session: Path, rep: dict, tasks: dict) -> list[str]:
                     and da + db <= 1.5 * target_mean:
                 res = ops.merge(session, [a["shot_number"], b["shot_number"]])
                 if res.get("ok"):
+                    if a.get("ref_target_dur") or b.get("ref_target_dur"):
+                        _set_targets(session, {a["shot_number"]: (a.get("ref_target_dur") or 0) + (b.get("ref_target_dur") or 0)})
                     changes.append(f"merged shots {a['shot_number']}+{b['shot_number']}")
                     merged += 1
                     shots = load_plan(session)["shots"]
@@ -420,6 +442,7 @@ def run(session: Path, stage: str) -> dict:
             log("nothing scoreable is failing (pending sections cannot be adjusted)")
             break
         backup = snapshot(session, f"{stage}-round-{rnd}")
+        baseline = validator_problems(session)
         tasks: dict = {}
         changes = []
         for k in failing:
@@ -445,6 +468,17 @@ def run(session: Path, stage: str) -> dict:
         if stage == "final" and any(not c.startswith(("graded", "note")) for c in changes):
             changes += refresh_final(session)
         real = [c for c in changes if not c.startswith("note")]
+        # A mapped plan must keep passing the validator: a round that adds problems is undone like a losing round.
+        after = validator_problems(session) if real else None
+        if after is not None and baseline is not None and len(after) > len(baseline):
+            why = f"reverted: plan validator ({after[0]})"
+            restore(session, backup)
+            if stage == "final":
+                refresh_final(session)
+            rep = scorer.score(session, stage, round_no=rnd, note=why, force=True, log=log)
+            rounds.append({"round": rnd, "changes": real, "kept": False, "why": why})
+            log(why)
+            break
         if not real:
             log(f"round {rnd}: nothing to change ({'; '.join(changes) or 'all candidate shots locked'})")
             rounds.append({"round": rnd, "changes": changes, "kept": False})
