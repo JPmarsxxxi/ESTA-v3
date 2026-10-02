@@ -435,6 +435,14 @@ Inspo profile shot fields (added):
 9. **Section d is subtitle-blind.** Ours: a shot counts as text when it has a `text.caption`, an `overlay` with text, or is `MOTION_GRAPHICS` — never for subtitles. Inspo: `text_extra` ("text other than speech subtitles"). Overlay rate stays out of d as in Part 2.
 10. **Section e scores the shape.** e = mean of a median sub-score (100 × max(0, 1 − |median_ours − median_inspo| / median_inspo)) and a shape sub-score (100 × (1 − KS), KS = two-sample Kolmogorov–Smirnov statistic between our and the inspo's shot lengths). The mean is dropped: shot lengths are skewed and the median is the robust pace measure (film-statistics literature). At the final stage e reads clip durations from the rendered project, per Part 2's spec.
 11. **Auto-pick order (from the paper).** Hard filters first: video candidates must be at least the shot's length (from their probed duration minus `in_point`; stills are exempt), and the candidate's kind must match the shot's (image file = still, video = footage, graphics are generated not picked). Then rank by SigLIP 2 fit to desc + spoken line plus DINOv3 similarity to the shot's `ref_shot` keyframe (not the whole inspo). Then Haiku judges the top 3 per shot, 10 shots per call, seeing the ref keyframe and its description; it may reject all three (watermark, off-topic), in which case the next-ranked survivor is used as in M5.
+11a. **The right section of a long clip (decided 2026-10-02).** A candidate more than 3× its shot's length (an Archive.org reel, a long stock clip) is judged on its best section, not its first seconds: auto-pick samples a frame every 0.5 s, scores each with the same SigLIP 2 fit and DINOv3 ref likeness as the ranking, and sets `in_point` to the start of the shot-length window with the best mean score. YouTube candidates keep the moment their transcript/visual finder chose and are not re-windowed. The models judge stills, so this finds the right scene, not the instant of an action.
+11b. **Too-short clips are filled, not cut short (decided 2026-10-02).** Render and the editor already play a clip's `speed`; nothing loops. So after the pick, for a video whose usable length (`source_duration − in_point`) is under the shot's:
+   - ≥ 0.6 × the shot: slow it to fit, `speed = usable / shot` (reads as natural slow motion);
+   - shorter, Giphy: repeat it at normal speed, `repeat = ceil(shot / usable)` (reaction loops are made to loop);
+   - shorter, any other source: prefer another survivor that is long enough; with none, slow to 0.6× and repeat the rest, flagged `short_clip`.
+   The pick's `speed` and `repeat` go on its `assets_progress.jsonl` row (with `short_clip` when flagged, so it outlives `autopick.json`). Render sets the clip's `speed`, plays `in_point → in_point + shot × speed`, and emits `repeat` back-to-back copies (`clip-shot-<n>`, `clip-shot-<n>-r2`, …) with no dissolve between copies of one shot. Giphy therefore stays exempt from the length filter (it is filled by repeating) and from the kind filter (the plan skill's meme override sends reaction loops to Giphy even for still shots).
+11c. **All three finalists rejected:** the next-ranked survivor after them is used; only when there is none does the top-ranked finalist stand.
+
 12. **Camera moves measured, not guessed.** `motion.py` estimates a similarity transform between frames at 20 % and 80 % of each inspo shot (ORB keypoints + RANSAC, foreground faces not excluded — cheap first version). Classification: scale change > 4 % → push_in/push_out; translation > 3 % of width/height → pan/tilt; a scale jump > 10 % within 0.3 s → punch_in; high frame-to-frame jitter with near-zero net motion → shake; else static. `amount` is the normalised magnitude. Fades: mean luma below 8 (or above 247) on a cut-adjacent frame, ramping over ≥ 3 frames.
 13. **Render emits the moves on every channel.** `camera.move` becomes keyframes on `scale.x/y`, `position.x/y`, `rotation` (shake only) and `opacity` (fades), in the units `emit.ts` `KEYFRAME_PATHS` expects. Applies to stills and footage. A shot with `camera` replaces the automatic alternating Ken Burns; a still without `camera` keeps Ken Burns. Inspo fades replace the energy-gated R5 dissolves wherever the plan carries `transition_in` / `transition_out`.
 14. **Review page.** After every score, `review.py` writes `match_review.html`: one row per shot of ours — our keyframe (final stage; plan stage shows the desc only), the `ref_shot` keyframe, both descriptions, kind ours/ref, target vs actual length, camera move, and flags (validator failure, low theme, swap reason). The Match card links to it through `GET /_match/:id/review`.
@@ -452,7 +460,7 @@ Inspo profile shot fields (added):
 - Inspo shot under 2 frames or a flash cut: merged into its neighbour before mapping (Part 2 rule).
 - Locked (hand-edited) shot fails the validator: reported as "locked: needs a hand fix" and never rewritten by the plan skill or adjust.
 - Found-audio-collage flow: mapped mode applies whenever `timestamps.json` and an inspo profile exist; the arranger's audio supplies the words.
-- Auto-pick: no candidate long enough — fall back to the longest candidate and flag the shot `short_clip` on the review page (render already holds the last frame).
+- Auto-pick: no candidate long enough — fall back to the longest candidate and fill it per decision 11b, flagging `short_clip` on the asset row (shown on the review page).
 - Motion estimation finds too few keypoints (flat graphic, black frame): move `static`, amount 0.
 - Review page for a 200-shot video stays under ~5 MB (384 px JPEG at quality 70).
 
@@ -486,6 +494,11 @@ M6.3 Auto-pick
 - [ ] No video candidate shorter than its shot is chosen when a long-enough one exists; kind mismatches never chosen (unit test on synthetic candidates).
 - [ ] Ranking uses the `ref_shot` keyframe's DINOv3 embedding (unit test with fake embeddings).
 - [ ] Judging runs through `claude -p` with ≤ 10 shots per call; no Kaggle job is created.
+- [ ] A candidate over 3× its shot's length gets the `in_point` of its best-scoring window (unit test with fake embeddings where the matching frames sit mid-clip); YouTube candidates keep their finder's `in_point`.
+- [ ] Fill rule (unit tests): a 3 s clip on a 4 s shot gets `speed` 0.75; a 1 s Giphy loop on a 4 s shot gets `repeat` 4; a 1 s stock clip with no long survivor gets `speed` 0.6, a repeat count covering the shot, and `short_clip`.
+- [ ] Render: a row with `speed`/`repeat` produces that many back-to-back clips covering the shot exactly, each with that speed and `outPoint − inPoint = clip duration × speed`, and no crossfade between copies of one shot (unit test on `build`).
+- [ ] When Haiku rejects all three finalists, the 4th-ranked survivor is picked.
+- [ ] `PORTING.md` logs the render change.
 
 M6.4 Moves and fades
 - [ ] `test_motion.py`: synthetic clips made with ffmpeg (zoompan in, zoom out, horizontal pan, static, fade from black) classify correctly.

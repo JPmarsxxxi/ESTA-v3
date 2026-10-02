@@ -304,6 +304,9 @@ def _dissolves_for(clips: list[dict], duration: float = 0.4) -> list[dict]:
     `transitions`, referencing each adjacent clip pair."""
     trans: list[dict] = []
     for a, b in zip(clips, clips[1:]):
+        # Copies of one shot's clip (auto-pick's repeat fill) cut straight into each other.
+        if b["id"].split("-r")[0] == a["id"].split("-r")[0]:
+            continue
         trans.append({
             "id": f"trans-{a['id']}-{b['id']}",
             "clipAId": a["id"],
@@ -625,8 +628,11 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             url = _asset_url(file_path, session_name)
             in_pt = float(asset.get("in_point", 0) or 0)
             src_dur = meta["duration"]
+            # Auto-pick's fill for a clip shorter than its shot: slow it and/or play it back to back.
+            fill_speed = float(asset.get("speed") or 0) if mtype == "video" else 0.0
+            repeat = max(1, int(asset.get("repeat") or 1)) if mtype == "video" else 1
             if mtype == "video":
-                out_pt = round(in_pt + duration, 3)
+                out_pt = round(in_pt + duration / repeat * (fill_speed or 1), 3)
                 if src_dur > 0:
                     out_pt = min(out_pt, src_dur)
                 if out_pt <= in_pt:
@@ -641,6 +647,7 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             mtype = "video"
             url = ""
             in_pt, out_pt = 0.0, duration
+            fill_speed, repeat = 0.0, 1
 
         media_items.append({
             "id": media_id,
@@ -681,7 +688,9 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             "keyframes": [],
         }
         fx = visual.get("fx") or []
-        if "slow_motion" in fx:
+        if fill_speed:
+            clip["speed"] = fill_speed
+        elif "slow_motion" in fx:
             clip["speed"] = 0.5
         # R1 — Ken Burns on stills so the frame is always moving (anti-jarring).
         # Only real images, not gap placeholders (those have no media yet).
@@ -699,7 +708,14 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
         # Ken Burns drift on one panel and not another reads as a mistake.
         if composite:
             clip["keyframes"] = []
-        video_clips.append(clip)
+        if repeat > 1:
+            seg = round(duration / repeat, 3)
+            for k in range(repeat):
+                copy = {**clip, "id": clip["id"] + (f"-r{k + 1}" if k else ""), "startTime": round(start + k * seg, 3),
+                        "duration": round(duration - k * seg, 3) if k == repeat - 1 else seg}
+                video_clips.append(copy)
+        else:
+            video_clips.append(clip)
 
         # ── composite slots 1+ : the rest of the panels sharing this frame ──
         # Slot 0 is the clip above (normal asset key). Each further slot is its

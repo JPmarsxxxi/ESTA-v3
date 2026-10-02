@@ -7,12 +7,16 @@
    least as long as the shot (else the longest one, flagged short_clip), and
    its kind must match the shot's (video for footage, image for a still; giphy
    loops fit either).
+   A candidate over 3x its shot's length (not YouTube, whose finder already chose
+   a moment) is moved to its best shot-length window, scored frame by frame.
 3. Ranks the survivors: SigLIP 2 fit to the shot's desc and spoken line, plus
    DINOv3 closeness to the shot's ref_shot keyframe (the whole inspo when the
    shot has no ref), minus a penalty for reusing a file another shot shows.
 4. Haiku judges each shot's top three against the ref keyframe, 10 shots per
    call, and may reject them (watermarks, wrong subject, junk).
-5. Writes the pick to assets_progress.jsonl (visual_verdict "auto_picked") and
+5. Fills a pick shorter than its shot: slowed to fit down to 0.6x, else
+   repeated back to back (Giphy loops), else both and flagged short_clip.
+6. Writes the pick to assets_progress.jsonl (visual_verdict "auto_picked") and
    assets.json, and clears the shot's queries_stale.
 
 Without `claude` the local ranking decides, and the report says so.
@@ -21,6 +25,7 @@ Without `claude` the local ranking decides, and the report says so.
 import argparse
 import hashlib
 import json
+import math
 import re
 import sys
 from concurrent.futures import ThreadPoolExecutor
@@ -31,13 +36,17 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match import score as scorer  # noqa: E402
 from tools.match.common import (  # noqa: E402
-    REPO_ROOT, match_config, media_frames, read_json, run_esta, save_jpg, utf8_stdout, write_json,
+    REPO_ROOT, frames_at, match_config, media_frames, read_json, run_esta, save_jpg, utf8_stdout, write_json,
 )
 from tools.match.describe import ask, image_block  # noqa: E402
 
 JOBS_DIR = REPO_ROOT / "cache" / "pick"
 FINALISTS = 3
 JUDGE_BATCH = 10
+WINDOW_OVER = 3.0     # a candidate this many times its shot's length is searched for its best section
+WINDOW_STEP = 0.5
+WINDOW_MAX_FRAMES = 600
+SLOW_FLOOR = 0.6      # slower than this stops reading as natural slow motion
 SHOT_KIND = {"REAL_IMAGE": "still", "MOTION_GRAPHICS": "graphic"}
 JUDGE_SYSTEM = "You pick stock footage for a video editor. Reply with only the requested JSON."
 
@@ -69,6 +78,26 @@ def filter_candidates(shot: dict, cands: list[dict]) -> tuple[list[dict], bool]:
         return long_enough, False
     # Nothing fills the shot: the longest clip, flagged (render holds its last frame).
     return [max(timed, key=lambda c: (c.get("source_duration") or 0) - (c.get("in_point") or 0))], True
+
+
+def best_window(scores, step: float, shot_dur: float) -> int:
+    """Index of the first sample of the shot-length window with the best mean score."""
+    import numpy as np
+    w = max(1, min(len(scores), round(shot_dur / step)))
+    means = np.convolve(scores, np.ones(w) / w, mode="valid")
+    return int(np.argmax(means))
+
+
+def fill(c: dict, shot_dur: float) -> dict:
+    """How a pick shorter than its shot fills it (SPEC.md Part 3, decision 11b): {} when it already does."""
+    usable = (c.get("source_duration") or 0) - (c.get("in_point") or 0)
+    if c.get("asset_type") == "image" or usable <= 0 or usable >= shot_dur - 0.05:
+        return {}
+    if usable >= SLOW_FLOOR * shot_dur:
+        return {"speed": round(usable / shot_dur, 3)}
+    if c.get("source") == "giphy":
+        return {"repeat": math.ceil(shot_dur / usable)}
+    return {"speed": SLOW_FLOOR, "repeat": math.ceil(shot_dur * SLOW_FLOOR / usable), "short_clip": True}
 
 
 def judge(items: list[dict], log=print) -> tuple[dict, float, list[str]]:
@@ -166,9 +195,32 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
         cands, short[n] = filter_candidates(s, cands)
         if not cands:
             continue
+        v = s.get("visual") or {}
+        text = emb.siglip_texts([f"{v.get('desc', '')}. {s.get('audio', '')}"[:300]])[0]
+        ref = ref_row.get(s.get("ref_shot"))
+        dur = float(s.get("end", 0) or 0) - float(s.get("start", 0) or 0)
+
+        def likeness(frames):
+            d = emb.dino(frames)
+            if ref is not None:
+                return d @ inspo["dino"][ref]
+            return (d @ inspo["dino"].T).max(axis=1) if inspo else np.zeros(len(frames))
+
         rows = []
         for c in cands:
             path = Path(c["file"]) if Path(c["file"]).is_absolute() else REPO_ROOT / c["file"]
+            usable = (c.get("source_duration") or 0) - (c.get("in_point") or 0)
+            if c.get("asset_type") == "video" and c.get("source") != "youtube" and usable > WINDOW_OVER * dur > 0:
+                step = max(WINDOW_STEP, usable / WINDOW_MAX_FRAMES)
+                times = [c.get("in_point", 0) + i * step for i in range(int(usable / step))]
+                try:
+                    frames = frames_at(path, times)
+                except Exception:
+                    frames = []
+                if len(frames) == len(times) and frames:
+                    z = lambda x: (x - x.mean()) / (x.std() + 1e-6) if len(x) > 1 else x * 0  # noqa: E731
+                    i = best_window(0.6 * z(emb.siglip_images(frames) @ text) + 0.4 * z(likeness(frames)), step, dur)
+                    c = {**c, "in_point": round(times[i], 3), "out_point": round(times[i] + dur, 3), "windowed": True}
             try:
                 frames = media_frames(path, c.get("in_point") or 0, c.get("out_point") or 0)
             except Exception:
@@ -177,15 +229,9 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                 rows.append((c, frames))
         if not rows:
             continue
-        v = s.get("visual") or {}
-        text = emb.siglip_texts([f"{v.get('desc', '')}. {s.get('audio', '')}"[:300]])[0]
         mids = [f[len(f) // 2] for _, f in rows]
         fit = emb.siglip_images(mids) @ text
-        ref = ref_row.get(s.get("ref_shot"))
-        if ref is not None:
-            look = emb.dino(mids) @ inspo["dino"][ref]
-        else:
-            look = (emb.dino(mids) @ inspo["dino"].T).max(axis=1) if inspo else np.zeros(len(rows))
+        look = likeness(mids)
         z = lambda x: (x - x.mean()) / (x.std() + 1e-6) if len(x) > 1 else x * 0  # noqa: E731
         reuse = np.array([1.0 if Path(c["file"]).name in used else 0.0 for c, _ in rows])
         total = 0.6 * z(fit) + 0.4 * z(look) - 1.0 * reuse
@@ -208,6 +254,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             log(f"[autopick] judge unavailable, using local ranking: {e}")
 
     feed = session / "assets_progress.jsonl"
+    by_n = {s["shot_number"]: s for s in wanted}
     picked, report = 0, {}
     with open(feed, "a", encoding="utf-8") as fh:
         for n, cands in ranked.items():
@@ -221,16 +268,21 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                     choice, why = finals[best - 1], f"haiku: {vd.get('why', '')}"[:200]
                 else:
                     keep = [c for j, c in enumerate(finals, 1) if j not in reject]
-                    choice, why = (keep[0] if keep else finals[0]), f"haiku rejected its pick; next best ({vd.get('why', '')})"[:200]
+                    spare = cands[FINALISTS] if len(cands) > FINALISTS else finals[0]
+                    choice, why = (keep[0] if keep else spare), f"haiku rejected its pick; next best ({vd.get('why', '')})"[:200]
             c, total, fit, look = choice
+            shot_dur = float(by_n[n].get("end", 0) or 0) - float(by_n[n].get("start", 0) or 0)
+            filled = fill(c, shot_dur)
+            if short.get(n):
+                filled["short_clip"] = True
             row = {"shot_number": n, "ok": True, "source": c["source"], "asset_type": c["asset_type"],
                    "url": c.get("url", ""), "file": c["file"], "search_query": c.get("query", ""),
                    "in_point": c.get("in_point", 0), "out_point": c.get("out_point", 0),
                    "visual_verdict": "auto_picked", "visual_confidence": int(max(0, min(100, 50 + 20 * total))),
-                   "error": ""}
+                   "error": "", **filled}
             fh.write(json.dumps(row) + "\n")
             report[n] = {"file": Path(c["file"]).name, "why": why, "fit": round(fit, 3), "look": round(look, 3),
-                         "of": len(cands), **({"short_clip": True} if short.get(n) else {})}
+                         "of": len(cands), "in_point": c.get("in_point", 0), **filled}
             picked += 1
 
     rows = scorer._asset_rows(session)
@@ -246,7 +298,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     (session / "plan.json").write_text(json.dumps(plan, indent=2, ensure_ascii=False), encoding="utf-8")
     missing = [s["shot_number"] for s in wanted if s["shot_number"] not in ranked]
     out = {"picked": picked, "lane": lane, "judge_cost_usd": round(judge_cost, 4), "no_candidates": missing,
-           "short_clip": sorted(n for n, v in short.items() if v), "shots": report}
+           "short_clip": sorted(n for n, r in report.items() if r.get("short_clip")), "shots": report}
     write_json(session / "autopick.json", {**(read_json(session / "autopick.json", {}) or {}), **{"last": out}})
     return out
 
