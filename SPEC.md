@@ -341,3 +341,161 @@ Global
 - [ ] `bun run typecheck` and `bun run lint` pass; `pytest tools/match/tests` passes.
 - [ ] `PORTING.md` lists every change to v2-copied files (contracts, templates) made for M5.
 - [ ] An end-to-end run on the user's PC with a real inspo reaches a final score, with any adjust rounds visible on the card (user check; this sandbox has no conda or Kaggle).
+
+# Part 3 — Inspo match v2: copy the inspo shot by shot (M6)
+
+Decided with the user on 2026-10-02, after the describe bake-off (`tools/match/experiments/describe_bakeoff/README.md`) and a survey of comparable tools (video-style-kit, ReelMimic, CutClaw, OpenMontage, and Google's "Automatic Non-Linear Video Editing Transfer", arXiv 2105.06988). Parts 1 and 2 still apply where not overridden here.
+
+## Goal
+
+M5 builds a plan, scores it against the inspo, then nudges it. The result on `do-alphas-even-exist-2026-09-29` was off: the plan was cut one shot per sentence at style-analysis's 4.84 s average while the inspo measures 2.4–2.8 s (TransNetV2), splits came out as matched pairs, the plan stopped 79 s before the voiceover ended, and 44 gaps left 22 s of black — and the score still passed, because section e compares only mean and median from `plan.json`.
+
+Every comparable tool works the other way round: measure the reference per shot, then build each new shot as the counterpart of one reference shot, and check the result side by side. M6 does that:
+
+1. **Describe lane.** Claude Haiku describes each inspo shot (description, kind, content, sourcing hint, text and overlay flags) from a 384 px keyframe plus the words spoken over it. Replaces the Gemma/Kaggle tagger.
+2. **`ref_shot` mapping.** Each of our shots copies one inspo shot, picked by normalised position: our shot at 30 % of our video copies the inspo shot at 30 % of the inspo. It inherits that shot's real length in seconds, snapped to our word boundaries, its kind, and its camera move.
+3. **Hybrid cut with a hard validator.** A tool proposes the slots; the plan skill writes the shots under rules; a validator rejects only the failing sections, with what to change, and freezes the parts that passed.
+4. **Auto-pick by duration, then kind, then likeness to the `ref_shot`**, with Haiku as the judge instead of Gemma on Kaggle.
+5. **Camera moves and fades copied from the inspo**, measured per inspo shot and emitted by render as keyframes on scale, position, rotation and opacity (the editor already animates all four; render only ever emitted scale).
+6. **A side-by-side review page**: every shot of ours next to its `ref_shot`, linked from the Match card.
+7. **The score stays** as the summary and as adjust's driver, with section d made subtitle-blind and section e scoring median plus distribution shape.
+
+## Non-goals / out of scope
+
+- Scoring or guessing the exact source site. Haiku's top source is unreliable (it says `youtube` for ~80 % of shots, including clean Pexels stock); sources only guide search through `sourcing_hint`.
+- Gemma and Kaggle in the match path. `tools/match/tag.py`, `vlm_kaggle.py` and `bakeoff/` stay in the repo as the M5.1 record but nothing in M6 calls them. Other Kaggle lanes (audio, ai-video) are untouched.
+- Script similarity (still deferred from Part 2).
+- Stretching inspo durations to our length: lengths are real seconds; only position is normalised.
+- Changing `tools/style_analysis/`. Its OpenCV `avg_shot_duration` is simply not used for pacing when a mapped plan is built.
+- Playback-speed transfer (the paper's third feature): needs a human label there too.
+- Eased keyframe curves. `emit.ts` interpolates linearly; punch-ins and crash zooms are built from closely spaced linear keyframes.
+- A native review panel. The review page is static HTML served by the backend.
+
+## Files & interfaces involved
+
+New (v3-owned):
+- `tools/match/describe.py` — Haiku describe lane. `describe_shots(items, job_name) -> {id: answer}`; batches of 10 keyframes per `claude -p` call, 4 calls in parallel, lean flags (`--strict-mcp-config --setting-sources "" --tools "" --max-turns 1`, short `--system-prompt`, stream-json input with inline base64 images). Cache `cache/describe.json` keyed by keyframe sha1 + prompt version. CLI: `python tools/match/describe.py inspo --session sessions/<id>`.
+- `tools/match/speech.py` — words spoken over each inspo shot (faster-whisper `small` with word timestamps; CUDA, CPU int8 fallback), cached as `cache/inspo/<hash>/words.json`.
+- `tools/match/motion.py` — per-shot camera move and boundary fades from frames (OpenCV ORB + RANSAC similarity transform between frames at 20 % and 80 % of the shot, plus a 5-frame jitter check; mean luma over the first and last 0.5 s).
+- `tools/match/slots.py` — `python tools/match/slots.py --session sessions/<id>` writes `slots.json` (the proposed cut).
+- `tools/match/validate_plan.py` — `python tools/match/validate_plan.py --session sessions/<id>` writes `plan_validation.json` and exits non-zero on any hard failure.
+- `tools/match/review.py` — writes `match_review.html` (self-contained, 384 px base64 keyframes).
+- Tests under `tools/match/tests/`: `test_slots.py`, `test_validate.py`, `test_motion.py`, `test_describe.py` (stubbed `claude`), additions to `test_score.py`.
+
+Changed (v3-owned):
+- `tools/match/inspo.py` — `tag_profile` replaced by `describe_profile` (speech → describe → motion); profile shots gain `words`, `tags` (below) and `motion`.
+- `tools/match/score.py` — d text rate subtitle-blind; e = median + shape; reads `ref_shot`.
+- `tools/match/adjust.py` — kept whole (user decision); splits and merges keep `ref_shot` and must leave `validate_plan.py` passing, else the round is reverted; `write_wording` uses the lean flags.
+- `tools/match/autopick.py` — duration and kind filters, `ref_shot` likeness, Haiku judge.
+- `tools/match/common.py` — `DEFAULT_MATCH.models.tags = "haiku"`, the lean `claude` argv helper, describe/judge config.
+- `.claude/skills/match/SKILL.md` — new `profile` mode; plan-mode reads validator output.
+- `server/match.ts` — `GET /_match/:id/review` serves `match_review.html`.
+- `apps/editor/src/esta/panels/match-panel.tsx` — "Open side-by-side" link; validator failures shown.
+
+Changed (v2 copies; each logged in `PORTING.md` with the reason):
+- `.claude/skills/plan/SKILL.md` — mapped mode (below).
+- `tools/render/run.py` — camera moves and fades from the plan's `camera` / `transition_in` / `transition_out`.
+- `tools/pipeline/contracts.json`, `tools/pipeline/templates.json` — new `match:profile` step; `plan` gains optional needs `slots.json` / `inspo_profiles.json`.
+
+Per-session artifacts (new):
+- `inspo_profiles.json` (exists from M5) — now produced by `match:profile`, before plan.
+- `slots.json` — `{"voice_end": s, "inspo_total": s, "slots": [{"slot": 1, "start", "end", "target_dur", "ref_shot", "ref_pos", "alts": [ids], "words": "..."}]}`.
+- `plan_validation.json` — `{"pass": bool, "failures": [{"section": [first_shot, last_shot], "start", "end", "problems": ["..."], "fix": "..."}], "frozen": [shot numbers]}`.
+- `match_review.html`.
+
+Inspo profile shot fields (added):
+- `words`: text spoken over the shot.
+- `tags`: `{"description", "kind": "footage|still|graphic", "content": "single_focus|multi_subject|background|text_card|ui_chart", "sourcing_hint": "search phrase", "likely_sources": [...], "text_extra": bool, "overlay_extra": bool, "text_on_screen": bool, "overlay": bool, "panels": 1, "clips_in_shot": 1}`. `text_on_screen`/`overlay` mirror `text_extra`/`overlay_extra` so M5 code paths keep reading them.
+- `motion`: `{"move": "static|push_in|push_out|pan_left|pan_right|tilt_up|tilt_down|punch_in|shake", "amount": 0.0–1.0, "fade_in": "none|black|white", "fade_out": "none|black|white"}`.
+
+`plan.json` shot fields (new, optional):
+- `ref_shot` (inspo profile shot id), `ref_target_dur` (s), `ref_swap` (reason, when the shot took an alt instead of the positional ref).
+- `camera`: `{"move", "amount"}` — defaults to the ref's motion; the plan may change it.
+- `transition_in` / `transition_out`: `cut|fade_black|fade_white` — from the ref's fades.
+
+## Key decisions & tradeoffs
+
+1. **Describe with Haiku, not Gemma.** Bake-off on 225 shots: $0.43–0.63 and 3–5 min per run with batching and lean flags, versus Gemma on Kaggle cancelled after ~30 min. Kind (footage/still/graphic) was right 17/17 on our shots when the spoken words were included; exact source was 8/17. So the prompt asks for kind, content, sourcing hint and a description, and the spoken words over the shot are always sent. Keyframes are 384 px on the long side. Results are cached per keyframe, so an inspo is described once.
+2. **Content classes from the paper, plus two of ours.** `single_focus` / `multi_subject` / `background` (the paper's classes, which drive framing and retrieval) plus `text_card` and `ui_chart` for the terminal-card and chart look ESTA inspos use. Kind and content are separate fields.
+3. **`ref_shot` by normalised position, real seconds (user decision).** Position p in our video maps to p × inspo_total in the inspo; the inspo shot covering that time is the ref and gives the target length in seconds. A video longer than its inspo has more shots than the inspo and walks through the inspo's rhythm proportionally. Several inspos are concatenated in `inspo.json` order into one timeline.
+4. **The line can swap to a nearby ref (user decision).** The positional ref sets the default; the plan may instead take any inspo shot within ±3 shots of it (`alts`) whose description fits the spoken line better, recording `ref_swap`. Target length always stays the positional ref's, so the rhythm is kept even when the look swaps.
+5. **Hybrid cut (user decision).** `slots.py` proposes the cut deterministically; the plan skill writes one shot per slot and may merge or split slots under the rules below; `validate_plan.py` checks the result.
+   - Snapping: a cut goes to the word boundary nearest `start + target_dur`; a boundary is the midpoint of the gap between one word's end and the next word's start (or the shared instant when there is no gap). The first slot starts at 0; the last ends at `voice_end` (the audio duration, not the last word).
+   - A single word longer than its target becomes one slot. A last slot under 0.4 × its target merges into the previous one.
+   - Plan rules: keep slot boundaries unless merging two slots whose combined length is within 1.35 × the first slot's target, or splitting a slot at an inner word boundary when its words hold two distinct visual ideas; every edit must still pass the validator.
+6. **The validator is hard but section-scoped (user decision).** Hard failures:
+   - coverage: the first shot does not start at 0 or the last does not end at `voice_end` (±0.1 s);
+   - a gap or overlap between consecutive shots over 0.1 s;
+   - a cut more than 0.05 s from a word boundary;
+   - a shot outside ±35 % of its `ref_target_dur`, unless no word boundary lies closer to the target (then it is exempt);
+   - a shot missing `ref_shot`.
+   Failing shots are grouped into sections (consecutive failures plus one shot of context each side); each section gets a plain fix instruction ("shots 41–44, 312.4–325.0 s: gap 0.8 s between 42 and 43; shot 44 is 6.1 s against a 2.6 s target — cut after 'returns' at 322.0 s"). Every other shot is listed as frozen: the plan skill rewrites only failing sections, keeps frozen shots byte-identical, and re-runs the validator, up to 3 times; then it stops and shows the remaining failures to the user.
+7. **Pipeline order.** The mapping needs the inspo profile and real word timing, so in mapped mode `plan` runs after `timestamps` and after a new `match:profile` step (`inspo.py profile`: cuts, colour, embeddings, speech, describe, motion). `match:profile` needs only `style_analysis.json` (for the inspo sources) and runs in parallel with audio. Without an inspo profile or without `timestamps.json`, the plan skill falls back to its current behaviour, unchanged.
+8. **Adjust stays whole (user decision)** — e, a, d, c, b fixes as in Part 2. Additions: a split gives both halves the parent's `ref_shot` and `ref_target_dur` / 2 each; a merge keeps the first shot's ref and sums the targets; after each round `validate_plan.py` runs and a failing round is reverted exactly like a round that lowers the score.
+9. **Section d is subtitle-blind.** Ours: a shot counts as text when it has a `text.caption`, an `overlay` with text, or is `MOTION_GRAPHICS` — never for subtitles. Inspo: `text_extra` ("text other than speech subtitles"). Overlay rate stays out of d as in Part 2.
+10. **Section e scores the shape.** e = mean of a median sub-score (100 × max(0, 1 − |median_ours − median_inspo| / median_inspo)) and a shape sub-score (100 × (1 − KS), KS = two-sample Kolmogorov–Smirnov statistic between our and the inspo's shot lengths). The mean is dropped: shot lengths are skewed and the median is the robust pace measure (film-statistics literature). At the final stage e reads clip durations from the rendered project, per Part 2's spec.
+11. **Auto-pick order (from the paper).** Hard filters first: video candidates must be at least the shot's length (from their probed duration minus `in_point`; stills are exempt), and the candidate's kind must match the shot's (image file = still, video = footage, graphics are generated not picked). Then rank by SigLIP 2 fit to desc + spoken line plus DINOv3 similarity to the shot's `ref_shot` keyframe (not the whole inspo). Then Haiku judges the top 3 per shot, 10 shots per call, seeing the ref keyframe and its description; it may reject all three (watermark, off-topic), in which case the next-ranked survivor is used as in M5.
+12. **Camera moves measured, not guessed.** `motion.py` estimates a similarity transform between frames at 20 % and 80 % of each inspo shot (ORB keypoints + RANSAC, foreground faces not excluded — cheap first version). Classification: scale change > 4 % → push_in/push_out; translation > 3 % of width/height → pan/tilt; a scale jump > 10 % within 0.3 s → punch_in; high frame-to-frame jitter with near-zero net motion → shake; else static. `amount` is the normalised magnitude. Fades: mean luma below 8 (or above 247) on a cut-adjacent frame, ramping over ≥ 3 frames.
+13. **Render emits the moves on every channel.** `camera.move` becomes keyframes on `scale.x/y`, `position.x/y`, `rotation` (shake only) and `opacity` (fades), in the units `emit.ts` `KEYFRAME_PATHS` expects. Applies to stills and footage. A shot with `camera` replaces the automatic alternating Ken Burns; a still without `camera` keeps Ken Burns. Inspo fades replace the energy-gated R5 dissolves wherever the plan carries `transition_in` / `transition_out`.
+14. **Review page.** After every score, `review.py` writes `match_review.html`: one row per shot of ours — our keyframe (final stage; plan stage shows the desc only), the `ref_shot` keyframe, both descriptions, kind ours/ref, target vs actual length, camera move, and flags (validator failure, low theme, swap reason). The Match card links to it through `GET /_match/:id/review`.
+15. **Cost visible.** Describe and judge costs are summed into the match reports and shown on the card, like adjust's wording cost.
+
+## Edge cases
+
+- Haiku call fails or returns unparseable JSON: retry that batch once; still failing, those shots stay without `tags` and the profile is `partial`. Sections a and d use the described shots if ≥ 90 % are described, else show "pending: describe" as Part 2 did for Kaggle.
+- `claude` not on PATH: profile builds without tags (cuts, colour, embeddings, motion still work), with the error on the card.
+- Inspo has no speech: descriptions use the image alone.
+- Inspo described with an older prompt version: re-described on next profile (cache key includes the prompt version).
+- Our voiceover shorter than the inspo: same normalised mapping; fewer shots, inspo rhythm compressed in position only.
+- Leading silence before the first word: the first slot still starts at 0. Trailing silence after the last word: the last slot runs to `voice_end`.
+- Words overlapping in timestamps (whisper artefacts): boundaries are clamped to be non-decreasing before snapping.
+- Inspo shot under 2 frames or a flash cut: merged into its neighbour before mapping (Part 2 rule).
+- Locked (hand-edited) shot fails the validator: reported as "locked: needs a hand fix" and never rewritten by the plan skill or adjust.
+- Found-audio-collage flow: mapped mode applies whenever `timestamps.json` and an inspo profile exist; the arranger's audio supplies the words.
+- Auto-pick: no candidate long enough — fall back to the longest candidate and flag the shot `short_clip` on the review page (render already holds the last frame).
+- Motion estimation finds too few keypoints (flat graphic, black frame): move `static`, amount 0.
+- Review page for a 200-shot video stays under ~5 MB (384 px JPEG at quality 70).
+
+## Milestones (checkpoint between each; each testable on the committed first-minute harness in `tools/match/experiments/describe_bakeoff/`)
+
+- **M6.1 Describe lane:** `speech.py`, `describe.py`, `inspo.describe_profile`, subtitle-blind d, shape-based e.
+- **M6.2 Mapping:** `slots.py`, `validate_plan.py`, plan skill mapped mode, `match:profile` step, adjust keeps refs and validates.
+- **M6.3 Auto-pick:** filters, ref likeness, Haiku judge.
+- **M6.4 Moves and fades:** `motion.py`, render emission.
+- **M6.5 Review page:** `review.py`, route, card link.
+
+## Acceptance criteria
+
+M6.1 Describe lane
+- [ ] `python tools/match/describe.py inspo --session <s>` fills `tags` (all fields above) for every shot of each inspo profile, with ≤ 10 keyframes per `claude` call, and records cost and wall time in the profile.
+- [ ] A second run makes no `claude` calls (cache hit by keyframe hash + prompt version).
+- [ ] `test_describe.py`: with a stubbed `claude` returning fixed JSON, answers are parsed, a malformed batch is retried once, and the lean flags are present in the argv.
+- [ ] Section d's text rate counts no subtitle-only shot of ours as text; on the first-minute harness d moves off its ~39 floor.
+- [ ] Section e has `median` and `shape` sub-scores; identical distributions score 100; a unit test checks the KS sub-score against a hand-computed value (±1).
+- [ ] No match code path imports `tag.py` or `vlm_kaggle.py` (grep check).
+
+M6.2 Mapping
+- [ ] `slots.py` on the harness session tiles 0 → `voice_end` with no gap or overlap, every inner cut on a word boundary, and the slot median within 15 % of the inspo median (`test_slots.py` on synthetic words and inspo shots, plus the real session).
+- [ ] `validate_plan.py` on the current `do-alphas-even-exist` plan fails with sections naming the 79 s uncovered tail and the gaps; on a plan built from `slots.json` it passes.
+- [ ] `test_validate.py`: each hard rule triggers on a crafted plan; frozen shots exclude every failing section; locked shots are reported, not rewritten.
+- [ ] The plan skill's mapped mode writes `ref_shot`, `ref_target_dur`, `camera`, `transition_in/out` on every shot, and a run on the harness passes the validator within 3 attempts.
+- [ ] `contracts.json` / `templates.json` include `match:profile`; `validate_flow.py` passes; `conductor.py next` names `match:profile` alongside audio and `plan` after timestamps.
+- [ ] An adjust round that would break the validator is reverted (test with a stubbed wording call).
+
+M6.3 Auto-pick
+- [ ] No video candidate shorter than its shot is chosen when a long-enough one exists; kind mismatches never chosen (unit test on synthetic candidates).
+- [ ] Ranking uses the `ref_shot` keyframe's DINOv3 embedding (unit test with fake embeddings).
+- [ ] Judging runs through `claude -p` with ≤ 10 shots per call; no Kaggle job is created.
+
+M6.4 Moves and fades
+- [ ] `test_motion.py`: synthetic clips made with ffmpeg (zoompan in, zoom out, horizontal pan, static, fade from black) classify correctly.
+- [ ] Render turns each `camera.move` into keyframes on the right channels, and `emit.ts` maps them (checked on a built project's animation paths); stills without `camera` still get Ken Burns.
+- [ ] `PORTING.md` logs the render and plan-skill changes.
+
+M6.5 Review page
+- [ ] After `score.py`, `match_review.html` exists, opens offline, and shows one row per shot with both keyframes (final stage) and target vs actual length.
+- [ ] The Match card's "Open side-by-side" link loads it via `/_match/:id/review`.
+
+Global
+- [ ] `bun run typecheck` and `bun run lint` pass; `pytest tools/match/tests` passes.
+- [ ] End-to-end on the user's PC (needs `assets/` and the local GPU): the first-minute harness reruns with M6 and reports describe cost, validator pass, and the new score next to the M5 numbers in the experiment README.
