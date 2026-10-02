@@ -535,7 +535,7 @@ Decided with the user on 2026-10-02, with a same-day deadline, so M7 reuses what
 Let a video be made largely or wholly of AI-generated shots, realistic people or cartoon characters, that stay on-model from shot to shot and can speak the voiceover with lip-sync. All of it runs free on Kaggle's GPUs through the lanes the repo already has.
 
 It adds two things on top of `tools/genvideo` (AI video) and `tools/genchar` (character design):
-1. **A character reference per shot.** A shot names a character. Its AI clip is generated image-to-video from that character's picked design, in the session's look (realistic, cartoon or anime), so the character stays the same person across shots.
+1. **On-model keyframes from the character's LoRA.** genchar already designs a character, culls an on-model set, trains an SDXL LoRA on Kaggle (`train`) and renders the character in new scenes with it (`render`). M7 connects that lane to a session. `genchar render --session` turns every plan shot naming the character into a keyframe in the session's look; genvideo then generates the shot image-to-video from that keyframe. Without a trained LoRA, the picked design (`ref.png`) is the seed instead.
 2. **Lip-sync for talking shots.** A shot marked as talking gets its generated clip lip-synced to that shot's slice of the voiceover.
 
 ## What other projects do, and what applies here
@@ -556,7 +556,7 @@ It adds two things on top of `tools/genvideo` (AI video) and `tools/genchar` (ch
 
 ## Non-goals / out of scope
 
-- Training character or style LoRAs (genchar's step 2). Consistency here comes from image-to-video seeded with the same reference image; a LoRA is the later upgrade.
+- Style LoRAs and LoRAs for the video model (HunyuanVideo 8.3B is too large to train on a free T4). The character LoRA is on the image model (SDXL), which genchar already trains.
 - Wan 2.2, InfiniteTalk or any bf16 model on Kaggle's free GPUs.
 - SVG/GSAP puppet characters.
 - Two characters speaking in one shot, or one shot's speech split between characters.
@@ -568,9 +568,10 @@ It adds two things on top of `tools/genvideo` (AI video) and `tools/genchar` (ch
 Changed (v2 copies; each logged in `PORTING.md`):
 - `tools/genchar/run.py`:
   - A `realistic` model entry (an fp16 photoreal SDXL finetune, chosen at implementation from those that load in diffusers fp16), beside `animagine` and `sdxl`.
-  - `pick` also copies the chosen variation's image to `characters/<name>/ref.png`, the reference genvideo reads.
+  - `pick` also copies the chosen variation's image to `characters/<name>/ref.png`, the fallback seed.
+  - `render --session sessions/<id>`: the scenes are that session's plan shots whose `visual.generate.character` is this character. Each gets a prompt of the trigger, the character's `desc`, the shot's `visual.desc` and the session's `look_style`, keyed `<session>__s<n>`. `fetch --mode render` lands them as `characters/<name>/render/<session>__s<n>.png`. Existing `render --prompts` use is unchanged.
 - `tools/genvideo/run.py`:
-  - **Character seeding:** a shot whose `visual.generate.character` is `<name>` is generated image-to-video from `characters/<name>/ref.png` (scaled and cropped like `attach_seed_images`), ahead of any `--seed-from-assets` frame. The prompt gets the session look's style words.
+  - **Character seeding:** a shot whose `visual.generate.character` is `<name>` is generated image-to-video from its LoRA keyframe `characters/<name>/render/<session>__s<n>.png`, else from `characters/<name>/ref.png`, else text-to-video with the character's `desc` (scaled and cropped like `attach_seed_images`, ahead of any `--seed-from-assets` frame). The prompt gets the session's `look_style`. The push report says which seed each shot used.
   - **Lip-sync step:** after generation, every shot with `visual.generate.talk: true` is lip-synced on the same Kaggle run with LatentSync 1.5, against that shot's slice of `audio.wav`. The slice is cut locally with ffmpeg and uploaded with the job. The synced clip is the one `apply` writes; a failed sync keeps the silent clip and records why.
   - New CLI flag `--lipsync latentsync|musetalk|off` (default `latentsync`).
 - `.claude/skills/plan/SKILL.md`: when `requirements.look` is set, AI shots carry `generate.character` (when a named character is on screen) and `generate.talk: true` (when that character says the line).
@@ -582,17 +583,18 @@ Per-character files: `characters/<name>/ref.png` (new), next to genchar's existi
 ## Key decisions & tradeoffs
 
 1. **Reuse the lanes.** Video stays `hunyuan` (or `hunyuan-hq` for hero shots) and character design stays genchar. M7 adds a seed image and a lip-sync pass to the existing Kaggle job, not a new lane or service.
-2. **Consistency by reference image, not LoRA.** Every shot of a character starts from the same `ref.png`, which holds face, outfit and palette. It is weaker than a trained LoRA over long or wide-angle shots, but it is buildable today. A LoRA can replace it later without changing the plan fields.
+2. **Consistency from the character LoRA, through keyframes.** The LoRA lives on the image model (SDXL, trainable on a free T4 and already wired in genchar), not on the video model. Each shot's keyframe is rendered on-model by the LoRA in that shot's pose and setting, and the video model only adds motion from it. This is the standard keyframe-then-animate route, and it holds identity better than one `ref.png` reused for every pose. `ref.png` stays as the fallback for a character without a trained LoRA. Per character, the once-off cost is genchar's existing explore → pick → sheet → cull → train (one Kaggle training run). Per session, it costs one render run for the keyframes before the video run.
 3. **Generate first, then lip-sync.** HunyuanVideo makes the motion and acting; LatentSync 1.5 repaints only the mouth to the line. One Kaggle run does both, so a talking shot costs one queue wait.
 4. **The look is a session setting.** `look` and `look_style` live in `requirements.json`:
-   - genchar uses them to pick its model: realistic → `realistic`, anime → `animagine`, cartoon → `sdxl` plus `look_style`.
+   - genchar uses them to pick its model when a character is created (realistic → `realistic`, anime → `animagine`, cartoon → `sdxl` plus `look_style`); the LoRA is trained on that model, so the look is baked into the character.
    - genvideo appends `look_style` to every prompt.
    Realistic and cartoon videos therefore use the same code.
 5. **Failures degrade, never block.** A shot whose generation fails keeps its stock fallback (as today). A talking shot whose lip-sync fails keeps its silent generated clip. Both are flagged on the review page (Part 3, M6.5).
 
 ## Edge cases
 
-- **The named character has no `ref.png`:** the shot is generated text-to-video with the character's `desc` from genchar's `character.json`, and the report says so.
+- **The named character has no LoRA keyframe for the shot:** use `ref.png`. With no `ref.png` either, generate text-to-video with the character's `desc` from genchar's `character.json`. The report names the seed used.
+- **The LoRA keyframe drifts off-model:** that is the existing genchar consistency check (`render` is described as "the consistency test"). The user can re-render the shot with another seed before the video run.
 - **The talking shot's line is empty or under 0.5 s:** no lip-sync.
 - **LatentSync finds no face** (wide shot, back of head, a flat cartoon it can't read): keep the silent clip and record "no face".
 - **The voiceover slice is longer than the generated clip** (HunyuanVideo makes ~5 s): render's fill rule (Part 3, decision 11b) already slows or repeats the clip. Lip-sync runs on the filled length, so the cut audio slice matches what plays.
@@ -600,15 +602,15 @@ Per-character files: `characters/<name>/ref.png` (new), next to genchar's existi
 
 ## Milestones
 
-- **M7.1 Look and character references** (today): `look` fields, genchar `realistic` model and `ref.png`, genvideo character seeding, plan and ai-video skill text.
+- **M7.1 Look, LoRA keyframes and character seeding** (today): `look` fields, genchar `realistic` model, `ref.png`, `render --session`, genvideo seeding (keyframe → ref.png → text), plan and ai-video skill text.
 - **M7.2 Talking shots** (today if time allows): LatentSync 1.5 pass in the genvideo job, audio slicing, `--lipsync`, fallback.
 
 ## Acceptance criteria
 
 M7.1
 - [ ] `genchar pick` writes `characters/<name>/ref.png`, a copy of the chosen variation (unit test on a fake explore dir).
-- [ ] `genvideo push --dry-run` on a plan with `generate.character` builds an image-to-video job seeded from that `ref.png` at the model's size, and the prompt carries `look_style` (unit test, no Kaggle).
-- [ ] A missing `ref.png` falls back to text-to-video with the character's `desc` and is reported.
+- [ ] `genchar render --session ... --dry-run` builds one job per plan shot naming the character, keyed `<session>__s<n>`, with the trigger, the character's `desc`, the shot's `desc` and `look_style` in the prompt (unit test, no Kaggle).
+- [ ] `genvideo push --dry-run` on a plan with `generate.character` seeds each shot from its LoRA keyframe when present, else `ref.png`, else text-to-video, at the model's size; the prompt carries `look_style` and the report names each shot's seed (unit tests for all three cases, no Kaggle).
 - [ ] `requirements.json` accepts `look`/`look_style`, and the plan and ai-video skills document `character`/`talk`. `PORTING.md` logs every v2-copy change.
 
 M7.2
@@ -618,4 +620,4 @@ M7.2
 
 Global
 - [ ] `pytest tools/match/tests` plus the new genvideo/genchar tests pass; `bun run lint` passes.
-- [ ] User check on Kaggle: one realistic and one cartoon character, three shots each with one talking. Record the minutes per shot and whether the face holds across shots.
+- [ ] User check on Kaggle: one realistic and one cartoon character (trained through genchar), three shots each with one talking. Record the minutes per shot and whether the face holds across shots. The user supplies the style references for both characters.
