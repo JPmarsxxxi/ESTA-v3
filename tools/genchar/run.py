@@ -71,7 +71,21 @@ MODELS = {
         "guidance": 7.0,
         "notes": "Plain SDXL. Use for non-anime / semi-realistic character styles.",
     },
+    "realistic": {
+        "repo": "SG161222/RealVisXL_V5.0",
+        "pipeline": "StableDiffusionXLPipeline",
+        "dtype": "float16",
+        "variant": "",
+        "width": 896,
+        "height": 1152,
+        "steps": 30,
+        "guidance": 5.0,
+        "notes": "Photoreal SDXL finetune for AI-human characters (SPEC.md Part 4). Loads in fp16 like the others; "
+                 "its LoRA trains on the same SDXL script.",
+    },
 }
+# requirements.look -> the model a new character is designed and trained on (SPEC.md Part 4).
+LOOK_MODEL = {"realistic": "realistic", "anime": "animagine", "cartoon": "sdxl"}
 DEFAULT_MODEL = "animagine"
 
 # Anime SDXL finetunes are tag-trained, so quality tags carry real weight.
@@ -290,6 +304,8 @@ def push_job(name: str, jobs: list[dict], model: dict, mode: str,
 # ── commands ──────────────────────────────────────────────────────────────────
 
 def cmd_explore(args: argparse.Namespace) -> None:
+    if args.look:
+        args.model = LOOK_MODEL[args.look]
     model = dict(MODELS[args.model])
     jobs = build_jobs_explore(args.desc, args.count, args.seed)
     res = push_job(args.name, jobs, model, "explore", args.accelerator, args.dry_run)
@@ -310,6 +326,10 @@ def cmd_pick(args: argparse.Namespace) -> None:
     data["chosen_seed"] = results[args.variation]["seed"]
     data["chosen_variation"] = args.variation
     data["stage"] = "picked"
+    # The picked design is the fallback seed for a character with no trained LoRA (genvideo).
+    picked = char_dir(args.name) / "explore" / (results[args.variation].get("file") or f"{args.variation}.png")
+    if picked.exists():
+        shutil.copy(picked, char_dir(args.name) / "ref.png")
     save_char(args.name, data)
     print(json.dumps({"ok": True, "name": args.name, "variation": args.variation,
                       "seed": data["chosen_seed"]}, ensure_ascii=False))
@@ -541,6 +561,9 @@ def cmd_render(args: argparse.Namespace) -> None:
             f"no trained LoRA under {char_dir(args.name)} — run `train` first")
     trigger = data.get("trigger") or f"esta{slug.replace('-', '')}"
 
+    keyed = session_scenes(args.name, Path(args.session)) if args.session else []
+    if args.session and not keyed:
+        raise ValueError(f"no shot in {args.session}/plan.json names {args.name!r} in visual.generate.character")
     scenes = ([(f"s{i:02d}", p) for i, p in enumerate(
         [s.strip() for s in args.prompts.split("|") if s.strip()])]
         if args.prompts else TEST_SCENES)
@@ -557,11 +580,15 @@ def cmd_render(args: argparse.Namespace) -> None:
              "prompt": f"{QUALITY_TAGS}, {trigger}, {data['desc']}, {scene}",
              "seed": args.seed + i * 7919, "label": name}
             for i, (name, scene) in enumerate(scenes)]
+    if keyed:
+        # Keys are the file names genvideo looks for: <session>__s<n>.png.
+        jobs = [{"key": key, "prompt": f"{QUALITY_TAGS}, {trigger}, {data['desc']}, {scene}",
+                 "seed": args.seed + i * 7919, "label": key} for i, (key, scene) in enumerate(keyed)]
 
     if args.dry_run:
         print(json.dumps({"ok": True, "dry_run": True, "count": len(jobs),
                           "trigger": trigger, "lora": str(lora_path),
-                          "sample": jobs[0]["prompt"]}, ensure_ascii=False))
+                          "sample": jobs[0]["prompt"], "keys": [j["key"] for j in jobs]}, ensure_ascii=False))
         return
 
     # Ship the LoRA as its own dataset — 90 MB is far past what a notebook holds.
@@ -662,6 +689,23 @@ ANIMATE_MODEL = {
 # Big camera moves and full-body action are what drift fastest.
 ANIMATE_MOTION = ("subtle natural motion, hair and clothing shifting gently, "
                   "slow breathing, eyes blinking, the camera drifts almost imperceptibly")
+
+
+def session_scenes(name: str, session: Path) -> list[tuple[str, str]]:
+    """(key, scene) for every plan shot naming this character: the shot's look plus the session's style."""
+    plan = json.loads((session / "plan.json").read_text(encoding="utf-8"))
+    try:
+        look_style = str(json.loads((session / "requirements.json").read_text(encoding="utf-8")).get("look_style") or "")
+    except Exception:
+        look_style = ""
+    out = []
+    for shot in plan.get("shots", []):
+        v = shot.get("visual") or {}
+        if slugify((v.get("generate") or {}).get("character") or "") != slugify(name):
+            continue
+        scene = ", ".join(x for x in (v.get("desc", "").strip().rstrip("."), look_style) if x)
+        out.append((f"{slugify(session.name)}__s{shot['shot_number']}", scene))
+    return out
 
 
 def cmd_animate(args: argparse.Namespace) -> None:
@@ -857,6 +901,8 @@ def main() -> None:
     e.add_argument("--count", type=int, default=8)
     e.add_argument("--seed", type=int, default=1000)
     e.add_argument("--model", default=DEFAULT_MODEL, choices=list(MODELS))
+    e.add_argument("--look", default="", choices=["", *LOOK_MODEL],
+                   help="The session's requirements.look; picks the model (overrides --model)")
     e.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))
     e.add_argument("--dry-run", action="store_true")
 
@@ -910,6 +956,8 @@ def main() -> None:
     r.add_argument("--name", required=True)
     r.add_argument("--prompts", default="",
                    help="Pipe-separated scenes; default is a fixed unseen-scene test set")
+    r.add_argument("--session", default="",
+                   help="Render a keyframe for every shot of sessions/<id>/plan.json that names this character")
     r.add_argument("--lora-scale", type=float, default=0.9)
     r.add_argument("--seed", type=int, default=777)
     r.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))

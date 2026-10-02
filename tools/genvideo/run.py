@@ -71,6 +71,9 @@ MAX_NOTEBOOK_BYTES = 4 * 1024 * 1024
 # lands well under 100 KB — the seed only has to survive one VAE encode.
 SEED_JPEG_QSCALE = 4
 
+# genchar's store (tools/genchar/run.py): characters outlive sessions, like voice_samples/.
+CHARACTERS_DIR = REPO_ROOT / "characters"
+
 # Model registry. Deliberately data-driven: the open-video landscape moves fast,
 # so adding a model should be an edit here, never a new code path. `pipeline` is
 # a diffusers class name resolved by getattr on the Kaggle side.
@@ -267,6 +270,7 @@ def collect_slots(
     """
     shots = _load_plan(session_dir)
     clip_len = model["frames"] / model["fps"]
+    look_style = _look_style(session_dir)
     slots = []
     for shot in shots:
         n = shot.get("shot_number")
@@ -281,19 +285,65 @@ def collect_slots(
         segments = 1
         if duration > clip_len and chain_max > 1:
             segments = min(chain_max, math.ceil(duration / clip_len))
+        prompt = build_prompt(shot, preset_name, presets, style)
         slots.append({
             "shot_number": n,
             "key": str(n),
             "preset": preset_name,
-            "prompt": build_prompt(shot, preset_name, presets, style),
+            "prompt": f"{prompt}, {look_style}" if look_style else prompt,
             "duration": round(duration, 2),
             "segments": segments,
             "seed_b64": "",
+            "character": (visual.get("generate") or {}).get("character") or "",
+            "talk": bool((visual.get("generate") or {}).get("talk")),
         })
     return slots
 
 
+def _look_style(session_dir: Path) -> str:
+    try:
+        req = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    return str(req.get("look_style") or "").strip()
+
+
 # ── seed images (image-to-video) ──────────────────────────────────────────────
+
+def _scale_to(src: Path, dest: Path, model: dict) -> bool:
+    scale = (f"scale={model['width']}:{model['height']}:force_original_aspect_ratio=increase,"
+             f"crop={model['width']}:{model['height']}")
+    res = _ffmpeg("-y", "-i", str(src), "-frames:v", "1", "-vf", scale, "-q:v", str(SEED_JPEG_QSCALE), str(dest))
+    return res.returncode == 0 and dest.exists() and dest.stat().st_size > 0
+
+
+def attach_character_seeds(session_dir: Path, slots: list[dict], model: dict) -> dict:
+    """Seed each character shot from its LoRA keyframe (genchar render --session), else the picked
+    design (ref.png), else describe the character in a text-to-video prompt (SPEC.md Part 4)."""
+    tmp = session_dir / "assets" / "gen_seeds"
+    tmp.mkdir(parents=True, exist_ok=True)
+    report: dict = {}
+    for slot in slots:
+        name = slot.get("character")
+        if not name:
+            continue
+        d = CHARACTERS_DIR / slugify(name)
+        keyframe = d / "render" / f"{slugify(session_dir.name)}__s{slot['shot_number']}.png"
+        for source, path in (("lora_keyframe", keyframe), ("ref", d / "ref.png")):
+            frame = tmp / f"seed_{slot['shot_number']}.jpg"
+            if path.exists() and _scale_to(path, frame, model):
+                slot["seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
+                report[slot["shot_number"]] = source
+                break
+        else:
+            try:
+                desc = json.loads((d / "character.json").read_text(encoding="utf-8")).get("desc", "")
+            except Exception:
+                desc = ""
+            slot["prompt"] = f"{desc}, {slot['prompt']}" if desc else slot["prompt"]
+            report[slot["shot_number"]] = "text" if desc else "text (no character.json)"
+    return report
+
 
 def _latest_asset_for_shot(session_dir: Path, shot_number: int) -> tuple[Path | None, float]:
     """Last successful assets_progress line for this shot -> (file, in_point).
@@ -350,6 +400,8 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
     tmp.mkdir(parents=True, exist_ok=True)
     report = {"seeded": 0, "skipped": []}
     for slot in slots:
+        if slot["seed_b64"]:
+            continue
         src, in_point = _latest_asset_for_shot(session_dir, slot["shot_number"])
         if not src or not src.exists():
             report["skipped"].append({"shot": slot["shot_number"], "why": "no fetched asset"})
@@ -741,9 +793,12 @@ def cmd_push(args: argparse.Namespace) -> None:
                           "message": "no shots ask for generated footage"}))
         return
 
+    characters = attach_character_seeds(session_dir, slots, model)
     seeding = {"seeded": 0, "skipped": []}
     if args.seed_from_assets:
         seeding = attach_seed_images(session_dir, slots, model)
+    seeding["seeded"] += sum(1 for v in characters.values() if v in ("lora_keyframe", "ref"))
+    seeding["characters"] = characters
     if not model["pipeline_t2v"] and seeding["seeded"] < len(slots):
         raise ValueError(f"{args.model} is image-to-video only — every slot needs "
                          f"--seed-from-assets to succeed ({seeding['seeded']}/{len(slots)} seeded)")

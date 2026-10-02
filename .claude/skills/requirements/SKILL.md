@@ -73,6 +73,14 @@ Parse the natural answer into `orientation`:
 
 The platform hint in their answer (TikTok vs YouTube) also proxies the loudness/pacing target — `orientation` carries that downstream, no separate question needed.
 
+### 4c. Look — optional (AI-generated videos)
+
+Only ask when the user wants generated people or characters rather than stock (they mention an animated video, a cartoon, AI actors, a recurring character):
+
+> "Real-looking people, a cartoon, or anime? And describe the look in a line — e.g. 'flat bold-outline yellow-skinned sitcom cartoon'."
+
+Save `look` (`"realistic"`, `"cartoon"` or `"anime"`) and `look_style` (their line, lightly cleaned). Leave both `""` for a normal stock-led video and don't ask. These drive genchar's model choice and are appended to every generated prompt (SPEC.md Part 4).
+
 ### 5. Comments — optional
 
 > "Anything else floating around? A clip you want in, a moment that has to land, a phrase you've been chewing on, a vibe you want to avoid?"

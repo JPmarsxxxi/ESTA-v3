@@ -157,6 +157,16 @@ Preset resolution is **explicit > implied by `fx` > `--preset` default**. A shot
 whose `fx` already says `zoom_in` becomes `push_in` on its own, so existing
 plans stay meaningful.
 
+## Characters (SPEC.md Part 4)
+
+A shot with `"generate": {"character": "<name>"}` shows a character designed in genchar (`characters/<name>/`). Keep it on-model this way:
+
+1. Once per character (not per video): `python tools/genchar/run.py explore --name <name> --desc "..." --look <requirements.look>`, `pick`, `sheet`, `contact`, `cull`, `train` (the LoRA). Each is a Kaggle run; `status`/`fetch` between them.
+2. Per session, before `push`: `python tools/genchar/run.py render --name <name> --session sessions/<id>` renders one keyframe per shot naming the character, with its LoRA, then `status --mode render` and `fetch --mode render`.
+3. `push` seeds each character shot from its keyframe (`characters/<name>/render/<session>__s<n>.png`), else the picked design (`ref.png`), else a text prompt with the character's description. The push output's `seeding.characters` says which per shot.
+
+`requirements.look_style` is appended to every generated prompt, so realistic and cartoon sessions use the same commands.
+
 ## Choosing a preset
 
 `presets.json` carries 22 of them with a `reliability` rating. Respect it:
