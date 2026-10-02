@@ -622,3 +622,124 @@ M7.2
 Global
 - [ ] `pytest tools/match/tests` plus the new genvideo/genchar tests pass; `bun run lint` passes.
 - [ ] User check on Kaggle: one realistic and one cartoon character (trained through genchar), three shots each with one talking. Record the minutes per shot and whether the face holds across shots. The user supplies the style references for both characters.
+
+# Part 5 — Look references (M8)
+
+## Goal
+
+Style reference images are a real input to the pipeline. The user drops images that show the world (streets, colour, light) and the characters (faces, body proportions). Those images steer every generated image directly. They are not only summed up in a hand-written `look_style` line. A session with no reference images behaves exactly as in Part 4.
+
+The refs reach generation in two ways (user decision: both):
+1. **Pixels.** An SDXL IP-Adapter in InstantStyle mode feeds the images into every SDXL generation:
+   - genchar explore, sheet and render (so they also reach the LoRA through its training set);
+   - a new styled-keyframe pass in genvideo.
+2. **Words.** Haiku reads the same images and writes `look_style` (when the user hasn't written one). Prompts and genvideo's text fallback then describe the same look.
+
+## Non-goals
+
+- Reproducing the identity of a character in a ref (e.g. Miles or Gwen). Prompts keep "original character". The refs give style and structure, not a person.
+- Style images going directly into a video model. No free T4 video model takes one; the look reaches video through styled keyframes (decision 5).
+- Training a style LoRA from the refs. The character LoRA is trained on the styled sheet as before.
+- Reference video clips. The inspo video is Part 3's job.
+- Editing or cropping images in the editor. Drop, set a role, delete.
+
+## Files and interfaces
+
+- **`sessions/<id>/look_refs/`** holds the images, normalised on add to JPEG with a 1024 px long side.
+- **`sessions/<id>/look_refs.json`** is the index:
+  ```json
+  {"images": [{"file": "r01.jpg", "role": "world|character", "role_source": "haiku|user", "note": "<Haiku's one-line read>"}],
+   "look_style_auto": "<Haiku's line>", "described": "<sha of the image set>"}
+  ```
+- **`tools/look/refs.py`** (new; system python, like `tools/match`):
+  - `add --session <dir> <files...>` copies and normalises images and appends them to the index. Unreadable files are rejected and named.
+  - `role --session <dir> --file r01.jpg --role world|character` sets `role_source: user`.
+  - `remove --session <dir> --file r01.jpg`.
+  - `describe --session <dir>` makes one Haiku call through `tools/match/describe.py`'s lean `claude -p` with inline images. It returns a role and a note per image, and a `look_style` of at most 30 words (SDXL reads about 75 tokens of prompt, and the trigger, desc and scene share them). It never overwrites a role a user set, and it writes `requirements.look_style` only when that is empty. Cached on the image-set hash.
+  - `resolve(session, character=None, purpose)` returns the images to use: character refs for `design`, character plus world for `scene`, world for `keyframe`. A character's own `characters/<slug>/style_refs/` replace the session's character refs. At most 4 per role, in index order.
+- **`tools/genchar/run.py`:**
+  - `explore`, `sheet` and `render` take `--session` (render already does) and `--style-refs <dir>`. `--style-refs` copies the images into `characters/<slug>/style_refs/` once, so they travel with the character to later videos.
+  - `--ref-strength <0..1.5>` (default 1.0) scales the adapter.
+  - The refs are base64-embedded in the notebook. The notebook loads the IP-Adapter only when refs are present.
+- **`tools/genvideo/run.py`:**
+  - When the session has refs and the model has an image-to-video pipeline, every AI slot that is still unseeded after character seeding gets a `keyframe` job.
+  - The notebook first renders those keyframes with SDXL plus the IP-Adapter at the video model's size. SDXL here is the `look`'s genchar model; `sdxl` when `look` is empty.
+  - It then frees the SDXL pipeline and generates video image-to-video from them.
+  - The seed report says `styled_keyframe`.
+- **Backend:**
+  - `server/look.ts` (new) and routes in `server/index.ts`:
+    - `GET /_look/:id` returns the index;
+    - `GET /_look/:id/file/:name` returns an image;
+    - `POST /_look/:id/add` takes a raw image body plus an `x-filename` header and runs `refs.py add`;
+    - `POST /_look/:id/role` and `POST /_look/:id/remove`.
+  - `server/actions.ts` gets a `look-describe` action (stage `style`).
+- **Editor:** `apps/editor/src/esta/panels/look-panel.tsx` (new), on the Style stage:
+  - a drop zone and a thumbnail grid;
+  - a per-image World/Character toggle and delete;
+  - a "Describe" button;
+  - the resulting `look_style`, editable, saved through the existing requirements update.
+- **Skills:**
+  - `requirements` step 4c: images dropped in chat go through `refs.py add`, then `describe`.
+  - `ai-video`: documents `--session`/`--style-refs` on genchar and the keyframe pass.
+  - Both are logged in `PORTING.md`.
+
+## Key decisions
+
+1. **Both pixels and words** (user). The IP-Adapter carries what words can't (the halftone texture, the painted reflections). The words keep the prompt and the text fallback consistent with the pixels.
+2. **Roles: world and character** (user). Haiku proposes a role and the user can override it. Character refs steer design (explore and sheet). World and character refs together steer scenes (render). World refs steer non-character keyframes. This stops city colour from bleeding into a character sheet as its background.
+3. **Style + structure** (user). InstantStyle scales the style block (`up.block_0`, middle attention) at 1.0 and the layout block (`down.block_2`) at 0.6, both multiplied by `--ref-strength`.
+   - Layout borrows composition and proportions, such as the turnaround's long limbs.
+   - The cost is a higher chance of copying content, so prompts keep "original character" and the user check looks for it.
+   - Both numbers are unverified until the first Kaggle grid. They are the knobs to tune.
+4. **Adapter:** `h94/IP-Adapter`, `sdxl_models/ip-adapter_sdxl.bin`, with the image encoder from the same repo's `sdxl_models/image_encoder`, in fp16 on the T4. It works on every genchar model, because animagine, sdxl and RealVisXL are all SDXL bases. Several refs of one role go in as one multi-image input.
+5. **Every AI shot gets a styled keyframe** (user). Video models on a free T4 take a start image, not a style image. So every AI shot, character or not, starts from a still drawn in the look.
+   - Precedence: character seed (LoRA keyframe, then `ref.png`) first, then the styled keyframe, then the `--seed-from-assets` stock frame.
+   - When refs exist, stock seeding only fills what's left: no shots, if the model has an image-to-video pipeline.
+   - An image-to-video-only model already needs every slot seeded; keyframes satisfy that.
+   - A model with no image-to-video pipeline skips the pass and the report says so.
+6. **Shared refs, per-character override** (user). Characters use the session's character refs unless they have their own `style_refs/`, which win and persist with the character.
+7. **Failures degrade, never block.**
+   - If the IP-Adapter download or load fails on Kaggle, the run continues without refs. It records `ref_error` in results and prints it.
+   - If Haiku fails, roles stay `world` and `look_style` stays as it was.
+   - If a styled keyframe fails, that shot falls back to the next seed in the precedence order.
+
+## Edge cases
+
+- **No refs:** the notebooks contain no IP-Adapter code path and genvideo builds the same slots as before (tested by diffing the dry-run output).
+- **Only world refs, or only character refs:** a purpose with no images of its role uses the other role's images rather than none.
+- **More than 4 images in a role:** the first 4 are used, and the push output says which.
+- **A user-written `look_style`** is never overwritten by `describe`. The auto line is still kept in `look_refs.json` for reference.
+- **The same image added twice:** skipped, by content hash.
+- **Non-image or corrupt files** are rejected by `add` with the reason. Accepted formats: png, jpg, webp.
+- **Notebook size:** refs are embedded at up to 768 px, JPEG quality 85, and still count toward genvideo's 4 MB `MAX_NOTEBOOK_BYTES` check.
+- **The image set changes after `describe`:** the hash differs, so the next `describe` reruns. Stale roles for removed files disappear with the files.
+
+## Milestones
+
+- **M8.1 Ingest and describe:** `tools/look/refs.py`, the index, Haiku roles and `look_style`, and the requirements skill.
+- **M8.2 Pixels:** the genchar IP-Adapter path with `--session`/`--style-refs`/`--ref-strength`, and the genvideo styled-keyframe pass.
+- **M8.3 Editor:** backend routes, the `look-describe` action, and the Look card on the Style stage.
+
+## Acceptance criteria
+
+M8.1
+- [ ] `refs.py add` normalises png/jpg/webp to JPEG with a 1024 px long side, skips duplicates and rejects a non-image with its reason (unit tests).
+- [ ] `refs.py describe` with a mocked `claude` sets roles and `look_style_auto`. It leaves user-set roles and a non-empty `requirements.look_style` untouched, fills an empty one, and makes no call when the image-set hash is unchanged (unit tests).
+- [ ] `resolve` returns character refs for design, character plus world for scene and world for keyframe. It applies the per-character override, the fallback when a role is empty, and the cap of 4 (unit tests).
+
+M8.2
+- [ ] `genchar explore|sheet|render --session ... --dry-run` with refs embeds the right images per purpose, and the notebook loads `h94/IP-Adapter` with the InstantStyle scales times `--ref-strength`. Without refs, there is no IP-Adapter in the notebook (unit tests).
+- [ ] `--style-refs <dir>` copies the images to `characters/<slug>/style_refs/`, and they override the session's character refs (unit test).
+- [ ] `genvideo push --dry-run` with refs gives every unseeded AI slot a keyframe job and reports `styled_keyframe`, with character seeds still winning. With no refs, its slots match the pre-M8 output. With a model that has no image-to-video pipeline, it skips the pass and says so (unit tests).
+- [ ] The notebooks parse as Python (`ast.parse`) with and without refs.
+
+M8.3
+- [ ] `bun run typecheck` and `bun run lint` pass. The `/_look` routes add, list, set a role, remove and serve an image on a scratch session (manual curl check).
+- [ ] The Style stage shows the Look card: dropped images appear with a role toggle, and Describe fills an editable `look_style`.
+
+Global
+- [ ] The existing pytest suites still pass. `PORTING.md` logs the skill and v2-copy changes.
+- [ ] User check on Kaggle with the five Spider-Verse-style refs:
+  - an explore grid of an original character shows the painted comic look and long-limbed proportions without reproducing Miles or Gwen;
+  - one non-character AI shot's keyframe matches the neon city look.
+  - Tune the `--ref-strength` and InstantStyle scales from that grid.
