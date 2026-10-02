@@ -67,3 +67,10 @@ def test_round_breaking_the_validator_is_reverted(tmp_path, monkeypatch):
     r = rep["adjust"]["rounds"][0]
     assert not r["kept"] and "plan validator" in r["why"]
     assert (s / "plan.json").read_text() == before
+
+
+def test_new_kind_of_problem_counts_as_regression():
+    before = ["shot 3: gap of 0.40 s before shot 4 (1-2 s)"]
+    assert A.validator_regressed(before, ["shot 5: cut at 3.10 s falls inside the word 'x'"])
+    assert not A.validator_regressed(before, ["shot 4: gap of 0.20 s before shot 5 (1-2 s)"])
+    assert A.validator_regressed([], ["shot 1: has no ref_shot"])

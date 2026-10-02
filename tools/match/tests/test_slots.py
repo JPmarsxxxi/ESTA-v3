@@ -73,3 +73,14 @@ def test_overlapping_whisper_words_clamped():
     ts = {"segments": [{"words": [{"word": "a", "start": 0, "end": 1.0}, {"word": "b", "start": 0.8, "end": 1.5}]}]}
     w = SL.load_words(ts)
     assert w[1]["start"] >= w[0]["end"]
+
+
+def test_first_flash_merges_forward(tmp_path):
+    import json
+    d = tmp_path / "prof"
+    d.mkdir()
+    shots = [{"id": "f", "dur": 0.04, "keyframe": ""}, {"id": "a", "dur": 2.0, "keyframe": ""}, {"id": "b", "dur": 0.05, "keyframe": ""}]
+    (d / "profile.json").write_text(json.dumps({"shots": shots}))
+    (tmp_path / "inspo_profiles.json").write_text(json.dumps({"profiles": [str(d)]}))
+    out = SL.inspo_shots(tmp_path)
+    assert [s["id"] for s in out] == ["a"] and abs(out[0]["dur"] - 2.09) < 1e-9

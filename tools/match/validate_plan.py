@@ -16,7 +16,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match.common import read_json, utf8_stdout, write_json  # noqa: E402
-from tools.match.slots import boundaries, load_words, voice_end  # noqa: E402
+from tools.match.slots import LAST_MERGE, boundaries, load_words, voice_end  # noqa: E402
 
 TOL = 0.1          # gap / overlap / coverage, seconds
 WORD_TOL = 0.05    # a cut this close to a word edge counts as on it
@@ -80,11 +80,13 @@ def check(shots: list[dict], words: list[dict], end: float) -> dict:
         if not s.get("ref_shot"):
             flag(i, "has no ref_shot", "map it to the slot's ref_shot (or one of its alts)")
         target = s.get("ref_target_dur")
-        if target and i + 1 < len(shots):
+        if target:
             dur = b - a
             want = a + float(target)
             near = min((c for c in cuts if c > a + WORD_TOL), key=lambda c: abs(c - want), default=b)
-            if abs(dur - target) > TARGET_TOL * target and abs(near - b) > 0.01:
+            # The last shot may also hold the stub slots.py merges into it at the voice end.
+            tol = TARGET_TOL + (LAST_MERGE if i + 1 == len(shots) else 0)
+            if abs(dur - target) > tol * target and abs(near - b) > 0.01:
                 flag(i, f"is {dur:.2f} s against a {float(target):.2f} s target",
                      f"cut shot {s['shot_number']} at {near:.2f} s, after '{_word_before(near, words)}'")
 

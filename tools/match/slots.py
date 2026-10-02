@@ -57,7 +57,7 @@ def voice_end(session: Path, words: list[dict]) -> float:
 
 
 def inspo_shots(session: Path) -> list[dict]:
-    """Every inspo shot in inspo.json order, flashes merged into the shot before."""
+    """Every inspo shot in inspo.json order, flashes merged into the shot before (the next, for the first)."""
     idx = read_json(session / "inspo_profiles.json", {}) or {}
     shots: list[dict] = []
     for rel in idx.get("profiles", []):
@@ -68,6 +68,8 @@ def inspo_shots(session: Path) -> list[dict]:
                 shots[-1]["dur"] += row["dur"]
             else:
                 shots.append(row)
+    if len(shots) > 1 and shots[0]["dur"] < MIN_INSPO_SHOT:
+        shots[1]["dur"] += shots.pop(0)["dur"]
     return shots
 
 

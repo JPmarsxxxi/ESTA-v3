@@ -129,6 +129,16 @@ def _set_targets(session: Path, targets: dict) -> None:
     save_plan(session, plan)
 
 
+PROBLEM_KIND = re.compile(r"starts at|uncovered|past the voice end|gap of|overlaps|inside the word|against a|no ref_shot")
+
+
+def validator_regressed(before: list[str], after: list[str]) -> bool:
+    """More problems, or a kind of problem the plan didn't have. Shot numbers shift with splits and merges,
+    so problems are compared by count and kind, not text."""
+    kinds = lambda ps: {m.group(0) for p in ps if (m := PROBLEM_KIND.search(p))}  # noqa: E731
+    return len(after) > len(before) or bool(kinds(after) - kinds(before))
+
+
 def validator_problems(session: Path) -> list[str] | None:
     """The mapped plan's validator problems, or None for a plan that isn't mapped (no ref_shot anywhere)."""
     from tools.match import validate_plan
@@ -470,7 +480,7 @@ def run(session: Path, stage: str) -> dict:
         real = [c for c in changes if not c.startswith("note")]
         # A mapped plan must keep passing the validator: a round that adds problems is undone like a losing round.
         after = validator_problems(session) if real else None
-        if after is not None and baseline is not None and len(after) > len(baseline):
+        if after is not None and baseline is not None and validator_regressed(baseline, after):
             why = f"reverted: plan validator ({after[0]})"
             restore(session, backup)
             if stage == "final":

@@ -84,3 +84,16 @@ def test_locked_reported_not_frozen():
     p[3]["locked"] = True
     f = V.check(p, WORDS, END)["failures"][0]
     assert f["locked"] == [4]
+
+
+def test_stretched_last_shot_fails():
+    # Covering the tail by stretching the last shot to 4 s against a 2 s target, with 7.95 available, is caught.
+    r = V.check(plan([1.95, 3.95, 5.95]), WORDS, END)
+    assert any("shot 4: is 4.05 s against a 2.00 s target" in x for x in problems(r))
+
+
+def test_last_shot_merge_allowance():
+    # slots.py merges a short tail stub into the last slot: up to 1.75x its target passes.
+    p = plan([1.95, 3.95, 6.75])
+    p[2]["ref_target_dur"] = 2.8
+    assert V.check(p, WORDS, END)["pass"]  # last shot 3.25 s = 1.63x its 2 s target
