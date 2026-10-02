@@ -3,7 +3,7 @@
     python tools/match/inspo.py resolve --session sessions/<id>   # write inspo.json
     python tools/match/inspo.py profile --session sessions/<id>   # build/reuse profiles, describe with Haiku
 
-cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, words, tags),
+cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, words, tags, motion),
 words.json (the inspo transcript),
 embeddings.npz (per-shot DINOv3 and SigLIP 2), keyframes/.
 """
@@ -197,6 +197,8 @@ def profile(session: Path, log=print) -> dict:
         try:
             d = build_profile(src, emb, texts, log)
             describe_profile(d, log)
+            from tools.match.motion import motion_profile
+            motion_profile(d, log)
             done.append(str(d.relative_to(REPO_ROOT)).replace("\\", "/"))
         except Exception as e:  # noqa: BLE001 - one bad inspo must not sink the rest
             failed.append({"ref": src["ref"], "error": str(e)[:300]})
