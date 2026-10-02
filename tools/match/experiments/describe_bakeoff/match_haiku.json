@@ -1,0 +1,190 @@
+{
+  "model": "haiku",
+  "inspo_shots": 208,
+  "tagged": 208,
+  "our_shots": 17,
+  "plan": {
+    "overall": 60.9,
+    "pass": false,
+    "sections": {
+      "a": {
+        "name": "Asset distribution",
+        "score": 64.0,
+        "ours": {
+          "footage": 0.5481,
+          "graphic": 0.4519
+        },
+        "inspo": {
+          "footage": 0.8764,
+          "still": 0.0315,
+          "graphic": 0.092
+        },
+        "gap": {
+          "footage": -0.3283,
+          "still": -0.0315,
+          "graphic": 0.3599
+        },
+        "pass": false,
+        "note": ""
+      },
+      "b": {
+        "name": "Colour and grading",
+        "score": null,
+        "pass": null,
+        "note": "n/a at plan: colour needs real media"
+      },
+      "c": {
+        "name": "Thematic adherence",
+        "score": 68.5,
+        "estimate": true,
+        "pass": false,
+        "note": ""
+      },
+      "d": {
+        "name": "Complexity",
+        "score": 40.9,
+        "rates": {
+          "text": {
+            "ours": 1.0,
+            "inspo": 0.443,
+            "score": 0.0
+          },
+          "variety": {
+            "ours": 2,
+            "inspo": 2.444,
+            "score": 81.8
+          }
+        },
+        "excluded": [
+          "panels",
+          "clips",
+          "overlay"
+        ],
+        "pass": false,
+        "note": ""
+      },
+      "e": {
+        "name": "Shot duration",
+        "score": 65.5,
+        "mean": {
+          "ours": 3.24,
+          "inspo": 2.41
+        },
+        "median": {
+          "ours": 2.6,
+          "inspo": 1.93
+        },
+        "pass": false,
+        "note": ""
+      }
+    }
+  },
+  "final": {
+    "overall": 61.7,
+    "pass": false,
+    "sections": {
+      "a": {
+        "name": "Asset distribution",
+        "score": 64.0,
+        "ours": {
+          "footage": 0.5481,
+          "graphic": 0.4519
+        },
+        "inspo": {
+          "footage": 0.8764,
+          "still": 0.0315,
+          "graphic": 0.092
+        },
+        "gap": {
+          "footage": -0.3283,
+          "still": -0.0315,
+          "graphic": 0.3599
+        },
+        "pass": false,
+        "note": ""
+      },
+      "b": {
+        "name": "Colour and grading",
+        "score": 66.4,
+        "features": {
+          "L_mean": {
+            "ours_median": 27.18,
+            "inspo_median": 36.18,
+            "distance": 0.596
+          },
+          "L_std": {
+            "ours_median": 22.15,
+            "inspo_median": 20.31,
+            "distance": 0.259
+          },
+          "chroma": {
+            "ours_median": 10.78,
+            "inspo_median": 12.69,
+            "distance": 0.447
+          },
+          "a_mean": {
+            "ours_median": 3.89,
+            "inspo_median": 4.08,
+            "distance": 0.362
+          },
+          "b_mean": {
+            "ours_median": 8.44,
+            "inspo_median": 4.97,
+            "distance": 0.46
+          },
+          "colourfulness": {
+            "ours_median": 30.26,
+            "inspo_median": 31.75,
+            "distance": 0.329
+          }
+        },
+        "pass": false,
+        "note": ""
+      },
+      "c": {
+        "name": "Thematic adherence",
+        "score": 67.8,
+        "estimate": false,
+        "pass": false,
+        "note": ""
+      },
+      "d": {
+        "name": "Complexity",
+        "score": 40.9,
+        "rates": {
+          "text": {
+            "ours": 1.0,
+            "inspo": 0.443,
+            "score": 0.0
+          },
+          "variety": {
+            "ours": 2,
+            "inspo": 2.444,
+            "score": 81.8
+          }
+        },
+        "excluded": [
+          "panels",
+          "clips",
+          "overlay"
+        ],
+        "pass": false,
+        "note": ""
+      },
+      "e": {
+        "name": "Shot duration",
+        "score": 65.5,
+        "mean": {
+          "ours": 3.24,
+          "inspo": 2.41
+        },
+        "median": {
+          "ours": 2.6,
+          "inspo": 1.93
+        },
+        "pass": false,
+        "note": ""
+      }
+    }
+  }
+}

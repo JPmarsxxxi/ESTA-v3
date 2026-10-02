@@ -1,0 +1,1989 @@
+{
+ "answers": {
+  "i001": {
+   "description": "Screenshot from an educational video showing blue text overlays about \"From Ego to Eco\" by University of Oxford on a dark background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i002": {
+   "description": "Dark screenshot with blue text explaining Ego as \"a unique hybrid that blends...\" with heading referencing \"Ctrl Alt Ego + Tin Can\".",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i003": {
+   "description": "A man in a black Nike sweatshirt stands indoors against wood-paneled walls with modern lighting, with white text overlay reading \"you're never gonna be\".",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i004": {
+   "description": "Same man and indoor wood-paneled setting as previous shot, with white text overlay reading \"like me.\" completing a meme sequence.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i005": {
+   "description": "Two men in bold patterned clothing in an indoor venue with crowds visible in background; white text overlay reads \"would...\".",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i006": {
+   "description": "Close-up of a man wearing a black and white graphic shirt indoors, with white text overlay \"me.\" as part of a meme sequence.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i007": {
+   "description": "Man in yellow and purple patterned clothing shown in profile at an indoor venue with people visible in background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i008": {
+   "description": "Basketball game in play with full crowd in stands; low-resolution footage typical of 1990s NBA game coverage.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i009": {
+   "description": "An open magazine or book page titled \"Ego\" with body text, photographed against a red background with aesthetic styling and image on the left side.",
+   "likely_sources": [
+    "google_images",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i010": {
+   "description": "Close-up portrait of a man wearing glasses and a grey-tan shirt against neutral background, with white text overlay reading \"under control\".",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i011": {
+   "description": "A man wearing a black leather jacket and green shirt stands indoors against patterned orange and teal curtains. Large red and white text overlays read \"the more you BECOME in yourself.\"",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i012": {
+   "description": "A close-up of the same man's face gazing downward, wearing the leather jacket and green shirt against a blurred teal background with warm side lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i013": {
+   "description": "A silhouetted figure shown from behind in moody lighting with white text \"the more\" and bold red text \"CONFIDENCE\" overlaid across the frame.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i014": {
+   "description": "An outdoor urban scene of a man walking past classical architecture with a grainy, artistic filter. White text reading \"shrink\" is overlaid on the image.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i015": {
+   "description": "An indoor scene with warm diffused lighting showing a figure with head in hands in a contemplative pose, with windows and curtains visible in soft focus.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i016": {
+   "description": "A silhouetted figure stands alone against a purple twilight sky with a waterscape or landscape in the distance, creating a cinematic contemplative mood.",
+   "likely_sources": [
+    "pinterest",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i017": {
+   "description": "A solid red background with minimalist white text reading \"idk\" on the left and \"maybe\" on the right, styled as a simple graphic overlay.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i018": {
+   "description": "A dramatic close-up of a face lit by warm side lighting in darkness, with a blurred light source in the background creating an intimate moody atmosphere.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i019": {
+   "description": "A black and white image of a young man looking directly at camera outdoors, with suburban buildings in the background. White text overlay reads \"because carl.\"",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i020": {
+   "description": "A solid red background with white text spread across the frame reading \"it got we if what but,\" styled as a simple motion graphic overlay.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i021": {
+   "description": "Dark, moody title card with red text reading 'what if' and 'THE PROBLEM' on a nearly black background with a cinematic dramatic feel.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i022": {
+   "description": "A person in a pink sleeveless shirt shot from a low upward angle in a brightly lit stadium or arena with overhead lighting visible.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i023": {
+   "description": "Split-screen comparison graphic with 'Cristiano Ronaldo' labeled on the left showing a player in blue jersey and 'Michael Jordan' on the right in basketball attire.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i024": {
+   "description": "A bald person in dark clothing inside a professional basketball arena with purple seating visible in the background and overhead arena lighting.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i025": {
+   "description": "Professional sports footage of a player in a red Manchester United jersey with 'KOHLER' sponsor visible, captured in a stadium with crowds in background.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i026": {
+   "description": "A person in a white and red patterned sweater indoors with dim red ambient lighting and blurred background, creating a moody atmospheric indoor setting.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i027": {
+   "description": "A handwritten note on a notebook resting on a wooden surface reading 'we all know THE SCRIPT', with a minimalist documentary-like composition.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i028": {
+   "description": "A person outdoors wearing dark clothing against bare tree branches with overlaid white text reading 'stay humble', with a moody cinematic tone.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i029": {
+   "description": "An indoor bedroom scene with a person standing on a bed wearing a long cardigan with white text overlay reading 'don't claim it' on a warm-lit interior.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i030": {
+   "description": "An action scene with dynamic motion and stacked text overlays reading 'don't claim it' and 'until you've earned it', with an energetic sports or film aesthetic.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i031": {
+   "description": "A man in a white t-shirt stands against a clear blue sky, shot from a low angle with clean professional lighting and minimalist composition.",
+   "likely_sources": [
+    "pexels_video",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i032": {
+   "description": "A man in dark clothing stands indoors near a window with the text 'performed nonchalance' overlaid on the glass in what appears to be a gym or facility.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i033": {
+   "description": "A young man with curly hair holds a chain-link fence while looking at the camera, with a green park landscape blurred in the background.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i034": {
+   "description": "A person viewed from behind wears a plaid shirt while gazing at an expansive landscape valley from an elevated hilltop with grass in the foreground.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i035": {
+   "description": "A solid red background with the lowercase text 'nowhere.' centered in white, styled as a simple minimalist title card.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i036": {
+   "description": "Multiple basketball players in white uniforms stand on a professional court under bright arena lighting with crowd visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i037": {
+   "description": "A person lies on a basketball court surrounded by a massive crowd in a stadium during a live professional basketball game.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i038": {
+   "description": "A retro CRT television on a desk displays a person's face with white caption text 'that's all a part of a success uh' overlaid, surrounded by a coffee mug and stacked books.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i039": {
+   "description": "A man wearing a red baseball cap stands in a desert landscape with distinctive rock formations in the background under clear daylight.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i040": {
+   "description": "A close-up profile of a face with a muted, filtered aesthetic and the text 'EGO' overlaid on the right side in a stylized graphic treatment.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i041": {
+   "description": "Close-up portrait of a man with an emotional, troubled expression in dim cinematic lighting. No text or graphics visible.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i042": {
+   "description": "A man wearing a black beanie in low-key indoor lighting, shot with cinematic quality from what appears to be a film scene. No text or overlays.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i043": {
+   "description": "A man in sunglasses and business suit seated at a formal dinner table setting with yellow text overlays visible ('a little', 'thinks') floating over the frame.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i044": {
+   "description": "A man standing outdoors at dusk with a dramatic purple-pink sky and structural elements in the background, shot with moody cinematic aesthetic. No text visible.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i045": {
+   "description": "An old CRT television monitor displaying a man's face on a desk with books and coffee cup, with white caption text 'we have to think like that' at the bottom of the screen.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i046": {
+   "description": "A man sitting by a large body of water at dusk with a small fire, creating a moody cinematic scene against the darkening ocean and sky. No text visible.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i047": {
+   "description": "An indoor professional basketball arena filled with spectators, showing players and officials holding championship trophies on the court. No text overlays.",
+   "likely_sources": [
+    "youtube",
+    "wikimedia"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i048": {
+   "description": "A close-up of a red basketball jersey with 'JORDAN 23' printed in white text, shot against a blurred arena background. Text is part of the jersey itself.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i049": {
+   "description": "A solid red background with white text reading 'but it's actually' appearing as a title card or motion graphic overlay.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i050": {
+   "description": "A portrait-style close-up of a man with dark hair wearing a magenta or pink shirt against a solid blue background. Professional lighting, no text visible.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i051": {
+   "description": "A soccer player wearing a purple jersey number 7 stands on the pitch with a blurred crowd visible in the background during a professional match.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i052": {
+   "description": "A soccer player in purple jersey gestures expressively on the grass field with white lines visible, captured during competitive play.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i053": {
+   "description": "A dashcam perspective of a daytime street with traffic, pedestrians, power lines, and parked cars under an overcast sky.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i054": {
+   "description": "An abstract radial light burst and prism effect with colorful geometric streaks emanating from the center, creating a surreal motion graphic.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i055": {
+   "description": "A person in tan clothing partially submerged in muddy brown water during daytime with natural lighting and minimal background detail.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i056": {
+   "description": "A formally dressed man with slicked-back hair sits indoors in an institutional setting with dark furniture, gazing directly ahead with a neutral expression.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i057": {
+   "description": "A young person in dark clothing sits in a modern interior space with framed artwork displayed on the wall behind them.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i058": {
+   "description": "A bespectacled man with a mustache sits indoors with another blurred figure visible in the background in what appears to be a dramatic interior scene.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i059": {
+   "description": "An interior office or workspace viewed through glass partitions with a person seated at a desk surrounded by modern furniture and red accent colors.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i060": {
+   "description": "An urban street scene showing storefronts with yellow doors, parked vehicles, a fire hydrant, and city architecture in natural daylight.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i061": {
+   "description": "A figure crouches among equipment in a darkly-lit theatrical studio with overhead production rigs and lighting gear visible. The moody, dramatic lighting suggests a professional film or stage production.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i062": {
+   "description": "Two silhouetted figures stand in a dark cinematic space with dramatic side lighting, the word 'something' displayed as an overlay on screen. The theatrical lighting and composition suggest a scene from a film or drama.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i063": {
+   "description": "A bold graphic design with a solid red background displays large white text reading '2 completely different' in a clean, modern layout. This is a designed motion graphic or title card.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i064": {
+   "description": "An exterior architectural shot of a multi-story brick building with dense ivy vines covering one wall, photographed in natural daylight with clean, well-balanced composition. The setting appears to be a residential or institutional area.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i065": {
+   "description": "A person viewed from behind looks toward a contemporary residential building with angular architectural forms in daylight. The cinematic framing and shallow depth of field suggest this is from a film or professional production.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i066": {
+   "description": "Two figures stand in a confined teal-tinted interior space, with one figure appearing to look toward a mirror or reflective surface. The moody color grading and tight framing create a cinematic dramatic atmosphere.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i067": {
+   "description": "A portrait of a person wearing a red and white sports jersey photographed indoors with neutral institutional-style background and walls. The frame has a documentary or interview quality.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i068": {
+   "description": "A man in formal navy business attire stands near a tour bus at night in a cinematic outdoor setting with professional dramatic lighting. The composition and mood suggest this is from a film or professional video production.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i069": {
+   "description": "A group of people in casual attire stand around or near tour buses in what appears to be archival or vintage footage, suggested by the color grading and film quality. The scene has a documentary or historical feel.",
+   "likely_sources": [
+    "archive",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i070": {
+   "description": "A person sits at what appears to be a formal press conference or media event, with repeating sponsor logos and watermarks filling the background wall. The professional lighting and formal setting suggest official event footage.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i071": {
+   "description": "Close-up head shot of a Black male in a white shirt speaking at what appears to be a press conference or interview with blue background.",
+   "likely_sources": [
+    "youtube",
+    "wikimedia",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i072": {
+   "description": "Empty stage with dramatic overhead spotlights and moody atmospheric lighting, creating a concert or arena performance venue setting.",
+   "likely_sources": [
+    "pexels_video",
+    "youtube",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i073": {
+   "description": "Silhouette of a walking person against a dark stormy sky with bold white text overlay reading 'self belief' repeated three times.",
+   "likely_sources": [
+    "pinterest",
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i074": {
+   "description": "Young person sitting on a dark couch indoors in dim lighting, appearing to be from a narrative film or vintage video with moody atmosphere.",
+   "likely_sources": [
+    "youtube",
+    "pinterest",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i075": {
+   "description": "Back view of a person in dark clothing sitting indoors in very dim lighting, captured in a cinematic film style.",
+   "likely_sources": [
+    "youtube",
+    "pinterest",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i076": {
+   "description": "Three children running or playing in a suburban driveway in bright daylight with houses and parked vehicles visible in the background.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i077": {
+   "description": "Teenage boy outdoors in daylight with rural/suburban landscape background and white text overlay reading 'who brags' at the top.",
+   "likely_sources": [
+    "youtube",
+    "pinterest",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i078": {
+   "description": "Person riding a bicycle on a city street lined with tall trees and parked cars in daytime, appearing to be from a narrative film.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i079": {
+   "description": "Close-up of a person wearing light-colored clothing with chain jewelry indoors with venetian blinds visible in background, vintage video quality.",
+   "likely_sources": [
+    "youtube",
+    "archive",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i080": {
+   "description": "Underwater shot of a swimmer performing freestyle stroke in blue-green water, captured from an underwater perspective.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i081": {
+   "description": "A blank or nearly white frame with no visible content, possibly a fade or transition.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i082": {
+   "description": "Extreme close-up of a person's face with eyes closed and pale complexion, lit with dramatic side lighting against a dark background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i083": {
+   "description": "A young man in light clothing looking off-camera in an indoor setting, with another person's arm visible out of focus in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i084": {
+   "description": "A very dark, blurry cinematic shot of an interior space with a green horizontal line visible, low visibility with brown-green tones.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i085": {
+   "description": "Extreme close-up of the lower portion of a person's face lit with purple and pink atmospheric mood lighting, artistic and intimate shot.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i086": {
+   "description": "A figure in dark clothing holding a red cylindrical object against a dark background with cinematic interior lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i087": {
+   "description": "A man with glasses and a mustache smiling, surrounded by people holding American and British flags in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i088": {
+   "description": "A solid red background with white centered text reading 'and fair's', a text card or graphic element.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i089": {
+   "description": "A businessman in a suit sitting at a wooden office desk with papers, white text overlay on the left reading 'an ego with no edges isn't', warm office lighting.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i090": {
+   "description": "A man in a dark business suit walking down an elegant hallway with classical columns and a barrel-vaulted ceiling, warm ambient lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i091": {
+   "description": "Man in blue clothing looking intently with white text overlay reading 'weak' in an indoor setting.",
+   "likely_sources": [
+    "youtube",
+    "giphy"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i092": {
+   "description": "Close-up of a man peering intently over a barrier or ledge in an indoor setting with warm, muted lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i093": {
+   "description": "A retro computer monitor displaying a man wearing sunglasses with white caption text 'cause i am very sensitive to other people's thinking', surrounded by desk items including a coffee mug and papers.",
+   "likely_sources": [
+    "youtube",
+    "giphy"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i094": {
+   "description": "Basketball players in action during a live game with one player in Lakers purple jersey, arena crowd and lighting visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i095": {
+   "description": "Basketball game in action with white text overlay reading 'the competitiveness' centered on screen, players and arena crowd visible.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i096": {
+   "description": "A man on an airplane gesturing while speaking, shown in profile view with aircraft window visible, indoor cabin setting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i097": {
+   "description": "Professional basketball player wearing red Chicago Bulls jersey number 23 with arms raised during a game, arena crowd visible in background.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i098": {
+   "description": "Man wearing headphones and glasses in an indoor setting with colorful rainbow-patterned items visible, NBA-related context suggested.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i099": {
+   "description": "Close-up profile shot of a man's face showing low-quality video compression with purple fabric visible in the frame.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i100": {
+   "description": "Minimalist image with solid red background and white text reading 'that's the actual shape', a pure text graphic overlay.",
+   "likely_sources": [
+    "hyperframes",
+    "giphy"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i101": {
+   "description": "Two basketball players during a coaching moment in an NBA arena with crowd visible; overlaid text reads 'self belief'.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i102": {
+   "description": "NBA player wearing Chicago Bulls #23 white jersey standing during a game inside an arena.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i103": {
+   "description": "Basketball players contesting for the ball during an NBA game with crowd visible in the background.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i104": {
+   "description": "Close-up profile of a basketball player in a locker room or team setting with partial jersey text visible.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i105": {
+   "description": "Movie scene showing a person's face with a large white circular overlay containing the text 'ego'.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i106": {
+   "description": "Man standing between tall urban buildings looking upward against a clear blue sky in a film scene.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i107": {
+   "description": "Person in dark clothing crawling on a floor in a dark interior setting, appears to be an action movie scene.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i108": {
+   "description": "Young man standing outdoors against a reddish metal structure with blue sky, appears to be from a movie scene.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i109": {
+   "description": "Red background with white text reading 'nobody actually teaches you' as a motion graphic.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i110": {
+   "description": "Open notebook on a wooden surface with handwritten text 'be humble' in an aesthetic lifestyle composition.",
+   "likely_sources": [
+    "pinterest",
+    "pexels_image"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i111": {
+   "description": "A close-up of an open notebook with handwritten text 'be humble' on a white page, with spiral binding visible against a warm wood-toned background.",
+   "likely_sources": [
+    "pexels_image",
+    "pinterest",
+    "pixabay_image"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i112": {
+   "description": "View from inside a car driving on a straight desert highway, showing the driver's hands on the steering wheel and the road stretching toward distant mountains.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i113": {
+   "description": "A car driving on an open desert highway with multiple vehicles ahead, distant mountains, and expansive landscape under a clear blue sky.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i114": {
+   "description": "A person in dark clothing in a minimalist modern room with white walls and black windows, with white text overlay 'one extreme' floating on the image.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i115": {
+   "description": "A person standing in an open field holding a large bunch of colorful balloons against a bright blue sky with white clouds, in a cinematic composition.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i116": {
+   "description": "A close-up portrait of a person with an intense expression in a dimly lit indoor setting with yellow-green background lighting, appearing to be from a dramatic scene.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i117": {
+   "description": "Two people walking on a busy outdoor street with shops and pedestrians visible in the background, shot at street level in what appears to be a European city center.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i118": {
+   "description": "A person in a plaid shirt performing a parkour move or running jump on a tree-lined path with green vegetation and dappled sunlight, capturing action and motion.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i119": {
+   "description": "A shirtless man running through shallow water on a beach with a motorcycle and another person visible to the side, in a cinematic wet-weather scene.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i120": {
+   "description": "A person in a blue-teal shirt leaning forward or reaching on the exterior of a modern building with strong shadow patterns and clean architectural lines.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i121": {
+   "description": "Dark action sequence showing a person climbing or hanging from a building exterior in shadowy urban setting with cinematic framing and grainy quality.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i122": {
+   "description": "Person in tan clothing bent forward in an empty desert landscape with clear sky, shot with wide cinematography and theatrical framing.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i123": {
+   "description": "Professional photograph of an athlete in Real Madrid white jersey holding the UEFA Champions League trophy while waving to a crowded stadium.",
+   "likely_sources": [
+    "google_images",
+    "wikimedia"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i124": {
+   "description": "Lifestyle photograph of a person wearing red Chicago Bulls branded clothing with headphones seated in what appears to be an aircraft interior.",
+   "likely_sources": [
+    "google_images",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i125": {
+   "description": "NBA game action shot of a Chicago Bulls player in uniform during live play with crowd visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i126": {
+   "description": "Two men in a gym or training facility with a barbell visible, shot from side profile in close quarters.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i127": {
+   "description": "Baseball player in uniform visible from behind during a game, professional sports broadcast quality with crowd atmosphere.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i128": {
+   "description": "Young man in red Manchester United hoodie against a dark night backdrop with 'In my mind' text overlay, styled as a music video or promotional content.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i129": {
+   "description": "Person being interviewed at a press conference with The FA.com and e.on sponsor logos and branding visible in the background.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i130": {
+   "description": "Person in white and red athletic wear in a sports arena setting with crowd visible and stadium lighting, professional broadcast quality.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i131": {
+   "description": "Professional footballer in white Real Madrid kit during match play, shown in side profile. Stadium signage visible in the background with broadcast-quality sports footage.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i132": {
+   "description": "Close-up interview shot of a man's face with overlaid white text quote reading 'I don't need other players to push myself.' Dark event or press conference background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i133": {
+   "description": "Formally-dressed man walking through a large stadium interior with red seating visible in the background. Professional event or match-day footage.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i134": {
+   "description": "Man seated at a press conference table with 'FIFA BALLON D'OR 2014' text on backdrop and FIFA award visible. Formal awards ceremony setting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i135": {
+   "description": "Football player in red Vodafone kit celebrating with hands to head, showing emotion on field. Outdoor stadium setting with visible crowd.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i136": {
+   "description": "Young man in dark Nike athletic wear outdoors on a green field, shot during golden-hour lighting. Professional training or sports footage.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i137": {
+   "description": "Close-up portrait at a red-carpet or media event with Champions League branding visible in warm-toned background lighting. Professional event photography.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i138": {
+   "description": "Formally-dressed man holding an award trophy indoors with event backdrop and imagery visible behind him. Awards ceremony setting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i139": {
+   "description": "Red background with white text overlay reading 'and honestly that's the part.' Simple text card graphic element.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i140": {
+   "description": "High-speed aerial or drone footage with motion blur traveling over water and coastal landscape below. Cinematic scenic shot with dynamic forward movement.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i141": {
+   "description": "A dark vehicle drives through heavy storm clouds and smoke with dramatic, ominous lighting.",
+   "likely_sources": [
+    "youtube",
+    "ai_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i142": {
+   "description": "A cyclist pedals down a straight road toward dramatic Nordic mountains under golden hour lighting.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i143": {
+   "description": "A modern corporate office with floor-to-ceiling windows overlooking a city skyline, featuring a businessman in formal attire.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i144": {
+   "description": "A shirtless figure leans contemplatively over calm water at sunset, gazing downward in a moody, introspective scene.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i145": {
+   "description": "A close-up portrait of a man's face with an intense, serious expression under clinical lighting.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i146": {
+   "description": "A young man wearing a black hoodie stands in an urban public space with blurred pedestrians in the background.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i147": {
+   "description": "A figure sits on a bed in a darkened room with dramatic striped light patterns streaming through windows, shot in black and white.",
+   "likely_sources": [
+    "archive",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i148": {
+   "description": "A man in a tan jacket stands near a door with white text overlay reading 'so does the science.'",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i149": {
+   "description": "A screenshot of a Google Docs page displaying text about self-help books with partial navigation elements visible.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i150": {
+   "description": "A screenshot of video editing or content creation software showing the editing timeline interface and control panels.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i151": {
+   "description": "Blog article titled 'Editing Tips' by Alison Stokes, showing article text and metadata on white background.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i152": {
+   "description": "Video editing software interface displaying a video preview with a person and an open dropdown menu with various options.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i153": {
+   "description": "Media library interface showing multiple movie and TV show poster thumbnails arranged horizontally in a collection view.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i154": {
+   "description": "Media collection view displaying rows of movie and television show poster thumbnails with titles including War for the Planet of the Apes and Resident Evil.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i155": {
+   "description": "Photograph of a computer desk setup with monitor displaying a media library interface, illuminated by atmospheric red lighting.",
+   "likely_sources": [
+    "pinterest",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i156": {
+   "description": "Split-screen display with video content showing two people on the left and website interface sections with images and a prominent yellow button on the right.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i157": {
+   "description": "Video player interface showing a person wearing a red beanie as main content, with comments or profile sidebar panel visible on the right.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i158": {
+   "description": "Complex multi-window layout showing video content with two people, website sections with images and text, and a prominent gold banner header.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i159": {
+   "description": "Google Docs word processor displaying multiple paragraphs of body text with formatting toolbar visible at the top.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i160": {
+   "description": "Split-screen composition with video content featuring a person in a red beanie on the left and a document with text plus media thumbnails on the right.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i161": {
+   "description": "Screenshot of a YouTube video player showing a man in a white shirt speaking, with a video recommendations sidebar visible on the right side of the interface.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i162": {
+   "description": "YouTube video player interface with the same speaker in white shirt visible in the main player window, with recommended videos and metadata displayed on the right side panel.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i163": {
+   "description": "Desktop screenshot showing multiple open windows: a golden-toned article or magazine layout on the left, a centered document with body text and typography, and an image on the right showing a person with a truck.",
+   "likely_sources": [
+    "google_images",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i164": {
+   "description": "Screenshot of a Google Docs or word processor document displaying body text and formatting, with additional reference article content visible on the right side of the screen.",
+   "likely_sources": [
+    "google_images",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i165": {
+   "description": "Split-screen showing a Spotify music player interface with purple branding and controls on the left side, and a Google Docs document with body text on the right side.",
+   "likely_sources": [
+    "google_images",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i166": {
+   "description": "Desktop interface showing a design or collaboration tool with purple UI elements and controls on the left, paired with a document containing body text on the right side.",
+   "likely_sources": [
+    "google_images",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i167": {
+   "description": "Dark YouTube video player interface with low-contrast video content playing in the main viewer, and a video recommendations feed visible on the right sidebar.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i168": {
+   "description": "Professional portrait photograph of a young man wearing a maroon Portugal national football team jersey, shot against a soft blurred green and blue stadium background.",
+   "likely_sources": [
+    "wikimedia",
+    "google_images"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i169": {
+   "description": "Portrait photograph of a person wearing a white button-up shirt and sunglasses, photographed against a clear, bright blue sky with natural daylight.",
+   "likely_sources": [
+    "google_images",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i170": {
+   "description": "Indoor footage of a person in white/light-colored team apparel gesturing or speaking in what appears to be a locker room or facility, with other people visible in the background.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i171": {
+   "description": "A coach or staff member in athletic wear stands on the sidelines of a professional soccer stadium during a match, with blurred pitch and sponsor boards visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i172": {
+   "description": "A man in a dark suit kisses and holds a golden Ballon d'Or trophy at an awards ceremony with sponsor logos (MARCA, ESM, MELIA) displayed on the backdrop.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i173": {
+   "description": "Soccer players in neon green training kits practice on a grass field with sponsor boards (AGRES, CMN) visible along the sideline.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i174": {
+   "description": "Four men in formal suits stand on stage at a FIFA awards ceremony, with one at a podium and the FIFA logo visible.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i175": {
+   "description": "A close-up of someone holding and gazing at a large golden FIFA World Cup trophy during a celebration.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i176": {
+   "description": "A basketball player wearing a team uniform and headband celebrates while holding a trophy in what appears to be a locker room or celebration space.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": true
+  },
+  "i177": {
+   "description": "A soccer player in a white Real Madrid kit (bwin sponsor) celebrates emotionally on the pitch during a match with crowd visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i178": {
+   "description": "Action shot of a soccer player in white dribbling past an opponent in dark kit during a match, with stadium signage visible.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i179": {
+   "description": "Goal-mouth action during a soccer match showing a goalkeeper in yellow and attacking players in white, with a crowd visible in the stadium.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": true
+  },
+  "i180": {
+   "description": "A basketball player in a dark team uniform stands on an indoor court with red padding visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i181": {
+   "description": "Soccer training session with players in red and yellow uniforms on a grass pitch with a goal visible. Text overlay reading 'that kind of' appears in white.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i182": {
+   "description": "Close-up portrait of a basketball player in a vintage Chicago Bulls NBA jersey smiling against a blurred background.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i183": {
+   "description": "Young soccer player in red uniform dribbling a ball on a pitch with 'cinch.co.uk' sponsorship banner visible on blue overlay.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i184": {
+   "description": "Two youth soccer players competing for the ball on a grass field during what appears to be a match.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i185": {
+   "description": "Muscular man holding a baseball bat in an indoor gymnasium or locker room with beige walls.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i186": {
+   "description": "Silhouettes of multiple people standing in a line against a bright backlit white background in a cinematic indoor setting.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i187": {
+   "description": "Person standing on a beach facing a burning ship or wreckage with fire and smoke visible during golden hour lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i188": {
+   "description": "Man wearing sunglasses in a crowded street scene with blurred figures surrounding him, shot with shallow depth of field.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i189": {
+   "description": "Side profile close-up of a man wearing glasses with a blurred coastal beach landscape visible in the background.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i190": {
+   "description": "Beach establishing shot showing ocean, sand, and horizon line with a person partially out of focus in the foreground.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i191": {
+   "description": "Close-up portrait of a man indoors with soft natural lighting; appears to be documentary or interview footage.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i192": {
+   "description": "Red background with white text reading 'it's not aggression' centered on screen; title card overlay.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i193": {
+   "description": "Close-up of a man's face in profile with blurred stadium background; appears to be professional sports footage.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i194": {
+   "description": "Man in dark jacket indoors against light background with white text overlay reading 'the lesson'; dramatic documentary-style scene.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i195": {
+   "description": "Dark cinematic scene with a man's face visible in shadowy interior lighting; appears to be from a film.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i196": {
+   "description": "Indoor scene with multiple people and theatrical dark lighting; appears to be from a film or stage production.",
+   "likely_sources": [
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i197": {
+   "description": "Split-screen composite combining a soccer player in light blue uniform on the left with a person in white tank top on the right.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": true
+  },
+  "i198": {
+   "description": "Split-screen composite with basketball player in Bulls uniform on top and man giving thumbs up on bottom; edited sports content.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": true
+  },
+  "i199": {
+   "description": "Multi-element composite scene showing people at an outdoor event with various overlaid footage elements; person visible with 'R74' text on clothing.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i200": {
+   "description": "Man in colorful patterned jacket shown in profile outdoors with trees and partial building signage visible in the background.",
+   "likely_sources": [
+    "youtube",
+    "google_images"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": false
+  },
+  "i201": {
+   "description": "Grainy street sign reading \"Barcelona es pos\" with urban background, low-quality archive-style footage with warm tones.",
+   "likely_sources": [
+    "archive",
+    "google_images",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i202": {
+   "description": "Close-up interview shot of a man in a tan shirt speaking into a microphone with warm yellowish lighting against a neutral background.",
+   "likely_sources": [
+    "youtube",
+    "archive",
+    "pinterest"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i203": {
+   "description": "Person in purple and yellow sports attire (Lakers colors) in a blurred gym or arena setting with lower-quality video footage.",
+   "likely_sources": [
+    "youtube",
+    "archive",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i204": {
+   "description": "Red vehicle or machine with a black panel displaying \"Chicago Bulls\" text, well-composed and clearly framed.",
+   "likely_sources": [
+    "google_images",
+    "youtube",
+    "archive"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i205": {
+   "description": "Man in black Nike shirt standing indoors against a tiled wall with white subtitle text reading \"you never gonna be number 1 like me.\"",
+   "likely_sources": [
+    "youtube",
+    "pinterest",
+    "giphy"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "i206": {
+   "description": "Cinematic close-up of hands playing chess on a board with focused lighting and sharp detail on the pieces.",
+   "likely_sources": [
+    "pexels_video",
+    "youtube",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i207": {
+   "description": "Dark moody interior space with doorway, bright light source, and a pile of white material on the ground, theatrical lighting setup.",
+   "likely_sources": [
+    "youtube",
+    "pinterest",
+    "archive"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "i208": {
+   "description": "Black and white checkered grid pattern filled with small image thumbnails, with white text overlay reading \"just the willingness to let people watch you try.\"",
+   "likely_sources": [
+    "hyperframes",
+    "pinterest",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o001": {
+   "description": "Professional close-up of a man sitting on a beige couch in a modern interior, wearing a black jacket, gesturing while speaking with shelving visible in background.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video",
+    "pixabay_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o002": {
+   "description": "Two wolves on a forest floor with natural outdoor lighting, green vegetation, and woodland background in wildlife setting.",
+   "likely_sources": [
+    "pexels_video",
+    "pixabay_video",
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o003": {
+   "description": "Man lying upside down on a bed with eyes closed, wearing dark clothing, with warm golden light illuminating his face creating a moody, cinematic atmosphere.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o004": {
+   "description": "Nearly identical frame to o003, showing the same man in the same position with the same warm, dramatic lighting, appearing as a consecutive shot.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o005": {
+   "description": "Close-up of two people's hands and upper bodies in an intimate moment with dark background and pink/purple tinted dramatic lighting.",
+   "likely_sources": [
+    "youtube"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o006": {
+   "description": "Professional studio portrait of a man in a navy blazer against a bright white background with even studio lighting and direct eye contact.",
+   "likely_sources": [
+    "pexels_image"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o007": {
+   "description": "Professional studio portrait of a woman with long dark hair in a red t-shirt against a dark gray background with even studio lighting.",
+   "likely_sources": [
+    "pexels_image"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o008": {
+   "description": "Dark background with small orange text in the upper left corner discussing market concepts in a terminal-style interface.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o009": {
+   "description": "Dark background with orange text displaying a bulleted list about market concepts and model elements with dot-leaders connecting labels and values.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o010": {
+   "description": "Dark background with orange text showing a data diagram with bullet points for 'Input', 'rules', and 'data' in a terminal-style format.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o011": {
+   "description": "Dark background with orange text displaying an information diagram with 'Input', 'rules', and 'Output' connected to 'positions, trades'.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o012": {
+   "description": "Mostly dark screen with orange text visible in the upper left corner showing what appears to be a name or label in terminal-style formatting.",
+   "likely_sources": [
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o013": {
+   "description": "A dark title card displaying credits for 'Igor Tolchinsky' and location information in minimal yellow text overlay.",
+   "likely_sources": [
+    "youtube",
+    "hyperframes"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o014": {
+   "description": "Close-up of a man's face in contemplative pose looking downward in an interior setting; professional cinematic quality from a film or television scene.",
+   "likely_sources": [
+    "youtube",
+    "pinterest"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  },
+  "o015": {
+   "description": "Close-up of paper currency being held near a currency counting device with control buttons visible above, shot with warm lighting.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o016": {
+   "description": "A professional banknote counter machine actively processing greenish-tinted currency notes, showing the mechanical device in operation.",
+   "likely_sources": [
+    "youtube",
+    "pexels_video"
+   ],
+   "text_on_screen": false,
+   "overlay_extra": false
+  },
+  "o017": {
+   "description": "A computer terminal screen displaying orange-colored programming code or system text output against a black background.",
+   "likely_sources": [
+    "hyperframes",
+    "youtube"
+   ],
+   "text_on_screen": true,
+   "overlay_extra": true
+  }
+ },
+ "errors": [],
+ "cost_usd": 0.4263,
+ "wall_secs": 193.7,
+ "batch_secs": [
+  29.9,
+  33.1,
+  25.5,
+  37.7,
+  27.5,
+  45.5,
+  27.7,
+  13.2,
+  35.6,
+  32.2,
+  47.3,
+  33.1,
+  24.5,
+  26.4,
+  29.1,
+  67.8,
+  28.9,
+  18.1,
+  23.5,
+  35.0,
+  24.1,
+  39.1,
+  20.9
+ ]
+}
