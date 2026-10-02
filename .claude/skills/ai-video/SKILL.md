@@ -167,6 +167,8 @@ A shot with `"generate": {"character": "<name>"}` shows a character designed in 
 
 `requirements.look_style` is appended to every generated prompt, so realistic and cartoon sessions use the same commands.
 
+**Talking shots.** A shot with `"talk": true` is lip-synced on the same Kaggle run: `push` cuts that shot's slice of `audio.wav` and ships it with the job; after generating, the notebook loops the clip to the line's length and runs LatentSync 1.5 (fits a 16 GB T4). `apply` publishes the synced clip (`gen_<n>_talk.mp4`) or, when sync fails (no face, setup error), the silent clip with the reason in the feed row's `lipsync`. `--lipsync off` skips it. Lines under 0.5 s are not synced.
+
 ## Choosing a preset
 
 `presets.json` carries 22 of them with a `reliability` rating. Respect it:

@@ -317,6 +317,35 @@ def _scale_to(src: Path, dest: Path, model: dict) -> bool:
     return res.returncode == 0 and dest.exists() and dest.stat().st_size > 0
 
 
+def attach_talk_audio(session_dir: Path, slots: list[dict]) -> dict:
+    """Cut each talking shot's slice of the voiceover (16 kHz mono wav) to ship with the job."""
+    audio = session_dir / "audio.wav"
+    shots = {s.get("shot_number"): s for s in _load_plan(session_dir)}
+    tmp = session_dir / "assets" / "gen_seeds"
+    tmp.mkdir(parents=True, exist_ok=True)
+    report: dict = {}
+    for slot in slots:
+        if not slot.get("talk"):
+            continue
+        shot = shots.get(slot["shot_number"]) or {}
+        start, end = float(shot.get("start") or 0), float(shot.get("end") or 0)
+        if not audio.exists():
+            report[slot["shot_number"]] = "no audio.wav"
+            continue
+        if end - start < 0.5:
+            report[slot["shot_number"]] = "line under 0.5 s: no lip-sync"
+            continue
+        wav = tmp / f"talk_{slot['shot_number']}.wav"
+        res = _ffmpeg("-y", "-ss", f"{start:.3f}", "-t", f"{end - start:.3f}", "-i", str(audio), "-ac", "1", "-ar", "16000", str(wav))
+        if res.returncode != 0 or not wav.exists():
+            report[slot["shot_number"]] = "audio cut failed"
+            continue
+        slot["audio_b64"] = base64.b64encode(wav.read_bytes()).decode("ascii")
+        slot["audio_seconds"] = round(end - start, 3)
+        report[slot["shot_number"]] = f"{end - start:.2f} s"
+    return report
+
+
 def attach_character_seeds(session_dir: Path, slots: list[dict], model: dict) -> dict:
     """Seed each character shot from its LoRA keyframe (genchar render --session), else the picked
     design (ref.png), else describe the character in a text-to-video prompt (SPEC.md Part 4)."""
@@ -632,6 +661,55 @@ for slot in SLOTS:
     # Checkpoint after every slot: a kernel that times out at 12 h still keeps
     # whatever it finished, because `kernels output` reads /kaggle/working.
     finish(results, errors)
+
+# Lip-sync (SPEC.md Part 4): LatentSync 1.5 repaints the mouth of each talking
+# shot to its slice of the voiceover. 1.5 fits a 16 GB T4 (8 GB); 1.6 needs 18 GB.
+TALK = [s for s in SLOTS if s.get("audio_b64") and s["key"] in results]
+if TALK and MODEL.get("lipsync") == "latentsync":
+    _PIPES.clear(); gc.collect(); torch.cuda.empty_cache()
+    LS = "/kaggle/temp/LatentSync" if os.path.isdir("/kaggle/temp") else os.path.join(OUT, "LatentSync")
+    ready = ""
+    try:
+        if not os.path.isdir(LS):
+            subprocess.run(["git", "clone", "--depth", "1", "https://github.com/bytedance/LatentSync", LS], check=True)
+        # Keep Kaggle's CUDA torch: reinstalling it from the repo's pins wastes the session.
+        reqs = [l.strip() for l in open(os.path.join(LS, "requirements.txt")) if l.strip() and not l.lower().startswith("torch")]
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", *reqs], check=False)
+        from huggingface_hub import hf_hub_download
+        for f in ("latentsync_unet.pt", "whisper/tiny.pt"):
+            hf_hub_download("ByteDance/LatentSync-1.5", f, local_dir=os.path.join(LS, "checkpoints"))
+    except Exception as e:
+        ready = "lipsync setup failed: " + (str(e) or repr(e))[:200]
+    for slot in TALK:
+        key = slot["key"]
+        if ready:
+            results[key]["lipsync"] = ready; continue
+        try:
+            wav = os.path.join(OUT, "talk_" + key + ".wav")
+            open(wav, "wb").write(base64.b64decode(slot["audio_b64"]))
+            dur = float(slot["audio_seconds"])
+            # Loop the generated clip to the line's length so the synced clip covers the whole line.
+            looped = os.path.join(OUT, "loop_" + key + ".mp4")
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-i", os.path.join(OUT, results[key]["file"]),
+                            "-t", str(dur), "-an", looped], check=True)
+            synced = os.path.join(OUT, "gen_" + key + "_talk.mp4")
+            r = subprocess.run([sys.executable, "-m", "scripts.inference", "--unet_config_path", "configs/unet/stage2.yaml",
+                                "--inference_ckpt_path", "checkpoints/latentsync_unet.pt", "--inference_steps", "20",
+                                "--guidance_scale", "1.5", "--video_path", looped, "--audio_path", wav,
+                                "--video_out_path", synced], cwd=LS, capture_output=True, text=True)
+            if r.returncode == 0 and os.path.exists(synced):
+                results[key].update({"synced_file": os.path.basename(synced), "synced_seconds": dur, "lipsync": "ok"})
+                print("OK lipsync", key, flush=True)
+            else:
+                tail = (r.stderr or r.stdout).strip().splitlines()[-1:] or ["no output"]
+                results[key]["lipsync"] = ("no face found" if "face" in tail[0].lower() else "lipsync failed: " + tail[0])[:200]
+                print("ERR lipsync", key, results[key]["lipsync"], flush=True)
+            for f in (wav, looped):
+                os.path.exists(f) and os.remove(f)
+        except Exception as e:
+            results[key]["lipsync"] = "lipsync failed: " + (str(e) or repr(e))[:200]
+        gc.collect(); torch.cuda.empty_cache()
+        finish(results, errors)
 '''
 
 
@@ -643,7 +721,8 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     template rots.
     """
     lean = [
-        {k: s[k] for k in ("key", "shot_number", "preset", "prompt", "segments", "seed_b64")}
+        {k: s.get(k, "") for k in ("key", "shot_number", "preset", "prompt", "segments", "seed_b64",
+                                    "audio_b64", "audio_seconds")}
         for s in slots
     ]
     return (
@@ -682,11 +761,13 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
     applied, failed, lines = [], [], []
 
     for key, info in sorted(results.items(), key=lambda kv: str(kv[0])):
-        src = out_dir / info.get("file", f"gen_{key}.mp4")
+        synced = out_dir / info.get("synced_file", "") if info.get("synced_file") else None
+        talk = bool(synced and synced.exists() and synced.stat().st_size > 0)
+        src = synced if talk else out_dir / info.get("file", f"gen_{key}.mp4")
         if not src.exists() or src.stat().st_size == 0:
             failed.append({"key": key, "why": "clip missing from kernel output"})
             continue
-        dest = pool / f"gen_{key}.mp4"
+        dest = pool / f"gen_{key}{'_talk' if talk else ''}.mp4"
         dest.write_bytes(src.read_bytes())
         # Match the assets skill: the feed carries repo-root-relative paths, so a
         # session folder stays portable. Fall back to absolute if it's outside.
@@ -709,6 +790,8 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
         # live run, where frame 120 of 121 had smeared into incoherence while
         # frame 60 was clean. Cutting to the shot length discards the drifted
         # tail for free. Only ever trims; a shot longer than the clip keeps all.
+        if talk:
+            clip_seconds = float(info.get("synced_seconds") or clip_seconds)
         out_point = clip_seconds
         want = _shot_durations(session_dir).get(shot_number) or 0.0
         if want and clip_seconds and want < clip_seconds:
@@ -727,9 +810,10 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
             "visual_verdict": "",
             "visual_confidence": 0,
             "error": "",
+            **({"lipsync": info["lipsync"]} if info.get("lipsync") else {}),
         })
         applied.append({"key": key, "file": feed_path, "seconds": out_point,
-                        "preset": info.get("preset", "")})
+                        "preset": info.get("preset", ""), **({"lipsync": info["lipsync"]} if info.get("lipsync") else {})})
 
     if lines:
         with open(feed, "a", encoding="utf-8") as fh:
@@ -794,6 +878,8 @@ def cmd_push(args: argparse.Namespace) -> None:
         return
 
     characters = attach_character_seeds(session_dir, slots, model)
+    model["lipsync"] = args.lipsync
+    talking = attach_talk_audio(session_dir, slots) if args.lipsync != "off" else {}
     seeding = {"seeded": 0, "skipped": []}
     if args.seed_from_assets:
         seeding = attach_seed_images(session_dir, slots, model)
@@ -816,7 +902,7 @@ def cmd_push(args: argparse.Namespace) -> None:
 
     if args.dry_run:
         print(json.dumps({"ok": True, "dry_run": True, "kernel": kernel_id,
-                          "count": len(slots), "notebook_bytes": size,
+                          "count": len(slots), "notebook_bytes": size, "talking": talking,
                           "slots": [{k: s[k] for k in ("key", "preset", "prompt", "segments")}
                                     for s in slots],
                           "seeding": seeding}, ensure_ascii=False))
@@ -830,6 +916,7 @@ def cmd_push(args: argparse.Namespace) -> None:
         "count": len(slots),
         "slots": [{k: s[k] for k in ("key", "shot_number", "preset", "segments")} for s in slots],
         "seeding": seeding,
+        "talking": talking,
     }
     _state_path(session_dir).write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(json.dumps({
@@ -898,6 +985,8 @@ def main() -> None:
     p.add_argument("--seed-from-assets", action="store_true",
                    help="Image-to-video: seed each slot from the frame already fetched for that shot")
     p.add_argument("--dry-run", action="store_true", help="Build and report, don't push")
+    p.add_argument("--lipsync", default="latentsync", choices=["latentsync", "off"],
+                   help="Lip-sync shots marked generate.talk with LatentSync 1.5 (SPEC.md Part 4)")
     for flag in ("frames", "fps", "width", "height", "steps"):
         p.add_argument(f"--{flag}", type=int, default=0)
     p.add_argument("--guidance", type=float, default=0.0,

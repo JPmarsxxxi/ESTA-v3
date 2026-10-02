@@ -573,7 +573,8 @@ Changed (v2 copies; each logged in `PORTING.md`):
 - `tools/genvideo/run.py`:
   - **Character seeding:** a shot whose `visual.generate.character` is `<name>` is generated image-to-video from its LoRA keyframe `characters/<name>/render/<session>__s<n>.png`, else from `characters/<name>/ref.png`, else text-to-video with the character's `desc` (scaled and cropped like `attach_seed_images`, ahead of any `--seed-from-assets` frame). The prompt gets the session's `look_style`. The push report says which seed each shot used.
   - **Lip-sync step:** after generation, every shot with `visual.generate.talk: true` is lip-synced on the same Kaggle run with LatentSync 1.5, against that shot's slice of `audio.wav`. The slice is cut locally with ffmpeg and uploaded with the job. The synced clip is the one `apply` writes; a failed sync keeps the silent clip and records why.
-  - New CLI flag `--lipsync latentsync|musetalk|off` (default `latentsync`).
+  - New CLI flag `--lipsync latentsync|off` (default `latentsync`). MuseTalk 1.5 stays the named next option if LatentSync proves unusable on Kaggle; it is not built.
+  - The LatentSync setup in the notebook (clone, requirements minus torch, `ByteDance/LatentSync-1.5` checkpoints, `scripts.inference` with `configs/unet/stage2.yaml`) follows the upstream README and is unverified until the first Kaggle run. Any failure there is recorded per shot and keeps the silent clip.
 - `.claude/skills/plan/SKILL.md`: when `requirements.look` is set, AI shots carry `generate.character` (when a named character is on screen) and `generate.talk: true` (when that character says the line).
 - `.claude/skills/ai-video/SKILL.md`: documents `character`, `talk` and `--lipsync`.
 - `tools/requirements` (schema) and the `requirements` skill: optional `look: realistic|cartoon|anime` and `look_style` (free text, e.g. "flat bold-outline yellow-skinned sitcom cartoon").
