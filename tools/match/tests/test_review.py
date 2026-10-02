@@ -96,3 +96,12 @@ def test_animation_and_generate_preset_shown(tmp_path):
     (s / "plan.json").write_text(json.dumps(plan))
     r1, r2 = rows(RV.write(s, "final", report).read_text())
     assert "Animates: types_on, fast" in r1 and "generated: crash_zoom_in" in r2
+
+
+def test_generation_and_lipsync_failures_flagged(tmp_path):
+    s, report = session(tmp_path)
+    (s / "assets_progress.jsonl").write_text(json.dumps({"shot_number": 2, "ok": True, "file": "g.mp4", "source": "genvideo",
+                                                         "lipsync": "no face found"}) + "\n")
+    (s / "gen_video.json").write_text(json.dumps({"errors": {"1": "CUDA out of memory"}}))
+    r1, r2 = rows(RV.write(s, "final", report).read_text())
+    assert "generation failed: CUDA out of memory" in r1 and "lip-sync: no face found" in r2

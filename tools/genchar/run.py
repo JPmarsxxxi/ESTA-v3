@@ -306,11 +306,14 @@ def push_job(name: str, jobs: list[dict], model: dict, mode: str,
 def cmd_explore(args: argparse.Namespace) -> None:
     if args.look:
         args.model = LOOK_MODEL[args.look]
+    # The look is folded into the stored desc so the sheet, the LoRA captions, every render and genvideo's
+    # text fallback all draw the character in it, not just the session's scenes.
+    desc = ", ".join(x for x in (args.desc.strip().rstrip(","), args.look_style.strip()) if x)
     model = dict(MODELS[args.model])
-    jobs = build_jobs_explore(args.desc, args.count, args.seed)
+    jobs = build_jobs_explore(desc, args.count, args.seed)
     res = push_job(args.name, jobs, model, "explore", args.accelerator, args.dry_run)
     if not args.dry_run and res["ok"]:
-        save_char(args.name, {"name": args.name, "desc": args.desc, "model": args.model,
+        save_char(args.name, {"name": args.name, "desc": desc, "model": args.model,
                               "stage": "explore", "kernel": res["kernel"],
                               "base_seed": args.seed, "chosen_seed": None})
     print(json.dumps(res, ensure_ascii=False))
@@ -698,6 +701,8 @@ def session_scenes(name: str, session: Path) -> list[tuple[str, str]]:
         look_style = str(json.loads((session / "requirements.json").read_text(encoding="utf-8")).get("look_style") or "")
     except Exception:
         look_style = ""
+    if look_style and look_style in load_char(name).get("desc", ""):
+        look_style = ""
     out = []
     for shot in plan.get("shots", []):
         v = shot.get("visual") or {}
@@ -903,6 +908,8 @@ def main() -> None:
     e.add_argument("--model", default=DEFAULT_MODEL, choices=list(MODELS))
     e.add_argument("--look", default="", choices=["", *LOOK_MODEL],
                    help="The session's requirements.look; picks the model (overrides --model)")
+    e.add_argument("--look-style", default="",
+                   help="The session's requirements.look_style; baked into the character's design and LoRA")
     e.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))
     e.add_argument("--dry-run", action="store_true")
 

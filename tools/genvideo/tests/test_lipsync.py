@@ -23,9 +23,10 @@ def session(tmp_path, monkeypatch):
     s = tmp_path / "talk-video"
     s.mkdir()
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "sine=frequency=220:duration=10", str(s / "audio.wav")], check=True)
-    shots = [{"shot_number": 1, "start": 1.0, "end": 4.0, "visual": {"type": "AI_VIDEO", "desc": "a", "generate": {"talk": True}}},
-             {"shot_number": 2, "start": 4.0, "end": 4.3, "visual": {"type": "AI_VIDEO", "desc": "b", "generate": {"talk": True}}},
-             {"shot_number": 3, "start": 4.3, "end": 7.0, "visual": {"type": "AI_VIDEO", "desc": "c"}}]
+    shots = [{"shot_number": 1, "start": 1.0, "end": 4.0, "audio": "you never saw it coming", "visual": {"type": "AI_VIDEO", "desc": "a", "generate": {"talk": True}}},
+             {"shot_number": 2, "start": 4.0, "end": 4.3, "audio": "hey", "visual": {"type": "AI_VIDEO", "desc": "b", "generate": {"talk": True}}},
+             {"shot_number": 3, "start": 4.3, "end": 7.0, "visual": {"type": "AI_VIDEO", "desc": "c"}},
+             {"shot_number": 4, "start": 7.0, "end": 9.0, "audio": " ", "visual": {"type": "AI_VIDEO", "desc": "d", "generate": {"talk": True}}}]
     (s / "plan.json").write_text(json.dumps({"shots": shots}))
     return s
 
@@ -49,10 +50,10 @@ def notebook(session):
 
 def test_talking_slices_ship_with_the_job(session, monkeypatch, capsys):
     out = push(session, "latentsync", monkeypatch, capsys)
-    assert out["talking"] == {"1": "3.00 s", "2": "line under 0.5 s: no lip-sync"}
+    assert out["talking"] == {"1": "3.00 s", "2": "line under 0.5 s: no lip-sync", "4": "no spoken line: no lip-sync"}
     code, slots, model = notebook(session)
     by = {s["key"]: s for s in slots}
-    assert by["1"]["audio_b64"] and by["1"]["audio_seconds"] == 3.0 and not by["2"]["audio_b64"] and not by["3"]["audio_b64"]
+    assert by["1"]["audio_b64"] and by["1"]["audio_seconds"] == 3.0 and not by["2"]["audio_b64"] and not by["3"]["audio_b64"] and not by["4"]["audio_b64"]
     assert model["lipsync"] == "latentsync" and "LatentSync-1.5" in code
 
 

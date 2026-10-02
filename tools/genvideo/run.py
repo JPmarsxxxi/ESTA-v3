@@ -332,6 +332,9 @@ def attach_talk_audio(session_dir: Path, slots: list[dict]) -> dict:
         if not audio.exists():
             report[slot["shot_number"]] = "no audio.wav"
             continue
+        if not str(shot.get("audio") or "").strip():
+            report[slot["shot_number"]] = "no spoken line: no lip-sync"
+            continue
         if end - start < 0.5:
             report[slot["shot_number"]] = "line under 0.5 s: no lip-sync"
             continue
@@ -430,6 +433,10 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
     report = {"seeded": 0, "skipped": []}
     for slot in slots:
         if slot["seed_b64"]:
+            continue
+        if slot.get("character"):
+            # A stock frame would swap the character's face for whoever is in the footage.
+            report["skipped"].append({"shot": slot["shot_number"], "why": "character shot: no stock seed"})
             continue
         src, in_point = _latest_asset_for_shot(session_dir, slot["shot_number"])
         if not src or not src.exists():

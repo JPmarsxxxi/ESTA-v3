@@ -65,6 +65,7 @@ def render(session: Path, stage: str, report: dict) -> str:
     inspo = _inspo(session)
     failing = _failing(session)
     assets = _asset_rows(session)
+    gen_errors = (read_json(session / "gen_video.json", {}) or {}).get("errors") or {}
     pool: dict = {}
     rows = []
     for r in report.get("shots", []):
@@ -84,6 +85,10 @@ def render(session: Path, stage: str, report: dict) -> str:
             flags.append("short_clip: no candidate long enough")
         if a.get("speed") or (a.get("repeat") or 1) > 1:
             flags.append(f"filled: speed {a.get('speed') or 1}x, repeat {a.get('repeat') or 1}")
+        if gen_errors.get(str(n)):
+            flags.append(f"generation failed: {gen_errors[str(n)]}")
+        if a.get("lipsync") and a["lipsync"] != "ok":
+            flags.append(f"lip-sync: {a['lipsync']}")
         if v.get("queries_stale"):
             flags.append("queries changed, refetch pending")
         if ps.get("locked"):

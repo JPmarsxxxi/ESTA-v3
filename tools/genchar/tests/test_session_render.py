@@ -43,3 +43,19 @@ def test_render_session_keys_and_prompts(tmp_path, monkeypatch, capsys):
     assert out["keys"] == ["my-video-2026-10-02__s1", "my-video-2026-10-02__s3"]
     assert "bald man, white shirt, on the couch, wide shot, flat bold-outline sitcom cartoon" in out["sample"]
     assert out["trigger"] in out["sample"]
+
+
+def test_look_style_baked_into_design_once(tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(C, "CHARACTERS_DIR", tmp_path / "characters")
+    monkeypatch.setattr(C, "push_job", lambda name, jobs, model, mode, acc, dry: {"ok": True, "kernel": "k", "prompt": jobs[0]["prompt"],
+                                                                                  "model": model["repo"]})
+    C.cmd_explore(argparse.Namespace(name="Nova", desc="teen girl, short pink hair", count=2, seed=1, model="sdxl",
+                                     look="cartoon", look_style="comic halftone 3D", accelerator="t4", dry_run=False))
+    out = json.loads(capsys.readouterr().out)
+    assert "teen girl, short pink hair, comic halftone 3D" in out["prompt"]
+    assert C.load_char("Nova")["desc"] == "teen girl, short pink hair, comic halftone 3D"
+    session = tmp_path / "v"
+    session.mkdir()
+    (session / "plan.json").write_text(json.dumps({"shots": [{"shot_number": 1, "visual": {"desc": "on a roof", "generate": {"character": "Nova"}}}]}))
+    (session / "requirements.json").write_text(json.dumps({"look_style": "comic halftone 3D"}))
+    assert C.session_scenes("Nova", session) == [("v__s1", "on a roof")]
