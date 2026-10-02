@@ -340,7 +340,8 @@ def _camera_keyframes(camera: dict, duration: float, shot_n: int) -> list[dict]:
         while t <= end:
             key("position.x", t, j if k % 2 else -j)
             key("position.y", t, -j / 2 if k % 3 else j / 2)
-            key("rotation", t, (0.5 * amt) if k % 2 else -(0.5 * amt))
+            # Whole degrees: the editor snaps rotation to its 1-degree step.
+            key("rotation", t, (1 + round(amt)) * (1 if k % 2 else -1))
             t, k = t + 0.08, k + 1
     return kfs
 

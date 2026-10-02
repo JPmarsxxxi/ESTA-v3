@@ -59,3 +59,23 @@ def test_punch_in_and_shake_from_steps():
 def test_fade_kind_white_and_flat():
     assert fade_kind([250, 200, 150]) == "white"
     assert fade_kind([40, 41, 40]) == "none"
+
+
+def test_punch_in_inside_a_long_shot():
+    # Samples 0.5 s apart: one step holds an 18 % jump, the rest barely move.
+    steps = [(1.0, 0, 0), (1.01, 0, 0), (1.18, 0, 0), (1.0, 0, 0), (1.01, 0, 0)]
+    assert classify(steps, dt=0.5)["move"] == "punch_in"
+    # A smooth push of the same total zoom is a push, not a punch.
+    assert classify([(1.045, 0, 0)] * 5, dt=0.5)["move"] == "push_in"
+
+
+def test_punch_clip(tmp_path):
+    still = tmp_path / "still.png"
+    clip = tmp_path / "punch.mp4"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "mandelbrot=size=1920x1080", "-frames:v", "1", str(still)], check=True)
+    # 6 s shot: still until 3 s, then a 20 % zoom in 4 frames, then still.
+    z = "if(lt(on,75),1,if(lt(on,79),1+0.05*(on-74),1.2))"
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-i", str(still), "-vf",
+                    f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=640x360:fps=25", "-frames:v", "150",
+                    "-pix_fmt", "yuv420p", str(clip)], check=True)
+    assert measure(clip, 0.0, 6.0, 25.0)["move"] == "punch_in"

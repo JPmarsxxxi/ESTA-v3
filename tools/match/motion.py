@@ -21,6 +21,7 @@ PUSH = 0.04        # net scale change that reads as a push
 PAN = 0.03         # net translation, share of the frame, that reads as a pan or tilt
 PUNCH = 0.10       # one-step scale jump that reads as a punch-in
 PUNCH_WINDOW = 0.3
+PUNCH_SHARE = 0.6
 SHAKE = 0.02       # mean per-step translation with little net movement
 DARK, BRIGHT = 8, 247
 FADE_SECONDS = 0.5   # fades often hold black a few frames before the cut
@@ -62,8 +63,11 @@ def classify(steps: list[tuple[float, float, float] | None], dt: float) -> dict:
     scale = math.prod(s[0] for s in good)
     dx, dy = sum(s[1] for s in good), sum(s[2] for s in good)
     jitter = sum(math.hypot(s[1], s[2]) for s in good) / len(good)
-    if dt <= PUNCH_WINDOW and max(s[0] for s in good) > 1 + PUNCH:
-        return {"move": "punch_in", "amount": round(min(1.0, (max(s[0] for s in good) - 1) / 0.3), 3)}
+    jump = max(s[0] for s in good)
+    # A punch is one sudden step: within the window when samples are that close, otherwise a single step
+    # holding most of the shot's zoom (a smooth push spreads its zoom over every step).
+    if jump > 1 + PUNCH and (dt <= PUNCH_WINDOW or (scale > 1 and math.log(jump) >= PUNCH_SHARE * math.log(scale))):
+        return {"move": "punch_in", "amount": round(min(1.0, (jump - 1) / 0.3), 3)}
     if abs(scale - 1) > PUSH and abs(scale - 1) >= max(abs(dx), abs(dy)):
         return {"move": "push_in" if scale > 1 else "push_out", "amount": round(min(1.0, abs(scale - 1) / 0.3), 3)}
     if max(abs(dx), abs(dy)) > PAN:

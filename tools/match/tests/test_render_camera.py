@@ -79,3 +79,9 @@ def test_very_high_energy_hard_cuts(tmp_path):
     _, project = build(tmp_path, [shot(1, 0, 2), shot(2, 2, 4)], [(1, "video", {}), (2, "video", {})])
     main = next(t for t in project["timeline"]["tracks"] if t["name"] == "Main")
     assert main.get("transitions", []) == []
+
+
+def test_shake_rotation_in_whole_degrees(tmp_path):
+    clips, _ = build(tmp_path, [shot(1, 0, 2, camera={"move": "shake", "amount": 0.3})], [(1, "video", {})])
+    rot = [k["value"] for k in clips["clip-shot-1"]["keyframes"] if k["property"] == "rotation"]
+    assert rot and all(float(v).is_integer() and v != 0 for v in rot)
