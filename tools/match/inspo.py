@@ -153,12 +153,20 @@ def build_profile(src: dict, emb: Embedder, style_texts: list[str], log=print) -
 
 
 def describe_profile(d: Path, log=print) -> dict:
-    """Haiku describes every shot from its keyframe and the words spoken over it (SPEC.md Part 3, M6.1)."""
+    """Haiku describes every shot from its keyframe and the words spoken over it (SPEC.md Part 3, M6.1),
+    then how each graphic shot animates (M6.6)."""
+    prof = read_json(d / "profile.json")
+    if not (prof.get("tags_status") == "done" and all("content" in s.get("tags", {}) for s in prof["shots"])):
+        _describe(d, prof, log)
+    animate_profile(d, prof, log)
+    prof["complete"] = prof["tags_status"] == "done"
+    write_json(d / "profile.json", prof)
+    return {"profile": d.name, "status": prof["tags_status"], **prof.get("describe", {}), "error": prof.get("tags_error", "")}
+
+
+def _describe(d: Path, prof: dict, log) -> None:
     from tools.match.describe import describe_shots
     from tools.match.speech import profile_words, words_in
-    prof = read_json(d / "profile.json")
-    if prof.get("tags_status") == "done" and all("content" in s.get("tags", {}) for s in prof["shots"]):
-        return {"profile": d.name, "status": "done", **prof.get("describe", {}), "error": ""}
     try:
         words = profile_words(d, log)
     except Exception as e:  # noqa: BLE001 - no whisper: describe from the images alone
@@ -181,9 +189,48 @@ def describe_profile(d: Path, log=print) -> dict:
     except Exception as e:  # noqa: BLE001 - claude missing or failing: profile stays usable without tags
         prof["tags_status"] = "pending"
         prof["tags_error"] = str(e)[:300]
-    prof["complete"] = prof["tags_status"] == "done"
-    write_json(d / "profile.json", prof)
-    return {"profile": d.name, "status": prof["tags_status"], **prof.get("describe", {}), "error": prof["tags_error"]}
+
+
+def build_strip(video: Path, shot: dict, out: Path, width: int = 256) -> Path | None:
+    """Frames at 20, 50 and 80 % of the shot side by side: one image that shows how a graphic moves."""
+    from PIL import Image
+    span = shot["end"] - shot["start"]
+    frames = frames_at(video, [shot["start"] + span * f for f in (0.2, 0.5, 0.8)])
+    if len(frames) < 3:
+        return None
+    ims = [Image.fromarray(f) for f in frames]
+    ims = [im.resize((width, max(1, round(im.height * width / im.width)))) for im in ims]
+    strip = Image.new("RGB", (width * 3, ims[0].height))
+    for i, im in enumerate(ims):
+        strip.paste(im, (i * width, 0))
+    out.parent.mkdir(parents=True, exist_ok=True)
+    strip.save(out, quality=85)
+    return out
+
+
+def animate_profile(d: Path, prof: dict, log=print) -> None:
+    """How each graphic shot animates (SPEC.md Part 3, decision 16): a strip per shot, read by Haiku."""
+    from tools.match.describe import animate_shots
+    todo = [s for s in prof["shots"] if (s.get("tags") or {}).get("kind") == "graphic" and "animation" not in s["tags"]]
+    if not todo:
+        return
+    items = []
+    for s in todo:
+        rel = f"strips/{s['id']}.jpg"
+        if (d / rel).exists() or build_strip(d / "video.mp4", s, d / rel):
+            s["strip"] = rel
+            items.append({"id": s["id"], "image": d / rel})
+    try:
+        res = animate_shots(items, log)
+    except Exception as e:  # noqa: BLE001 - graphics still get built from the description alone
+        prof["tags_error"] = (prof.get("tags_error", "") + f"; animate: {e}")[:300]
+        return
+    for s in todo:
+        if s["id"] in res["answers"]:
+            s["tags"]["animation"] = res["answers"][s["id"]]
+    if res["errors"]:
+        prof["tags_error"] = (prof.get("tags_error", "") + "; animate: " + "; ".join(res["errors"]))[:300]
+    prof.setdefault("describe", {})["animate_cost_usd"] = res["cost_usd"]
 
 
 def profile(session: Path, log=print) -> dict:

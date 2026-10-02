@@ -81,3 +81,18 @@ def test_two_hundred_shots_stay_under_5mb(tmp_path):
     for i, r in enumerate(report["shots"]):
         r["keyframe"] = str(frames[-(i % len(frames)) - 1])
     assert RV.write(s, "final", report).stat().st_size < 5 * 1024 * 1024
+
+
+def test_animation_and_generate_preset_shown(tmp_path):
+    s, report = session(tmp_path)
+    prof = json.loads((s / "inspo_profiles.json").read_text())["profiles"][0]
+    p = Path(prof) / "profile.json"
+    data = json.loads(p.read_text())
+    data["shots"][0]["tags"]["animation"] = {"reveal": "types_on", "speed": "fast"}
+    p.write_text(json.dumps(data))
+    plan = json.loads((s / "plan.json").read_text())
+    plan["shots"][1]["visual"]["type"] = "AI_VIDEO"
+    plan["shots"][1]["visual"]["generate"] = {"preset": "crash_zoom_in"}
+    (s / "plan.json").write_text(json.dumps(plan))
+    r1, r2 = rows(RV.write(s, "final", report).read_text())
+    assert "Animates: types_on, fast" in r1 and "generated: crash_zoom_in" in r2

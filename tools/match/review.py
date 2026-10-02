@@ -93,6 +93,9 @@ def render(session: Path, stage: str, report: dict) -> str:
         theirs = _img((ref or {}).get("keyframe_path"), pool) or f'<div class="ph">{"no ref_shot (plan not mapped)" if not ref else "no keyframe"}</div>'
         cam = (ps.get("camera") or {}).get("move")
         moves = f'{cam or "none"} (ref: {(ref or {}).get("motion", {}).get("move", "?")})' if ref else (cam or "none")
+        anim = tags.get("animation") or {}
+        anim_line = f"<br><i>Animates: {esc(anim.get('reveal', ''))}, {esc(anim.get('speed', ''))}</i>" if anim else ""
+        gen = ps.get("generate") or v.get("generate") or {}
         off = f" ({(dur - target) / target:+.0%})" if target else ""
         rows.append(f"""<section class="row{' bad' if flags and failing.get(n) else ''}">
   <header><b>Shot {n}</b> <span>{float(ps.get('start', 0) or 0):.2f}-{float(ps.get('end', 0) or 0):.2f} s</span>
@@ -100,9 +103,9 @@ def render(session: Path, stage: str, report: dict) -> str:
   <p class="said">&ldquo;{esc(ps.get('audio', '') or '')}&rdquo;</p>
   <div class="pair">
     <figure>{ours}<figcaption><b>Ours</b> · {esc(KIND_OF_TYPE.get(v.get('type', ''), r.get('kind', '')))}<br>{esc(v.get('desc', '') or r.get('desc', ''))}</figcaption></figure>
-    <figure>{theirs}<figcaption><b>Inspo{f" {esc(ps.get('ref_shot', ''))}" if ref else ''}</b>{f" · {esc(tags.get('kind', ''))} · {esc(tags.get('content', ''))}" if tags else ''}<br>{esc(tags.get('description', ''))}</figcaption></figure>
+    <figure>{theirs}<figcaption><b>Inspo{f" {esc(ps.get('ref_shot', ''))}" if ref else ''}</b>{f" · {esc(tags.get('kind', ''))} · {esc(tags.get('content', ''))}" if tags else ''}<br>{esc(tags.get('description', ''))}{anim_line}</figcaption></figure>
   </div>
-  <p class="meta">Camera: {esc(moves)}{' · ' + esc(a.get('source', '')) if a.get('source') else ''}</p>
+  <p class="meta">Camera: {esc(moves)}{' · generated: ' + esc(gen.get('preset', '')) if gen else ''}{' · ' + esc(a.get('source', '')) if a.get('source') else ''}</p>
   {'<ul class="flags">' + ''.join(f'<li>{esc(f)}</li>' for f in flags) + '</ul>' if flags else ''}
 </section>""")
     sections = " · ".join(f"{k} {v['score'] if v.get('score') is not None else 'n/a'}" for k, v in (report.get("sections") or {}).items())

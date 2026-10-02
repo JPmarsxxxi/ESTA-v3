@@ -93,3 +93,42 @@ def test_failing_batch_reports_error(tmp_path, monkeypatch):
 def test_normalise_repairs_bad_fields():
     a = D.normalise({"kind": "photo", "content": "??", "likely_sources": ["pexels_image"]})
     assert a["kind"] == "still" and a["content"] == "background" and a["text_extra"] is False
+
+
+def _anim_stub(calls):
+    def call(argv, message):
+        calls.append(json.loads(message))
+        ids = [c["text"].split()[1] for c in json.loads(message)["message"]["content"]
+               if c["type"] == "text" and c["text"].startswith("Shot ")]
+        ans = {"reveal": "types_on", "speed": "FAST", "layout": "left column", "palette": "amber on black",
+               "type_style": "monospace", "notes": "block cursor"}
+        return json.dumps({"type": "result", "total_cost_usd": 0.01, "result": json.dumps({i: ans for i in ids})})
+    return call
+
+
+def test_animate_pass_on_graphic_shots(tmp_path, monkeypatch):
+    import subprocess
+    from tools.match import inspo as I
+    monkeypatch.setattr(D, "CACHE", tmp_path / "describe.json")
+    d = tmp_path / "prof"
+    d.mkdir()
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", "testsrc=duration=30:size=320x180:rate=10",
+                    str(d / "video.mp4")], check=True)
+    shots = [{"id": f"s{i}", "start": 2.0 * i, "end": 2.0 * i + 2,
+              "tags": {"kind": "graphic" if i < 12 else "footage", "content": "ui_chart"}} for i in range(14)]
+    prof = {"tags_status": "done", "shots": shots}
+    (d / "profile.json").write_text(json.dumps(prof))
+    calls = []
+    monkeypatch.setattr(D, "_call", _anim_stub(calls))
+    I.animate_profile(d, prof, log=lambda m: None)
+    assert len(calls) == 2  # 12 graphic shots, 10 per call; footage shots get no strip
+    a = shots[0]["tags"]["animation"]
+    assert a["reveal"] == "types_on" and a["speed"] == "fast" and a["type_style"] == "monospace"
+    assert (d / shots[0]["strip"]).exists() and "animation" not in shots[12]["tags"] and "strip" not in shots[12]
+    from PIL import Image
+    w, h = Image.open(d / shots[0]["strip"]).size
+    assert w == 768 and h == 144
+    for s in shots:
+        s["tags"].pop("animation", None)
+    I.animate_profile(d, prof, log=lambda m: None)
+    assert len(calls) == 2 and shots[0]["tags"]["animation"]["reveal"] == "types_on"  # cached: no new calls

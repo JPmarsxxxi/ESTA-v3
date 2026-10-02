@@ -22,6 +22,9 @@ from tools.match.common import REPO_ROOT, read_json, utf8_stdout, write_json  # 
 ALT_WINDOW = 3
 MIN_INSPO_SHOT = 0.1   # under ~2 frames: a flash, merged into its neighbour
 LAST_MERGE = 0.4       # a last slot under this share of its target joins the previous one
+# The inspo shot's measured move as an ai-video preset (tools/genvideo/presets.json), for refs that look generated.
+AI_PRESET = {"push_in": "push_in", "push_out": "pull_back", "punch_in": "crash_zoom_in", "pan_left": "pan_left",
+             "pan_right": "pan_right", "tilt_up": "tilt_up", "tilt_down": "tilt_down", "shake": "handheld", "static": "static"}
 
 
 def load_words(ts: dict) -> list[dict]:
@@ -63,7 +66,8 @@ def inspo_shots(session: Path) -> list[dict]:
     for rel in idx.get("profiles", []):
         for s in (read_json(REPO_ROOT / rel / "profile.json", {}) or {}).get("shots", []):
             row = {"id": s["id"], "dur": float(s["dur"]), "tags": s.get("tags") or {}, "motion": s.get("motion") or {},
-                   "keyframe": str(Path(rel) / s["keyframe"]).replace("\\", "/") if s.get("keyframe") else ""}
+                   "keyframe": str(Path(rel) / s["keyframe"]).replace("\\", "/") if s.get("keyframe") else "",
+                   "strip": str(Path(rel) / s["strip"]).replace("\\", "/") if s.get("strip") else ""}
             if row["dur"] < MIN_INSPO_SHOT and shots:
                 shots[-1]["dur"] += row["dur"]
             else:
@@ -119,7 +123,9 @@ def build(session: Path) -> dict:
     refs = {s["id"]: {"dur": s["dur"], "kind": s["tags"].get("kind", ""), "content": s["tags"].get("content", ""),
                       "description": s["tags"].get("description", ""), "sourcing_hint": s["tags"].get("sourcing_hint", ""),
                       "text_extra": s["tags"].get("text_extra"), "overlay_extra": s["tags"].get("overlay_extra"),
-                      "motion": s["motion"], "keyframe": s["keyframe"]}
+                      "likely_sources": s["tags"].get("likely_sources") or [], "animation": s["tags"].get("animation"),
+                      "motion": s["motion"], "ai_preset": AI_PRESET.get(s["motion"].get("move", "static"), "static"),
+                      "keyframe": s["keyframe"], "strip": s["strip"]}
             for s in inspo if s["id"] in used}
     durs = sorted(s["dur"] for s in slots)
     out = {"session": session.name, "voice_end": end, "inspo_total": round(sum(s["dur"] for s in inspo), 3),

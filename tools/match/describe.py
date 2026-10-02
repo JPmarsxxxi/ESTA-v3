@@ -43,6 +43,17 @@ SOURCES = {
     "ai_video": "AI-generated video (smooth surreal motion, synthetic look)",
 }
 STILL_SOURCES = {"pexels_image", "pixabay_image", "pinterest", "wikimedia", "google_images"}
+ANIMATE_VERSION = 1
+REVEALS = {"types_on", "counts_up", "draws_on", "slides_in", "pops_in", "fades_in", "scrolls", "static", "other"}
+ANIMATE_PROMPT = (
+    "Each strip above shows one motion-graphic shot at three moments, left to right (early, middle, late). "
+    "Describe how it animates so an editor could rebuild the same treatment with different content. For every shot answer:\n"
+    '{"reveal": "types_on" (text appears letter by letter) | "counts_up" (a number rises) | "draws_on" (lines or a chart '
+    'draw themselves) | "slides_in" | "pops_in" (elements appear with a scale bounce) | "fades_in" | "scrolls" | "static" '
+    '(nothing changes) | "other", "speed": "slow" | "medium" | "fast", "layout": "where things sit in the frame", '
+    '"palette": "the main colours", "type_style": "font feel: monospace, bold sans, serif, handwritten...", '
+    '"notes": "one sentence on anything else distinctive (cursor, glow, grid, sound-wave, etc.)"}'
+)
 
 SYSTEM = "You describe video keyframes for an editor. Reply with only the requested JSON."
 PROMPT = (
@@ -64,10 +75,6 @@ PROMPT = (
     "show. Stock sites hold generic clean clips; youtube is for specific real people, events, shows and "
     "recognisable footage.\nSources:\n" + "\n".join(f"- {k}: {v}" for k, v in SOURCES.items())
 )
-
-
-def _key(image: Path) -> str:
-    return f"{hashlib.sha1(Path(image).read_bytes()).hexdigest()[:16]}|v{PROMPT_VERSION}"
 
 
 def _jpeg_b64(image: Path, max_side: int) -> str:
@@ -145,18 +152,18 @@ def run_batch(batch: list[dict], cfg: dict) -> dict:
             "cost": res["cost"], "secs": res["secs"], "attempts": res["attempts"]}
 
 
-def describe_shots(items: list[dict], log=print) -> dict:
-    """items: [{"id", "image": Path, "words": str}] -> {"answers": {id: answer}, "cost_usd", "wall_secs", "errors"}."""
+def _cached(items: list[dict], tag: str, run, log) -> dict:
+    """Batch the uncached items through `run`, cache answers under '<image sha>|<tag>'."""
     cfg = match_config()["describe"]
     cache = read_json(CACHE, {}) or {}
-    keys = {it["id"]: _key(it["image"]) for it in items}
+    keys = {it["id"]: f"{hashlib.sha1(Path(it['image']).read_bytes()).hexdigest()[:16]}|{tag}" for it in items}
     todo = [it for it in items if keys[it["id"]] not in cache]
     t0, cost, errors = time.time(), 0.0, []
     if todo:
         batches = [todo[i:i + cfg["batch"]] for i in range(0, len(todo), cfg["batch"])]
-        log(f"[describe] {len(todo)} shots in {len(batches)} calls ({cfg['model']})")
+        log(f"[describe] {tag}: {len(todo)} shots in {len(batches)} calls ({cfg['model']})")
         with ThreadPoolExecutor(cfg["workers"]) as pool:
-            results = list(pool.map(lambda b: run_batch(b, cfg), batches))
+            results = list(pool.map(lambda b: run(b, cfg), batches))
         cache = read_json(CACHE, {}) or {}
         for b, res in zip(batches, results):
             cost += res.get("cost", 0.0)
@@ -168,6 +175,38 @@ def describe_shots(items: list[dict], log=print) -> dict:
         write_json(CACHE, cache)
     return {"answers": {i: cache[k] for i, k in keys.items() if k in cache}, "cost_usd": round(cost, 4),
             "wall_secs": round(time.time() - t0, 1), "errors": errors}
+
+
+def describe_shots(items: list[dict], log=print) -> dict:
+    """items: [{"id", "image": Path, "words": str}] -> {"answers": {id: answer}, "cost_usd", "wall_secs", "errors"}."""
+    return _cached(items, f"v{PROMPT_VERSION}", run_batch, log)
+
+
+def normalise_animation(ans: dict) -> dict:
+    reveal = str(ans.get("reveal", "")).lower()
+    speed = str(ans.get("speed", "")).lower()
+    return {"reveal": reveal if reveal in REVEALS else "other", "speed": speed if speed in ("slow", "medium", "fast") else "medium",
+            **{k: str(ans.get(k, "")).strip() for k in ("layout", "palette", "type_style", "notes")}}
+
+
+def run_animate_batch(batch: list[dict], cfg: dict) -> dict:
+    content = []
+    for it in batch:
+        content.append({"type": "text", "text": f"Shot {it['id']} (three moments, left to right):"})
+        # A strip is three frames side by side: keep it wide enough to read.
+        content.append(image_block(it["image"], 3 * cfg["max_side"] // 2))
+    content.append({"type": "text", "text": ANIMATE_PROMPT + f"\n\nThere are {len(batch)} shots. Reply with ONLY one JSON "
+                    'object mapping each shot id to its answer, e.g. {"' + batch[0]["id"] + '": {"reveal": ...}}.'})
+    res = ask(content, SYSTEM, cfg["model"])
+    if "error" in res:
+        return {"answers": {}, "error": res["error"], "secs": res["secs"]}
+    return {"answers": {k: normalise_animation(v) for k, v in res["answer"].items() if isinstance(v, dict)},
+            "cost": res["cost"], "secs": res["secs"]}
+
+
+def animate_shots(items: list[dict], log=print) -> dict:
+    """items: [{"id", "image": strip Path}] -> same shape as describe_shots, answers are animation dicts."""
+    return _cached(items, f"anim{ANIMATE_VERSION}", run_animate_batch, log)
 
 
 def main() -> None:

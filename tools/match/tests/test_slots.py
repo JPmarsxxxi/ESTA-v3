@@ -84,3 +84,31 @@ def test_first_flash_merges_forward(tmp_path):
     (tmp_path / "inspo_profiles.json").write_text(json.dumps({"profiles": [str(d)]}))
     out = SL.inspo_shots(tmp_path)
     assert [s["id"] for s in out] == ["a"] and abs(out[0]["dur"] - 2.09) < 1e-9
+
+
+def test_ai_preset_for_every_move():
+    assert SL.AI_PRESET == {"push_in": "push_in", "push_out": "pull_back", "punch_in": "crash_zoom_in", "pan_left": "pan_left",
+                            "pan_right": "pan_right", "tilt_up": "tilt_up", "tilt_down": "tilt_down", "shake": "handheld",
+                            "static": "static"}
+    import json
+    presets = json.loads((Path(__file__).resolve().parents[2] / "genvideo" / "presets.json").read_text())
+    names = presets.get("presets", presets)
+    assert set(SL.AI_PRESET.values()) <= set(names)
+
+
+def test_refs_carry_animation_strip_and_preset(tmp_path):
+    import json
+    d = tmp_path / "prof"
+    d.mkdir()
+    anim = {"reveal": "counts_up", "speed": "fast"}
+    shots = [{"id": f"i{k}", "start": 3.0 * k, "end": 3.0 * k + 3, "dur": 3.0, "keyframe": f"keyframes/i{k}.jpg",
+              "strip": f"strips/i{k}.jpg", "motion": {"move": "punch_in"},
+              "tags": {"kind": "graphic", "likely_sources": ["ai_video"], "animation": anim}} for k in range(10)]
+    (d / "profile.json").write_text(json.dumps({"shots": shots}))
+    (tmp_path / "inspo_profiles.json").write_text(json.dumps({"profiles": [str(d)]}))
+    (tmp_path / "timestamps.json").write_text(json.dumps({"segments": [{"words": words(150)}]}))
+    (tmp_path / "audio_metadata.json").write_text(json.dumps({"duration_seconds": 60.0}))
+    out = SL.build(tmp_path)
+    ref = out["refs"][out["slots"][0]["ref_shot"]]
+    assert ref["animation"] == anim and ref["strip"].endswith("strips/i0.jpg")
+    assert ref["ai_preset"] == "crash_zoom_in" and ref["likely_sources"] == ["ai_video"]
