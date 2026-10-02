@@ -448,6 +448,12 @@ Inspo profile shot fields (added):
 14. **Review page.** After every score, `review.py` writes `match_review.html`: one row per shot of ours — our keyframe (final stage; plan stage shows the desc only), the `ref_shot` keyframe, both descriptions, kind ours/ref, target vs actual length, camera move, and flags (validator failure, low theme, swap reason). The Match card links to it through `GET /_match/:id/review`.
 15. **Cost visible.** Describe and judge costs are summed into the match reports and shown on the card, like adjust's wording cost.
 
+16. **Generated shots copy the inspo's animation (M6.6, decided 2026-10-02).** One keyframe cannot show how a graphic moves, and `motion.py` measures the camera, not movement inside the frame. So:
+   - **Animate pass.** After the describe pass, every inspo shot described `kind: graphic` gets a strip image: frames at 20 %, 50 % and 80 % of the shot side by side (each 256 px wide), saved as `cache/inspo/<hash>/strips/<id>.jpg`. Haiku reads the strips, 10 shots per call with the same lean flags, and answers per shot `{"reveal": types_on|counts_up|draws_on|slides_in|pops_in|fades_in|scrolls|static|other, "speed": slow|medium|fast, "layout": "<where things sit>", "palette": "<colours>", "type_style": "<font feel: monospace, bold sans, serif, handwritten...>", "notes": "<one sentence on anything else distinctive>"}`. Stored as `tags.animation`; cached by strip content and prompt version.
+   - **The generator sees the inspo.** `slots.json` `refs` carry `animation` and `strip` for each ref. The motion-graphics skill, for a `MOTION_GRAPHICS` shot or an `overlay` whose plan shot has a `ref_shot` with an `animation`, reads that strip (Read tool) and builds the HyperFrames composition to match the reveal, speed, layout, palette and type style, with our content. Without a ref it works as before.
+   - **AI video by mapping.** When a ref's `likely_sources` lead with `ai_video`, the mapped plan types the shot `AI_VIDEO` and writes `generate.preset` from the ref's measured move: `push_in` -> `push_in`, `push_out` -> `pull_back`, `punch_in` -> `crash_zoom_in`, `pan_left`/`pan_right`/`tilt_up`/`tilt_down` -> the same name, `shake` -> `handheld`, `static` -> `static`. `slots.py` precomputes it as `refs[id].ai_preset`. Stock stays the fallback, as the ai-video skill already does.
+   - **Review page** shows a graphic ref's animation (reveal, speed) and the shot's `generate.preset` when there is one.
+
 ## Edge cases
 
 - Haiku call fails or returns unparseable JSON: retry that batch once; still failing, those shots stay without `tags` and the profile is `partial`. Sections a and d use the described shots if ≥ 90 % are described, else show "pending: describe" as Part 2 did for Kaggle.
@@ -471,6 +477,7 @@ Inspo profile shot fields (added):
 - **M6.3 Auto-pick:** filters, ref likeness, Haiku judge.
 - **M6.4 Moves and fades:** `motion.py`, render emission.
 - **M6.5 Review page:** `review.py`, route, card link.
+- **M6.6 Generated shots copy the inspo:** animate pass, refs carry animation/strip/ai_preset, motion-graphics and plan skills use them, review page shows them.
 
 ## Acceptance criteria
 
@@ -508,6 +515,12 @@ M6.4 Moves and fades
 M6.5 Review page
 - [ ] After `score.py`, `match_review.html` exists, opens offline, and shows one row per shot with both keyframes (final stage) and target vs actual length.
 - [ ] The Match card's "Open side-by-side" link loads it via `/_match/:id/review`.
+
+M6.6 Generated shots copy the inspo
+- [ ] `describe_profile` builds a 3-frame strip for every `graphic` inspo shot and fills `tags.animation` with the fields above, ≤ 10 strips per `claude` call; a second run makes no calls (`test_describe.py` with a stubbed `claude`, strips from an ffmpeg clip).
+- [ ] `slots.json` refs carry `animation`, `strip` and `ai_preset`; the move-to-preset mapping matches decision 16 for every move (unit test).
+- [ ] The motion-graphics skill reads the ref strip and animation for mapped graphic shots and overlays; the plan skill's mapped mode types `AI_VIDEO` with `generate.preset` from `ai_preset` when the ref leads with `ai_video`. `PORTING.md` logs both skill changes.
+- [ ] The review page shows a graphic ref's reveal and speed, and the shot's `generate.preset` (`test_review.py`).
 
 Global
 - [ ] `bun run typecheck` and `bun run lint` pass; `pytest tools/match/tests` passes.
