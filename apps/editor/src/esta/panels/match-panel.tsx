@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/ui";
-import { api, post } from "../api";
+import { api, BACKEND, post } from "../api";
 import { useWorkspace } from "../store";
 
 type Pair = { ours: number; inspo: number };
@@ -103,6 +103,9 @@ export function MatchPanel() {
 					{any ? `pass: overall ≥ ${any.pass_marks.overall}, each section ≥ ${any.pass_marks.section}` : "Not scored yet. Run “Match the inspo” in the Stage panel."}
 				</span>
 				<div className="flex shrink-0 gap-1">
+					<Button size="sm" variant="outline" disabled={!any} onClick={() => window.open(`${BACKEND}/_match/${encodeURIComponent(session)}/review`, "_blank")}>
+						Open side-by-side
+					</Button>
 					<Button size="sm" variant="outline" disabled={!plan} onClick={() => rescore("plan")}>
 						Re-score plan
 					</Button>

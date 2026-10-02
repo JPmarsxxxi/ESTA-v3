@@ -369,6 +369,11 @@ def score(session: Path, stage: str, round_no: int | None = None, note: str = ""
         "notes": inspo["notes"], "locked": locked, "shots": ours, "history": history[-60:],
     }
     write_json(report_path(session, stage), report)
+    try:
+        from tools.match.review import write as write_review
+        write_review(session, stage, report)
+    except Exception as e:  # noqa: BLE001 - the page is a view; a failure must not lose the score
+        log(f"[score] review page not written: {e}")
     return report
 
 

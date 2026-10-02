@@ -45,6 +45,15 @@ export async function matchRescore(req: IncomingMessage, res: ServerResponse, se
 	json(res, 202, { ok: true, job });
 }
 
+// The side-by-side review page tools/match/review.py writes after every score.
+export function matchReview(res: ServerResponse, session: string) {
+	const dir = sessionDir(session);
+	const page = dir ? resolve(dir, "match_review.html") : "";
+	if (!page || !existsSync(page)) return json(res, 404, { error: "no review page yet: score the plan first" });
+	res.writeHead(200, { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-store" });
+	res.end(readFileSync(page));
+}
+
 // match_grades.json keys grades by clip (file name + in point), so they
 // survive renumbering; Build needs them by the clip ids render gives shots.
 export function matchGrades(res: ServerResponse, session: string) {

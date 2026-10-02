@@ -32,6 +32,6 @@ At the final stage, changed shots are re-picked by `tools/match/autopick.py` and
 
 ## After it finishes
 
-Show the overall score and each section's number against the inspo in one line each (the score card in the Plan stage shows the same), what each kept round changed, and anything pending (describe failed or `claude` missing: tag-dependent sections show pending). Then announce the next step (`conductor.py next`).
+Show the overall score and each section's number against the inspo in one line each (the score card in the Plan stage shows the same), what each kept round changed, and anything pending (describe failed or `claude` missing: tag-dependent sections show pending). Point the user at the Match card's **Open side-by-side** (`match_review.html`): every shot next to the inspo shot it copies, with validator failures, low-theme shots, ref swaps and short clips flagged. Then announce the next step (`conductor.py next`).
 
 Re-score without adjusting: `python tools/match/score.py --session sessions/<id> --stage plan|final --force`.

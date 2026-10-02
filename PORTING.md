@@ -186,6 +186,7 @@ Source: `C:\Users\User\opencut-classic` at `cf5e79e` (upstream `github.com/openc
 - **Describe lane.** Inspo shots are described by Claude Haiku through `claude -p` with `--strict-mcp-config --setting-sources "" --tools ""` (`tools/match/describe.py`); without those flags each call carries ~29k tokens of MCP tools and skills. `adjust.py`'s wording call uses the same flags. Gemma's tagger (`tag.py`, `vlm_kaggle.py`) is no longer called for inspo tags.
 - **Auto-pick** (`tools/match/autopick.py`) filters candidates by length and kind before ranking, ranks look against the shot's own `ref_shot` keyframe, and is judged by Haiku (10 shots per call, ref keyframe included) instead of Gemma on Kaggle.
 - **Camera moves.** `match:profile` also measures each inspo shot's camera move and boundary fades (`tools/match/motion.py`, OpenCV ORB + RANSAC, ~0.85 s per shot on CPU), cached on the profile.
+- **Review page.** Every score also writes `match_review.html` (`tools/match/review.py`): each shot next to the inspo shot it copies. `GET /_match/<id>/review` serves it (`server/match.ts`) and the Match card's "Open side-by-side" opens it.
 - **Stage rail.** `match:profile` sits in the Style stage (`server/pipeline.ts`), with a "Profile the inspo" action (`server/actions.ts`).
 
 ## Known baseline issues (not introduced by v3)

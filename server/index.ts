@@ -14,7 +14,7 @@ import { activeJobs, cancelJob, getJob, jobLog, listJobs, loadJobs, onJobEnd, re
 import { artifactPresent, computeState, mutateUi, rebuildPipeline, setCustomFlow, templates, type Checkpoint } from "./pipeline.ts";
 import { ACTIONS, actionBlock, buildJob, preflight, voiceSamples } from "./actions.ts";
 import { opencutImport } from "./opencut.ts";
-import { matchGrades, matchReports, matchRescore } from "./match.ts";
+import { matchGrades, matchReports, matchRescore, matchReview } from "./match.ts";
 
 const PORT = Number(process.env.ASSET_PORT) || 8787;
 
@@ -279,9 +279,10 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	const pipe = /^\/_pipeline\/([^/]+)(?:\/([^/]+))?$/.exec(pk);
 	if (pipe) return pipelineRoute(req, res, pipe[1], pipe[2] || "");
 	if (pk === "/_jobs" || pk.startsWith("/_jobs/")) return jobsRoute(req, res, pk.split("/").slice(2), q);
-	const match = /^\/_match\/([^/]+)(?:\/(rescore|grades))?$/.exec(pk);
+	const match = /^\/_match\/([^/]+)(?:\/(rescore|grades|review))?$/.exec(pk);
 	if (match && req.method === "GET" && !match[2]) return matchReports(res, match[1]);
 	if (match && req.method === "GET" && match[2] === "grades") return matchGrades(res, match[1]);
+	if (match && req.method === "GET" && match[2] === "review") return matchReview(res, match[1]);
 	if (match && req.method === "POST" && match[2] === "rescore") return matchRescore(req, res, match[1]);
 	const oc = /^\/_opencut\/([^/]+)$/.exec(pk);
 	if (oc && req.method === "GET") return opencutImport(res, oc[1], q.get("originals") === "1");
