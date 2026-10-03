@@ -167,6 +167,12 @@ A shot with `"generate": {"character": "<name>"}` shows a character designed in 
 
 `requirements.look_style` is appended to every generated prompt, so realistic and cartoon sessions use the same commands.
 
+**Look references (SPEC.md Part 5).** When the session has images in `look_refs.json` (the requirements skill or the Look card), they steer the pixels, not just the words:
+
+- Pass `--session sessions/<id>` to genchar `explore` (it's remembered for `sheet` and `render`). Design and sheet use the `character` refs; render uses `character` + `world`. A character can carry its own refs with `--style-refs <folder>` (kept in `characters/<name>/style_refs/`, they replace the session's character refs). `--ref-strength` (default 1.0, 0 = off) scales how hard they pull.
+- `push` gives every AI shot that isn't seeded by a character a **styled keyframe**: SDXL with the `world` refs draws its first frame on the same Kaggle run, then the video model animates it. The push output's `seeding.keyframes` lists them. `--ref-strength` applies here too.
+- If the IP-Adapter fails to load on Kaggle the run continues without refs; genchar `fetch` shows `ref_error` and each generated clip's result carries its keyframe note.
+
 **Talking shots.** A shot with `"talk": true` is lip-synced on the same Kaggle run: `push` cuts that shot's slice of `audio.wav` and ships it with the job; after generating, the notebook loops the clip to the line's length and runs LatentSync 1.5 (fits a 16 GB T4). `apply` publishes the synced clip (`gen_<n>_talk.mp4`) or, when sync fails (no face, setup error), the silent clip with the reason in the feed row's `lipsync`. `--lipsync off` skips it. Lines under 0.5 s are not synced.
 
 ## Choosing a preset

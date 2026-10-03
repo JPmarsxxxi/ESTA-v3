@@ -34,7 +34,7 @@ def session(tmp_path, monkeypatch):
 def push(session, lipsync, monkeypatch, capsys):
     monkeypatch.setattr(G, "kaggle_username", lambda: "me")
     G.cmd_push(argparse.Namespace(session=str(session), model="ltx", accelerator="t4", preset="static", style="cinematic",
-                                  shots="", chain=1, seed_from_assets=False, dry_run=True, lipsync=lipsync,
+                                  shots="", chain=1, seed_from_assets=False, dry_run=True, lipsync=lipsync, ref_strength=1.0,
                                   frames=0, fps=0, width=0, height=0, steps=0, guidance=0.0))
     return json.loads(capsys.readouterr().out)
 

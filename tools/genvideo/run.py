@@ -46,6 +46,7 @@ import math
 import re
 import subprocess
 import sys
+import textwrap
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -54,6 +55,7 @@ from tools.kaggle_lane import (  # noqa: E402
     ACCELERATORS, REPO_ROOT, fetch_output, kaggle_username, kernel_status,
     push_kernel, slugify, use_utf8_stdout, write_kernel_dir,
 )
+from tools.look import refs as look_refs  # noqa: E402
 
 use_utf8_stdout()
 
@@ -418,6 +420,30 @@ def _ffmpeg(*args: str) -> subprocess.CompletedProcess:
     )
 
 
+def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_name: str, strength: float) -> dict:
+    """Mark every still-unseeded slot for a styled keyframe: SDXL with the session's look refs draws its first
+    frame on Kaggle, then the video model animates it (SPEC.md Part 5, decision 5). Video models take a start
+    image, not a style image, so this is how the look reaches non-character shots."""
+    refs = look_refs.resolve(session_dir, "keyframe") if strength > 0 else []
+    if not refs:
+        return {}
+    if not model["pipeline_i2v"]:
+        return {"skipped": f"{model_name} has no image-to-video pipeline: no styled keyframes"}
+    from tools.genchar.run import DEFAULT_MODEL, LOOK_MODEL, MODELS, NEGATIVE
+    try:
+        look = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8")).get("look") or ""
+    except Exception:  # noqa: BLE001
+        look = ""
+    sd = MODELS[LOOK_MODEL.get(look, DEFAULT_MODEL)]
+    marked = [slot for slot in slots if not slot["seed_b64"]]
+    for slot in marked:
+        slot["keyframe"] = True
+    if marked:
+        model["keyframe"] = {k: sd[k] for k in ("repo", "pipeline", "variant", "steps", "guidance")}
+        model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs), ref_scale=look_refs.scales(strength))
+    return {"refs": [p.name for p in refs], "shots": {slot["shot_number"]: "styled_keyframe" for slot in marked}}
+
+
 def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dict:
     """Extract a frame from each shot's existing footage and embed it as base64.
 
@@ -432,7 +458,7 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
     tmp.mkdir(parents=True, exist_ok=True)
     report = {"seeded": 0, "skipped": []}
     for slot in slots:
-        if slot["seed_b64"]:
+        if slot["seed_b64"] or slot.get("keyframe"):
             continue
         if slot.get("character"):
             # A stock frame would swap the character's face for whoever is in the footage.
@@ -531,6 +557,8 @@ def _as_pil(frame):
         arr = (arr.clip(0, 1) * 255).astype("uint8")
     return Image.fromarray(arr)
 
+KEYFRAMES, KF_NOTES = {}, {}
+__KEYFRAMES__
 # -- prompt pre-encoding -------------------------------------------------------
 # HunyuanVideo-1.5 carries a 7B Qwen2.5-VL text encoder. Transformer + encoders
 # together are ~33 GB in fp16 and a Kaggle GPU kernel has 32 GB of *host* RAM, so
@@ -543,7 +571,7 @@ def precompute_prompts():
     # Pick the checkpoint this run will actually use: passing transformer=None
     # makes diffusers skip downloading it, so only the encoders come down here
     # and only the denoiser comes down later.
-    seeded = any(s.get("seed_b64") for s in SLOTS)
+    seeded = any(s.get("seed_b64") or s["key"] in KEYFRAMES for s in SLOTS)
     kind = "i2v" if (seeded and MODEL["pipeline_i2v"]) else "t2v"
     pipe = pipe_cls(kind).from_pretrained(
         repo_for(kind), torch_dtype=dtype, transformer=None, vae=None)
@@ -638,6 +666,8 @@ def generate(slot):
     frames_all, image = [], None
     if slot.get("seed_b64"):
         image = Image.open(io.BytesIO(base64.b64decode(slot["seed_b64"]))).convert("RGB")
+    elif slot["key"] in KEYFRAMES:
+        image = KEYFRAMES[slot["key"]]
     for seg in range(slot["segments"]):
         kind = "i2v" if image is not None else "t2v"
         out = get_pipe(kind)(**_kwargs(kind, slot, image)).frames[0]
@@ -658,7 +688,8 @@ for slot in SLOTS:
         path, nframes = generate(slot)
         results[key] = {"file": os.path.basename(path), "frames": nframes,
                         "fps": MODEL["fps"], "preset": slot["preset"],
-                        "shot_number": slot["shot_number"]}
+                        "shot_number": slot["shot_number"],
+                        **({"keyframe": KF_NOTES[key]} if key in KF_NOTES else {})}
         print("OK", key, nframes, "frames", flush=True)
     except Exception as e:
         errors[key] = (str(e) or repr(e))[:250]
@@ -720,6 +751,51 @@ if TALK and MODEL.get("lipsync") == "latentsync":
 '''
 
 
+# The styled-keyframe pass (SPEC.md Part 5): SDXL plus the look refs draws each marked slot's first frame, then
+# is freed before the video model loads. A failure leaves the slot on text-to-video, never a failed run.
+KEYFRAME_CODE = '''
+def keyframe_pass():
+    from PIL import ImageOps
+    KF = MODEL["keyframe"]
+    kf_cls = getattr(diffusers, KF["pipeline"])
+    try:
+        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True,
+                                      variant=KF.get("variant") or None)
+    except Exception:
+        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True)
+    pipe = pipe.to("cuda")
+    pipe.set_progress_bar_config(disable=True)
+    REFS, REF_SCALE = KF["refs"], KF["ref_scale"]
+__IPA__
+    # SDXL draws at its own landscape/portrait bucket; the frame is then fitted to the video size.
+    w, h = (1216, 832) if MODEL["width"] >= MODEL["height"] else (832, 1216)
+    for slot in SLOTS:
+        if not slot.get("keyframe"):
+            continue
+        key = slot["key"]
+        try:
+            gen = torch.Generator("cuda").manual_seed(int(slot["shot_number"]) * 7919)
+            img = pipe(prompt=slot["prompt"], negative_prompt=KF["neg"], width=w, height=h,
+                       num_inference_steps=KF["steps"], guidance_scale=KF["guidance"], generator=gen,
+                       **IPA_KW).images[0]
+            KEYFRAMES[key] = ImageOps.fit(img, (MODEL["width"], MODEL["height"]))
+            KEYFRAMES[key].save(os.path.join(OUT, "kf_" + key + ".png"))
+            KF_NOTES[key] = "ok" + (" (" + REF_ERROR + ")" if REF_ERROR else "")
+            print("[esta] keyframe", key, flush=True)
+        except Exception as e:
+            KF_NOTES[key] = "keyframe failed: " + (str(e) or repr(e))[:150]
+            print("[esta]", key, KF_NOTES[key], flush=True)
+    del pipe
+
+try:
+    keyframe_pass()
+except Exception as e:
+    print("[esta] keyframe pass failed, slots fall back to text-to-video:", e, flush=True)
+    traceback.print_exc()
+gc.collect(); torch.cuda.empty_cache()
+'''
+
+
 def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     """Fill the notebook template by placeholder substitution.
 
@@ -732,8 +808,15 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
                                     "audio_b64", "audio_seconds")}
         for s in slots
     ]
+    for row, slot in zip(lean, slots):
+        if slot.get("keyframe"):
+            row["keyframe"] = True
+    kf = ""
+    if model.get("keyframe"):
+        kf = KEYFRAME_CODE.replace("__IPA__", textwrap.indent(look_refs.NOTEBOOK_IPA, "    "))
     return (
         NOTEBOOK_CODE
+        .replace("__KEYFRAMES__", kf)
         .replace("__SLOTS__", repr(json.dumps(lean)))
         .replace("__MODEL__", repr(json.dumps(model)))
         .replace("__NEG__", repr(negative))
@@ -887,11 +970,15 @@ def cmd_push(args: argparse.Namespace) -> None:
     characters = attach_character_seeds(session_dir, slots, model)
     model["lipsync"] = args.lipsync
     talking = attach_talk_audio(session_dir, slots) if args.lipsync != "off" else {}
+    keyframes = attach_keyframes(session_dir, slots, model, args.model, args.ref_strength)
     seeding = {"seeded": 0, "skipped": []}
     if args.seed_from_assets:
         seeding = attach_seed_images(session_dir, slots, model)
     seeding["seeded"] += sum(1 for v in characters.values() if v in ("lora_keyframe", "ref"))
+    seeding["seeded"] += len(keyframes.get("shots", {}))
     seeding["characters"] = characters
+    if keyframes:
+        seeding["keyframes"] = keyframes
     if not model["pipeline_t2v"] and seeding["seeded"] < len(slots):
         raise ValueError(f"{args.model} is image-to-video only — every slot needs "
                          f"--seed-from-assets to succeed ({seeding['seeded']}/{len(slots)} seeded)")
@@ -989,6 +1076,8 @@ def main() -> None:
     p.add_argument("--shots", default="", help="Force specific shot numbers, e.g. 3,7,9")
     p.add_argument("--chain", type=int, default=1,
                    help="Max chained segments per slot (1 = single ~5s clip). Drift grows per hop.")
+    p.add_argument("--ref-strength", type=float, default=1.0,
+                   help="How hard the session's look refs pull on styled keyframes; 0 turns the pass off")
     p.add_argument("--seed-from-assets", action="store_true",
                    help="Image-to-video: seed each slot from the frame already fetched for that shot")
     p.add_argument("--dry-run", action="store_true", help="Build and report, don't push")

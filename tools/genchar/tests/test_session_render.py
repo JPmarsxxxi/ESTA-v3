@@ -38,7 +38,7 @@ def test_render_session_keys_and_prompts(tmp_path, monkeypatch, capsys):
     (session / "plan.json").write_text(json.dumps({"shots": shots}))
     (session / "requirements.json").write_text(json.dumps({"look_style": "flat bold-outline sitcom cartoon"}))
     C.cmd_render(argparse.Namespace(name="Homer Like", prompts="", session=str(session), lora_scale=0.9, seed=777,
-                                    accelerator="t4", dry_run=True))
+                                    accelerator="t4", dry_run=True, style_refs="", ref_strength=1.0))
     out = json.loads(capsys.readouterr().out)
     assert out["keys"] == ["my-video-2026-10-02__s1", "my-video-2026-10-02__s3"]
     assert "bald man, white shirt, on the couch, wide shot, flat bold-outline sitcom cartoon" in out["sample"]
@@ -50,7 +50,8 @@ def test_look_style_baked_into_design_once(tmp_path, monkeypatch, capsys):
     monkeypatch.setattr(C, "push_job", lambda name, jobs, model, mode, acc, dry: {"ok": True, "kernel": "k", "prompt": jobs[0]["prompt"],
                                                                                   "model": model["repo"]})
     C.cmd_explore(argparse.Namespace(name="Nova", desc="teen girl, short pink hair", count=2, seed=1, model="sdxl",
-                                     look="cartoon", look_style="comic halftone 3D", accelerator="t4", dry_run=False))
+                                     look="cartoon", look_style="comic halftone 3D", accelerator="t4", dry_run=False,
+                                     session="", style_refs="", ref_strength=1.0))
     out = json.loads(capsys.readouterr().out)
     assert "teen girl, short pink hair, comic halftone 3D" in out["prompt"]
     assert C.load_char("Nova")["desc"] == "teen girl, short pink hair, comic halftone 3D"
