@@ -669,15 +669,15 @@ The refs reach generation in two ways (user decision: both):
 - **Backend:**
   - `server/look.ts` (new) and routes in `server/index.ts`:
     - `GET /_look/:id` returns the index;
-    - `GET /_look/:id/file/:name` returns an image;
     - `POST /_look/:id/add` takes a raw image body plus an `x-filename` header and runs `refs.py add`;
-    - `POST /_look/:id/role` and `POST /_look/:id/remove`.
+    - `POST /_look/:id/role`, `POST /_look/:id/remove` and `POST /_look/:id/style` (sets only `requirements.look_style`, since the full requirements update re-validates topic, style and duration).
+    - The images are served by the existing session-file route (`/api/sessions/<id>/look_refs/<file>`).
   - `server/actions.ts` gets a `look-describe` action (stage `style`).
 - **Editor:** `apps/editor/src/esta/panels/look-panel.tsx` (new), on the Style stage:
   - a drop zone and a thumbnail grid;
   - a per-image World/Character toggle and delete;
   - a "Describe" button;
-  - the resulting `look_style`, editable, saved through the existing requirements update.
+  - the resulting `look_style`, editable, saved through `/_look/:id/style`.
 - **Skills:**
   - `requirements` step 4c: images dropped in chat go through `refs.py add`, then `describe`.
   - `ai-video`: documents `--session`/`--style-refs` on genchar and the keyframe pass.

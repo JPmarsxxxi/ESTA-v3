@@ -118,6 +118,11 @@ export const ACTIONS: Action[] = [
 		hint: "Cuts the inspo into shots, measures colour and embeddings, transcribes it and has Haiku describe each shot. The mapped plan cuts against this.",
 		args: (_p, s) => ["tools/match/run.py", "--session", S(s), "--stage", "profile"], produces: ["inspo_profiles.json"],
 	},
+	{
+		id: "look-describe", stage: "style", label: "Describe the look refs", kind: "tool", python: "system",
+		hint: "Haiku tags each look ref as world or character and, if look_style is empty, writes it from the images.",
+		needs: ["look_refs.json"], args: (_p, s) => ["tools/look/refs.py", "describe", "--session", S(s)],
+	},
 	{ id: "plan", stage: "plan", label: "Generate plan (bulk)", kind: "skill", step: "plan", args: skill("plan", "Mode: bulk. Stop after plan.json is written and reconciled; do not run render or assets."), produces: ["plan.json"], progress: "plan" },
 	{
 		id: "match-plan", stage: "plan", label: "Match the inspo (score + adjust)", kind: "tool", python: "system", step: "match:plan",

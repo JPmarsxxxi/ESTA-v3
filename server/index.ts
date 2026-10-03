@@ -15,6 +15,7 @@ import { artifactPresent, computeState, mutateUi, rebuildPipeline, setCustomFlow
 import { ACTIONS, actionBlock, buildJob, preflight, voiceSamples } from "./actions.ts";
 import { opencutImport } from "./opencut.ts";
 import { matchGrades, matchReports, matchRescore, matchReview } from "./match.ts";
+import { lookAdd, lookEdit, lookIndex, lookStyle } from "./look.ts";
 
 const PORT = Number(process.env.ASSET_PORT) || 8787;
 
@@ -225,7 +226,7 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	// Without these, preflight for a cross-origin JSON POST fails and the editor can't talk back.
 	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Esta-Client");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Esta-Client, X-Filename");
 	res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 	res.setHeader("Accept-Ranges", "bytes");
 	if (req.method === "OPTIONS") return void res.writeHead(204).end();
@@ -284,6 +285,11 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	if (match && req.method === "GET" && match[2] === "grades") return matchGrades(res, match[1]);
 	if (match && req.method === "GET" && match[2] === "review") return matchReview(res, match[1]);
 	if (match && req.method === "POST" && match[2] === "rescore") return matchRescore(req, res, match[1]);
+	const look = /^\/_look\/([^/]+)(?:\/(add|role|remove|style))?$/.exec(pk);
+	if (look && req.method === "GET" && !look[2]) return lookIndex(res, look[1]);
+	if (look && req.method === "POST" && look[2] === "add") return lookAdd(req, res, look[1]);
+	if (look && req.method === "POST" && (look[2] === "role" || look[2] === "remove")) return lookEdit(req, res, look[1], look[2]);
+	if (look && req.method === "POST" && look[2] === "style") return lookStyle(req, res, look[1]);
 	const oc = /^\/_opencut\/([^/]+)$/.exec(pk);
 	if (oc && req.method === "GET") return opencutImport(res, oc[1], q.get("originals") === "1");
 	const files = /^\/_files\/([^/]+)(\/list)?$/.exec(pk);
