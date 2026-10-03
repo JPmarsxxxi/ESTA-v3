@@ -147,7 +147,7 @@ export class RendererManager {
 		onProgress?: ({ progress }: { progress: number }) => void;
 		onCancel?: () => boolean;
 	}): Promise<ExportResult> {
-		const { format, quality, fps, includeAudio } = options;
+		const { format, quality, fps, includeAudio, width, height, videoBitrate, audioBitrate } = options;
 
 		try {
 			const tracks = this.editor.scenes.getActiveScene().tracks;
@@ -187,6 +187,10 @@ export class RendererManager {
 			const exporter = new SceneExporter({
 				width: canvasSize.width,
 				height: canvasSize.height,
+				outputWidth: width,
+				outputHeight: height,
+				videoBitrate,
+				audioBitrate,
 				fps: exportFps,
 				format,
 				quality,

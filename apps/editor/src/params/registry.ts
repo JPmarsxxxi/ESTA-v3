@@ -15,6 +15,7 @@ import {
 	CORNER_RADIUS_MAX,
 	CORNER_RADIUS_MIN,
 } from "@/text/background";
+import { TEXT_STYLE_PARAMS } from "@/esta/opencut/text-style-params";
 
 export type ElementParamDefinition<TKey extends string = string> =
 	ParamDefinition<TKey> & {
@@ -338,7 +339,7 @@ elementParamRegistry.register({
 elementParamRegistry.register({ key: "image", definition: visualElementParams });
 elementParamRegistry.register({
 	key: "text",
-	definition: [...textElementParams, ...visualElementParams],
+	definition: [...textElementParams, ...TEXT_STYLE_PARAMS, ...visualElementParams],
 });
 elementParamRegistry.register({
 	key: "sticker",

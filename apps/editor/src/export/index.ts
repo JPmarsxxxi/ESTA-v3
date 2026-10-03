@@ -18,6 +18,10 @@ export interface ExportOptions {
 	quality: ExportQuality;
 	fps?: FrameRate;
 	includeAudio?: boolean;
+	width?: number;
+	height?: number;
+	videoBitrate?: number;
+	audioBitrate?: number;
 }
 
 export interface ExportResult {

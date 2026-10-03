@@ -46,6 +46,7 @@ import math
 import re
 import subprocess
 import sys
+import textwrap
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
@@ -54,6 +55,7 @@ from tools.kaggle_lane import (  # noqa: E402
     ACCELERATORS, REPO_ROOT, fetch_output, kaggle_username, kernel_status,
     push_kernel, slugify, use_utf8_stdout, write_kernel_dir,
 )
+from tools.look import refs as look_refs  # noqa: E402
 
 use_utf8_stdout()
 
@@ -70,6 +72,9 @@ MAX_NOTEBOOK_BYTES = 4 * 1024 * 1024
 # ffmpeg -q:v scale, 2 (best) to 31 (worst). 4 is visually clean at 704x480 and
 # lands well under 100 KB — the seed only has to survive one VAE encode.
 SEED_JPEG_QSCALE = 4
+
+# genchar's store (tools/genchar/run.py): characters outlive sessions, like voice_samples/.
+CHARACTERS_DIR = REPO_ROOT / "characters"
 
 # Model registry. Deliberately data-driven: the open-video landscape moves fast,
 # so adding a model should be an edit here, never a new code path. `pipeline` is
@@ -267,6 +272,7 @@ def collect_slots(
     """
     shots = _load_plan(session_dir)
     clip_len = model["frames"] / model["fps"]
+    look_style = _look_style(session_dir)
     slots = []
     for shot in shots:
         n = shot.get("shot_number")
@@ -281,19 +287,97 @@ def collect_slots(
         segments = 1
         if duration > clip_len and chain_max > 1:
             segments = min(chain_max, math.ceil(duration / clip_len))
+        prompt = build_prompt(shot, preset_name, presets, style)
         slots.append({
             "shot_number": n,
             "key": str(n),
             "preset": preset_name,
-            "prompt": build_prompt(shot, preset_name, presets, style),
+            "prompt": f"{prompt}, {look_style}" if look_style else prompt,
             "duration": round(duration, 2),
             "segments": segments,
             "seed_b64": "",
+            "character": (visual.get("generate") or {}).get("character") or "",
+            "talk": bool((visual.get("generate") or {}).get("talk")),
         })
     return slots
 
 
+def _look_style(session_dir: Path) -> str:
+    try:
+        req = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8"))
+    except Exception:
+        return ""
+    return str(req.get("look_style") or "").strip()
+
+
 # ── seed images (image-to-video) ──────────────────────────────────────────────
+
+def _scale_to(src: Path, dest: Path, model: dict) -> bool:
+    scale = (f"scale={model['width']}:{model['height']}:force_original_aspect_ratio=increase,"
+             f"crop={model['width']}:{model['height']}")
+    res = _ffmpeg("-y", "-i", str(src), "-frames:v", "1", "-vf", scale, "-q:v", str(SEED_JPEG_QSCALE), str(dest))
+    return res.returncode == 0 and dest.exists() and dest.stat().st_size > 0
+
+
+def attach_talk_audio(session_dir: Path, slots: list[dict]) -> dict:
+    """Cut each talking shot's slice of the voiceover (16 kHz mono wav) to ship with the job."""
+    audio = session_dir / "audio.wav"
+    shots = {s.get("shot_number"): s for s in _load_plan(session_dir)}
+    tmp = session_dir / "assets" / "gen_seeds"
+    tmp.mkdir(parents=True, exist_ok=True)
+    report: dict = {}
+    for slot in slots:
+        if not slot.get("talk"):
+            continue
+        shot = shots.get(slot["shot_number"]) or {}
+        start, end = float(shot.get("start") or 0), float(shot.get("end") or 0)
+        if not audio.exists():
+            report[slot["shot_number"]] = "no audio.wav"
+            continue
+        if not str(shot.get("audio") or "").strip():
+            report[slot["shot_number"]] = "no spoken line: no lip-sync"
+            continue
+        if end - start < 0.5:
+            report[slot["shot_number"]] = "line under 0.5 s: no lip-sync"
+            continue
+        wav = tmp / f"talk_{slot['shot_number']}.wav"
+        res = _ffmpeg("-y", "-ss", f"{start:.3f}", "-t", f"{end - start:.3f}", "-i", str(audio), "-ac", "1", "-ar", "16000", str(wav))
+        if res.returncode != 0 or not wav.exists():
+            report[slot["shot_number"]] = "audio cut failed"
+            continue
+        slot["audio_b64"] = base64.b64encode(wav.read_bytes()).decode("ascii")
+        slot["audio_seconds"] = round(end - start, 3)
+        report[slot["shot_number"]] = f"{end - start:.2f} s"
+    return report
+
+
+def attach_character_seeds(session_dir: Path, slots: list[dict], model: dict) -> dict:
+    """Seed each character shot from its LoRA keyframe (genchar render --session), else the picked
+    design (ref.png), else describe the character in a text-to-video prompt (SPEC.md Part 4)."""
+    tmp = session_dir / "assets" / "gen_seeds"
+    tmp.mkdir(parents=True, exist_ok=True)
+    report: dict = {}
+    for slot in slots:
+        name = slot.get("character")
+        if not name:
+            continue
+        d = CHARACTERS_DIR / slugify(name)
+        keyframe = d / "render" / f"{slugify(session_dir.name)}__s{slot['shot_number']}.png"
+        for source, path in (("lora_keyframe", keyframe), ("ref", d / "ref.png")):
+            frame = tmp / f"seed_{slot['shot_number']}.jpg"
+            if path.exists() and _scale_to(path, frame, model):
+                slot["seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
+                report[slot["shot_number"]] = source
+                break
+        else:
+            try:
+                desc = json.loads((d / "character.json").read_text(encoding="utf-8")).get("desc", "")
+            except Exception:
+                desc = ""
+            slot["prompt"] = f"{desc}, {slot['prompt']}" if desc else slot["prompt"]
+            report[slot["shot_number"]] = "text" if desc else "text (no character.json)"
+    return report
+
 
 def _latest_asset_for_shot(session_dir: Path, shot_number: int) -> tuple[Path | None, float]:
     """Last successful assets_progress line for this shot -> (file, in_point).
@@ -336,6 +420,30 @@ def _ffmpeg(*args: str) -> subprocess.CompletedProcess:
     )
 
 
+def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_name: str, strength: float) -> dict:
+    """Mark every still-unseeded slot for a styled keyframe: SDXL with the session's look refs draws its first
+    frame on Kaggle, then the video model animates it (SPEC.md Part 5, decision 5). Video models take a start
+    image, not a style image, so this is how the look reaches non-character shots."""
+    refs = look_refs.resolve(session_dir, "keyframe") if strength > 0 else []
+    if not refs:
+        return {}
+    if not model["pipeline_i2v"]:
+        return {"skipped": f"{model_name} has no image-to-video pipeline: no styled keyframes"}
+    from tools.genchar.run import LOOK_MODEL, MODELS, NEGATIVE
+    try:
+        look = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8")).get("look") or ""
+    except Exception:  # noqa: BLE001
+        look = ""
+    sd = MODELS[LOOK_MODEL.get(look, "sdxl")]
+    marked = [slot for slot in slots if not slot["seed_b64"]]
+    for slot in marked:
+        slot["keyframe"] = True
+    if marked:
+        model["keyframe"] = {k: sd[k] for k in ("repo", "pipeline", "variant", "steps", "guidance")}
+        model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs), ref_scale=look_refs.scales(strength))
+    return {"refs": [p.name for p in refs], "shots": {slot["shot_number"]: "styled_keyframe" for slot in marked}}
+
+
 def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dict:
     """Extract a frame from each shot's existing footage and embed it as base64.
 
@@ -350,6 +458,12 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
     tmp.mkdir(parents=True, exist_ok=True)
     report = {"seeded": 0, "skipped": []}
     for slot in slots:
+        if slot["seed_b64"]:
+            continue
+        if slot.get("character"):
+            # A stock frame would swap the character's face for whoever is in the footage.
+            report["skipped"].append({"shot": slot["shot_number"], "why": "character shot: no stock seed"})
+            continue
         src, in_point = _latest_asset_for_shot(session_dir, slot["shot_number"])
         if not src or not src.exists():
             report["skipped"].append({"shot": slot["shot_number"], "why": "no fetched asset"})
@@ -374,8 +488,12 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
             why = ((res.stderr if res else "") or "").strip().splitlines()[-1:] or ["extract failed"]
             report["skipped"].append({"shot": slot["shot_number"], "why": why[0][:120]})
             continue
-        slot["seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
-        report["seeded"] += 1
+        # A styled-keyframe slot keeps the stock frame as its backup, used if the keyframe fails on Kaggle.
+        slot["backup_b64" if slot.get("keyframe") else "seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
+        if slot.get("keyframe"):
+            report.setdefault("backups", []).append(slot["shot_number"])
+        else:
+            report["seeded"] += 1
     return report
 
 
@@ -443,6 +561,8 @@ def _as_pil(frame):
         arr = (arr.clip(0, 1) * 255).astype("uint8")
     return Image.fromarray(arr)
 
+KEYFRAMES, KF_NOTES = {}, {}
+__KEYFRAMES__
 # -- prompt pre-encoding -------------------------------------------------------
 # HunyuanVideo-1.5 carries a 7B Qwen2.5-VL text encoder. Transformer + encoders
 # together are ~33 GB in fp16 and a Kaggle GPU kernel has 32 GB of *host* RAM, so
@@ -455,7 +575,7 @@ def precompute_prompts():
     # Pick the checkpoint this run will actually use: passing transformer=None
     # makes diffusers skip downloading it, so only the encoders come down here
     # and only the denoiser comes down later.
-    seeded = any(s.get("seed_b64") for s in SLOTS)
+    seeded = any(s.get("seed_b64") or s.get("backup_b64") or s["key"] in KEYFRAMES for s in SLOTS)
     kind = "i2v" if (seeded and MODEL["pipeline_i2v"]) else "t2v"
     pipe = pipe_cls(kind).from_pretrained(
         repo_for(kind), torch_dtype=dtype, transformer=None, vae=None)
@@ -550,6 +670,10 @@ def generate(slot):
     frames_all, image = [], None
     if slot.get("seed_b64"):
         image = Image.open(io.BytesIO(base64.b64decode(slot["seed_b64"]))).convert("RGB")
+    elif slot["key"] in KEYFRAMES:
+        image = KEYFRAMES[slot["key"]]
+    elif slot.get("backup_b64"):
+        image = Image.open(io.BytesIO(base64.b64decode(slot["backup_b64"]))).convert("RGB")
     for seg in range(slot["segments"]):
         kind = "i2v" if image is not None else "t2v"
         out = get_pipe(kind)(**_kwargs(kind, slot, image)).frames[0]
@@ -570,7 +694,8 @@ for slot in SLOTS:
         path, nframes = generate(slot)
         results[key] = {"file": os.path.basename(path), "frames": nframes,
                         "fps": MODEL["fps"], "preset": slot["preset"],
-                        "shot_number": slot["shot_number"]}
+                        "shot_number": slot["shot_number"],
+                        **({"keyframe": KF_NOTES[key]} if key in KF_NOTES else {})}
         print("OK", key, nframes, "frames", flush=True)
     except Exception as e:
         errors[key] = (str(e) or repr(e))[:250]
@@ -580,6 +705,100 @@ for slot in SLOTS:
     # Checkpoint after every slot: a kernel that times out at 12 h still keeps
     # whatever it finished, because `kernels output` reads /kaggle/working.
     finish(results, errors)
+
+# Lip-sync (SPEC.md Part 4): LatentSync 1.5 repaints the mouth of each talking
+# shot to its slice of the voiceover. 1.5 fits a 16 GB T4 (8 GB); 1.6 needs 18 GB.
+TALK = [s for s in SLOTS if s.get("audio_b64") and s["key"] in results]
+if TALK and MODEL.get("lipsync") == "latentsync":
+    _PIPES.clear(); gc.collect(); torch.cuda.empty_cache()
+    LS = "/kaggle/temp/LatentSync" if os.path.isdir("/kaggle/temp") else os.path.join(OUT, "LatentSync")
+    ready = ""
+    try:
+        if not os.path.isdir(LS):
+            subprocess.run(["git", "clone", "--depth", "1", "https://github.com/bytedance/LatentSync", LS], check=True)
+        # Keep Kaggle's CUDA torch: reinstalling it from the repo's pins wastes the session.
+        reqs = [l.strip() for l in open(os.path.join(LS, "requirements.txt")) if l.strip() and not l.lower().startswith("torch")]
+        subprocess.run([sys.executable, "-m", "pip", "install", "-q", *reqs], check=False)
+        from huggingface_hub import hf_hub_download
+        for f in ("latentsync_unet.pt", "whisper/tiny.pt"):
+            hf_hub_download("ByteDance/LatentSync-1.5", f, local_dir=os.path.join(LS, "checkpoints"))
+    except Exception as e:
+        ready = "lipsync setup failed: " + (str(e) or repr(e))[:200]
+    for slot in TALK:
+        key = slot["key"]
+        if ready:
+            results[key]["lipsync"] = ready; continue
+        try:
+            wav = os.path.join(OUT, "talk_" + key + ".wav")
+            open(wav, "wb").write(base64.b64decode(slot["audio_b64"]))
+            dur = float(slot["audio_seconds"])
+            # Loop the generated clip to the line's length so the synced clip covers the whole line.
+            looped = os.path.join(OUT, "loop_" + key + ".mp4")
+            subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-i", os.path.join(OUT, results[key]["file"]),
+                            "-t", str(dur), "-an", looped], check=True)
+            synced = os.path.join(OUT, "gen_" + key + "_talk.mp4")
+            r = subprocess.run([sys.executable, "-m", "scripts.inference", "--unet_config_path", "configs/unet/stage2.yaml",
+                                "--inference_ckpt_path", "checkpoints/latentsync_unet.pt", "--inference_steps", "20",
+                                "--guidance_scale", "1.5", "--video_path", looped, "--audio_path", wav,
+                                "--video_out_path", synced], cwd=LS, capture_output=True, text=True)
+            if r.returncode == 0 and os.path.exists(synced):
+                results[key].update({"synced_file": os.path.basename(synced), "synced_seconds": dur, "lipsync": "ok"})
+                print("OK lipsync", key, flush=True)
+            else:
+                tail = (r.stderr or r.stdout).strip().splitlines()[-1:] or ["no output"]
+                results[key]["lipsync"] = ("no face found" if "face" in tail[0].lower() else "lipsync failed: " + tail[0])[:200]
+                print("ERR lipsync", key, results[key]["lipsync"], flush=True)
+            for f in (wav, looped):
+                os.path.exists(f) and os.remove(f)
+        except Exception as e:
+            results[key]["lipsync"] = "lipsync failed: " + (str(e) or repr(e))[:200]
+        gc.collect(); torch.cuda.empty_cache()
+        finish(results, errors)
+'''
+
+
+# The styled-keyframe pass (SPEC.md Part 5): SDXL plus the look refs draws each marked slot's first frame, then
+# is freed before the video model loads. A failure leaves the slot on text-to-video, never a failed run.
+KEYFRAME_CODE = '''
+def keyframe_pass():
+    from PIL import ImageOps
+    KF = MODEL["keyframe"]
+    kf_cls = getattr(diffusers, KF["pipeline"])
+    try:
+        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True,
+                                      variant=KF.get("variant") or None)
+    except Exception:
+        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True)
+    pipe = pipe.to("cuda")
+    pipe.set_progress_bar_config(disable=True)
+    REFS, REF_SCALE = KF["refs"], KF["ref_scale"]
+__IPA__
+    # SDXL draws at its own landscape/portrait bucket; the frame is then fitted to the video size.
+    w, h = (1216, 832) if MODEL["width"] >= MODEL["height"] else (832, 1216)
+    for slot in SLOTS:
+        if not slot.get("keyframe"):
+            continue
+        key = slot["key"]
+        try:
+            gen = torch.Generator("cuda").manual_seed(int(slot["shot_number"]) * 7919)
+            img = pipe(prompt=slot["prompt"], negative_prompt=KF["neg"], width=w, height=h,
+                       num_inference_steps=KF["steps"], guidance_scale=KF["guidance"], generator=gen,
+                       **IPA_KW).images[0]
+            KEYFRAMES[key] = ImageOps.fit(img, (MODEL["width"], MODEL["height"]))
+            KEYFRAMES[key].save(os.path.join(OUT, "kf_" + key + ".png"))
+            KF_NOTES[key] = "ok" + (" (" + REF_ERROR + ")" if REF_ERROR else "")
+            print("[esta] keyframe", key, flush=True)
+        except Exception as e:
+            KF_NOTES[key] = "keyframe failed: " + (str(e) or repr(e))[:150]
+            print("[esta]", key, KF_NOTES[key], flush=True)
+    del pipe
+
+try:
+    keyframe_pass()
+except Exception as e:
+    print("[esta] keyframe pass failed, slots fall back to text-to-video:", e, flush=True)
+    traceback.print_exc()
+gc.collect(); torch.cuda.empty_cache()
 '''
 
 
@@ -591,11 +810,21 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     template rots.
     """
     lean = [
-        {k: s[k] for k in ("key", "shot_number", "preset", "prompt", "segments", "seed_b64")}
+        {k: s.get(k, "") for k in ("key", "shot_number", "preset", "prompt", "segments", "seed_b64",
+                                    "audio_b64", "audio_seconds")}
         for s in slots
     ]
+    for row, slot in zip(lean, slots):
+        if slot.get("keyframe"):
+            row["keyframe"] = True
+        if slot.get("backup_b64"):
+            row["backup_b64"] = slot["backup_b64"]
+    kf = ""
+    if model.get("keyframe"):
+        kf = KEYFRAME_CODE.replace("__IPA__", textwrap.indent(look_refs.NOTEBOOK_IPA, "    "))
     return (
         NOTEBOOK_CODE
+        .replace("__KEYFRAMES__", kf)
         .replace("__SLOTS__", repr(json.dumps(lean)))
         .replace("__MODEL__", repr(json.dumps(model)))
         .replace("__NEG__", repr(negative))
@@ -630,11 +859,13 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
     applied, failed, lines = [], [], []
 
     for key, info in sorted(results.items(), key=lambda kv: str(kv[0])):
-        src = out_dir / info.get("file", f"gen_{key}.mp4")
+        synced = out_dir / info.get("synced_file", "") if info.get("synced_file") else None
+        talk = bool(synced and synced.exists() and synced.stat().st_size > 0)
+        src = synced if talk else out_dir / info.get("file", f"gen_{key}.mp4")
         if not src.exists() or src.stat().st_size == 0:
             failed.append({"key": key, "why": "clip missing from kernel output"})
             continue
-        dest = pool / f"gen_{key}.mp4"
+        dest = pool / f"gen_{key}{'_talk' if talk else ''}.mp4"
         dest.write_bytes(src.read_bytes())
         # Match the assets skill: the feed carries repo-root-relative paths, so a
         # session folder stays portable. Fall back to absolute if it's outside.
@@ -657,6 +888,8 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
         # live run, where frame 120 of 121 had smeared into incoherence while
         # frame 60 was clean. Cutting to the shot length discards the drifted
         # tail for free. Only ever trims; a shot longer than the clip keeps all.
+        if talk:
+            clip_seconds = float(info.get("synced_seconds") or clip_seconds)
         out_point = clip_seconds
         want = _shot_durations(session_dir).get(shot_number) or 0.0
         if want and clip_seconds and want < clip_seconds:
@@ -675,9 +908,10 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
             "visual_verdict": "",
             "visual_confidence": 0,
             "error": "",
+            **({"lipsync": info["lipsync"]} if info.get("lipsync") else {}),
         })
         applied.append({"key": key, "file": feed_path, "seconds": out_point,
-                        "preset": info.get("preset", "")})
+                        "preset": info.get("preset", ""), **({"lipsync": info["lipsync"]} if info.get("lipsync") else {})})
 
     if lines:
         with open(feed, "a", encoding="utf-8") as fh:
@@ -741,9 +975,18 @@ def cmd_push(args: argparse.Namespace) -> None:
                           "message": "no shots ask for generated footage"}))
         return
 
+    characters = attach_character_seeds(session_dir, slots, model)
+    model["lipsync"] = args.lipsync
+    talking = attach_talk_audio(session_dir, slots) if args.lipsync != "off" else {}
+    keyframes = attach_keyframes(session_dir, slots, model, args.model, args.ref_strength)
     seeding = {"seeded": 0, "skipped": []}
     if args.seed_from_assets:
         seeding = attach_seed_images(session_dir, slots, model)
+    seeding["seeded"] += sum(1 for v in characters.values() if v in ("lora_keyframe", "ref"))
+    seeding["seeded"] += len(keyframes.get("shots", {}))
+    seeding["characters"] = characters
+    if keyframes:
+        seeding["keyframes"] = keyframes
     if not model["pipeline_t2v"] and seeding["seeded"] < len(slots):
         raise ValueError(f"{args.model} is image-to-video only — every slot needs "
                          f"--seed-from-assets to succeed ({seeding['seeded']}/{len(slots)} seeded)")
@@ -761,7 +1004,7 @@ def cmd_push(args: argparse.Namespace) -> None:
 
     if args.dry_run:
         print(json.dumps({"ok": True, "dry_run": True, "kernel": kernel_id,
-                          "count": len(slots), "notebook_bytes": size,
+                          "count": len(slots), "notebook_bytes": size, "talking": talking,
                           "slots": [{k: s[k] for k in ("key", "preset", "prompt", "segments")}
                                     for s in slots],
                           "seeding": seeding}, ensure_ascii=False))
@@ -775,6 +1018,7 @@ def cmd_push(args: argparse.Namespace) -> None:
         "count": len(slots),
         "slots": [{k: s[k] for k in ("key", "shot_number", "preset", "segments")} for s in slots],
         "seeding": seeding,
+        "talking": talking,
     }
     _state_path(session_dir).write_text(json.dumps(state, indent=2), encoding="utf-8")
     print(json.dumps({
@@ -840,9 +1084,13 @@ def main() -> None:
     p.add_argument("--shots", default="", help="Force specific shot numbers, e.g. 3,7,9")
     p.add_argument("--chain", type=int, default=1,
                    help="Max chained segments per slot (1 = single ~5s clip). Drift grows per hop.")
+    p.add_argument("--ref-strength", type=float, default=1.0,
+                   help="How hard the session's look refs pull on styled keyframes; 0 turns the pass off")
     p.add_argument("--seed-from-assets", action="store_true",
                    help="Image-to-video: seed each slot from the frame already fetched for that shot")
     p.add_argument("--dry-run", action="store_true", help="Build and report, don't push")
+    p.add_argument("--lipsync", default="latentsync", choices=["latentsync", "off"],
+                   help="Lip-sync shots marked generate.talk with LatentSync 1.5 (SPEC.md Part 4)")
     for flag in ("frames", "fps", "width", "height", "steps"):
         p.add_argument(f"--{flag}", type=int, default=0)
     p.add_argument("--guidance", type=float, default=0.0,

@@ -1,0 +1,227 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-16",
+  "researched_at": "2026-09-17T04:48:02.842079",
+  "topic_query": "do alphas exist quantitative trading research systematic strategies",
+  "context_summary": "The script's thesis — that alphas are real but mostly too faint, too crowded, or too cost-sensitive to trade — is the mainstream position in the quant literature, not a contrarian one. Tulchinsky's Finding Alphas (WorldQuant/Wiley) frames an alpha as an idea about how the market works, expressed as an automated predictive model; the same literature documents that cheap hardware and mass data-mining have produced ever fainter, ever more ephemeral alphas that flatline and get replaced. McLean & Pontiff (Journal of Finance, 2016) put numbers on exactly the decay the script hits repeatedly: across 97 published predictors, returns fall 26% out-of-sample and 58% post-publication, with the sharpest declines in the predictors that looked strongest in-sample. The script's methodology is also textbook-correct where it matters most: the deflated Sharpe ratio (Bailey & Lopez de Prado, 2014) exists precisely to charge a strategy for the number of trials behind it, and DSR > 0.95 is the conventional bar — so a frozen model failing at 0.887 and a walk-forward recipe passing at 0.988 is the standard being applied honestly rather than gamed. The one place the script is exposed is its conclusion: the overnight/close-to-open drift it lands on is well documented (NY Fed: 2.6% annualized overnight vs 4.3% close-to-close, 1998-2019; Lou, Polk & Skouras' tug of war), but two recent lines of work argue it is fading or cost-infeasible — Alpha Architect's finding that trading costs wipe out the anomaly, and the New York Fed's July 2026 'The Disappearing Overnight Drift'. The script's own gating (200-day MA filter) and swap-snapshot timing are plausible answers to both, but a quant audience will expect them addressed.",
+  "key_facts": [
+    {
+      "claim": "Tulchinsky defines an alpha as 'an idea about how the market works' — an automated predictive model decoding some market relation (Finding Alphas, WorldQuant/Wiley)",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "The book's wording is: 'Fundamentally, an alpha is an idea about how the market works. More specifically, an alpha is an automated predictive model that describes, or decodes, some market relation. Alphas are designed as algorithms, a combination of mathematical expressions, computer source code, and configuration parameters.' The script's quote compresses the third sentence but preserves the definition.",
+      "sources": [
+        {
+          "url": "https://www.everand.com/book/575605379/Finding-Alphas-A-Quantitative-Approach-to-Building-Trading-Strategies",
+          "title": "Finding Alphas: A Quantitative Approach to Building Trading Strategies — Igor Tulchinsky",
+          "snippet": "Fundamentally, an alpha is an idea about how the market works. More specifically, an alpha is an automated predictive model that describes, or decodes, some market relation."
+        },
+        {
+          "url": "https://onlinelibrary.wiley.com/doi/abs/10.1002/9781119571278.ch2",
+          "title": "Perspectives on Alpha Research — Finding Alphas (Wiley Online Library)",
+          "snippet": "Chapter from the Wiley edition of Finding Alphas, confirming publisher and edition."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "Short-term reversal traces to Lehmann (1990), and the original paper claimed profits survived bid-ask spreads and plausible transaction costs",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "Lehmann, 'Fads, Martingales, and Market Efficiency', Quarterly Journal of Economics 105(1): 1-28. Weekly winners and losers reverse the following week in a way that 'reflects apparent arbitrage profits which persist after corrections for bid-ask spreads and plausible transactions costs'.",
+      "sources": [
+        {
+          "url": "https://www.nber.org/system/files/working_papers/w2533/w2533.pdf",
+          "title": "Fads, Martingales, and Market Efficiency (NBER Working Paper 2533)",
+          "snippet": "Winners and losers one week experience sizeable return reversals the next week, reflecting apparent arbitrage profits that persist after corrections for bid-ask spreads and plausible transactions costs."
+        },
+        {
+          "url": "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr513.pdf",
+          "title": "Decomposing Short-Term Return Reversal (NY Fed Staff Report 513)",
+          "snippet": "Later work decomposing the reversal effect and its link to liquidity provision."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "Published anomalies decay sharply after publication — the script's 'half-life of a published anomaly is roughly publication'",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "McLean & Pontiff (Journal of Finance, 2016) study 97 published predictors: portfolio returns are 26% lower out-of-sample and 58% lower post-publication, implying ~32% attributable to publication itself. Declines are largest for predictors with the highest in-sample returns. The direction and mechanism match the script; 'half-life = publication' is a rhetorical compression of a 58% decline, not a literal finding.",
+      "sources": [
+        {
+          "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12365",
+          "title": "Does Academic Research Destroy Stock Return Predictability? — Journal of Finance (2016)",
+          "snippet": "Portfolio returns are 26% lower out-of-sample and 58% lower post-publication."
+        },
+        {
+          "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2156623",
+          "title": "McLean & Pontiff — SSRN working paper",
+          "snippet": "Post-publication declines are greater for predictors with higher in-sample returns."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "Deflated Sharpe ratio > 0.95 is the conventional bar, and it charges a strategy for the number of trials run",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "Bailey & Lopez de Prado (2014) built the DSR to correct for selection bias under multiple testing and non-normal returns. Conventional threshold is DSR > 0.95; values 0.50-0.90 are weak evidence consistent with overfitting. The script's 72 logged trials, a frozen model failing at 0.887, and a walk-forward recipe passing at 0.988 is a correct application of the standard.",
+      "sources": [
+        {
+          "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551",
+          "title": "The Deflated Sharpe Ratio: Correcting for Selection Bias, Backtest Overfitting and Non-Normality",
+          "snippet": "The DSR is a PSR where the rejection threshold is adjusted to reflect the multiplicity of trials."
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/Deflated_Sharpe_ratio",
+          "title": "Deflated Sharpe ratio",
+          "snippet": "The conventional threshold is DSR > 0.95; values between 0.50 and 0.90 are weak evidence consistent with overfitting."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "The overnight (close-to-open) drift is real and accounts for most of the long-run equity gain",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "NY Fed: the overnight session averaged 2.6% annualized, more than half of the 4.3% annualized close-to-close return (1998-2019), with the largest gains 2-3am ET as European markets open; attributed to intermediaries absorbing close order imbalances. Lou, Polk & Skouras' 'tug of war' finds the same split.",
+      "sources": [
+        {
+          "url": "https://libertystreeteconomics.newyorkfed.org/2021/05/the-overnight-drift-in-us-equity-returns",
+          "title": "The Overnight Drift in U.S. Equity Returns — Liberty Street Economics",
+          "snippet": "The overnight session generated 2.6 percent annualized, more than half of the 4.3 percent close-to-close return."
+        },
+        {
+          "url": "https://elmwealth.com/night-moves-overnight-drift/",
+          "title": "Night Moves: Is the Overnight Drift the Grandmother of All Market Anomalies? — Elm Wealth",
+          "snippet": "Decades of research show nearly all long-run gains accrue overnight."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "The overnight drift still works net of costs today",
+      "status": "flagged",
+      "confidence": "medium",
+      "evidence": "Two recent lines of work push back: Alpha Architect argues trading costs wipe out the overnight return anomaly, and the New York Fed published 'The Disappearing Overnight Drift' in July 2026. Other work notes excess returns are diminished by transaction costs and have waned over the years. The script's answer — entering after the 17:00 swap snapshot to avoid financing, and gating with the 200-day MA — is plausible but is exactly the claim a quant audience will test.",
+      "sources": [
+        {
+          "url": "https://libertystreeteconomics.newyorkfed.org/2026/07/the-disappearing-overnight-drift/",
+          "title": "The Disappearing Overnight Drift — Liberty Street Economics (July 2026)",
+          "snippet": "NY Fed follow-up documenting the decline of the overnight drift."
+        },
+        {
+          "url": "https://alphaarchitect.com/trading-costs-wipe-out-the-overnight-return-anomaly/",
+          "title": "Trading Costs Wipe Out the Overnight Return Anomaly — Alpha Architect",
+          "snippet": "Argues the anomaly does not survive realistic implementation costs."
+        }
+      ],
+      "flag": "Directly contests the script's conclusion. Worth one line acknowledging it — the script's swap-timing and MA gate are the defence."
+    },
+    {
+      "claim": "FTMO charges commission on FX that the script's model omitted",
+      "status": "verified",
+      "confidence": "high",
+      "evidence": "FTMO's FX commission is $3 per lot round turn (100,000 units), with no commission on indices, cash CFDs, crypto or futures CFDs, and swaps charged on all overnight positions (no swap-free account). The script's '25 cents a deal, 50 cents a leg round trip' is the same fee scaled to its position size, and the omission it describes — modelling spread, swap, slippage and impact but not commission — is consistent with FX being the one asset class where FTMO bills separately.",
+      "sources": [
+        {
+          "url": "https://propvator.com/blog/ftmo-trading-conditions/",
+          "title": "FTMO Commissions, Spreads and Swaps — Propvator",
+          "snippet": "Forex round-turn commission is $3 per lot; no commission on indices, cash CFDs, crypto or futures CFDs."
+        },
+        {
+          "url": "https://ftmo.com/en/blog/whats-consuming-all-your-profits/",
+          "title": "What's consuming all your profits? — FTMO",
+          "snippet": "FTMO's own breakdown of spread, swap and commission costs."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "Crypto CFD swap costs roughly 30% a year per side",
+      "status": "verified",
+      "confidence": "medium",
+      "evidence": "Broker-dependent but in range: FxPro quotes 20% annually for crypto swaps on both long and short; typical flat overnight fees of 0.04-0.08% of position value per day annualise to roughly 15-29%. The script's ~30% sits at the top of the observed range, so it is defensible as a worst case rather than a universal figure.",
+      "sources": [
+        {
+          "url": "https://www.fxpro.com/commissions-swap-charges",
+          "title": "Commissions & Swap Charges at FxPro",
+          "snippet": "Swap values for cryptos are 20% for a year for both long and short positions."
+        },
+        {
+          "url": "https://hyperdash.com/learn/overnight-swap-fees-vs-funding-rates-perps",
+          "title": "CFD Overnight Fees vs Perps Funding Rates Compared",
+          "snippet": "Brokers typically apply a flat overnight fee of 0.04-0.08% of position value per day."
+        }
+      ],
+      "flag": ""
+    },
+    {
+      "claim": "High-gamma days are quiet but do not mean-revert — the reverting half of the GEX story does not exist",
+      "status": "flagged",
+      "confidence": "low",
+      "evidence": "Industry sources assert the opposite of the script's second half: positive dealer gamma is described as an explicitly mean-reverting force (dealers buy dips, sell rallies), producing vol compression and strike pinning, with mean-reversion strategies said to work in positive-gamma regimes. The script agrees high-gamma days are quiet but reports the reversion itself vanishes under testing, and that GEX loses to past-5-day return as a predictor. Note the sources making the reversion claim are vendors selling GEX data (SpotGamma and similar), not peer-reviewed work.",
+      "sources": [
+        {
+          "url": "https://spotgamma.com/gamma-exposure-gex/",
+          "title": "Gamma Exposure (GEX) — SpotGamma",
+          "snippet": "When dealers are net long gamma they buy dips and sell rallies — a mean-reverting force that compresses volatility."
+        },
+        {
+          "url": "https://medium.com/algorithmic-trading/gamma-exposure-dealer-positioning-and-the-predictive-structure-of-s-p-500-intraday-moves-9f9f944aa7d6",
+          "title": "Gamma Exposure, Dealer Positioning, and the Predictive Structure of S&P 500 Intraday Moves",
+          "snippet": "Mean-reversion strategies that work in positive-gamma regimes tend to fail in negative-gamma regimes."
+        }
+      ],
+      "flag": "Script contradicts the popular vendor narrative. That is a defensible and interesting position, but it should be stated as a tested finding, since the audience has heard the opposite everywhere."
+    },
+    {
+      "claim": "Yahoo's ^GSPC opening prints are stale (fill-forward copies of the previous close) before roughly 2014",
+      "status": "flagged",
+      "confidence": "low",
+      "evidence": "No independent source found for the specific pre-2014 fill-forward behaviour or the script's measured 78-98% zero-gap rate. Adjacent data-quality problems are documented — a yfinance issue reports ^GSPC returning identical regularMarketOpen and regularMarketPrice values, and Yahoo has since restricted historical data — but neither confirms the script's claim. The script's evidence is its own measurement (base rate 0.313 on ^GSPC vs 0.559 on SPY), which is strong internal evidence.",
+      "sources": [
+        {
+          "url": "https://github.com/ranaroussi/yfinance/issues/394",
+          "title": "regularMarketOpen and regularMarketPrice returning same number for ticker ^GSPC — yfinance issue 394",
+          "snippet": "Both fields returned 3218.58 when the actual price was 3,215.63; a different bug, but the same family of index open-price unreliability."
+        }
+      ],
+      "flag": "Self-measured, not independently corroborated. Present it as 'I measured this', not 'it is known', and the SPY base-rate comparison is the proof to show on screen."
+    }
+  ],
+  "open_questions": [
+    "Lehmann (1990) claimed reversal profits survived bid-ask spreads and plausible costs; the script measures net Sharpe 0.058 on mid-caps. Worth one line on why the 1990 result does not survive modern replication — crowding, or costs the original understated?",
+    "The NY Fed's July 2026 'The Disappearing Overnight Drift' postdates most of the supporting literature. If the drift is decaying, does the script's v2 walk-forward refit absorb that, or is it fitting a fading effect?",
+    "The script's 'half-life of a published anomaly is roughly publication' is rhetorically strong but McLean & Pontiff measure a 58% decline, not 50% of remaining edge per period. Keep as voice, or tighten to the real number on screen?",
+    "The #027 intraday FX stat-arb IC of 0.0205 over 2.16m observations is self-reported and unverifiable externally, but it is the most technically impressive number in the piece — it should be shown as a chart rather than asserted."
+  ],
+  "sources_seen": [
+    "https://www.amazon.com/Finding-Alphas-Quantitative-Approach-Strategies/dp/1119057868",
+    "https://onlinelibrary.wiley.com/doi/abs/10.1002/9781119571278.ch2",
+    "https://www.everand.com/book/575605379/Finding-Alphas-A-Quantitative-Approach-to-Building-Trading-Strategies",
+    "https://arxiv.org/pdf/1709.06641",
+    "https://www.nber.org/system/files/working_papers/w2533/w2533.pdf",
+    "https://www.newyorkfed.org/medialibrary/media/research/staff_reports/sr513.pdf",
+    "https://alphaarchitect.com/quantitative-momentum-research-short-term-return-reversal/",
+    "https://onlinelibrary.wiley.com/doi/abs/10.1111/jofi.12365",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2156623",
+    "https://www.hec.ca/finance/Fichier/McLean.pdf",
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2460551",
+    "https://en.wikipedia.org/wiki/Deflated_Sharpe_ratio",
+    "https://www.davidhbailey.com/dhbpapers/deflated-sharpe.pdf",
+    "https://libertystreeteconomics.newyorkfed.org/2021/05/the-overnight-drift-in-us-equity-returns",
+    "https://libertystreeteconomics.newyorkfed.org/2026/07/the-disappearing-overnight-drift/",
+    "https://alphaarchitect.com/trading-costs-wipe-out-the-overnight-return-anomaly/",
+    "https://elmwealth.com/night-moves-overnight-drift/",
+    "https://arxiv.org/pdf/2507.04481",
+    "https://propvator.com/blog/ftmo-trading-conditions/",
+    "https://ftmo.com/en/blog/whats-consuming-all-your-profits/",
+    "https://www.fxpro.com/commissions-swap-charges",
+    "https://hyperdash.com/learn/overnight-swap-fees-vs-funding-rates-perps",
+    "https://spotgamma.com/gamma-exposure-gex/",
+    "https://medium.com/algorithmic-trading/gamma-exposure-dealer-positioning-and-the-predictive-structure-of-s-p-500-intraday-moves-9f9f944aa7d6",
+    "https://github.com/ranaroussi/yfinance/issues/394",
+    "https://finance.yahoo.com/quote/%5EGSPC/history/"
+  ]
+}

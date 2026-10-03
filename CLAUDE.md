@@ -12,6 +12,7 @@ ESTA-v2's AI video factory (topic -> script -> voiceover -> plan -> assets -> ed
 - Backend only: `bun run server`
 - Typecheck: `bun run typecheck` (editor + server)
 - Lint: `bun run lint` (ESTA frontend code + server). `bun run lint:all` also lints the vendored OpenCut code, which carries upstream's own baseline errors.
+- OpenCut's wasm (compositor, effects, masks): Rust source in `rust/`, built into the committed `packages/opencut-wasm/` by `bun run build:wasm` (needs `rustup target add wasm32-unknown-unknown` and `cargo install wasm-pack`). Only needed after changing `rust/`. Rust tests: `cargo test -p effects`.
 - Test: `bun test` in `apps/editor` runs OpenCut's unit tests (its timeline tests fail upstream too: wasm doesn't initialise under bun). Pipeline state is checked against `python tools/pipeline/conductor.py next --session sessions/<id>`.
 
 ## Code style
@@ -33,6 +34,7 @@ ESTA-v2's AI video factory (topic -> script -> voiceover -> plan -> assets -> ed
 
 - `tools/` and `.claude/skills/` are verbatim v2 copies. Change them only for integration fixes, and log each in `PORTING.md` with the reason.
 - v2's servers are gone. Where a skill says to run `node tools/asset-server.mjs` or `tools/chat-bridge.mjs`, the v3 backend (`bun run dev`) already serves the same routes on :8787. Where a skill points the user at `localhost:8787/_plan?session=<id>` or `/_picker?session=<id>`, point them at the session's workspace instead: `http://localhost:3000/esta/<id>`.
+- Where the render skill emits `esta-import.json` into the OpenCut clone and loads `/esta-seed`, use the Edit stage's **Build project** instead, and **Build for export** where it says `--originals`. Both build the native OpenCut project `esta-<id>` from `<id>.openreel.json`.
 - Approvals and overrides live under the `ui` key of `pipeline.json`. `conductor.py` round-trips unknown keys, so its commands keep working.
 - OpenCut code outside `src/esta/` is upstream: keep edits there minimal and list each one in `PORTING.md`.
 

@@ -1,0 +1,525 @@
+{
+  "model": "haiku",
+  "inspo_shots": 208,
+  "tagged": 208,
+  "our_shots": 17,
+  "plan_before": {
+    "overall": 60.9,
+    "pass": false,
+    "sections": {
+      "a": {
+        "name": "Asset distribution",
+        "score": 64.0,
+        "ours": {
+          "footage": 0.5481,
+          "graphic": 0.4519
+        },
+        "inspo": {
+          "footage": 0.8764,
+          "still": 0.0315,
+          "graphic": 0.092
+        },
+        "gap": {
+          "graphic": 0.3599,
+          "footage": -0.3283,
+          "still": -0.0315
+        },
+        "pass": false,
+        "note": ""
+      },
+      "b": {
+        "name": "Colour and grading",
+        "score": null,
+        "pass": null,
+        "note": "n/a at plan: colour needs real media"
+      },
+      "c": {
+        "name": "Thematic adherence",
+        "score": 68.5,
+        "estimate": true,
+        "pass": false,
+        "note": ""
+      },
+      "d": {
+        "name": "Complexity",
+        "score": 40.9,
+        "rates": {
+          "text": {
+            "ours": 1.0,
+            "inspo": 0.443,
+            "score": 0.0
+          },
+          "variety": {
+            "ours": 2,
+            "inspo": 2.444,
+            "score": 81.8
+          }
+        },
+        "excluded": [
+          "panels",
+          "clips",
+          "overlay"
+        ],
+        "pass": false,
+        "note": ""
+      },
+      "e": {
+        "name": "Shot duration",
+        "score": 65.5,
+        "mean": {
+          "ours": 3.24,
+          "inspo": 2.41
+        },
+        "median": {
+          "ours": 2.6,
+          "inspo": 1.93
+        },
+        "pass": false,
+        "note": ""
+      }
+    }
+  },
+  "plan_after": {
+    "overall": 70.6,
+    "pass": false,
+    "sections": {
+      "a": {
+        "name": "Asset distribution",
+        "score": 89.5,
+        "ours": {
+          "footage": 0.7712,
+          "graphic": 0.1558,
+          "still": 0.073
+        },
+        "inspo": {
+          "footage": 0.8764,
+          "still": 0.0315,
+          "graphic": 0.092
+        },
+        "gap": {
+          "graphic": 0.0638,
+          "footage": -0.1052,
+          "still": 0.0415
+        },
+        "pass": true,
+        "note": ""
+      },
+      "b": {
+        "name": "Colour and grading",
+        "score": null,
+        "pass": null,
+        "note": "n/a at plan: colour needs real media"
+      },
+      "c": {
+        "name": "Thematic adherence",
+        "score": 65.3,
+        "estimate": true,
+        "pass": false,
+        "note": ""
+      },
+      "d": {
+        "name": "Complexity",
+        "score": 38.6,
+        "rates": {
+          "text": {
+            "ours": 1.0,
+            "inspo": 0.443,
+            "score": 0.0
+          },
+          "variety": {
+            "ours": 3,
+            "inspo": 2.444,
+            "score": 77.3
+          }
+        },
+        "excluded": [
+          "panels",
+          "clips",
+          "overlay"
+        ],
+        "pass": false,
+        "note": ""
+      },
+      "e": {
+        "name": "Shot duration",
+        "score": 79.9,
+        "mean": {
+          "ours": 2.62,
+          "inspo": 2.41
+        },
+        "median": {
+          "ours": 2.54,
+          "inspo": 1.93
+        },
+        "pass": true,
+        "note": ""
+      }
+    }
+  },
+  "rounds": [
+    {
+      "round": 1,
+      "changes": [
+        "split shot 9 at 'model'",
+        "split shot 8 at 'how'",
+        "split shot 4 at 'from'",
+        "split shot 3 at 'see'",
+        "shot 12 keeps the clip (fit 0.137 vs 0.120); shot 13 refetches",
+        "shot 10 keeps the clip (fit 0.131 vs 0.117); shot 11 refetches",
+        "shot 5 keeps the clip (fit 0.096 vs 0.080); shot 6 refetches",
+        "shot 3 keeps the clip (fit 0.084 vs 0.081); shot 4 refetches",
+        "reworded 4 shots"
+      ],
+      "kept": true,
+      "gain": 5.1
+    },
+    {
+      "round": 2,
+      "changes": [
+        "retyped shot 15 graphic -> footage",
+        "retyped shot 16 graphic -> footage",
+        "retyped shot 11 graphic -> footage",
+        "retyped shot 12 graphic -> footage",
+        "retyped shot 10 graphic -> footage",
+        "retyped shot 13 graphic -> footage",
+        "retyped shot 21 graphic -> still",
+        "rethemed shot 19",
+        "rethemed shot 20",
+        "rethemed shot 8",
+        "rethemed shot 18",
+        "rethemed shot 9",
+        "rethemed shot 2",
+        "rethemed shot 7",
+        "rethemed shot 5",
+        "reworded 15 shots",
+        "kept shot 15 a graphic (its desc still describes one)",
+        "guided: shot 16 leads with youtube; shot 11 leads with youtube; shot 12 leads with youtube; shot 10 leads with youtube; shot 13 leads with youtube; shot 21 leads with google_images; shot 19 leads with youtube; shot 20 leads with youtube; shot 8 leads with youtube; shot 18 leads with youtube; shot 9 leads with youtube; shot 5 leads with youtube"
+      ],
+      "kept": true,
+      "gain": 4.6
+    },
+    {
+      "round": 3,
+      "changes": [
+        "rethemed shot 16",
+        "rethemed shot 8",
+        "rethemed shot 11",
+        "rethemed shot 19",
+        "rethemed shot 20",
+        "rethemed shot 12",
+        "rethemed shot 2",
+        "rethemed shot 10",
+        "rethemed shot 13",
+        "rethemed shot 21",
+        "rethemed shot 7",
+        "rethemed shot 15"
+      ],
+      "kept": false,
+      "why": "reverted: overall +0.0"
+    }
+  ],
+  "nudge_cost_usd": 0.1328,
+  "shots_after": [
+    {
+      "n": 1,
+      "start": 0.0,
+      "end": 3.44,
+      "audio": "so Alphas...nah not these guys",
+      "type": "REAL_FOOTAGE",
+      "desc": "Andrew Tate gesticulating mid-sentence on camera, letterboxed center band on black",
+      "sources": [
+        "youtube",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 2,
+      "start": 3.44,
+      "end": 5.12,
+      "audio": "Or these guys",
+      "type": "REAL_FOOTAGE",
+      "desc": "Wolf pack establishing hierarchy with alpha male leading, letterboxed on black field",
+      "sources": [
+        "youtube",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 3,
+      "start": 6.44,
+      "end": 9.46,
+      "audio": "This fucking annoying ass shit. You",
+      "type": "REAL_FOOTAGE",
+      "desc": "Man lying on back in dark bedroom staring at ceiling, unable to sleep",
+      "sources": [
+        "pixabay_video",
+        "pexels_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 4,
+      "start": 9.46,
+      "end": 12.56,
+      "audio": "see these ones wouldn't drive you to edge of the world, questioning your sanity and intelligence",
+      "type": "REAL_FOOTAGE",
+      "desc": "Close-up of person's face with furrowed brow and skeptical expression, letterboxed on black field, conveying doubt and existential questioning",
+      "sources": [
+        "youtube",
+        "pexels_video"
+      ],
+      "refetch": true
+    },
+    {
+      "n": 5,
+      "start": 12.56,
+      "end": 15.74,
+      "audio": "and intelligence and make you stare at the ceiling at question, your wild existence",
+      "type": "REAL_FOOTAGE",
+      "desc": "Man lying on back in dark bedroom, staring at ceiling in existential contemplation, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 6,
+      "start": 15.74,
+      "end": 18.66,
+      "audio": "from the moment you ran from your dad's balls and spun into the world. Goodness",
+      "type": "REAL_FOOTAGE",
+      "desc": "Sports crowd or team bench reacting with amazement or excitement—faces showing wonder, looking toward play—letterboxed on black field",
+      "sources": [
+        "youtube",
+        "pixabay_video"
+      ],
+      "refetch": true
+    },
+    {
+      "n": 7,
+      "start": 18.78,
+      "end": 20.14,
+      "audio": "...goodness gracious",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person with head in hands, exasperated shock reaction, letterboxed on black field",
+      "sources": [
+        "pexels_video",
+        "pixabay_video",
+        "giphy"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 8,
+      "start": 21.13,
+      "end": 23.31,
+      "audio": "Sorry, I went off on a tangent there,",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person shrugging with sheepish apologetic expression to camera, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "giphy"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 9,
+      "start": 23.31,
+      "end": 25.91,
+      "audio": "but eesh. So let's talk about alphas.",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person with earnest expression gesturing to explain, transitioning to new topic, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "giphy"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 10,
+      "start": 27.11,
+      "end": 29.47,
+      "audio": "Fundamentally, an alpha is an idea about",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person at desk surrounded by trading books and papers, thinking or explaining concept with contemplative expression, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 11,
+      "start": 29.47,
+      "end": 31.67,
+      "audio": "how the market works. Concretely,",
+      "type": "REAL_FOOTAGE",
+      "desc": "Trading floor with multiple screens displaying live market data and price movements, traders monitoring positions, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": true
+    },
+    {
+      "n": 12,
+      "start": 31.67,
+      "end": 34.21,
+      "audio": "Concretely, it is an automated predictive",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person typing code on laptop or reviewing algorithmic model on screen, focused concentration on dark background, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 13,
+      "start": 34.21,
+      "end": 37.27,
+      "audio": "model that decodes some market relation.",
+      "type": "REAL_FOOTAGE",
+      "desc": "Computer screen displaying complex data analysis and algorithms, or hands working with data models and code, letterboxed on black field",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": true
+    },
+    {
+      "n": 14,
+      "start": 37.67,
+      "end": 40.59,
+      "audio": "It contains rules that convert input data",
+      "type": "MOTION_GRAPHICS",
+      "desc": "Terminal card continues with second half definition and block cursor trail",
+      "sources": [
+        "pixabay_image",
+        "giphy"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 15,
+      "start": 40.59,
+      "end": 43.75,
+      "audio": "to positions trades in the securities markets.",
+      "type": "MOTION_GRAPHICS",
+      "desc": "Close-up of trading terminal displaying live market positions, bid-ask data, and price quotes, letterboxed on black field",
+      "sources": [
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 16,
+      "start": 44.47,
+      "end": 46.59,
+      "audio": "Igor Tolchinsky, finding",
+      "type": "REAL_FOOTAGE",
+      "desc": "Professional trader or analyst working at desk with trading screens, credited with voiceover attribution, letterboxed on black",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 17,
+      "start": 46.59,
+      "end": 49.09,
+      "audio": "alphas world quant widely 2020.",
+      "type": "MOTION_GRAPHICS",
+      "desc": "Terminal card shows attribution as shell comment in amber monospace",
+      "sources": [
+        "giphy",
+        "pixabay_image"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 18,
+      "start": 49.75,
+      "end": 51.49,
+      "audio": "Thanks Tulch",
+      "type": "REAL_FOOTAGE",
+      "desc": "Person nodding with grateful appreciative expression to camera, letterboxed on black field",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "giphy"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 19,
+      "start": 52.3,
+      "end": 54.78,
+      "audio": "I love money. You love money, we all love money.",
+      "type": "REAL_FOOTAGE",
+      "desc": "Money counting machine rapidly riffling through stacked banknotes, close-up on black field",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 20,
+      "start": 54.78,
+      "end": 57.26,
+      "audio": "So why not do some maths and make some money sounds easy, doesn't it? Well,",
+      "type": "REAL_FOOTAGE",
+      "desc": "Money counting machine rapidly counting and riffling through stack of banknotes, close-up on black field",
+      "sources": [
+        "youtube",
+        "pexels_video",
+        "pixabay_video",
+        "archive"
+      ],
+      "refetch": false
+    },
+    {
+      "n": 21,
+      "start": 57.26,
+      "end": 61.28,
+      "audio": "it? Well, Psyche, I've been writing maths equations to find these alphas for",
+      "type": "REAL_IMAGE",
+      "desc": "Photograph of blank or crossed-out notebook page with failed mathematical equations, symbolizing unfound alphas, letterboxed on black",
+      "sources": [
+        "google_images",
+        "pexels_image",
+        "pixabay_image",
+        "pinterest"
+      ],
+      "refetch": false
+    }
+  ]
+}

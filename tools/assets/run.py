@@ -824,7 +824,7 @@ def cmd_candidates(args: argparse.Namespace) -> None:
         fn = source_fn_map.get(source)
         if not fn:
             continue
-        for q in entry.get("queries", []):
+        for q in entry.get("queries", [])[:args.max_queries or None]:
             # Quota is per source PER QUERY, not per source: the user lists
             # several queries precisely to see different angles, so letting the
             # first one fill the quota would silently discard the rest.
@@ -1045,6 +1045,8 @@ def main() -> None:
                    help="Max candidates to keep per source PER QUERY (default 4)")
     c.add_argument("--queries", help="Override queries, '|'-separated — picker sends edits here")
     c.add_argument("--sources", help="Override sources, comma-separated — picker sends edits here")
+    c.add_argument("--max-queries", type=int, default=0, dest="max_queries",
+                   help="Use only the first N queries per source (auto-pick keeps downloads bounded)")
 
     b = sub.add_parser("sources",
                        help="Print the full source bank as JSON (name, kind, availability) — feeds the picker's source chips")

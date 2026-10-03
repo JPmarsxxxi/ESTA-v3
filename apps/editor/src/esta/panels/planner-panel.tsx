@@ -15,6 +15,7 @@ import { inputClass } from "../ui";
 type Shot = Record<string, any>;
 type Fields = { desc: string; type: string; spec: string; fx: string; queries: string; music: string; sfx: string; caption: string; ocaption: string; odesc: string };
 type Rewrite = { status: string; proposal?: Record<string, unknown>; cost?: number; error?: string };
+type Requery = { status: string; search_sources?: { source: string; queries: string[] }[]; cost?: number; error?: string; skipped?: string };
 
 // SFX entries are bare strings or {sound,on}; edited one per line as "sound | word".
 const sfxToText = (arr: unknown[] | undefined) =>
@@ -128,15 +129,34 @@ export function PlannerPanel() {
 	const [dirty, setDirty] = useState<Set<number>>(new Set());
 	const [saved, setSaved] = useState<Set<number>>(new Set());
 	const [rewrites, setRewrites] = useState<Record<number, Rewrite>>({});
+	const [requeries, setRequeries] = useState<Record<number, Requery>>({});
 	const [status, setStatus] = useState("Edits save themselves when you move on. Ctrl+S saves and advances.");
-	const [conflict, setConflict] = useState(false);
+	const [conflict, setConflictState] = useState(false);
 	const discarding = useRef(false);
+	// While a conflict is open, leaving an edited shot holds its edits here instead
+	// of saving them over the disk version; Keep mine writes them, Take theirs drops them.
+	const conflictRef = useRef(false);
+	const held = useRef(new Map<number, Shot>());
+	const disk = useRef<Shot[] | null>(null);
+	// Reset only after the re-keyed form has unmounted, or its save-on-leave
+	// would write the edits being discarded.
+	useEffect(() => {
+		discarding.current = false;
+	}, [version]);
+	const setConflict = useCallback((on: boolean) => {
+		conflictRef.current = on;
+		setConflictState(on);
+	}, []);
 	// Which shot is on screen now, readable by a command still running after the
 	// form that started it unmounted.
 	const viewedAt = useRef(0);
 	const dirtyRef = useRef(dirty);
+	const shotsRef = useRef(shots);
+	const selectedRef = useRef(selectedShot);
 	useEffect(() => {
 		dirtyRef.current = dirty;
+		shotsRef.current = shots;
+		selectedRef.current = selectedShot;
 	});
 
 	const load = useCallback(
@@ -157,13 +177,28 @@ export function PlannerPanel() {
 	);
 	useEffect(() => void load(), [load]);
 
-	// External write to plan.json (terminal, chat, reconcile): silent reload
-	// unless there are unsaved edits, which get a banner instead.
+	// External write to plan.json (terminal, chat, reconcile): silent reload,
+	// unless it changed a shot with unsaved edits, which gets a banner instead.
+	// Saves go per shot, so edits to other shots merge without asking.
 	useEffect(() => {
 		if (lastFile?.path !== "plan.json" || lastFile.by === CLIENT_ID || !lastFile.exists) return;
-		if (dirtyRef.current.size) return setConflict(true);
-		void load().then(() => setVersion((v) => v + 1));
-	}, [lastFile, load]);
+		const edited = dirtyRef.current;
+		if (!edited.size) {
+			void load().then(() => setVersion((v) => v + 1));
+			return;
+		}
+		void api<{ shots: Shot[] }>(`/_plan/api/plan?session=${encodeURIComponent(session)}`).then(({ shots: fresh }) => {
+			const before = new Map((shotsRef.current ?? []).map((s) => [s.shot_number, JSON.stringify(s)]));
+			const clash = fresh.some((s) => edited.has(s.shot_number) && before.get(s.shot_number) !== JSON.stringify(s));
+			if (clash) {
+				disk.current = fresh;
+				return setConflict(true);
+			}
+			setShots(fresh);
+			// The open form keeps its local state only if it has edits of its own.
+			if (selectedRef.current == null || !edited.has(selectedRef.current)) setVersion((v) => v + 1);
+		});
+	}, [lastFile, load, session, setConflict]);
 
 	const current = shots?.find((s) => s.shot_number === selectedShot) ?? null;
 	useEffect(() => {
@@ -210,6 +245,23 @@ export function PlannerPanel() {
 		return () => clearInterval(t);
 	}, [rewrites, session]);
 
+	// Requery jobs: writes land straight on disk (no review step), so a completion
+	// also reloads the plan — the same "external write" path a terminal edit takes.
+	useEffect(() => {
+		const running = Object.entries(requeries).filter(([, r]) => r.status === "running");
+		if (!running.length) return;
+		const t = setInterval(async () => {
+			for (const [n] of running) {
+				const d = await api<Requery>(`/_plan/api/requery?session=${encodeURIComponent(session)}&shot=${n}`).catch(() => null);
+				if (d && d.status !== "running") {
+					setRequeries((prev) => ({ ...prev, [Number(n)]: d }));
+					if (d.status === "done") void load().then(() => setVersion((v) => v + 1));
+				}
+			}
+		}, 1500);
+		return () => clearInterval(t);
+	}, [requeries, session, load]);
+
 	const step = (delta: number) => {
 		if (!shots) return;
 		const i = shots.findIndex((x) => x.shot_number === selectedShot);
@@ -243,7 +295,7 @@ export function PlannerPanel() {
 				</div>
 				{shots.map((s) => {
 					const v = s.visual || {};
-					const tags = [v.type, (v.fx || []).join("+"), s.audio_layer?.sfx?.length ? "sfx" : "", s.overlay ? "overlay" : ""].filter(Boolean).join(" · ");
+					const tags = [v.type, (v.fx || []).join("+"), s.audio_layer?.sfx?.length ? "sfx" : "", s.overlay ? "overlay" : "", v.queries_stale ? "stale asset" : "", v.queries_pinned ? "pinned" : "", s.locked ? "locked" : ""].filter(Boolean).join(" · ");
 					const rw = rewrites[s.shot_number]?.status;
 					const dot = rw === "running" ? "bg-primary animate-pulse" : rw === "done" ? "bg-violet-500" : dirty.has(s.shot_number) ? "bg-caution animate-pulse" : saved.has(s.shot_number) ? "bg-constructive" : "bg-muted";
 					return (
@@ -270,13 +322,17 @@ export function PlannerPanel() {
 							what="plan.json"
 							onResolve={(keepMine) => {
 								setConflict(false);
-								if (keepMine) return;
+								const stash = [...held.current.values()];
+								held.current.clear();
+								if (keepMine) {
+									// Disk for everything else; the open form keeps its edits and saves as usual.
+									if (disk.current) setShots(disk.current);
+									void Promise.all(stash.map((shot) => saveShot({ session, shot }).then(() => onSaved({ shot, quiet: true }))));
+									return;
+								}
 								discarding.current = true;
 								setDirty(new Set());
-								void load().then(() => {
-									setVersion((v) => v + 1);
-									discarding.current = false;
-								});
+								void load().then(() => setVersion((v) => v + 1));
 							}}
 						/>
 					</div>
@@ -289,8 +345,15 @@ export function PlannerPanel() {
 							shot={current}
 							rewrite={rewrites[current.shot_number]}
 							onRewriteStarted={() => setRewrites((prev) => ({ ...prev, [current.shot_number]: { status: "running" } }))}
+							requery={requeries[current.shot_number]}
+							onRequeryStarted={() => setRequeries((prev) => ({ ...prev, [current.shot_number]: { status: "running" } }))}
 							onDirty={(d) => markDirty({ shot: current.shot_number, isDirty: d })}
 							shouldDiscard={() => discarding.current}
+							hold={(shot) => {
+								if (!conflictRef.current) return false;
+								held.current.set(shot.shot_number, shot);
+								return true;
+							}}
 							onSaved={onSaved}
 							onSaveAndAdvance={() => {
 								// Past the last shot, v2 goes back to the first one not saved yet.
@@ -329,20 +392,26 @@ function ShotForm({
 	shot,
 	rewrite,
 	onRewriteStarted,
+	requery,
+	onRequeryStarted,
 	onDirty,
 	onSaved,
 	onSaveAndAdvance,
 	onStatus,
 	onCommandDone,
 	shouldDiscard,
+	hold,
 	viewedAt,
 }: {
 	session: string;
 	shot: Shot;
 	rewrite: Rewrite | undefined;
 	onRewriteStarted: () => void;
+	requery: Requery | undefined;
+	onRequeryStarted: () => void;
 	onDirty: (dirty: boolean) => void;
 	shouldDiscard: () => boolean;
+	hold: (shot: Shot) => boolean;
 	onSaved: (args: { shot: Shot; quiet: boolean }) => void;
 	onSaveAndAdvance: () => void;
 	onStatus: (s: string) => void;
@@ -353,15 +422,23 @@ function ShotForm({
 }) {
 	const [f, setF] = useState<Fields>(() => fieldsOf(shot));
 	const [isDirty, setIsDirty] = useState(false);
+	// The type this shot had when the form opened — a save that changed it (and
+	// isn't pinned) is what triggers an automatic requery, once, per open form.
+	const initialType = useRef(shot.visual?.type);
+	const [queriesEditedByHand, setQueriesEditedByHand] = useState(false);
+	const [queriesPinned, setQueriesPinned] = useState(Boolean(shot.visual?.queries_pinned));
+	const requeryStatus = requery?.status === "running" ? "requerying search sources…" : requery?.status === "error" ? `requery failed: ${requery.error}` : requery?.status === "done" && !requery.skipped ? `search sources updated${requery.cost ? ` · $${Number(requery.cost).toFixed(3)}` : ""}` : "";
 	const [ai, setAi] = useState("");
 	const [aiStatus, setAiStatus] = useState(rewrite?.status === "running" ? "rewriting…" : "");
 	const [cmd, setCmd] = useState("");
 	const [cmdStatus, setCmdStatus] = useState("");
 	const [appliedRewrite, setAppliedRewrite] = useState<Rewrite | null>(null);
+	// A rewrite that brought its own queries already fits the new type; requerying would overwrite them.
+	const [rewroteQueries, setRewroteQueries] = useState(false);
 	const box = useRef<HTMLDivElement>(null);
-	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard });
+	const latest = useRef({ f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand, rewroteQueries });
 	useEffect(() => {
-		latest.current = { f, isDirty, shot, onSaved, shouldDiscard };
+		latest.current = { f, isDirty, shot, onSaved, shouldDiscard, hold, queriesEditedByHand, rewroteQueries };
 	});
 	const onDirtyRef = useRef(onDirty);
 	useEffect(() => {
@@ -374,22 +451,65 @@ function ShotForm({
 		setIsDirty(true);
 	};
 
+	const setQueries = (e: { target: { value: string } }) => {
+		setF((prev) => ({ ...prev, queries: e.target.value }));
+		setIsDirty(true);
+		setQueriesEditedByHand(true);
+	};
+
+	const startRequery = useCallback(
+		(shotNumber: number) => {
+			onRequeryStarted();
+			void post({ path: "/_plan/api/requery", body: { session, shot_number: shotNumber } }).catch(() => {});
+		},
+		[session, onRequeryStarted],
+	);
+
 	const save = useCallback(
 		async ({ quiet }: { quiet: boolean }) => {
 			const next = collect({ shot: latest.current.shot, f: latest.current.f });
+			const v = (next.visual = next.visual || {});
+			const handEdit = latest.current.queriesEditedByHand;
+			if (handEdit) v.queries_pinned = true;
+			const typeChanged = v.type !== initialType.current;
 			try {
 				await saveShot({ session, shot: next });
 				latest.current.isDirty = false;
 				setIsDirty(false);
+				// "Hand-edited" is a one-shot signal — it did its job (pinning) for this
+				// save; without clearing it, the very next save would re-pin even after
+				// an intervening Unpin, since the textarea's own content didn't change.
+				if (handEdit) {
+					setQueriesEditedByHand(false);
+					setQueriesPinned(true);
+				}
 				latest.current.onSaved({ shot: next, quiet });
+				if (typeChanged && !v.queries_pinned && !latest.current.rewroteQueries) {
+					initialType.current = v.type;
+					startRequery(next.shot_number);
+				}
 				return true;
 			} catch (e) {
 				onStatus(e instanceof Error ? e.message : "save failed");
 				return false;
 			}
 		},
-		[session, onStatus],
+		[session, onStatus, startRequery],
 	);
+
+	const unpin = useCallback(async () => {
+		const next = collect({ shot: latest.current.shot, f: latest.current.f });
+		const v = (next.visual = next.visual || {});
+		v.queries_pinned = false;
+		try {
+			await saveShot({ session, shot: next });
+			setQueriesPinned(false);
+			setQueriesEditedByHand(false);
+			latest.current.onSaved({ shot: next, quiet: true });
+		} catch (e) {
+			onStatus(e instanceof Error ? e.message : "unpin failed");
+		}
+	}, [session, onStatus]);
 
 	// Ctrl+S saves and advances, as in v2's plan editor.
 	useEffect(() => {
@@ -418,9 +538,10 @@ function ShotForm({
 		window.addEventListener("beforeunload", onUnload);
 		return () => {
 			window.removeEventListener("beforeunload", onUnload);
-			const { isDirty: wasDirty, shot: last, f: fields, onSaved: saved, shouldDiscard: discard } = latest.current;
+			const { isDirty: wasDirty, shot: last, f: fields, onSaved: saved, shouldDiscard: discard, hold: holdBack } = latest.current;
 			if (!wasDirty || discard()) return;
 			const next = collect({ shot: last, f: fields });
+			if (holdBack(next)) return;
 			void saveShot({ session, shot: next }).then(() => saved({ shot: next, quiet: true }));
 		};
 	}, [session]);
@@ -433,6 +554,7 @@ function ShotForm({
 			const { next, changed } = applyProposal({ f, p: rewrite.proposal, shot });
 			const c = rewrite.cost ? ` · $${Number(rewrite.cost).toFixed(3)}` : "";
 			setF(next);
+			if (changed.includes("queries")) setRewroteQueries(true);
 			if (changed.length) setIsDirty(true);
 			setAiStatus(changed.length ? `proposed: ${changed.join(", ")}${c}. Review and save (Ctrl+S), or move on to keep it.` : `AI suggested no change${c}`);
 		}
@@ -514,8 +636,19 @@ function ShotForm({
 					</Lbl>
 				</div>
 				<Lbl text="Search: one source per line, source: query, query">
-					<textarea className={`${inputClass} min-h-12 font-mono text-xs`} value={f.queries} onChange={set("queries")} />
+					<textarea className={`${inputClass} min-h-12 font-mono text-xs`} value={f.queries} onChange={setQueries} />
 				</Lbl>
+				<div className="flex items-center gap-2 text-xs">
+					{queriesPinned && (
+						<>
+							<span className="text-muted-foreground">queries pinned — edits to type/split won&apos;t touch them</span>
+							<Button size="sm" variant="outline" onClick={unpin}>
+								Unpin
+							</Button>
+						</>
+					)}
+					{!queriesPinned && requeryStatus && <span className="text-muted-foreground">{requeryStatus}</span>}
+				</div>
 			</Section>
 			<Section title="Audio layer">
 				<Lbl text="Music bed (mood)">

@@ -28,6 +28,10 @@ type ExportParams = {
 	quality: ExportQuality;
 	shouldIncludeAudio?: boolean;
 	audioBuffer?: AudioBuffer;
+	outputWidth?: number;
+	outputHeight?: number;
+	videoBitrate?: number;
+	audioBitrate?: number;
 };
 
 const qualityMap = {
@@ -50,6 +54,9 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 	private quality: ExportQuality;
 	private shouldIncludeAudio: boolean;
 	private audioBuffer?: AudioBuffer;
+	private output: { width: number; height: number } | null;
+	private videoBitrate?: number;
+	private audioBitrate?: number;
 
 	private isCancelled = false;
 
@@ -61,6 +68,10 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 		quality,
 		shouldIncludeAudio,
 		audioBuffer,
+		outputWidth,
+		outputHeight,
+		videoBitrate,
+		audioBitrate,
 	}: ExportParams) {
 		super();
 		this.renderer = new CanvasRenderer({
@@ -73,6 +84,12 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 		this.quality = quality;
 		this.shouldIncludeAudio = shouldIncludeAudio ?? false;
 		this.audioBuffer = audioBuffer;
+		this.output =
+			outputWidth && outputHeight && (outputWidth !== width || outputHeight !== height)
+				? { width: outputWidth, height: outputHeight }
+				: null;
+		this.videoBitrate = videoBitrate;
+		this.audioBitrate = audioBitrate;
 	}
 
 	cancel(): void {
@@ -99,9 +116,14 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 			target: new BufferTarget(),
 		});
 
-		const videoSource = new CanvasSource(this.renderer.getOutputCanvas(), {
+		// A preset at another size than the project scales each rendered frame.
+		const scaled = this.output
+			? Object.assign(document.createElement("canvas"), this.output)
+			: null;
+		const scaledCtx = scaled?.getContext("2d") ?? null;
+		const videoSource = new CanvasSource(scaled ?? this.renderer.getOutputCanvas(), {
 			codec: this.format === "webm" ? "vp9" : "avc",
-			bitrate: qualityMap[this.quality],
+			bitrate: this.videoBitrate ?? qualityMap[this.quality],
 		});
 
 		output.addVideoTrack(videoSource, { frameRate: fpsFloat });
@@ -115,14 +137,14 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 					codec: "mp4a.40.2",
 					sampleRate: this.audioBuffer.sampleRate,
 					numberOfChannels: this.audioBuffer.numberOfChannels,
-					bitrate: 192000,
+					bitrate: this.audioBitrate ?? 192000,
 				});
 				if (!supported) audioCodec = "opus";
 			}
 
 			audioSource = new AudioBufferSource({
 				codec: audioCodec,
-				bitrate: qualityMap[this.quality],
+				bitrate: this.audioBitrate ?? qualityMap[this.quality],
 			});
 			output.addAudioTrack(audioSource);
 		}
@@ -144,6 +166,10 @@ export class SceneExporter extends EventEmitter<SceneExporterEvents> {
 			const timeTicks = i * ticksPerFrame;
 			const timeSeconds = mediaTimeToSeconds({ time: timeTicks });
 			await this.renderer.render({ node: rootNode, time: timeTicks });
+			if (scaled && scaledCtx) {
+				scaledCtx.imageSmoothingQuality = "high";
+				scaledCtx.drawImage(this.renderer.getOutputCanvas(), 0, 0, scaled.width, scaled.height);
+			}
 			await videoSource.add(timeSeconds, 1 / fpsFloat);
 
 			this.emit("progress", i / frameCount);

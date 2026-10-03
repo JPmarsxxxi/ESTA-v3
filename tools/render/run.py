@@ -298,12 +298,78 @@ def _zoom_keyframes(duration: float, shot_n: int, direction: str = "in") -> list
     return kfs
 
 
+def _camera_keyframes(camera: dict, duration: float, shot_n: int) -> list[dict]:
+    """The inspo shot's measured move (tools/match/motion.py vocabulary) as transform keyframes.
+    Pans and shakes scale up first so the moving frame never shows an edge."""
+    move = camera.get("move", "static")
+    amt = max(0.0, min(1.0, float(camera.get("amount", 0.5) or 0)))
+    end = round(max(duration, 0.1), 3)
+    kfs: list[dict] = []
+
+    def key(prop, t, v):
+        kfs.append({"id": f"cam-{shot_n}-{prop}-{len(kfs)}", "time": round(t, 3), "property": prop,
+                    "value": round(v, 4), "easing": "linear"})
+
+    def scale(t, v):
+        key("scale.x", t, v)
+        key("scale.y", t, v)
+
+    if move in ("push_in", "push_out"):
+        a, b = 1.0, 1.05 + 0.2 * amt
+        scale(0, a if move == "push_in" else b)
+        scale(end, b if move == "push_in" else a)
+    elif move == "punch_in":
+        hit = min(0.15, end / 4)
+        scale(0, 1.0)
+        scale(hit, 1.08 + 0.12 * amt)
+        scale(end, 1.08 + 0.12 * amt)
+    elif move in ("pan_left", "pan_right", "tilt_up", "tilt_down"):
+        p = 0.03 + 0.07 * amt
+        scale(0, 1 + 2 * p)
+        scale(end, 1 + 2 * p)
+        # The camera panning right moves the picture left; tilting up moves it down.
+        a, b = (p, -p) if move in ("pan_right", "tilt_down") else (-p, p)
+        axis = "position.x" if move.startswith("pan") else "position.y"
+        key(axis, 0, a)
+        key(axis, end, b)
+    elif move == "shake":
+        j = 0.005 + 0.015 * amt
+        scale(0, 1.06)
+        scale(end, 1.06)
+        t, k = 0.0, 0
+        while t <= end:
+            key("position.x", t, j if k % 2 else -j)
+            key("position.y", t, -j / 2 if k % 3 else j / 2)
+            # Whole degrees: the editor snaps rotation to its 1-degree step.
+            key("rotation", t, (1 + round(amt)) * (1 if k % 2 else -1))
+            t, k = t + 0.08, k + 1
+    return kfs
+
+
+def _fade_keyframes(fade_in: bool, fade_out: bool, duration: float, shot_n: int) -> list[dict]:
+    """Opacity ramps for the inspo's fades. The canvas under the Main track is black, so this is a fade
+    through black; a fade through white would need a white layer and is rendered as black."""
+    end = round(max(duration, 0.1), 3)
+    f = round(min(0.4, end / 3), 3)
+    kfs = []
+    if fade_in:
+        kfs += [(0.0, 0.0), (f, 1.0)]
+    if fade_out:
+        kfs += [(round(end - f, 3), 1.0), (end, 0.0)]
+    side = "in" if fade_in else "out"
+    return [{"id": f"fade-{shot_n}-{side}-{i}", "time": t, "property": "opacity", "value": v, "easing": "linear"}
+            for i, (t, v) in enumerate(kfs)]
+
+
 def _dissolves_for(clips: list[dict], duration: float = 0.4) -> list[dict]:
     """R5 — crossfade between consecutive clips on a track to kill the staccato.
     Style-gated by the caller (hard cuts for high-energy). Sits on the track's
     `transitions`, referencing each adjacent clip pair."""
     trans: list[dict] = []
     for a, b in zip(clips, clips[1:]):
+        # Copies of one shot's clip (auto-pick's repeat fill) cut straight into each other.
+        if b["id"].split("-r")[0] == a["id"].split("-r")[0]:
+            continue
         trans.append({
             "id": f"trans-{a['id']}-{b['id']}",
             "clipAId": a["id"],
@@ -593,7 +659,10 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
     # R5 dissolves are style-gated: dreamy/calm → crossfades; punchy/high-energy
     # → hard cuts. Default to dissolves when energy is unknown (montage-leaning).
     energy = str(style.get("energy_level", "")).lower()
-    use_dissolves = energy not in ("high", "very high", "intense", "frenetic")
+    use_dissolves = energy not in ("high", "very high", "very-high", "intense", "frenetic")
+    # A mapped plan copies the inspo's own transitions (transition_in/out): no generic dissolves on top.
+    if any("transition_in" in sh or "transition_out" in sh for sh in plan.get("shots", [])):
+        use_dissolves = False
 
     shots = plan.get("shots", [])
     # Timeline structure comes from plan.json alone; assets are a hydration
@@ -625,8 +694,11 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             url = _asset_url(file_path, session_name)
             in_pt = float(asset.get("in_point", 0) or 0)
             src_dur = meta["duration"]
+            # Auto-pick's fill for a clip shorter than its shot: slow it and/or play it back to back.
+            fill_speed = float(asset.get("speed") or 0) if mtype == "video" else 0.0
+            repeat = max(1, int(asset.get("repeat") or 1)) if mtype == "video" else 1
             if mtype == "video":
-                out_pt = round(in_pt + duration, 3)
+                out_pt = round(in_pt + duration / repeat * (fill_speed or 1), 3)
                 if src_dur > 0:
                     out_pt = min(out_pt, src_dur)
                 if out_pt <= in_pt:
@@ -641,6 +713,7 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             mtype = "video"
             url = ""
             in_pt, out_pt = 0.0, duration
+            fill_speed, repeat = 0.0, 1
 
         media_items.append({
             "id": media_id,
@@ -681,11 +754,17 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             "keyframes": [],
         }
         fx = visual.get("fx") or []
-        if "slow_motion" in fx:
+        if fill_speed:
+            clip["speed"] = fill_speed
+        elif "slow_motion" in fx:
             clip["speed"] = 0.5
+        clip_dur = round(duration / repeat, 3)
+        # Mapped plans (SPEC.md Part 3) carry the inspo shot's own move; it replaces R1 and plan fx.
+        if shot.get("camera") and url:
+            clip["keyframes"] = _camera_keyframes(shot["camera"], clip_dur, n)
         # R1 — Ken Burns on stills so the frame is always moving (anti-jarring).
         # Only real images, not gap placeholders (those have no media yet).
-        if mtype == "image" and url:
+        elif mtype == "image" and url:
             clip["keyframes"] = _ken_burns_keyframes(duration, image_idx)
             image_idx += 1
         # Plan-requested push-in on footage. The plan skill advertises zoom_in in
@@ -699,7 +778,16 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
         # Ken Burns drift on one panel and not another reads as a mistake.
         if composite:
             clip["keyframes"] = []
-        video_clips.append(clip)
+        # Fades belong to the shot's edges: on a repeated clip only the first copy fades in, the last out.
+        fade_in = _fade_keyframes(True, False, clip_dur, n) if url and str(shot.get("transition_in", "")).startswith("fade") else []
+        fade_out = _fade_keyframes(False, True, clip_dur, n) if url and str(shot.get("transition_out", "")).startswith("fade") else []
+        seg = clip_dur
+        for k in range(repeat):
+            last = k == repeat - 1
+            video_clips.append({**clip, "id": clip["id"] + (f"-r{k + 1}" if k else ""),
+                                "startTime": round(start + k * seg, 3),
+                                "duration": round(duration - k * seg, 3) if last else seg,
+                                "keyframes": clip["keyframes"] + (fade_in if k == 0 else []) + (fade_out if last else [])})
 
         # ── composite slots 1+ : the rest of the panels sharing this frame ──
         # Slot 0 is the clip above (normal asset key). Each further slot is its

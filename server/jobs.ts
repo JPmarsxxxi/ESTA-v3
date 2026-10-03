@@ -1,5 +1,5 @@
 import { spawn, spawnSync } from "node:child_process";
-import { appendFileSync, existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
+import { appendFileSync, closeSync, existsSync, mkdirSync, openSync, readFileSync, readSync, readdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { randomUUID } from "node:crypto";
 import { PY_ENV, REPO_ROOT, STATE_DIR } from "./lib.ts";
@@ -44,6 +44,44 @@ function log(job: Job, text: string) {
 	publish({ ch: "job", session: job.session, data: { type: "log", id: job.id, text } });
 }
 
+const commandLine = (job: Job) => `$ ${job.cmd} ${job.args.map((a) => (/\s/.test(a) ? JSON.stringify(a) : a)).join(" ")}\n`;
+
+// A job writes straight to <id>.out, not through pipes to this process: a pipe
+// breaks when the backend restarts (every edit under server/ in dev), and the
+// job dies on its next write. The log is rendered from that file as it grows.
+const tails = new Map<string, { offset: number; partial: string }>();
+function pump(job: Job) {
+	const t = tails.get(job.id);
+	if (!t) return;
+	let fd: number;
+	try {
+		fd = openSync(resolve(JOB_DIR, `${job.id}.out`), "r");
+	} catch {
+		return;
+	}
+	const chunk = Buffer.alloc(64 * 1024);
+	let text = "";
+	for (let n; (n = readSync(fd, chunk, 0, chunk.length, t.offset)) > 0; t.offset += n) text += chunk.toString("utf8", 0, n);
+	closeSync(fd);
+	if (!text) return;
+	if (job.kind !== "skill") return log(job, text);
+	const lines = (t.partial + text).split("\n");
+	t.partial = lines.pop() ?? "";
+	const out = lines.map((l) => renderSkillEvent(job, l.trim())).join("");
+	if (out) log(job, out);
+}
+
+function follow(job: Job) {
+	tails.set(job.id, { offset: 0, partial: "" });
+	const timer = setInterval(() => {
+		pump(job);
+		if (job.status !== "running") {
+			clearInterval(timer);
+			tails.delete(job.id);
+		}
+	}, 500);
+}
+
 export function isAlive(pid: number) {
 	try {
 		process.kill(pid, 0);
@@ -67,8 +105,8 @@ export function killTree(pid: number) {
 }
 
 // Restart recovery: a job recorded as running whose process is gone was
-// interrupted; one still alive is detached (its output is lost) and resolves
-// from disk when it exits.
+// interrupted; one still alive keeps running, its log is rebuilt from its
+// output file and followed, and it resolves from disk when it exits.
 export function loadJobs(artifactPresent: (session: string, a: string) => boolean) {
 	mkdirSync(JOB_DIR, { recursive: true });
 	for (const f of readdirSync(JOB_DIR)) {
@@ -79,10 +117,13 @@ export function loadJobs(artifactPresent: (session: string, a: string) => boolea
 			if (job.status !== "running") continue;
 			if (job.pid && isAlive(job.pid)) {
 				job.detached = true;
+				writeFileSync(resolve(JOB_DIR, `${job.id}.log`), commandLine(job), "utf8");
+				follow(job);
 				const poll = setInterval(() => {
 					if (job.status === "running" && job.pid && isAlive(job.pid)) return;
 					clearInterval(poll);
 					if (job.status !== "running") return;
+					pump(job);
 					const ok = (job.produces || []).length > 0 && (job.produces || []).every((a) => artifactPresent(job.session, a));
 					job.status = ok ? "done" : "interrupted";
 					job.endedAt = Date.now();
@@ -158,37 +199,30 @@ export function startJob(spec: JobSpec): Job {
 		progress: null,
 	};
 	jobs.set(job.id, job);
-	log(job, `$ ${spec.cmd} ${spec.args.map((a) => (/\s/.test(a) ? JSON.stringify(a) : a)).join(" ")}\n`);
+	log(job, commandLine(job));
 	let child;
+	const out = openSync(resolve(JOB_DIR, `${job.id}.out`), "a");
 	try {
-		child = spawn(spec.cmd, spec.args, { cwd: REPO_ROOT, env: PY_ENV, windowsHide: true, detached: true });
+		child = spawn(spec.cmd, spec.args, { cwd: REPO_ROOT, env: PY_ENV, windowsHide: true, detached: true, stdio: ["ignore", out, out] });
 	} catch (e) {
 		job.status = "failed";
 		job.error = `spawn failed: ${(e as Error).message}`;
 		job.endedAt = Date.now();
 		save(job);
 		return job;
+	} finally {
+		// The child holds its own copy of the descriptor.
+		closeSync(out);
 	}
 	job.pid = child.pid ?? null;
 	save(job);
-	let buf = "";
-	child.stdout?.on("data", (d: Buffer) => {
-		if (spec.kind !== "skill") return log(job, d.toString("utf8"));
-		buf += d.toString("utf8");
-		let nl;
-		let out = "";
-		while ((nl = buf.indexOf("\n")) >= 0) {
-			out += renderSkillEvent(job, buf.slice(0, nl).trim());
-			buf = buf.slice(nl + 1);
-		}
-		if (out) log(job, out);
-	});
-	child.stderr?.on("data", (d: Buffer) => log(job, d.toString("utf8")));
+	follow(job);
 	child.on("error", (e) => {
 		job.error = `spawn failed: ${e.message}`;
 		log(job, `\n${job.error}\n`);
 	});
 	child.on("close", (code) => {
+		pump(job);
 		job.exitCode = code;
 		job.endedAt = Date.now();
 		if (cancelled.has(job.id)) job.status = "cancelled";

@@ -2,8 +2,8 @@ import { BaseNode } from "./base-node";
 import type { TextElement } from "@/timeline";
 import type { EffectPass } from "@/effects/types";
 import type { BlendMode, Transform } from "@/rendering";
-import { drawMeasuredTextLayout } from "@/text/primitives";
 import type { MeasuredTextElement } from "@/text/measure-element";
+import { drawStyledText } from "@/esta/opencut/text-style";
 
 export type TextNodeParams = TextElement & {
 	transform: Transform;
@@ -21,6 +21,7 @@ export interface ResolvedTextNodeState {
 	backgroundColor: string;
 	effectPasses: EffectPass[][];
 	measuredText: MeasuredTextElement;
+	localTime: number;
 }
 
 export class TextNode extends BaseNode<TextNodeParams, ResolvedTextNodeState> {}
@@ -48,12 +49,15 @@ export function renderTextToContext({
 		ctx.rotate((resolved.transform.rotate * Math.PI) / 180);
 	}
 
-	drawMeasuredTextLayout({
+	drawStyledText({
 		ctx,
+		element: node.params,
 		layout: resolved.measuredText,
 		textColor: resolved.textColor,
-		background: resolved.measuredText.resolvedBackground,
 		backgroundColor: resolved.backgroundColor,
+		background: resolved.measuredText.resolvedBackground,
+		localTime: resolved.localTime,
+		scale: Math.max(Math.abs(resolved.transform.scaleX), Math.abs(resolved.transform.scaleY)),
 		textBaseline: baseline,
 	});
 

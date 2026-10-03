@@ -33,10 +33,11 @@ from pathlib import Path
 
 GSAP = "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"
 HOLD_TAIL = 1.0  # extra second so the cut never clips mid-motion (render trims it)
-W, H = 1080, 1920
+# Canvas per requirements.orientation, as render's _dimensions_for_orientation.
+SIZES = {"horizontal": (1920, 1080), "landscape": (1920, 1080), "square": (1080, 1080)}
 
 TEMPLATE = """<!doctype html>
-<html lang="en" data-resolution="portrait">
+<html lang="en" data-resolution="{res}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width={W}, height={H}" />
@@ -64,7 +65,16 @@ TEMPLATE = """<!doctype html>
 """
 
 
+def canvas(session: Path) -> tuple[int, int]:
+    try:
+        o = json.loads((session / "requirements.json").read_text(encoding="utf-8")).get("orientation", "")
+    except (OSError, ValueError):
+        o = ""
+    return SIZES.get(str(o).strip().lower(), (1080, 1920))
+
+
 def build_slot(session: Path, cfg: dict, kit_css: str, kit_js: str) -> Path:
+    W, H = canvas(session)
     key = str(cfg["key"])
     flavor = cfg.get("flavor", "full_frame")
     # Full-frame needs an opaque background or the MP4 renders on white; overlay
@@ -74,7 +84,7 @@ def build_slot(session: Path, cfg: dict, kit_css: str, kit_js: str) -> Path:
     duration = round(float(cfg["duration"]) + HOLD_TAIL, 3)
 
     html = TEMPLATE.format(
-        W=W, H=H, gsap=GSAP, bg=bg,
+        W=W, H=H, res="landscape" if W > H else "portrait", gsap=GSAP, bg=bg,
         surface_css=kit_css.rstrip(),
         body=cfg.get("body", "").rstrip(),
         helpers_js=kit_js.strip(),

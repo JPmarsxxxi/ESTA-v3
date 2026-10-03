@@ -83,8 +83,10 @@ def _video_element(clip: dict, media: dict) -> dict:
         for k in (clip.get("keyframes") or [])
     ]
     return {
+        "clipId": clip.get("id"),
         "mediaId": clip["mediaId"],
-        "kind": kind,  # "video" | "image"
+        "kind": kind,
+        "transform": clip.get("transform"),  # "video" | "image"
         "name": media.get("name", "")[:80],
         "startTime": round(float(clip.get("startTime", 0)), 3),
         "duration": round(float(clip.get("duration", 0)), 3),
@@ -101,6 +103,7 @@ def _video_element(clip: dict, media: dict) -> dict:
 def _audio_element(clip: dict, media: dict) -> dict:
     meta = media.get("metadata", {}) or {}
     return {
+        "clipId": clip.get("id"),
         "mediaId": clip["mediaId"],
         "name": media.get("name", "")[:80],
         "startTime": round(float(clip.get("startTime", 0)), 3),
@@ -232,6 +235,10 @@ def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920)
                 "content": content,
                 "params": dict(caption_style),
                 "keyframes": keyframes,
+                # Karaoke timing per word, seconds from the caption's start.
+                "words": [[round(float(w.get("startTime", 0)) - start, 3), round(float(w.get("endTime", 0)) - start, 3)]
+                          for w in chunk if str(w.get("text", "")).strip()],
+                "highlight": (sub.get("style") or {}).get("highlightColor"),
             })
 
     # Hold each caption until the next one starts. A chunk only spans its own

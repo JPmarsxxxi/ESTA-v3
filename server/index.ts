@@ -7,12 +7,15 @@ import { onFileChange, startWatcher } from "./files.ts";
 import { serveSessionFile, streamAssets } from "./media.ts";
 import { handleAck, handleFrame, handleState, injectCmd, streamCmds } from "./livecmd.ts";
 import { pickerCandidates, pickerJobs, pickerPick, pickerRefetch, pickerShots, pickerSources } from "./picker.ts";
-import { planCommand, planCommandStatus, planRewrite, planRewriteStatus, planSave, planShots } from "./planner.ts";
+import { planCommand, planCommandStatus, planRequery, planRequeryStatus, planRewrite, planRewriteStatus, planSave, planShots } from "./planner.ts";
 import { chatHealth, chatInterrupt, chatOpen, chatSend, chatStatus, chatStop, chatStream, stopAllChats } from "./chat.ts";
 import { createSession, importSession, listAllSessions, listSessions, listV2Sessions, updateRequirements } from "./sessions.ts";
 import { activeJobs, cancelJob, getJob, jobLog, listJobs, loadJobs, onJobEnd, retryJob, setProgress, startJob, type Job } from "./jobs.ts";
 import { artifactPresent, computeState, mutateUi, rebuildPipeline, setCustomFlow, templates, type Checkpoint } from "./pipeline.ts";
 import { ACTIONS, actionBlock, buildJob, preflight, voiceSamples } from "./actions.ts";
+import { opencutImport } from "./opencut.ts";
+import { matchGrades, matchReports, matchRescore, matchReview } from "./match.ts";
+import { lookAdd, lookEdit, lookIndex, lookStyle } from "./look.ts";
 
 const PORT = Number(process.env.ASSET_PORT) || 8787;
 
@@ -223,7 +226,7 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	// Without these, preflight for a cross-origin JSON POST fails and the editor can't talk back.
 	res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-	res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Esta-Client");
+	res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Esta-Client, X-Filename");
 	res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 	res.setHeader("Accept-Ranges", "bytes");
 	if (req.method === "OPTIONS") return void res.writeHead(204).end();
@@ -250,6 +253,8 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	if (is("GET", "/_plan/api/rewrite")) return planRewriteStatus(res, q);
 	if (is("POST", "/_plan/api/command")) return planCommand(req, res);
 	if (is("GET", "/_plan/api/command")) return planCommandStatus(res, q);
+	if (is("POST", "/_plan/api/requery")) return planRequery(req, res);
+	if (is("GET", "/_plan/api/requery")) return planRequeryStatus(res, q);
 
 	if (is("GET", "/_cmd_stream")) return streamCmds(req, res);
 	if (is("POST", "/_cmd")) return injectCmd(req, res);
@@ -275,6 +280,18 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse) {
 	const pipe = /^\/_pipeline\/([^/]+)(?:\/([^/]+))?$/.exec(pk);
 	if (pipe) return pipelineRoute(req, res, pipe[1], pipe[2] || "");
 	if (pk === "/_jobs" || pk.startsWith("/_jobs/")) return jobsRoute(req, res, pk.split("/").slice(2), q);
+	const match = /^\/_match\/([^/]+)(?:\/(rescore|grades|review))?$/.exec(pk);
+	if (match && req.method === "GET" && !match[2]) return matchReports(res, match[1]);
+	if (match && req.method === "GET" && match[2] === "grades") return matchGrades(res, match[1]);
+	if (match && req.method === "GET" && match[2] === "review") return matchReview(res, match[1]);
+	if (match && req.method === "POST" && match[2] === "rescore") return matchRescore(req, res, match[1]);
+	const look = /^\/_look\/([^/]+)(?:\/(add|role|remove|style))?$/.exec(pk);
+	if (look && req.method === "GET" && !look[2]) return lookIndex(res, look[1]);
+	if (look && req.method === "POST" && look[2] === "add") return lookAdd(req, res, look[1]);
+	if (look && req.method === "POST" && (look[2] === "role" || look[2] === "remove")) return lookEdit(req, res, look[1], look[2]);
+	if (look && req.method === "POST" && look[2] === "style") return lookStyle(req, res, look[1]);
+	const oc = /^\/_opencut\/([^/]+)$/.exec(pk);
+	if (oc && req.method === "GET") return opencutImport(res, oc[1], q.get("originals") === "1");
 	const files = /^\/_files\/([^/]+)(\/list)?$/.exec(pk);
 	if (files && req.method === "GET") return filesRoute(req, res, files[1], Boolean(files[2]));
 

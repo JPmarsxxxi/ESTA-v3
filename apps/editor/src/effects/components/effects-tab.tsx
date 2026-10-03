@@ -302,6 +302,13 @@ function EffectSection({
 							<Separator />
 						</div>
 					))}
+					{definition.panel && (
+						<definition.panel
+							params={renderParams}
+							preview={({ key, value }) => previewParam(key)(value)}
+							commit={onCommit}
+						/>
+					)}
 				</SectionFields>
 			</SectionContent>
 		</Section>

@@ -26,6 +26,7 @@ import type {
 	TextureUploadDescriptor,
 } from "./types";
 import { DEFAULT_GRAPHIC_SOURCE_SIZE } from "@/graphics";
+import { lutTextures } from "@/esta/opencut/grade-textures";
 
 export async function buildFrameDescriptor({
 	node,
@@ -47,6 +48,8 @@ export async function buildFrameDescriptor({
 		items,
 		textures,
 	});
+
+	for (const texture of lutTextures(items)) textures.set(texture.id, texture);
 
 	incrementCounter({ name: "frameItems", by: items.length });
 	incrementCounter({ name: "frameTextures", by: textures.size });

@@ -15,10 +15,15 @@ import { FilesPanel } from "./panels/files-panel";
 import { PipelinePanel } from "./panels/pipeline-panel";
 import { PlannerPanel } from "./panels/planner-panel";
 import { PickerPanel } from "./panels/picker-panel";
+import { MatchPanel } from "./panels/match-panel";
+import { LookPanel } from "./panels/look-panel";
 import { ScriptPanel } from "./panels/script-panel";
 import { RequirementsPanel } from "./panels/requirements-panel";
 import { TaggedPanel } from "./panels/tagged-panel";
 import { PreviewPanel, TimelinePanel } from "./panels/shots-panels";
+import { EditorPanel } from "./panels/editor-panel";
+import { OcAssetsPanel, OcPreviewPanel, OcPropertiesPanel, OcTimelinePanel } from "./panels/opencut-panels";
+import { OpenCutHost } from "./opencut/host";
 
 export const PANELS: Record<string, { title: string; Component: ComponentType }> = {
 	stage: { title: "Stage", Component: StagePanel },
@@ -31,8 +36,15 @@ export const PANELS: Record<string, { title: string; Component: ComponentType }>
 	tagged: { title: "Tagged script", Component: TaggedPanel },
 	planner: { title: "Plan editor", Component: PlannerPanel },
 	picker: { title: "Shot picker", Component: PickerPanel },
-	timeline: { title: "Timeline", Component: TimelinePanel },
-	preview: { title: "Preview", Component: PreviewPanel },
+	match: { title: "Inspo match", Component: MatchPanel },
+	look: { title: "Look", Component: LookPanel },
+	timeline: { title: "Shot strip", Component: TimelinePanel },
+	preview: { title: "Shot preview", Component: PreviewPanel },
+	editor: { title: "Editor project", Component: EditorPanel },
+	"oc-preview": { title: "Editor preview", Component: OcPreviewPanel },
+	"oc-timeline": { title: "Editor timeline", Component: OcTimelinePanel },
+	"oc-assets": { title: "Editor media", Component: OcAssetsPanel },
+	"oc-properties": { title: "Editor properties", Component: OcPropertiesPanel },
 };
 
 // A workspace is columns of stacked panels. Each stage has a preset; the user
@@ -46,10 +58,10 @@ const PRESETS: Record<string, Layout> = {
 	script: [["stage", "jobs"], ["script"], ["files", "chat"]],
 	voice: [["stage", "jobs"], ["tagged"], ["chat"]],
 	timestamps: [["stage", "jobs"], ["files"], ["chat"]],
-	style: [["stage", "jobs"], ["files"], ["chat"]],
-	plan: [["stage", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
+	style: [["stage", "jobs"], ["look", "files"], ["chat"]],
+	plan: [["stage", "match", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
 	assets: [["stage", "jobs"], ["picker"], ["preview", "chat"]],
-	edit: [["stage", "jobs"], ["timeline", "preview"], ["chat"]],
+	edit: [["stage", "editor", "jobs"], ["oc-preview", "oc-timeline"], ["oc-properties", "oc-assets", "chat"]],
 };
 
 const layoutKey = (stage: string) => `esta.layout.${stage}`;
@@ -81,7 +93,9 @@ function loadLayout(stage: string): Layout {
 export function EstaWorkspace({ session }: { session: string }) {
 	return (
 		<WorkspaceProvider session={session}>
-			<Shell />
+			<OpenCutHost>
+				<Shell />
+			</OpenCutHost>
 		</WorkspaceProvider>
 	);
 }

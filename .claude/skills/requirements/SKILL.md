@@ -73,6 +73,23 @@ Parse the natural answer into `orientation`:
 
 The platform hint in their answer (TikTok vs YouTube) also proxies the loudness/pacing target — `orientation` carries that downstream, no separate question needed.
 
+### 4c. Look — optional (AI-generated videos)
+
+Only ask when the user wants generated people or characters rather than stock (they mention an animated video, a cartoon, AI actors, a recurring character):
+
+> "Real-looking people, a cartoon, or anime? And describe the look in a line — e.g. 'flat bold-outline yellow-skinned sitcom cartoon'."
+
+Save `look` (`"realistic"`, `"cartoon"` or `"anime"`) and `look_style` (their line, lightly cleaned). Leave both `""` for a normal stock-led video and don't ask. These drive genchar's model choice and are appended to every generated prompt (SPEC.md Part 4).
+
+**Reference images.** If the user drops images that show the look (a world, characters, faces, proportions), ingest them instead of asking them to put it in words (SPEC.md Part 5):
+
+```bash
+python tools/look/refs.py add --session sessions/<id> <image paths...>
+python tools/look/refs.py describe --session sessions/<id>
+```
+
+`describe` has Haiku tag each image `world` or `character` and, when `look_style` is still empty, writes it from the images. Show the roles and the line; if they say an image is the other role, run `refs.py role --session sessions/<id> --file r02.jpg --role character`. The images themselves then steer every generated image (genchar and genvideo's styled keyframes). They can also drop them on the Style stage's Look card at `http://localhost:3000/esta/<id>`.
+
 ### 5. Comments — optional
 
 > "Anything else floating around? A clip you want in, a moment that has to land, a phrase you've been chewing on, a vibe you want to avoid?"

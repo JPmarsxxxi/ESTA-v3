@@ -1,0 +1,6146 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-29",
+  "timing_source": "timestamps",
+  "video_metadata": {
+    "title": "Do alphas even exist - 2 months of quant research that mostly failed",
+    "duration_est": 660.0,
+    "style": "graphic-heavy",
+    "shot_count": 143,
+    "chunk_count": 72
+  },
+  "shots": [
+    {
+      "shot_number": 1,
+      "line_id": "L01",
+      "start": 0.0,
+      "end": 3.44,
+      "start_est": 0.0,
+      "end_est": 2.0,
+      "audio": "so Alphas...nah not these guys",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "high",
+        "search_sources": [
+          {
+            "source": "wikimedia",
+            "queries": [
+              "andrew tate podcast",
+              "andrew tate"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "andrew tate podcast"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "andrew tate"
+            ]
+          }
+        ],
+        "desc": "Andrew Tate mid-podcast gesticulating, letterboxed on black",
+        "search_query": "andrew tate podcast",
+        "fx": [],
+        "user_directions": [
+          "Andrew Tate picture"
+        ]
+      },
+      "text": {
+        "caption": "NAH NOT THESE GUYS",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "dry sardonic hip-hop, sparse",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 2,
+      "line_id": "L02",
+      "start": 3.44,
+      "end": 5.12,
+      "start_est": 2.0,
+      "end_est": 3.2,
+      "audio": "Or these guys",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "alpha wolf pack",
+              "alpha wolf"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "alpha wolf pack"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "alpha wolf"
+            ]
+          }
+        ],
+        "desc": "Wolf pack alpha-male meme still",
+        "search_query": "alpha wolf pack",
+        "fx": [],
+        "user_directions": [
+          "wolves picture"
+        ]
+      },
+      "text": {
+        "caption": "OR THESE GUYS",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 3,
+      "line_id": "L03",
+      "start": 6.44,
+      "end": 18.66,
+      "start_est": 3.2,
+      "end_est": 21.2,
+      "audio": "This...fucking...annoying ass shit...you see these ones wouldn't drive you to edge of the world questioning your sanity and intelligence and make you stare at the ceiling at question your while existence from the moment you ran from your dad's balls and spun into the world",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pinterest",
+            "queries": [
+              "man staring ceiling insomnia"
+            ]
+          },
+          {
+            "source": "pexels_video",
+            "queries": [
+              "man staring ceiling insomnia",
+              "man staring"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "man staring ceiling insomnia"
+            ]
+          }
+        ],
+        "desc": "Man flat on his back staring at a dark ceiling, unable to sleep",
+        "search_query": "man staring ceiling insomnia",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "QUESTIONING YOUR SANITY",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 4,
+      "line_id": "L04",
+      "start": 18.78,
+      "end": 20.14,
+      "start_est": 21.2,
+      "end_est": 22.0,
+      "audio": "...goodness gracious",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "goodness gracious reaction",
+              "goodness gracious"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "goodness gracious reaction"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "goodness gracious"
+            ]
+          }
+        ],
+        "desc": "Exasperated head-in-hands reaction still",
+        "search_query": "goodness gracious reaction",
+        "fx": []
+      },
+      "text": {
+        "caption": "GOODNESS GRACIOUS",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 5,
+      "line_id": "L05",
+      "start": 21.13,
+      "end": 25.91,
+      "start_est": 22.0,
+      "end_est": 28.0,
+      "audio": "Sorry I went off on a tangent there but yh so, let's talk about alphas",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "sheepish sorry shrug",
+              "sheepish sorry"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "sheepish sorry shrug"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "sheepish sorry"
+            ]
+          }
+        ],
+        "desc": "Sheepish apologetic shrug reaction",
+        "search_query": "sheepish sorry shrug",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 6,
+      "line_id": "L06",
+      "start": 27.11,
+      "end": 37.27,
+      "start_est": 28.0,
+      "end_est": 36.8,
+      "audio": "\"Fundamentally, an alpha is an idea about how the market works. Concretely, it's an automated predictive model that decodes some market relation...",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card: the Tulchinsky definition typing out in amber monospace, quote marks included",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "cold minimal synth pad, library quiet",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 7,
+      "line_id": "L07",
+      "start": 37.67,
+      "end": 43.75,
+      "start_est": 36.8,
+      "end_est": 42.0,
+      "audio": "It contains rules that convert input data to positions/trades in the securities markets.\"",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card continues: second half of the definition, block cursor trailing",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 8,
+      "line_id": "L08",
+      "start": 44.47,
+      "end": 49.09,
+      "start_est": 42.0,
+      "end_est": 44.4,
+      "audio": "Igor Tulchinsky, Finding Alphas (WorldQuant/Wiley, 2020)",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card: attribution as a shell comment — # Igor Tulchinsky, Finding Alphas (WorldQuant/Wiley, 2020)",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 9,
+      "line_id": "L09",
+      "start": 49.75,
+      "end": 51.49,
+      "start_est": 44.4,
+      "end_est": 45.2,
+      "audio": "Thanks Tulch",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "thanks nod reaction",
+              "thanks nod"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "thanks nod reaction"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "thanks nod"
+            ]
+          }
+        ],
+        "desc": "Dry appreciative nod to camera",
+        "search_query": "thanks nod reaction",
+        "fx": []
+      },
+      "text": {
+        "caption": "THANKS TULCH",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 10,
+      "line_id": "L10",
+      "start": 52.3,
+      "end": 57.26,
+      "start_est": 45.2,
+      "end_est": 54.8,
+      "audio": "I love money you love money we all love money so why not do some maths and make some money sounds easy doesn't it",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "money counting machine cash",
+              "money counting"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "money counting machine cash"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "money counting"
+            ]
+          }
+        ],
+        "desc": "Cash counting machine riffling banknotes",
+        "search_query": "money counting machine cash",
+        "fx": []
+      },
+      "text": {
+        "caption": "WE ALL LOVE MONEY",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 11,
+      "line_id": "L11",
+      "start": 57.26,
+      "end": 65.16,
+      "start_est": 54.8,
+      "end_est": 64.4,
+      "audio": "well, sike I've been writing maths equations to find these alphas for the past 2 months and I might be convinced they don't exist",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: '> alphas --find' runs and returns '0 results' with a blinking cursor",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 12,
+      "line_id": "L12",
+      "start": 65.16,
+      "end": 69.16,
+      "start_est": 64.4,
+      "end_est": 66.8,
+      "audio": "Started where everyone starts. Short-term reversal.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> reversal_v1_' marking the first attempt",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "curious plucky loop, building",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 13,
+      "line_id": "L13",
+      "start": 69.4,
+      "end": 73.86,
+      "start_est": 66.8,
+      "end_est": 72.4,
+      "audio": "Stock drops relative to its peers, you buy it, it bounces, you're a genius.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Amber step-line price chart dipping then bouncing back, arrow marking the buy",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 14,
+      "line_id": "L14",
+      "start": 74.2,
+      "end": 79.16,
+      "start_est": 72.4,
+      "end_est": 76.0,
+      "audio": "It's in every paper. Lehmann 1990. It's practically folklore.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "high",
+        "search_sources": [
+          {
+            "source": "wikimedia",
+            "queries": [
+              "Lehmann 1990 fads martingales paper",
+              "Lehmann 1990"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "Lehmann 1990 fads martingales paper"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "Lehmann 1990"
+            ]
+          }
+        ],
+        "desc": "Scan of the Lehmann 1990 QJE paper 'Fads, Martingales, and Market Efficiency'",
+        "search_query": "Lehmann 1990 fads martingales paper",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut",
+      "overlay": {
+        "desc": "Floating card over the footage: LEHMANN 1990",
+        "caption": "LEHMANN 1990",
+        "style": "label"
+      }
+    },
+    {
+      "shot_number": 15,
+      "line_id": "L15",
+      "start": 79.82,
+      "end": 82.94,
+      "start_est": 76.0,
+      "end_est": 79.6,
+      "audio": "Ran it on the S&P 100. Gross Sharpe 0.05.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal stat line with dotted leaders: 'sharpe ...... 0.05' on the S&P 100 run",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 16,
+      "line_id": "L16",
+      "start": 82.94,
+      "end": 86.3,
+      "start_est": 79.6,
+      "end_est": 81.2,
+      "audio": "Hmmm ok bad .",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "unimpressed deadpan stare",
+              "unimpressed deadpan"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "unimpressed deadpan stare"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "unimpressed deadpan"
+            ]
+          }
+        ],
+        "desc": "Deadpan unimpressed stare at camera",
+        "search_query": "unimpressed deadpan stare",
+        "fx": []
+      },
+      "text": {
+        "caption": "HMMM OK BAD",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 17,
+      "line_id": "L17",
+      "start": 86.74,
+      "end": 97.36,
+      "start_est": 81.2,
+      "end_est": 90.8,
+      "audio": "hmmm maybe reversal lives in illiquid names, and the S&P 100 is the most picked-over stretch of water on earth. Fine. Moved to mid-caps.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "crowded fishing boats harbour",
+              "crowded fishing"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "crowded fishing boats harbour"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "crowded fishing"
+            ]
+          }
+        ],
+        "desc": "Crowded fishing boats packed onto one stretch of water, every inch worked over",
+        "search_query": "crowded fishing boats harbour",
+        "fx": []
+      },
+      "text": {
+        "caption": "MOST PICKED-OVER WATER",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 18,
+      "line_id": "L18",
+      "start": 97.36,
+      "end": 101.76,
+      "start_est": 90.8,
+      "end_est": 94.0,
+      "audio": "Pewwww, Gross Sharpe jumped 0.05 to 0.445. Beautiful.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Equity curve redrawing steeper, stat flicking 0.05 to 0.445 in amber",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": [
+          {
+            "sound": "whoosh",
+            "on": "Pewwww"
+          }
+        ]
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 19,
+      "line_id": "L19",
+      "start": 101.76,
+      "end": 103.3,
+      "start_est": 94.0,
+      "end_est": 95.2,
+      "audio": "Net Sharpe: 0.058.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Same stat line reappearing with the net figure: 'net sharpe ...... 0.058'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 20,
+      "line_id": "L20",
+      "start": 103.82,
+      "end": 104.5,
+      "start_est": 95.2,
+      "end_est": 95.6,
+      "audio": "sheeiiii",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "facepalm disappointed",
+              "facepalm disappointed"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "facepalm disappointed"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "facepalm disappointed"
+            ]
+          }
+        ],
+        "desc": "Slow facepalm reaction",
+        "search_query": "facepalm disappointed",
+        "fx": []
+      },
+      "text": {
+        "caption": "SHEEIIII",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 21,
+      "line_id": "L21",
+      "start": 104.5,
+      "end": 114.84,
+      "start_est": 95.6,
+      "end_est": 101.2,
+      "audio": "The strategy traded 143 times a year and paid a spread every single time.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "stock trading screen orders",
+              "stock trading"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "stock trading screen orders"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "stock trading"
+            ]
+          }
+        ],
+        "desc": "Trading terminal order blotter filling with fill after fill",
+        "search_query": "stock trading screen orders",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut",
+      "overlay": {
+        "desc": "Floating card over the footage: 143 TRADES A YEAR",
+        "caption": "143 TRADES A YEAR",
+        "style": "stat_card"
+      }
+    },
+    {
+      "shot_number": 22,
+      "line_id": "L22",
+      "start": 114.84,
+      "end": 125.26,
+      "start_est": 101.2,
+      "end_est": 111.2,
+      "audio": "I added signal decay to slow it down, kept 94% of the edge, cut costs 26%, and got net Sharpe 0.126 with a 40% drawdown.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal block: decay applied — edge kept 94%, costs cut 26%, net sharpe 0.126, drawdown 40%",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 23,
+      "line_id": "L23",
+      "start": 125.26,
+      "end": 127.52,
+      "start_est": 111.2,
+      "end_est": 113.2,
+      "audio": "For about 1% a year.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "stressed grimace reaction",
+              "stressed grimace"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "stressed grimace reaction"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "stressed grimace"
+            ]
+          }
+        ],
+        "desc": "Mildly stressed grimace reaction",
+        "search_query": "stressed grimace reaction",
+        "fx": [],
+        "user_directions": [
+          "slightly stressed picture"
+        ]
+      },
+      "text": {
+        "caption": "FOR ABOUT 1% A YEAR",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 24,
+      "line_id": "L24",
+      "start": 127.52,
+      "end": 139.62,
+      "start_est": 113.2,
+      "end_est": 123.2,
+      "audio": "Then I sector-neutralised it to reduce risk and it deleted the signal, because the sector-level move was the edge. Tripled the vol, lowered the gross.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Amber curve flatlining as the sector component is stripped out, vol bars tripling",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 25,
+      "line_id": "L25",
+      "start": 139.62,
+      "end": 141.12,
+      "start_est": 123.2,
+      "end_est": 124.8,
+      "audio": "Ok lets switch locations",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> cd crypto/_'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 26,
+      "line_id": "L26",
+      "start": 141.12,
+      "end": 149.14,
+      "start_est": 124.8,
+      "end_est": 131.2,
+      "audio": "Ran the same reversal on crypto expecting it to be stronger, more retail presence, 24/7, degenerate",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_image",
+            "queries": [
+              "crypto bro lambo",
+              "crypto bro"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "crypto bro lambo"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "crypto bro"
+            ]
+          }
+        ],
+        "desc": "Crypto bro in a Lambo showroom, chain and sunglasses, peak degenerate",
+        "search_query": "crypto bro lambo",
+        "fx": [],
+        "user_directions": [
+          "degenerate crypto bro picture"
+        ]
+      },
+      "text": {
+        "caption": "24/7 DEGENERATE",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "brash trap, overconfident",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 27,
+      "line_id": "L27",
+      "start": 149.14,
+      "end": 150.62,
+      "start_est": 131.2,
+      "end_est": 133.2,
+      "audio": "Got gross Sharpe minus 1.01.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal stat in amber: 'gross sharpe ...... -1.01'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 28,
+      "line_id": "L28",
+      "start": 150.62,
+      "end": 152.0,
+      "start_est": 133.2,
+      "end_est": 134.4,
+      "audio": "Beautifully, catastrophically wrong.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "stressed hands on head",
+              "stressed hands"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "stressed hands on head"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "stressed hands"
+            ]
+          }
+        ],
+        "desc": "Hands-on-head stressed reaction, wide eyes",
+        "search_query": "stressed hands on head",
+        "fx": [],
+        "user_directions": [
+          "more stressed picture"
+        ]
+      },
+      "text": {
+        "caption": "CATASTROPHICALLY WRONG",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 29,
+      "line_id": "L29",
+      "start": 152.0,
+      "end": 157.42,
+      "start_est": 134.4,
+      "end_est": 138.0,
+      "audio": "But wait! flip it, crypto doesn't revert, it trends.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The same curve mirrored upside down as the sign flips from revert to trend",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": [
+          {
+            "sound": "record scratch",
+            "on": "wait"
+          }
+        ]
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 30,
+      "line_id": "L30",
+      "start": 159.36,
+      "end": 167.86,
+      "start_est": 138.0,
+      "end_est": 145.2,
+      "audio": "number 006, crypto 30-day momentum, net Sharpe 1.10, positive in 7 of 8 years including the 2022 bear.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Step-line equity curve climbing across 8 years with 7 green years marked, net sharpe 1.10",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 31,
+      "line_id": "L31",
+      "start": 167.86,
+      "end": 170.48,
+      "start_est": 145.2,
+      "end_est": 148.0,
+      "audio": "I'm a fucking genius, where Einstein at?",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "high",
+        "search_sources": [
+          {
+            "source": "wikimedia",
+            "queries": [
+              "albert einstein portrait",
+              "albert einstein"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "albert einstein portrait"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "albert einstein"
+            ]
+          }
+        ],
+        "desc": "Albert Einstein portrait, tongue-out or blackboard pose",
+        "search_query": "albert einstein portrait",
+        "fx": []
+      },
+      "text": {
+        "caption": "WHERE EINSTEIN AT",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 32,
+      "line_id": "L32",
+      "start": 170.62,
+      "end": 171.98,
+      "start_est": 148.0,
+      "end_est": 149.6,
+      "audio": "rolling in his grave",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "happy smug grin",
+              "happy smug"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "happy smug grin"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "happy smug"
+            ]
+          }
+        ],
+        "desc": "Delighted self-satisfied grin to camera",
+        "search_query": "happy smug grin",
+        "fx": [],
+        "user_directions": [
+          "happy guy"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 33,
+      "line_id": "L33",
+      "start": 171.98,
+      "end": 175.04,
+      "start_est": 149.6,
+      "end_est": 153.6,
+      "audio": "Then I ran it on the FTMO's 14 coin CFD....",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_image",
+            "queries": [
+              "prop firm trading dashboard",
+              "prop firm"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "prop firm trading dashboard"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "prop firm"
+            ]
+          }
+        ],
+        "desc": "Prop-firm trading dashboard showing a basket of coin CFDs",
+        "search_query": "prop firm trading dashboard",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut",
+      "overlay": {
+        "desc": "Floating card over the footage: FTMO · 14 COIN CFDs",
+        "caption": "FTMO · 14 COIN CFDs",
+        "style": "label"
+      }
+    },
+    {
+      "shot_number": 34,
+      "line_id": "L34",
+      "start": 175.04,
+      "end": 186.02,
+      "start_est": 153.6,
+      "end_est": 162.4,
+      "audio": "don't ask me why i'm trying to trade prop firms, their a scam blah blah blah, well...I need to start somewhere init.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "dont ask me shrug",
+              "dont ask"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "dont ask me shrug"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "dont ask"
+            ]
+          }
+        ],
+        "desc": "Palms-up 'don't ask me' shrug",
+        "search_query": "dont ask me shrug",
+        "fx": []
+      },
+      "text": {
+        "caption": "THEIR A SCAM BLAH BLAH",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 35,
+      "line_id": "L35",
+      "start": 186.02,
+      "end": 186.56,
+      "start_est": 162.4,
+      "end_est": 163.6,
+      "audio": "Net Sharpe 0.38.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal stat: 'net sharpe ...... 0.38'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 36,
+      "line_id": "L36",
+      "start": 186.56,
+      "end": 189.96,
+      "start_est": 163.6,
+      "end_est": 168.0,
+      "audio": "Ok slightly bad, Then I went and measured the actual swap.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '$ measure_swap --real'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 37,
+      "line_id": "L37",
+      "start": 190.08,
+      "end": 191.74,
+      "start_est": 168.0,
+      "end_est": 170.8,
+      "audio": "Crypto CFD: 30% a year, per side.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Big amber number filling frame: 30% A YEAR, PER SIDE",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 38,
+      "line_id": "L38",
+      "start": 191.74,
+      "end": 201.39,
+      "start_est": 170.8,
+      "end_est": 176.8,
+      "audio": "I'd stress-tested it at 15% as my worst case. Reality was double my worst case.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Two amber bars side by side: stress-tested 15% against reality 30%, double the worst case",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 39,
+      "line_id": "L39",
+      "start": 201.61,
+      "end": 215.85,
+      "start_est": 176.8,
+      "end_est": 188.4,
+      "audio": "Ok I don't seem to be getting anywhere solely based on my own ideas, so...lets go jack some ideas then, Stand on the shoulders of giants and all that.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pinterest",
+            "queries": [
+              "classical marble statue thinker",
+              "classical marble"
+            ]
+          },
+          {
+            "source": "wikimedia",
+            "queries": [
+              "classical marble statue thinker"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "classical marble"
+            ]
+          }
+        ],
+        "desc": "Classical marble statue of a thinker in a gilded museum frame",
+        "search_query": "classical marble statue thinker",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "SHOULDERS OF GIANTS",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "stately strings turning ironic",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 40,
+      "line_id": "L40",
+      "start": 215.85,
+      "end": 218.03,
+      "start_est": 188.4,
+      "end_est": 191.6,
+      "audio": "Hey Einstein I take what I said back",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "hands up defeat surrender",
+              "hands up"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "hands up defeat surrender"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "hands up"
+            ]
+          }
+        ],
+        "desc": "Hands up in surrender, defeated",
+        "search_query": "hands up defeat surrender",
+        "fx": [],
+        "user_directions": [
+          "hands up in defeat"
+        ]
+      },
+      "text": {
+        "caption": "I TAKE IT BACK",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 41,
+      "line_id": "L41",
+      "start": 218.57,
+      "end": 220.81,
+      "start_est": 191.6,
+      "end_est": 194.0,
+      "audio": "So I went looking for papers.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "academic papers stack desk",
+              "academic papers"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "academic papers stack desk"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "academic papers"
+            ]
+          }
+        ],
+        "desc": "Stack of printed academic papers being leafed through on a desk",
+        "search_query": "academic papers stack desk",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 42,
+      "line_id": "L42",
+      "start": 220.81,
+      "end": 222.71,
+      "start_est": 194.0,
+      "end_est": 197.2,
+      "audio": "BTC intraday trend: dead at the decay check.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal line: 'btc_intraday_trend ...... DEAD' stamped in amber",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 43,
+      "line_id": "L43",
+      "start": 222.71,
+      "end": 225.87,
+      "start_est": 197.2,
+      "end_est": 200.8,
+      "audio": "US500 first-half-hour into last-half-hour: dead at the decay check.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal line: 'us500_open_to_close ...... DEAD' — second of the triptych",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 44,
+      "line_id": "L44",
+      "start": 225.87,
+      "end": 230.27,
+      "start_est": 200.8,
+      "end_est": 204.0,
+      "audio": "US500 overnight drift: dead at the decay check.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal line: 'us500_overnight ...... DEAD' — third, the drumbeat lands",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 45,
+      "line_id": "L45",
+      "start": 230.27,
+      "end": 240.69,
+      "start_est": 204.0,
+      "end_est": 211.6,
+      "audio": "Three for three. The pattern is there in the paper's sample window and gone afterwards, every time, like clockwork.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Chart with the paper's sample window shaded and the edge visibly stopping at its edge",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 46,
+      "line_id": "L46",
+      "start": 240.69,
+      "end": 247.24,
+      "start_est": 211.6,
+      "end_est": 215.2,
+      "audio": "DUhhhh…If I can read it, everyone can read it.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "duh obvious facepalm",
+              "duh obvious"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "duh obvious facepalm"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "duh obvious"
+            ]
+          }
+        ],
+        "desc": "Exaggerated 'duh' face, palm to forehead",
+        "search_query": "duh obvious facepalm",
+        "fx": []
+      },
+      "text": {
+        "caption": "EVERYONE CAN READ IT",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 47,
+      "line_id": "L47",
+      "start": 247.24,
+      "end": 250.9,
+      "start_est": 215.2,
+      "end_est": 218.8,
+      "audio": "The half-life of a published anomaly is roughly \"publication.\"",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Decay curve halving away to nothing at a line marked 'PUBLISHED', citation as a shell comment",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 48,
+      "line_id": "L48",
+      "start": 250.9,
+      "end": 256.64,
+      "start_est": 218.8,
+      "end_est": 225.2,
+      "audio": "Multi-asset trend across 45 instruments: dead, and not from cost — those instruments just don't trend.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: 45 instruments listed, all returning DEAD — 'not from cost' annotated",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 49,
+      "line_id": "L49",
+      "start": 256.64,
+      "end": 268.38,
+      "start_est": 225.2,
+      "end_est": 235.2,
+      "audio": "BTC weekly trend: gross +0.95% a week, genuinely real, eaten by 0.577% a week of swap, and the leftover profit was 100% the 2017 mania.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Gross bar +0.95%/wk eaten down to nothing by a 0.577%/wk swap slice, 2017 spike isolated",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 50,
+      "line_id": "L50",
+      "start": 268.38,
+      "end": 274.42,
+      "start_est": 235.2,
+      "end_est": 240.0,
+      "audio": "FX time-of-day seasonality. Three pairs. Short at 21:00, long at 23:00 London.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "24-hour clock dial in amber with 21:00 short and 23:00 long marked, London session lit",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "triumphant build, rising",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 51,
+      "line_id": "L51",
+      "start": 274.42,
+      "end": 281.25,
+      "start_est": 240.0,
+      "end_est": 245.6,
+      "audio": "Backtest net Sharpe 5.28. +12.5% a year. Five out of five out-of-sample years positive.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Hero equity curve climbing hard, stats: 'sharpe ...... 5.28   ret ...... +12.5%/yr'",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 52,
+      "line_id": "L52",
+      "start": 281.25,
+      "end": 294.34,
+      "start_est": 245.6,
+      "end_est": 256.4,
+      "audio": "It held on currencies I never fit it on. Costs weren't guessed, I pulled tick data and measured the real spread hour by hour. Swap-free by design.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: out-of-sample currencies ticking green, tick-data spread measured hour by hour, swap-free",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 53,
+      "line_id": "L53",
+      "start": 294.64,
+      "end": 294.84,
+      "start_est": 256.4,
+      "end_est": 256.8,
+      "audio": "EINNNSTEIIINNNN!!!!",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "high",
+        "search_sources": [
+          {
+            "source": "wikimedia",
+            "queries": [
+              "einstein blackboard equations",
+              "einstein blackboard"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "einstein blackboard equations"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "einstein blackboard"
+            ]
+          }
+        ],
+        "desc": "Einstein again, different frame — chalkboard of equations behind him",
+        "search_query": "einstein blackboard equations",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "EINNNSTEIIINNNN",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 54,
+      "line_id": "L54",
+      "start": 294.84,
+      "end": 299.8,
+      "start_est": 256.8,
+      "end_est": 260.8,
+      "audio": "This cleared a prop firm's target organically. No leverage games.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Amber progress bar crossing a prop-firm target line, no leverage applied",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 55,
+      "line_id": "L55",
+      "start": 300.06,
+      "end": 301.02,
+      "start_est": 260.8,
+      "end_est": 261.6,
+      "audio": "Deployed it.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> deploy --live_'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 56,
+      "line_id": "L56",
+      "start": 301.02,
+      "end": 302.9,
+      "start_est": 261.6,
+      "end_est": 263.6,
+      "audio": "How did it actually do?",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "anticipation waiting reaction",
+              "anticipation waiting"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "anticipation waiting reaction"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "anticipation waiting"
+            ]
+          }
+        ],
+        "desc": "Leaning-in anticipation, eyebrows raised",
+        "search_query": "anticipation waiting reaction",
+        "fx": []
+      },
+      "text": {
+        "caption": "HOW DID IT DO?",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 57,
+      "line_id": "L57",
+      "start": 302.9,
+      "end": 303.26,
+      "start_est": 263.6,
+      "end_est": 264.0,
+      "audio": "Well...",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "wince bracing bad news",
+              "wince bracing"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "wince bracing bad news"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "wince bracing"
+            ]
+          }
+        ],
+        "desc": "Tight-lipped wince, bracing for bad news",
+        "search_query": "wince bracing bad news",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "drop to near-silence, single sour note",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 58,
+      "line_id": "L58",
+      "start": 303.26,
+      "end": 305.12,
+      "start_est": 264.0,
+      "end_est": 266.0,
+      "audio": "Half the edge wasn't real.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The hero curve redrawn at half its slope, 5.28 struck through",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 59,
+      "line_id": "L59",
+      "start": 305.12,
+      "end": 312.88,
+      "start_est": 266.0,
+      "end_est": 275.2,
+      "audio": "The 21:00 session had been measured on bid quotes and when I redid it properly the book was Sharpe about 1.0, not 5.3.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Bid quotes versus the real book side by side, sharpe falling 5.3 to 1.0",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 60,
+      "line_id": "L60",
+      "start": 313.18,
+      "end": 320.18,
+      "start_est": 275.2,
+      "end_est": 279.6,
+      "audio": "A quoting artifact I had built a strategy on top of.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "house of cards collapsing",
+              "house of"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "house of cards collapsing"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "house of"
+            ]
+          }
+        ],
+        "desc": "House of cards collapsing on a table",
+        "search_query": "house of cards collapsing",
+        "fx": []
+      },
+      "text": {
+        "caption": "BUILT ON AN ARTIFACT",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 61,
+      "line_id": "L61",
+      "start": 320.18,
+      "end": 324.46,
+      "start_est": 279.6,
+      "end_est": 281.6,
+      "audio": "The live edge was zero.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Frame-filling amber ZERO, everything else stripped away",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 62,
+      "line_id": "L62",
+      "start": 324.46,
+      "end": 325.62,
+      "start_est": 281.6,
+      "end_est": 282.4,
+      "audio": "Not smaller.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "deadpan blank stare",
+              "deadpan blank"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "deadpan blank stare"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "deadpan blank"
+            ]
+          }
+        ],
+        "desc": "Deadpan straight-to-camera stare, no expression",
+        "search_query": "deadpan blank stare",
+        "fx": []
+      },
+      "text": {
+        "caption": "NOT SMALLER",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 63,
+      "line_id": "L63",
+      "start": 326.44,
+      "end": 328.5,
+      "start_est": 282.4,
+      "end_est": 283.6,
+      "audio": "Zero. Gross negative.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: 'live_edge ...... 0.00' then 'gross ...... NEGATIVE'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 64,
+      "line_id": "L64",
+      "start": 328.5,
+      "end": 334.5,
+      "start_est": 283.6,
+      "end_est": 290.0,
+      "audio": "FTMO charges a commission on FX. 25 cents a deal. 50 cents a leg round trip.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Amber receipt printing line by line: 25c a deal, 50c a leg round trip",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 65,
+      "line_id": "L65",
+      "start": 334.5,
+      "end": 341.8,
+      "start_est": 290.0,
+      "end_est": 298.0,
+      "audio": "On my size that's 2.00 bp a night across three legs, against an expected edge of 1.24 bp a night.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Two bars: cost 2.00 bp a night against expected edge 1.24 bp — cost taller",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 66,
+      "line_id": "L66",
+      "start": 341.8,
+      "end": 344.74,
+      "start_est": 298.0,
+      "end_est": 300.8,
+      "audio": "Negative before it opened the first trade.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal verdict: 'NEGATIVE BEFORE FIRST TRADE'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 67,
+      "line_id": "L67",
+      "start": 344.74,
+      "end": 354.3,
+      "start_est": 300.8,
+      "end_est": 305.2,
+      "audio": "I grepped every script I'd ever written for a commission term.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal running '$ grep -r commission .' across a long file list",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 68,
+      "line_id": "L68",
+      "start": 354.3,
+      "end": 355.04,
+      "start_est": 305.2,
+      "end_est": 306.0,
+      "audio": "Zero hits.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal answers '0 matches' and sits there blinking",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": [
+          {
+            "sound": "thud",
+            "on": "Zero"
+          }
+        ]
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 69,
+      "line_id": "L69",
+      "start": 355.04,
+      "end": 359.58,
+      "start_est": 306.0,
+      "end_est": 310.0,
+      "audio": "I had been modelling spread, swap, slippage, impact and just...",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Checklist ticking spread, swap, slippage, impact — one row left conspicuously blank",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 70,
+      "line_id": "L70",
+      "start": 359.58,
+      "end": 360.36,
+      "start_est": 310.0,
+      "end_est": 311.2,
+      "audio": "not the invoice.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_image",
+            "queries": [
+              "invoice paper close up",
+              "invoice paper"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "invoice paper close up"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "invoice paper"
+            ]
+          }
+        ],
+        "desc": "Close-up of a printed invoice, the line item nobody modelled",
+        "search_query": "invoice paper close up",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "NOT THE INVOICE",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 71,
+      "line_id": "L71",
+      "start": 360.52,
+      "end": 365.86,
+      "start_est": 311.2,
+      "end_est": 316.4,
+      "audio": "Well well well I cant give up now might as well keep going",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "determined lets go",
+              "determined lets"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "determined lets go"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "determined lets"
+            ]
+          }
+        ],
+        "desc": "Determined jaw-set nod, rolling sleeves up",
+        "search_query": "determined lets go",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 72,
+      "line_id": "L72",
+      "start": 366.26,
+      "end": 369.56,
+      "start_est": 316.4,
+      "end_est": 319.2,
+      "audio": "Went to options dealer positioning. Gamma exposure.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> gex --dealer-positioning'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "cold analytic pulse",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 73,
+      "line_id": "L73",
+      "start": 369.56,
+      "end": 371.66,
+      "start_est": 319.2,
+      "end_est": 320.8,
+      "audio": "Very cool, very quant-twitter.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "pinterest",
+            "queries": [
+              "finance twitter thread screenshot",
+              "finance twitter"
+            ]
+          },
+          {
+            "source": "wikimedia",
+            "queries": [
+              "finance twitter thread screenshot"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "finance twitter"
+            ]
+          }
+        ],
+        "desc": "Quant-twitter thread aesthetic — dense chart posted with confident caption",
+        "search_query": "finance twitter thread screenshot",
+        "fx": []
+      },
+      "text": {
+        "caption": "VERY QUANT-TWITTER",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 74,
+      "line_id": "L74",
+      "start": 372.16,
+      "end": 375.18,
+      "start_est": 320.8,
+      "end_est": 324.0,
+      "audio": "The theory: low-gamma days trend, high-gamma days revert.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Two-panel amber diagram: low gamma trends, high gamma reverts — the theory as advertised",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 75,
+      "line_id": "L75",
+      "start": 375.18,
+      "end": 380.02,
+      "start_est": 324.0,
+      "end_est": 328.0,
+      "audio": "The reverting half doesn't exist. High-gamma days are just quiet.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The high-gamma panel goes flat and quiet rather than reverting",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 76,
+      "line_id": "L76",
+      "start": 380.02,
+      "end": 393.73,
+      "start_est": 328.0,
+      "end_est": 338.8,
+      "audio": "And when I raced GEX against boring free realised volatility to predict tomorrow's return, GEX's t-stat collapsed to minus 1.1 and past-5-day return did all the work.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Race between GEX and free realised vol — GEX t-stat collapsing to -1.1, past-5-day doing the work",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 77,
+      "line_id": "L77",
+      "start": 394.03,
+      "end": 402.51,
+      "start_est": 338.8,
+      "end_est": 344.4,
+      "audio": "The expensive data was a worse proxy for short-term reversal than the price itself.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Price-only proxy beating the paid data feed, cost tag on the loser",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 78,
+      "line_id": "L78",
+      "start": 402.85,
+      "end": 406.13,
+      "start_est": 344.4,
+      "end_est": 347.6,
+      "audio": "Index intraday seasonality: zero hours survive multiple-testing correction.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Grid of trading hours, every cell failing multiple-testing correction",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 79,
+      "line_id": "L79",
+      "start": 406.53,
+      "end": 412.01,
+      "start_est": 347.6,
+      "end_est": 353.2,
+      "audio": "FX day-of-week: t of 1.75, plausible, not significant, and the pairs contradict each other.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Day-of-week bars with t = 1.75 under the significance line, pairs pointing opposite ways",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 80,
+      "line_id": "L80",
+      "start": 412.01,
+      "end": 416.11,
+      "start_est": 353.2,
+      "end_est": 356.8,
+      "audio": "Ok lets seek the help of the machines now,",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "machine gun",
+              "machine gun"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "machine gun"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "machine gun"
+            ]
+          }
+        ],
+        "desc": "Machine gun meme still — bringing out the heavy weapons",
+        "search_query": "machine gun",
+        "fx": [],
+        "user_directions": [
+          "Machine gun meme"
+        ]
+      },
+      "text": {
+        "caption": "HELP OF THE MACHINES",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 81,
+      "line_id": "L81",
+      "start": 416.11,
+      "end": 422.37,
+      "start_est": 356.8,
+      "end_est": 362.4,
+      "audio": "Machine learning regime model, walk-forward, sealed vault, all done properly...take that, boom boom boom...",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal training log scrolling fast: walk-forward folds, sealed vault, trials logging",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 82,
+      "line_id": "L82",
+      "start": 422.37,
+      "end": 424.49,
+      "start_est": 362.4,
+      "end_est": 364.8,
+      "audio": "loses to a 200-day moving average.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The ML curve and a plain 200-day moving average — the moving average is ahead",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 83,
+      "line_id": "L83",
+      "start": 424.49,
+      "end": 427.71,
+      "start_est": 364.8,
+      "end_est": 368.0,
+      "audio": "AUC 0.68 in development, 0.57 out of sample.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "AUC stats: 0.68 in development against 0.57 out of sample",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 84,
+      "line_id": "L84",
+      "start": 427.71,
+      "end": 428.79,
+      "start_est": 368.0,
+      "end_est": 368.8,
+      "audio": "Holy molly",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "shocked disbelief reaction",
+              "shocked disbelief"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "shocked disbelief reaction"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "shocked disbelief"
+            ]
+          }
+        ],
+        "desc": "Wide-eyed disbelief reaction",
+        "search_query": "shocked disbelief reaction",
+        "fx": []
+      },
+      "text": {
+        "caption": "HOLY MOLLY",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 85,
+      "line_id": "L85",
+      "start": 428.79,
+      "end": 431.57,
+      "start_est": 368.8,
+      "end_est": 371.2,
+      "audio": "COT positioning. Real reversal at extremes.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> cot_positioning'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "resigned downtempo loop",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 86,
+      "line_id": "L86",
+      "start": 431.57,
+      "end": 436.81,
+      "start_est": 371.2,
+      "end_est": 375.6,
+      "audio": "Swap-killed, and the entire effect was crude oil in a trenchcoat.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "trenchcoat disguise",
+              "trenchcoat disguise"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "trenchcoat disguise"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "trenchcoat disguise"
+            ]
+          }
+        ],
+        "desc": "Trenchcoat disguise meme — one thing pretending to be many",
+        "search_query": "trenchcoat disguise",
+        "fx": []
+      },
+      "text": {
+        "caption": "CRUDE OIL IN A TRENCHCOAT",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 87,
+      "line_id": "L87",
+      "start": 437.27,
+      "end": 440.89,
+      "start_est": 375.6,
+      "end_est": 378.4,
+      "audio": "Month-end FX rebalancing flow. Looked great 2019+.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Month-end flow chart looking clean and profitable from 2019 onward",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 88,
+      "line_id": "L88",
+      "start": 441.67,
+      "end": 444.41,
+      "start_est": 378.4,
+      "end_est": 381.6,
+      "audio": "Pulled 2003 to 2019 and the sign flipped.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The same chart extended back to 2003 — the sign visibly flips",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 89,
+      "line_id": "L89",
+      "start": 444.41,
+      "end": 449.71,
+      "start_est": 381.6,
+      "end_est": 386.8,
+      "audio": "A window artifact, i.e. I'd found a coincidence and given it a name.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "conspiracy pointing",
+              "conspiracy pointing"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "conspiracy pointing"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "conspiracy pointing"
+            ]
+          }
+        ],
+        "desc": "Pointing-at-a-coincidence meme, naming a pattern that isn't there",
+        "search_query": "conspiracy pointing",
+        "fx": []
+      },
+      "text": {
+        "caption": "A COINCIDENCE WITH A NAME",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 90,
+      "line_id": "L90",
+      "start": 449.89,
+      "end": 453.87,
+      "start_est": 386.8,
+      "end_est": 390.4,
+      "audio": "Daily statistical arbitrage. WTI-Brent was the only robust pair.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "WTI-Brent spread oscillating around its mean, the one robust pair",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 91,
+      "line_id": "L91",
+      "start": 453.97,
+      "end": 458.85,
+      "start_est": 390.4,
+      "end_est": 394.0,
+      "audio": "Oil swap ate it. Everything else was dead gross.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "oil pumpjack pumping",
+              "oil pumpjack"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "oil pumpjack pumping"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "oil pumpjack"
+            ]
+          }
+        ],
+        "desc": "Oil pumpjack working against a flat horizon",
+        "search_query": "oil pumpjack pumping",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut",
+      "overlay": {
+        "desc": "Floating card over the footage: SWAP ATE IT",
+        "caption": "SWAP ATE IT",
+        "style": "label"
+      }
+    },
+    {
+      "shot_number": 92,
+      "line_id": "L92",
+      "start": 458.85,
+      "end": 461.39,
+      "start_est": 394.0,
+      "end_est": 395.6,
+      "audio": "Intraday FX stat-arb .",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card labelled #027 — intraday FX stat-arb opening",
+        "search_query": "",
+        "fx": [],
+        "user_directions": [
+          "label: #027"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "melancholic piano, the one that hurts",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 93,
+      "line_id": "L93",
+      "start": 461.39,
+      "end": 466.05,
+      "start_est": 395.6,
+      "end_est": 398.8,
+      "audio": "This is the one that keeps me up.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pinterest",
+            "queries": [
+              "man awake night computer glow"
+            ]
+          },
+          {
+            "source": "pexels_video",
+            "queries": [
+              "man awake night computer glow",
+              "man awake"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "man awake night computer glow"
+            ]
+          }
+        ],
+        "desc": "Man awake at 3am lit only by monitor glow, not sleeping",
+        "search_query": "man awake night computer glow",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "THE ONE THAT KEEPS ME UP",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 94,
+      "line_id": "L94",
+      "start": 466.71,
+      "end": 474.53,
+      "start_est": 398.8,
+      "end_est": 404.8,
+      "audio": "Information coefficient of +0.0205 on 2.16 million observations. That's about thirty standard errors from zero.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Hero stat: 'IC ...... +0.0205' over 'n ...... 2,160,000' — thirty standard errors annotated",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 95,
+      "line_id": "L95",
+      "start": 474.53,
+      "end": 479.77,
+      "start_est": 404.8,
+      "end_est": 409.6,
+      "audio": "It is not noise, it is not a bug, Gross Sharpe 3.71.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal insisting: not noise, not a bug — 'gross sharpe ...... 3.71'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 96,
+      "line_id": "L96",
+      "start": 479.77,
+      "end": 482.93,
+      "start_est": 409.6,
+      "end_est": 411.2,
+      "audio": "After real per-bar spreads:",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal applying real per-bar spreads to the result",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 97,
+      "line_id": "L97",
+      "start": 482.93,
+      "end": 484.61,
+      "start_est": 411.2,
+      "end_est": 412.4,
+      "audio": "+0.03% a year.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The number collapses to a tiny '+0.03% a year' alone in the frame",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 98,
+      "line_id": "L98",
+      "start": 484.61,
+      "end": 493.75,
+      "start_est": 412.4,
+      "end_est": 420.4,
+      "audio": "It decays 75% in one bar, so you have to trade it instantly, and the spread is right there waiting.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Signal decaying 75% within one bar while the spread sits waiting at the edge",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 99,
+      "line_id": "L99",
+      "start": 493.75,
+      "end": 504.67,
+      "start_est": 420.4,
+      "end_est": 430.4,
+      "audio": "So I built a pool , because the book says if you run opposing signals together their trades cancel and you stop paying the toll.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card #028 — opposing signals pooled so their trades cancel",
+        "search_query": "",
+        "fx": [],
+        "user_directions": [
+          "label: #028"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 100,
+      "line_id": "L100",
+      "start": 504.67,
+      "end": 510.86,
+      "start_est": 430.4,
+      "end_est": 434.8,
+      "audio": "Guess what — it works. 87% of the turnover netted out.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "87% of turnover netting out, amber bar shrinking dramatically",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 101,
+      "line_id": "L101",
+      "start": 510.86,
+      "end": 514.52,
+      "start_est": 434.8,
+      "end_est": 437.2,
+      "audio": "And the pool was still sub-economic.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal verdict: 'still sub-economic'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 102,
+      "line_id": "L102",
+      "start": 514.52,
+      "end": 526.52,
+      "start_est": 437.2,
+      "end_est": 448.4,
+      "audio": "Widened it from 12 to 28 pairs , gross went up, net went to minus 85 Sharpe, because the extra breadth came from crosses with 3 bp spreads.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Pairs widening 12 to 28, gross rising while net craters to -85 sharpe on 3bp crosses",
+        "search_query": "",
+        "fx": [],
+        "user_directions": [
+          "label: #029"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 103,
+      "line_id": "L103",
+      "start": 526.52,
+      "end": 537.44,
+      "start_est": 448.4,
+      "end_est": 456.8,
+      "audio": "Added a spread gate, which flips it positive and then trades 1% of available bars, which is roughly 0% a year.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Spread gate flipping the sign positive, then trade count falling to 1% of bars",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 104,
+      "line_id": "L104",
+      "start": 537.44,
+      "end": 541.84,
+      "start_est": 456.8,
+      "end_est": 463.6,
+      "audio": "Final salvage : use limit orders, become a maker instead of a taker, get the spread back.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card #030 — final salvage, switch from taker to maker",
+        "search_query": "",
+        "fx": [],
+        "user_directions": [
+          "label: #030"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 105,
+      "line_id": "L105",
+      "start": 541.84,
+      "end": 544.88,
+      "start_est": 463.6,
+      "end_est": 466.8,
+      "audio": "It works. Limits recover essentially the full spread.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Limit orders recovering essentially the full spread, amber bar refilling",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 106,
+      "line_id": "L106",
+      "start": 544.88,
+      "end": 552.5,
+      "start_est": 466.8,
+      "end_est": 475.2,
+      "audio": "And then I measured the ceiling — what this thing earns with execution costs set to zero, free, magic, perfect —",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Costs forced to zero — 'free, magic, perfect' annotated as a shell comment",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 107,
+      "line_id": "L107",
+      "start": 552.5,
+      "end": 562.52,
+      "start_est": 475.2,
+      "end_est": 482.4,
+      "audio": "and it's 0.057 bp per signal. Call it 0.8% a year in a universe where friction doesn't exist.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Even frictionless it earns 0.057 bp per signal — about 0.8% a year",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 108,
+      "line_id": "L108",
+      "start": 563.02,
+      "end": 566.88,
+      "start_est": 482.4,
+      "end_est": 486.4,
+      "audio": "You'd need some absolute superhuman flash plus quicksilver type speed.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "speed motion blur running",
+              "speed motion"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "speed motion blur running"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "speed motion"
+            ]
+          }
+        ],
+        "desc": "Blurred streak of superhuman speed tearing past",
+        "search_query": "speed motion blur running",
+        "fx": []
+      },
+      "text": {
+        "caption": "SUPERHUMAN SPEED",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 109,
+      "line_id": "L109",
+      "start": 566.88,
+      "end": 569.94,
+      "start_est": 486.4,
+      "end_est": 489.2,
+      "audio": "And I aint Jane street...well not yet.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_image",
+            "queries": [
+              "jane street office building",
+              "jane street"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "jane street office building"
+            ]
+          },
+          {
+            "source": "pinterest",
+            "queries": [
+              "jane street"
+            ]
+          }
+        ],
+        "desc": "Jane Street's offices from the street, understated and expensive",
+        "search_query": "jane street office building",
+        "fx": []
+      },
+      "text": {
+        "caption": "WELL NOT YET",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 110,
+      "line_id": "L110",
+      "start": 569.94,
+      "end": 576.06,
+      "start_est": 489.2,
+      "end_est": 494.8,
+      "audio": "Well turns out the only thing that worked was simply buy the S&P overnight.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal reveal after all the failures: '> buy_spx_overnight'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "warm steady resolve",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 111,
+      "line_id": "L111",
+      "start": 576.06,
+      "end": 581.12,
+      "start_est": 494.8,
+      "end_est": 499.6,
+      "audio": "That's it. That's the whole idea. Close to open, go home flat.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Simple close-to-open diagram, position flat through the day",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 112,
+      "line_id": "L112",
+      "start": 581.12,
+      "end": 582.8,
+      "start_est": 499.6,
+      "end_est": 501.6,
+      "audio": "Two wrinkles make it mine.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal card: 'two wrinkles' listing out",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 113,
+      "line_id": "L113",
+      "start": 583.1,
+      "end": 598.16,
+      "start_est": 501.6,
+      "end_est": 514.4,
+      "audio": "One: swap is only charged on positions open at the broker's 17:00 rollover snapshot, so if you enter after the snapshot you get most of the overnight move and pay zero financing.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Clock at the broker's 17:00 rollover snapshot, entry landing after it, financing reading zero",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 114,
+      "line_id": "L114",
+      "start": 598.16,
+      "end": 610.6,
+      "start_est": 514.4,
+      "end_est": 523.2,
+      "audio": "Two: raw overnight is just long beta pump-faking, so gate it with the 200-day moving average and it stops bleeding in bears.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Overnight equity curve with a 200-day moving average gate switching it off through the bear",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 115,
+      "line_id": "L115",
+      "start": 610.6,
+      "end": 614.84,
+      "start_est": 523.2,
+      "end_est": 527.2,
+      "audio": "Sharpe 0.47 to 0.77, drawdown minus 20% to minus 8.3%.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Before and after: sharpe 0.47 to 0.77, drawdown -20% to -8.3%",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 116,
+      "line_id": "L116",
+      "start": 614.84,
+      "end": 615.9,
+      "start_est": 527.2,
+      "end_est": 528.0,
+      "audio": "That's v1.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: 'v1 ...... DEPLOYED'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 117,
+      "line_id": "L117",
+      "start": 616.16,
+      "end": 616.4,
+      "start_est": 528.0,
+      "end_est": 528.4,
+      "audio": "Deployed.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "deadpan serious portrait",
+              "deadpan serious"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "deadpan serious portrait"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "deadpan serious"
+            ]
+          }
+        ],
+        "desc": "Deadpan portrait, utterly neutral expression",
+        "search_query": "deadpan serious portrait",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 118,
+      "line_id": "L118",
+      "start": 616.4,
+      "end": 616.72,
+      "start_est": 528.4,
+      "end_est": 528.8,
+      "audio": "Boring.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "bored blank expression",
+              "bored blank"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "bored blank expression"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "bored blank"
+            ]
+          }
+        ],
+        "desc": "Second deadpan portrait, blank and bored",
+        "search_query": "bored blank expression",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 119,
+      "line_id": "L119",
+      "start": 617.38,
+      "end": 617.62,
+      "start_est": 528.8,
+      "end_est": 529.2,
+      "audio": "Fine.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "unbothered shrug portrait",
+              "unbothered shrug"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "unbothered shrug portrait"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "unbothered shrug"
+            ]
+          }
+        ],
+        "desc": "Third deadpan portrait, a flat shrug of acceptance",
+        "search_query": "unbothered shrug portrait",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 120,
+      "line_id": "L120",
+      "start": 617.74,
+      "end": 619.82,
+      "start_est": 529.2,
+      "end_est": 532.0,
+      "audio": "Then I tried to make it smarter.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal typing card: '> v2 --make-it-smarter'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "fade"
+    },
+    {
+      "shot_number": 121,
+      "line_id": "L121",
+      "start": 619.82,
+      "end": 623.52,
+      "start_est": 532.0,
+      "end_est": 536.4,
+      "audio": "First, the notebook caught me trading on prices that never existed.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal warning in amber: prices that never existed flagged",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 122,
+      "line_id": "L122",
+      "start": 623.8,
+      "end": 631.36,
+      "start_est": 536.4,
+      "end_est": 543.6,
+      "audio": "Cell 1 of the new build had one sanity line in it: what fraction of nights are green?",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Notebook cell 1 with a single sanity line: what fraction of nights are green?",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 123,
+      "line_id": "L123",
+      "start": 631.36,
+      "end": 632.36,
+      "start_est": 543.6,
+      "end_est": 545.2,
+      "audio": "It came back 0.313.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The answer lands alone in frame: 0.313",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 124,
+      "line_id": "L124",
+      "start": 632.36,
+      "end": 633.14,
+      "start_est": 545.2,
+      "end_est": 546.0,
+      "audio": "That's impossible.",
+      "visual": {
+        "type": "REAL_IMAGE",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "double take shocked",
+              "double take"
+            ]
+          },
+          {
+            "source": "pexels_image",
+            "queries": [
+              "double take shocked"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "double take"
+            ]
+          }
+        ],
+        "desc": "Sharp double-take, that-can't-be-right face",
+        "search_query": "double take shocked",
+        "fx": []
+      },
+      "text": {
+        "caption": "THAT'S IMPOSSIBLE",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 125,
+      "line_id": "L125",
+      "start": 633.14,
+      "end": 638.16,
+      "start_est": 546.0,
+      "end_est": 552.4,
+      "audio": "The market goes up overnight more often than that, everyone knows it, that's the whole premise.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Known overnight base rate sitting far above 0.313, the premise of the whole trade",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 126,
+      "line_id": "L126",
+      "start": 638.38,
+      "end": 644.52,
+      "start_est": 552.4,
+      "end_est": 559.2,
+      "audio": "Yahoo's opening prints for GSPC (the S&P index feed, not the ETF) are fake before roughly 2014.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Yahoo's GSPC opens shown as stale copies of the prior close, pre-2014 shaded",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 127,
+      "line_id": "L127",
+      "start": 644.52,
+      "end": 655.3,
+      "start_est": 559.2,
+      "end_est": 568.8,
+      "audio": "They're stale copies of the previous close. Zero-gap rate of 78 to 98% a year through 2005 and still 25% in 2012 to 13.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Zero-gap rate by year: 78-98% through 2005, still 25% in 2012-13",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 128,
+      "line_id": "L128",
+      "start": 655.3,
+      "end": 670.98,
+      "start_est": 568.8,
+      "end_est": 577.6,
+      "audio": "Which means my beautiful 36-year validation of number 023 had been computed across three decades of a number the vendor made up.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "36 years of validation greying out — three decades computed on a vendor's invention",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 129,
+      "line_id": "L129",
+      "start": 670.98,
+      "end": 672.18,
+      "start_est": 577.6,
+      "end_est": 578.8,
+      "audio": "Not wrong data.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: 'not wrong data'",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 130,
+      "line_id": "L130",
+      "start": 672.18,
+      "end": 673.8,
+      "start_est": 578.8,
+      "end_est": 580.4,
+      "audio": "Absent data, silently padded.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: 'ABSENT data, silently padded' — padding shown filling the gaps",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 131,
+      "line_id": "L131",
+      "start": 673.8,
+      "end": 678.66,
+      "start_est": 580.4,
+      "end_est": 586.4,
+      "audio": "Rebuilt it on SPY, the actual ETF, actual prints. 8,262 real nights. Base rate 0.559.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Rebuilt on SPY: 8,262 real nights, base rate 0.559 in amber",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 132,
+      "line_id": "L132",
+      "start": 678.66,
+      "end": 686.84,
+      "start_est": 586.4,
+      "end_est": 591.6,
+      "audio": "The strategy survived, and got better (Sharpe 1.38 filtered on the real prints).",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Equity curve on real prints, better than before — sharpe 1.38",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 133,
+      "line_id": "L133",
+      "start": 687.54,
+      "end": 694.82,
+      "start_est": 591.6,
+      "end_est": 599.6,
+      "audio": "But it survived by luck. If the effect had been smaller I'd have been trading a vendor's fill-forward for months.",
+      "visual": {
+        "type": "REAL_FOOTAGE",
+        "specificity": "medium",
+        "search_sources": [
+          {
+            "source": "pexels_video",
+            "queries": [
+              "coin flip spinning slow motion",
+              "coin flip"
+            ]
+          },
+          {
+            "source": "pixabay_video",
+            "queries": [
+              "coin flip spinning slow motion"
+            ]
+          },
+          {
+            "source": "archive",
+            "queries": [
+              "coin flip"
+            ]
+          }
+        ],
+        "desc": "Coin spinning and landing on its edge — survival by luck, not design",
+        "search_query": "coin flip spinning slow motion",
+        "fx": []
+      },
+      "text": {
+        "caption": "IT SURVIVED BY LUCK",
+        "style": "bold_white",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 134,
+      "line_id": "L134",
+      "start": 694.82,
+      "end": 702.5,
+      "start_est": 599.6,
+      "end_est": 609.2,
+      "audio": "Then, v2: put a random forest on it. 30 features, all entry-knowable, purged chronological splits, 72 logged trials so the multiple-testing charge is honest.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal: random forest config — 30 entry-knowable features, purged splits, 72 logged trials",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "quietly earned build",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 135,
+      "line_id": "L135",
+      "start": 703.16,
+      "end": 719.76,
+      "start_est": 609.2,
+      "end_est": 624.4,
+      "audio": "Champion model on a sealed 2021 to 26 window it had never seen: +3.21 bp per night vs +1.76 for always-long, Sharpe 0.90 vs 0.44, ahead in every year, +1.0 in 2022 while the baseline did minus 6.7.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Sealed-window results: +3.21 bp/night against +1.76 always-long, sharpe 0.90 vs 0.44, 2022 +1.0 vs -6.7",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 136,
+      "line_id": "L136",
+      "start": 720.34,
+      "end": 725.56,
+      "start_est": 624.4,
+      "end_est": 627.6,
+      "audio": "Deflated Sharpe ratio: 0.887. My bar is 0.95.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Deflated sharpe gauge reading 0.887 with the bar drawn at 0.95",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 137,
+      "line_id": "L137",
+      "start": 725.56,
+      "end": 728.86,
+      "start_est": 627.6,
+      "end_est": 630.0,
+      "audio": "The frozen model did not graduate.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal stamps 'DID NOT GRADUATE' on the frozen model",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 138,
+      "line_id": "L138",
+      "start": 728.86,
+      "end": 739.22,
+      "start_est": 630.0,
+      "end_est": 637.2,
+      "audio": "So I walked forward the recipe instead — freeze the features and hyperparameters, refit every January, never peek.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Walk-forward diagram: features frozen, refit every January, no peeking ahead",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 139,
+      "line_id": "L139",
+      "start": 739.22,
+      "end": 745.58,
+      "start_est": 637.2,
+      "end_est": 643.2,
+      "audio": "2,870 out-of-sample nights: +3.59 vs +2.13, Sharpe 0.96, positive in all 12 years. DSR 0.988.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "2,870 out-of-sample nights: +3.59 vs +2.13, sharpe 0.96, all 12 years green, DSR 0.988",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 140,
+      "line_id": "L140",
+      "start": 746.04,
+      "end": 747.18,
+      "start_est": 643.2,
+      "end_est": 645.2,
+      "audio": "That graduates. Deployed as v2.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal stamps 'GRADUATES' and deploys v2",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "zoom"
+    },
+    {
+      "shot_number": 141,
+      "line_id": "L141",
+      "start": 747.18,
+      "end": 752.46,
+      "start_est": 645.2,
+      "end_est": 650.4,
+      "audio": "And I plugged SHAP to it to actually see what the model learned.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "SHAP plot rendered in the terminal skin, features ranked in amber",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 142,
+      "line_id": "L142",
+      "start": 752.46,
+      "end": 757.16,
+      "start_est": 650.4,
+      "end_est": 654.0,
+      "audio": "Dip-buying, confirmed by trend, plus high VIX is bullish.",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "The three learned rules in amber: buy dips, confirmed by trend, high VIX bullish",
+        "search_query": "",
+        "fx": []
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "",
+        "sfx": []
+      },
+      "transition": "cut"
+    },
+    {
+      "shot_number": 143,
+      "line_id": "L143",
+      "start": 757.16,
+      "end": 764.66,
+      "start_est": 654.0,
+      "end_est": 660.0,
+      "audio": "So I did finally find something and I guess this is evidence that alpha maybe....exists?",
+      "visual": {
+        "type": "MOTION_GRAPHICS",
+        "specificity": "low",
+        "search_sources": [
+          {
+            "source": "giphy",
+            "queries": [
+              "data chart animation"
+            ]
+          },
+          {
+            "source": "pixabay_image",
+            "queries": [
+              "abstract dark background"
+            ]
+          }
+        ],
+        "desc": "Terminal rerun of the opening command — '> alphas --find' now returning '1 result', cursor blinking",
+        "search_query": "",
+        "fx": [
+          "zoom_in"
+        ]
+      },
+      "text": {
+        "caption": "",
+        "style": "none",
+        "pos": "bottom"
+      },
+      "audio_layer": {
+        "music": "single held resolving chord",
+        "sfx": []
+      },
+      "transition": "fade"
+    }
+  ],
+  "editing_notes": {
+    "pacing": "One shot per voice line — 12.39 cuts/min matching the reference, so shot edges fall on real speech boundaries and reconcile lands exactly. Terminal-graphic register alternates with letterboxed reaction footage per the reference grammar.",
+    "avg_shot_est": 4.841,
+    "method": "150wpm-estimate"
+  },
+  "generated_at": "2026-09-18T04:17:11.715133+00:00"
+}
