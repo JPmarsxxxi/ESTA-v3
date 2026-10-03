@@ -96,3 +96,31 @@ def test_model_without_image_to_video_skips_the_pass(session, tmp_path):
     slots = [{"shot_number": 2, "seed_b64": ""}]
     out = G.attach_keyframes(session, slots, {"pipeline_i2v": ""}, "t2v-only", 1.0)
     assert out == {"skipped": "t2v-only has no image-to-video pipeline: no styled keyframes"} and "keyframe" not in slots[0]
+
+
+def test_empty_look_draws_keyframes_with_base_sdxl(session, tmp_path):
+    from tools.genchar.run import MODELS
+    (session / "requirements.json").write_text(json.dumps({"look": "", "look_style": ""}))
+    add_refs(session, tmp_path)
+    model = dict(G.MODELS["ltx"])
+    G.attach_keyframes(session, [{"shot_number": 2, "seed_b64": ""}], model, "ltx", 1.0)
+    assert model["keyframe"]["repo"] == MODELS["sdxl"]["repo"]
+
+
+def test_stock_frame_rides_as_backup_for_keyframe_slots(session, tmp_path, capsys):
+    add_refs(session, tmp_path)
+    stock = session / "assets" / "stock.png"
+    stock.parent.mkdir(parents=True)
+    Image.new("RGB", (640, 360), (10, 120, 10)).save(stock)
+    (session / "assets_progress.jsonl").write_text("".join(json.dumps({"shot_number": n, "ok": True, "file": str(stock)}) + "\n"
+                                                           for n in (1, 2, 3)))
+    G.cmd_push(argparse.Namespace(session=str(session), model="svd", accelerator="t4", preset="static", style="cinematic",
+                                  shots="", chain=1, seed_from_assets=True, dry_run=True, lipsync="off", ref_strength=1.0,
+                                  frames=0, fps=0, width=0, height=0, steps=0, guidance=0.0))
+    out = json.loads(capsys.readouterr().out)
+    assert out["seeding"]["backups"] == [2, 3] and out["seeding"]["seeded"] == 3
+    code, slots = notebook(session)
+    by = {s["key"]: s for s in slots}
+    assert by["2"]["keyframe"] and by["2"]["backup_b64"] and not by["2"]["seed_b64"]
+    assert "backup_b64" not in by["1"] and by["1"]["seed_b64"]   # the character keeps its own seed
+    assert code.index('slot["key"] in KEYFRAMES') < code.index('slot.get("backup_b64")')

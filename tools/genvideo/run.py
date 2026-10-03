@@ -429,12 +429,12 @@ def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_na
         return {}
     if not model["pipeline_i2v"]:
         return {"skipped": f"{model_name} has no image-to-video pipeline: no styled keyframes"}
-    from tools.genchar.run import DEFAULT_MODEL, LOOK_MODEL, MODELS, NEGATIVE
+    from tools.genchar.run import LOOK_MODEL, MODELS, NEGATIVE
     try:
         look = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8")).get("look") or ""
     except Exception:  # noqa: BLE001
         look = ""
-    sd = MODELS[LOOK_MODEL.get(look, DEFAULT_MODEL)]
+    sd = MODELS[LOOK_MODEL.get(look, "sdxl")]
     marked = [slot for slot in slots if not slot["seed_b64"]]
     for slot in marked:
         slot["keyframe"] = True
@@ -458,7 +458,7 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
     tmp.mkdir(parents=True, exist_ok=True)
     report = {"seeded": 0, "skipped": []}
     for slot in slots:
-        if slot["seed_b64"] or slot.get("keyframe"):
+        if slot["seed_b64"]:
             continue
         if slot.get("character"):
             # A stock frame would swap the character's face for whoever is in the footage.
@@ -488,8 +488,12 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
             why = ((res.stderr if res else "") or "").strip().splitlines()[-1:] or ["extract failed"]
             report["skipped"].append({"shot": slot["shot_number"], "why": why[0][:120]})
             continue
-        slot["seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
-        report["seeded"] += 1
+        # A styled-keyframe slot keeps the stock frame as its backup, used if the keyframe fails on Kaggle.
+        slot["backup_b64" if slot.get("keyframe") else "seed_b64"] = base64.b64encode(frame.read_bytes()).decode("ascii")
+        if slot.get("keyframe"):
+            report.setdefault("backups", []).append(slot["shot_number"])
+        else:
+            report["seeded"] += 1
     return report
 
 
@@ -571,7 +575,7 @@ def precompute_prompts():
     # Pick the checkpoint this run will actually use: passing transformer=None
     # makes diffusers skip downloading it, so only the encoders come down here
     # and only the denoiser comes down later.
-    seeded = any(s.get("seed_b64") or s["key"] in KEYFRAMES for s in SLOTS)
+    seeded = any(s.get("seed_b64") or s.get("backup_b64") or s["key"] in KEYFRAMES for s in SLOTS)
     kind = "i2v" if (seeded and MODEL["pipeline_i2v"]) else "t2v"
     pipe = pipe_cls(kind).from_pretrained(
         repo_for(kind), torch_dtype=dtype, transformer=None, vae=None)
@@ -668,6 +672,8 @@ def generate(slot):
         image = Image.open(io.BytesIO(base64.b64decode(slot["seed_b64"]))).convert("RGB")
     elif slot["key"] in KEYFRAMES:
         image = KEYFRAMES[slot["key"]]
+    elif slot.get("backup_b64"):
+        image = Image.open(io.BytesIO(base64.b64decode(slot["backup_b64"]))).convert("RGB")
     for seg in range(slot["segments"]):
         kind = "i2v" if image is not None else "t2v"
         out = get_pipe(kind)(**_kwargs(kind, slot, image)).frames[0]
@@ -811,6 +817,8 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     for row, slot in zip(lean, slots):
         if slot.get("keyframe"):
             row["keyframe"] = True
+        if slot.get("backup_b64"):
+            row["backup_b64"] = slot["backup_b64"]
     kf = ""
     if model.get("keyframe"):
         kf = KEYFRAME_CODE.replace("__IPA__", textwrap.indent(look_refs.NOTEBOOK_IPA, "    "))
