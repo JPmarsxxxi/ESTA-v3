@@ -252,6 +252,8 @@ def _download_youtube_full(url: str, dest: Path) -> bool:
             ),
             "outtmpl": str(dest),
             "overwrites": True,
+            # YouTube forces SABR on the web client (Oct 2026): its formats lose their URLs. mweb still serves them.
+            "extractor_args": {"youtube": {"player_client": ["mweb", "default"]}},
         }
         with yt_dlp.YoutubeDL(opts) as ydl:
             ydl.download([url])

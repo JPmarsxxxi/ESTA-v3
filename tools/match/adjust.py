@@ -282,8 +282,14 @@ def fix_complexity(session: Path, rep: dict, tasks: dict) -> list[str]:
 
 
 def fix_theme(session: Path, rep: dict, tasks: dict) -> list[str]:
+    # A named person, event or a user direction is content, not look: rewording it
+    # toward the inspo loses the subject (the wolves, Tulchinsky on the 2026-10-02 run).
+    plan = {s.get("shot_number"): s for s in load_plan(session)["shots"]}
+    keep = {n for n, s in plan.items() if (s.get("visual") or {}).get("specificity") == "high"
+            or (s.get("visual") or {}).get("user_directions")}
     worst = [s for s in sorted(rep["shots"], key=lambda s: s.get("theme", 100))
-             if not s["locked"] and s["n"] not in tasks and s.get("theme", 100) < rep["pass_marks"]["section"]][:12]
+             if not s["locked"] and s["n"] not in tasks and s["n"] not in keep
+             and s.get("theme", 100) < rep["pass_marks"]["section"]][:12]
     for s in worst:
         tasks[s["n"]] = {"task": "retheme", "why": f"off the inspo's look (theme {s.get('theme')})"}
     return [f"rethemed shot {s['n']}" for s in worst]
@@ -341,21 +347,37 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
     if not tasks:
         return [], 0.0
     plan = load_plan(session)
-    style = read_json(session / "style_analysis.json", {}) or {}
-    grammar = {k: style.get(k) for k in ("visual_style", "dominant_content_type", "shot_patterns", "keywords")}
+    # The grammar is the described inspo itself; style_analysis.json may describe a
+    # different (earlier) inspo, and its words leaked into every rewrite.
+    inspo = scorer.load_inspo(session)
+    tags = {sh["id"]: sh["tags"] for sh in (inspo or {}).get("shots", []) if sh.get("tags")}
+    if tags:
+        seen, sample = set(), []
+        for t in tags.values():
+            if t.get("content") not in seen or len(sample) < 8:
+                seen.add(t.get("content"))
+                sample.append(f"{t.get('kind')}/{t.get('content')}: {t.get('description', '')}")
+        grammar = {"inspo_shots": sample[:12]}
+    else:
+        style = read_json(session / "style_analysis.json", {}) or {}
+        grammar = {k: style.get(k) for k in ("visual_style", "dominant_content_type", "shot_patterns", "keywords")}
     items = []
     for n, t in sorted(tasks.items()):
         s = shot_by_n(plan, n)
         if not s:
             continue
         v = s.get("visual") or {}
+        ref = tags.get(s.get("ref_shot"), {})
         items.append({"n": n, "task": t["task"], "why": t["why"], "spoken": s.get("audio", ""), "type": v.get("type"),
                       "specificity": v.get("specificity", "medium"), "desc": v.get("desc", ""),
+                      **({"ref_look": f"{ref.get('content', '')}: {ref.get('description', '')}"} if ref else {}),
                       "queries_pinned": bool(v.get("queries_pinned")), "needs_caption": bool(t.get("caption"))})
     def ask(chunk):
         prompt = (f"INSPO GRAMMAR:\n{json.dumps(grammar, ensure_ascii=False)}\n\nTASKS (requery = new queries for this "
                   f"shot's spoken line; retype = new type, rewrite desc and queries for it; retheme = rewrite desc and "
-                  f"queries to sit in the inspo's grammar; when queries_pinned is true keep the queries and only write "
+                  f"queries so the shot treats its line the way its ref_look shot treats things (framing, register), "
+                  f"never copying the ref's subject, and keeping any named person, place or thing from the current "
+                  f"desc; when queries_pinned is true keep the queries and only write "
                   f"desc/caption):\n{json.dumps(chunk, ensure_ascii=False)}\n\nReturn ONLY the JSON object.")
         r = subprocess.run([claude_bin(), "-p", prompt, "--system-prompt", WRITER_SYSTEM, "--model",
                             "claude-haiku-4-5-20251001", "--output-format", "json", *LEAN_CLAUDE], capture_output=True, text=True,

@@ -743,3 +743,115 @@ Global
   - an explore grid of an original character shows the painted comic look and long-limbed proportions without reproducing Miles or Gwen;
   - one non-character AI shot's keyframe matches the neon city look.
   - Tune the `--ref-strength` and InstantStyle scales from that grid.
+
+# Part 6 — AniSora as the default video model (M9)
+
+Decided with the user on 2026-10-04, after the image-to-video bake-off (`tools/genvideo/bakeoff/`, results in `tools/genvideo/bakeoff/work/` and `work/real/`). Parts 4 and 5 still apply where not overridden here.
+
+## Goal
+
+The video lane's default model (LTX) broke 2 of 5 styled shots in the first M8 test: one faded to black, one melted into unrelated shapes. Nothing caught it. On the same free Kaggle T4, Index-AniSora V3.2 (bilibili's animation fine-tune of Wan 2.2) completed 5/5 styled shots and 3/3 real-photo shots (a person, wolves, hands with money). It acted the prompts best and kept real faces, hands and animals photographic. Wan 2.2 TI2V-5B also completed all shots: it was faster and more faithful to the planned camera move, but added less action and warped an animal.
+
+M9 makes AniSora the default image-to-video model for genvideo (the ai-video skill) and for genchar's `animate`. It keeps Wan 2.2 TI2V-5B as the fast option and removes LTX, SVD and HunyuanVideo. Every AI shot gets a start image, so AniSora always has one. Clips match their shot's length. Long batches split across Kaggle's two GPU slots. `apply` rejects broken clips before they reach the edit.
+
+## Non-goals
+
+- Text-to-video. AniSora is image-to-video only; every shot is seeded instead (decision 2).
+- Fixing HunyuanVideo on the T4. Five attempts failed on memory and loading problems. It is removed, not repaired.
+- Keeping LTX, LTX-distilled or SVD as options.
+- 720p by default, or any upscaler. 480p is generated and render scales it; 720p is a per-shot opt-in.
+- Higher quantization than Q4, or full-precision AniSora weights.
+- Using both T4s inside one run (multi-process notebooks). Throughput comes from two runs.
+- Changing the styled-keyframe pass (Part 5), character LoRA keyframes, or LatentSync lip-sync (Part 4), beyond feeding them to the new model.
+- Scoring motion quality. The new check only catches darkness and collapse.
+
+## Files & interfaces involved
+
+- `tools/genvideo/run.py`:
+  - `MODELS`:
+    - add `anisora` (default): base `Wan-AI/Wan2.2-I2V-A14B-Diffusers`; experts `youcef079/Index-Anisora-V3.2-GGUF`, files `High/Index-Anisora-V3.2-High-Q4_0.gguf` (transformer) and `Low/Index-Anisora-V3.2-Low-Q4_K_S.gguf` (transformer_2); 16 fps; 832×480; 8 steps; guidance 1.0 on both experts; i2v only.
+    - keep `wan5b`, updated to the bake-off settings: `Wan-AI/Wan2.2-TI2V-5B-Diffusers`, 24 fps, 832×480, 30 steps, guidance 5.0, i2v (its t2v pipeline unused).
+    - remove `ltx`, `ltx-distilled`, `svd`, `hunyuan`, `hunyuan-hq`. `DEFAULT_MODEL = "anisora"`.
+  - Notebook template: the loading recipe proven in `tools/genvideo/bakeoff/run.py` (decision 6) replaces the per-model diffusers loading, the Hunyuan prompt pre-encoding, and the LTX/SVD branches. `__KEYFRAMES__`, the character seeding, LatentSync and the per-slot `finish()` checkpointing stay.
+  - `push`: `--split 1|2` (default 2 when the run has 4 or more slots), giving one kernel per half with slugs `esta-gen-<session>` and `esta-gen-<session>-b`. `status` and `apply` handle both.
+  - `apply`: the clip check (decision 5) and the keyframe fallback.
+- `tools/genchar/run.py`: `ANIMATE_MODEL` and the animate notebook use AniSora through the same loader. Factor the loader into a shared constant in `tools/genvideo/run.py` that genchar imports, rather than keeping a second copy.
+- `tools/genvideo/presets.json`: unchanged. Camera prompt fragments still apply.
+- `.claude/skills/ai-video/SKILL.md` (v2 copy, logged in `PORTING.md`): the model table, timings and the "5-second window" section rewritten for AniSora and Wan 5B, and the 2-run split and clip check documented.
+- `tools/genvideo/tests/`: `test_character_seed.py` and `test_keyframes.py` move off `ltx`/`svd`. New `test_anisora.py` covers decisions 2–5.
+- `tools/genvideo/bakeoff/`: kept as the evidence record. Nothing in the pipeline imports it.
+
+## Key decisions & tradeoffs
+
+1. **AniSora V3.2 Q4 as the default, Wan 5B as the fast option, everything else removed (user).** The Q4 files are the exact ones that passed the bake-off: High Q4_0 and Low Q4_K_S, 12 GB peak on a T4. Wan 5B stays for shots that only need a camera move, or when quota is tight: it took about 11–12 min per clip against AniSora's 14–18. LTX, SVD and Hunyuan go. LTX shipped broken clips, and Hunyuan never finished on a T4.
+2. **Every AI shot is seeded (user: always draw a keyframe).** Seed precedence stays as in Part 5:
+   - the character's LoRA keyframe;
+   - then the character's `ref.png`;
+   - then a styled keyframe;
+   - then the `--seed-from-assets` stock frame, as backup only.
+
+   What's new: a shot with no look refs and no character still gets a keyframe, drawn by plain SDXL from its prompt (the same pass, with no IP-Adapter). If a keyframe fails and there is no stock backup, the slot errors out and is left to stock. It never falls back to text-to-video.
+3. **Length matches the shot, capped at 5 s (user).** The frame count is `4k+1` covering the shot at 16 fps: at least 17 frames, at most 81 (5 s, AniSora's training length). Shots longer than 5 s chain from the last frame with the existing `--chain` logic (up to 2 hops). Short shots therefore cost less GPU time. Wan 5B uses the same rule at 24 fps, capped at 121 frames.
+4. **Throughput: split across two Kaggle runs (user).** Kaggle allows two GPU runs at once. `push` splits the slots into two halves of roughly equal total frames and pushes two kernels, which halves the wall time. Both halves use the same model and the same keyframe pass; each draws only its own slots' keyframes. `status` reports both. `apply` merges both outputs, and each half is checkpointed per slot, as now. With 3 or fewer slots it stays one run.
+5. **`apply` checks every clip (user: fall back to the keyframe).** Over the clip's first `shot length` seconds, sampled every 0.25 s, a clip fails if:
+   - any sample's mean brightness falls below 20 (0–255), meaning it went dark; or
+   - the last sample's mean absolute difference from frame 0 exceeds 90 **and** the clip's own frame-to-frame differences jump (a single step over 3× the median step), meaning it collapsed or cut away rather than moved smoothly.
+
+   The thresholds are set so the bake-off's AniSora and Wan 5B clips pass, including their camera moves, and LTX's shot 7 (black) and shot 8 (melt) fail. A failed clip is not published. The slot gets its keyframe as a still with the planned `camera` move (render's existing Ken Burns/camera path), and the feed row and the review page carry `gen_check: "<reason>"`.
+6. **The loading recipe that worked on the T4 (bake-off, three failed attempts before it worked).** In order:
+   - set `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True` before importing torch;
+   - encode all prompts with UMT5 first (bf16 on cuda, fp32 on cpu as a fallback, rejecting non-finite outputs), then free the encoder;
+   - load both GGUF experts with `GGUFQuantizationConfig(compute_dtype=float16)`, plus the Wan VAE in fp32;
+   - call `enable_model_cpu_offload()` and move the prompt embeddings to cuda at call time;
+   - call `maybe_free_model_hooks()` and empty the cache after every slot, including failed ones.
+
+   Without the last step, one failed slot left a 9 GB expert on the card and every later slot ran out of memory.
+7. **720p as a per-shot opt-in (user).** `generate.hd: true` renders that slot at 1280×720. This is untested on a T4. If it runs out of memory, the slot retries once at 832×480 and records `hd_fallback` in its result. 480p is the default; render scales clips to the project frame.
+8. **genchar `animate` follows.** Its character-still animation used the same LTX settings as genvideo. It now calls the shared AniSora loader with its existing gentle-motion prompt, so there is a single model to maintain.
+
+## Edge cases
+
+- **AniSora's GGUF repo is unreachable or renamed:** the push dry-run checks both files exist on the Hub and fails before pushing, naming the file, and suggests `--model wan5b`.
+- **Kaggle GPU quota or the two-run limit is reached:** the second half's push fails, but the first half still runs. `status` names the half that didn't start, and `push --half b` pushes it later.
+- **One half finishes and the other errors:** `apply` publishes the finished half's slots and reports the other half's slots as failed. Stock stays in place for those.
+- **A shot under 0.5 s:** 17 frames (about 1 s at 16 fps), trimmed by render.
+- **A seeded image with an unusual aspect ratio:** it is fit (cropped) to 832×480, or 1280×720 for `hd`, before generating, as the bake-off did.
+- **A talking shot (`talk: true`):** LatentSync runs on the AniSora clip unchanged. The 16 fps clip is resampled to 25 fps before lip-sync if LatentSync requires it.
+- **The clip check fails and the keyframe is also missing:** nothing is published, and the stock asset stays.
+- **The session has no look refs, no characters and no stock:** every AI shot still gets a plain SDXL keyframe (decision 2).
+- **Re-running `apply`:** it is idempotent, so slots already published are skipped.
+
+## Milestones
+
+- **M9.1 Model swap:** the `anisora` and `wan5b` entries, the shared loader, removal of LTX/SVD/Hunyuan, the default switched, tests moved, and the genchar animate switch.
+- **M9.2 Always seeded, shot-length frames:** plain-SDXL keyframes for unseeded shots, and the `4k+1` frame rule with chaining.
+- **M9.3 Two-run split:** `--split`, the `-b` kernel, and two-kernel `status` and `apply`.
+- **M9.4 Clip check:** the `apply` gate, the keyframe-as-still fallback, and the review-page flag.
+- **M9.5 Docs:** the ai-video SKILL.md and the `PORTING.md` entries.
+
+## Acceptance criteria
+
+M9.1
+- [ ] `python tools/genvideo/run.py presets` lists exactly `anisora` (default) and `wan5b`; `push --model ltx` is rejected by argparse.
+- [ ] `push --dry-run` on `sessions/m6-first-minute-test` builds a notebook that parses (`ast.parse`) and contains the GGUF file names, `expandable_segments`, the UMT5-first encoding, and `maybe_free_model_hooks`. No `LTX`, `StableVideoDiffusion` or `HunyuanVideo15` remain anywhere in `tools/genvideo/run.py` (grep).
+- [ ] `genchar animate --dry-run` builds a notebook using the shared AniSora loader. No `LTX` remains in `tools/genchar/run.py`.
+- [ ] `pytest tools/genvideo tools/genchar tools/look` passes, with the moved tests.
+
+M9.2
+- [ ] Unit test: a session with no look refs, characters or stock marks every AI slot `keyframe` with no IP-Adapter in the notebook. With refs, the Part 5 behaviour is unchanged (existing tests pass).
+- [ ] Unit test: frame counts for shots of 0.4, 1.9, 3.38 and 4.4 s are 17, 33, 57 and 73 at 16 fps (each `4k+1`, covering the shot). An 8 s shot with `--chain 2` gives 2 segments of at most 81 frames.
+
+M9.3
+- [ ] `push --dry-run` with 5 slots reports two kernels whose slot sets partition the 5, with total frames per half within one slot's frames of each other. With 3 slots it reports one kernel.
+- [ ] `apply` with two stubbed output folders merges both into `assets_progress.jsonl`. With one folder missing, it publishes the other half and lists the missing slots.
+
+M9.4
+- [ ] Unit test on synthetic clips (generated with numpy and cv2): a clip fading to black fails "dark"; a clip that cuts to unrelated noise mid-way fails "collapse"; a clip with a steady zoom of the same image passes.
+- [ ] Run against the bake-off clips: all AniSora and Wan 5B clips in `tools/genvideo/bakeoff/work/` pass, and LTX `gen_7.mp4` and `gen_8.mp4` from `sessions/m6-first-minute-test` fail.
+- [ ] A failed slot publishes its keyframe as an image row with the slot's `camera`, and `gen_check` appears on the feed row and on `match_review.html`.
+
+End to end (Kaggle)
+- [ ] On `sessions/m6-first-minute-test`, `push` (two runs) → `apply` → render gives the 5 AI shots with no placeholders. Each clip covers its shot, and any `gen_check` failures are shown on the review page.
+
+M9.5
+- [ ] The ai-video SKILL.md model table names only `anisora` and `wan5b`, with the measured per-clip times. `PORTING.md` logs the SKILL.md change and the model removals.

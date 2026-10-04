@@ -50,6 +50,7 @@ Mapped mode replaces "Derive pacing", "Timing estimation" and the one-shot-per-s
    - `start`/`end` and `start_est`/`end_est` = the slot's `start`/`end`, exactly (no 150 wpm estimate); `audio` = the slot's `words`.
    - `ref_shot` (chosen ref id), `ref_target_dur` (the slot's `target_dur`, even when the ref was swapped: the rhythm stays positional), `ref_swap` (only when swapped).
    - `visual.desc`: this line's content shown the way the ref shows things — same framing (`content`: single_focus / multi_subject / background / text_card / ui_chart), same register as its `description`. Never copy the inspo's subject matter; copy its treatment.
+   - A shot's `user_directions` (carried over from requirements or an earlier plan) decide what is in the frame and override the ref's `content`: "Andrew Tate picture" on a `text_card` ref is a photo of him, not a screenshot of his post. The ref still sets kind, length and camera.
    - `search_sources`: the existing specificity rules decide the sources; the ref's `sourcing_hint` shapes the query wording (adapted to this topic).
    - `text.caption` only when the ref has `text_extra: true`; an `overlay` only when the ref has `overlay_extra: true` and the shot is not `MOTION_GRAPHICS`. This keeps the on-screen-text rate at the inspo's.
    - `camera`: `{"move", "amount"}` from the ref's `motion` when it has one (omit otherwise); `transition_in` / `transition_out`: `fade_black` / `fade_white` when the ref's `motion.fade_in` / `fade_out` is `black` / `white`, else `cut`.

@@ -61,6 +61,7 @@ use_utf8_stdout()
 
 HERE = Path(__file__).resolve().parent
 PRESETS_PATH = HERE / "presets.json"
+KEYFRAME_LAYOUT = 0.2   # IP-Adapter layout-block scale for styled keyframes (genchar keeps refs.LAYOUT_SCALE)
 
 # Seed images ride inside the notebook as base64 JPEGs rather than as a Kaggle
 # Dataset. A dataset is the "proper" mechanism but costs a create/version call,
@@ -215,6 +216,13 @@ def resolve_preset(shot: dict, presets: dict, default: str) -> str:
     return default if default in presets["presets"] else presets["default"]
 
 
+def keyframe_prompt(shot: dict, look_style: str) -> str:
+    """A still needs no camera move, and SDXL's CLIP stops at 77 tokens: subject + look only."""
+    visual = shot.get("visual", {}) or {}
+    subject = ((visual.get("generate") or {}).get("prompt") or visual.get("desc") or shot.get("audio", "")).strip().rstrip(".")
+    return ", ".join(p for p in (subject, look_style) if p)
+
+
 def build_prompt(shot: dict, preset_name: str, presets: dict, style: str) -> str:
     """Subject + camera move + look, in that order.
 
@@ -287,12 +295,14 @@ def collect_slots(
         segments = 1
         if duration > clip_len and chain_max > 1:
             segments = min(chain_max, math.ceil(duration / clip_len))
-        prompt = build_prompt(shot, preset_name, presets, style)
+        # A session look replaces the --style suffix: "shot on film, natural lighting" fights an animated look.
+        prompt = build_prompt(shot, preset_name, presets, "" if look_style else style)
         slots.append({
             "shot_number": n,
             "key": str(n),
             "preset": preset_name,
             "prompt": f"{prompt}, {look_style}" if look_style else prompt,
+            "kf_prompt": keyframe_prompt(shot, look_style),
             "duration": round(duration, 2),
             "segments": segments,
             "seed_b64": "",
@@ -440,7 +450,10 @@ def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_na
         slot["keyframe"] = True
     if marked:
         model["keyframe"] = {k: sd[k] for k in ("repo", "pipeline", "variant", "steps", "guidance")}
-        model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs), ref_scale=look_refs.scales(strength))
+        # World refs set a keyframe's palette and brushwork, not its layout: at the shared 0.6 the refs' street
+        # replaced the subject's setting (wolves in a forest came out on a city street, first Kaggle run).
+        scale = {**look_refs.scales(strength), "layout": round(KEYFRAME_LAYOUT * strength, 3)}
+        model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs), ref_scale=scale)
     return {"refs": [p.name for p in refs], "shots": {slot["shot_number"]: "styled_keyframe" for slot in marked}}
 
 
@@ -577,10 +590,13 @@ def precompute_prompts():
     # and only the denoiser comes down later.
     seeded = any(s.get("seed_b64") or s.get("backup_b64") or s["key"] in KEYFRAMES for s in SLOTS)
     kind = "i2v" if (seeded and MODEL["pipeline_i2v"]) else "t2v"
+    # vae=None breaks pipeline init on current diffusers (it reads vae.config); the VAE is small, so load it.
     pipe = pipe_cls(kind).from_pretrained(
-        repo_for(kind), torch_dtype=dtype, transformer=None, vae=None)
+        repo_for(kind), torch_dtype=dtype, transformer=None)
+    # Sequential, not model offload: the 7B Qwen2.5-VL encoder is ~15 GB in fp16 and a T4 has 14.56 GB,
+    # so moving it onto the card whole OOMs. Layer by layer is slower but only runs once per prompt.
     try:
-        pipe.enable_model_cpu_offload()
+        pipe.enable_sequential_cpu_offload()
     except Exception:
         pipe.to("cuda")
 
@@ -764,15 +780,22 @@ def keyframe_pass():
     from PIL import ImageOps
     KF = MODEL["keyframe"]
     kf_cls = getattr(diffusers, KF["pipeline"])
+    # The fp16-safe VAE with force_upcast off: the stock SDXL VAE flips itself to fp32 to decode, and an
+    # OOM mid-decode left it there, so every later keyframe failed on Half vs float.
+    vae = diffusers.AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix", torch_dtype=torch.float16)
+    vae.config.force_upcast = False
     try:
-        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True,
+        pipe = kf_cls.from_pretrained(KF["repo"], vae=vae, torch_dtype=torch.float16, use_safetensors=True,
                                       variant=KF.get("variant") or None)
     except Exception:
-        pipe = kf_cls.from_pretrained(KF["repo"], torch_dtype=torch.float16, use_safetensors=True)
-    pipe = pipe.to("cuda")
+        pipe = kf_cls.from_pretrained(KF["repo"], vae=vae, torch_dtype=torch.float16, use_safetensors=True)
     pipe.set_progress_bar_config(disable=True)
     REFS, REF_SCALE = KF["refs"], KF["ref_scale"]
 __IPA__
+    # SDXL + the IP-Adapter image encoder + a 1216x832 decode overflow one T4 by the second image when all
+    # resident. Offload goes on after the adapter loads, or its image encoder stays on the CPU unhooked.
+    pipe.enable_model_cpu_offload()
+    pipe.vae.enable_tiling()
     # SDXL draws at its own landscape/portrait bucket; the frame is then fitted to the video size.
     w, h = (1216, 832) if MODEL["width"] >= MODEL["height"] else (832, 1216)
     for slot in SLOTS:
@@ -781,7 +804,7 @@ __IPA__
         key = slot["key"]
         try:
             gen = torch.Generator("cuda").manual_seed(int(slot["shot_number"]) * 7919)
-            img = pipe(prompt=slot["prompt"], negative_prompt=KF["neg"], width=w, height=h,
+            img = pipe(prompt=slot.get("kf_prompt") or slot["prompt"], negative_prompt=KF["neg"], width=w, height=h,
                        num_inference_steps=KF["steps"], guidance_scale=KF["guidance"], generator=gen,
                        **IPA_KW).images[0]
             KEYFRAMES[key] = ImageOps.fit(img, (MODEL["width"], MODEL["height"]))
@@ -791,7 +814,8 @@ __IPA__
         except Exception as e:
             KF_NOTES[key] = "keyframe failed: " + (str(e) or repr(e))[:150]
             print("[esta]", key, KF_NOTES[key], flush=True)
-    del pipe
+        gc.collect(); torch.cuda.empty_cache()
+    del pipe, vae
 
 try:
     keyframe_pass()
@@ -817,6 +841,7 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     for row, slot in zip(lean, slots):
         if slot.get("keyframe"):
             row["keyframe"] = True
+            row["kf_prompt"] = slot.get("kf_prompt", "")
         if slot.get("backup_b64"):
             row["backup_b64"] = slot["backup_b64"]
     kf = ""

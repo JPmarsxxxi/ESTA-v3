@@ -10,6 +10,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+# YouTube forces SABR on the web client (Oct 2026): its formats lose their URLs. mweb still serves them.
+YT_CLIENTS = {"youtube": {"player_client": ["mweb", "default"]}}
+
 # ── E2: per-process source-pool caches ───────────────────────────────────────
 # Shots that share a topic (same fixture, speech, launch, …) repeatedly hit the
 # same YouTube search, transcript, format probe, and worst-quality download.
@@ -693,7 +696,8 @@ def _max_height(video_id: str) -> int:
             return _HEIGHT_CACHE[video_id]
     try:
         import yt_dlp
-        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "skip_download": True}) as ydl:
+        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "skip_download": True,
+                               "extractor_args": YT_CLIENTS}) as ydl:
             info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
         heights = [int(f.get("height") or 0) for f in info.get("formats", [])]
         h = max(heights) if heights else 0
@@ -750,6 +754,7 @@ def _ensure_full_video(vid_url: str, vid_id: str, cache_dir: Path | None):
             "format": "worst[ext=mp4]/worst",
             "outtmpl": str(target),
             "overwrites": True,
+            "extractor_args": YT_CLIENTS,
         }) as ydl:
             ydl.download([vid_url])
         if target.exists():
