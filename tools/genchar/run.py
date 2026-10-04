@@ -44,6 +44,7 @@ from tools.kaggle_lane import (  # noqa: E402
     wait_dataset_ready, write_kernel_dir,
 )
 from tools.look import refs as look_refs  # noqa: E402
+from tools.genvideo.run import DEFAULT_MODEL as VIDEO_DEFAULT, MODELS as VIDEO_MODELS, WAN_LOADER  # noqa: E402
 
 use_utf8_stdout()
 
@@ -660,8 +661,12 @@ def cmd_render(args: argparse.Namespace) -> None:
 
 
 ANIMATE_NOTEBOOK = '''# ESTA - animate character stills (image-to-video) on Kaggle's free GPU.
+import os
+# Reserved-but-fragmented memory failed large allocations on the T4 (genvideo bake-off): let segments grow.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 __ENV__
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "imageio[ffmpeg]"], check=False)
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U", "diffusers", "gguf", "imageio[ffmpeg]", "ftfy"],
+               check=False)
 
 import torch, diffusers, base64, io
 from diffusers.utils import export_to_video
@@ -679,27 +684,17 @@ def finish(results, errors):
 if not torch.cuda.is_available():
     finish({}, {"_": "no GPU"}); raise SystemExit
 print("[esta] GPU:", torch.cuda.get_device_name(0), flush=True)
-
-cls = getattr(diffusers, MODEL["pipeline"])
-pipe = cls.from_pretrained(MODEL["repo"], torch_dtype=getattr(torch, MODEL["dtype"]))
-# The video model is far larger than SDXL, so offload rather than keeping it
-# resident — same trade the genvideo lane makes on this GPU.
-pipe.enable_sequential_cpu_offload()
-try:
-    pipe.vae.enable_tiling(); pipe.vae.enable_slicing()
-except Exception:
-    pass
-pipe.set_progress_bar_config(disable=True)
+__WAN_LOADER__
+ENC = wan_embeds(MODEL["repo"], [j["prompt"] for j in JOBS] + ([NEG] if MODEL["guidance"] > 1 else []))
+NEG_EMB = ENC[-1] if MODEL["guidance"] > 1 else None
+pipe = load_wan(MODEL)
 
 results, errors = {}, {}
-for job in JOBS:
+for i, job in enumerate(JOBS):
     key = job["key"]
     try:
         img = Image.open(io.BytesIO(base64.b64decode(job["image_b64"]))).convert("RGB")
-        frames = pipe(image=img, prompt=job["prompt"], negative_prompt=NEG,
-                      num_frames=MODEL["frames"], width=MODEL["width"],
-                      height=MODEL["height"], num_inference_steps=MODEL["steps"],
-                      guidance_scale=MODEL["guidance"]).frames[0]
+        frames = wan_generate(pipe, MODEL, img, ENC[i], NEG_EMB, MODEL["frames"], MODEL["width"], MODEL["height"], i)
         path = os.path.join(OUT, key + ".mp4")
         export_to_video(frames, path, fps=MODEL["fps"])
         results[key] = {"file": key + ".mp4", "frames": len(frames), "fps": MODEL["fps"]}
@@ -707,19 +702,12 @@ for job in JOBS:
     except Exception as e:
         errors[key] = (str(e) or repr(e))[:250]
         traceback.print_exc(); print("ERR", key, errors[key], flush=True)
-    gc.collect(); torch.cuda.empty_cache()
     finish(results, errors)
 '''
 
-# Image-to-video model for character stills. Same LTX config the genvideo lane
-# proved on this hardware — see tools/genvideo/run.py's MODELS registry.
-ANIMATE_MODEL = {
-    "repo": "Lightricks/LTX-Video",
-    "pipeline": "LTXImageToVideoPipeline",
-    "dtype": "float16",
-    "frames": 121, "fps": 24, "width": 704, "height": 480,
-    "steps": 40, "guidance": 3.0,
-}
+# Image-to-video model for character stills: the genvideo lane's default (SPEC.md Part 6), one model to maintain.
+# A still has no shot length, so the clip is AniSora's 3.5 s bake-off length (57 frames at 16 fps).
+ANIMATE_MODEL = {**VIDEO_MODELS[VIDEO_DEFAULT], "frames": 57}
 
 # Motion that suits a character portrait: gentle enough that the face survives.
 # Big camera moves and full-body action are what drift fastest.
@@ -781,12 +769,7 @@ def cmd_animate(args: argparse.Namespace) -> None:
     if not jobs:
         raise RuntimeError("could not prepare any frames")
 
-    if args.dry_run:
-        print(json.dumps({"ok": True, "dry_run": True, "clips": len(jobs),
-                          "sources": [j["key"] for j in jobs]}, ensure_ascii=False))
-        return
-
-    code = notebook_code(ANIMATE_NOTEBOOK, env=ENV_PREAMBLE,
+    code = notebook_code(ANIMATE_NOTEBOOK, env=ENV_PREAMBLE, wan_loader=WAN_LOADER,
                          jobs=repr(json.dumps(jobs)), model=repr(json.dumps(model)),
                          neg=repr("blurry, distorted face, warping, flickering, morphing"))
     kernel_id = f"{kaggle_username()}/{slugify(args.name, 'anim', prefix='esta-char-')}"
@@ -794,6 +777,10 @@ def cmd_animate(args: argparse.Namespace) -> None:
     write_kernel_dir(build_dir, code, kernel_id,
                      ACCELERATORS.get(args.accelerator, "NvidiaTeslaT4"))
     size = (build_dir / "kernel.ipynb").stat().st_size
+    if args.dry_run:
+        print(json.dumps({"ok": True, "dry_run": True, "clips": len(jobs), "notebook_bytes": size,
+                          "sources": [j["key"] for j in jobs]}, ensure_ascii=False))
+        return
     ok, log = push_kernel(build_dir)
     if ok:
         data["anim_kernel"] = kernel_id

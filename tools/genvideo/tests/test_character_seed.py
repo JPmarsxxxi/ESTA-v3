@@ -38,7 +38,7 @@ def test_seed_order_and_look_style(tmp_path, monkeypatch):
     (chars / "text-only").mkdir(parents=True)
     (chars / "text-only" / "character.json").write_text(json.dumps({"desc": "tall man in a blue suit"}))
 
-    model = G.MODELS["ltx"]
+    model = G.MODELS["anisora"]
     slots = G.collect_slots(session, G.load_presets(), model, "static", "", None, 1)
     report = G.attach_character_seeds(session, slots, model)
     assert report == {1: "lora_keyframe", 2: "ref", 3: "text", 4: "text (no character.json)"}
@@ -63,6 +63,6 @@ def test_character_slots_never_take_a_stock_seed(tmp_path, monkeypatch):
     png(stock)
     (session / "assets_progress.jsonl").write_text("".join(json.dumps({"shot_number": n, "ok": True, "file": str(stock)}) + "\n" for n in (1, 2)))
     slots = [{"shot_number": 1, "seed_b64": "", "character": "Text Only"}, {"shot_number": 2, "seed_b64": ""}]
-    report = G.attach_seed_images(session, slots, G.MODELS["ltx"])
+    report = G.attach_seed_images(session, slots, G.MODELS["anisora"])
     assert report["skipped"] == [{"shot": 1, "why": "character shot: no stock seed"}]
     assert not slots[0]["seed_b64"] and slots[1]["seed_b64"]

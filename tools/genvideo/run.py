@@ -1,8 +1,8 @@
 """Generative video (AI B-roll) on Kaggle — the free lane for Higgsfield-style shots.
 
 Why this exists: the user's local GPU is a 4 GB RTX A2000 Laptop. Every open
-model that does credible image/text->video (Wan, LTX-Video, HunyuanVideo, SVD)
-wants 12-40 GB. So generation is offloaded to Kaggle's free GPU.
+model that does credible image-to-video (Wan 2.2, AniSora) wants 12-40 GB. So
+generation is offloaded to Kaggle's free GPU.
 
 Why Kaggle and not Colab (which tools/assets/youtube_colab.py uses):
 
@@ -33,14 +33,15 @@ If the run fails or the quota is out, nothing is written and the stock pick
 stays — render is never blocked. Same reversible-upgrade posture as the
 YouTube HD path.
 
-On clip length: these models are trained on a fixed window (~5 s), so a single
-pass is ~5 s. `--chain` beats that by feeding the last frame of segment N into
-segment N+1 as an i2v seed and concatenating on the Kaggle side. Drift
-accumulates per hop, so 2-3 segments is the honest ceiling for a clean look.
+On clip length: each slot generates just enough frames to cover its shot, up
+to the model's trained window (5 s). `--chain` covers longer shots by feeding
+the last frame of segment N into segment N+1 and concatenating on the Kaggle
+side. Drift accumulates per hop, so 2-3 segments is the honest ceiling.
 """
 
 import argparse
 import base64
+import hashlib
 import json
 import math
 import re
@@ -77,112 +78,47 @@ SEED_JPEG_QSCALE = 4
 # genchar's store (tools/genchar/run.py): characters outlive sessions, like voice_samples/.
 CHARACTERS_DIR = REPO_ROOT / "characters"
 
-# Model registry. Deliberately data-driven: the open-video landscape moves fast,
-# so adding a model should be an edit here, never a new code path. `pipeline` is
-# a diffusers class name resolved by getattr on the Kaggle side.
-#
-# `gpu` is the honest hardware note. Kaggle's free accelerators are T4 x2
-# (16 GB each; Turing, so fp16 yes / bf16 no / no flash-attention) and P100
-# (16 GB, Pascal). A single diffusers pipeline does not shard across the two
-# T4s, so treat the usable budget as 16 GB either way.
+# Model registry. `gpu` is the honest hardware note: Kaggle's free T4 is 16 GB, Turing (fp16 yes, bf16 no, no
+# flash-attention). Both models are Wan 2.2 image-to-video and share one loader (WAN_LOADER). Picked by the
+# 2026-10 bake-off (tools/genvideo/bakeoff, SPEC.md Part 6): the previous default broke 2 of 5 styled shots and
+# HunyuanVideo-class models never finished on a T4.
 MODELS = {
-    "ltx": {
-        "repo": "Lightricks/LTX-Video",
-        "pipeline_t2v": "LTXPipeline",
-        "pipeline_i2v": "LTXImageToVideoPipeline",
-        "dtype": "float16",
-        "frames": 121,
-        "fps": 24,
-        "width": 704,
-        "height": 480,
-        "steps": 40,
-        "guidance": 3.0,
-        "gpu": "t4",
-        "notes": "Fast, T4-safe, both t2v and i2v. The default for the free lane.",
-    },
-    "ltx-distilled": {
-        "repo": "Lightricks/LTX-Video-0.9.7-distilled",
-        "pipeline_t2v": "LTXPipeline",
-        "pipeline_i2v": "LTXImageToVideoPipeline",
-        "dtype": "float16",
-        "frames": 121,
-        "fps": 24,
-        "width": 704,
+    "anisora": {
+        "repo": "Wan-AI/Wan2.2-I2V-A14B-Diffusers",
+        "gguf_repo": "youcef079/Index-Anisora-V3.2-GGUF",
+        "gguf": ["High/Index-Anisora-V3.2-High-Q4_0.gguf", "Low/Index-Anisora-V3.2-Low-Q4_K_S.gguf"],
+        "pipeline_i2v": "WanImageToVideoPipeline",
+        "frames": 81,
+        "fps": 16,
+        "width": 832,
         "height": 480,
         "steps": 8,
         "guidance": 1.0,
         "gpu": "t4",
-        "notes": "Same model distilled to ~8 steps. Several times faster, slightly softer motion. Best pick when generating many slots.",
+        "notes": "Index-AniSora V3.2 (Wan 2.2 A14B, animation fine-tune), Q4 GGUF, 8 steps. Best motion in the "
+                 "bake-off on styled and real shots; ~14-18 min per 3.5 s clip on a T4.",
     },
-    "svd": {
-        "repo": "stabilityai/stable-video-diffusion-img2vid-xt",
-        "pipeline_t2v": "",
-        "pipeline_i2v": "StableVideoDiffusionPipeline",
-        "dtype": "float16",
-        "frames": 25,
-        "fps": 7,
-        "width": 1024,
-        "height": 576,
-        "steps": 25,
-        "guidance": 3.0,
-        "gpu": "t4",
-        "notes": "Image-to-video only, ~4 s, no text prompt. Old but rock solid on a T4 - the fallback when LTX misbehaves. Requires --seed-from-assets.",
-    },
-    "hunyuan": {
-        "repo": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_t2v_distilled",
-        "repo_t2v": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_t2v_distilled",
-        "repo_i2v": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_i2v_step_distilled",
-        "pipeline_t2v": "HunyuanVideo15Pipeline",
-        "pipeline_i2v": "HunyuanVideo15ImageToVideoPipeline",
-        "dtype": "float16",
-        "frames": 121,
-        "fps": 24,
-        "width": 832,
-        "height": 480,
-        "steps": 12,
-        "guidance": 1.0,
-        "gpu": "t4",
-        "diffusers_spec": "diffusers>=0.36.0",
-        "caps": {"guider": True, "i2v_no_size": True,
-                 "precompute_prompts": True, "cfg_free": True},
-        "notes": "Best quality that still fits a free T4. 8.3B, fp16-native (unlike Wan), "
-                 "step-distilled to 8-12 steps. Costs ~2-3x an LTX slot; worth it on hero shots.",
-    },
-    "hunyuan-hq": {
-        "repo": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_t2v",
-        "repo_t2v": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_t2v",
-        "repo_i2v": "hunyuanvideo-community/HunyuanVideo-1.5-Diffusers-480p_i2v",
-        "pipeline_t2v": "HunyuanVideo15Pipeline",
-        "pipeline_i2v": "HunyuanVideo15ImageToVideoPipeline",
-        "dtype": "float16",
+    "wan5b": {
+        "repo": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+        "pipeline_i2v": "WanImageToVideoPipeline",
         "frames": 121,
         "fps": 24,
         "width": 832,
         "height": 480,
         "steps": 30,
-        "guidance": 6.0,
-        "gpu": "t4",
-        "diffusers_spec": "diffusers>=0.36.0",
-        "caps": {"guider": True, "i2v_no_size": True, "precompute_prompts": True},
-        "notes": "Undistilled HunyuanVideo-1.5 with real CFG. The quality ceiling of the free "
-                 "lane and roughly 5x the GPU minutes of `hunyuan` - one or two hero shots, not a whole video.",
-    },
-    "wan5b": {
-        "repo": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",
-        "pipeline_t2v": "WanPipeline",
-        "pipeline_i2v": "WanImageToVideoPipeline",
-        "dtype": "bfloat16",
-        "frames": 121,
-        "fps": 24,
-        "width": 704,
-        "height": 480,
-        "steps": 40,
         "guidance": 5.0,
-        "gpu": "l4+",
-        "notes": "Wan's 5B. Superseded here by `hunyuan`: it's bf16 and neither Kaggle T4 (Turing) nor P100 (Pascal) has native bf16, so it falls back to fp16 and crawls. Kept for comparison, not recommended.",
+        "gpu": "t4",
+        "notes": "Wan 2.2 TI2V-5B, fp16, 30 steps. Faster (~11-12 min per 3.5 s clip), follows the camera move, "
+                 "adds less action.",
     },
 }
-DEFAULT_MODEL = "ltx"
+DEFAULT_MODEL = "anisora"
+HD_SIZE = (1280, 720)    # generate.hd: true; untested on a T4, so the notebook retries at the model size on OOM
+MIN_FRAMES = 17
+SPLIT_MIN_SLOTS = 4   # fewer slots than this stay one Kaggle run
+# apply's clip check, calibrated on the bake-off clips (tools/genvideo/bakeoff): every AniSora and Wan 5B clip
+# passes, the old default's black and melted clips fail.
+CHECK_STEP, CHECK_DARK, CHECK_COLLAPSE = 0.25, 20.0, 0.05
 
 # Shots ask for generated footage either by type or by carrying a `generate`
 # block. Both are honored so the plan skill can adopt this incrementally.
@@ -264,6 +200,12 @@ def _shot_duration(shot: dict) -> float:
     return 0.0
 
 
+def frames_for(seconds: float, fps: int, cap: int) -> int:
+    """Frames covering `seconds`, in the 4k+1 counts Wan's temporal VAE needs, between MIN_FRAMES and `cap`."""
+    need = max(MIN_FRAMES, math.ceil(seconds * fps))
+    return min(cap, 4 * math.ceil((need - 1) / 4) + 1)
+
+
 def collect_slots(
     session_dir: Path,
     presets: dict,
@@ -276,7 +218,8 @@ def collect_slots(
     """One slot per shot that wants generated footage.
 
     `segments` is how many chained passes this slot needs to cover its duration,
-    clamped by --chain. 1 means a single ~5 s generation.
+    clamped by --chain; `frames` is each pass's length, just enough to cover its
+    share of the shot (SPEC.md Part 6, decision 3).
     """
     shots = _load_plan(session_dir)
     clip_len = model["frames"] / model["fps"]
@@ -295,6 +238,7 @@ def collect_slots(
         segments = 1
         if duration > clip_len and chain_max > 1:
             segments = min(chain_max, math.ceil(duration / clip_len))
+        frames = frames_for(duration / segments, model["fps"], model["frames"])
         # A session look replaces the --style suffix: "shot on film, natural lighting" fights an animated look.
         prompt = build_prompt(shot, preset_name, presets, "" if look_style else style)
         slots.append({
@@ -305,6 +249,8 @@ def collect_slots(
             "kf_prompt": keyframe_prompt(shot, look_style),
             "duration": round(duration, 2),
             "segments": segments,
+            "frames": frames,
+            "hd": bool((visual.get("generate") or {}).get("hd")),
             "seed_b64": "",
             "character": (visual.get("generate") or {}).get("character") or "",
             "talk": bool((visual.get("generate") or {}).get("talk")),
@@ -431,14 +377,12 @@ def _ffmpeg(*args: str) -> subprocess.CompletedProcess:
 
 
 def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_name: str, strength: float) -> dict:
-    """Mark every still-unseeded slot for a styled keyframe: SDXL with the session's look refs draws its first
-    frame on Kaggle, then the video model animates it (SPEC.md Part 5, decision 5). Video models take a start
-    image, not a style image, so this is how the look reaches non-character shots."""
-    refs = look_refs.resolve(session_dir, "keyframe") if strength > 0 else []
-    if not refs:
-        return {}
+    """Mark every still-unseeded slot for a keyframe: SDXL draws its first frame on Kaggle, then the video model
+    animates it. With look refs it is styled through the IP-Adapter (SPEC.md Part 5, decision 5); without, it is
+    plain SDXL from the prompt, because both video models are image-to-video only (Part 6, decision 2)."""
     if not model["pipeline_i2v"]:
-        return {"skipped": f"{model_name} has no image-to-video pipeline: no styled keyframes"}
+        return {"skipped": f"{model_name} has no image-to-video pipeline: no keyframes"}
+    refs = look_refs.resolve(session_dir, "keyframe") if strength > 0 else []
     from tools.genchar.run import LOOK_MODEL, MODELS, NEGATIVE
     try:
         look = json.loads((session_dir / "requirements.json").read_text(encoding="utf-8")).get("look") or ""
@@ -448,13 +392,15 @@ def attach_keyframes(session_dir: Path, slots: list[dict], model: dict, model_na
     marked = [slot for slot in slots if not slot["seed_b64"]]
     for slot in marked:
         slot["keyframe"] = True
-    if marked:
-        model["keyframe"] = {k: sd[k] for k in ("repo", "pipeline", "variant", "steps", "guidance")}
-        # World refs set a keyframe's palette and brushwork, not its layout: at the shared 0.6 the refs' street
-        # replaced the subject's setting (wolves in a forest came out on a city street, first Kaggle run).
-        scale = {**look_refs.scales(strength), "layout": round(KEYFRAME_LAYOUT * strength, 3)}
-        model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs), ref_scale=scale)
-    return {"refs": [p.name for p in refs], "shots": {slot["shot_number"]: "styled_keyframe" for slot in marked}}
+    if not marked:
+        return {}
+    model["keyframe"] = {k: sd[k] for k in ("repo", "pipeline", "variant", "steps", "guidance")}
+    # World refs set a keyframe's palette and brushwork, not its layout: at the shared 0.6 the refs' street
+    # replaced the subject's setting (wolves in a forest came out on a city street, first Kaggle run).
+    scale = {**look_refs.scales(strength), "layout": round(KEYFRAME_LAYOUT * strength, 3)}
+    model["keyframe"].update(neg=NEGATIVE, refs=look_refs.payload(refs) if refs else [], ref_scale=scale)
+    kind = "styled_keyframe" if refs else "plain_keyframe"
+    return {"refs": [p.name for p in refs], "shots": {slot["shot_number"]: kind for slot in marked}}
 
 
 def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dict:
@@ -512,27 +458,94 @@ def attach_seed_images(session_dir: Path, slots: list[dict], model: dict) -> dic
 
 # ── notebook source ───────────────────────────────────────────────────────────
 
-NOTEBOOK_CODE = '''# ESTA - generative video on Kaggle's free GPU.
+# The Wan 2.2 loader, shared by this notebook and genchar's animate (notebook-side code). The recipe is the one that
+# survived the bake-off on a T4: prompts are encoded with UMT5 before any denoiser loads, so the 11 GB encoder and
+# the experts are never resident together; GGUF experts dequantize to fp16 per layer; the VAE stays fp32; and every
+# slot ends by releasing the offload hooks, because a failed slot once left a 9 GB expert on the card.
+WAN_LOADER = '''
+def _free():
+    gc.collect(); torch.cuda.empty_cache()
+
+def wan_embeds(repo, texts):
+    """UMT5 embeddings as diffusers' Wan pipeline builds them; bf16 on the GPU, fp32 on the CPU as fallback."""
+    from transformers import AutoTokenizer, UMT5EncoderModel
+    tok = AutoTokenizer.from_pretrained(repo, subfolder="tokenizer")
+    for dev, dt in (("cuda", torch.bfloat16), ("cpu", torch.float32)):
+        te, out = None, None
+        try:
+            te = UMT5EncoderModel.from_pretrained(repo, subfolder="text_encoder", torch_dtype=dt).to(dev)
+            out = []
+            for t in texts:
+                ids = tok([t], padding="max_length", max_length=512, truncation=True, add_special_tokens=True,
+                          return_attention_mask=True, return_tensors="pt")
+                n = int(ids.attention_mask.sum())
+                with torch.no_grad():
+                    h = te(ids.input_ids.to(dev), ids.attention_mask.to(dev)).last_hidden_state[0, :n]
+                h = torch.cat([h, h.new_zeros(512 - n, h.size(1))])[None].float().cpu()
+                if not torch.isfinite(h).all():
+                    raise ValueError("non-finite prompt embeddings")
+                out.append(h)
+            print("[esta] prompts encoded on", dev, flush=True)
+        except Exception as e:
+            print("[esta] prompt encoding on", dev, "failed:", str(e)[:200], flush=True)
+            out = None
+        finally:
+            te = None; _free()
+        if out is not None:
+            return out
+    raise RuntimeError("prompt encoding failed on cuda and cpu")
+
+def load_wan(model):
+    from diffusers import WanImageToVideoPipeline, AutoencoderKLWan
+    kw = dict(vae=AutoencoderKLWan.from_pretrained(model["repo"], subfolder="vae", torch_dtype=torch.float32),
+              text_encoder=None, torch_dtype=torch.float16)
+    if model.get("gguf"):
+        from huggingface_hub import hf_hub_download
+        from diffusers import WanTransformer3DModel, GGUFQuantizationConfig
+        q = GGUFQuantizationConfig(compute_dtype=torch.float16)
+        for name, fn in zip(("transformer", "transformer_2"), model["gguf"]):
+            kw[name] = WanTransformer3DModel.from_single_file(
+                hf_hub_download(model["gguf_repo"], fn), quantization_config=q, config=model["repo"],
+                subfolder=name, torch_dtype=torch.float16)
+    pipe = WanImageToVideoPipeline.from_pretrained(model["repo"], **kw)
+    pipe.enable_model_cpu_offload()
+    pipe.set_progress_bar_config(disable=True)
+    return pipe
+
+def wan_generate(pipe, model, image, emb, neg, frames, width, height, seed):
+    from PIL import ImageOps
+    kw = dict(image=ImageOps.fit(image.convert("RGB"), (width, height)), prompt_embeds=emb.to("cuda", torch.float16),
+              height=height, width=width, num_frames=frames, num_inference_steps=model["steps"],
+              guidance_scale=model["guidance"], generator=torch.Generator("cpu").manual_seed(seed))
+    if model.get("gguf"):
+        kw["guidance_scale_2"] = model["guidance"]
+    if neg is not None and model["guidance"] > 1:
+        kw["negative_prompt_embeds"] = neg.to("cuda", torch.float16)
+    try:
+        return pipe(**kw).frames[0]
+    finally:
+        pipe.maybe_free_model_hooks(); _free()
+'''
+
+NOTEBOOK_CODE = '''# ESTA - generative video on Kaggle's free GPU (SPEC.md Part 6).
 # Writes gen_<key>.mp4 + gen_results.json to /kaggle/working for `kernels output`.
 import subprocess, sys, json, os, gc, base64, io, traceback
+# Reserved-but-fragmented memory, not total size, failed large allocations on the T4 (bake-off): let segments grow.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 
 SLOTS = json.loads(__SLOTS__)
 MODEL = json.loads(__MODEL__)
 NEG   = __NEG__
 OUT   = "/kaggle/working"
-CAPS  = MODEL.get("caps", {}) or {}
 
 # Weights go to /kaggle/temp, never /kaggle/working: `kernels output` downloads
-# the working dir and it is capped at 20 GB, while a modern checkpoint plus its
-# 7B text encoder is ~35 GB. /kaggle/temp is scratch and never collected.
+# the working dir and it is capped at 20 GB. /kaggle/temp is scratch and never collected.
 if os.path.isdir("/kaggle/temp"):
     os.makedirs("/kaggle/temp/hf", exist_ok=True)
     os.environ["HF_HOME"] = "/kaggle/temp/hf"
 
-subprocess.run([sys.executable, "-m", "pip", "install", "-q",
-                MODEL.get("diffusers_spec", "diffusers>=0.33.0"),
-                "transformers", "accelerate",
-                "imageio[ffmpeg]", "sentencepiece", "protobuf"], check=False)
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U", "diffusers", "transformers", "accelerate",
+                "gguf", "imageio[ffmpeg]", "sentencepiece", "protobuf", "ftfy"], check=False)
 
 import numpy as np
 import torch, diffusers
@@ -545,25 +558,10 @@ def finish(results, errors):
     print("ESTA_GEN_RESULT::" + json.dumps({"results": results, "errors": errors}))
 
 if not torch.cuda.is_available():
-    finish({}, {"_": "no GPU on this kernel - set Accelerator to GPU T4 x2 or P100"})
+    finish({}, {"_": "no GPU on this kernel - set Accelerator to GPU T4 x2"})
     raise SystemExit
 
 print("[esta] GPU:", torch.cuda.get_device_name(0), flush=True)
-dtype = getattr(torch, MODEL["dtype"])
-if dtype is torch.bfloat16 and not torch.cuda.is_bf16_supported():
-    # Kaggle's T4 (Turing) and P100 (Pascal) both lack native bf16.
-    print("[esta] bf16 unsupported here, falling back to fp16", flush=True)
-    dtype = torch.float16
-
-def repo_for(kind):
-    """Some models ship t2v and i2v as separate checkpoints; most share one."""
-    return MODEL.get("repo_" + kind) or MODEL["repo"]
-
-def pipe_cls(kind):
-    cls_name = MODEL["pipeline_i2v"] if kind == "i2v" else MODEL["pipeline_t2v"]
-    if not cls_name:
-        raise RuntimeError(MODEL["repo"] + " has no " + kind + " pipeline")
-    return getattr(diffusers, cls_name)
 
 def _as_pil(frame):
     """Pipelines return PIL or a float ndarray depending on their output_type default."""
@@ -576,148 +574,69 @@ def _as_pil(frame):
 
 KEYFRAMES, KF_NOTES = {}, {}
 __KEYFRAMES__
-# -- prompt pre-encoding -------------------------------------------------------
-# HunyuanVideo-1.5 carries a 7B Qwen2.5-VL text encoder. Transformer + encoders
-# together are ~33 GB in fp16 and a Kaggle GPU kernel has 32 GB of *host* RAM, so
-# CPU offload alone OOMs the host rather than the card. Encoding every prompt up
-# front and then dropping the encoders keeps exactly one large model resident.
-EMB = {}
-EMB_KEYS = ("prompt_embeds", "prompt_embeds_mask", "prompt_embeds_2", "prompt_embeds_mask_2")
+__WAN_LOADER__
 
-def precompute_prompts():
-    # Pick the checkpoint this run will actually use: passing transformer=None
-    # makes diffusers skip downloading it, so only the encoders come down here
-    # and only the denoiser comes down later.
-    seeded = any(s.get("seed_b64") or s.get("backup_b64") or s["key"] in KEYFRAMES for s in SLOTS)
-    kind = "i2v" if (seeded and MODEL["pipeline_i2v"]) else "t2v"
-    # vae=None breaks pipeline init on current diffusers (it reads vae.config); the VAE is small, so load it.
-    pipe = pipe_cls(kind).from_pretrained(
-        repo_for(kind), torch_dtype=dtype, transformer=None)
-    # Sequential, not model offload: the 7B Qwen2.5-VL encoder is ~15 GB in fp16 and a T4 has 14.56 GB,
-    # so moving it onto the card whole OOMs. Layer by layer is slower but only runs once per prompt.
-    try:
-        pipe.enable_sequential_cpu_offload()
-    except Exception:
-        pipe.to("cuda")
+def seed_image(slot):
+    """Start image by precedence: character seed, then keyframe, then the stock backup (SPEC.md Parts 5-6)."""
+    if slot.get("seed_b64"):
+        return Image.open(io.BytesIO(base64.b64decode(slot["seed_b64"]))).convert("RGB")
+    if slot["key"] in KEYFRAMES:
+        return KEYFRAMES[slot["key"]]
+    if slot.get("backup_b64"):
+        return Image.open(io.BytesIO(base64.b64decode(slot["backup_b64"]))).convert("RGB")
+    return None
 
-    def enc(text):
-        out = pipe.encode_prompt(text)
-        out = out if isinstance(out, (list, tuple)) else (out,)
-        return [t.cpu() if torch.is_tensor(t) else t for t in out]
-
-    neg = None if CAPS.get("cfg_free") else enc(NEG)
-    for slot in SLOTS:
-        EMB[slot["key"]] = {"pos": enc(slot["prompt"]), "neg": neg}
-        print("[esta] encoded prompt for", slot["key"], flush=True)
-    del pipe
-    gc.collect(); torch.cuda.empty_cache()
-
-if CAPS.get("precompute_prompts"):
-    try:
-        precompute_prompts()
-    except Exception as e:
-        # In-pipeline encoding is correct but memory-hungry; say so loudly,
-        # because a host OOM later just reads as an unexplained kernel kill.
-        EMB.clear()
-        print("[esta] prompt pre-encode failed, using in-pipeline encoding:", e, flush=True)
-        traceback.print_exc()
-
-_PIPES = {}
-def get_pipe(kind):
-    """Load t2v/i2v lazily, keeping only one resident - host RAM is the real cap."""
-    if kind in _PIPES:
-        return _PIPES[kind]
-    for other in list(_PIPES):
-        del _PIPES[other]
-    gc.collect(); torch.cuda.empty_cache()
-    kw = dict(torch_dtype=dtype)
-    if EMB:
-        kw.update(text_encoder=None, text_encoder_2=None)
-    pipe = pipe_cls(kind).from_pretrained(repo_for(kind), **kw)
-    # A pipeline can also be split across Kaggle's two T4s with
-    # device_map="balanced", but sequential offload is what this lane has
-    # actually been proven on, and it holds peak VRAM under one 16 GB card.
-    pipe.enable_sequential_cpu_offload()
-    if hasattr(pipe, "vae"):
-        try:
-            pipe.vae.enable_tiling(); pipe.vae.enable_slicing()
-        except Exception:
-            pass
-    if CAPS.get("guider") and getattr(pipe, "guider", None) is not None:
-        # Newer pipelines carry a guider object instead of a guidance_scale arg.
-        # A distilled checkpoint wants CFG off entirely, which also halves the
-        # forward passes per step.
-        g = float(MODEL.get("guidance") or 1.0)
-        try:
-            pipe.guider = (pipe.guider.new(enabled=False) if g <= 1.0
-                           else pipe.guider.new(guidance_scale=g))
-        except Exception as e:
-            print("[esta] guider config skipped:", e, flush=True)
-    _PIPES[kind] = pipe
-    return pipe
-
-def _kwargs(kind, slot, image):
-    if MODEL["pipeline_i2v"].startswith("StableVideoDiffusion"):
-        # SVD takes no text at all - image + motion knobs only.
-        return dict(image=image, num_frames=MODEL["frames"],
-                    width=MODEL["width"], height=MODEL["height"],
-                    decode_chunk_size=4, motion_bucket_id=127)
-
-    kw = dict(num_frames=MODEL["frames"], num_inference_steps=MODEL["steps"])
-    emb = EMB.get(slot["key"])
-    if emb and len(emb["pos"]) == len(EMB_KEYS):
-        kw.update(dict(zip(EMB_KEYS, emb["pos"])))
-        if emb["neg"] and len(emb["neg"]) == len(EMB_KEYS):
-            kw.update({"negative_" + k: v for k, v in zip(EMB_KEYS, emb["neg"])})
-    else:
-        kw.update(prompt=slot["prompt"], negative_prompt=NEG)
-    if not CAPS.get("guider"):
-        kw["guidance_scale"] = MODEL["guidance"]
-    # Image-to-video on some models takes the frame size from the seed image
-    # and rejects width/height outright.
-    if not (kind == "i2v" and CAPS.get("i2v_no_size")):
-        kw.update(width=MODEL["width"], height=MODEL["height"])
-    if kind == "i2v":
-        kw["image"] = image
-    return kw
+texts = [s["prompt"] for s in SLOTS] + ([NEG] if MODEL["guidance"] > 1 else [])
+ENC = wan_embeds(MODEL["repo"], texts)
+EMB = {s["key"]: ENC[i] for i, s in enumerate(SLOTS)}
+NEG_EMB = ENC[-1] if MODEL["guidance"] > 1 else None
+pipe = load_wan(MODEL)
 
 def generate(slot):
-    """Generate the slot, chaining segments when it needs to outrun the 5 s window."""
-    frames_all, image = [], None
-    if slot.get("seed_b64"):
-        image = Image.open(io.BytesIO(base64.b64decode(slot["seed_b64"]))).convert("RGB")
-    elif slot["key"] in KEYFRAMES:
-        image = KEYFRAMES[slot["key"]]
-    elif slot.get("backup_b64"):
-        image = Image.open(io.BytesIO(base64.b64decode(slot["backup_b64"]))).convert("RGB")
+    """Generate the slot, chaining segments when the shot outruns one clip."""
+    image = seed_image(slot)
+    if image is None:
+        raise RuntimeError("no start image: the keyframe failed and there is no stock backup")
+    size = (MODEL["width"], MODEL["height"])
+    if slot.get("hd"):
+        size = (__HD_W__, __HD_H__)
+    frames_all, note = [], {}
+    seed = int(slot["shot_number"]) * 7919
     for seg in range(slot["segments"]):
-        kind = "i2v" if image is not None else "t2v"
-        out = get_pipe(kind)(**_kwargs(kind, slot, image)).frames[0]
+        try:
+            out = wan_generate(pipe, MODEL, image, EMB[slot["key"]], NEG_EMB, slot["frames"], size[0], size[1], seed + seg)
+        except torch.OutOfMemoryError:
+            if size == (MODEL["width"], MODEL["height"]):
+                raise
+            size = (MODEL["width"], MODEL["height"])
+            note["hd_fallback"] = True
+            print("[esta] shot", slot["key"], "720p OOM, retrying at", size, flush=True)
+            out = wan_generate(pipe, MODEL, image, EMB[slot["key"]], NEG_EMB, slot["frames"], size[0], size[1], seed + seg)
         # Drop the duplicated seam frame on every segment after the first.
         frames_all.extend(out if seg == 0 else out[1:])
         if seg + 1 < slot["segments"]:
-            image = _as_pil(out[-1])          # last frame seeds the next hop
+            image = _as_pil(out[-1])
         print("[esta] shot", slot["key"], "segment", seg + 1, "/", slot["segments"], flush=True)
     path = os.path.join(OUT, "gen_" + str(slot["key"]) + ".mp4")
     export_to_video(frames_all, path, fps=MODEL["fps"])
-    return path, len(frames_all)
+    return path, len(frames_all), note
 
 results, errors = {}, {}
 for slot in SLOTS:
     key = slot["key"]
     try:
-        print("[esta] ---", key, slot["preset"], "|", slot["prompt"][:90], flush=True)
-        path, nframes = generate(slot)
+        print("[esta] ---", key, slot["preset"], slot["frames"], "frames |", slot["prompt"][:90], flush=True)
+        path, nframes, note = generate(slot)
         results[key] = {"file": os.path.basename(path), "frames": nframes,
                         "fps": MODEL["fps"], "preset": slot["preset"],
-                        "shot_number": slot["shot_number"],
+                        "shot_number": slot["shot_number"], **note,
                         **({"keyframe": KF_NOTES[key]} if key in KF_NOTES else {})}
         print("OK", key, nframes, "frames", flush=True)
     except Exception as e:
         errors[key] = (str(e) or repr(e))[:250]
         traceback.print_exc()
         print("ERR", key, errors[key], flush=True)
-    gc.collect(); torch.cuda.empty_cache()
+    _free()
     # Checkpoint after every slot: a kernel that times out at 12 h still keeps
     # whatever it finished, because `kernels output` reads /kaggle/working.
     finish(results, errors)
@@ -726,7 +645,7 @@ for slot in SLOTS:
 # shot to its slice of the voiceover. 1.5 fits a 16 GB T4 (8 GB); 1.6 needs 18 GB.
 TALK = [s for s in SLOTS if s.get("audio_b64") and s["key"] in results]
 if TALK and MODEL.get("lipsync") == "latentsync":
-    _PIPES.clear(); gc.collect(); torch.cuda.empty_cache()
+    pipe = None; _free()
     LS = "/kaggle/temp/LatentSync" if os.path.isdir("/kaggle/temp") else os.path.join(OUT, "LatentSync")
     ready = ""
     try:
@@ -750,8 +669,9 @@ if TALK and MODEL.get("lipsync") == "latentsync":
             dur = float(slot["audio_seconds"])
             # Loop the generated clip to the line's length so the synced clip covers the whole line.
             looped = os.path.join(OUT, "loop_" + key + ".mp4")
+            # LatentSync reads 25 fps video; AniSora renders 16 fps.
             subprocess.run(["ffmpeg", "-y", "-v", "error", "-stream_loop", "-1", "-i", os.path.join(OUT, results[key]["file"]),
-                            "-t", str(dur), "-an", looped], check=True)
+                            "-t", str(dur), "-r", "25", "-an", looped], check=True)
             synced = os.path.join(OUT, "gen_" + key + "_talk.mp4")
             r = subprocess.run([sys.executable, "-m", "scripts.inference", "--unet_config_path", "configs/unet/stage2.yaml",
                                 "--inference_ckpt_path", "checkpoints/latentsync_unet.pt", "--inference_steps", "20",
@@ -820,7 +740,7 @@ __IPA__
 try:
     keyframe_pass()
 except Exception as e:
-    print("[esta] keyframe pass failed, slots fall back to text-to-video:", e, flush=True)
+    print("[esta] keyframe pass failed, slots fall back to their stock backup:", e, flush=True)
     traceback.print_exc()
 gc.collect(); torch.cuda.empty_cache()
 '''
@@ -834,7 +754,7 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
     template rots.
     """
     lean = [
-        {k: s.get(k, "") for k in ("key", "shot_number", "preset", "prompt", "segments", "seed_b64",
+        {k: s.get(k, "") for k in ("key", "shot_number", "preset", "prompt", "segments", "frames", "hd", "seed_b64",
                                     "audio_b64", "audio_seconds")}
         for s in slots
     ]
@@ -846,10 +766,14 @@ def build_notebook_code(slots: list[dict], model: dict, negative: str) -> str:
             row["backup_b64"] = slot["backup_b64"]
     kf = ""
     if model.get("keyframe"):
-        kf = KEYFRAME_CODE.replace("__IPA__", textwrap.indent(look_refs.NOTEBOOK_IPA, "    "))
+        # No refs: plain SDXL keyframes, with no IP-Adapter code in the notebook at all.
+        ipa = look_refs.NOTEBOOK_IPA if model["keyframe"]["refs"] else 'IPA_KW, REF_ERROR = {}, ""\n'
+        kf = KEYFRAME_CODE.replace("__IPA__", textwrap.indent(ipa, "    "))
     return (
         NOTEBOOK_CODE
         .replace("__KEYFRAMES__", kf)
+        .replace("__WAN_LOADER__", WAN_LOADER)
+        .replace("__HD_W__", str(HD_SIZE[0])).replace("__HD_H__", str(HD_SIZE[1]))
         .replace("__SLOTS__", repr(json.dumps(lean)))
         .replace("__MODEL__", repr(json.dumps(model)))
         .replace("__NEG__", repr(negative))
@@ -870,7 +794,47 @@ def _shot_durations(session_dir: Path) -> dict[int, float]:
         return {}
 
 
-def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path) -> dict:
+def check_clip(path: Path, seconds: float) -> str:
+    """"" when the clip holds up over the shot's own length, else "dark" or "collapse" (SPEC.md Part 6, decision 5).
+
+    Dark: any sample's mean brightness under CHECK_DARK (one bake-off clip faded to black). Collapse: the picture's
+    structure stops resembling frame 0, measured as the correlation of blurred, brightness-normalised grayscale
+    thumbnails; a push-in or a light change keeps it positive (bake-off minimum 0.15), a melt into unrelated shapes
+    sends it negative (-0.13, -0.31). Pixel difference alone could not tell a melt from dusk falling."""
+    import cv2
+    import numpy as np
+
+    def norm(frame):
+        g = cv2.GaussianBlur(cv2.resize(cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY), (64, 36)).astype(np.float32), (5, 5), 0)
+        return (g - g.mean()) / (g.std() + 1e-6)
+
+    cap = cv2.VideoCapture(str(path))
+    ok, first = cap.read()
+    if not ok:
+        return "unreadable"
+    ref, t = norm(first), CHECK_STEP
+    while t <= seconds + 1e-6:
+        cap.set(cv2.CAP_PROP_POS_MSEC, t * 1000)
+        ok, frame = cap.read()
+        if not ok:
+            break
+        if frame.mean() < CHECK_DARK:
+            return "dark"
+        if float((ref * norm(frame)).mean()) < CHECK_COLLAPSE:
+            return "collapse"
+        t += CHECK_STEP
+    return ""
+
+
+def _feed_path(path: Path) -> str:
+    """Repo-root-relative, like the assets skill writes, so a session folder stays portable; absolute if outside."""
+    try:
+        return str(path.resolve().relative_to(REPO_ROOT))
+    except ValueError:
+        return str(path)
+
+
+def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path | dict) -> dict:
     """Move generated clips into source_pool and publish them on the assets feed.
 
     Publishing as an ordinary assets_progress line is the whole integration:
@@ -881,30 +845,59 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
     pool = session_dir / "assets" / "source_pool"
     pool.mkdir(parents=True, exist_ok=True)
     feed = session_dir / "assets_progress.jsonl"
-    applied, failed, lines = [], [], []
+    applied, failed, lines, skipped = [], [], [], []
+    # Re-running apply on the same output publishes nothing twice: rows carry the clip's hash (Part 6 edge cases).
+    published = set()
+    if feed.exists():
+        for line in feed.read_text(encoding="utf-8").splitlines():
+            try:
+                row = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if row.get("source") == "genvideo" and row.get("gen_sha"):
+                published.add((str(row.get("key")), row["gen_sha"]))
 
     for key, info in sorted(results.items(), key=lambda kv: str(kv[0])):
-        synced = out_dir / info.get("synced_file", "") if info.get("synced_file") else None
+        # A split run downloads each half to its own folder (SPEC.md Part 6, decision 4).
+        here = out_dir[key] if isinstance(out_dir, dict) else out_dir
+        synced = here / info.get("synced_file", "") if info.get("synced_file") else None
         talk = bool(synced and synced.exists() and synced.stat().st_size > 0)
-        src = synced if talk else out_dir / info.get("file", f"gen_{key}.mp4")
+        src = synced if talk else here / info.get("file", f"gen_{key}.mp4")
         if not src.exists() or src.stat().st_size == 0:
             failed.append({"key": key, "why": "clip missing from kernel output"})
             continue
-        dest = pool / f"gen_{key}{'_talk' if talk else ''}.mp4"
-        dest.write_bytes(src.read_bytes())
-        # Match the assets skill: the feed carries repo-root-relative paths, so a
-        # session folder stays portable. Fall back to absolute if it's outside.
-        try:
-            feed_path = str(dest.resolve().relative_to(REPO_ROOT))
-        except ValueError:
-            feed_path = str(dest)
-
+        sha = hashlib.sha1(src.read_bytes()).hexdigest()[:16]
+        if (str(key), sha) in published:
+            skipped.append(key)
+            continue
         fps = float(info.get("fps") or 24)
         nframes = int(info.get("frames") or 0)
         clip_seconds = round(nframes / fps, 3) if nframes and fps else 0.0
         shot_number = info.get("shot_number")
         if shot_number is None and str(key).split("-")[0].isdigit():
             shot_number = int(str(key).split("-")[0])
+        want = _shot_durations(session_dir).get(shot_number) or 0.0
+
+        # A clip that went dark or collapsed never reaches the edit: its keyframe stands in as a still, and render
+        # gives it the shot's planned camera move (SPEC.md Part 6, decision 5).
+        reason = check_clip(src, want or clip_seconds)
+        if reason:
+            kf = here / f"kf_{key}.png"
+            if not kf.exists():
+                failed.append({"key": key, "why": f"clip check: {reason}; no keyframe to fall back on"})
+                continue
+            still = pool / f"genkf_{key}.png"
+            still.write_bytes(kf.read_bytes())
+            lines.append({"shot_number": shot_number, "key": str(key), "ok": True, "source": "genvideo",
+                          "asset_type": "image", "url": "", "file": _feed_path(still), "search_query": "",
+                          "in_point": 0.0, "out_point": 0.0, "visual_verdict": "", "visual_confidence": 0,
+                          "error": "", "gen_check": reason, "gen_sha": sha})
+            applied.append({"key": key, "file": _feed_path(still), "gen_check": reason})
+            continue
+
+        dest = pool / f"gen_{key}{'_talk' if talk else ''}.mp4"
+        dest.write_bytes(src.read_bytes())
+        feed_path = _feed_path(dest)
 
         # Trim to the shot's own duration rather than publishing the whole clip.
         # Two reasons, and the second is the important one: the model always
@@ -916,7 +909,6 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
         if talk:
             clip_seconds = float(info.get("synced_seconds") or clip_seconds)
         out_point = clip_seconds
-        want = _shot_durations(session_dir).get(shot_number) or 0.0
         if want and clip_seconds and want < clip_seconds:
             out_point = round(want, 3)
         lines.append({
@@ -933,6 +925,7 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
             "visual_verdict": "",
             "visual_confidence": 0,
             "error": "",
+            "gen_sha": sha,
             **({"lipsync": info["lipsync"]} if info.get("lipsync") else {}),
         })
         applied.append({"key": key, "file": feed_path, "seconds": out_point,
@@ -944,6 +937,7 @@ def apply_results(session_dir: Path, results: dict, errors: dict, out_dir: Path)
                 fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
     marker = {
+        "already_published": skipped,
         "generated": len(applied),
         "failed": len(failed) + len(errors),
         "slots": applied,
@@ -1000,6 +994,10 @@ def cmd_push(args: argparse.Namespace) -> None:
                           "message": "no shots ask for generated footage"}))
         return
 
+    missing, hub_warning = hub_missing(model)
+    if missing:
+        raise ValueError(f"{args.model}: {', '.join(missing)} not found in {model['gguf_repo']} on the Hub; "
+                         f"try --model wan5b")
     characters = attach_character_seeds(session_dir, slots, model)
     model["lipsync"] = args.lipsync
     talking = attach_talk_audio(session_dir, slots) if args.lipsync != "off" else {}
@@ -1012,84 +1010,164 @@ def cmd_push(args: argparse.Namespace) -> None:
     seeding["characters"] = characters
     if keyframes:
         seeding["keyframes"] = keyframes
-    if not model["pipeline_t2v"] and seeding["seeded"] < len(slots):
-        raise ValueError(f"{args.model} is image-to-video only — every slot needs "
-                         f"--seed-from-assets to succeed ({seeding['seeded']}/{len(slots)} seeded)")
+    if seeding["seeded"] < len(slots):
+        raise ValueError(f"{args.model} is image-to-video only and {len(slots) - seeding['seeded']} slot(s) have "
+                         f"no start image ({seeding['seeded']}/{len(slots)} seeded); is --ref-strength or the keyframe "
+                         f"pass off?")
 
-    code = build_notebook_code(slots, model, presets["negative_default"])
-    kernel_id = f"{kaggle_username()}/{slugify(session_dir.name, prefix='esta-gen-')}"
-    build_dir = session_dir / "assets" / "gen_kernel"
-    nb_path = write_kernel_dir(build_dir, code, kernel_id,
-                               ACCELERATORS.get(args.accelerator, ACCELERATORS["t4"]))
-
-    size = nb_path.stat().st_size
-    if size > MAX_NOTEBOOK_BYTES:
-        raise ValueError(f"notebook is {size / 1e6:.1f} MB (seed images) — over the "
-                         f"{MAX_NOTEBOOK_BYTES / 1e6:.0f} MB ceiling. Push fewer slots per run.")
+    half = getattr(args, "half", "")
+    halves = split_slots(slots, getattr(args, "split", 2))
+    base = slugify(session_dir.name, prefix="esta-gen-")
+    runs = []
+    for i, part in enumerate(halves):
+        tag = "ab"[i]
+        if half and half != tag:
+            continue
+        code = build_notebook_code(part, model, presets["negative_default"])
+        kernel_id = f"{kaggle_username()}/{base if tag == 'a' else base[:48].rstrip('-') + '-b'}"
+        build_dir = session_dir / "assets" / ("gen_kernel" if tag == "a" else "gen_kernel_b")
+        nb_path = write_kernel_dir(build_dir, code, kernel_id, ACCELERATORS.get(args.accelerator, ACCELERATORS["t4"]))
+        size = nb_path.stat().st_size
+        if size > MAX_NOTEBOOK_BYTES:
+            raise ValueError(f"notebook {tag} is {size / 1e6:.1f} MB (seed images) — over the "
+                             f"{MAX_NOTEBOOK_BYTES / 1e6:.0f} MB ceiling. Push fewer slots per run.")
+        runs.append({"half": tag, "kernel": kernel_id, "build_dir": build_dir, "bytes": size,
+                     "slots": [s["key"] for s in part], "frames": sum(s["frames"] * s["segments"] for s in part)})
 
     if args.dry_run:
-        print(json.dumps({"ok": True, "dry_run": True, "kernel": kernel_id,
-                          "count": len(slots), "notebook_bytes": size, "talking": talking,
-                          "slots": [{k: s[k] for k in ("key", "preset", "prompt", "segments")}
-                                    for s in slots],
-                          "seeding": seeding}, ensure_ascii=False))
+        print(json.dumps({"ok": True, "dry_run": True, "kernel": runs[0]["kernel"],
+                          "kernels": [{k: r[k] for k in ("half", "kernel", "slots", "frames", "bytes")} for r in runs],
+                          "count": len(slots), "notebook_bytes": runs[0]["bytes"], "talking": talking,
+                          "slots": [{k: s[k] for k in ("key", "preset", "prompt", "segments", "frames")} for s in slots],
+                          "seeding": seeding, **({"hub_warning": hub_warning} if hub_warning else {})},
+                         ensure_ascii=False))
         return
 
-    ok, log = push_kernel(build_dir)
+    pushed = []
+    for r in runs:
+        ok, log = push_kernel(r["build_dir"])
+        pushed.append({"half": r["half"], "kernel": r["kernel"], "ok": ok, "slots": r["slots"], "log": log[-300:]})
+    prev = json.loads(_state_path(session_dir).read_text(encoding="utf-8")) if half and _state_path(session_dir).exists() else {}
+    kernels = {k["half"]: k for k in prev.get("kernels", [])}
+    kernels.update({p["half"]: {k: p[k] for k in ("half", "kernel", "slots", "ok")} for p in pushed})
     state = {
-        "kernel": kernel_id,
+        "kernel": runs[0]["kernel"],
+        "kernels": [kernels[h] for h in sorted(kernels)],
         "model": args.model,
         "accelerator": args.accelerator,
         "count": len(slots),
-        "slots": [{k: s[k] for k in ("key", "shot_number", "preset", "segments")} for s in slots],
+        "slots": [{k: s[k] for k in ("key", "shot_number", "preset", "segments", "frames")} for s in slots],
         "seeding": seeding,
         "talking": talking,
     }
     _state_path(session_dir).write_text(json.dumps(state, indent=2), encoding="utf-8")
+    failed = [p for p in pushed if not p["ok"]]
     print(json.dumps({
-        "ok": ok, "kernel": kernel_id, "count": len(slots),
-        "notebook_bytes": size, "seeding": seeding,
-        "url": f"https://www.kaggle.com/code/{kernel_id}",
-        "log": log[-400:],
+        "ok": not failed, "kernels": pushed, "count": len(slots), "seeding": seeding,
+        "urls": [f"https://www.kaggle.com/code/{p['kernel']}" for p in pushed],
+        **({"retry": "push --half " + " / --half ".join(p["half"] for p in failed)} if failed else {}),
     }, ensure_ascii=False))
 
 
-def _kernel_ref(session_dir: Path, explicit: str) -> str:
+def hub_missing(model: dict) -> tuple[list[str], str]:
+    """(GGUF files the Hub says are gone, warning). Checked before pushing so a renamed or deleted file fails here,
+    not as a download error 20 minutes into a Kaggle run. An unreachable Hub only warns: Kaggle may still reach it."""
+    import urllib.error
+    import urllib.request
+    missing, warn = [], ""
+    for fn in model.get("gguf", []):
+        url = f"https://huggingface.co/{model['gguf_repo']}/resolve/main/{fn}"
+        try:
+            urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=20)
+        except urllib.error.HTTPError as e:
+            if e.code in (401, 403, 404):
+                missing.append(fn)
+            else:
+                warn = f"Hub check inconclusive (HTTP {e.code}); files not verified"
+        except Exception as e:  # noqa: BLE001 - offline here is not offline on Kaggle
+            warn = f"could not reach the Hub ({str(e)[:80]}); files not verified"
+    return missing, warn
+
+
+def split_slots(slots: list[dict], split: int) -> list[list[dict]]:
+    """Two halves of near-equal GPU work (frames x segments), or one run. Kaggle allows two GPU runs at once
+    (SPEC.md Part 6, decision 4): splitting halves the wall time. Greedy by largest slot keeps the halves
+    within one slot's work of each other."""
+    if split < 2 or len(slots) < SPLIT_MIN_SLOTS:
+        return [slots]
+    halves, load = [[], []], [0, 0]
+    for s in sorted(slots, key=lambda s: -s["frames"] * s["segments"]):
+        i = 0 if load[0] <= load[1] else 1
+        halves[i].append(s)
+        load[i] += s["frames"] * s["segments"]
+    order = {s["key"]: n for n, s in enumerate(slots)}
+    return [sorted(h, key=lambda s: order[s["key"]]) for h in halves if h]
+
+
+def _kernels(session_dir: Path, explicit: str) -> list[dict]:
+    """The run's kernels: [{half, kernel, slots}], from the push state; an explicit ref is a single run."""
     if explicit:
-        return explicit
+        return [{"half": "a", "kernel": explicit, "slots": []}]
     state = _state_path(session_dir)
     if state.exists():
-        ref = json.loads(state.read_text(encoding="utf-8")).get("kernel", "")
-        if ref:
-            return ref
-    return f"{kaggle_username()}/{slugify(session_dir.name, prefix='esta-gen-')}"
+        data = json.loads(state.read_text(encoding="utf-8"))
+        if data.get("kernels"):
+            return data["kernels"]
+        if data.get("kernel"):
+            return [{"half": "a", "kernel": data["kernel"], "slots": [s["key"] for s in data.get("slots", [])]}]
+    return [{"half": "a", "kernel": f"{kaggle_username()}/{slugify(session_dir.name, prefix='esta-gen-')}", "slots": []}]
 
 
 def cmd_status(args: argparse.Namespace) -> None:
-    session_dir = Path(args.session)
-    ref = _kernel_ref(session_dir, args.kernel)
-    state, raw = kernel_status(ref)
-    print(json.dumps({"ok": bool(state), "kernel": ref,
-                      "state": state, "raw": raw}, ensure_ascii=False))
+    runs, not_started = [], []
+    for k in _kernels(Path(args.session), args.kernel):
+        if k.get("ok") is False:
+            # Its push failed (quota, or the two-run limit): there is no run to poll.
+            not_started.append(k["half"])
+            runs.append({"half": k["half"], "kernel": k["kernel"], "state": "not_started",
+                         "raw": f"push failed; run `push --half {k['half']}`"})
+            continue
+        state, raw = kernel_status(k["kernel"])
+        runs.append({"half": k["half"], "kernel": k["kernel"], "state": state, "raw": raw})
+    states = {r["state"] for r in runs if r["state"] != "not_started"}
+    overall = ("running" if states & {"running", "queued"} else
+               "complete" if states == {"complete"} else
+               "error" if states & {"error", "cancel"} else next(iter(states), ""))
+    print(json.dumps({"ok": all(r["state"] for r in runs), "state": overall, "kernel": runs[0]["kernel"],
+                      "kernels": runs, **({"not_started": not_started} if not_started else {})}, ensure_ascii=False))
 
 
 def cmd_apply(args: argparse.Namespace) -> None:
     session_dir = Path(args.session)
-    ref = _kernel_ref(session_dir, args.kernel)
-    out_dir = Path(args.output_dir) if args.output_dir else session_dir / "assets" / "gen_out"
-    out_dir.mkdir(parents=True, exist_ok=True)
-
-    if not args.skip_download:
-        fetch_output(ref, out_dir)
-
-    results_path = out_dir / "gen_results.json"
-    if not results_path.exists():
-        raise FileNotFoundError(
-            f"no gen_results.json in {out_dir} — the kernel may still be running "
-            f"(check `status`) or it failed before writing anything")
-    raw = json.loads(results_path.read_text(encoding="utf-8"))
-    summary = apply_results(session_dir, raw.get("results", {}), raw.get("errors", {}), out_dir)
-    print(json.dumps({"ok": True, "kernel": ref, **summary}, ensure_ascii=False))
+    results, errors, missing, refs = {}, {}, [], []
+    base_out = Path(args.output_dir) if args.output_dir else session_dir / "assets" / "gen_out"
+    outs = {}
+    for k in _kernels(session_dir, args.kernel):
+        out_dir = base_out if k["half"] == "a" else base_out.with_name(base_out.name + "_b")
+        out_dir.mkdir(parents=True, exist_ok=True)
+        refs.append(k["kernel"])
+        if not args.skip_download:
+            try:
+                fetch_output(k["kernel"], out_dir)
+            except Exception as e:  # noqa: BLE001 - one half failing must not sink the other
+                errors.update({key: f"half {k['half']} not fetched: {str(e)[:120]}" for key in k.get("slots") or [k["half"]]})
+                missing += list(k.get("slots") or [])
+                continue
+        res = out_dir / "gen_results.json"
+        if not res.exists():
+            missing += list(k.get("slots") or [])
+            errors.update({key: f"half {k['half']} wrote no results (still running, or failed early)"
+                           for key in k.get("slots") or [k["half"]]})
+            continue
+        raw = json.loads(res.read_text(encoding="utf-8"))
+        for key, info in raw.get("results", {}).items():
+            results[key] = info
+            outs[key] = out_dir
+        errors.update(raw.get("errors", {}))
+    if not results and not errors:
+        raise FileNotFoundError(f"no gen_results.json under {base_out} — the kernels may still be running (check `status`)")
+    summary = apply_results(session_dir, results, errors, outs)
+    print(json.dumps({"ok": True, "kernels": refs, "missing": missing, **summary}, ensure_ascii=False))
 
 
 def main() -> None:
@@ -1114,6 +1192,10 @@ def main() -> None:
     p.add_argument("--seed-from-assets", action="store_true",
                    help="Image-to-video: seed each slot from the frame already fetched for that shot")
     p.add_argument("--dry-run", action="store_true", help="Build and report, don't push")
+    p.add_argument("--split", type=int, default=2, choices=[1, 2],
+                   help=f"Split {SPLIT_MIN_SLOTS}+ slots across two Kaggle runs (Kaggle allows two GPU runs at once)")
+    p.add_argument("--half", default="", choices=["", "a", "b"],
+                   help="Push only one half of a split run, e.g. after the second hit the two-run limit")
     p.add_argument("--lipsync", default="latentsync", choices=["latentsync", "off"],
                    help="Lip-sync shots marked generate.talk with LatentSync 1.5 (SPEC.md Part 4)")
     for flag in ("frames", "fps", "width", "height", "steps"):

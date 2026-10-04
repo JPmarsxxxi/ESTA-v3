@@ -81,6 +81,8 @@ def render(session: Path, stage: str, report: dict) -> str:
             flags.append(f"low theme ({r['theme']})")
         if ps.get("ref_swap"):
             flags.append(f"ref swapped: {ps['ref_swap']}")
+        if a.get("gen_check"):
+            flags.append(f"generated clip failed its check ({a['gen_check']}): keyframe used as a still")
         if a.get("short_clip"):
             flags.append("short_clip: no candidate long enough")
         if a.get("speed") or (a.get("repeat") or 1) > 1:
