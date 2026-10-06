@@ -105,3 +105,16 @@ def test_generation_and_lipsync_failures_flagged(tmp_path):
     (s / "gen_video.json").write_text(json.dumps({"errors": {"1": "CUDA out of memory"}}))
     r1, r2 = rows(RV.write(s, "final", report).read_text())
     assert "generation failed: CUDA out of memory" in r1 and "lip-sync: no face found" in r2
+
+
+def test_stock_picks_flagged_and_counted_in_the_header(tmp_path, monkeypatch):
+    from tools.match import autopick as P
+    monkeypatch.setattr(P, "assets_config", lambda: {})
+    s, report = session(tmp_path, n_shots=20)
+    plan = json.loads((s / "plan.json").read_text())
+    plan["shots"][1]["visual"].update({"type": "MOTION_GRAPHICS", "retyped_from": "REAL_FOOTAGE", "retype_reason": "stock_cap"})
+    (s / "plan.json").write_text(json.dumps(plan))
+    page = RV.write(s, "final", report).read_text()
+    r1, r2 = rows(page)[:2]
+    assert "stock pick (pexels)" in r1 and "retyped from REAL_FOOTAGE to a graphic: stock_cap" in r2
+    assert "stock: 1/20 shots (cap 3)" in page

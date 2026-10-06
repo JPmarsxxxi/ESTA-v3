@@ -59,6 +59,7 @@ def _failing(session: Path) -> dict[int, list[str]]:
 
 
 def render(session: Path, stage: str, report: dict) -> str:
+    from tools.match.autopick import is_stock, stock_budget, stock_used
     from tools.match.score import _asset_rows
     esc = html.escape
     plan = {s["shot_number"]: s for s in (read_json(session / "plan.json", {}) or {}).get("shots", [])}
@@ -91,6 +92,10 @@ def render(session: Path, stage: str, report: dict) -> str:
             flags.append(f"generation failed: {gen_errors[str(n)]}")
         if a.get("lipsync") and a["lipsync"] != "ok":
             flags.append(f"lip-sync: {a['lipsync']}")
+        if is_stock(a) and a.get("ok"):
+            flags.append(f"stock pick ({a['source']}): counts against the stock cap")
+        if v.get("retype_reason"):
+            flags.append(f"retyped from {v.get('retyped_from') or '?'} to a graphic: {v['retype_reason']}")
         if v.get("queries_stale"):
             flags.append("queries changed, refetch pending")
         if ps.get("locked"):
@@ -115,6 +120,7 @@ def render(session: Path, stage: str, report: dict) -> str:
   <p class="meta">Camera: {esc(moves)}{' · generated: ' + esc(gen.get('preset', '')) if gen else ''}{' · ' + esc(a.get('source', '')) if a.get('source') else ''}</p>
   {'<ul class="flags">' + ''.join(f'<li>{esc(f)}</li>' for f in flags) + '</ul>' if flags else ''}
 </section>""")
+    stock = f"stock: {stock_used(assets, set())}/{len(plan)} shots (cap {stock_budget(session, len(plan))})"
     sections = " · ".join(f"{k} {v['score'] if v.get('score') is not None else 'n/a'}" for k, v in (report.get("sections") or {}).items())
     return f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -140,7 +146,7 @@ figcaption {{ font-size:13px; margin-top:6px; overflow-wrap:anywhere; }}
 {''.join(f'.{c} {{ background-image:url(data:image/jpeg;base64,{d}); }}' for c, d in pool.values())}
 </style></head><body>
 <h1>{esc(session.name)} · side by side ({esc(stage)})</h1>
-<p class="sub">Overall {report.get('overall', 'n/a')} ({'pass' if report.get('pass') else 'fail'}) · {esc(sections)} · {len(rows)} shots</p>
+<p class="sub">Overall {report.get('overall', 'n/a')} ({'pass' if report.get('pass') else 'fail'}) · {esc(sections)} · {len(rows)} shots · {esc(stock)}</p>
 {''.join(rows)}
 </body></html>
 """
