@@ -145,6 +145,7 @@ For each sentence (= one shot), fill every field. After generating each shot's c
     "desc": "<what's on screen — 1 sentence, visual language>",
     "search_query": "<3-5 word query for stock search, concrete nouns>",
     "fx": ["<effect if any, e.g. zoom_in, slow_motion — empty list if none>"],
+    "keep_audio": "<true only when the clip's own sound is the point — omit otherwise>",
     "instance_markers": {
       "event_date": "<YYYY-MM-DD if shot references a specific dated instance, else omit field>",
       "location": "<venue/place if specific instance, else omit>",
@@ -205,6 +206,10 @@ For each sentence (= one shot), fill every field. After generating each shot's c
 - For `MOTION_GRAPHICS` (fallback only; the graphic is generated): `["giphy"]`
 - **Meme override:** when `desc` mentions "meme", "reaction", "this is fine", "shrug", "facepalm", or similar reaction-meme cues, the source list MUST include `giphy` as the first or second source — even for `type: REAL_IMAGE`. Giphy is the reaction-meme library; without it the picked candidate will be generic stock that doesn't land.
 - **Aesthetic override:** when `desc` (or the `style` from style_analysis) mentions "aesthetic", "moodboard", "mood board", "vibe", "vibes", "minimalist", "minimal", "cozy", "dreamy", "ethereal", "ambient", "lo-fi", "softcore", "core" (as a vibe suffix like cottagecore / dark academia), or similar mood/atmosphere cues, **lead with `pinterest`** in the source list. Pinterest is the moodboard library — without it the picks will be flat stock that doesn't carry the vibe. Example: aesthetic shot → `[{"source": "pinterest", "queries": ["minimalist desk morning light"]}, {"source": "google_images", "queries": ["minimalist desk"]}]`.
+
+**keep_audio rules (optional — omit for almost every shot):**
+- Footage is picture only: render mutes every video clip and the voiceover carries the sound. Set `"keep_audio": true` only when the clip's own sound is the point: a quote someone says on camera, a famous moment the audience should hear, a meme whose sound is the joke.
+- With it, assets fetches the YouTube audio and muxes it in, and render plays the clip at full volume under the voiceover. Without it the kept YouTube file is video-only.
 
 **instance_markers rules (optional — include only when shot references a specific dated/recurring instance):**
 - Use ONLY when the audio references a specific instance of a recurring topic — a particular match, speech, launch, keynote, earnings call, news event. SKIP for generic b-roll, reactions, motion graphics.

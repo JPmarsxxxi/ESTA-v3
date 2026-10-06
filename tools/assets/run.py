@@ -379,10 +379,19 @@ def _build_source_fn_map(config: dict, *, shot_audio: str, description: str,
     }
 
 
+def _chrome_needed(session_dir: Path, n, query: str, desc: str, audio: str, exc: Exception) -> None:
+    """A Google Images block is not an empty result: queue the shot for the Chrome pass."""
+    from tools.assets.chrome_queue import queue
+    queued = queue(session_dir, n, [query], desc, audio, str(exc))
+    print(f"[assets]   google_images: {exc}; shot {n} "
+          + ("queued for the Chrome pass" if queued else "already through the Chrome pass"), flush=True)
+
+
 # ── Per-shot fetch (cascading search) ────────────────────────────────────────
 
 def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
     from tools.assets.processor import _get_duration
+    from tools.assets.search import NeedsChrome
 
     apis = config.get("apis", {})
     pexels_key  = apis.get("pexels_key", "")
@@ -469,6 +478,8 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
                 _absorb(results)
                 added = len(candidates) - before
                 print(f"[assets]   {source} [{q!r}]: {len(results)} results (+{added} new)", flush=True)
+            except NeedsChrome as exc:
+                _chrome_needed(assets_dir.parent, n, q, description, shot_audio, exc)
             except Exception as exc:
                 print(f"[assets]   {source}: failed ({exc})", file=sys.stderr, flush=True)
 
@@ -516,6 +527,8 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
                         before = len(candidates)
                         _absorb(results)
                         print(f"[assets]   {src}: {len(results)} results (+{len(candidates)-before} new)", flush=True)
+                    except NeedsChrome as exc:
+                        _chrome_needed(assets_dir.parent, n, query, description, shot_audio, exc)
                     except Exception as exc:
                         print(f"[assets]   {src}: failed ({exc})", file=sys.stderr, flush=True)
 
@@ -840,6 +853,7 @@ def cmd_candidates(args: argparse.Namespace) -> None:
     )
     licensing = config.get("licensing", "fair_use_ok")
     per_source = max(1, args.per_source)
+    from tools.assets.search import NeedsChrome
 
     print(f"[candidates] shot {n:02d} | dur {shot_dur:.2f}s | floor {min_video_dur:.2f}s "
           f"| {per_source}/source", flush=True)
@@ -861,6 +875,9 @@ def cmd_candidates(args: argparse.Namespace) -> None:
             got = 0
             try:
                 results = fn(q)
+            except NeedsChrome as exc:
+                _chrome_needed(session_dir, n, q, description, shot_audio, exc)
+                continue
             except Exception as exc:
                 print(f"[candidates]   {source}: failed ({exc})", file=sys.stderr, flush=True)
                 continue

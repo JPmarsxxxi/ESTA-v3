@@ -30,6 +30,10 @@ It runs in the background (describing an inspo takes ~3-5 minutes and ~$0.40-0.6
 
 At the final stage, changed shots are re-picked by `tools/match/autopick.py` and the project is re-rendered before re-scoring.
 
+Auto-pick treats stock (Pexels/Pixabay) as a capped last resort (SPEC.md Part 7): a non-stock candidate always wins; a shot with nothing outside stock gets up to 3 Haiku query rewrites on every non-stock source of its kind; only then may it take stock, while fewer than 15% of the plan's shots (`config.yaml` `assets.stock_cap`, `pipeline.json` `ui.stock_cap` overrides) hold a stock pick. Past that it becomes a word-card graphic in the session kit (`retype_reason: "stock_cap"`), or is listed in `stock_overflow.json` for the motion-graphics skill when there is no kit yet. Its report (`autopick.json` `last.stock`) gives the budget, the count used and the retyped shots.
+
+Shots queued in `assets/chrome_queue.json` (Google Images blocked headless) wait for the Chrome pass: run it as described in the assets skill's "Google Images through Claude in Chrome", then re-run auto-pick for those shots before the final score.
+
 ## After it finishes
 
 Show the overall score and each section's number against the inspo in one line each (the score card in the Plan stage shows the same), what each kept round changed, and anything pending (describe failed or `claude` missing: tag-dependent sections show pending). Point the user at the Match card's **Open side-by-side** (`match_review.html`): every shot next to the inspo shot it copies, with validator failures, low-theme shots, ref swaps and short clips flagged. Then announce the next step (`conductor.py next`).
