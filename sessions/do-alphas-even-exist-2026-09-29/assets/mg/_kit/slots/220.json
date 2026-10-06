@@ -1,0 +1,1 @@
+{"key": "220", "flavor": "full_frame", "duration": 3.335, "body": "<div class='line'><span class='w big' id='v'>+0</span><br><span class='w sub' id='l'>information coefficient</span></div>", "timeline": "countUp(tl, '#v', 0.0205, 4, 0.05, 2.44, '+', ''); land(tl, '#l', 2.54);"}

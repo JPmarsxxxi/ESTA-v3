@@ -372,6 +372,7 @@ function resolveTextNode({
 			localTime,
 			ctx: getTextMeasurementContext(),
 		}),
+		localTime,
 	};
 }
 

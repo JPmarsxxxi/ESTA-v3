@@ -108,56 +108,6 @@ export function LineEditor({
 
 	return (
 		<div className="space-y-2">
-			{selected.size > 0 && (
-				<div className="bg-card sticky top-0 z-10 space-y-2 rounded-md border p-2">
-					<div className="flex items-center gap-1">
-						<span className="text-muted-foreground flex-1 text-xs">
-							{selected.size} line{selected.size === 1 ? "" : "s"} selected
-						</span>
-						{extraActions?.(selectedSorted)}
-						<IconBtn title="Move up" onClick={() => move(-1)}>
-							<ArrowUp size={13} />
-						</IconBtn>
-						<IconBtn title="Move down" onClick={() => move(1)}>
-							<ArrowDown size={13} />
-						</IconBtn>
-						<IconBtn title="Delete lines" onClick={removeSelected}>
-							<Trash2 size={13} />
-						</IconBtn>
-						<IconBtn
-							title="Clear selection"
-							onClick={() => {
-								setSelected(new Set());
-								anchor.current = null;
-							}}
-						>
-							<X size={13} />
-						</IconBtn>
-					</div>
-					{onInstruct && (
-						<div className="flex items-center gap-1.5">
-							<Pencil size={11} className="text-muted-foreground shrink-0" />
-							<input
-								value={instruction}
-								onChange={(e) => setInstruction(e.target.value)}
-								onKeyDown={(e) => {
-									if (e.key === "Enter") {
-										e.preventDefault();
-										instruct();
-									}
-								}}
-								placeholder="tell Claude what to do with these lines…"
-								className="min-w-0 flex-1 border-b bg-transparent py-0.5 text-xs outline-none"
-							/>
-							{instruction.trim() && (
-								<IconBtn title="Send to chat" onClick={instruct}>
-									<CornerDownLeft size={12} />
-								</IconBtn>
-							)}
-						</div>
-					)}
-				</div>
-			)}
 			<div className="space-y-px">
 				{lines.map((line, i) => {
 					const isSel = selected.has(i);
@@ -225,6 +175,57 @@ export function LineEditor({
 					);
 				})}
 			</div>
+			{/* Below the lines: shown above them, it pushed the rows down between the two clicks of a double-click. */}
+			{selected.size > 0 && (
+				<div className="bg-card sticky bottom-0 z-10 space-y-2 rounded-md border p-2">
+					<div className="flex items-center gap-1">
+						<span className="text-muted-foreground flex-1 text-xs">
+							{selected.size} line{selected.size === 1 ? "" : "s"} selected
+						</span>
+						{extraActions?.(selectedSorted)}
+						<IconBtn title="Move up" onClick={() => move(-1)}>
+							<ArrowUp size={13} />
+						</IconBtn>
+						<IconBtn title="Move down" onClick={() => move(1)}>
+							<ArrowDown size={13} />
+						</IconBtn>
+						<IconBtn title="Delete lines" onClick={removeSelected}>
+							<Trash2 size={13} />
+						</IconBtn>
+						<IconBtn
+							title="Clear selection"
+							onClick={() => {
+								setSelected(new Set());
+								anchor.current = null;
+							}}
+						>
+							<X size={13} />
+						</IconBtn>
+					</div>
+					{onInstruct && (
+						<div className="flex items-center gap-1.5">
+							<Pencil size={11} className="text-muted-foreground shrink-0" />
+							<input
+								value={instruction}
+								onChange={(e) => setInstruction(e.target.value)}
+								onKeyDown={(e) => {
+									if (e.key === "Enter") {
+										e.preventDefault();
+										instruct();
+									}
+								}}
+								placeholder="tell Claude what to do with these lines…"
+								className="min-w-0 flex-1 border-b bg-transparent py-0.5 text-xs outline-none"
+							/>
+							{instruction.trim() && (
+								<IconBtn title="Send to chat" onClick={instruct}>
+									<CornerDownLeft size={12} />
+								</IconBtn>
+							)}
+						</div>
+					)}
+				</div>
+			)}
 			<div className="text-muted-foreground flex items-center justify-between px-1 text-[10px]">
 				<span>Click to select · shift/ctrl-click for many · double-click to edit</span>
 				{saving && <span className="text-primary">saving…</span>}

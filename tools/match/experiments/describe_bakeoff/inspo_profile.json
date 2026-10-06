@@ -1,0 +1,5983 @@
+{
+  "source": {
+    "kind": "local",
+    "ref": "C:\\Users\\User\\Downloads\\videoplayback (2).mp4",
+    "source": "user_provided"
+  },
+  "hash": "b0a9386de354",
+  "duration": 500.8333333333333,
+  "windows": [
+    [
+      0.0,
+      500.8333333333333
+    ]
+  ],
+  "shots": [
+    {
+      "id": "b0a9386de354-0001",
+      "start": 0.0,
+      "end": 2.533,
+      "dur": 2.533,
+      "colour": {
+        "L_mean": 4.198068857192993,
+        "L_std": 9.084436734517416,
+        "chroma": 4.4467082023620605,
+        "a_mean": 2.705876668294271,
+        "b_mean": -3.384042263031006,
+        "colourfulness": 14.181410043074422
+      },
+      "keyframe": "keyframes/b0a9386de354-0001.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "University of Oxford lecture title card with blue text reading 'From Ego to Eco: Leadership for the Industrial Revolution' and institutional logo overlay.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0002",
+      "start": 2.533,
+      "end": 4.0,
+      "dur": 1.467,
+      "colour": {
+        "L_mean": 6.028013467788696,
+        "L_std": 8.355531692504883,
+        "chroma": 9.733539660771688,
+        "a_mean": 7.222458640734355,
+        "b_mean": -4.862673441569011,
+        "colourfulness": 22.587714079198452
+      },
+      "keyframe": "keyframes/b0a9386de354-0002.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Dark screen with white text overlay describing a bundled product or course combining 'Ego' with other learning materials.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0003",
+      "start": 4.0,
+      "end": 6.467,
+      "dur": 2.467,
+      "colour": {
+        "L_mean": 46.16397349039713,
+        "L_std": 23.007253646850586,
+        "chroma": 12.824667930603027,
+        "a_mean": 6.589067618052165,
+        "b_mean": 3.2539703051249185,
+        "colourfulness": 37.25932053645651
+      },
+      "keyframe": "keyframes/b0a9386de354-0003.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in black Nike athletic shirt standing in a modern interior with beige wall panels, with white text overlay 'you're never gonna be.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0004",
+      "start": 6.467,
+      "end": 7.267,
+      "dur": 0.8,
+      "colour": {
+        "L_mean": 52.84455998738607,
+        "L_std": 22.5635560353597,
+        "chroma": 11.183821042378744,
+        "a_mean": 5.551303545633952,
+        "b_mean": 6.92723274230957,
+        "colourfulness": 31.4165045257551
+      },
+      "keyframe": "keyframes/b0a9386de354-0004.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Same man in black athletic wear in modern interior setting with white text overlay reading 'like me.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0005",
+      "start": 7.267,
+      "end": 10.533,
+      "dur": 3.266,
+      "colour": {
+        "L_mean": 30.781056722005207,
+        "L_std": 23.05242411295573,
+        "chroma": 14.162794748942057,
+        "a_mean": 7.626888751983643,
+        "b_mean": 5.180358250935872,
+        "colourfulness": 38.459390058114394
+      },
+      "keyframe": "keyframes/b0a9386de354-0005.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Indoor venue scene with multiple people in casual clothing, including someone in a colorful patterned shirt on the left.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0006",
+      "start": 10.533,
+      "end": 12.633,
+      "dur": 2.1,
+      "colour": {
+        "L_mean": 34.490255991617836,
+        "L_std": 24.242180506388348,
+        "chroma": 12.810621579488119,
+        "a_mean": 7.832926909128825,
+        "b_mean": 5.248793443044026,
+        "colourfulness": 32.33324337877329
+      },
+      "keyframe": "keyframes/b0a9386de354-0006.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of two men, one in vibrant patterned colorful shirt and one in white athletic wear, with white text overlay 'me.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0007",
+      "start": 12.633,
+      "end": 16.333,
+      "dur": 3.7,
+      "colour": {
+        "L_mean": 36.019740422566734,
+        "L_std": 22.03360875447591,
+        "chroma": 15.188177108764648,
+        "a_mean": 7.011566718419393,
+        "b_mean": 6.964062690734863,
+        "colourfulness": 40.8120742167515
+      },
+      "keyframe": "keyframes/b0a9386de354-0007.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in brightly colored patterned shirt against a blurred indoor venue background with other people visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0008",
+      "start": 16.333,
+      "end": 20.733,
+      "dur": 4.4,
+      "colour": {
+        "L_mean": 34.701467514038086,
+        "L_std": 19.91963831583659,
+        "chroma": 12.61829694112142,
+        "a_mean": 8.409345785776773,
+        "b_mean": -5.526562571525574,
+        "colourfulness": 22.119384864219754
+      },
+      "keyframe": "keyframes/b0a9386de354-0008.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Professional basketball arena game moment showing a player shooting with crowd and opposing players visible courtside.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0009",
+      "start": 20.733,
+      "end": 24.6,
+      "dur": 3.867,
+      "colour": {
+        "L_mean": 39.03965504964193,
+        "L_std": 20.794869740804035,
+        "chroma": 39.927324295043945,
+        "a_mean": 28.36914078394572,
+        "b_mean": 18.8133540948232,
+        "colourfulness": 91.04587217434637
+      },
+      "keyframe": "keyframes/b0a9386de354-0009.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "pinterest"
+        ],
+        "description": "Red background with article layout featuring 'Ego' as a heading and descriptive text block with accompanying image.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0010",
+      "start": 24.6,
+      "end": 26.533,
+      "dur": 1.933,
+      "colour": {
+        "L_mean": 28.64190419514974,
+        "L_std": 15.31413459777832,
+        "chroma": 11.236645380655924,
+        "a_mean": 5.081104914347331,
+        "b_mean": 6.200474977493286,
+        "colourfulness": 25.31154930202828
+      },
+      "keyframe": "keyframes/b0a9386de354-0010.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Close-up portrait of a man with glasses and serious expression against neutral background with white text overlay 'under control.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0011",
+      "start": 26.533,
+      "end": 28.267,
+      "dur": 1.734,
+      "colour": {
+        "L_mean": 21.616549809773762,
+        "L_std": 13.87675698598226,
+        "chroma": 14.403524398803711,
+        "a_mean": 6.300328890482585,
+        "b_mean": 5.7557447751363116,
+        "colourfulness": 50.002140457931375
+      },
+      "keyframe": "keyframes/b0a9386de354-0011.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "A speaker in a black leather jacket and neon green shirt stands on stage with ornate patterned curtains behind him. Red text overlays state 'the more you' and 'in yourself.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0012",
+      "start": 28.267,
+      "end": 30.6,
+      "dur": 2.333,
+      "colour": {
+        "L_mean": 20.147751490275066,
+        "L_std": 11.390541394551596,
+        "chroma": 14.615087827046713,
+        "a_mean": 0.278799573580424,
+        "b_mean": 3.4617530504862466,
+        "colourfulness": 47.95893583719456
+      },
+      "keyframe": "keyframes/b0a9386de354-0012.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of the same speaker on stage, looking directly at the camera with a composed expression.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0013",
+      "start": 30.6,
+      "end": 32.4,
+      "dur": 1.8,
+      "colour": {
+        "L_mean": 22.171817143758137,
+        "L_std": 13.991316795349121,
+        "chroma": 17.90797011057536,
+        "a_mean": -5.536051670710246,
+        "b_mean": 9.655808130900065,
+        "colourfulness": 50.98404099482212
+      },
+      "keyframe": "keyframes/b0a9386de354-0013.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A silhouette of a person viewed from behind with green bokeh background and atmospheric lighting. Large red text reads 'the more' and 'CONFIDENCE.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0014",
+      "start": 32.4,
+      "end": 34.133,
+      "dur": 1.733,
+      "colour": {
+        "L_mean": 25.28864924112956,
+        "L_std": 16.250928560892742,
+        "chroma": 6.453953742980957,
+        "a_mean": -0.6827920277913412,
+        "b_mean": 5.2672187487284345,
+        "colourfulness": 11.91393879470562
+      },
+      "keyframe": "keyframes/b0a9386de354-0014.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A figure in dark clothing stands in front of a classical stone building in an urban plaza setting. White text overlay says 'shrink.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0015",
+      "start": 34.133,
+      "end": 36.533,
+      "dur": 2.4,
+      "colour": {
+        "L_mean": 43.065503438313804,
+        "L_std": 27.18657938639323,
+        "chroma": 11.6783660252889,
+        "a_mean": 2.049295345942179,
+        "b_mean": 8.57582155863444,
+        "colourfulness": 26.11158389191712
+      },
+      "keyframe": "keyframes/b0a9386de354-0015.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A person sits indoors in warm golden-amber lighting, creating a contemplative and intimate atmosphere.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0016",
+      "start": 36.533,
+      "end": 38.5,
+      "dur": 1.967,
+      "colour": {
+        "L_mean": 40.67919921875,
+        "L_std": 15.295127550760904,
+        "chroma": 16.904957453409832,
+        "a_mean": 9.365858395894369,
+        "b_mean": -13.722152392069498,
+        "colourfulness": 16.83110245546128
+      },
+      "keyframe": "keyframes/b0a9386de354-0016.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A silhouette of a person stands outdoors overlooking a landscape at twilight, framed against a purple and pink sky with water visible in the distance.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0017",
+      "start": 38.5,
+      "end": 40.933,
+      "dur": 2.433,
+      "colour": {
+        "L_mean": 36.897019704182945,
+        "L_std": 3.869765043258667,
+        "chroma": 71.13529713948567,
+        "a_mean": 60.76018524169922,
+        "b_mean": 36.95622889200846,
+        "colourfulness": 67.03919418949
+      },
+      "keyframe": "keyframes/b0a9386de354-0017.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "A solid red background displays white text fragments reading 'idk' and 'maybe' in a minimalist motion graphic style.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0018",
+      "start": 40.933,
+      "end": 42.733,
+      "dur": 1.8,
+      "colour": {
+        "L_mean": 6.610955874125163,
+        "L_std": 10.554520924886068,
+        "chroma": 5.110345840454102,
+        "a_mean": 2.9088024298350015,
+        "b_mean": 2.688103993733724,
+        "colourfulness": 19.98189645694452
+      },
+      "keyframe": "keyframes/b0a9386de354-0018.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "youtube"
+        ],
+        "description": "A close-up of a man's face illuminated by warm golden light against a dark background, creating dramatic low-key cinematography.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0019",
+      "start": 42.733,
+      "end": 45.2,
+      "dur": 2.467,
+      "colour": {
+        "L_mean": 28.24433962504069,
+        "L_std": 15.352652867635092,
+        "chroma": 0.7224117666482925,
+        "a_mean": -0.02106444980017841,
+        "b_mean": 0.1691298489458859,
+        "colourfulness": 1.6682795476879575
+      },
+      "keyframe": "keyframes/b0a9386de354-0019.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "A desaturated black-and-white portrait of a man's face with urban apartment buildings visible in the background. Partial white text overlay reads 'because cari...'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0020",
+      "start": 45.2,
+      "end": 46.8,
+      "dur": 1.6,
+      "colour": {
+        "L_mean": 37.1185671488444,
+        "L_std": 5.03373384475708,
+        "chroma": 70.85216522216797,
+        "a_mean": 60.53596115112305,
+        "b_mean": 36.75541559855143,
+        "colourfulness": 70.35900947706473
+      },
+      "keyframe": "keyframes/b0a9386de354-0020.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "A solid red background with scattered white text words reading 'it got we if what but' in a fragmented motion graphic layout.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0021",
+      "start": 46.8,
+      "end": 48.267,
+      "dur": 1.467,
+      "colour": {
+        "L_mean": 11.194058418273926,
+        "L_std": 9.287546634674072,
+        "chroma": 15.526410420735678,
+        "a_mean": 11.764808654785156,
+        "b_mean": 4.351615637540817,
+        "colourfulness": 63.74622988696322
+      },
+      "keyframe": "keyframes/b0a9386de354-0021.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes",
+          "youtube"
+        ],
+        "description": "Bold red text graphic reading 'what if THE PROBLEM' on dark background.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0022",
+      "start": 48.267,
+      "end": 53.433,
+      "dur": 5.166,
+      "colour": {
+        "L_mean": 40.149017333984375,
+        "L_std": 19.334407806396484,
+        "chroma": 18.4139887491862,
+        "a_mean": 8.772339502970377,
+        "b_mean": 7.130313237508138,
+        "colourfulness": 57.622880738053745
+      },
+      "keyframe": "keyframes/b0a9386de354-0022.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of shirtless athlete in red sports uniform shot from low angle in stadium with stadium lighting visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0023",
+      "start": 53.433,
+      "end": 58.633,
+      "dur": 5.2,
+      "colour": {
+        "L_mean": 37.69384892781576,
+        "L_std": 23.128941853841145,
+        "chroma": 14.803629239400228,
+        "a_mean": 5.59088397026062,
+        "b_mean": 0.9032522439956665,
+        "colourfulness": 39.37115897826079
+      },
+      "keyframe": "keyframes/b0a9386de354-0023.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Split-screen showing Cristiano Ronaldo in white jersey on left and Michael Jordan in red jersey on right, each with text labels identifying them.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0024",
+      "start": 58.633,
+      "end": 61.567,
+      "dur": 2.934,
+      "colour": {
+        "L_mean": 52.004502614339195,
+        "L_std": 20.305079142252605,
+        "chroma": 14.317947069803873,
+        "a_mean": 6.234107653299968,
+        "b_mean": 6.26389201482137,
+        "colourfulness": 34.47264542818622
+      },
+      "keyframe": "keyframes/b0a9386de354-0024.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Profile shot of man in black sleeveless shirt in indoor sports facility with purple seating visible in background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0025",
+      "start": 61.567,
+      "end": 63.5,
+      "dur": 1.933,
+      "colour": {
+        "L_mean": 43.722155253092446,
+        "L_std": 21.18016242980957,
+        "chroma": 15.555285135904947,
+        "a_mean": 9.625865936279297,
+        "b_mean": 0.1991934229930242,
+        "colourfulness": 63.35299058445423
+      },
+      "keyframe": "keyframes/b0a9386de354-0025.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Athlete in red Manchester United jersey during match in stadium, shot from close angle.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0026",
+      "start": 63.5,
+      "end": 65.7,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 26.87498410542806,
+        "L_std": 21.20286750793457,
+        "chroma": 23.928311665852863,
+        "a_mean": 19.32028071085612,
+        "b_mean": 11.286900520324707,
+        "colourfulness": 48.8671487435019
+      },
+      "keyframe": "keyframes/b0a9386de354-0026.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Close-up portrait of man wearing red and white patterned sweater with blurred red background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0027",
+      "start": 65.7,
+      "end": 67.0,
+      "dur": 1.3,
+      "colour": {
+        "L_mean": 43.67937723795573,
+        "L_std": 26.31778844197591,
+        "chroma": 12.041546185811361,
+        "a_mean": 7.805962880452474,
+        "b_mean": 7.561308860778809,
+        "colourfulness": 20.392987281312028
+      },
+      "keyframe": "keyframes/b0a9386de354-0027.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "pinterest"
+        ],
+        "description": "Handwritten text on lined notebook paper reading 'we all know THE SCRIPT' on wooden surface.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0028",
+      "start": 67.0,
+      "end": 67.9,
+      "dur": 0.9,
+      "colour": {
+        "L_mean": 55.03674189249674,
+        "L_std": 29.249858220418293,
+        "chroma": 5.022025108337402,
+        "a_mean": -0.5618008573849996,
+        "b_mean": -4.070170561472575,
+        "colourfulness": 15.5061663455924
+      },
+      "keyframe": "keyframes/b0a9386de354-0028.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in black clothing outdoors against bare winter trees and overcast sky, with white text overlay reading 'stay humble'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0029",
+      "start": 67.9,
+      "end": 68.933,
+      "dur": 1.033,
+      "colour": {
+        "L_mean": 28.01042938232422,
+        "L_std": 14.416390419006348,
+        "chroma": 9.266278902689615,
+        "a_mean": 0.877565840880076,
+        "b_mean": 8.8881196975708,
+        "colourfulness": 21.74271240315683
+      },
+      "keyframe": "keyframes/b0a9386de354-0029.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Woman standing on bed wearing brown cardigan in interior room, with text overlay reading 'don't claim it'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0030",
+      "start": 68.933,
+      "end": 69.8,
+      "dur": 0.867,
+      "colour": {
+        "L_mean": 35.69408671061198,
+        "L_std": 21.591281255086262,
+        "chroma": 10.440471013387045,
+        "a_mean": -3.824745019276937,
+        "b_mean": 0.9063640733559927,
+        "colourfulness": 31.27492837587739
+      },
+      "keyframe": "keyframes/b0a9386de354-0030.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in light-colored clothing indoors, with multi-line text overlay reading 'don't claim it until you've earned it'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0031",
+      "start": 69.8,
+      "end": 71.667,
+      "dur": 1.867,
+      "colour": {
+        "L_mean": 75.08059438069661,
+        "L_std": 15.90763250986735,
+        "chroma": 11.82595698038737,
+        "a_mean": -3.396057923634847,
+        "b_mean": -9.597832679748535,
+        "colourfulness": 31.646467725128716
+      },
+      "keyframe": "keyframes/b0a9386de354-0031.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "Man in white t-shirt against clear blue sky, shot from below with contemplative expression. Clean, well-lit cinematography with natural daylight.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0032",
+      "start": 71.667,
+      "end": 73.3,
+      "dur": 1.633,
+      "colour": {
+        "L_mean": 48.90418243408203,
+        "L_std": 27.44403076171875,
+        "chroma": 16.11283842722575,
+        "a_mean": -0.6220383122563362,
+        "b_mean": 14.355116844177246,
+        "colourfulness": 35.20144019065528
+      },
+      "keyframe": "keyframes/b0a9386de354-0032.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Man in dark jacket inside commercial building with text overlay 'performed nonchalance' displayed on glass window frame behind him.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0033",
+      "start": 73.3,
+      "end": 75.467,
+      "dur": 2.167,
+      "colour": {
+        "L_mean": 55.74716059366862,
+        "L_std": 32.04517428080241,
+        "chroma": 8.935155232747396,
+        "a_mean": 0.26788850873708725,
+        "b_mean": 5.633225440979004,
+        "colourfulness": 26.706782803403822
+      },
+      "keyframe": "keyframes/b0a9386de354-0033.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Young man with curly hair gripping chain-link fence in outdoor daylight, shot with cinematic framing and shallow depth of field.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0034",
+      "start": 75.467,
+      "end": 77.3,
+      "dur": 1.833,
+      "colour": {
+        "L_mean": 39.4149169921875,
+        "L_std": 16.182610829671223,
+        "chroma": 17.108158111572266,
+        "a_mean": -9.42059357961019,
+        "b_mean": 8.907285690307617,
+        "colourfulness": 40.359115395966285
+      },
+      "keyframe": "keyframes/b0a9386de354-0034.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "youtube",
+          "pixabay_video"
+        ],
+        "description": "Person from behind in plaid shirt standing in tall grass overlooking cityscape, wide landscape shot with golden-hour lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0035",
+      "start": 77.3,
+      "end": 78.367,
+      "dur": 1.067,
+      "colour": {
+        "L_mean": 36.80828094482422,
+        "L_std": 3.4022910594940186,
+        "chroma": 71.25069427490234,
+        "a_mean": 60.8511962890625,
+        "b_mean": 37.03492736816406,
+        "colourfulness": 65.79757587870236
+      },
+      "keyframe": "keyframes/b0a9386de354-0035.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Solid crimson background with word 'nowhere.' centered in white text, functioning as a title card or chapter marker.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0036",
+      "start": 78.367,
+      "end": 80.3,
+      "dur": 1.933,
+      "colour": {
+        "L_mean": 29.797552744547527,
+        "L_std": 25.72402509053548,
+        "chroma": 8.056415875752768,
+        "a_mean": 2.8940511544545493,
+        "b_mean": 0.2059151828289032,
+        "colourfulness": 27.208163382051755
+      },
+      "keyframe": "keyframes/b0a9386de354-0036.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Professional basketball arena court with players in white jerseys, bright stadium lighting and crowded stands visible in background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0037",
+      "start": 80.3,
+      "end": 83.267,
+      "dur": 2.967,
+      "colour": {
+        "L_mean": 41.3622080485026,
+        "L_std": 22.184226989746094,
+        "chroma": 19.848498662312824,
+        "a_mean": 10.47150961558024,
+        "b_mean": 14.551651954650879,
+        "colourfulness": 48.764892117358194
+      },
+      "keyframe": "keyframes/b0a9386de354-0037.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Basketball player in red uniform on professional court floor with arena crowd and lighting in background, wide action shot.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0038",
+      "start": 83.267,
+      "end": 97.567,
+      "dur": 14.3,
+      "colour": {
+        "L_mean": 22.916825612386067,
+        "L_std": 20.535455067952473,
+        "chroma": 7.172053813934326,
+        "a_mean": 5.512508710225423,
+        "b_mean": 1.8550588687260945,
+        "colourfulness": 22.41207525681936
+      },
+      "keyframe": "keyframes/b0a9386de354-0038.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "hyperframes"
+        ],
+        "description": "Retro CRT monitor on desk displaying person in sunglasses with text overlay 'that's all a part of a success uh' at bottom, flanked by desk items.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0039",
+      "start": 97.567,
+      "end": 100.2,
+      "dur": 2.633,
+      "colour": {
+        "L_mean": 56.60898462931315,
+        "L_std": 18.171037038167317,
+        "chroma": 18.528425852457683,
+        "a_mean": -6.533523082733154,
+        "b_mean": 9.651607831319174,
+        "colourfulness": 50.93402455554919
+      },
+      "keyframe": "keyframes/b0a9386de354-0039.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "pinterest"
+        ],
+        "description": "Man in desert landscape with large rock formations in distance, wearing red cap and brown jacket, natural sunlight with cinematic framing.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0040",
+      "start": 100.2,
+      "end": 103.267,
+      "dur": 3.067,
+      "colour": {
+        "L_mean": 26.004674911499023,
+        "L_std": 9.700505892435709,
+        "chroma": 9.725214640299479,
+        "a_mean": -1.6765281359354656,
+        "b_mean": 8.577047983805338,
+        "colourfulness": 17.016704060057016
+      },
+      "keyframe": "keyframes/b0a9386de354-0040.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes",
+          "youtube"
+        ],
+        "description": "Side profile silhouette of person's head in muted interior setting with word 'EGO' displayed as text overlay.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0041",
+      "start": 103.267,
+      "end": 105.967,
+      "dur": 2.7,
+      "colour": {
+        "L_mean": 30.80397669474284,
+        "L_std": 13.811508178710938,
+        "chroma": 15.760948499043783,
+        "a_mean": 4.612532615661621,
+        "b_mean": 13.741744677225748,
+        "colourfulness": 30.187042781497286
+      },
+      "keyframe": "keyframes/b0a9386de354-0041.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a bearded man with a contemplative expression in dim indoor lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0042",
+      "start": 105.967,
+      "end": 109.167,
+      "dur": 3.2,
+      "colour": {
+        "L_mean": 5.099564552307129,
+        "L_std": 7.77485990524292,
+        "chroma": 3.2919278939565024,
+        "a_mean": 0.5736787517865499,
+        "b_mean": 2.2287572622299194,
+        "colourfulness": 12.41379787992556
+      },
+      "keyframe": "keyframes/b0a9386de354-0042.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Young man wearing a black beanie in low lighting with a serious expression.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0043",
+      "start": 109.167,
+      "end": 110.667,
+      "dur": 1.5,
+      "colour": {
+        "L_mean": 27.671886444091797,
+        "L_std": 23.84258524576823,
+        "chroma": 8.110563119252523,
+        "a_mean": -5.264866193135579,
+        "b_mean": 1.4585261344909668,
+        "colourfulness": 23.42282123477879
+      },
+      "keyframe": "keyframes/b0a9386de354-0043.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in business suit and sunglasses at a formal dining event with yellow text graphics overlaid.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0044",
+      "start": 110.667,
+      "end": 112.333,
+      "dur": 1.666,
+      "colour": {
+        "L_mean": 29.55853525797526,
+        "L_std": 20.514855702718098,
+        "chroma": 21.398927688598633,
+        "a_mean": 9.2424529393514,
+        "b_mean": -18.307817459106445,
+        "colourfulness": 38.9574327801954
+      },
+      "keyframe": "keyframes/b0a9386de354-0044.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Man shot from below against a dramatic purple and blue twilight sky at dusk.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0045",
+      "start": 112.333,
+      "end": 133.167,
+      "dur": 20.834,
+      "colour": {
+        "L_mean": 23.522118250528973,
+        "L_std": 20.016822814941406,
+        "chroma": 5.991508483886719,
+        "a_mean": 4.166826566060384,
+        "b_mean": 3.0400105317433677,
+        "colourfulness": 21.056224394710593
+      },
+      "keyframe": "keyframes/b0a9386de354-0045.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Television screen showing a man's face positioned on a desk with coffee mug and books, with caption text overlay at bottom.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0046",
+      "start": 133.167,
+      "end": 136.767,
+      "dur": 3.6,
+      "colour": {
+        "L_mean": 22.788248697916668,
+        "L_std": 8.318797906239828,
+        "chroma": 10.455556551615397,
+        "a_mean": 3.2121408780415854,
+        "b_mean": -8.196796099344889,
+        "colourfulness": 22.58269515991013
+      },
+      "keyframe": "keyframes/b0a9386de354-0046.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "Person sitting alone on a rocky beach with a fire glowing in front and ocean and twilight sky behind.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0047",
+      "start": 136.767,
+      "end": 138.033,
+      "dur": 1.266,
+      "colour": {
+        "L_mean": 31.78068669637044,
+        "L_std": 25.596989313761394,
+        "chroma": 12.4132448832194,
+        "a_mean": 7.688829104105632,
+        "b_mean": 6.450915336608887,
+        "colourfulness": 36.90451970694738
+      },
+      "keyframe": "keyframes/b0a9386de354-0047.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Championship celebration scene with athletes holding a large trophy in a packed stadium.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0048",
+      "start": 138.033,
+      "end": 139.267,
+      "dur": 1.234,
+      "colour": {
+        "L_mean": 32.56656074523926,
+        "L_std": 18.861454645792644,
+        "chroma": 42.5697275797526,
+        "a_mean": 34.938328425089516,
+        "b_mean": 20.515832901000977,
+        "colourfulness": 102.51838498304471
+      },
+      "keyframe": "keyframes/b0a9386de354-0048.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a red basketball jersey with 'JORDAN 23' text visible.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0049",
+      "start": 139.267,
+      "end": 141.067,
+      "dur": 1.8,
+      "colour": {
+        "L_mean": 37.020572662353516,
+        "L_std": 4.475215593973796,
+        "chroma": 70.93812306722005,
+        "a_mean": 60.643933614095054,
+        "b_mean": 36.748339335123696,
+        "colourfulness": 68.82406202803088
+      },
+      "keyframe": "keyframes/b0a9386de354-0049.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Solid red background with white text caption displayed.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0050",
+      "start": 141.067,
+      "end": 143.133,
+      "dur": 2.066,
+      "colour": {
+        "L_mean": 33.640258153279625,
+        "L_std": 14.436784108479818,
+        "chroma": 26.305866877237957,
+        "a_mean": 15.967124303181967,
+        "b_mean": 1.2142125964164734,
+        "colourfulness": 77.35525414806126
+      },
+      "keyframe": "keyframes/b0a9386de354-0050.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up portrait of a man wearing bright pink athletic wear against a blue background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0051",
+      "start": 143.133,
+      "end": 144.467,
+      "dur": 1.334,
+      "colour": {
+        "L_mean": 20.664173126220703,
+        "L_std": 13.176820119222006,
+        "chroma": 19.012152989705402,
+        "a_mean": 14.097923596700033,
+        "b_mean": -9.841394742329916,
+        "colourfulness": 39.78707182202986
+      },
+      "keyframe": "keyframes/b0a9386de354-0051.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A soccer player in purple number 7 jersey, shot from behind in a stadium with blurred crowd. The grainy, low-resolution footage is typical of sports broadcasts.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0052",
+      "start": 144.467,
+      "end": 145.667,
+      "dur": 1.2,
+      "colour": {
+        "L_mean": 53.90914408365885,
+        "L_std": 10.413861910502115,
+        "chroma": 45.246480305989586,
+        "a_mean": -13.990171432495117,
+        "b_mean": 32.34690856933594,
+        "colourfulness": 67.58039693769416
+      },
+      "keyframe": "keyframes/b0a9386de354-0052.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A soccer player in purple jersey on the pitch with arm raised. Clear daylight footage captures the player during active match play.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0053",
+      "start": 145.667,
+      "end": 147.867,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 21.688483556111652,
+        "L_std": 15.054051081339518,
+        "chroma": 6.03034241994222,
+        "a_mean": 3.1930240790049234,
+        "b_mean": -0.9570920070012411,
+        "colourfulness": 13.294603346403223
+      },
+      "keyframe": "keyframes/b0a9386de354-0053.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A daytime highway scene with vehicles approaching and a person standing in the roadway. The cinematic framing suggests a dramatic narrative moment.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0054",
+      "start": 147.867,
+      "end": 150.667,
+      "dur": 2.8,
+      "colour": {
+        "L_mean": 32.39900207519531,
+        "L_std": 20.412991841634113,
+        "chroma": 10.005389849344889,
+        "a_mean": -1.147559682528178,
+        "b_mean": -0.4953964153925578,
+        "colourfulness": 30.53879459207285
+      },
+      "keyframe": "keyframes/b0a9386de354-0054.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes",
+          "ai_video"
+        ],
+        "description": "An abstract kaleidoscopic light prism effect with radiating colorful rays. The smooth surreal motion is characteristic of a motion graphic or visual effect.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0055",
+      "start": 150.667,
+      "end": 152.9,
+      "dur": 2.233,
+      "colour": {
+        "L_mean": 43.17237345377604,
+        "L_std": 7.9908725420633955,
+        "chroma": 31.550299326578777,
+        "a_mean": 7.000077088673909,
+        "b_mean": 30.624680201212566,
+        "colourfulness": 29.007924794171327
+      },
+      "keyframe": "keyframes/b0a9386de354-0055.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "A person in light clothing seated in muddy water or wet earth. The artistic composition and natural lighting suggest a conceptual or film scene.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0056",
+      "start": 152.9,
+      "end": 154.933,
+      "dur": 2.033,
+      "colour": {
+        "L_mean": 37.110374450683594,
+        "L_std": 18.061025619506836,
+        "chroma": 16.01306215922038,
+        "a_mean": 8.520825386047363,
+        "b_mean": 12.146739641825357,
+        "colourfulness": 31.753679208118054
+      },
+      "keyframe": "keyframes/b0a9386de354-0056.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "An older man in a dark business suit and cap seated formally in a wood-paneled room. Studio lighting and formal composition suggest a scene from a period film or drama.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0057",
+      "start": 154.933,
+      "end": 156.733,
+      "dur": 1.8,
+      "colour": {
+        "L_mean": 16.21464951833089,
+        "L_std": 16.865917841593426,
+        "chroma": 9.09506098429362,
+        "a_mean": 2.8656699657440186,
+        "b_mean": 7.650159200032552,
+        "colourfulness": 22.74596642997224
+      },
+      "keyframe": "keyframes/b0a9386de354-0057.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A young man sitting on a bench in an interior space with framed artwork visible on the wall. Moody indoor lighting creates a contemplative atmosphere.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0058",
+      "start": 156.733,
+      "end": 159.167,
+      "dur": 2.434,
+      "colour": {
+        "L_mean": 30.366166432698567,
+        "L_std": 15.32261594136556,
+        "chroma": 14.401583035786947,
+        "a_mean": 5.698660373687744,
+        "b_mean": 12.726295471191406,
+        "colourfulness": 23.83462975855799
+      },
+      "keyframe": "keyframes/b0a9386de354-0058.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A man with glasses and mustache in an indoor setting with soft blurred background. Natural lighting and framing suggest documentary or narrative film footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0059",
+      "start": 159.167,
+      "end": 161.367,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 29.243873596191406,
+        "L_std": 15.347792943318685,
+        "chroma": 21.160702387491863,
+        "a_mean": 12.118919054667154,
+        "b_mean": 15.742241223653158,
+        "colourfulness": 44.31736557007358
+      },
+      "keyframe": "keyframes/b0a9386de354-0059.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "An interior room viewed through geometric glass panels, showing furniture and a silhouetted figure. The architectural framing emphasizes lines in a cinematic style.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0060",
+      "start": 161.367,
+      "end": 163.2,
+      "dur": 1.833,
+      "colour": {
+        "L_mean": 21.643303553263348,
+        "L_std": 15.931913693745932,
+        "chroma": 10.921218554178873,
+        "a_mean": 1.1262572606404622,
+        "b_mean": 8.419943809509277,
+        "colourfulness": 32.43229181504752
+      },
+      "keyframe": "keyframes/b0a9386de354-0060.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "An urban street scene with storefronts, parked vehicles, and pedestrians under mixed natural and artificial lighting. The composition suggests documentary or narrative film footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0061",
+      "start": 163.2,
+      "end": 164.867,
+      "dur": 1.667,
+      "colour": {
+        "L_mean": 12.464832305908203,
+        "L_std": 10.587217330932617,
+        "chroma": 7.655439058939616,
+        "a_mean": 2.0755637486775718,
+        "b_mean": 6.553197065989177,
+        "colourfulness": 19.441919568424513
+      },
+      "keyframe": "keyframes/b0a9386de354-0061.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "A man crouches among professional film lighting equipment on a red studio floor during what appears to be a production setup or shoot.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0062",
+      "start": 164.867,
+      "end": 166.167,
+      "dur": 1.3,
+      "colour": {
+        "L_mean": 24.54040590922038,
+        "L_std": 22.41392707824707,
+        "chroma": 3.547790050506592,
+        "a_mean": -2.2421756585439048,
+        "b_mean": 1.0696232716242473,
+        "colourfulness": 6.692291619754822
+      },
+      "keyframe": "keyframes/b0a9386de354-0062.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Two silhouetted figures stand in dramatic backlighting with the word 'something' overlaid in white text; atmospheric and cinematic.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0063",
+      "start": 166.167,
+      "end": 168.133,
+      "dur": 1.966,
+      "colour": {
+        "L_mean": 37.88612747192383,
+        "L_std": 8.484260559082031,
+        "chroma": 69.94672139485677,
+        "a_mean": 59.76546732584635,
+        "b_mean": 36.24188359578451,
+        "colourfulness": 79.79307958250324
+      },
+      "keyframe": "keyframes/b0a9386de354-0063.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Graphic title card featuring bold white '2' and 'completely different' text on a vibrant red background.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0064",
+      "start": 168.133,
+      "end": 170.033,
+      "dur": 1.9,
+      "colour": {
+        "L_mean": 38.65054575602213,
+        "L_std": 20.724971135457356,
+        "chroma": 15.854966799418131,
+        "a_mean": -5.7090199788411455,
+        "b_mean": 13.263798713684082,
+        "colourfulness": 34.644173402675456
+      },
+      "keyframe": "keyframes/b0a9386de354-0064.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pixabay_video",
+        "sources": [
+          "pixabay_video",
+          "pexels_video"
+        ],
+        "description": "Exterior urban street with an ivy-covered building wall and weathered concrete; a lone figure visible in the distance under natural daylight.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0065",
+      "start": 170.033,
+      "end": 171.8,
+      "dur": 1.767,
+      "colour": {
+        "L_mean": 31.108659744262695,
+        "L_std": 26.94007682800293,
+        "chroma": 6.984680970509847,
+        "a_mean": -4.98168420791626,
+        "b_mean": -0.04349658886591593,
+        "colourfulness": 17.65321270774065
+      },
+      "keyframe": "keyframes/b0a9386de354-0065.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Person viewing a modern angular building structure in overcast daylight; contemplative framing of architecture and human subject.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0066",
+      "start": 171.8,
+      "end": 173.767,
+      "dur": 1.967,
+      "colour": {
+        "L_mean": 20.31387774149577,
+        "L_std": 17.87346839904785,
+        "chroma": 8.354290962219238,
+        "a_mean": -6.43137264251709,
+        "b_mean": -4.21799373626709,
+        "colourfulness": 14.710793661782112
+      },
+      "keyframe": "keyframes/b0a9386de354-0066.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Two men in white t-shirts facing each other in dimly lit interior space with dramatic side lighting; tense, intimate scene.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0067",
+      "start": 173.767,
+      "end": 175.8,
+      "dur": 2.033,
+      "colour": {
+        "L_mean": 27.896609624226887,
+        "L_std": 10.125893592834473,
+        "chroma": 20.741722106933594,
+        "a_mean": 12.805039723714193,
+        "b_mean": 15.284782409667969,
+        "colourfulness": 44.188414539664905
+      },
+      "keyframe": "keyframes/b0a9386de354-0067.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Close-up portrait of a man wearing a red basketball jersey in warm indoor lighting; appears to be from a sports venue or interview setting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0068",
+      "start": 175.8,
+      "end": 178.167,
+      "dur": 2.367,
+      "colour": {
+        "L_mean": 13.556302070617676,
+        "L_std": 8.361784140268961,
+        "chroma": 7.615039189656575,
+        "a_mean": 3.660842021306356,
+        "b_mean": -1.6060647616783779,
+        "colourfulness": 16.785418520624894
+      },
+      "keyframe": "keyframes/b0a9386de354-0068.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Man in formal blue jacket walking past a bus in nighttime setting with professional dramatic lighting; cinematic composition.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0069",
+      "start": 178.167,
+      "end": 179.5,
+      "dur": 1.333,
+      "colour": {
+        "L_mean": 30.91441027323405,
+        "L_std": 20.683547973632812,
+        "chroma": 8.528020540873209,
+        "a_mean": 2.4916776021321616,
+        "b_mean": 1.0176928043365479,
+        "colourfulness": 19.477683021057068
+      },
+      "keyframe": "keyframes/b0a9386de354-0069.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Group of people near a bus on a street; documentary-style framing capturing multiple figures in an urban transportation setting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0070",
+      "start": 179.5,
+      "end": 181.2,
+      "dur": 1.7,
+      "colour": {
+        "L_mean": 16.76158841451009,
+        "L_std": 10.557854334513346,
+        "chroma": 9.349801381429037,
+        "a_mean": -0.3918335934480031,
+        "b_mean": -6.706189791361491,
+        "colourfulness": 21.754293352214365
+      },
+      "keyframe": "keyframes/b0a9386de354-0070.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "wikimedia"
+        ],
+        "description": "Man seated at a press conference or media event with branded logos visible on the backdrop behind him; professional lighting and formal setting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0071",
+      "start": 181.2,
+      "end": 183.2,
+      "dur": 2.0,
+      "colour": {
+        "L_mean": 49.92267862955729,
+        "L_std": 26.897101720174152,
+        "chroma": 29.107673009236652,
+        "a_mean": 13.522294680277506,
+        "b_mean": -18.074697494506836,
+        "colourfulness": 83.03974476374295
+      },
+      "keyframe": "keyframes/b0a9386de354-0071.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "pixabay_video"
+        ],
+        "description": "A man speaks directly to camera in a white shirt against a blue background, in professional interview-style lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0072",
+      "start": 183.2,
+      "end": 185.833,
+      "dur": 2.633,
+      "colour": {
+        "L_mean": 55.70157368977865,
+        "L_std": 23.656476974487305,
+        "chroma": 9.749893506368002,
+        "a_mean": -7.993809064229329,
+        "b_mean": 3.3166040579477944,
+        "colourfulness": 16.452140846343642
+      },
+      "keyframe": "keyframes/b0a9386de354-0072.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A performance stage is lit by dramatic overhead spotlights creating pools of light in a dark, moody atmosphere.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0073",
+      "start": 185.833,
+      "end": 188.767,
+      "dur": 2.934,
+      "colour": {
+        "L_mean": 53.280174255371094,
+        "L_std": 28.72256914774577,
+        "chroma": 5.588221708933513,
+        "a_mean": -5.196485837300618,
+        "b_mean": -0.5121929347515106,
+        "colourfulness": 13.184840589132271
+      },
+      "keyframe": "keyframes/b0a9386de354-0073.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes",
+          "youtube"
+        ],
+        "description": "A silhouetted figure stands against a dark stormy sky with repeated text reading 'self belief' overlaid as a motion graphic.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0074",
+      "start": 188.767,
+      "end": 189.6,
+      "dur": 0.833,
+      "colour": {
+        "L_mean": 12.376874923706055,
+        "L_std": 11.875936190287272,
+        "chroma": 8.227191925048828,
+        "a_mean": 3.0597211519877114,
+        "b_mean": 7.030388355255127,
+        "colourfulness": 16.571037653162573
+      },
+      "keyframe": "keyframes/b0a9386de354-0074.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pixabay_video",
+          "archive"
+        ],
+        "description": "A young person sits on a couch in a warm-lit home interior with shelves and furnishings visible behind them.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0075",
+      "start": 189.6,
+      "end": 191.433,
+      "dur": 1.833,
+      "colour": {
+        "L_mean": 8.788311958312988,
+        "L_std": 8.483976682027182,
+        "chroma": 3.637922922770182,
+        "a_mean": -0.606380561987559,
+        "b_mean": 3.0442617734273276,
+        "colourfulness": 7.950823580056729
+      },
+      "keyframe": "keyframes/b0a9386de354-0075.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "pixabay_video"
+        ],
+        "description": "A child is shown from behind sitting in a home setting, viewed in warm domestic lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0076",
+      "start": 191.433,
+      "end": 192.3,
+      "dur": 0.867,
+      "colour": {
+        "L_mean": 33.860337575276695,
+        "L_std": 20.761598587036133,
+        "chroma": 11.199387550354004,
+        "a_mean": -1.0474453568458557,
+        "b_mean": 8.064964135487875,
+        "colourfulness": 30.468200793359802
+      },
+      "keyframe": "keyframes/b0a9386de354-0076.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Three young people walk together in bright sunlight on a residential suburban street during the day.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0077",
+      "start": 192.3,
+      "end": 193.033,
+      "dur": 0.733,
+      "colour": {
+        "L_mean": 41.76253128051758,
+        "L_std": 22.902352650960285,
+        "chroma": 13.449613571166992,
+        "a_mean": -3.2753700415293374,
+        "b_mean": 8.905227343241373,
+        "colourfulness": 34.48408902364458
+      },
+      "keyframe": "keyframes/b0a9386de354-0077.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "Close-up of a young person's face with the text 'who brags' overlaid as a caption.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0078",
+      "start": 193.033,
+      "end": 195.567,
+      "dur": 2.534,
+      "colour": {
+        "L_mean": 14.87363052368164,
+        "L_std": 14.007476806640625,
+        "chroma": 2.341055075327555,
+        "a_mean": -0.15679325768724084,
+        "b_mean": -0.13849790021777153,
+        "colourfulness": 6.408279307418475
+      },
+      "keyframe": "keyframes/b0a9386de354-0078.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "A person rides a bicycle on a residential street in natural daylight among parked cars.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0079",
+      "start": 195.567,
+      "end": 199.933,
+      "dur": 4.366,
+      "colour": {
+        "L_mean": 45.369537353515625,
+        "L_std": 21.222025553385418,
+        "chroma": 4.689016342163086,
+        "a_mean": 1.4806700944900513,
+        "b_mean": 2.7111128171284995,
+        "colourfulness": 13.775324516434113
+      },
+      "keyframe": "keyframes/b0a9386de354-0079.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pixabay_video"
+        ],
+        "description": "Close-up of a person indoors wearing a chain necklace with venetian blinds visible in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0080",
+      "start": 199.933,
+      "end": 201.367,
+      "dur": 1.434,
+      "colour": {
+        "L_mean": 39.85760752360026,
+        "L_std": 7.621847788492839,
+        "chroma": 25.255859375,
+        "a_mean": -23.765586217244465,
+        "b_mean": -8.327842394510904,
+        "colourfulness": 53.364125453848494
+      },
+      "keyframe": "keyframes/b0a9386de354-0080.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "youtube",
+          "pixabay_video"
+        ],
+        "description": "An underwater shot shows a person swimming beneath the surface in clear turquoise water.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0081",
+      "start": 201.367,
+      "end": 206.067,
+      "dur": 4.7,
+      "colour": {
+        "L_mean": 50.53457895914713,
+        "L_std": 12.549249966939291,
+        "chroma": 5.247887134552002,
+        "a_mean": -0.168702761332194,
+        "b_mean": 0.09955691049496333,
+        "colourfulness": 15.502926937132363
+      },
+      "keyframe": "keyframes/b0a9386de354-0081.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Blank white screen serving as a visual transition or pause.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0082",
+      "start": 206.067,
+      "end": 209.0,
+      "dur": 2.933,
+      "colour": {
+        "L_mean": 32.246386210123696,
+        "L_std": 18.47226905822754,
+        "chroma": 13.920353253682455,
+        "a_mean": 9.634750684102377,
+        "b_mean": 9.522308031717936,
+        "colourfulness": 25.801221495153595
+      },
+      "keyframe": "keyframes/b0a9386de354-0082.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a person's face looking downward with a doubtful, introspective expression in moody atmospheric lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0083",
+      "start": 209.0,
+      "end": 211.6,
+      "dur": 2.6,
+      "colour": {
+        "L_mean": 21.403865814208984,
+        "L_std": 13.093544324239096,
+        "chroma": 19.630484263102215,
+        "a_mean": 13.776810963948568,
+        "b_mean": 12.460736274719238,
+        "colourfulness": 29.53832529817373
+      },
+      "keyframe": "keyframes/b0a9386de354-0083.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Young man in casual clothing with an uncertain expression indoors, with another figure blurred in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0084",
+      "start": 211.6,
+      "end": 213.5,
+      "dur": 1.9,
+      "colour": {
+        "L_mean": 24.301364580790203,
+        "L_std": 11.51155956586202,
+        "chroma": 15.459647496541342,
+        "a_mean": -9.342110633850098,
+        "b_mean": 6.88189697265625,
+        "colourfulness": 23.2091597596657
+      },
+      "keyframe": "keyframes/b0a9386de354-0084.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Darkly lit, blurred interior shot with a green horizontal element barely visible through dim lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0085",
+      "start": 213.5,
+      "end": 214.3,
+      "dur": 0.8,
+      "colour": {
+        "L_mean": 30.97571309407552,
+        "L_std": 13.947084426879883,
+        "chroma": 14.953895568847656,
+        "a_mean": 11.261724154154459,
+        "b_mean": -1.231177806854248,
+        "colourfulness": 21.385322248469823
+      },
+      "keyframe": "keyframes/b0a9386de354-0085.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Dimly lit shot of a person's arm and torso in pink-purple atmospheric tinting, creating a moody intimate effect.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0086",
+      "start": 214.3,
+      "end": 214.9,
+      "dur": 0.6,
+      "colour": {
+        "L_mean": 3.190337816874186,
+        "L_std": 6.774438858032227,
+        "chroma": 1.8331418832143147,
+        "a_mean": 1.1022327343622844,
+        "b_mean": -0.5066127777099609,
+        "colourfulness": 10.896922307683601
+      },
+      "keyframe": "keyframes/b0a9386de354-0086.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in dark clothing gesturing expressively with a red megaphone or trumpet against a dark background in a dramatic scene.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0087",
+      "start": 214.9,
+      "end": 218.233,
+      "dur": 3.333,
+      "colour": {
+        "L_mean": 13.851549784342447,
+        "L_std": 14.222370147705078,
+        "chroma": 10.62318722407023,
+        "a_mean": 7.81486455599467,
+        "b_mean": 1.5077734713753064,
+        "colourfulness": 33.92917332500559
+      },
+      "keyframe": "keyframes/b0a9386de354-0087.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man wearing glasses and a distinctive mustache in dark clothing with American and British flags visible in the background, suggesting a crowd or public venue.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0088",
+      "start": 218.233,
+      "end": 219.233,
+      "dur": 1.0,
+      "colour": {
+        "L_mean": 36.79573059082031,
+        "L_std": 3.247987906138102,
+        "chroma": 71.256103515625,
+        "a_mean": 60.85128657023112,
+        "b_mean": 37.05016199747721,
+        "colourfulness": 65.50114101815481
+      },
+      "keyframe": "keyframes/b0a9386de354-0088.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Red solid color background with centered white text reading 'and fair's', a designed title card graphic.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0089",
+      "start": 219.233,
+      "end": 221.7,
+      "dur": 2.467,
+      "colour": {
+        "L_mean": 21.774211883544922,
+        "L_std": 20.48741277058919,
+        "chroma": 9.323929786682129,
+        "a_mean": 4.811918417612712,
+        "b_mean": 5.464194456736247,
+        "colourfulness": 26.944325846837533
+      },
+      "keyframe": "keyframes/b0a9386de354-0089.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in business suit at a desk in an office setting with white text overlay on top reading about ego and strength.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0090",
+      "start": 221.7,
+      "end": 223.333,
+      "dur": 1.633,
+      "colour": {
+        "L_mean": 34.32123692830404,
+        "L_std": 16.21835740407308,
+        "chroma": 9.612930615743002,
+        "a_mean": 5.854564666748047,
+        "b_mean": 5.84307861328125,
+        "colourfulness": 19.38762579127624
+      },
+      "keyframe": "keyframes/b0a9386de354-0090.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in business suit walking confidently down a classical hallway with architectural columns, conveying professional composure.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0091",
+      "start": 223.333,
+      "end": 223.733,
+      "dur": 0.4,
+      "colour": {
+        "L_mean": 18.481975555419922,
+        "L_std": 17.73846371968587,
+        "chroma": 8.173847198486328,
+        "a_mean": 2.8604339758555093,
+        "b_mean": 2.1401800314585366,
+        "colourfulness": 23.53281281130185
+      },
+      "keyframe": "keyframes/b0a9386de354-0091.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Close-up of a man's intense face with white text overlay reading 'weak'. Professional cinematography with dramatic lighting suggesting film or television footage.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0092",
+      "start": 223.733,
+      "end": 225.833,
+      "dur": 2.1,
+      "colour": {
+        "L_mean": 25.499550501505535,
+        "L_std": 14.112506548563639,
+        "chroma": 7.1601840655008955,
+        "a_mean": 4.088107585906982,
+        "b_mean": 5.0252377192179365,
+        "colourfulness": 18.403361091340223
+      },
+      "keyframe": "keyframes/b0a9386de354-0092.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Over-the-shoulder shot of a man examining a newspaper or document indoors with natural lighting, suggesting careful study or deliberation.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0093",
+      "start": 225.833,
+      "end": 246.933,
+      "dur": 21.1,
+      "colour": {
+        "L_mean": 22.343069712320965,
+        "L_std": 19.593360900878906,
+        "chroma": 6.909475803375244,
+        "a_mean": 5.196530977884929,
+        "b_mean": 2.035041610399882,
+        "colourfulness": 21.743024297519497
+      },
+      "keyframe": "keyframes/b0a9386de354-0093.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "An old CRT computer monitor displaying a man wearing sunglasses, with a coffee mug and desk items visible beside it; text overlay at bottom reads 'cause I am very sensitive to other people's thinking'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0094",
+      "start": 246.933,
+      "end": 249.3,
+      "dur": 2.367,
+      "colour": {
+        "L_mean": 42.31069691975912,
+        "L_std": 23.624122619628906,
+        "chroma": 17.373830159505207,
+        "a_mean": 13.468890508015951,
+        "b_mean": 2.045825699965159,
+        "colourfulness": 39.4680950395846
+      },
+      "keyframe": "keyframes/b0a9386de354-0094.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "NBA game footage showing physical contact and confrontation between players on court with crowd visible in background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0095",
+      "start": 249.3,
+      "end": 250.733,
+      "dur": 1.433,
+      "colour": {
+        "L_mean": 34.237155278523765,
+        "L_std": 25.805299123128254,
+        "chroma": 10.761838912963867,
+        "a_mean": 4.44058883190155,
+        "b_mean": 2.078645944595337,
+        "colourfulness": 33.713522550382
+      },
+      "keyframe": "keyframes/b0a9386de354-0095.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "NBA basketball game action shot with players on court; text overlay reading 'the competitiveness' visible on screen.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0096",
+      "start": 250.733,
+      "end": 254.4,
+      "dur": 3.667,
+      "colour": {
+        "L_mean": 41.11909866333008,
+        "L_std": 27.41960080464681,
+        "chroma": 11.316675504048666,
+        "a_mean": 5.838873704274495,
+        "b_mean": 5.091628392537435,
+        "colourfulness": 26.651382855160225
+      },
+      "keyframe": "keyframes/b0a9386de354-0096.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Interior of an airplane with a man gesturing expressively while holding playing cards, another person partially visible beside him.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0097",
+      "start": 254.4,
+      "end": 256.833,
+      "dur": 2.433,
+      "colour": {
+        "L_mean": 50.441986083984375,
+        "L_std": 21.356412887573242,
+        "chroma": 21.456649780273438,
+        "a_mean": 14.856877962748209,
+        "b_mean": 6.993112246195476,
+        "colourfulness": 64.4424389398226
+      },
+      "keyframe": "keyframes/b0a9386de354-0097.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "NBA game footage showing players in action during play, including a player in a red Bulls jersey numbered 23, with crowd visible in background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0098",
+      "start": 256.833,
+      "end": 260.633,
+      "dur": 3.8,
+      "colour": {
+        "L_mean": 42.28094355265299,
+        "L_std": 27.36340586344401,
+        "chroma": 12.723834037780762,
+        "a_mean": 7.174574375152588,
+        "b_mean": -5.046553770701091,
+        "colourfulness": 34.41249251967607
+      },
+      "keyframe": "keyframes/b0a9386de354-0098.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Man wearing glasses and headphones sitting at a desk with a colorful patterned item visible behind him, suggesting an interview or podcast setting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0099",
+      "start": 260.633,
+      "end": 263.6,
+      "dur": 2.967,
+      "colour": {
+        "L_mean": 31.89048131306966,
+        "L_std": 22.31233787536621,
+        "chroma": 20.452297846476238,
+        "a_mean": 14.106347719828287,
+        "b_mean": -6.278491338094075,
+        "colourfulness": 38.46455402557003
+      },
+      "keyframe": "keyframes/b0a9386de354-0099.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up profile shot of a man's face with shoulder visible, appearing to be captured from a sports game or documentary context.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0100",
+      "start": 263.6,
+      "end": 266.367,
+      "dur": 2.767,
+      "colour": {
+        "L_mean": 37.23174031575521,
+        "L_std": 5.49136209487915,
+        "chroma": 70.70139567057292,
+        "a_mean": 60.421000162760414,
+        "b_mean": 36.63562138875326,
+        "colourfulness": 71.88406486185242
+      },
+      "keyframe": "keyframes/b0a9386de354-0100.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Solid red background with white text reading 'that's the actual shape' aligned to the left, a designed title card or graphic frame.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0101",
+      "start": 266.367,
+      "end": 268.8,
+      "dur": 2.433,
+      "colour": {
+        "L_mean": 47.343624114990234,
+        "L_std": 25.895985285441082,
+        "chroma": 13.321651776631674,
+        "a_mean": 7.085886478424072,
+        "b_mean": 7.096444765726726,
+        "colourfulness": 34.654720484565296
+      },
+      "keyframe": "keyframes/b0a9386de354-0101.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pixabay_video"
+        ],
+        "description": "Two basketball players in Chicago Bulls jerseys face each other in a crowded arena, with the text label 'self belief' overlaid on one player.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0102",
+      "start": 268.8,
+      "end": 269.867,
+      "dur": 1.067,
+      "colour": {
+        "L_mean": 39.84256108601888,
+        "L_std": 28.105300903320312,
+        "chroma": 14.04836908976237,
+        "a_mean": 10.472630182902018,
+        "b_mean": 8.029526392618815,
+        "colourfulness": 39.43381389859974
+      },
+      "keyframe": "keyframes/b0a9386de354-0102.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A basketball player wearing #23 Chicago Bulls jersey stands on the court during a game.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0103",
+      "start": 269.867,
+      "end": 271.233,
+      "dur": 1.366,
+      "colour": {
+        "L_mean": 29.730422973632812,
+        "L_std": 18.526325861612957,
+        "chroma": 12.419055302937826,
+        "a_mean": 4.428500493367513,
+        "b_mean": 4.1370541254679365,
+        "colourfulness": 33.70532610361777
+      },
+      "keyframe": "keyframes/b0a9386de354-0103.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Basketball players compete intensely during a game with physical contact and dynamic motion visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0104",
+      "start": 271.233,
+      "end": 274.6,
+      "dur": 3.367,
+      "colour": {
+        "L_mean": 41.217604319254555,
+        "L_std": 25.55968729654948,
+        "chroma": 12.476885159810385,
+        "a_mean": 9.120484670003256,
+        "b_mean": 5.6115791002909345,
+        "colourfulness": 35.73741658631071
+      },
+      "keyframe": "keyframes/b0a9386de354-0104.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "A muscular man is shown in close-up profile looking to the side in moody interior lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0105",
+      "start": 274.6,
+      "end": 276.633,
+      "dur": 2.033,
+      "colour": {
+        "L_mean": 42.79143397013346,
+        "L_std": 19.15996551513672,
+        "chroma": 17.277855555216473,
+        "a_mean": 10.052480697631836,
+        "b_mean": 11.590053876241049,
+        "colourfulness": 35.34413393226475
+      },
+      "keyframe": "keyframes/b0a9386de354-0105.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "archive",
+        "sources": [
+          "archive",
+          "youtube"
+        ],
+        "description": "Vintage film footage of a man's face with a circular text overlay reading 'ego' floating in the center.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0106",
+      "start": 276.633,
+      "end": 278.3,
+      "dur": 1.667,
+      "colour": {
+        "L_mean": 35.724751790364586,
+        "L_std": 18.236432393391926,
+        "chroma": 5.668262004852295,
+        "a_mean": -2.524671951929728,
+        "b_mean": -0.3678729037443797,
+        "colourfulness": 17.49685154290358
+      },
+      "keyframe": "keyframes/b0a9386de354-0106.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A man in a tan trench coat stands between towering city buildings in wide-angle cinematic framing.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0107",
+      "start": 278.3,
+      "end": 280.233,
+      "dur": 1.933,
+      "colour": {
+        "L_mean": 15.679810206095377,
+        "L_std": 12.96084976196289,
+        "chroma": 8.919505755106607,
+        "a_mean": 8.013442834218344,
+        "b_mean": 0.0541928360859553,
+        "colourfulness": 21.260416259728768
+      },
+      "keyframe": "keyframes/b0a9386de354-0107.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A young man crawls on a rough concrete floor indoors in dramatic low-key lighting with a filmic aesthetic.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0108",
+      "start": 280.233,
+      "end": 282.567,
+      "dur": 2.334,
+      "colour": {
+        "L_mean": 44.299948374430336,
+        "L_std": 16.39376990000407,
+        "chroma": 20.993871053059895,
+        "a_mean": 5.056244850158691,
+        "b_mean": -16.105878194173176,
+        "colourfulness": 47.933965905409195
+      },
+      "keyframe": "keyframes/b0a9386de354-0108.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A man stands on an industrial rooftop against a clear sky, shot with wide-angle cinematic framing.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0109",
+      "start": 282.567,
+      "end": 285.433,
+      "dur": 2.866,
+      "colour": {
+        "L_mean": 37.57756042480469,
+        "L_std": 6.817295392354329,
+        "chroma": 70.25039418538411,
+        "a_mean": 60.04222869873047,
+        "b_mean": 36.36828867594401,
+        "colourfulness": 75.40184709658412
+      },
+      "keyframe": "keyframes/b0a9386de354-0109.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "White sans-serif text reading 'nobody actually teaches you' displayed on a solid red background as a simple motion graphic.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0110",
+      "start": 285.433,
+      "end": 287.667,
+      "dur": 2.234,
+      "colour": {
+        "L_mean": 54.4854621887207,
+        "L_std": 29.50252342224121,
+        "chroma": 10.859336853027344,
+        "a_mean": 4.869274934132894,
+        "b_mean": 7.877655506134033,
+        "colourfulness": 19.148775578377705
+      },
+      "keyframe": "keyframes/b0a9386de354-0110.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest",
+          "pexels_image"
+        ],
+        "description": "An open notebook showing blank pages with handwritten text 'be humble' on the right page, photographed with warm lighting against a wood texture background.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0111",
+      "start": 287.667,
+      "end": 288.5,
+      "dur": 0.833,
+      "colour": {
+        "L_mean": 75.90778096516927,
+        "L_std": 21.325254440307617,
+        "chroma": 8.965559641520182,
+        "a_mean": 0.35147930185000104,
+        "b_mean": 8.084190686543783,
+        "colourfulness": 14.260085591528686
+      },
+      "keyframe": "keyframes/b0a9386de354-0111.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "pexels_image",
+          "pinterest"
+        ],
+        "description": "Close-up of handwritten text 'be humble' on a cream-colored paper or whiteboard with wooden surface visible at the edges.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0112",
+      "start": 288.5,
+      "end": 289.867,
+      "dur": 1.367,
+      "colour": {
+        "L_mean": 47.81210708618164,
+        "L_std": 23.48876190185547,
+        "chroma": 9.415973027547201,
+        "a_mean": -1.0198094646135967,
+        "b_mean": 5.176938374837239,
+        "colourfulness": 25.62144968411701
+      },
+      "keyframe": "keyframes/b0a9386de354-0112.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pixabay_video",
+          "pexels_video"
+        ],
+        "description": "POV shot from inside a car traveling down a long straight desert highway with distant mountains, driver's hand visible on steering wheel.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0113",
+      "start": 289.867,
+      "end": 291.633,
+      "dur": 1.766,
+      "colour": {
+        "L_mean": 50.377638498942055,
+        "L_std": 16.356103897094727,
+        "chroma": 10.736604690551758,
+        "a_mean": -3.8476717472076416,
+        "b_mean": 2.949563503265381,
+        "colourfulness": 32.26562652230257
+      },
+      "keyframe": "keyframes/b0a9386de354-0113.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Wide shot of a car driving on a desert highway toward distant mesa formations under dramatic sky, yellow center line road markings visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0114",
+      "start": 291.633,
+      "end": 294.633,
+      "dur": 3.0,
+      "colour": {
+        "L_mean": 41.20696004231771,
+        "L_std": 29.404093424479168,
+        "chroma": 7.651001771291097,
+        "a_mean": 0.24173764636119208,
+        "b_mean": 6.06592321395874,
+        "colourfulness": 21.42256606427418
+      },
+      "keyframe": "keyframes/b0a9386de354-0114.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest",
+          "google_images"
+        ],
+        "description": "Interior scene with person in dark clothing gesturing dynamically, white text overlay reading 'one extreme' and white furniture visible in soft-lit background.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0115",
+      "start": 294.633,
+      "end": 297.4,
+      "dur": 2.767,
+      "colour": {
+        "L_mean": 45.215843200683594,
+        "L_std": 10.280406634012857,
+        "chroma": 20.40510431925456,
+        "a_mean": -13.10574467976888,
+        "b_mean": -10.811720848083496,
+        "colourfulness": 57.00048459089471
+      },
+      "keyframe": "keyframes/b0a9386de354-0115.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "ai_video",
+          "pinterest"
+        ],
+        "description": "Person standing outdoors holding a large colorful bundle of balloons against clear blue sky and white clouds in bright daylight.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0116",
+      "start": 297.4,
+      "end": 299.933,
+      "dur": 2.533,
+      "colour": {
+        "L_mean": 18.655507405598957,
+        "L_std": 16.091858863830566,
+        "chroma": 18.976024627685547,
+        "a_mean": 2.3095964590708413,
+        "b_mean": 16.782016436258953,
+        "colourfulness": 39.817791533189784
+      },
+      "keyframe": "keyframes/b0a9386de354-0116.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "wikimedia"
+        ],
+        "description": "Close-up portrait of a bald man speaking with intense or concerned expression, wearing yellow clothing with neutral background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0117",
+      "start": 299.933,
+      "end": 300.633,
+      "dur": 0.7,
+      "colour": {
+        "L_mean": 33.8917605082194,
+        "L_std": 22.08449872334798,
+        "chroma": 10.0536470413208,
+        "a_mean": 7.328049023946126,
+        "b_mean": 2.81992514928182,
+        "colourfulness": 25.010287112933593
+      },
+      "keyframe": "keyframes/b0a9386de354-0117.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "pixabay_video"
+        ],
+        "description": "Two men walking on an urban shopping street or downtown area with crowds of people blurred in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0118",
+      "start": 300.633,
+      "end": 301.367,
+      "dur": 0.734,
+      "colour": {
+        "L_mean": 36.18363698323568,
+        "L_std": 26.89623769124349,
+        "chroma": 14.177635510762533,
+        "a_mean": -4.255786180496216,
+        "b_mean": 12.614607493082682,
+        "colourfulness": 24.679789818881243
+      },
+      "keyframe": "keyframes/b0a9386de354-0118.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pixabay_video",
+        "sources": [
+          "pixabay_video",
+          "pexels_video",
+          "youtube"
+        ],
+        "description": "Person performing parkour or dynamic running motion in a green outdoor park space with overhead trees and natural daylight.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0119",
+      "start": 301.367,
+      "end": 302.167,
+      "dur": 0.8,
+      "colour": {
+        "L_mean": 62.573343912760414,
+        "L_std": 24.028120676676433,
+        "chroma": 13.179471333821615,
+        "a_mean": -6.686367034912109,
+        "b_mean": 10.04100767771403,
+        "colourfulness": 20.861334771994077
+      },
+      "keyframe": "keyframes/b0a9386de354-0119.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Shirtless man running through shallow water in a scenic landscape setting with another person visible on a motorcycle in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0120",
+      "start": 302.167,
+      "end": 302.933,
+      "dur": 0.766,
+      "colour": {
+        "L_mean": 29.202611287434895,
+        "L_std": 26.90438715616862,
+        "chroma": 3.1855900287628174,
+        "a_mean": -2.1338017781575522,
+        "b_mean": 0.346422016620636,
+        "colourfulness": 8.357602263678784
+      },
+      "keyframe": "keyframes/b0a9386de354-0120.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pixabay_video",
+          "pexels_video"
+        ],
+        "description": "Person in dark clothing caught mid-leap or dynamic running motion in an outdoor urban parking or courtyard space with trees and buildings visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0121",
+      "start": 302.933,
+      "end": 303.733,
+      "dur": 0.8,
+      "colour": {
+        "L_mean": 21.736857096354168,
+        "L_std": 11.87538973490397,
+        "chroma": 7.598923365275065,
+        "a_mean": -7.030505339304606,
+        "b_mean": -2.434434493382772,
+        "colourfulness": 12.599115070237081
+      },
+      "keyframe": "keyframes/b0a9386de354-0121.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Dark, grainy footage of a figure climbing the exterior of a building at night. The cinematic quality and dramatic lighting suggest this is from an action or thriller film.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0122",
+      "start": 303.733,
+      "end": 305.133,
+      "dur": 1.4,
+      "colour": {
+        "L_mean": 56.80064137776693,
+        "L_std": 14.417521476745605,
+        "chroma": 12.30198049545288,
+        "a_mean": 0.9552090167999268,
+        "b_mean": -0.03588183720906576,
+        "colourfulness": 34.99800012045949
+      },
+      "keyframe": "keyframes/b0a9386de354-0122.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "Wide shot of a person in the desert landscape bending forward in an action pose. Clear daylight, cinematic framing typical of film or high-production footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0123",
+      "start": 305.133,
+      "end": 305.667,
+      "dur": 0.534,
+      "colour": {
+        "L_mean": 39.05766932169596,
+        "L_std": 27.93795331319173,
+        "chroma": 13.715179125467936,
+        "a_mean": -3.556563377380371,
+        "b_mean": 6.021671772003174,
+        "colourfulness": 40.86885696741093
+      },
+      "keyframe": "keyframes/b0a9386de354-0123.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Professional stadium photo of a footballer in white Real Madrid jersey holding the UEFA Champions League trophy, waving to crowd. Brightly lit stadium setting with spectators visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0124",
+      "start": 305.667,
+      "end": 306.333,
+      "dur": 0.666,
+      "colour": {
+        "L_mean": 23.09247334798177,
+        "L_std": 19.15032196044922,
+        "chroma": 17.167888005574543,
+        "a_mean": 13.365725835164389,
+        "b_mean": 8.341995239257812,
+        "colourfulness": 72.30625279678195
+      },
+      "keyframe": "keyframes/b0a9386de354-0124.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up portrait of a man wearing a red Bulls t-shirt and headphones in what appears to be a vehicle or studio interior. Interview or documentary style lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0125",
+      "start": 306.333,
+      "end": 307.367,
+      "dur": 1.034,
+      "colour": {
+        "L_mean": 37.29047648111979,
+        "L_std": 22.30771827697754,
+        "chroma": 20.105549494425457,
+        "a_mean": 15.038688659667969,
+        "b_mean": 11.966923077901205,
+        "colourfulness": 41.78721257989223
+      },
+      "keyframe": "keyframes/b0a9386de354-0125.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Action shot of a basketball player in a Chicago Bulls white and red jersey during game play. Professional sports broadcast footage from an arena.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0126",
+      "start": 307.367,
+      "end": 308.4,
+      "dur": 1.033,
+      "colour": {
+        "L_mean": 15.546587944030762,
+        "L_std": 11.559573809305826,
+        "chroma": 10.352279980977377,
+        "a_mean": 4.858432769775391,
+        "b_mean": -1.3730329473813374,
+        "colourfulness": 27.506293459703738
+      },
+      "keyframe": "keyframes/b0a9386de354-0126.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Dark indoor scene with dramatic lighting showing a close-up of a person's face in profile. Cinematic quality suggests film or dramatic production footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0127",
+      "start": 308.4,
+      "end": 309.9,
+      "dur": 1.5,
+      "colour": {
+        "L_mean": 39.3731943766276,
+        "L_std": 26.509511311848957,
+        "chroma": 9.9656130472819,
+        "a_mean": 5.308023770650228,
+        "b_mean": 4.862742265065511,
+        "colourfulness": 31.793141905519718
+      },
+      "keyframe": "keyframes/b0a9386de354-0127.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up shot of an athlete in professional uniform during game play or celebration. Professional sports broadcast quality with arena lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0128",
+      "start": 309.9,
+      "end": 311.367,
+      "dur": 1.467,
+      "colour": {
+        "L_mean": 19.403186798095703,
+        "L_std": 10.177652676900228,
+        "chroma": 22.120978673299152,
+        "a_mean": 17.762440363566082,
+        "b_mean": 11.77448590596517,
+        "colourfulness": 57.23964441662031
+      },
+      "keyframe": "keyframes/b0a9386de354-0128.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Portrait of a young man in a red Manchester United AIG jersey with white text overlay reading 'in my mind'. Professional lighting and documentation style.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0129",
+      "start": 311.367,
+      "end": 312.4,
+      "dur": 1.033,
+      "colour": {
+        "L_mean": 52.04535039265951,
+        "L_std": 26.00755564371745,
+        "chroma": 13.711776415506998,
+        "a_mean": 9.64358139038086,
+        "b_mean": 3.017067035039266,
+        "colourfulness": 44.86385525795371
+      },
+      "keyframe": "keyframes/b0a9386de354-0129.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a young man's face at a sports press conference with repeated sponsor logos and branding visible in the background. Professional press event photography.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0130",
+      "start": 312.4,
+      "end": 313.6,
+      "dur": 1.2,
+      "colour": {
+        "L_mean": 32.27098401387533,
+        "L_std": 27.61511484781901,
+        "chroma": 9.242956161499023,
+        "a_mean": 4.635114669799805,
+        "b_mean": -0.7500857214132944,
+        "colourfulness": 29.37138137351756
+      },
+      "keyframe": "keyframes/b0a9386de354-0130.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Wide shot of a person in white clothing celebrating in a large stadium venue with crowds visible. Professional sports or major event footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0131",
+      "start": 313.6,
+      "end": 315.1,
+      "dur": 1.5,
+      "colour": {
+        "L_mean": 35.26346333821615,
+        "L_std": 34.969791412353516,
+        "chroma": 13.103535652160645,
+        "a_mean": 0.5057080785433451,
+        "b_mean": -9.110942681630453,
+        "colourfulness": 30.283962807700835
+      },
+      "keyframe": "keyframes/b0a9386de354-0131.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Professional soccer match footage showing a player in white Real Madrid kit during a game, with stadium seating and crowd visible in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0132",
+      "start": 315.1,
+      "end": 318.167,
+      "dur": 3.067,
+      "colour": {
+        "L_mean": 22.26153564453125,
+        "L_std": 18.920077641805012,
+        "chroma": 11.704135576883951,
+        "a_mean": 9.031736373901367,
+        "b_mean": 5.850365956624349,
+        "colourfulness": 31.425589681543375
+      },
+      "keyframe": "keyframes/b0a9386de354-0132.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a man's face with overlaid text quote at bottom reading \"I don't need other players to push myself\", with people visible in background at an event or interview setting.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0133",
+      "start": 318.167,
+      "end": 318.867,
+      "dur": 0.7,
+      "colour": {
+        "L_mean": 24.448828379313152,
+        "L_std": 17.574005126953125,
+        "chroma": 19.0622075398763,
+        "a_mean": 11.664556503295898,
+        "b_mean": 11.39371649424235,
+        "colourfulness": 49.34675500520435
+      },
+      "keyframe": "keyframes/b0a9386de354-0133.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Two men in dark coats at a stadium with red seats visible, captured during what appears to be a professional football match day or event.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0134",
+      "start": 318.867,
+      "end": 320.133,
+      "dur": 1.266,
+      "colour": {
+        "L_mean": 23.382686614990234,
+        "L_std": 18.308658599853516,
+        "chroma": 3.337897539138794,
+        "a_mean": -1.2760858138402302,
+        "b_mean": -0.2098872313896815,
+        "colourfulness": 9.816635070912236
+      },
+      "keyframe": "keyframes/b0a9386de354-0134.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A man in formal white shirt and dark vest seated at the FIFA Ballon d'Or 2014 award ceremony, with a golden trophy visible in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0135",
+      "start": 320.133,
+      "end": 321.4,
+      "dur": 1.267,
+      "colour": {
+        "L_mean": 17.631398518880207,
+        "L_std": 13.438687642415365,
+        "chroma": 9.013184547424316,
+        "a_mean": 4.655312538146973,
+        "b_mean": 4.038076559702556,
+        "colourfulness": 30.630818560237262
+      },
+      "keyframe": "keyframes/b0a9386de354-0135.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A footballer celebrating in a red Vodafone jersey at a stadium with crowds visible in the background during a professional match.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0136",
+      "start": 321.4,
+      "end": 322.467,
+      "dur": 1.067,
+      "colour": {
+        "L_mean": 57.13561121622721,
+        "L_std": 21.672685623168945,
+        "chroma": 23.016291936238606,
+        "a_mean": -1.79233980178833,
+        "b_mean": 22.449116388956707,
+        "colourfulness": 45.76293928376301
+      },
+      "keyframe": "keyframes/b0a9386de354-0136.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A player in dark Manchester United training kit on a training pitch or outdoor field in bright daylight.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0137",
+      "start": 322.467,
+      "end": 323.4,
+      "dur": 0.933,
+      "colour": {
+        "L_mean": 51.22337341308594,
+        "L_std": 14.72815195719401,
+        "chroma": 32.756081899007164,
+        "a_mean": 26.947251001993816,
+        "b_mean": 16.562928517659504,
+        "colourfulness": 66.30559363937547
+      },
+      "keyframe": "keyframes/b0a9386de354-0137.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up portrait of a man's face at a professional event with red and pink stage lighting visible in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0138",
+      "start": 323.4,
+      "end": 324.433,
+      "dur": 1.033,
+      "colour": {
+        "L_mean": 30.632169723510742,
+        "L_std": 18.729697545369465,
+        "chroma": 15.235301653544107,
+        "a_mean": 9.883757909138998,
+        "b_mean": 10.565075874328613,
+        "colourfulness": 33.95127963607491
+      },
+      "keyframe": "keyframes/b0a9386de354-0138.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A man in formal dark polka-dot attire holding an award at a professional event, with \"Cristiano Ronaldo\" text and \"CHAMPIONS\" signage visible in the background.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0139",
+      "start": 324.433,
+      "end": 326.9,
+      "dur": 2.467,
+      "colour": {
+        "L_mean": 37.33349482218424,
+        "L_std": 6.350591659545898,
+        "chroma": 70.54005940755208,
+        "a_mean": 60.261969248453774,
+        "b_mean": 36.597347259521484,
+        "colourfulness": 74.03235004813128
+      },
+      "keyframe": "keyframes/b0a9386de354-0139.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "A solid red background with white sans-serif text overlay reading \"and honestly that's the part\".",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0140",
+      "start": 326.9,
+      "end": 328.633,
+      "dur": 1.733,
+      "colour": {
+        "L_mean": 43.016729990641274,
+        "L_std": 22.520341237386067,
+        "chroma": 9.704875946044922,
+        "a_mean": -8.385806242624918,
+        "b_mean": -1.0716341137886047,
+        "colourfulness": 24.60142129106805
+      },
+      "keyframe": "keyframes/b0a9386de354-0140.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "Aerial view of a straight road or bridge stretching through a landscape with water and mountains, captured with smooth cinematic forward motion.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0141",
+      "start": 328.633,
+      "end": 330.8,
+      "dur": 2.167,
+      "colour": {
+        "L_mean": 24.977344512939453,
+        "L_std": 11.905622800191244,
+        "chroma": 7.841008186340332,
+        "a_mean": -7.423371950785319,
+        "b_mean": -1.8606643676757812,
+        "colourfulness": 13.991877257299484
+      },
+      "keyframe": "keyframes/b0a9386de354-0141.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "ai_video"
+        ],
+        "description": "A dark sedan approaches through towering storm clouds in a dramatic, cinematic composition with heavy atmospheric lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0142",
+      "start": 330.8,
+      "end": 333.967,
+      "dur": 3.167,
+      "colour": {
+        "L_mean": 36.90824762980143,
+        "L_std": 18.468390782674152,
+        "chroma": 16.016268094380695,
+        "a_mean": -2.095468759536743,
+        "b_mean": 7.431719938913981,
+        "colourfulness": 49.68621048453293
+      },
+      "keyframe": "keyframes/b0a9386de354-0142.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "pexels_video",
+        "sources": [
+          "pexels_video",
+          "pixabay_video",
+          "youtube"
+        ],
+        "description": "A cyclist rides on a straight paved road through a golden valley with dramatic mountain peaks under clear sky, shot with professional cinematography.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0143",
+      "start": 333.967,
+      "end": 335.567,
+      "dur": 1.6,
+      "colour": {
+        "L_mean": 34.79948806762695,
+        "L_std": 24.30419413248698,
+        "chroma": 5.258082548777263,
+        "a_mean": 1.0302217404047649,
+        "b_mean": 3.3952112992604575,
+        "colourfulness": 15.717868373488221
+      },
+      "keyframe": "keyframes/b0a9386de354-0143.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pinterest"
+        ],
+        "description": "A modern office interior with floor-to-ceiling windows showing a cityscape; two figures interact at a desk with clean professional lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0144",
+      "start": 335.567,
+      "end": 336.8,
+      "dur": 1.233,
+      "colour": {
+        "L_mean": 27.087395350138348,
+        "L_std": 19.290414174397785,
+        "chroma": 8.042893409729004,
+        "a_mean": 2.540792465209961,
+        "b_mean": 1.9441732168197632,
+        "colourfulness": 25.402268042682678
+      },
+      "keyframe": "keyframes/b0a9386de354-0144.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest",
+          "pexels_video"
+        ],
+        "description": "A shirtless man hunches forward by water at dusk, silhouetted against a colorful sky while gazing at something in his hands with moody reflective lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0145",
+      "start": 336.8,
+      "end": 338.233,
+      "dur": 1.433,
+      "colour": {
+        "L_mean": 47.70693842569987,
+        "L_std": 25.771785736083984,
+        "chroma": 16.341092427571613,
+        "a_mean": -1.3986632029215496,
+        "b_mean": 14.550843874613443,
+        "colourfulness": 25.084221024862
+      },
+      "keyframe": "keyframes/b0a9386de354-0145.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive",
+          "pinterest"
+        ],
+        "description": "A close-up portrait of a man's face showing a serious, weary expression with visible fatigue under the eyes in neutral warm lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0146",
+      "start": 338.233,
+      "end": 338.967,
+      "dur": 0.734,
+      "colour": {
+        "L_mean": 28.62843132019043,
+        "L_std": 16.297945976257324,
+        "chroma": 5.470334370930989,
+        "a_mean": -0.6627023220062256,
+        "b_mean": -4.370610396067302,
+        "colourfulness": 14.065358576078355
+      },
+      "keyframe": "keyframes/b0a9386de354-0146.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest",
+          "archive"
+        ],
+        "description": "A young man in a dark hoodie stands isolated in a crowded urban street with blurred pedestrians and overcast lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0147",
+      "start": 338.967,
+      "end": 341.167,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 46.40074793497721,
+        "L_std": 25.129716237386067,
+        "chroma": 0.7888988057772318,
+        "a_mean": -0.7451667189598083,
+        "b_mean": -0.25894372661908466,
+        "colourfulness": 0.9651446903598537
+      },
+      "keyframe": "keyframes/b0a9386de354-0147.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "archive",
+        "sources": [
+          "archive",
+          "youtube",
+          "pinterest"
+        ],
+        "description": "A black and white image of a solitary figure sitting on a bed in a dark room, appearing distressed or contemplative in a classic film aesthetic.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0148",
+      "start": 341.167,
+      "end": 343.567,
+      "dur": 2.4,
+      "colour": {
+        "L_mean": 67.44164276123047,
+        "L_std": 18.23132260640462,
+        "chroma": 14.8555269241333,
+        "a_mean": -2.199176073074341,
+        "b_mean": 13.592325528462728,
+        "colourfulness": 26.60052067451325
+      },
+      "keyframe": "keyframes/b0a9386de354-0148.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "hyperframes",
+          "pinterest"
+        ],
+        "description": "A man in a beige jacket walks through a geometric interior space with white text overlay reading 'so does the confidence.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0149",
+      "start": 343.567,
+      "end": 351.267,
+      "dur": 7.7,
+      "colour": {
+        "L_mean": 54.91077470779419,
+        "L_std": 26.8131898244222,
+        "chroma": 3.9017531077067056,
+        "a_mean": 2.6783185799916587,
+        "b_mean": 1.726949652036031,
+        "colourfulness": 34.668650396703065
+      },
+      "keyframe": "keyframes/b0a9386de354-0149.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "hyperframes",
+          "youtube"
+        ],
+        "description": "A screen capture of Google Docs with multiple browser tabs visible and partial text showing content about self-help books.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0150",
+      "start": 351.267,
+      "end": 352.267,
+      "dur": 1.0,
+      "colour": {
+        "L_mean": 5.793896993001302,
+        "L_std": 10.07587718963623,
+        "chroma": 2.0407663186391196,
+        "a_mean": 0.18575448294480643,
+        "b_mean": -1.0253761609395344,
+        "colourfulness": 14.2962105787037
+      },
+      "keyframe": "keyframes/b0a9386de354-0150.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "hyperframes",
+          "youtube"
+        ],
+        "description": "A screen capture showing multiple video thumbnails and web interface elements with various tabs and content visible.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0151",
+      "start": 352.267,
+      "end": 352.9,
+      "dur": 0.633,
+      "colour": {
+        "L_mean": 82.55809020996094,
+        "L_std": 31.758769353230793,
+        "chroma": 2.64715576171875,
+        "a_mean": 1.6000332832336426,
+        "b_mean": -1.465151349703471,
+        "colourfulness": 12.796326024921049
+      },
+      "keyframe": "keyframes/b0a9386de354-0151.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "youtube"
+        ],
+        "description": "A blog post titled 'Editing Tips' is displayed in a web browser, showing article text and metadata including author and publication date.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0152",
+      "start": 352.9,
+      "end": 356.133,
+      "dur": 3.233,
+      "colour": {
+        "L_mean": 21.55084482828776,
+        "L_std": 25.521729469299316,
+        "chroma": 3.2042186657587686,
+        "a_mean": -0.5442770148317019,
+        "b_mean": -0.8093495157857736,
+        "colourfulness": 19.995307453641
+      },
+      "keyframe": "keyframes/b0a9386de354-0152.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "A software interface displays a dropdown menu overlay above a video preview showing a man's face, with various menu options visible.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0153",
+      "start": 356.133,
+      "end": 357.833,
+      "dur": 1.7,
+      "colour": {
+        "L_mean": 30.43423843383789,
+        "L_std": 27.52490743001302,
+        "chroma": 14.52895704905192,
+        "a_mean": 6.888409535090129,
+        "b_mean": 7.337297519048055,
+        "colourfulness": 59.4973093328021
+      },
+      "keyframe": "keyframes/b0a9386de354-0153.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "Movie and TV show posters are organized in a grid layout within a media library interface, including titles like 'War of Fire' and 'Resident Evil.'",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0154",
+      "start": 357.833,
+      "end": 363.067,
+      "dur": 5.234,
+      "colour": {
+        "L_mean": 21.539282480875652,
+        "L_std": 26.95987892150879,
+        "chroma": 10.05068270365397,
+        "a_mean": 5.1436911424001055,
+        "b_mean": 4.824561198552449,
+        "colourfulness": 48.87011672396607
+      },
+      "keyframe": "keyframes/b0a9386de354-0154.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "Multiple rows of organized movie and show posters are displayed with a sidebar navigation panel, demonstrating grouped and color-coded content management.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0155",
+      "start": 363.067,
+      "end": 367.3,
+      "dur": 4.233,
+      "colour": {
+        "L_mean": 20.838231404622395,
+        "L_std": 20.542836507161457,
+        "chroma": 9.360349496205648,
+        "a_mean": 7.078116734822591,
+        "b_mean": 0.9052961077541113,
+        "colourfulness": 31.118950146761183
+      },
+      "keyframe": "keyframes/b0a9386de354-0155.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video",
+          "pixabay_video"
+        ],
+        "description": "An aesthetic desk setup with warm amber-toned ambient lighting shows a computer monitor displaying a media organization interface, with a person's arm visible at the edge.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0156",
+      "start": 367.3,
+      "end": 368.733,
+      "dur": 1.433,
+      "colour": {
+        "L_mean": 40.353921254475914,
+        "L_std": 35.391387939453125,
+        "chroma": 14.88927427927653,
+        "a_mean": 10.181962013244629,
+        "b_mean": 7.458151022593181,
+        "colourfulness": 61.24972815551089
+      },
+      "keyframe": "keyframes/b0a9386de354-0156.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "A split-screen comparison interface displays two people side by side with descriptive text panels below and a prominent yellow action button.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0157",
+      "start": 368.733,
+      "end": 368.9,
+      "dur": 0.167,
+      "colour": {
+        "L_mean": 20.109371185302734,
+        "L_std": 16.3488826751709,
+        "chroma": 15.629972139994303,
+        "a_mean": 11.684728304545084,
+        "b_mean": 7.540754795074463,
+        "colourfulness": 55.82244709014021
+      },
+      "keyframe": "keyframes/b0a9386de354-0157.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "A video player interface shows a person on the left side with a sidebar displaying thumbnail previews and user profile information on the right, under warm pinkish lighting.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0158",
+      "start": 368.9,
+      "end": 370.267,
+      "dur": 1.367,
+      "colour": {
+        "L_mean": 42.17043940226237,
+        "L_std": 35.495443979899086,
+        "chroma": 17.803863525390625,
+        "a_mean": 11.019580205281576,
+        "b_mean": 10.819469134012857,
+        "colourfulness": 65.35324401397258
+      },
+      "keyframe": "keyframes/b0a9386de354-0158.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "A multi-panel split-screen layout displays a video on the left and an open webpage or document on the right, enabling simultaneous comparison of multiple content sources.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0159",
+      "start": 370.267,
+      "end": 370.733,
+      "dur": 0.466,
+      "colour": {
+        "L_mean": 76.1517842610677,
+        "L_std": 34.583840688069664,
+        "chroma": 9.004326502482096,
+        "a_mean": 6.9129638671875,
+        "b_mean": 2.8468850453694663,
+        "colourfulness": 49.7337899134813
+      },
+      "keyframe": "keyframes/b0a9386de354-0159.jpg",
+      "tags": {
+        "kind": "still",
+        "source": "google_images",
+        "sources": [
+          "google_images",
+          "youtube"
+        ],
+        "description": "A Google Docs document interface displays formatted body text with typical word processor menus and toolbar elements visible at the top.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0160",
+      "start": 370.733,
+      "end": 373.067,
+      "dur": 2.334,
+      "colour": {
+        "L_mean": 40.853371938069664,
+        "L_std": 34.5245107014974,
+        "chroma": 16.828231811523438,
+        "a_mean": 10.704312324523926,
+        "b_mean": 9.71083927154541,
+        "colourfulness": 62.48586029870356
+      },
+      "keyframe": "keyframes/b0a9386de354-0160.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "A four-panel split-screen layout simultaneously displays video on the bottom left, documents and information panels on the right, demonstrating multi-source viewing capability.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0161",
+      "start": 373.067,
+      "end": 373.833,
+      "dur": 0.766,
+      "colour": {
+        "L_mean": 53.31973393758138,
+        "L_std": 30.934810002644856,
+        "chroma": 6.4786483446757,
+        "a_mean": 4.045722723007202,
+        "b_mean": 2.1857105493545532,
+        "colourfulness": 20.47050517745826
+      },
+      "keyframe": "keyframes/b0a9386de354-0161.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A YouTube video player displayed with multiple video windows arranged for side-by-side comparison and research referencing.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0162",
+      "start": 373.833,
+      "end": 374.433,
+      "dur": 0.6,
+      "colour": {
+        "L_mean": 35.481276194254555,
+        "L_std": 30.075297037760418,
+        "chroma": 6.25894037882487,
+        "a_mean": 3.2549901008605957,
+        "b_mean": 3.0090816815694175,
+        "colourfulness": 26.710651878562842
+      },
+      "keyframe": "keyframes/b0a9386de354-0162.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "YouTube video interface showing an interview subject with additional video clips arranged on the right for comparative viewing.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0163",
+      "start": 374.433,
+      "end": 376.167,
+      "dur": 1.734,
+      "colour": {
+        "L_mean": 66.61957550048828,
+        "L_std": 31.107141494750977,
+        "chroma": 10.16569995880127,
+        "a_mean": 4.075587272644043,
+        "b_mean": 7.792747974395752,
+        "colourfulness": 45.9652818531446
+      },
+      "keyframe": "keyframes/b0a9386de354-0163.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Multiple overlapping document windows and images demonstrating a research setup with academic articles and visual references for cross-referencing.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0164",
+      "start": 376.167,
+      "end": 380.467,
+      "dur": 4.3,
+      "colour": {
+        "L_mean": 82.04557037353516,
+        "L_std": 29.98520024617513,
+        "chroma": 1.5695233345031738,
+        "a_mean": 0.5897630453109741,
+        "b_mean": -1.0225752194722493,
+        "colourfulness": 13.617358827354956
+      },
+      "keyframe": "keyframes/b0a9386de354-0164.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A split-screen workspace showing a word processor with writing on the left and research article pages on the right for integrated workflow.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0165",
+      "start": 380.467,
+      "end": 385.3,
+      "dur": 4.833,
+      "colour": {
+        "L_mean": 74.17576853434245,
+        "L_std": 30.66974385579427,
+        "chroma": 5.0838567813237505,
+        "a_mean": 1.1997054368257523,
+        "b_mean": -2.6442033449808755,
+        "colourfulness": 23.644459273032663
+      },
+      "keyframe": "keyframes/b0a9386de354-0165.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Opera browser displaying a floating music player widget in dark interface on the left with a text document visible on the right.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0166",
+      "start": 385.3,
+      "end": 387.6,
+      "dur": 2.3,
+      "colour": {
+        "L_mean": 86.83224995930989,
+        "L_std": 26.838219324747723,
+        "chroma": 3.224889596303304,
+        "a_mean": 1.7926645676294963,
+        "b_mean": -0.5977307558059692,
+        "colourfulness": 22.697770747642007
+      },
+      "keyframe": "keyframes/b0a9386de354-0166.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A detached floating music player widget positioned on the left of the screen with document content visible on the right side.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0167",
+      "start": 387.6,
+      "end": 393.467,
+      "dur": 5.867,
+      "colour": {
+        "L_mean": 25.03900718688965,
+        "L_std": 19.432907104492188,
+        "chroma": 6.514746983846028,
+        "a_mean": 3.6361374060312905,
+        "b_mean": 1.0386064052581787,
+        "colourfulness": 25.123986848755816
+      },
+      "keyframe": "keyframes/b0a9386de354-0167.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A dark screen area with YouTube interface elements and video thumbnails visible in the sidebar showing video recommendations.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0168",
+      "start": 393.467,
+      "end": 394.4,
+      "dur": 0.933,
+      "colour": {
+        "L_mean": 36.07519276936849,
+        "L_std": 19.622459411621094,
+        "chroma": 20.035792032877605,
+        "a_mean": 1.5565133094787598,
+        "b_mean": 3.8007219632466636,
+        "colourfulness": 54.74075749447176
+      },
+      "keyframe": "keyframes/b0a9386de354-0168.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A professional sports photograph of a Portuguese footballer in the national team's burgundy jersey with a blurred stadium background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0169",
+      "start": 394.4,
+      "end": 395.633,
+      "dur": 1.233,
+      "colour": {
+        "L_mean": 47.81544621785482,
+        "L_std": 19.724963506062824,
+        "chroma": 34.22812271118164,
+        "a_mean": 9.157153447469076,
+        "b_mean": -29.26678212483724,
+        "colourfulness": 77.45275713689112
+      },
+      "keyframe": "keyframes/b0a9386de354-0169.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A person wearing a white shirt and dark baseball cap photographed against a clear blue sky in a video frame.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0170",
+      "start": 395.633,
+      "end": 397.833,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 48.65016301472982,
+        "L_std": 19.630009333292644,
+        "chroma": 6.083240667978923,
+        "a_mean": 3.7712400754292807,
+        "b_mean": 1.1912145217259724,
+        "colourfulness": 14.670624460291657
+      },
+      "keyframe": "keyframes/b0a9386de354-0170.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Indoor footage of people wearing white sports team clothing in what appears to be a locker room or training facility environment.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0171",
+      "start": 397.833,
+      "end": 398.933,
+      "dur": 1.1,
+      "colour": {
+        "L_mean": 43.229583740234375,
+        "L_std": 22.26252619425456,
+        "chroma": 12.912482579549154,
+        "a_mean": 6.083881537119548,
+        "b_mean": 1.1973148187001545,
+        "colourfulness": 46.90684854984922
+      },
+      "keyframe": "keyframes/b0a9386de354-0171.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A young male athlete in dark Adidas training jacket with coral stripes stands at a professional stadium venue with a UniCredit sponsor board visible behind him. Sharp focus on the player's profile in what appears to be match or training ground footage.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0172",
+      "start": 398.933,
+      "end": 400.1,
+      "dur": 1.167,
+      "colour": {
+        "L_mean": 69.14861297607422,
+        "L_std": 29.978033701578777,
+        "chroma": 18.22863833109538,
+        "a_mean": 8.389641125996908,
+        "b_mean": -12.679246266682943,
+        "colourfulness": 39.88408524020215
+      },
+      "keyframe": "keyframes/b0a9386de354-0172.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A person in formal dark blazer holds a large golden trophy on an award ceremony stage, with multiple sponsor logos (MARCA, ESM, MELIA) displayed on the backdrop behind them. Professional event photography with staged lighting.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0173",
+      "start": 400.1,
+      "end": 401.333,
+      "dur": 1.233,
+      "colour": {
+        "L_mean": 72.31165822347005,
+        "L_std": 16.47322718302409,
+        "chroma": 30.444828669230144,
+        "a_mean": -13.73825454711914,
+        "b_mean": 22.59101168314616,
+        "colourfulness": 62.546234568190975
+      },
+      "keyframe": "keyframes/b0a9386de354-0173.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Football players in neon green training kits practice on a field with sponsor boards visible including AGRES and CMN branding. Natural daylight training ground footage captured during a session.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0174",
+      "start": 401.333,
+      "end": 401.967,
+      "dur": 0.634,
+      "colour": {
+        "L_mean": 28.002743403116863,
+        "L_std": 19.10736592610677,
+        "chroma": 27.52892239888509,
+        "a_mean": 9.921573956807455,
+        "b_mean": 14.668660481770834,
+        "colourfulness": 63.66617998830251
+      },
+      "keyframe": "keyframes/b0a9386de354-0174.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Four men in formal attire stand at a podium on a stage with golden ambient lighting and blurred background, appearing to be at a FIFA awards ceremony. Professional broadcast-quality event footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0175",
+      "start": 401.967,
+      "end": 404.2,
+      "dur": 2.233,
+      "colour": {
+        "L_mean": 40.106187184651695,
+        "L_std": 29.27299626668294,
+        "chroma": 16.504693349202473,
+        "a_mean": 5.691699981689453,
+        "b_mean": 12.54426097869873,
+        "colourfulness": 44.67454873803055
+      },
+      "keyframe": "keyframes/b0a9386de354-0175.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Close-up of hands holding a large golden World Cup trophy against a blurred background. Softer video quality suggests older or archival sports footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0176",
+      "start": 404.2,
+      "end": 405.9,
+      "dur": 1.7,
+      "colour": {
+        "L_mean": 51.73150634765625,
+        "L_std": 25.912012100219727,
+        "chroma": 14.702573776245117,
+        "a_mean": 5.4382907549540205,
+        "b_mean": 10.138364791870117,
+        "colourfulness": 41.3115761937041
+      },
+      "keyframe": "keyframes/b0a9386de354-0176.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A smiling person wearing a white headband and red-white striped athletic uniform appears in a crowd setting. The video quality and lighting indicate this is captured from older broadcast or match footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0177",
+      "start": 405.9,
+      "end": 406.867,
+      "dur": 0.967,
+      "colour": {
+        "L_mean": 35.76954142252604,
+        "L_std": 25.5135072072347,
+        "chroma": 15.566180864969889,
+        "a_mean": 2.05196479956309,
+        "b_mean": -12.8938570022583,
+        "colourfulness": 37.82661647069461
+      },
+      "keyframe": "keyframes/b0a9386de354-0177.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A football player in white Real Madrid kit with visible sponsor logo celebrates with raised arm and intense expression during a professional match. High-quality broadcast match footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0178",
+      "start": 406.867,
+      "end": 407.567,
+      "dur": 0.7,
+      "colour": {
+        "L_mean": 55.74210993448893,
+        "L_std": 19.313422520955402,
+        "chroma": 44.30608240763346,
+        "a_mean": -2.8578375577926636,
+        "b_mean": 12.393481731414795,
+        "colourfulness": 88.16301411129952
+      },
+      "keyframe": "keyframes/b0a9386de354-0178.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A footballer in white kit dribbles the ball past an opponent in dark kit during a professional match with STIC sponsor board visible on the sideline. Standard broadcast-quality game footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0179",
+      "start": 407.567,
+      "end": 408.567,
+      "dur": 1.0,
+      "colour": {
+        "L_mean": 51.27384821573893,
+        "L_std": 29.625579198201496,
+        "chroma": 32.8876838684082,
+        "a_mean": -7.675536632537842,
+        "b_mean": 14.761651992797852,
+        "colourfulness": 71.28799444067882
+      },
+      "keyframe": "keyframes/b0a9386de354-0179.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Two players in contrasting kits (white and yellow-black striped) contest for the ball during a professional match with a crowd visible in the background. Typical broadcast-quality football match footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0180",
+      "start": 408.567,
+      "end": 410.833,
+      "dur": 2.266,
+      "colour": {
+        "L_mean": 57.240526835123696,
+        "L_std": 18.797078450520832,
+        "chroma": 11.258957862854004,
+        "a_mean": 9.657890637715658,
+        "b_mean": 4.3649396896362305,
+        "colourfulness": 43.748250796445184
+      },
+      "keyframe": "keyframes/b0a9386de354-0180.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A person in dark red basketball uniform tosses a basketball in an indoor court setting with red gym equipment visible in the background. Indoor sports training or practice footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0181",
+      "start": 410.833,
+      "end": 412.7,
+      "dur": 1.867,
+      "colour": {
+        "L_mean": 43.739691416422524,
+        "L_std": 18.666195551554363,
+        "chroma": 13.346521377563477,
+        "a_mean": 1.205405463774999,
+        "b_mean": 4.974724133809407,
+        "colourfulness": 40.44437393286405
+      },
+      "keyframe": "keyframes/b0a9386de354-0181.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Young soccer players in maroon uniforms and yellow safety vests training on a field near a goal, with text overlay 'that kind of' displayed. Bright daylight sports footage with clean production quality.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0182",
+      "start": 412.7,
+      "end": 415.733,
+      "dur": 3.033,
+      "colour": {
+        "L_mean": 26.016074498494465,
+        "L_std": 20.676822026570637,
+        "chroma": 10.211773554484049,
+        "a_mean": 5.813132286071777,
+        "b_mean": -4.111517270406087,
+        "colourfulness": 28.209699490268434
+      },
+      "keyframe": "keyframes/b0a9386de354-0182.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up portrait of a professional basketball player wearing a white and red striped NBA jersey. Professional broadcast-quality sports footage with intimate framing.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0183",
+      "start": 415.733,
+      "end": 418.4,
+      "dur": 2.667,
+      "colour": {
+        "L_mean": 48.801265716552734,
+        "L_std": 17.553776423136394,
+        "chroma": 43.7676887512207,
+        "a_mean": 3.7033278942108154,
+        "b_mean": -1.5996635754903157,
+        "colourfulness": 84.04746769281722
+      },
+      "keyframe": "keyframes/b0a9386de354-0183.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Young soccer player dribbling the ball during a match with sponsor branding 'clinch.co.uk' visible at the bottom of frame. Clean youth football footage with scoreboard visible.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0184",
+      "start": 418.4,
+      "end": 419.3,
+      "dur": 0.9,
+      "colour": {
+        "L_mean": 44.91918055216471,
+        "L_std": 13.338652610778809,
+        "chroma": 33.73340861002604,
+        "a_mean": -22.113882064819336,
+        "b_mean": 21.820000330607098,
+        "colourfulness": 44.331307656234316
+      },
+      "keyframe": "keyframes/b0a9386de354-0184.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Two young soccer players competing for the ball during a match, one in maroon and one in white jersey. Dynamic action footage on grass pitch.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0185",
+      "start": 419.3,
+      "end": 427.6,
+      "dur": 8.3,
+      "colour": {
+        "L_mean": 48.27297846476237,
+        "L_std": 24.146488189697266,
+        "chroma": 25.637818654378254,
+        "a_mean": 9.323215166727701,
+        "b_mean": 20.124125798543293,
+        "colourfulness": 51.19001879519931
+      },
+      "keyframe": "keyframes/b0a9386de354-0185.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Athletic male in maroon and white team uniform holding a bat in an indoor locker room or training facility. Documentary-style behind-the-scenes footage.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0186",
+      "start": 427.6,
+      "end": 429.7,
+      "dur": 2.1,
+      "colour": {
+        "L_mean": 63.319358825683594,
+        "L_std": 35.82539749145508,
+        "chroma": 4.654207070668538,
+        "a_mean": 1.1899834473927815,
+        "b_mean": 4.273115793863933,
+        "colourfulness": 12.929361449614603
+      },
+      "keyframe": "keyframes/b0a9386de354-0186.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Silhouetted figures standing in a line against a bright backlit background. Dramatic, high-contrast artistic composition with intentional creative lighting.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0187",
+      "start": 429.7,
+      "end": 431.9,
+      "dur": 2.2,
+      "colour": {
+        "L_mean": 43.681640625,
+        "L_std": 18.672056833902996,
+        "chroma": 13.321943918863932,
+        "a_mean": 3.8029523690541587,
+        "b_mean": 11.988412221272787,
+        "colourfulness": 37.38479947906521
+      },
+      "keyframe": "keyframes/b0a9386de354-0187.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "A solitary figure in dark clothing walking toward a burning structure on a beach at golden hour sunset. Cinematic and dramatically composed shot.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0188",
+      "start": 431.9,
+      "end": 435.7,
+      "dur": 3.8,
+      "colour": {
+        "L_mean": 36.09280141194662,
+        "L_std": 18.366610844930012,
+        "chroma": 12.414057095845541,
+        "a_mean": 6.866663138071696,
+        "b_mean": 6.838970025380452,
+        "colourfulness": 43.88256627302044
+      },
+      "keyframe": "keyframes/b0a9386de354-0188.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Crowd of people at an outdoor event or gathering with selective focus on individuals in the foreground and blurred background. Natural daylight with depth of field.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0189",
+      "start": 435.7,
+      "end": 436.833,
+      "dur": 1.133,
+      "colour": {
+        "L_mean": 44.962562561035156,
+        "L_std": 17.31841468811035,
+        "chroma": 8.220298290252686,
+        "a_mean": 0.2776235491037369,
+        "b_mean": 4.775360186894734,
+        "colourfulness": 21.780255914314598
+      },
+      "keyframe": "keyframes/b0a9386de354-0189.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Profile shot of a man wearing glasses in light-colored clothing, with an out-of-focus ocean landscape blurred in the background. Documentary or interview-style framing.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0190",
+      "start": 436.833,
+      "end": 438.433,
+      "dur": 1.6,
+      "colour": {
+        "L_mean": 55.295064290364586,
+        "L_std": 10.753415743509928,
+        "chroma": 7.062967777252197,
+        "a_mean": -3.9901655515034995,
+        "b_mean": 2.755960464477539,
+        "colourfulness": 17.239423506050585
+      },
+      "keyframe": "keyframes/b0a9386de354-0190.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Point-of-view or over-shoulder shot of a beach and ocean, with a figure's shoulder in soft focus in the foreground. Meditative scenic composition.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0191",
+      "start": 438.433,
+      "end": 442.967,
+      "dur": 4.534,
+      "colour": {
+        "L_mean": 39.8918342590332,
+        "L_std": 25.267574946085613,
+        "chroma": 14.730276425679525,
+        "a_mean": 12.080879847208658,
+        "b_mean": -0.8778454214334488,
+        "colourfulness": 27.58930106989695
+      },
+      "keyframe": "keyframes/b0a9386de354-0191.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Low-quality documentary-style close-up of a person's face with warm yellowish lighting, appearing perspired.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0192",
+      "start": 442.967,
+      "end": 444.167,
+      "dur": 1.2,
+      "colour": {
+        "L_mean": 36.99272664388021,
+        "L_std": 4.195724606513977,
+        "chroma": 70.99955749511719,
+        "a_mean": 60.65074030558268,
+        "b_mean": 36.865342458089195,
+        "colourfulness": 68.24486565815504
+      },
+      "keyframe": "keyframes/b0a9386de354-0192.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Red background with centered white text overlay reading 'it's not aggression', a motion graphic text card.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0193",
+      "start": 444.167,
+      "end": 447.167,
+      "dur": 3.0,
+      "colour": {
+        "L_mean": 29.470240275065105,
+        "L_std": 18.67033322652181,
+        "chroma": 11.435276985168457,
+        "a_mean": 6.048895359039307,
+        "b_mean": 6.227047602335612,
+        "colourfulness": 34.65507300209103
+      },
+      "keyframe": "keyframes/b0a9386de354-0193.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Close-up of a man's face showing intense emotion with a blurred stadium crowd visible in the background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0194",
+      "start": 447.167,
+      "end": 449.8,
+      "dur": 2.633,
+      "colour": {
+        "L_mean": 48.637672424316406,
+        "L_std": 28.513692220052082,
+        "chroma": 8.273860295613607,
+        "a_mean": -6.630790710449219,
+        "b_mean": 3.231581211090088,
+        "colourfulness": 15.215280994938993
+      },
+      "keyframe": "keyframes/b0a9386de354-0194.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Man in teal shirt filmed indoors with cool teal color grading and text overlay reading 'the lesson'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0195",
+      "start": 449.8,
+      "end": 451.8,
+      "dur": 2.0,
+      "colour": {
+        "L_mean": 5.816520690917969,
+        "L_std": 7.735203266143799,
+        "chroma": 1.738606572151184,
+        "a_mean": -0.6175961891810099,
+        "b_mean": -0.8007602691650391,
+        "colourfulness": 7.119281078425048
+      },
+      "keyframe": "keyframes/b0a9386de354-0195.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pinterest"
+        ],
+        "description": "Man's face filmed in dark, low-key cinematic lighting in what appears to be an indoor vehicle or enclosed space.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0196",
+      "start": 451.8,
+      "end": 453.967,
+      "dur": 2.167,
+      "colour": {
+        "L_mean": 21.929059982299805,
+        "L_std": 11.91036287943522,
+        "chroma": 13.640910784403482,
+        "a_mean": -10.059950510660807,
+        "b_mean": 7.666945139567058,
+        "colourfulness": 25.64934198250027
+      },
+      "keyframe": "keyframes/b0a9386de354-0196.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Indoor scene with two people under theatrical lighting, featuring a woman on the left and man in center with a green object visible.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0197",
+      "start": 453.967,
+      "end": 457.167,
+      "dur": 3.2,
+      "colour": {
+        "L_mean": 30.763420740763348,
+        "L_std": 19.087622324625652,
+        "chroma": 15.979865074157715,
+        "a_mean": 6.976810137430827,
+        "b_mean": 1.6868240435918171,
+        "colourfulness": 41.118001084721804
+      },
+      "keyframe": "keyframes/b0a9386de354-0197.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Split-screen composite showing a soccer player in light blue jersey in a stadium on the left and another figure indoors on the right.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0198",
+      "start": 457.167,
+      "end": 463.2,
+      "dur": 6.033,
+      "colour": {
+        "L_mean": 30.058814366658527,
+        "L_std": 26.89560381571452,
+        "chroma": 13.834369977315268,
+        "a_mean": 9.165633837381998,
+        "b_mean": 0.8018675843874613,
+        "colourfulness": 37.087800259285565
+      },
+      "keyframe": "keyframes/b0a9386de354-0198.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "archive"
+        ],
+        "description": "Split-screen sports broadcast footage showing a basketball player in a Bulls uniform on the left and another athlete on the right.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0199",
+      "start": 463.2,
+      "end": 464.667,
+      "dur": 1.467,
+      "colour": {
+        "L_mean": 46.737230936686196,
+        "L_std": 20.111819903055828,
+        "chroma": 21.978257815043133,
+        "a_mean": 3.659580707550049,
+        "b_mean": 10.865208069483439,
+        "colourfulness": 67.06608055515052
+      },
+      "keyframe": "keyframes/b0a9386de354-0199.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Split-screen composite with a person in an indoor setting on the left and a person in a green shirt outdoors on the right.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0200",
+      "start": 464.667,
+      "end": 465.433,
+      "dur": 0.766,
+      "colour": {
+        "L_mean": 41.142738342285156,
+        "L_std": 22.18789800008138,
+        "chroma": 17.850443522135418,
+        "a_mean": 8.567415237426758,
+        "b_mean": 10.30524762471517,
+        "colourfulness": 37.30524660587783
+      },
+      "keyframe": "keyframes/b0a9386de354-0200.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images",
+          "pinterest"
+        ],
+        "description": "Man outdoors wearing a colorful red and blue patterned shirt and chain necklace, with partial text 'ARCELO' visible on a building in the background.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0201",
+      "start": 465.433,
+      "end": 468.1,
+      "dur": 2.667,
+      "colour": {
+        "L_mean": 43.2327766418457,
+        "L_std": 17.62730662027995,
+        "chroma": 13.500722567240397,
+        "a_mean": 0.9665436744689941,
+        "b_mean": 11.182912508646647,
+        "colourfulness": 24.599907250781254
+      },
+      "keyframe": "keyframes/b0a9386de354-0201.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "archive",
+        "sources": [
+          "archive",
+          "youtube"
+        ],
+        "description": "Vintage archival footage showing Barcelona signage with dark, low-quality video and muted colors.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0202",
+      "start": 468.1,
+      "end": 470.367,
+      "dur": 2.267,
+      "colour": {
+        "L_mean": 44.12564341227213,
+        "L_std": 12.634636561075846,
+        "chroma": 17.830408732096355,
+        "a_mean": 3.883188327153524,
+        "b_mean": 17.115177154541016,
+        "colourfulness": 25.520529027806372
+      },
+      "keyframe": "keyframes/b0a9386de354-0202.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in tan shirt speaking into a microphone in an indoor interview or podcast setting with aged video quality.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0203",
+      "start": 470.367,
+      "end": 471.967,
+      "dur": 1.6,
+      "colour": {
+        "L_mean": 47.16149775187174,
+        "L_std": 26.095083872477215,
+        "chroma": 19.23672358194987,
+        "a_mean": 11.985574722290039,
+        "b_mean": 8.83801555633545,
+        "colourfulness": 48.80019902854307
+      },
+      "keyframe": "keyframes/b0a9386de354-0203.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Basketball player in purple and yellow jersey playing in an arena with blurred crowd visible in background.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0204",
+      "start": 471.967,
+      "end": 474.5,
+      "dur": 2.533,
+      "colour": {
+        "L_mean": 45.8012580871582,
+        "L_std": 32.445786794026695,
+        "chroma": 11.573033014933268,
+        "a_mean": 2.781784931818644,
+        "b_mean": 8.010579427083334,
+        "colourfulness": 41.46239675075333
+      },
+      "keyframe": "keyframes/b0a9386de354-0204.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "google_images"
+        ],
+        "description": "Chicago Bulls text visible on a dark background, appearing to be from a jersey or merchandise.",
+        "text_on_screen": true,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0205",
+      "start": 474.5,
+      "end": 477.8,
+      "dur": 3.3,
+      "colour": {
+        "L_mean": 45.71259562174479,
+        "L_std": 23.479773203531902,
+        "chroma": 12.685288111368815,
+        "a_mean": 6.27236795425415,
+        "b_mean": 3.4203468958536782,
+        "colourfulness": 37.60768300088457
+      },
+      "keyframe": "keyframes/b0a9386de354-0205.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube"
+        ],
+        "description": "Man in black Nike jacket in a modern hallway interior with white text overlay reading 'you never gonna be number 1 like me'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0206",
+      "start": 477.8,
+      "end": 480.667,
+      "dur": 2.867,
+      "colour": {
+        "L_mean": 33.65310033162435,
+        "L_std": 19.710866928100586,
+        "chroma": 10.661192576090494,
+        "a_mean": 4.254884243011475,
+        "b_mean": 9.203200658162435,
+        "colourfulness": 24.465632401746774
+      },
+      "keyframe": "keyframes/b0a9386de354-0206.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "pexels_video"
+        ],
+        "description": "Close-up of hands playing chess on a board with cinematic lighting and shallow depth of field.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0207",
+      "start": 480.667,
+      "end": 488.867,
+      "dur": 8.2,
+      "colour": {
+        "L_mean": 31.368518193562824,
+        "L_std": 20.64748700459798,
+        "chroma": 3.727757136027018,
+        "a_mean": -0.5316827992598215,
+        "b_mean": 0.4149440824985504,
+        "colourfulness": 11.876382164396476
+      },
+      "keyframe": "keyframes/b0a9386de354-0207.jpg",
+      "tags": {
+        "kind": "footage",
+        "source": "youtube",
+        "sources": [
+          "youtube",
+          "ai_video"
+        ],
+        "description": "Industrial interior space with dramatic backlighting creating a silhouetted figure and moody atmosphere.",
+        "text_on_screen": false,
+        "overlay_extra": false,
+        "overlay": false,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    },
+    {
+      "id": "b0a9386de354-0208",
+      "start": 488.867,
+      "end": 500.833,
+      "dur": 11.966,
+      "colour": {
+        "L_mean": 25.00914255777995,
+        "L_std": 22.324490229288738,
+        "chroma": 15.274470488230387,
+        "a_mean": 13.947350025177002,
+        "b_mean": -0.08885987599690755,
+        "colourfulness": 26.302457944987292
+      },
+      "keyframe": "keyframes/b0a9386de354-0208.jpg",
+      "tags": {
+        "kind": "graphic",
+        "source": "hyperframes",
+        "sources": [
+          "hyperframes"
+        ],
+        "description": "Checkered pattern collage with multiple black and white and color images in a grid layout, with white text overlay reading 'just the willingness to let people watch you try'.",
+        "text_on_screen": true,
+        "overlay_extra": true,
+        "overlay": true,
+        "panels": 1,
+        "clips_in_shot": 1
+      }
+    }
+  ],
+  "calibration": {
+    "dino": {
+      "lo": 0.14543889462947845,
+      "hi": 0.6451837420463562
+    },
+    "siglip_text": {
+      "lo": 0.07080833613872528,
+      "hi": 0.1137131005525589
+    }
+  },
+  "tags_status": "done",
+  "complete": false
+}

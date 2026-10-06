@@ -34,6 +34,9 @@ import {
 } from "@/components/section";
 import { useEditor } from "@/editor/use-editor";
 import { DEFAULT_EXPORT_OPTIONS } from "@/export/defaults";
+import { exportBlock } from "@/esta/opencut/export-guard";
+import { type ExportPreset, presetOptions } from "@/esta/opencut/export-presets";
+import { ExportPresetSection } from "@/esta/opencut/export-preset-section";
 
 function isExportFormat(value: string): value is ExportFormat {
 	return EXPORT_FORMAT_VALUES.some((formatValue) => formatValue === value);
@@ -110,6 +113,7 @@ function ExportPopover({
 	const [shouldIncludeAudio, setShouldIncludeAudio] = useState<boolean>(
 		DEFAULT_EXPORT_OPTIONS.includeAudio ?? true,
 	);
+	const [preset, setPreset] = useState<ExportPreset | null>(null);
 
 	const handleExport = async () => {
 		if (!activeProject) return;
@@ -120,6 +124,7 @@ function ExportPopover({
 				quality,
 				fps: activeProject.settings.fps,
 				includeAudio: shouldIncludeAudio,
+				...(preset && presetOptions(preset)),
 			},
 		});
 
@@ -131,8 +136,8 @@ function ExportPopover({
 		if (result.success && result.buffer) {
 			downloadBuffer({
 				buffer: result.buffer,
-				filename: `${activeProject.metadata.name}${getExportFileExtension({ format })}`,
-				mimeType: getExportMimeType({ format }),
+				filename: `${activeProject.metadata.name}${preset ? `-${preset.id}` : ""}${getExportFileExtension({ format: preset?.format ?? format })}`,
+				mimeType: getExportMimeType({ format: preset?.format ?? format }),
 			});
 
 			editor.project.clearExportState();
@@ -143,6 +148,19 @@ function ExportPopover({
 	const handleCancel = () => {
 		editor.project.cancelExport();
 	};
+
+	const blocked = exportBlock(activeProject.metadata.id);
+	if (blocked) {
+		return (
+			<PopoverContent className="bg-background mr-4 flex w-80 flex-col gap-2 p-3 text-sm">
+				<h3 className="font-medium">Export blocked</h3>
+				<p className="text-muted-foreground text-xs">{blocked.reason}</p>
+				<a href={`/esta/${blocked.session}`} className="text-primary text-xs underline">
+					Open the session workspace
+				</a>
+			</PopoverContent>
+		);
+	}
 
 	return (
 		<PopoverContent className="bg-background mr-4 flex w-80 flex-col p-0">
@@ -163,6 +181,13 @@ function ExportPopover({
 						{!isExporting && (
 							<>
 								<div className="flex flex-col">
+									<ExportPresetSection
+										canvas={activeProject.settings.canvasSize}
+										preset={preset}
+										onChange={setPreset}
+									/>
+									{!preset && (
+									<>
 									<Section
 										collapsible
 										defaultOpen={false}
@@ -230,6 +255,9 @@ function ExportPopover({
 											</RadioGroup>
 										</SectionContent>
 									</Section>
+
+									</>
+									)}
 
 									<Section collapsible defaultOpen={false}>
 										<SectionHeader>

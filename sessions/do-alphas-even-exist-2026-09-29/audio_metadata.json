@@ -1,0 +1,16 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-16",
+  "audio_file": "sessions/do-alphas-even-exist-2026-09-16/audio.wav",
+  "method": "indextts2",
+  "duration_seconds": 843.3692083333333,
+  "duration_minutes": 14.06,
+  "channels": 1,
+  "sample_rate": 48000,
+  "file_size_mb": 77.21283149719238,
+  "script_word_count": 1650,
+  "voice_sample": "voice_samples/voice_do-alphas-even-exist_2026-09-17.wav",
+  "takes_recorded": null,
+  "line_count": 143,
+  "guide_lines": [],
+  "timestamp": "2026-09-18T05:16:39.826086"
+}

@@ -43,6 +43,8 @@ from tools.kaggle_lane import (  # noqa: E402
     kernel_status, notebook_code, push_kernel, slugify, use_utf8_stdout,
     wait_dataset_ready, write_kernel_dir,
 )
+from tools.look import refs as look_refs  # noqa: E402
+from tools.genvideo.run import DEFAULT_MODEL as VIDEO_DEFAULT, MODELS as VIDEO_MODELS, WAN_LOADER  # noqa: E402
 
 use_utf8_stdout()
 
@@ -71,7 +73,21 @@ MODELS = {
         "guidance": 7.0,
         "notes": "Plain SDXL. Use for non-anime / semi-realistic character styles.",
     },
+    "realistic": {
+        "repo": "SG161222/RealVisXL_V5.0",
+        "pipeline": "StableDiffusionXLPipeline",
+        "dtype": "float16",
+        "variant": "",
+        "width": 896,
+        "height": 1152,
+        "steps": 30,
+        "guidance": 5.0,
+        "notes": "Photoreal SDXL finetune for AI-human characters (SPEC.md Part 4). Loads in fp16 like the others; "
+                 "its LoRA trains on the same SDXL script.",
+    },
 }
+# requirements.look -> the model a new character is designed and trained on (SPEC.md Part 4).
+LOOK_MODEL = {"realistic": "realistic", "anime": "animagine", "cartoon": "sdxl"}
 DEFAULT_MODEL = "animagine"
 
 # Anime SDXL finetunes are tag-trained, so quality tags carry real weight.
@@ -163,9 +179,11 @@ MODEL = json.loads(__MODEL__)
 NEG   = __NEG__
 OUT   = "/kaggle/working"
 
+IPA_KW, REF_ERROR = {}, ""
+
 def finish(results, errors):
     with open(os.path.join(OUT, "results.json"), "w") as fh:
-        json.dump({"results": results, "errors": errors}, fh)
+        json.dump({"results": results, "errors": errors, **({"ref_error": REF_ERROR} if REF_ERROR else {})}, fh)
 
 if not torch.cuda.is_available():
     finish({}, {"_": "no GPU on this kernel"})
@@ -207,7 +225,7 @@ if LORA:
     pipe.load_lora_weights(hits[0])
     pipe.fuse_lora(lora_scale=MODEL.get("lora_scale", 0.9))
     print("[esta] loaded LoRA", hits[0], "scale", MODEL.get("lora_scale", 0.9), flush=True)
-
+__REFS__
 results, errors = {}, {}
 for job in JOBS:
     key = job["key"]
@@ -216,7 +234,7 @@ for job in JOBS:
         img = pipe(prompt=job["prompt"], negative_prompt=NEG,
                    width=MODEL["width"], height=MODEL["height"],
                    num_inference_steps=MODEL["steps"],
-                   guidance_scale=MODEL["guidance"], generator=gen).images[0]
+                   guidance_scale=MODEL["guidance"], generator=gen, **IPA_KW).images[0]
         name = key + ".png"
         img.save(os.path.join(OUT, name))
         results[key] = {"file": name, "seed": job["seed"], "label": job.get("label", "")}
@@ -265,10 +283,33 @@ def build_jobs_sheet(desc: str, base_seed: int, count: int) -> list[dict]:
     return jobs
 
 
+def char_notebook(jobs: list[dict], model: dict) -> str:
+    """The image notebook; the IP-Adapter code is only there when the model carries look refs (SPEC.md Part 5)."""
+    refs = ""
+    if model.get("style_refs"):
+        refs = 'REFS, REF_SCALE = MODEL["style_refs"], MODEL["ref_scale"]\n' + look_refs.NOTEBOOK_IPA
+    return notebook_code(NOTEBOOK, env=ENV_PREAMBLE, jobs=repr(json.dumps(jobs)),
+                         model=repr(json.dumps(model)), neg=repr(NEGATIVE), refs=refs)
+
+
+def attach_refs(name: str, model: dict, session: str, purpose: str, style_refs: str, strength: float) -> list[str]:
+    """Put the look refs for this run on the model. --style-refs become the character's own, kept with it."""
+    if style_refs:
+        dest = char_dir(name) / "style_refs"
+        dest.mkdir(parents=True, exist_ok=True)
+        for f in sorted(Path(style_refs).iterdir()):
+            if f.suffix.lower() in look_refs.IMAGE_EXT:
+                shutil.copy(f, dest / f.name)
+    paths = look_refs.resolve(Path(session) if session else None, purpose, name) if strength > 0 else []
+    if paths:
+        model["style_refs"] = look_refs.payload(paths)
+        model["ref_scale"] = look_refs.scales(strength)
+    return [p.name for p in paths]
+
+
 def push_job(name: str, jobs: list[dict], model: dict, mode: str,
              accelerator: str, dry_run: bool) -> dict:
-    code = notebook_code(NOTEBOOK, env=ENV_PREAMBLE, jobs=repr(json.dumps(jobs)),
-                         model=repr(json.dumps(model)), neg=repr(NEGATIVE))
+    code = char_notebook(jobs, model)
     slug = slugify(name, mode, prefix="esta-char-")
     kernel_id = f"{kaggle_username()}/{slug}"
     build_dir = char_dir(name) / "_kernel"
@@ -290,13 +331,20 @@ def push_job(name: str, jobs: list[dict], model: dict, mode: str,
 # ── commands ──────────────────────────────────────────────────────────────────
 
 def cmd_explore(args: argparse.Namespace) -> None:
+    if args.look:
+        args.model = LOOK_MODEL[args.look]
+    # The look is folded into the stored desc so the sheet, the LoRA captions, every render and genvideo's
+    # text fallback all draw the character in it, not just the session's scenes.
+    desc = ", ".join(x for x in (args.desc.strip().rstrip(","), args.look_style.strip()) if x)
     model = dict(MODELS[args.model])
-    jobs = build_jobs_explore(args.desc, args.count, args.seed)
+    refs = attach_refs(args.name, model, args.session, "design", args.style_refs, args.ref_strength)
+    jobs = build_jobs_explore(desc, args.count, args.seed)
     res = push_job(args.name, jobs, model, "explore", args.accelerator, args.dry_run)
+    res["refs"] = refs
     if not args.dry_run and res["ok"]:
-        save_char(args.name, {"name": args.name, "desc": args.desc, "model": args.model,
+        save_char(args.name, {"name": args.name, "desc": desc, "model": args.model,
                               "stage": "explore", "kernel": res["kernel"],
-                              "base_seed": args.seed, "chosen_seed": None})
+                              "base_seed": args.seed, "chosen_seed": None, "session": args.session})
     print(json.dumps(res, ensure_ascii=False))
 
 
@@ -310,6 +358,10 @@ def cmd_pick(args: argparse.Namespace) -> None:
     data["chosen_seed"] = results[args.variation]["seed"]
     data["chosen_variation"] = args.variation
     data["stage"] = "picked"
+    # The picked design is the fallback seed for a character with no trained LoRA (genvideo).
+    picked = char_dir(args.name) / "explore" / (results[args.variation].get("file") or f"{args.variation}.png")
+    if picked.exists():
+        shutil.copy(picked, char_dir(args.name) / "ref.png")
     save_char(args.name, data)
     print(json.dumps({"ok": True, "name": args.name, "variation": args.variation,
                       "seed": data["chosen_seed"]}, ensure_ascii=False))
@@ -321,8 +373,11 @@ def cmd_sheet(args: argparse.Namespace) -> None:
     if seed is None:
         raise ValueError(f"no variation picked yet — run `pick --name {args.name} --variation vNN`")
     model = dict(MODELS[data.get("model", DEFAULT_MODEL)])
+    refs = attach_refs(args.name, model, args.session or data.get("session", ""), "design", args.style_refs,
+                       args.ref_strength)
     jobs = build_jobs_sheet(data["desc"], seed, args.count)
     res = push_job(args.name, jobs, model, "sheet", args.accelerator, args.dry_run)
+    res["refs"] = refs
     if not args.dry_run and res["ok"]:
         data["stage"] = "sheet"
         data["sheet_kernel"] = res["kernel"]
@@ -541,6 +596,9 @@ def cmd_render(args: argparse.Namespace) -> None:
             f"no trained LoRA under {char_dir(args.name)} — run `train` first")
     trigger = data.get("trigger") or f"esta{slug.replace('-', '')}"
 
+    keyed = session_scenes(args.name, Path(args.session)) if args.session else []
+    if args.session and not keyed:
+        raise ValueError(f"no shot in {args.session}/plan.json names {args.name!r} in visual.generate.character")
     scenes = ([(f"s{i:02d}", p) for i, p in enumerate(
         [s.strip() for s in args.prompts.split("|") if s.strip()])]
         if args.prompts else TEST_SCENES)
@@ -552,16 +610,23 @@ def cmd_render(args: argparse.Namespace) -> None:
     lora_slug = slugify(args.name, "loradata", prefix="esta-char-")
     model["lora_slug"] = lora_slug
     model["lora_scale"] = args.lora_scale
+    refs = attach_refs(args.name, model, args.session or data.get("session", ""), "scene", args.style_refs,
+                       args.ref_strength)
 
     jobs = [{"key": f"r{i:02d}-{name}",
              "prompt": f"{QUALITY_TAGS}, {trigger}, {data['desc']}, {scene}",
              "seed": args.seed + i * 7919, "label": name}
             for i, (name, scene) in enumerate(scenes)]
+    if keyed:
+        # Keys are the file names genvideo looks for: <session>__s<n>.png.
+        jobs = [{"key": key, "prompt": f"{QUALITY_TAGS}, {trigger}, {data['desc']}, {scene}",
+                 "seed": args.seed + i * 7919, "label": key} for i, (key, scene) in enumerate(keyed)]
 
     if args.dry_run:
         print(json.dumps({"ok": True, "dry_run": True, "count": len(jobs),
                           "trigger": trigger, "lora": str(lora_path),
-                          "sample": jobs[0]["prompt"]}, ensure_ascii=False))
+                          "sample": jobs[0]["prompt"], "keys": [j["key"] for j in jobs], "refs": refs},
+                         ensure_ascii=False))
         return
 
     # Ship the LoRA as its own dataset — 90 MB is far past what a notebook holds.
@@ -575,8 +640,7 @@ def cmd_render(args: argparse.Namespace) -> None:
     if not wait_dataset_ready(lora_dataset):
         raise RuntimeError(f"lora dataset {lora_dataset} never became ready")
 
-    code = notebook_code(NOTEBOOK, env=ENV_PREAMBLE, jobs=repr(json.dumps(jobs)),
-                         model=repr(json.dumps(model)), neg=repr(NEGATIVE))
+    code = char_notebook(jobs, model)
     kernel_id = f"{kaggle_username()}/{slugify(args.name, 'render', prefix='esta-char-')}"
     build_dir = char_dir(args.name) / "_kernel_render"
     write_kernel_dir(build_dir, code, kernel_id,
@@ -591,14 +655,18 @@ def cmd_render(args: argparse.Namespace) -> None:
         data["render_kernel"] = kernel_id
         save_char(args.name, data)
     print(json.dumps({"ok": ok, "kernel": kernel_id, "count": len(jobs),
-                      "lora_dataset": lora_dataset, "trigger": trigger,
+                      "lora_dataset": lora_dataset, "trigger": trigger, "refs": refs,
                       "url": f"https://www.kaggle.com/code/{kernel_id}",
                       "log": log[-250:]}, ensure_ascii=False))
 
 
 ANIMATE_NOTEBOOK = '''# ESTA - animate character stills (image-to-video) on Kaggle's free GPU.
+import os
+# Reserved-but-fragmented memory failed large allocations on the T4 (genvideo bake-off): let segments grow.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 __ENV__
-subprocess.run([sys.executable, "-m", "pip", "install", "-q", "imageio[ffmpeg]"], check=False)
+subprocess.run([sys.executable, "-m", "pip", "install", "-q", "-U", "diffusers", "gguf", "imageio[ffmpeg]", "ftfy"],
+               check=False)
 
 import torch, diffusers, base64, io
 from diffusers.utils import export_to_video
@@ -616,27 +684,17 @@ def finish(results, errors):
 if not torch.cuda.is_available():
     finish({}, {"_": "no GPU"}); raise SystemExit
 print("[esta] GPU:", torch.cuda.get_device_name(0), flush=True)
-
-cls = getattr(diffusers, MODEL["pipeline"])
-pipe = cls.from_pretrained(MODEL["repo"], torch_dtype=getattr(torch, MODEL["dtype"]))
-# The video model is far larger than SDXL, so offload rather than keeping it
-# resident — same trade the genvideo lane makes on this GPU.
-pipe.enable_sequential_cpu_offload()
-try:
-    pipe.vae.enable_tiling(); pipe.vae.enable_slicing()
-except Exception:
-    pass
-pipe.set_progress_bar_config(disable=True)
+__WAN_LOADER__
+ENC = wan_embeds(MODEL["repo"], [j["prompt"] for j in JOBS] + ([NEG] if MODEL["guidance"] > 1 else []))
+NEG_EMB = ENC[-1] if MODEL["guidance"] > 1 else None
+pipe = load_wan(MODEL)
 
 results, errors = {}, {}
-for job in JOBS:
+for i, job in enumerate(JOBS):
     key = job["key"]
     try:
         img = Image.open(io.BytesIO(base64.b64decode(job["image_b64"]))).convert("RGB")
-        frames = pipe(image=img, prompt=job["prompt"], negative_prompt=NEG,
-                      num_frames=MODEL["frames"], width=MODEL["width"],
-                      height=MODEL["height"], num_inference_steps=MODEL["steps"],
-                      guidance_scale=MODEL["guidance"]).frames[0]
+        frames = wan_generate(pipe, MODEL, img, ENC[i], NEG_EMB, MODEL["frames"], MODEL["width"], MODEL["height"], i)
         path = os.path.join(OUT, key + ".mp4")
         export_to_video(frames, path, fps=MODEL["fps"])
         results[key] = {"file": key + ".mp4", "frames": len(frames), "fps": MODEL["fps"]}
@@ -644,24 +702,36 @@ for job in JOBS:
     except Exception as e:
         errors[key] = (str(e) or repr(e))[:250]
         traceback.print_exc(); print("ERR", key, errors[key], flush=True)
-    gc.collect(); torch.cuda.empty_cache()
     finish(results, errors)
 '''
 
-# Image-to-video model for character stills. Same LTX config the genvideo lane
-# proved on this hardware — see tools/genvideo/run.py's MODELS registry.
-ANIMATE_MODEL = {
-    "repo": "Lightricks/LTX-Video",
-    "pipeline": "LTXImageToVideoPipeline",
-    "dtype": "float16",
-    "frames": 121, "fps": 24, "width": 704, "height": 480,
-    "steps": 40, "guidance": 3.0,
-}
+# Image-to-video model for character stills: the genvideo lane's default (SPEC.md Part 6), one model to maintain.
+# A still has no shot length, so the clip is AniSora's 3.5 s bake-off length (57 frames at 16 fps).
+ANIMATE_MODEL = {**VIDEO_MODELS[VIDEO_DEFAULT], "frames": 57}
 
 # Motion that suits a character portrait: gentle enough that the face survives.
 # Big camera moves and full-body action are what drift fastest.
 ANIMATE_MOTION = ("subtle natural motion, hair and clothing shifting gently, "
                   "slow breathing, eyes blinking, the camera drifts almost imperceptibly")
+
+
+def session_scenes(name: str, session: Path) -> list[tuple[str, str]]:
+    """(key, scene) for every plan shot naming this character: the shot's look plus the session's style."""
+    plan = json.loads((session / "plan.json").read_text(encoding="utf-8"))
+    try:
+        look_style = str(json.loads((session / "requirements.json").read_text(encoding="utf-8")).get("look_style") or "")
+    except Exception:
+        look_style = ""
+    if look_style and look_style in load_char(name).get("desc", ""):
+        look_style = ""
+    out = []
+    for shot in plan.get("shots", []):
+        v = shot.get("visual") or {}
+        if slugify((v.get("generate") or {}).get("character") or "") != slugify(name):
+            continue
+        scene = ", ".join(x for x in (v.get("desc", "").strip().rstrip("."), look_style) if x)
+        out.append((f"{slugify(session.name)}__s{shot['shot_number']}", scene))
+    return out
 
 
 def cmd_animate(args: argparse.Namespace) -> None:
@@ -699,12 +769,7 @@ def cmd_animate(args: argparse.Namespace) -> None:
     if not jobs:
         raise RuntimeError("could not prepare any frames")
 
-    if args.dry_run:
-        print(json.dumps({"ok": True, "dry_run": True, "clips": len(jobs),
-                          "sources": [j["key"] for j in jobs]}, ensure_ascii=False))
-        return
-
-    code = notebook_code(ANIMATE_NOTEBOOK, env=ENV_PREAMBLE,
+    code = notebook_code(ANIMATE_NOTEBOOK, env=ENV_PREAMBLE, wan_loader=WAN_LOADER,
                          jobs=repr(json.dumps(jobs)), model=repr(json.dumps(model)),
                          neg=repr("blurry, distorted face, warping, flickering, morphing"))
     kernel_id = f"{kaggle_username()}/{slugify(args.name, 'anim', prefix='esta-char-')}"
@@ -712,6 +777,10 @@ def cmd_animate(args: argparse.Namespace) -> None:
     write_kernel_dir(build_dir, code, kernel_id,
                      ACCELERATORS.get(args.accelerator, "NvidiaTeslaT4"))
     size = (build_dir / "kernel.ipynb").stat().st_size
+    if args.dry_run:
+        print(json.dumps({"ok": True, "dry_run": True, "clips": len(jobs), "notebook_bytes": size,
+                          "sources": [j["key"] for j in jobs]}, ensure_ascii=False))
+        return
     ok, log = push_kernel(build_dir)
     if ok:
         data["anim_kernel"] = kernel_id
@@ -839,11 +908,10 @@ def cmd_fetch(args: argparse.Namespace) -> None:
     fetch_output(ref, out_dir)
     images = sorted(p.name for p in out_dir.glob("*.png"))
     results_path = out_dir / "results.json"
-    errors = {}
-    if results_path.exists():
-        errors = json.loads(results_path.read_text(encoding="utf-8")).get("errors", {})
+    raw = json.loads(results_path.read_text(encoding="utf-8")) if results_path.exists() else {}
     print(json.dumps({"ok": True, "kernel": ref, "dir": str(out_dir),
-                      "images": images, "count": len(images), "errors": errors},
+                      "images": images, "count": len(images), "errors": raw.get("errors", {}),
+                      **({"ref_error": raw["ref_error"]} if raw.get("ref_error") else {})},
                      ensure_ascii=False))
 
 
@@ -857,6 +925,11 @@ def main() -> None:
     e.add_argument("--count", type=int, default=8)
     e.add_argument("--seed", type=int, default=1000)
     e.add_argument("--model", default=DEFAULT_MODEL, choices=list(MODELS))
+    e.add_argument("--look", default="", choices=["", *LOOK_MODEL],
+                   help="The session's requirements.look; picks the model (overrides --model)")
+    e.add_argument("--look-style", default="",
+                   help="The session's requirements.look_style; baked into the character's design and LoRA")
+    e.add_argument("--session", default="", help="Use sessions/<id>'s look refs (and remember the session)")
     e.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))
     e.add_argument("--dry-run", action="store_true")
 
@@ -868,6 +941,7 @@ def main() -> None:
     s.add_argument("--name", required=True)
     s.add_argument("--count", type=int, default=40,
                    help="How many varied candidates to generate")
+    s.add_argument("--session", default="", help="Use sessions/<id>'s look refs (default: the explore session)")
     s.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))
     s.add_argument("--dry-run", action="store_true")
 
@@ -910,10 +984,18 @@ def main() -> None:
     r.add_argument("--name", required=True)
     r.add_argument("--prompts", default="",
                    help="Pipe-separated scenes; default is a fixed unseen-scene test set")
+    r.add_argument("--session", default="",
+                   help="Render a keyframe for every shot of sessions/<id>/plan.json that names this character")
     r.add_argument("--lora-scale", type=float, default=0.9)
     r.add_argument("--seed", type=int, default=777)
     r.add_argument("--accelerator", default="t4", choices=list(ACCELERATORS))
     r.add_argument("--dry-run", action="store_true")
+
+    for sp in (e, s, r):
+        sp.add_argument("--style-refs", default="",
+                        help="A folder of this character's own look refs; copied to characters/<name>/style_refs/")
+        sp.add_argument("--ref-strength", type=float, default=1.0,
+                        help="Scales how hard the look refs pull (IP-Adapter); 0 turns them off")
 
     an = sub.add_parser("animate", help="Turn rendered character stills into video clips")
     an.add_argument("--name", required=True)

@@ -10,6 +10,9 @@ import time
 from pathlib import Path
 from typing import Any
 
+# YouTube forces SABR on the web client (Oct 2026): its formats lose their URLs. mweb still serves them.
+YT_CLIENTS = {"youtube": {"player_client": ["mweb", "default"]}}
+
 # ── E2: per-process source-pool caches ───────────────────────────────────────
 # Shots that share a topic (same fixture, speech, launch, …) repeatedly hit the
 # same YouTube search, transcript, format probe, and worst-quality download.
@@ -301,12 +304,26 @@ def search_openverse(query: str) -> list:
 
 # ── Google Images (Playwright — best for named people / events) ──────────────
 
+class NeedsChrome(Exception):
+    """Headless Google Images was blocked (CAPTCHA) or came back empty: the shot
+    needs the in-conversation Chrome pass (SPEC.md Part 7, decision 6), which is
+    not the same as the search finding nothing."""
+
+
+def google_blocked(final_url: str, html: str) -> bool:
+    import re
+    return "/sorry/" in final_url or bool(re.search(r"unusual traffic|g-recaptcha|recaptcha/api|captcha-form", html, re.I))
+
+
 def search_google_images(query: str, max_results: int = 6) -> list:
     """Headless Google Images search with CC+large filter via Playwright.
 
     Navigates to the CC-licensed large-images results page, downloads the full
     rendered HTML, then regex-extracts source image URLs from Google's embedded
     JSON data.  No LLM needed — pure DOM/HTML parsing.
+
+    Raises NeedsChrome when Google serves a CAPTCHA, fails to load, or yields no
+    usable image: headless can't tell a real empty result from a soft block.
     """
     try:
         import re
@@ -342,7 +359,7 @@ def search_google_images(query: str, max_results: int = 6) -> list:
                 page.goto(url, timeout=25000, wait_until="domcontentloaded")
             except Exception:
                 browser.close()
-                return []
+                raise NeedsChrome("google images did not load")
 
             # Dismiss GDPR / cookie consent pop-up (fired before images load)
             for sel in [
@@ -363,10 +380,11 @@ def search_google_images(query: str, max_results: int = 6) -> list:
             # Brief wait so JS-rendered image data lands in the DOM
             page.wait_for_timeout(2000)
             html = page.content()
+            final_url = page.url
             browser.close()
 
-        if not html:
-            return []
+        if not html or google_blocked(final_url, html):
+            raise NeedsChrome("google images served a captcha")
 
         # Google Images embeds full-res source URLs in JS data as JSON strings.
         # They appear as: ,"https://domain.com/photo.jpg",width,height,
@@ -411,7 +429,11 @@ def search_google_images(query: str, max_results: int = 6) -> list:
             if len(candidates) >= max_results:
                 break
 
+        if not candidates:
+            raise NeedsChrome("google images returned no usable image")
         return candidates
+    except NeedsChrome:
+        raise
     except Exception:
         return []
 
@@ -693,7 +715,8 @@ def _max_height(video_id: str) -> int:
             return _HEIGHT_CACHE[video_id]
     try:
         import yt_dlp
-        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "skip_download": True}) as ydl:
+        with yt_dlp.YoutubeDL({"quiet": True, "no_warnings": True, "skip_download": True,
+                               "extractor_args": YT_CLIENTS}) as ydl:
             info = ydl.extract_info(f"https://www.youtube.com/watch?v={video_id}", download=False)
         heights = [int(f.get("height") or 0) for f in info.get("formats", [])]
         h = max(heights) if heights else 0
@@ -750,6 +773,7 @@ def _ensure_full_video(vid_url: str, vid_id: str, cache_dir: Path | None):
             "format": "worst[ext=mp4]/worst",
             "outtmpl": str(target),
             "overwrites": True,
+            "extractor_args": YT_CLIENTS,
         }) as ydl:
             ydl.download([vid_url])
         if target.exists():
@@ -805,7 +829,9 @@ def search_youtube(
             with _CACHE_LOCK:
                 _SEARCH_CACHE[query] = all_entries
 
-        entries = [e for e in all_entries if (e.get("duration") or 0) <= 600]
+        # A live stream has no duration and its download never ends, so a real one is required.
+        entries = [e for e in all_entries if 0 < (e.get("duration") or 0) <= 600
+                   and e.get("live_status") not in ("is_live", "is_upcoming")]
         print(f"    [youtube] {len(all_entries)} results, {len(entries)} under 10 min", flush=True)
         if not entries:
             return []

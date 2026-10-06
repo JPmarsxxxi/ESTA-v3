@@ -29,6 +29,40 @@ Two modes. `pipeline.json`'s plan step decides (`plan:bulk` / `plan:manual`); a 
 - **bulk** (default) — everything below as written: two-pass generation, all shots streamed to `plan_progress.jsonl` immediately.
 - **manual** (hands-on) — the per-line approval loop in the "Manual mode" section. Same shot JSON, same streaming file, same downstream contracts; the ONLY difference is each line waits for the user's approval before it is appended.
 
+## Mapped mode (copy the inspo shot by shot)
+
+**When both `sessions/<id>/inspo_profiles.json` (from `match:profile`) and `sessions/<id>/timestamps.json` exist, plan in mapped mode** (SPEC.md Part 3, M6.2). Every shot is the counterpart of one inspo shot, its `ref_shot`: it copies that shot's length (real seconds), kind and look. Bulk and manual both apply: manual just shows each slot's card for approval. Without either file, skip this section and plan exactly as below.
+
+Mapped mode replaces "Derive pacing", "Timing estimation" and the one-shot-per-sentence rule. Everything else (shot JSON fields, `search_sources`/specificity/override rules, overlay/sfx/caption rules, streaming to `plan_progress.jsonl`, the early render, the hand-off) still applies.
+
+1. **Propose the cut.** Run (system python, seconds):
+   ```bash
+   python tools/match/slots.py --session sessions/<id>
+   ```
+   Read `slots.json`: `slots[]` (each `start`, `end`, `target_dur`, `ref_shot`, `alts`, `words`) tile the voiceover from 0 to `voice_end` with every cut on a word boundary; `refs{}` describes each inspo shot (`kind`, `content`, `description`, `sourcing_hint`, `text_extra`, `overlay_extra`, `motion`).
+2. **Pass 1 — one shot per slot, pick its ref and type.**
+   - Default ref: the slot's `ref_shot`. You may instead take one of its `alts` (inspo shots within ±3 positions) when that shot's description fits the slot's `words` clearly better — e.g. the positional ref is a reaction meme but the line is a sober statistic. Record why in `ref_swap` (one short phrase). Never take a ref outside `alts`.
+   - `visual.type` follows the chosen ref's `kind`: footage → `REAL_FOOTAGE`, still → `REAL_IMAGE`, graphic → `MOTION_GRAPHICS`. Exception: when the ref's `likely_sources` lead with `ai_video` (it looks generated), type the shot `AI_VIDEO` and add `"generate": {"preset": <the ref's ai_preset>}` to its `visual`; the ai-video skill renders it and stock stays the fallback.
+   - When `requirements.look` is set (an AI-generated video, SPEC.md Part 4), shots showing one of the session's characters (`characters/<name>/` made with genchar) are `AI_VIDEO` with `"generate": {"character": "<name>"}`; add `"talk": true` when that character says the shot's line on screen. One character talks per shot. The `desc` is the scene the keyframe will be rendered from: pose, action, setting, framing.
+   - A `MOTION_GRAPHICS` shot (or an `overlay`) whose ref has an `animation` is built by the motion-graphics skill from the ref's strip and animation: write its `desc` as the content plus the ref's reveal (e.g. "sharpe ratio 1.94 types on in amber monospace"), not a fresh visual idea.
+   - Slot boundaries stay as proposed, with two exceptions: merge two adjacent slots when their combined length is within 1.35 × the first slot's `target_dur` and the words read as one visual idea; split a slot at an inner word boundary when its words hold two distinct visual ideas. A merged shot keeps the first slot's ref and the sum of both targets; split halves keep the slot's ref and half its target each.
+3. **Pass 2 — fill every field per shot,** streaming each line to `plan_progress.jsonl` as in bulk mode:
+   - `start`/`end` and `start_est`/`end_est` = the slot's `start`/`end`, exactly (no 150 wpm estimate); `audio` = the slot's `words`.
+   - `ref_shot` (chosen ref id), `ref_target_dur` (the slot's `target_dur`, even when the ref was swapped: the rhythm stays positional), `ref_swap` (only when swapped).
+   - `visual.desc`: this line's content shown the way the ref shows things — same framing (`content`: single_focus / multi_subject / background / text_card / ui_chart), same register as its `description`. Never copy the inspo's subject matter; copy its treatment.
+   - A shot's `user_directions` (carried over from requirements or an earlier plan) decide what is in the frame and override the ref's `content`: "Andrew Tate picture" on a `text_card` ref is a photo of him, not a screenshot of his post. The ref still sets kind, length and camera.
+   - `search_sources`: the existing specificity rules decide the sources; the ref's `sourcing_hint` shapes the query wording (adapted to this topic).
+   - `text.caption` only when the ref has `text_extra: true`; an `overlay` only when the ref has `overlay_extra: true` and the shot is not `MOTION_GRAPHICS`. This keeps the on-screen-text rate at the inspo's.
+   - `camera`: `{"move", "amount"}` from the ref's `motion` when it has one (omit otherwise); `transition_in` / `transition_out`: `fade_black` / `fade_white` when the ref's `motion.fade_in` / `fade_out` is `black` / `white`, else `cut`.
+4. **Write `plan.json`** with `"timing_source": "timestamps"` and `editing_notes.method: "inspo-mapped"` (reconcile then skips it: the timing is already real). Do NOT run reconcile.
+5. **Validate, section by section.**
+   ```bash
+   python tools/match/validate_plan.py --session sessions/<id>
+   ```
+   Exit 0: done. Exit 1: read `plan_validation.json`. Each entry in `failures` is a section (`section: [first, last]` shot numbers) with its `problems` and a `fix`. Rewrite **only** those sections, following each `fix`; every shot listed in `frozen` must stay byte-identical. Shots listed in a failure's `locked` were edited by hand: never rewrite them, tell the user they need a hand fix. Re-run the validator; at most 3 attempts, then stop and show the remaining failures to the user in plain words. If a rewrite changes the queries of a shot already streamed, set `visual.queries_stale: true` so its asset is refetched.
+
+Show the summary with the slot median against the inspo median (`median_slot` / `median_inspo` in `slots.json`) and how many shots swapped refs, instead of the cuts-per-minute line.
+
 ## Derive pacing from style analysis
 
 From `style_analysis.json`:
@@ -111,6 +145,7 @@ For each sentence (= one shot), fill every field. After generating each shot's c
     "desc": "<what's on screen — 1 sentence, visual language>",
     "search_query": "<3-5 word query for stock search, concrete nouns>",
     "fx": ["<effect if any, e.g. zoom_in, slow_motion — empty list if none>"],
+    "keep_audio": "<true only when the clip's own sound is the point — omit otherwise>",
     "instance_markers": {
       "event_date": "<YYYY-MM-DD if shot references a specific dated instance, else omit field>",
       "location": "<venue/place if specific instance, else omit>",
@@ -154,22 +189,27 @@ For each sentence (= one shot), fill every field. After generating each shot's c
 - Pick the `on` word from the shot's own `audio` line (the words actually spoken in that shot). Bare-string form is fine when timing to the shot is enough.
 
 **specificity rules:**
-- `"high"` — shot requires a specific named person, named event, or named place that stock libraries won't have. Examples: "Leandro Trossard goal", "Donald Trump press conference", "2022 World Cup final penalty". For high-specificity shots: `search_sources` must include `youtube` or `wikimedia` first — never lead with `pexels`/`pixabay`.
-- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". Mix of sources; YouTube or Archive alongside Pexels/Pixabay.
-- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Lead with `pexels`/`pixabay`/`giphy`.
+- `"high"` — shot requires a specific named person, named event, or named place that stock libraries won't have. Examples: "Leandro Trossard goal", "Donald Trump press conference", "2022 World Cup final penalty". For high-specificity shots: `search_sources` must include `youtube` or `wikimedia` first.
+- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". YouTube and Archive, with Giphy as the loose fallback.
+- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Same sources as medium: YouTube, Archive, Giphy for footage; Google Images, Pinterest, Wikimedia, Openverse for images.
 
 **search_sources rules:**
 - 2–3 sources ordered best-first for this shot's specificity
 - Each source gets 1–3 queries: most specific first, broadening toward fallback
 - Include at least 2 of these in high-specificity queries: exact name, year, event, location, opposing team
-- Available sources: `youtube`, `pexels_video`, `pixabay_video`, `pexels_image`, `pixabay_image`, `wikimedia`, `archive`, `giphy`, `google_images`, `pinterest`
+- Available sources: `youtube`, `archive`, `giphy`, `google_images`, `pinterest`, `wikimedia`, `openverse`
+- **Never list a stock source** (the four Pexels and Pixabay video and image sources). Stock is a capped last resort that auto-pick reaches on its own after query rewrites (SPEC.md Part 7); `validate_plan.py` fails a plan that routes a shot to it.
 - For `REAL_FOOTAGE` high: `["youtube", "archive"]`
 - For `REAL_IMAGE` high: `["google_images", "wikimedia"]` — Google Images returns real press/news photos; wikimedia as fallback for CC-strict needs
-- For `REAL_FOOTAGE` low/medium: `["pexels_video", "pixabay_video", "archive"]`
-- For `REAL_IMAGE` low/medium: `["pexels_image", "pixabay_image", "pinterest", "wikimedia"]`
-- For `MOTION_GRAPHICS`: `["giphy", "pixabay_image"]`
+- For `REAL_FOOTAGE` low/medium: `["youtube", "archive", "giphy"]`
+- For `REAL_IMAGE` low/medium: `["google_images", "pinterest", "wikimedia", "openverse"]`
+- For `MOTION_GRAPHICS` (fallback only; the graphic is generated): `["giphy"]`
 - **Meme override:** when `desc` mentions "meme", "reaction", "this is fine", "shrug", "facepalm", or similar reaction-meme cues, the source list MUST include `giphy` as the first or second source — even for `type: REAL_IMAGE`. Giphy is the reaction-meme library; without it the picked candidate will be generic stock that doesn't land.
-- **Aesthetic override:** when `desc` (or the `style` from style_analysis) mentions "aesthetic", "moodboard", "mood board", "vibe", "vibes", "minimalist", "minimal", "cozy", "dreamy", "ethereal", "ambient", "lo-fi", "softcore", "core" (as a vibe suffix like cottagecore / dark academia), or similar mood/atmosphere cues, **lead with `pinterest`** in the source list. Pinterest is the moodboard library — without it the picks will be flat stock that doesn't carry the vibe. Example: aesthetic shot → `[{"source": "pinterest", "queries": ["minimalist desk morning light"]}, {"source": "pexels_image", "queries": ["minimalist desk"]}]`.
+- **Aesthetic override:** when `desc` (or the `style` from style_analysis) mentions "aesthetic", "moodboard", "mood board", "vibe", "vibes", "minimalist", "minimal", "cozy", "dreamy", "ethereal", "ambient", "lo-fi", "softcore", "core" (as a vibe suffix like cottagecore / dark academia), or similar mood/atmosphere cues, **lead with `pinterest`** in the source list. Pinterest is the moodboard library — without it the picks will be flat stock that doesn't carry the vibe. Example: aesthetic shot → `[{"source": "pinterest", "queries": ["minimalist desk morning light"]}, {"source": "google_images", "queries": ["minimalist desk"]}]`.
+
+**keep_audio rules (optional — omit for almost every shot):**
+- Footage is picture only: render mutes every video clip and the voiceover carries the sound. Set `"keep_audio": true` only when the clip's own sound is the point: a quote someone says on camera, a famous moment the audience should hear, a meme whose sound is the joke.
+- With it, assets fetches the YouTube audio and muxes it in, and render plays the clip at full volume under the voiceover. Without it the kept YouTube file is video-only.
 
 **instance_markers rules (optional — include only when shot references a specific dated/recurring instance):**
 - Use ONLY when the audio references a specific instance of a recurring topic — a particular match, speech, launch, keynote, earnings call, news event. SKIP for generic b-roll, reactions, motion graphics.

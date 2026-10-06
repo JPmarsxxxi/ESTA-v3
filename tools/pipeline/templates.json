@@ -12,10 +12,13 @@
         { "skill": "audio", "mode": "clone" },
         { "skill": "timestamps" },
         { "skill": "style-analysis", "parallel": true },
+        { "skill": "match", "mode": "profile" },
         { "skill": "plan" },
+        { "skill": "match", "mode": "plan" },
         { "skill": "assets" },
         { "skill": "motion-graphics" },
-        { "skill": "render" }
+        { "skill": "render" },
+        { "skill": "match", "mode": "final" }
       ]
     },
     "found-audio-collage": {
@@ -29,10 +32,13 @@
         { "skill": "audio", "mode": "assemble" },
         { "skill": "timestamps" },
         { "skill": "style-analysis", "parallel": true },
+        { "skill": "match", "mode": "profile" },
         { "skill": "plan" },
+        { "skill": "match", "mode": "plan" },
         { "skill": "assets" },
         { "skill": "motion-graphics" },
-        { "skill": "render" }
+        { "skill": "render" },
+        { "skill": "match", "mode": "final" }
       ]
     }
   }

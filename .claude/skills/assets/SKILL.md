@@ -175,7 +175,26 @@ Run this after assets are fetched (after the review/retries), before render. **I
 
 Source order comes from the shot's `visual.search_sources` in plan.json. If absent (older plans), falls back to defaults by `visual.type` and `visual.specificity` (see `_DEFAULT_SOURCES` in `run.py`).
 
-YouTube candidates go through three stages: video pick (LLM) → transcript moment finding OR visual binary search → Claude Vision validation. Pexels/Pixabay candidates are also Claude-Vision-validated (images by URL, video by sampled frames) for medium/high-specificity shots; Giphy/Wikimedia/Google still use keyword + dimension + duration scoring.
+Plans never route to stock (Pexels/Pixabay): `validate_plan.py` rejects it and the defaults leave it out. Stock is reached only by `tools/match/autopick.py`, after up to `assets.stock_rewrites` (3) Haiku query rewrites on every non-stock source of the shot's kind, and only while fewer than `floor(assets.stock_cap x shots)` (15%) shots hold a stock pick; past that the shot becomes a word-card motion graphic (`tools/motiongraphics/wordcard.py`, `retype_reason: "stock_cap"`). SPEC.md Part 7.
+
+YouTube candidates go through three stages: video pick (LLM) → transcript moment finding OR visual binary search → Claude Vision validation. The kept YouTube file is the best video-only stream up to 1080p; a shot with `visual.keep_audio: true` also gets the m4a audio muxed in (`yt_<id>.av.mp4`), and render mutes every other footage clip. Pexels/Pixabay candidates are also Claude-Vision-validated (images by URL, video by sampled frames) for medium/high-specificity shots; Giphy/Wikimedia/Google still use keyword + dimension + duration scoring.
+
+## Google Images through Claude in Chrome
+
+Headless Google Images gets a CAPTCHA, so `run.py` never counts a blocked or empty Google Images search as "no results": it queues the shot in `sessions/<id>/assets/chrome_queue.json` (status `pending`) and the shot's other sources still run headless. Auto-pick picks a queued shot from whatever its other sources found, but never sends it to the rewrite loop or to stock while it is pending. Work the queue in conversation with Claude in Chrome after each gather or auto-pick run:
+
+```bash
+python tools/assets/chrome_queue.py list --session sessions/<id>    # pending shots: queries, desc, spoken line
+```
+
+For each pending shot:
+1. In Chrome, search Google Images for the shot's query (adapt it if the results are off).
+2. Open the best result's full-resolution image in a new tab (not the thumbnail) and copy its URL. Pick one or two that fit the shot's `desc` and line.
+3. Save each into the session and the shot's candidates manifest:
+   `python tools/assets/chrome_queue.py add --session sessions/<id> --n <n> --url "<full-res url>" --query "<query used>"`
+4. Close the shot: `python tools/assets/chrome_queue.py done --session sessions/<id> --n <n>`.
+
+Then re-pick those shots: `python tools/match/autopick.py --session sessions/<id> --shots <n,n,...>`. If the user skips the pass, mark each shot `skip` instead: it then falls through to the rewrite loop on its other sources. A shot that is done or skipped is never re-queued.
 
 ## Source media model (E1)
 
@@ -195,7 +214,8 @@ a log line. Pick a royalty-free source instead.
 
 ## Output files
 
-- `sessions/<id>/assets/source_pool/<key>.<ext>` — full untrimmed source media, shared across shots (`yt_<videoid>.mp4`, `pexels_<id>.mp4`, …)
+- `sessions/<id>/assets/source_pool/<key>.<ext>` — full untrimmed source media, shared across shots (`yt_<videoid>.mp4` video-only, `yt_<videoid>.av.mp4` with its audio for `keep_audio` shots, `google_images_<hash>.jpg` from the Chrome pass, …)
+- `sessions/<id>/assets/chrome_queue.json` — shots waiting on the Google Images Chrome pass
 - `sessions/<id>/assets/.cache/youtube/<videoid>.mp4` — worst-quality copies used only for vision validation (small; safe to delete)
 - `sessions/<id>/assets_progress.jsonl` — one result per line as shots complete (growing)
 - `sessions/<id>/assets.json` — summary written/rewritten after every shot. Each shot carries `file` (pool path), `in_point`/`out_point` (seconds into the source), and `visual_verdict`/`visual_confidence`. YouTube shots upgraded via Colab also carry `hd_height`/`hd_source`.
@@ -204,7 +224,8 @@ a log line. Pick a royalty-free source instead.
 ## Code references
 
 - `tools/assets/run.py` — CLI. `fetch` (bulk) and `shot` (per-shot) subcommands. Always call via `conda run --no-capture-output -n esta`.
-- `tools/assets/search.py` — search functions per source. All return `[]` on failure (never raise).
+- `tools/assets/search.py` — search functions per source. All return `[]` on failure; the one exception is Google Images, which raises `NeedsChrome` on a CAPTCHA or empty page so the shot is queued for the Chrome pass.
+- `tools/assets/chrome_queue.py` — the Chrome pass queue: `list`, `add` (save a full-res image into the pool and the shot's candidates manifest), `done`, `skip`.
 - `tools/assets/youtube_colab.py` — YouTube HD upgrade via Colab. `plan` (collect sub-720p YouTube targets + emit the Colab download cell) and `apply` (pull hosted HD files over `source_pool` in place). Orchestrated by the SKILL, not run.py, because run.py can't call the MCP.
 - `tools/assets/schema.py` — `ShotAsset`, `AssetsOutput` TypedDicts.
 - `tools/assets/llm.py` — validator prompts (frame validation, transcript moment finding, video picking).

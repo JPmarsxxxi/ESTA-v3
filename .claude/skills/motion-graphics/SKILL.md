@@ -38,6 +38,7 @@ Read the style DNA before authoring anything:
 - `style_analysis.json` → `visual_style`, `energy_level`, `keywords` — drive reveal speed, how hard the surface gets broken, texture tolerance (motion-design §3)
 - `requirements.json` → topic + tone; orientation is vertical 1080×1920 unless the user asked for landscape
 - the shot's `audio` line, `text.caption` / `overlay.caption`, `overlay.desc` — the actual content
+- **the inspo shot it copies (mapped plans, SPEC.md Part 3 decision 16).** When the shot has a `ref_shot` and `sessions/<id>/slots.json` exists, read `refs[<ref_shot>]`: its `strip` (repo-relative path to three frames of the inspo graphic, early → late; open it with the Read tool), its `animation` (`reveal`, `speed`, `layout`, `palette`, `type_style`, `notes`) and its `description`. Build to that treatment: the same reveal (types on, counts up, draws on...), at that speed, with that layout, palette and type feel, carrying our content. When the refs of several slots share a look, that look *is* the session kit's surface (§1). Copy the treatment, never the inspo's words, logos or subject.
 
 ## The cost model — read this before touching a slot
 

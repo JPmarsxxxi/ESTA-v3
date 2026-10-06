@@ -1,3 +1,4 @@
+import type { ComponentType } from "react";
 import type { ParamDefinition, ParamValues } from "@/params";
 
 export interface Effect {
@@ -12,7 +13,16 @@ export type EffectUniformValue = number | number[];
 export interface EffectPass {
 	shader: string;
 	uniforms: Record<string, EffectUniformValue>;
+	/** Id of a lookup-table texture the shader samples (see esta/opencut/grade.ts). */
+	lut?: string;
 }
+
+/** A definition's own editor, shown under its generic param fields. */
+export type EffectPanelProps = {
+	params: ParamValues;
+	preview: ({ key, value }: { key: string; value: number | string | boolean }) => void;
+	commit: () => void;
+};
 
 export interface EffectPassTemplate {
 	shader: string;
@@ -38,4 +48,5 @@ export interface EffectDefinition {
 	keywords: string[];
 	params: ParamDefinition[];
 	renderer: EffectRendererConfig;
+	panel?: ComponentType<EffectPanelProps>;
 }

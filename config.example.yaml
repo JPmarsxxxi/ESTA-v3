@@ -32,3 +32,11 @@ apis:
   anthropic_key: ""    # https://console.anthropic.com/ — Claude (all text work)
   hf_token: ""         # https://huggingface.co/settings/tokens — CLIP model download
   freesound_key: ""    # https://freesound.org/apiv2/apply/ — found-audio fetch (Phase 3)
+
+# Stock (Pexels, Pixabay) is a last resort (SPEC.md Part 7). Auto-pick reaches it only
+# after `stock_rewrites` query rewrites on non-stock sources, and only while fewer than
+# floor(stock_cap x plan shots) shots hold a stock pick; past that a shot becomes a
+# word-card motion graphic. A session may override the cap with pipeline.json ui.stock_cap.
+assets:
+  stock_cap: 0.15
+  stock_rewrites: 3

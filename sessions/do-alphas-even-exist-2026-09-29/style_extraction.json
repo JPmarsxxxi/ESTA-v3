@@ -1,0 +1,125 @@
+{
+  "session_id": "do-alphas-even-exist-2026-09-16",
+  "source": "user_provided",
+  "videos_extracted": 1,
+  "pacing_patterns": {
+    "cuts_per_minute": 12.39,
+    "avg_shot_duration": 4.841
+  },
+  "extractions": [
+    {
+      "video_file": "C:\\Users\\User\\Downloads\\I tested 27 trading strategies and almost all of them died.mp4",
+      "timing": {
+        "duration": 82.3,
+        "fps": 30.0,
+        "cuts": [
+          17.633,
+          20.367,
+          23.5,
+          26.1,
+          26.233,
+          29.8,
+          45.533,
+          50.333,
+          52.4,
+          64.9,
+          67.267,
+          67.5,
+          69.6,
+          73.367,
+          76.933,
+          77.433,
+          81.433
+        ],
+        "cut_count": 17,
+        "cuts_per_minute": 12.39,
+        "avg_shot_duration": 4.841
+      },
+      "frame_paths": {
+        "1": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_001\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_001\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_001\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_001\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_001\\frame_05.jpg"
+        ],
+        "2": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_002\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_002\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_002\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_002\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_002\\frame_05.jpg"
+        ],
+        "3": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_003\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_003\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_003\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_003\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_003\\frame_05.jpg"
+        ],
+        "4": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_004\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_004\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_004\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_004\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_004\\frame_05.jpg"
+        ],
+        "5": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_005\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_005\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_005\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_005\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_005\\frame_05.jpg"
+        ],
+        "6": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_006\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_006\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_006\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_006\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_006\\frame_05.jpg"
+        ],
+        "7": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_007\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_007\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_007\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_007\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_007\\frame_05.jpg"
+        ],
+        "8": [
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_008\\frame_01.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_008\\frame_02.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_008\\frame_03.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_008\\frame_04.jpg",
+          "sessions\\do-alphas-even-exist-2026-09-16\\style_examples\\I tested 27 trading strategies and almost all of them died\\seq_008\\frame_05.jpg"
+        ]
+      },
+      "clip_content_types": {
+        "sports footage with athletes": 0.1824,
+        "talking head or interview": 0.0083,
+        "gaming or esports footage": 0.0478,
+        "cooking or food content": 0.0404,
+        "urban street or cityscape": 0.0013,
+        "nature or landscape": 0.0139,
+        "crowd or large audience": 0.0555,
+        "text graphics or title cards": 0.2554,
+        "memes or reaction content": 0.0633,
+        "documentary footage": 0.0914,
+        "music video or concert": 0.0201,
+        "tutorial or educational content": 0.2201
+      },
+      "seq_transcripts": {
+        "1": "She still tries to do retail trading, but you're wasting your time.",
+        "2": "I did like 27 back tests and I manipulated like 2,000 data files in like 3 days.",
+        "3": "My best one had a shop of 3.71 which is crazy if you know both.",
+        "4": "Everything was market neutral, profitable every single year.",
+        "5": "And basically made all of the profit, all that shiny profit in 5 weeks.",
+        "6": "And most of that wasn't just one week. I was February 22 when Russia started sending PPUs over Ukraine.",
+        "7": "It never actually had any real edge. It never read anything. It was just like standing near a wall.",
+        "8": "This close to deploying that thin, true money. And out of blood, bro."
+      },
+      "full_transcript": "She still tries to do retail trading, but you're wasting your time. That stuff does not work. It just gambling. I did like 27 back tests and I manipulated like 2,000 data files in like 3 days. My best one had a shop of 3.71 which is crazy if you know both. Everything looked sexy, you know, I was already mad in my guadies and the clarins. Everything was market neutral, profitable every single year. But then I was just like, you know, looking closer. And basically made all of the profit, all that shiny profit in 5 weeks. And most of that wasn't just one week. I was February 22 when Russia started sending PPUs over Ukraine. And all went vertical. It never actually had any real edge. It never read anything. It was just like standing near a wall. This absolute foolery. This close to deploying that thin, true money. And out of blood, bro. You know, so much pain, bro. The market remains undefeated.",
+      "timestamp": "2026-09-17T21:27:32.784384"
+    }
+  ],
+  "timestamp": "2026-09-17T21:27:32.804331"
+}

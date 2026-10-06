@@ -109,11 +109,14 @@ export const STAGES: Array<{ id: string; label: string; skills: string[]; checkp
 	{ id: "script", label: "Script", skills: ["scriptwriter"], checkpoint: "script" },
 	{ id: "voice", label: "Voice", skills: ["audio"] },
 	{ id: "timestamps", label: "Timestamps", skills: ["timestamps"] },
-	{ id: "style", label: "Style", skills: ["style-analysis"] },
-	{ id: "plan", label: "Plan", skills: ["plan"], checkpoint: "plan" },
+	{ id: "style", label: "Style", skills: ["style-analysis", "match:profile"] },
+	// Stage membership is by skill, or by token where one skill spans stages (match).
+	{ id: "plan", label: "Plan", skills: ["plan", "match:plan"], checkpoint: "plan" },
 	{ id: "assets", label: "Assets", skills: ["assets", "motion-graphics", "ai-video"] },
-	{ id: "edit", label: "Edit", skills: ["render"] },
+	{ id: "edit", label: "Edit", skills: ["render", "match:final"] },
 ];
+
+const inStage = (st: { skills: string[] }, s: { skill: string; token: string }) => st.skills.includes(s.skill) || st.skills.includes(s.token);
 
 export const stageOfSkill = (skill: string) => STAGES.find((s) => s.skills.includes(skill))?.id ?? null;
 
@@ -237,7 +240,8 @@ export function computeState(sessionId: string, run: RunInfo) {
 		const isDone = !isSkipped && done(s);
 		const missing = s.needs.filter((a) => !artifactPresent(dir, a));
 		// Parallel steps only need requirements.json, so only the intake checkpoint gates them.
-		const upstream = s.parallel ? steps.filter((u) => u.skill === "requirements") : steps.slice(0, i);
+		// match:plan adjusts the plan before the user approves it, so the plan checkpoint doesn't gate it.
+		const upstream = (s.parallel ? steps.filter((u) => u.skill === "requirements") : steps.slice(0, i)).filter((u) => !(s.token === "match:plan" && u.skill === "plan"));
 		const pendingApprovals = upstream
 			.filter((u) => !skipped(u) && CHECKPOINT_OF_SKILL[u.skill])
 			.map((u) => CHECKPOINT_OF_SKILL[u.skill])
@@ -266,7 +270,7 @@ export function computeState(sessionId: string, run: RunInfo) {
 	const taggedExists = existsSync(resolve(dir, "script.tagged.md"));
 
 	const stages = STAGES.map((st) => {
-		const own = stepStates.filter((s) => st.skills.includes(s.skill));
+		const own = stepStates.filter((s) => inStage(st, s));
 		const inFlow = own.length > 0;
 		const allDone = inFlow && own.every((s) => s.state === "done" || s.state === "skipped");
 		const allSkipped = inFlow && own.every((s) => s.state === "skipped");

@@ -51,6 +51,11 @@ class Requirements(TypedDict, total=False):
     script_file: str | None       # populated only when user_uploaded
     script_stats: ScriptStats | None  # populated only when user_uploaded
 
+    # Optional (SPEC.md Part 4): the look of AI-generated shots and characters. "" = stock-led video.
+    # look picks genchar's model; look_style (free text) is appended to every generated prompt.
+    look: str  # "" | "realistic" | "cartoon" | "anime"
+    look_style: str
+
 
 def default_requirements(session_id: str) -> Requirements:
     """Empty skeleton with session_id and created_at populated."""
@@ -69,4 +74,6 @@ def default_requirements(session_id: str) -> Requirements:
         "script_text": None,
         "script_file": None,
         "script_stats": None,
+        "look": "",
+        "look_style": "",
     }

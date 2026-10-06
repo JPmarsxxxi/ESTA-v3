@@ -1,0 +1,337 @@
+# id|type(F/I/G or blank=ref)|spec(l/m/h)|query|desc|caption|overlay|user_direction
+1|I|h|Andrew Tate|Photo of Andrew Tate smiling at a podcast mic in sunglasses and a leather jacket|ALPHAS?|NAH|Andrew Tate picture
+2|I|h|Andrew Tate podcast|Close photo of Andrew Tate mid-rant at a podcast mic|NOT THESE GUYS||Andrew Tate picture
+3|I|m|wolf pack snow|Photo of a wolf pack standing in snow, the lead wolf staring into camera|OR THESE||wolves picture
+4|I|m|alpha wolf portrait|Close portrait of a grey alpha wolf, eyes locked on camera|THIS|||
+5|F|l|frustrated man rubbing face desk|Close-up of a frustrated man at a desk dragging his hands down his face|ANNOYING||
+6|F|l|man staring screen night|Close-up of a tired man staring at a glowing laptop screen at night|EDGE OF THE WORLD||
+7|F|l|people walking city crowd|Wide shot of a crowd walking past while one man stands still, lost in thought|||
+8|F|l|man lying bed staring ceiling|Wide shot of a man lying awake on his bed in the dark, staring at the ceiling|||
+9|F|l|newborn baby hospital|Close-up of a newborn baby in a hospital, tiny hands moving|SPUN INTO THE WORLD||
+10|F|l|man shrugging apologetic|Medium shot of a man pulling a sheepish shrug, sorry face|||
+11|F|l|man explaining whiteboard|Medium shot of a man stepping up to a whiteboard, ready to explain|||
+12|F|m|stock exchange trading floor|Wide shot of a busy stock exchange trading floor, traders and screens everywhere|||
+13|G|l|alpha definition card|Crimson card: 'alpha' types on, then 'an automated predictive model'|AUTOMATED PREDICTIVE MODEL||
+14|G|l|rules card|Crimson card: 'decodes a market relation' then 'rules' lands|RULES||
+15|F|l|data center servers lights|Close-up of data center server racks with blinking lights|INPUT DATA||
+16|F|l|trader screens orders|Close-up of a trader's screens with orders filling in|POSITIONS||
+17|F|m|stock market ticker screens|Close-up of market price screens scrolling red and green|||
+18|I|h|Igor Tulchinsky|Photo of Igor Tulchinsky speaking on a conference stage|IGOR TULCHINSKY|WORLDQUANT|
+19|I|h|Finding Alphas book cover|The 'Finding Alphas' second-edition book cover|FINDING ALPHAS||
+20|I|h|Igor Tulchinsky WorldQuant|Photo of Igor Tulchinsky at a desk with the WorldQuant logo behind|2020||
+21|F|l|man counting money|Close-up of a man counting a stack of banknotes and grinning|||
+22|F|l|money falling slow motion|Banknotes falling through the air in slow motion|||
+23|F|l|student writing maths equations|Close-up of a hand writing maths equations fast on paper|||
+24|G|l|psych text card|Crimson card: 'sounds easy' | 'right?' then 'psych.' slams in|PSYCH||
+25|F|l|man working laptop night|Close-up of a man working at a laptop late at night, face lit by the screen|||
+26|F|l|calendar pages flipping|Close-up of calendar pages flipping past, two months gone|||
+27|F|l|man staring window doubt|Close-up of a man staring out of a window, doubtful|DON'T EXIST?||
+28|G|l|but what if card|Crimson card: 'started' then 'where everyone' types on|WHERE EVERYONE||
+29|G|l|short term card|Crimson card: 'starts.' then 'short-term' types on|SHORT-TERM||
+30|G|l|reversal card|Crimson card: 'reversal.' lands, a small down-then-up arrow|REVERSAL||
+31|F|l|stock chart falling rising screen|Close-up of a stock chart dropping then bouncing back on a monitor|||
+32|I|m|academic finance paper|Photo of a stack of academic finance papers, Lehmann 1990 on top|||
+33|F|m|S&P 100 stock tickers screen|Close-up of a screen listing S&P 100 tickers with a flat performance line|SHARPE 0.05|SHARPE 0.05|
+34|F|l|man disappointed laptop|Medium shot of a man leaning back from his laptop, unimpressed|||
+35|F|l|empty stock market floor|Wide shot of a quiet, near-empty trading floor|||
+36|F|l|crowded fishing boats harbour|Wide shot of a crowded harbour of fishing boats, every spot taken|||
+37|F|l|ocean water surface aerial|Aerial shot of a calm open stretch of ocean|||
+38|I|l|handwritten note fine|Photo of a handwritten note that just says 'fine'|FINE||
+39|F|l|man walking city street|Man in a dark coat walking down a city street with intent|MID-CAPS||
+40|F|l|man exhaling surprised|Close-up of a man blowing out his cheeks, surprised|PEWWW||
+41|F|l|man watching screen intently|Man in a dim room leaning toward his screen|GROSS SHARPE||
+42|F|l|stock chart spike up|Close-up of a chart line spiking sharply upward|0.05||
+43|F|l|man arms raised sky|Man in a white t-shirt throwing his arms up against a clear blue sky|→ 0.445||
+44|F|l|man celebrating fist pump|Man pumping his fist, grinning|BEAUTIFUL||
+45|F|l|man reading screen frown|Young man in a dim room reading his screen, smile fading|NET SHARPE||
+46|F|l|man face falls|Close-up of a young man's face falling|0.058||
+47|F|l|hands gripping fence frustrated|Close-up of hands gripping a chain-link fence, frustrated face behind|||
+48|F|l|man grimace cringe|Close-up of a man wincing through his teeth|SHEEIII||
+49|F|l|man looking city skyline|Man seen from behind looking out over a big city|||
+50|G|l|143 counter card|Crimson card: '143' counts up, 'trades a year' beside it|143||
+51|F|l|cash register receipts|Close-up of a cash register printing receipt after receipt|||
+52|F|l|coins dropping into machine|Close-up of coins dropping into a toll machine, one after another|||
+53|F|l|programmer typing code|Close-up of a programmer typing code, slowing to a careful pace|||
+54|F|l|scissors cutting paper|Close-up of scissors cutting a strip of paper short|94% OF THE EDGE||
+55.1|F|m|trading terminal sharpe ratio|Old CRT monitor in a dim room showing a backtest result table|NET SHARPE 0.126|SHARPE 0.126|
+55.2|F|l|stock chart crash red|Close-up of a red equity curve sliding down a monitor|40% DRAWDOWN||slightly stressed picture
+55.3|F|l|stressed man hands on head|Close-up of a stressed man with both hands on his head|1% A YEAR||slightly stressed picture
+55.4|F|l|deleting files computer|Close-up of a cursor dragging a folder into the trash on an old monitor|||
+56.1|F|l|sector map stocks heatmap screen|Close-up of a sector heatmap of stocks flickering on a monitor|THE EDGE||
+56.2|F|l|volatility chart choppy|Close-up of a choppy, jagged price line on an old monitor|TRIPLED THE VOL||
+56.3|F|l|man packing suitcase|Man zipping up a suitcase, ready to move|SWITCH LOCATIONS||
+56.4|F|m|bitcoin crypto trading screen|Close-up of crypto prices scrolling on a phone and a monitor|||
+57|F|l|crypto trader night phone|Tired young man in a hoodie checking crypto on his phone at 3am|DEGENERATE||degenerate crypto bro picture
+58|F|l|man shocked looking screen dark|Close-up of a man in a beanie in a dark room, staring at his screen in shock|-1.01||more stressed picture
+59|F|l|man laughing disbelief|Man in sunglasses at a table laughing in disbelief|BEAUTIFULLY||
+60|F|l|man head in hands table|The same kind of man dropping his head into his hands at the table|CATASTROPHICALLY WRONG||
+61|F|l|man pointing idea|Man outdoors snapping his fingers and pointing, idea struck|||
+62.1|F|l|line chart climbing|A line chart climbing steadily on an old monitor|IT TRENDS||
+62.2|F|m|crypto momentum chart screen|Close-up of a crypto chart with a 30-day momentum line rising|NET SHARPE 1.10|30-DAY MOMENTUM|
+62.3|F|m|2022 crypto crash news|News footage of the 2022 crypto crash with red tickers|7 OF 8 YEARS||
+62.4|F|l|man celebrating genius|Man throwing his hands up in triumph at his desk|GENIUS||happy guy
+62.5|I|h|Albert Einstein portrait|Photo of Albert Einstein looking unimpressed|EINSTEIN||
+62.6|F|m|prop trading firm office|Wide shot of a prop trading firm office with rows of screens|FTMO||
+63.1|F|l|man shrugging|Man shrugging at camera, don't ask|||
+63.2|F|l|man rolling eyes|Close-up of a man rolling his eyes and waving it off|SCAM||
+63.3|F|l|man climbing stairs|Man starting up the first step of a long staircase|NET SHARPE 0.38||
+63.4|F|l|man unimpressed grimace|Close-up of a man grimacing slightly, meh|SLIGHTLY BAD||
+63.5|F|l|tape measure desk|Close-up of a tape measure pulled out across a desk|THE SWAP||
+63.6|F|m|broker fee table screen|Close-up of a broker fee table on a screen|30% A YEAR||
+64|F|l|serious man close up blue|Close-up of a serious man's face against a blue backdrop|||
+65|F|l|stress test machine|Close-up of a machine pressing down on a material in a stress test|||
+66|F|l|man back to camera stadium|Man with his back to camera in an empty stadium, looking up|15%||
+67|F|l|man shaking head|Man on a field shaking his head|WORST CASE||
+68|F|l|city street dusk traffic|Pedestrians crossing a busy street at dusk as cars stream past|||
+69|F|l|commuters rushing|Wide shot of commuters rushing past in both directions|DOUBLE||
+70|G|l|prismatic light burst|Abstract radial light burst, rainbow rays from the centre|||
+71|F|l|man stuck mud|Man stuck waist-deep in mud under a grey sky|||
+72|I|m|giant statue small person|Photo of a giant classical statue, a tiny figure at its base|||
+73|I|h|Albert Einstein|Photo of Albert Einstein looking straight at camera|||hands up in defeat
+74|F|l|man hands up surrender|Young man on a bench raising both hands in surrender|||hands up in defeat
+75|F|l|man reading papers library|Man in glasses leafing through academic papers in a library|||
+76|F|m|bitcoin intraday chart|Close-up of an intraday bitcoin chart|||
+77|F|l|man crossing out notebook|Man at a desk in a pink-walled office crossing something out|DEAD||
+78|F|l|city storefront dusk|Street at dusk outside a closed shop front|||
+79|F|m|stock exchange opening bell|Opening bell on the trading floor, first half hour|||
+80|F|l|clock ticking close up|Close-up of a clock ticking toward the close|||
+81|F|l|spotlight stage two figures|Two figures on a dark stage under a single spotlight|DEAD||
+82|F|l|spotlight turning off|Stage spotlight snapping off|AT THE DECAY CHECK||
+83|G|l|US500 card|Crimson card: 'US500' then 'overnight drift'|US500||
+84|G|l|overnight drift card|Crimson card: 'overnight drift,' types on|OVERNIGHT DRIFT||
+85|I|l|old stone building ruin|Photo of a weathered stone ruin|||
+86|F|l|man looking up glass building|Man from behind gazing up at a modern glass building|THREE||
+87|F|l|two people dim room|Two figures in a dim blue room facing each other|||
+88|F|l|chart highlighted window|Close-up of a chart with one window highlighted, flat after it|||
+89|F|l|athlete close up serious|Close-up of an athlete's serious face|||
+90|F|l|man reading newspaper|Man in a blazer reading a newspaper on the street|||
+91|F|l|crowd reading phones|Crowd of people all reading their phones at once|||
+92|F|l|crowd gathering|Documentary shot of a crowd gathering around|||
+93|F|l|press conference speaker|Speaker at a press conference podium|ANOMALY||
+94|F|l|man speaking to camera|Man in a white shirt speaking to camera at a press event|PUBLICATION||
+95|F|m|world map financial markets|World map covered in market tickers|45 INSTRUMENTS||
+96|F|l|empty arena spotlights|Empty arena under dramatic overhead lights|||
+97|F|l|flat line monitor|Close-up of a flat, going-nowhere line on a monitor|||
+98|G|l|BTC weekly trend card|Crimson card: 'BTC weekly trend' then '+0.95% a week'|+0.95% A WEEK||
+99|F|l|child sitting alone|Child seen from behind sitting alone indoors|||
+100|F|l|child turning smile|Child turning round with a small smile|GENUINELY REAL||
+101|F|l|boy face falling|Close-up of a young boy's face falling|EATEN BY||
+102|F|l|boy close up|Close-up of a young boy|||
+103|F|l|cyclist city street|Cyclist riding down a city street|0.577% A WEEK||
+104|F|l|cyclist riding away|Cyclist riding away down the street|||
+105|F|m|2017 bitcoin mania news|News footage of the 2017 bitcoin mania, crowds and headlines|100% 2017 MANIA||
+106|F|m|forex trading screens|Close-up of currency pair quotes on trading screens|21:00 SHORT, 23:00 LONG||
+107|I|l|london skyline night|Photo of the London skyline at night|NET SHARPE 5.28|SHARPE 5.28|
+108|I|l|white light glow|A near-white faded frame, glowing|5 OF 5 YEARS||
+109|F|l|young man excited laptop|Young man in a light shirt leaning in to his laptop, excited|||
+110|F|l|man scrolling spreadsheet|Young man scrolling through tick data spreadsheets|||
+111|F|l|green table dark room|Dark blurred room with a green table under a lamp|||
+112|F|l|hand holding paper|Close-up of a hand holding up a printout|||
+113|F|l|man raising glass party|Man at a party raising his glass|||
+114|I|h|Albert Einstein smiling|Photo of Albert Einstein smiling|EINSTEIN!!!||
+115|F|l|dart bullseye|Dart hitting the bullseye|PROP FIRM TARGET||
+116|F|l|man suit office desk|Man in a suit and red tie at an office desk nodding|NO LEVERAGE GAMES||
+117|F|l|finger pressing button|Close-up of a finger pressing a big launch button|DEPLOYED||
+118|F|l|man walking corridor|Man in a suit walking down a long corridor|||
+119|F|l|man profile waiting|Profile of a man in formal attire, waiting|||
+120.1|F|l|old monitor chart|Old CRT monitor in a dim room showing a performance chart|HALF THE EDGE||
+120.2|F|m|forex bid ask quotes|Close-up of bid and ask quotes ticking on a screen|BID QUOTES||
+120.3|F|l|man recalculating notebook|Man redoing his maths in a notebook|SHARPE ~1.0||
+120.4|F|l|glitching monitor|Glitching old monitor screen|NOT 5.3||
+120.5|F|l|house of cards collapse|House of cards collapsing on a table|||
+120.6|F|l|zero on screen|Close-up of an old monitor reading 0.00|ZERO||
+121.1|F|l|old monitor static|Old CRT monitor in a dim room flickering to static|GROSS NEGATIVE||
+121.2|F|m|forex broker commission screen|Close-up of a broker commission table on a screen|COMMISSION||
+121.3|F|l|coins on desk|Close-up of quarters dropped one by one onto a desk|25¢ A DEAL||
+121.4|F|l|calculator typing|Close-up of fingers punching numbers into a calculator|50¢ ROUND TRIP||
+121.5|F|l|cash register night|Close-up of a cash register ringing up at night|2.00 BP A NIGHT|COST 2.00 BP|
+121.6|F|l|scale balance weighing|Close-up of a balance scale tipping the wrong way|EDGE 1.24 BP|EDGE 1.24 BP|
+122|F|l|basketball player missing shot|Basketball player missing the shot as the buzzer goes|||
+123|F|l|man headphones focused screen|Man in headphones scanning lines of code on a screen|||
+124|F|l|code search terminal|Close-up of a terminal running a search across code files|||
+125|F|l|man profile realization|Close-up profile of a man as it dawns on him|ZERO HITS||
+126|G|l|modelling list card|Crimson card: 'spread, swap, slippage' types on|SPREAD, SWAP, SLIPPAGE||
+127|F|l|invoice paper close up|Close-up of an invoice sliding across a table|IMPACT||
+128|F|l|man reading bill shocked|Man reading a bill, eyebrows rising|THE INVOICE||
+129|F|l|basketball game action|Live basketball action, a player driving to the hoop|||
+130|F|l|athlete getting up|Athlete pushing himself back up off the floor|||
+131|F|m|options trading screen|Close-up of an options chain on a trading screen|GAMMA EXPOSURE||
+132|I|l|twitter phone finance|Photo of a phone scrolling finance twitter|QUANT TWITTER||
+133|F|l|man between buildings|Man in a light coat standing between two tall buildings|||
+134|F|l|calm sea trend|Close-up of a calm ocean swell rolling one way|LOW GAMMA → TREND||
+135|F|l|pendulum swinging|Close-up of a pendulum swinging back|HIGH GAMMA → REVERT||
+136|F|l|man arms out shrug|Young man with both arms out, empty-handed|||
+137|G|l|just quiet card|Crimson card: 'high-gamma days' then 'are just quiet.'|JUST QUIET||
+138|G|l|race card|Crimson card: 'GEX' vs 'realised vol' side by side|GEX VS REALISED VOL||
+139|I|l|notebook handwritten|Photo of an open notebook with handwritten predictions|||
+140|I|l|notebook tomorrow|Photo of a notebook page reading 'tomorrow'|RETURN||
+141|F|l|car driving desert road|First-person view from a car on a long desert road|||
+142|F|l|car brakes|Car braking hard on an empty road|T-STAT -1.1||
+143|F|l|aerial car highway|Aerial view of a car on a straight highway|||
+144|F|l|man gesturing explaining|Man in dark clothes gesturing mid-explanation|PAST 5-DAY RETURN||
+145|F|l|expensive receipt|Close-up of a long expensive receipt|EXPENSIVE DATA||
+146|F|l|man holding balloons|Man holding a big bunch of balloons, deflating|||
+147|F|l|man serious close up|Close-up of a man's intense, serious face|||
+148|F|l|man shaking head close up|Close-up of the same kind of face shaking no|ZERO HOURS SURVIVE||
+149|F|l|person running forest|Person running through a forest|||
+150|F|l|person running beach|Person running through shallow water on a beach|||
+151|F|l|person crouching tired|Person bent over, hands on knees|T OF 1.75||
+152|F|l|person breathing hard|Person breathing hard, bent over|||
+153|F|l|person climbing wall|Figure climbing the corner of a building|PLAUSIBLE||
+154|F|l|parkour fall|Person leaping and falling short|NOT SIGNIFICANT||
+155|F|l|two people arguing|Two people arguing, pointing at each other|||
+156|F|l|man close up shrug|Close-up of a man shrugging|||
+157|F|l|basketball player turning|Basketball player turning toward camera|||
+158|I|m|robot humanoid|Photo of a humanoid robot face|||
+159|F|l|server room dark|Dark server room with blinking lights|||
+160|F|m|machine learning neural network|Animated neural network graphic on a screen|MACHINE LEARNING||
+161|F|l|walking forward steps|Close-up of feet walking forward step by step|||
+162|F|l|vault door closing|Close-up of a heavy vault door swinging shut|SEALED VAULT||
+163|F|l|man press conference nod|Man at a press conference nodding|DONE PROPERLY||
+164|F|l|man smug confident|Man looking smug and confident|||
+165|I|l|machine gun meme|Reaction meme of someone firing a machine gun|||Machine gun meme
+166|F|l|machine gun firing|Close-up of a machine gun firing|||Machine gun meme
+167|F|m|200 day moving average chart|Close-up of a stock chart with a smooth 200-day moving average line|||
+168|F|l|man interview face|Close-up of a man's face in an interview|AUC 0.68||
+169|F|l|two men sideline|Two men on a sideline watching|||
+170|F|l|man awards ceremony|Man at an awards ceremony, waiting|0.57||
+171|F|l|man awards disappointed|Same man looking disappointed|OUT OF SAMPLE||
+172|F|l|player emotional shout|Player shouting in disbelief|HOLY MOLY||
+173|F|l|player running training|Player running in training|||
+174|F|l|man face close up event|Close-up of a man's face at an event|||
+175|F|l|man looking down|Close-up of a man looking down|||
+176|F|l|man holding award|Man holding up an award|REAL||
+177|F|l|man award close up|Close-up of the award in his hands|REVERSAL AT EXTREMES||
+178|G|l|swap killed card|Crimson card: 'extremes,' then 'swap-killed.'|SWAP-KILLED||
+179|G|l|crude oil card|Crimson card: 'the entire effect was' then 'crude oil'|CRUDE OIL||
+180|F|l|oil field aerial|Aerial shot of an oil field by a long straight road|||
+181|F|l|car driving rain night|Car driving through heavy rain at night|MONTH-END FX FLOW||
+182|F|l|cyclist road mountains|Lone cyclist on a straight road toward mountains|2019+||
+183|F|l|cyclist turning back|Cyclist turning back the other way|2003-2019||
+184|F|l|office glass walls|Modern glass-walled office, one person standing|SIGN FLIPPED||
+185|F|l|man phone lake|Man hunched over his phone beside a lake|||
+186|F|l|man phone frowning|Close-up of the same kind of man frowning at his phone|||
+187|F|l|man exhausted face|Close-up of a man's exhausted face|||
+188|F|l|person hoodie crowd|Person in a hoodie standing still in a crowd|||
+189|I|m|wti brent oil price chart|Photo of an oil price chart, WTI and Brent lines|STATISTICAL ARBITRAGE||
+190|I|m|oil barrels|Black and white photo of stacked oil barrels|WTI-BRENT||
+191|F|l|man doorway institution|Man standing in an institutional doorway|OIL SWAP ATE IT||
+192.1|I|m|forex chart screenshot|Screenshot of a currency chart with intraday bars|INTRADAY FX STAT-ARB|#027|
+192.2|I|l|insomnia bed night|Photo of a bed at night, someone wide awake|KEEPS ME UP||
+193.1|G|l|information coefficient card|Crimson card: 'information coefficient' then '+0.0205'|IC +0.0205||
+193.2|G|l|observations counter card|Crimson card: '2.16 million' counts up|2.16 MILLION OBS||
+194|F|l|data analysis screen recording|Screen recording of a data analysis notebook running|30 STANDARD ERRORS||
+195|I|l|statistics normal distribution chart|Screenshot of a normal distribution with a point far in the tail|FROM ZERO||
+196|I|m|backtest equity curve screenshot|Screenshot of a backtest equity curve climbing|GROSS SHARPE 3.71||
+197|I|m|backtest net flat line|Screenshot of the same backtest net of spread, flat|+0.03% A YEAR||
+198|F|l|monitor decaying graph|Warm-lit desk with a monitor showing a graph dropping off fast|DECAYS 75%||
+199|I|l|split screen trading platform|Screenshot of a trading platform with several panels|||
+200|I|l|stopwatch|Photo of a stopwatch at zero|INSTANTLY||
+201|I|l|order book screenshot|Screenshot of an order book with the spread highlighted|THE SPREAD||
+202|I|m|pool of signals diagram|Screenshot of a portfolio pool dashboard|THE POOL|#028|
+203|F|l|two arrows opposing|Close-up of two cars passing in opposite directions|||
+204|I|l|research articles browser|Screenshot of several research paper tabs open|OPPOSING SIGNALS||
+205|I|l|toll booth|Photo of a toll booth barrier|TRADES CANCEL||
+206|G|l|turnover netted card|Crimson card: '87%' counts up, 'of turnover netted out'|87% NETTED||
+207|I|l|spreadsheet results|Screenshot of a spreadsheet with a sub-economic result row|SUB-ECONOMIC||
+208|I|l|currency pairs list|Screenshot of a long list of currency pairs|12 → 28 PAIRS|#029|
+209|I|l|sharpe negative screen|Screenshot of a results panel with a large negative number|NET -85 SHARPE||
+210.1|I|l|currency cross rates table|Screenshot of a cross-rates table|||
+210.2|I|l|wide spread order book|Screenshot of an order book with a wide 3 bp spread|3 BP SPREADS||
+211|I|l|gate barrier filter|Screenshot of a filter panel switching on, a tiny sliver of bars highlighted|1% OF BARS|SPREAD GATE|
+212|F|l|locker room team quiet|Locker room, a team sitting in silence|~0% A YEAR||
+213|F|l|footballer walking tunnel|Footballer in a tracksuit walking out of a tunnel|||
+214|F|l|footballer looking up|Same kind of footballer looking up, determined|FINAL SALVAGE|#030|
+215|F|l|limit order book screen|Close-up of limit orders resting in an order book|LIMIT ORDERS||
+216|F|l|young player training|Young player in a bright training kit, ready|MAKER||
+217|F|l|men black tie ceremony|Men in black tie on a gold-lit stage|NOT A TAKER||
+218|F|l|athlete holding trophy|Athlete gazing at a trophy in his hands|IT WORKS||
+219|F|l|trophy close up|Close-up of the trophy|||
+220|F|l|athlete celebrating headband|Athlete celebrating, arms wide|||
+221|F|l|player white kit|Player in a white kit looking up|THE CEILING||
+222|F|l|football match action|Football match action near the box|||
+223|F|l|football tackle|Hard tackle in a football match|||
+224|F|l|defender blocking shot|Defender blocking a shot|||
+225|F|l|goalkeeper save|Goalkeeper diving to save|COSTS = 0||
+226|F|l|basketball player standing|Basketball player standing alone on the court|FREE, MAGIC, PERFECT||
+227|F|l|football training pitch|Football training on a sunny pitch|0.057 BP||
+228|F|l|player passing training|Player passing in training|||
+229|F|l|basketball player close up|Close-up of a basketball player's tired face|PER SIGNAL||
+230|F|l|basketball player wiping sweat|Basketball player wiping sweat, exhausted|0.8% A YEAR||
+231|F|l|footballer dribbling|Footballer dribbling past a defender|FRICTIONLESS||
+232|F|l|youth football action|Youth football action|||
+233.1|I|h|The Flash DC comics|Photo of The Flash running, a red lightning blur|FLASH||
+233.2|I|h|Jane Street trading office|Photo of the Jane Street office|I AIN'T JANE STREET||
+234.1|F|l|man smirking not yet|Man in a locker room smirking: not yet|NOT YET||
+234.2|F|m|S&P 500 overnight chart|Close-up of an S&P 500 chart with the overnight gaps highlighted|S&P OVERNIGHT||
+235|F|l|person beach dusk|Lone figure on a beach at dusk watching the sky|THE WHOLE IDEA||
+236|F|l|man walking home street|Man in sunglasses walking home down a street|CLOSE TO OPEN||
+237|F|l|man counting fingers|Man counting off on his fingers: one, two|TWO WRINKLES||
+238|F|l|clock 5pm|Close-up of a clock hitting five o'clock|17:00 ROLLOVER||
+239|F|l|camera snapshot shutter|Close-up of a camera shutter snapping|SNAPSHOT||
+240|F|l|man relaxed smile|Close-up of a man in a purple shirt smiling, relaxed|ZERO FINANCING||
+241|F|l|man fake pump fist|Man pumping his fist, then letting it drop|LONG BETA||
+242|F|m|200 day moving average chart|Chart with a 200-day moving average gating the trades|200-DAY MA||
+243|F|l|bleeding stopped bandage|Close-up of a bandage being tightened|STOPS BLEEDING||
+244|F|l|man driving night|Man driving at night, focused|SHARPE 0.47||
+245|F|l|man nodding approval|Man nodding in approval|→ 0.77||
+246|F|l|stock chart drawdown|Close-up of a chart whose dip gets shallower|DRAWDOWN -20%||
+247|F|l|chart recovery green|Close-up of a chart recovering, green|→ -8.3%||
+248|F|l|man yawning bored|Man yawning, bored|BORING. FINE.||
+249.1|F|l|man thumbs up meh|Man giving a lukewarm thumbs up|||
+249.2|F|l|man thinking smarter|Man tapping his temple, scheming|SMARTER||
+250|F|l|jupyter notebook screen|Close-up of a coding notebook on a screen|||
+251|F|l|man shocked caught|Man in a patterned shirt caught off guard|||
+252|F|l|ghost price chart|Close-up of a price chart with a gap of missing prints|NEVER EXISTED||
+253|F|l|code cell typing|Close-up of one line of code typed into a notebook cell|SANITY CHECK||
+254|F|l|man interview question|Man in a tan shirt asking a question to camera|% GREEN NIGHTS?||
+255|F|l|athlete side angle|Athlete glancing sideways|||
+256|F|l|athlete stunned|Same athlete stunned|0.313||
+257|I|l|impossible text|Photo of the word 'impossible' printed big|IMPOSSIBLE||
+258|F|l|man talking head nike|Man in a black Nike jacket explaining to camera|||
+259|F|l|man talking head nod|Same kind of man nodding, obvious|THE WHOLE PREMISE||
+260|I|h|Yahoo Finance GSPC|Screenshot of the Yahoo Finance ^GSPC page|^GSPC||
+261.1|F|l|warehouse dark interior|Dark warehouse interior, dust in the light|FAKE BEFORE 2014||
+261.2|F|l|photocopier copies|Close-up of a photocopier spitting out identical copies|STALE COPIES||
+262.1|F|l|old archive shelves|Old archive shelves full of ledgers|78-98% ZERO GAP||
+262.2|F|l|dusty ledger pages|Close-up of dusty ledger pages turning|25% IN 2012-13||
+263.1|G|l|36 year card|Crimson card: '36-year validation' types on|36 YEARS||
+263.2|G|l|three decades card|Crimson card: 'three decades' then 'of a number'|THREE DECADES||
+263.3|G|l|vendor made up card|Crimson card: 'the vendor made up.'|MADE UP||
+264|F|l|phone red chart|Close-up of hands holding a phone with a red chart|SILENTLY PADDED||
+265|F|m|SPY ETF chart|Close-up of a SPY chart on a screen|SPY||
+266.1|I|l|terminal command line output|Screenshot of terminal output counting rows|8,262 REAL NIGHTS||
+266.2|I|l|terminal output number|Screenshot of terminal output: base rate 0.559|BASE RATE 0.559||
+266.3|I|l|terminal results sharpe|Screenshot of terminal results table|SHARPE 1.38||
+266.4|I|l|terminal filtered results|Screenshot of filtered terminal results|BY LUCK||
+267.1|I|l|terminal code dark|Screenshot of dark terminal code scrolling|||
+267.2|I|l|terminal fill forward|Screenshot of a data column with repeated values|FILL-FORWARD||
+267.3|I|m|random forest diagram|Screenshot of a random forest decision tree diagram|RANDOM FOREST|v2|
+267.4|I|l|python features list|Screenshot of a list of 30 feature names in code|30 FEATURES||
+268|F|l|person streaming desk setup|Person at a desk setup logging results|72 LOGGED TRIALS||
+269|F|l|toy car parking lot|Person sitting in a tiny toy sports car|CHAMPION MODEL||
+270|F|l|toy car driving|Tiny toy car driving off|SEALED 2021-26||
+271|I|l|terminal results comparison|Screenshot of terminal output comparing two strategies|+3.21 VS +1.76 BP|+3.21 BP / NIGHT|
+272|G|l|plus card|Crimson card: '+'|+||
+273|F|l|man adjusting glasses|Close-up of a man adjusting his glasses|ALWAYS-LONG +1.76||
+274|F|l|man glasses close up|Close-up of the same kind of man, eyebrows up|SHARPE 0.90 VS 0.44||
+275.1|G|l|ahead every year chart card|Crimson card: a gold line beating a grey line, every year|AHEAD EVERY YEAR||
+275.2|G|l|baseline card|Crimson card: 'baseline' with a red down bar|BASELINE||
+276.1|G|l|minus 6.7 card|Crimson card: '-6.7' then 'deflated Sharpe ratio'|-6.7||
+276.2|G|l|DSR card|Crimson card: 'DSR 0.887' against a bar at '0.95'|0.887 < 0.95||
+277|F|l|top down person desk working|Top-down shot of a person working at a desk|DID NOT GRADUATE||
+278|F|l|light trails night|Night footage of streaking light trails|REFIT EVERY JANUARY||
+279|F|l|light trails long exposure|Long-exposure light trails on a highway|2,870 NIGHTS||
+280|G|l|out of card|Crimson card: 'out of'|OUT OF||
+281|F|l|people gathered celebration|People gathered together, starting to cheer|+3.59 VS +2.13||
+282|F|l|crowd celebrating|Crowd celebrating|SHARPE 0.96||
+283|G|l|12 years chart card|Crimson card: 12 green bars in a row|12 OF 12 YEARS||
+284|I|l|cartoon explosion fireworks|Cartoon illustration of a huge explosion|DSR 0.988||
+285|F|l|man shouting joy|Close-up of a man shouting with joy|GRADUATES||
+286|F|l|man fist pump close up|Close-up of a fist pump|DEPLOYED AS V2||
+287|I|m|SHAP summary plot|Screenshot of a SHAP summary plot|SHAP||
+288|I|l|buy the dip chart|Screenshot of a chart with dip-buys marked|DIP-BUYING + TREND||
+289|F|m|VIX volatility index chart|Close-up of the VIX index spiking on a screen|HIGH VIX = BULLISH||
+290|F|l|man pink shirt thinking|Man in a pink shirt pausing, thoughtful|EVIDENCE?||
+291|F|l|man smile slight|Same kind of man breaking into a small smile|ALPHA... MAYBE||
+292|I|l|black screen|A black frame|EXISTS?||

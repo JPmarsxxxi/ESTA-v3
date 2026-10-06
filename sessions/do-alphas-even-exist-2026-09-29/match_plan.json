@@ -1,0 +1,7034 @@
+{
+  "session": "do-alphas-even-exist-2026-09-29",
+  "stage": "plan",
+  "generated_at": "2026-10-04T11:06:07.563198+00:00",
+  "inputs_hash": "f23637bac443d64d",
+  "overall": 87.5,
+  "pass": true,
+  "pass_marks": {
+    "overall": 80,
+    "section": 70
+  },
+  "weights": {
+    "a": 1,
+    "b": 1,
+    "c": 1,
+    "d": 1,
+    "e": 2
+  },
+  "kind_classes": 3,
+  "excluded_tags": [
+    "clips_in_shot",
+    "overlay",
+    "panels"
+  ],
+  "timing": "timestamps",
+  "sections": {
+    "a": {
+      "name": "Asset distribution",
+      "score": 99.0,
+      "ours": {
+        "still": 0.1989,
+        "footage": 0.7046,
+        "graphic": 0.0965
+      },
+      "inspo": {
+        "still": 0.1949,
+        "footage": 0.6984,
+        "graphic": 0.1067
+      },
+      "gap": {
+        "footage": 0.0062,
+        "still": 0.004,
+        "graphic": -0.0102
+      },
+      "pass": true,
+      "note": ""
+    },
+    "b": {
+      "name": "Colour and grading",
+      "score": null,
+      "pass": null,
+      "note": "n/a at plan: colour needs real media"
+    },
+    "c": {
+      "name": "Thematic adherence",
+      "score": 79.2,
+      "estimate": true,
+      "least_on_theme": [
+        3,
+        4,
+        18,
+        72,
+        89,
+        94,
+        101,
+        111,
+        123,
+        130
+      ],
+      "pass": true,
+      "note": ""
+    },
+    "d": {
+      "name": "Complexity",
+      "score": 96.1,
+      "rates": {
+        "text": {
+          "ours": 0.513,
+          "inspo": 0.524,
+          "score": 98.0
+        },
+        "variety": {
+          "ours": 2.733,
+          "inspo": 2.9,
+          "score": 94.3
+        }
+      },
+      "excluded": [
+        "panels",
+        "clips",
+        "overlay"
+      ],
+      "pass": true,
+      "note": ""
+    },
+    "e": {
+      "name": "Shot duration",
+      "score": 81.6,
+      "median": {
+        "ours": 2.38,
+        "inspo": 1.97,
+        "score": 79.0
+      },
+      "shape": {
+        "ks": 0.157,
+        "score": 84.3
+      },
+      "mean": {
+        "ours": 2.51,
+        "inspo": 2.46
+      },
+      "pass": true,
+      "note": ""
+    }
+  },
+  "notes": [],
+  "locked": [],
+  "shots": [
+    {
+      "n": 1,
+      "id": "1",
+      "locked": false,
+      "dur": 2.47,
+      "start": 0.0,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Andrew Tate smiling at a podcast mic in sunglasses and a leather jacket",
+      "queries": [
+        "Andrew Tate",
+        "Andrew Tate"
+      ],
+      "audio": "So, alphas, nah,",
+      "theme": 38.2
+    },
+    {
+      "n": 2,
+      "id": "2",
+      "locked": false,
+      "dur": 2.4099999999999997,
+      "start": 2.47,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close photo of Andrew Tate mid-rant at a podcast mic",
+      "queries": [
+        "Andrew Tate podcast",
+        "Andrew Tate podcast"
+      ],
+      "audio": "not these guys or these",
+      "theme": 74.8
+    },
+    {
+      "n": 3,
+      "id": "3",
+      "locked": false,
+      "dur": 0.9000000000000004,
+      "start": 4.88,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a wolf pack standing in snow, the lead wolf staring into camera",
+      "queries": [
+        "wolf pack snow",
+        "wolf pack snow",
+        "wolf pack snow"
+      ],
+      "audio": "guys.",
+      "theme": 0.0
+    },
+    {
+      "n": 4,
+      "id": "4",
+      "locked": false,
+      "dur": 1.62,
+      "start": 5.78,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close portrait of a grey alpha wolf, eyes locked on camera",
+      "queries": [
+        "alpha wolf portrait",
+        "alpha wolf portrait",
+        "alpha wolf portrait"
+      ],
+      "audio": "This fucking",
+      "theme": 0.0
+    },
+    {
+      "n": 5,
+      "id": "5",
+      "locked": false,
+      "dur": 2.5,
+      "start": 7.4,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a frustrated man at a desk dragging his hands down his face",
+      "queries": [
+        "frustrated man rubbing face desk",
+        "frustrated man rubbing face desk"
+      ],
+      "audio": "annoying ass shit. You see these ones",
+      "theme": 81.3
+    },
+    {
+      "n": 6,
+      "id": "6",
+      "locked": false,
+      "dur": 0.7999999999999989,
+      "start": 9.9,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a tired man staring at a glowing laptop screen at night",
+      "queries": [
+        "man staring screen night",
+        "man staring screen night"
+      ],
+      "audio": "wouldn't drive you to edge",
+      "theme": 100.0
+    },
+    {
+      "n": 7,
+      "id": "7",
+      "locked": false,
+      "dur": 3.3000000000000007,
+      "start": 10.7,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a crowd walking past while one man stands still, lost in thought",
+      "queries": [
+        "people walking city crowd",
+        "people walking city crowd"
+      ],
+      "audio": "of the world, questioning your sanity and intelligence and make you stare at the",
+      "theme": 100.0
+    },
+    {
+      "n": 8,
+      "id": "8",
+      "locked": false,
+      "dur": 3.280000000000001,
+      "start": 14.0,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a man lying awake on his bed in the dark, staring at the ceiling",
+      "queries": [
+        "man lying bed staring ceiling",
+        "man lying bed staring ceiling"
+      ],
+      "audio": "ceiling at question, your wild existence from the moment you ran from your dad's",
+      "theme": 98.7
+    },
+    {
+      "n": 9,
+      "id": "9",
+      "locked": false,
+      "dur": 1.8399999999999999,
+      "start": 17.28,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a newborn baby in a hospital, tiny hands moving",
+      "queries": [
+        "newborn baby hospital",
+        "newborn baby hospital"
+      ],
+      "audio": "balls and spun into the world. Goodness",
+      "theme": 28.0
+    },
+    {
+      "n": 10,
+      "id": "10",
+      "locked": false,
+      "dur": 3.5500000000000007,
+      "start": 19.12,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Medium shot of a man pulling a sheepish shrug, sorry face",
+      "queries": [
+        "man shrugging apologetic",
+        "man shrugging apologetic"
+      ],
+      "audio": "gracious. Sorry, I went off on a tangent",
+      "theme": 85.8
+    },
+    {
+      "n": 11,
+      "id": "11",
+      "locked": false,
+      "dur": 3.84,
+      "start": 22.67,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Medium shot of a man stepping up to a whiteboard, ready to explain",
+      "queries": [
+        "man explaining whiteboard",
+        "man explaining whiteboard"
+      ],
+      "audio": "there, but eesh. So let's talk about alphas.",
+      "theme": 81.4
+    },
+    {
+      "n": 12,
+      "id": "12",
+      "locked": false,
+      "dur": 4.789999999999999,
+      "start": 26.51,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a busy stock exchange trading floor, traders and screens everywhere",
+      "queries": [
+        "stock exchange trading floor",
+        "stock exchange trading floor",
+        "stock exchange trading floor"
+      ],
+      "audio": "Fundamentally, an alpha is an idea about how the market works.",
+      "theme": 24.4
+    },
+    {
+      "n": 13,
+      "id": "13",
+      "locked": false,
+      "dur": 4.010000000000002,
+      "start": 31.3,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'alpha' types on, then 'an automated predictive model'",
+      "queries": [
+        "alpha definition card",
+        "alpha definition card"
+      ],
+      "audio": "Concretely, it is an automated predictive model that",
+      "theme": 98.3
+    },
+    {
+      "n": 14,
+      "id": "14",
+      "locked": false,
+      "dur": 3.8799999999999955,
+      "start": 35.31,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'decodes a market relation' then 'rules' lands",
+      "queries": [
+        "rules card",
+        "rules card"
+      ],
+      "audio": "decodes some market relation. It contains rules that",
+      "theme": 76.2
+    },
+    {
+      "n": 15,
+      "id": "15",
+      "locked": false,
+      "dur": 1.6799999999999997,
+      "start": 39.19,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of data center server racks with blinking lights",
+      "queries": [
+        "data center servers lights",
+        "data center servers lights"
+      ],
+      "audio": "convert input data to",
+      "theme": 12.4
+    },
+    {
+      "n": 16,
+      "id": "16",
+      "locked": false,
+      "dur": 1.720000000000006,
+      "start": 40.87,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a trader's screens with orders filling in",
+      "queries": [
+        "trader screens orders",
+        "trader screens orders"
+      ],
+      "audio": "positions trades in",
+      "theme": 100.0
+    },
+    {
+      "n": 17,
+      "id": "17",
+      "locked": false,
+      "dur": 2.319999999999993,
+      "start": 42.59,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of market price screens scrolling red and green",
+      "queries": [
+        "stock market ticker screens",
+        "stock market ticker screens",
+        "stock market ticker screens"
+      ],
+      "audio": "the securities markets. Igor",
+      "theme": 73.6
+    },
+    {
+      "n": 18,
+      "id": "18",
+      "locked": false,
+      "dur": 1.6800000000000068,
+      "start": 44.91,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Igor Tulchinsky speaking on a conference stage",
+      "queries": [
+        "Igor Tulchinsky",
+        "Igor Tulchinsky"
+      ],
+      "audio": "Tolchinsky, finding",
+      "theme": 0.0
+    },
+    {
+      "n": 19,
+      "id": "19",
+      "locked": false,
+      "dur": 1.7399999999999949,
+      "start": 46.59,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "The 'Finding Alphas' second-edition book cover",
+      "queries": [
+        "Finding Alphas book cover",
+        "Finding Alphas book cover"
+      ],
+      "audio": "alphas world quant widely",
+      "theme": 85.4
+    },
+    {
+      "n": 20,
+      "id": "20",
+      "locked": false,
+      "dur": 2.210000000000001,
+      "start": 48.33,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Igor Tulchinsky at a desk with the WorldQuant logo behind",
+      "queries": [
+        "Igor Tulchinsky WorldQuant",
+        "Igor Tulchinsky WorldQuant"
+      ],
+      "audio": "2020. Thanks,",
+      "theme": 53.7
+    },
+    {
+      "n": 21,
+      "id": "21",
+      "locked": false,
+      "dur": 2.520000000000003,
+      "start": 50.54,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man counting a stack of banknotes and grinning",
+      "queries": [
+        "man counting money",
+        "man counting money"
+      ],
+      "audio": "Tolch. I love money.",
+      "theme": 34.6
+    },
+    {
+      "n": 22,
+      "id": "22",
+      "locked": false,
+      "dur": 1.9799999999999969,
+      "start": 53.06,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Banknotes falling through the air in slow motion",
+      "queries": [
+        "money falling slow motion",
+        "money falling slow motion"
+      ],
+      "audio": "You love money, we all love money. So why",
+      "theme": 42.7
+    },
+    {
+      "n": 23,
+      "id": "23",
+      "locked": false,
+      "dur": 2.0799999999999983,
+      "start": 55.04,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a hand writing maths equations fast on paper",
+      "queries": [
+        "student writing maths equations",
+        "student writing maths equations"
+      ],
+      "audio": "not do some maths and make some money sounds easy, doesn't",
+      "theme": 7.3
+    },
+    {
+      "n": 24,
+      "id": "24",
+      "locked": false,
+      "dur": 2.520000000000003,
+      "start": 57.12,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'sounds easy' ",
+      "queries": [
+        "psych text card",
+        "psych text card"
+      ],
+      "audio": "it? Well, Psyche, I've been writing maths equations",
+      "theme": 100.0
+    },
+    {
+      "n": 25,
+      "id": "25",
+      "locked": false,
+      "dur": 1.7999999999999972,
+      "start": 59.64,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man working at a laptop late at night, face lit by the screen",
+      "queries": [
+        "man working laptop night",
+        "man working laptop night"
+      ],
+      "audio": "to find these alphas for the",
+      "theme": 66.5
+    },
+    {
+      "n": 26,
+      "id": "26",
+      "locked": false,
+      "dur": 2.0600000000000023,
+      "start": 61.44,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of calendar pages flipping past, two months gone",
+      "queries": [
+        "calendar pages flipping",
+        "calendar pages flipping"
+      ],
+      "audio": "past two months and",
+      "theme": 71.0
+    },
+    {
+      "n": 27,
+      "id": "27",
+      "locked": false,
+      "dur": 2.3599999999999994,
+      "start": 63.5,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man staring out of a window, doubtful",
+      "queries": [
+        "man staring window doubt",
+        "man staring window doubt"
+      ],
+      "audio": "I might be convinced they don't exist started",
+      "theme": 100.0
+    },
+    {
+      "n": 28,
+      "id": "28",
+      "locked": false,
+      "dur": 1.2399999999999949,
+      "start": 65.86,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'started' then 'where everyone' types on",
+      "queries": [
+        "but what if card",
+        "but what if card"
+      ],
+      "audio": "where everyone",
+      "theme": 100.0
+    },
+    {
+      "n": 29,
+      "id": "29",
+      "locked": false,
+      "dur": 1.5200000000000102,
+      "start": 67.1,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'starts.' then 'short-term' types on",
+      "queries": [
+        "short term card",
+        "short term card"
+      ],
+      "audio": "starts. Short -term",
+      "theme": 100.0
+    },
+    {
+      "n": 30,
+      "id": "30",
+      "locked": false,
+      "dur": 1.5799999999999983,
+      "start": 68.62,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'reversal.' lands, a small down-then-up arrow",
+      "queries": [
+        "reversal card",
+        "reversal card"
+      ],
+      "audio": "reversal. Stock drops relative",
+      "theme": 74.3
+    },
+    {
+      "n": 31,
+      "id": "31",
+      "locked": false,
+      "dur": 4.8999999999999915,
+      "start": 70.2,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a stock chart dropping then bouncing back on a monitor",
+      "queries": [
+        "stock chart falling rising screen",
+        "stock chart falling rising screen"
+      ],
+      "audio": "to its peers. You buy it, it bounces, you are a genius. It is in every",
+      "theme": 100.0
+    },
+    {
+      "n": 32,
+      "id": "32",
+      "locked": false,
+      "dur": 5.200000000000003,
+      "start": 75.1,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a stack of academic finance papers, Lehmann 1990 on top",
+      "queries": [
+        "academic finance paper",
+        "academic finance paper",
+        "academic finance paper"
+      ],
+      "audio": "paper, Limon 1990. It is practically folklore. Ran it",
+      "theme": 46.7
+    },
+    {
+      "n": 33,
+      "id": "33",
+      "locked": false,
+      "dur": 5.359999999999999,
+      "start": 80.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a screen listing S&P 100 tickers with a flat performance line",
+      "queries": [
+        "S&P 100 stock tickers screen",
+        "S&P 100 stock tickers screen",
+        "S&P 100 stock tickers screen"
+      ],
+      "audio": "on the S and P100. Gross Sharpe 0 .05. Okay,",
+      "theme": 99.8
+    },
+    {
+      "n": 34,
+      "id": "34",
+      "locked": false,
+      "dur": 2.980000000000004,
+      "start": 85.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Medium shot of a man leaning back from his laptop, unimpressed",
+      "queries": [
+        "man disappointed laptop",
+        "man disappointed laptop"
+      ],
+      "audio": "bad. Maybe reversal lives in",
+      "theme": 80.8
+    },
+    {
+      "n": 35,
+      "id": "35",
+      "locked": false,
+      "dur": 3.0799999999999983,
+      "start": 88.64,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a quiet, near-empty trading floor",
+      "queries": [
+        "empty stock market floor",
+        "empty stock market floor"
+      ],
+      "audio": "illiquid names and the S and P100",
+      "theme": 75.9
+    },
+    {
+      "n": 36,
+      "id": "36",
+      "locked": false,
+      "dur": 2.0799999999999983,
+      "start": 91.72,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a crowded harbour of fishing boats, every spot taken",
+      "queries": [
+        "crowded fishing boats harbour",
+        "crowded fishing boats harbour"
+      ],
+      "audio": "is the most picked over",
+      "theme": 7.2
+    },
+    {
+      "n": 37,
+      "id": "37",
+      "locked": false,
+      "dur": 2.1500000000000057,
+      "start": 93.8,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Aerial shot of a calm open stretch of ocean",
+      "queries": [
+        "ocean water surface aerial",
+        "ocean water surface aerial"
+      ],
+      "audio": "stretch of water on earth.",
+      "theme": 1.4
+    },
+    {
+      "n": 38,
+      "id": "38",
+      "locked": false,
+      "dur": 1.2099999999999937,
+      "start": 95.95,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a handwritten note that just says 'fine'",
+      "queries": [
+        "handwritten note fine",
+        "handwritten note fine",
+        "handwritten note fine"
+      ],
+      "audio": "Fine, move",
+      "theme": 96.3
+    },
+    {
+      "n": 39,
+      "id": "39",
+      "locked": false,
+      "dur": 0.8299999999999983,
+      "start": 97.16,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a dark coat walking down a city street with intent",
+      "queries": [
+        "man walking city street",
+        "man walking city street"
+      ],
+      "audio": "to mid caps.",
+      "theme": 100.0
+    },
+    {
+      "n": 40,
+      "id": "40",
+      "locked": false,
+      "dur": 0.8900000000000006,
+      "start": 97.99,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man blowing out his cheeks, surprised",
+      "queries": [
+        "man exhaling surprised",
+        "man exhaling surprised"
+      ],
+      "audio": "PWW",
+      "theme": 100.0
+    },
+    {
+      "n": 41,
+      "id": "41",
+      "locked": false,
+      "dur": 1.3000000000000114,
+      "start": 98.88,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a dim room leaning toward his screen",
+      "queries": [
+        "man watching screen intently",
+        "man watching screen intently"
+      ],
+      "audio": "Gross Sharpe jumped",
+      "theme": 100.0
+    },
+    {
+      "n": 42,
+      "id": "42",
+      "locked": false,
+      "dur": 0.8599999999999994,
+      "start": 100.18,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a chart line spiking sharply upward",
+      "queries": [
+        "stock chart spike up",
+        "stock chart spike up"
+      ],
+      "audio": "0",
+      "theme": 95.7
+    },
+    {
+      "n": 43,
+      "id": "43",
+      "locked": false,
+      "dur": 1.2999999999999972,
+      "start": 101.04,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a white t-shirt throwing his arms up against a clear blue sky",
+      "queries": [
+        "man arms raised sky",
+        "man arms raised sky"
+      ],
+      "audio": ".05 to 0",
+      "theme": 100.0
+    },
+    {
+      "n": 44,
+      "id": "44",
+      "locked": false,
+      "dur": 2.1599999999999966,
+      "start": 102.34,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man pumping his fist, grinning",
+      "queries": [
+        "man celebrating fist pump",
+        "man celebrating fist pump"
+      ],
+      "audio": ".445. Beautiful",
+      "theme": 64.0
+    },
+    {
+      "n": 45,
+      "id": "45",
+      "locked": false,
+      "dur": 1.2399999999999949,
+      "start": 104.5,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young man in a dim room reading his screen, smile fading",
+      "queries": [
+        "man reading screen frown",
+        "man reading screen frown"
+      ],
+      "audio": "net sharp",
+      "theme": 99.9
+    },
+    {
+      "n": 46,
+      "id": "46",
+      "locked": false,
+      "dur": 0.9200000000000017,
+      "start": 105.74,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a young man's face falling",
+      "queries": [
+        "man face falls",
+        "man face falls"
+      ],
+      "audio": "0",
+      "theme": 100.0
+    },
+    {
+      "n": 47,
+      "id": "47",
+      "locked": false,
+      "dur": 1.75,
+      "start": 106.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of hands gripping a chain-link fence, frustrated face behind",
+      "queries": [
+        "hands gripping fence frustrated",
+        "hands gripping fence frustrated"
+      ],
+      "audio": ".58.",
+      "theme": 100.0
+    },
+    {
+      "n": 48,
+      "id": "48",
+      "locked": false,
+      "dur": 2.0799999999999983,
+      "start": 108.41,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man wincing through his teeth",
+      "queries": [
+        "man grimace cringe",
+        "man grimace cringe"
+      ],
+      "audio": "She A,",
+      "theme": 88.5
+    },
+    {
+      "n": 49,
+      "id": "49",
+      "locked": false,
+      "dur": 1.490000000000009,
+      "start": 110.49,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man seen from behind looking out over a big city",
+      "queries": [
+        "man looking city skyline",
+        "man looking city skyline"
+      ],
+      "audio": "the strategy traded",
+      "theme": 100.0
+    },
+    {
+      "n": 50,
+      "id": "50",
+      "locked": false,
+      "dur": 1.4399999999999977,
+      "start": 111.98,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '143' counts up, 'trades a year' beside it",
+      "queries": [
+        "143 counter card",
+        "143 counter card"
+      ],
+      "audio": "143",
+      "theme": 100.0
+    },
+    {
+      "n": 51,
+      "id": "51",
+      "locked": false,
+      "dur": 1.8400000000000034,
+      "start": 113.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a cash register printing receipt after receipt",
+      "queries": [
+        "cash register receipts",
+        "cash register receipts"
+      ],
+      "audio": "times a year and paid a",
+      "theme": 37.9
+    },
+    {
+      "n": 52,
+      "id": "52",
+      "locked": false,
+      "dur": 1.8799999999999955,
+      "start": 115.26,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of coins dropping into a toll machine, one after another",
+      "queries": [
+        "coins dropping into machine",
+        "coins dropping into machine"
+      ],
+      "audio": "spread every single time.",
+      "theme": 84.3
+    },
+    {
+      "n": 53,
+      "id": "53",
+      "locked": false,
+      "dur": 3.0999999999999943,
+      "start": 117.14,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a programmer typing code, slowing to a careful pace",
+      "queries": [
+        "programmer typing code",
+        "programmer typing code"
+      ],
+      "audio": "I added signal decay to slow it down. Kept",
+      "theme": 57.2
+    },
+    {
+      "n": 54,
+      "id": "54",
+      "locked": false,
+      "dur": 2.740000000000009,
+      "start": 120.24,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of scissors cutting a strip of paper short",
+      "queries": [
+        "scissors cutting paper",
+        "scissors cutting paper"
+      ],
+      "audio": "94 % of the edge, cut cost",
+      "theme": 21.9
+    },
+    {
+      "n": 55,
+      "id": "55.1",
+      "locked": false,
+      "dur": 4.079999999999998,
+      "start": 122.98,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Old CRT monitor in a dim room showing a backtest result table",
+      "queries": [
+        "trading terminal sharpe ratio",
+        "trading terminal sharpe ratio",
+        "trading terminal sharpe ratio"
+      ],
+      "audio": "26 % and got net sharp 0 .126",
+      "theme": 63.4
+    },
+    {
+      "n": 56,
+      "id": "55.2",
+      "locked": false,
+      "dur": 2.6999999999999886,
+      "start": 127.06,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a red equity curve sliding down a monitor",
+      "queries": [
+        "stock chart crash red",
+        "stock chart crash red"
+      ],
+      "audio": "with a 40 % drawdown for about",
+      "theme": 100.0
+    },
+    {
+      "n": 57,
+      "id": "55.3",
+      "locked": false,
+      "dur": 3.5800000000000125,
+      "start": 129.76,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a stressed man with both hands on his head",
+      "queries": [
+        "stressed man hands on head",
+        "stressed man hands on head"
+      ],
+      "audio": "1 % a year. Then I sector",
+      "theme": 100.0
+    },
+    {
+      "n": 58,
+      "id": "55.4",
+      "locked": false,
+      "dur": 3.8400000000000034,
+      "start": 133.34,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a cursor dragging a folder into the trash on an old monitor",
+      "queries": [
+        "deleting files computer",
+        "deleting files computer"
+      ],
+      "audio": "neutralized it to reduce risk and it deleted the",
+      "theme": 58.5
+    },
+    {
+      "n": 59,
+      "id": "56.1",
+      "locked": false,
+      "dur": 3.4599999999999795,
+      "start": 137.18,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a sector heatmap of stocks flickering on a monitor",
+      "queries": [
+        "sector map stocks heatmap screen",
+        "sector map stocks heatmap screen"
+      ],
+      "audio": "signal because the sector level move was the edge.",
+      "theme": 100.0
+    },
+    {
+      "n": 60,
+      "id": "56.2",
+      "locked": false,
+      "dur": 3.6000000000000227,
+      "start": 140.64,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a choppy, jagged price line on an old monitor",
+      "queries": [
+        "volatility chart choppy",
+        "volatility chart choppy"
+      ],
+      "audio": "Triple the vol lowered the gross. Okay, let's",
+      "theme": 100.0
+    },
+    {
+      "n": 61,
+      "id": "56.3",
+      "locked": false,
+      "dur": 4.429999999999978,
+      "start": 144.24,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man zipping up a suitcase, ready to move",
+      "queries": [
+        "man packing suitcase",
+        "man packing suitcase"
+      ],
+      "audio": "switch locations. Ran the same reversal on crypto,",
+      "theme": 22.8
+    },
+    {
+      "n": 62,
+      "id": "56.4",
+      "locked": false,
+      "dur": 2.8500000000000227,
+      "start": 148.67,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of crypto prices scrolling on a phone and a monitor",
+      "queries": [
+        "bitcoin crypto trading screen",
+        "bitcoin crypto trading screen",
+        "bitcoin crypto trading screen"
+      ],
+      "audio": "expecting it to be stronger. More retail presence,",
+      "theme": 100.0
+    },
+    {
+      "n": 63,
+      "id": "57",
+      "locked": false,
+      "dur": 2.6599999999999966,
+      "start": 151.52,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Tired young man in a hoodie checking crypto on his phone at 3am",
+      "queries": [
+        "crypto trader night phone",
+        "crypto trader night phone"
+      ],
+      "audio": "24 sevens. Degenerate, got gross",
+      "theme": 100.0
+    },
+    {
+      "n": 64,
+      "id": "58",
+      "locked": false,
+      "dur": 4.2099999999999795,
+      "start": 154.18,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man in a beanie in a dark room, staring at his screen in shock",
+      "queries": [
+        "man shocked looking screen dark",
+        "man shocked looking screen dark"
+      ],
+      "audio": "sharp B minus 1 .01.",
+      "theme": 100.0
+    },
+    {
+      "n": 65,
+      "id": "59",
+      "locked": false,
+      "dur": 1.6100000000000136,
+      "start": 158.39,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in sunglasses at a table laughing in disbelief",
+      "queries": [
+        "man laughing disbelief",
+        "man laughing disbelief"
+      ],
+      "audio": "Beautifully",
+      "theme": 100.0
+    },
+    {
+      "n": 66,
+      "id": "60",
+      "locked": false,
+      "dur": 1.5500000000000114,
+      "start": 160.0,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "The same kind of man dropping his head into his hands at the table",
+      "queries": [
+        "man head in hands table",
+        "man head in hands table"
+      ],
+      "audio": "catastrophically wrong,",
+      "theme": 100.0
+    },
+    {
+      "n": 67,
+      "id": "61",
+      "locked": false,
+      "dur": 1.589999999999975,
+      "start": 161.55,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man outdoors snapping his fingers and pointing, idea struck",
+      "queries": [
+        "man pointing idea",
+        "man pointing idea"
+      ],
+      "audio": "but wait, flip it.",
+      "theme": 53.1
+    },
+    {
+      "n": 68,
+      "id": "62.1",
+      "locked": false,
+      "dur": 3.5800000000000125,
+      "start": 163.14,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "A line chart climbing steadily on an old monitor",
+      "queries": [
+        "line chart climbing",
+        "line chart climbing"
+      ],
+      "audio": "Crypto doesn't revert, it trends. Number, oh,",
+      "theme": 100.0
+    },
+    {
+      "n": 69,
+      "id": "62.2",
+      "locked": false,
+      "dur": 3.4000000000000057,
+      "start": 166.72,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a crypto chart with a 30-day momentum line rising",
+      "queries": [
+        "crypto momentum chart screen",
+        "crypto momentum chart screen",
+        "crypto momentum chart screen"
+      ],
+      "audio": "oh, six crypto 30 day momentum. Net sharp 1 .1.",
+      "theme": 100.0
+    },
+    {
+      "n": 70,
+      "id": "62.3",
+      "locked": false,
+      "dur": 4.099999999999994,
+      "start": 170.12,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "News footage of the 2022 crypto crash with red tickers",
+      "queries": [
+        "2022 crypto crash news",
+        "2022 crypto crash news",
+        "2022 crypto crash news"
+      ],
+      "audio": "Oh, positive in seven of eight years, including the 2022 bear.",
+      "theme": 100.0
+    },
+    {
+      "n": 71,
+      "id": "62.4",
+      "locked": false,
+      "dur": 2.9199999999999875,
+      "start": 174.22,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man throwing his hands up in triumph at his desk",
+      "queries": [
+        "man celebrating genius",
+        "man celebrating genius"
+      ],
+      "audio": "I am a fucking genius where Einstein",
+      "theme": 48.5
+    },
+    {
+      "n": 72,
+      "id": "62.5",
+      "locked": false,
+      "dur": 3.440000000000026,
+      "start": 177.14,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Albert Einstein looking unimpressed",
+      "queries": [
+        "Albert Einstein portrait",
+        "Albert Einstein portrait"
+      ],
+      "audio": "at rolling in his grave.",
+      "theme": 0.0
+    },
+    {
+      "n": 73,
+      "id": "62.6",
+      "locked": false,
+      "dur": 3.280000000000001,
+      "start": 180.58,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of a prop trading firm office with rows of screens",
+      "queries": [
+        "prop trading firm office",
+        "prop trading firm office",
+        "prop trading firm office"
+      ],
+      "audio": "Then I ran it on the FTMOs 14",
+      "theme": 100.0
+    },
+    {
+      "n": 74,
+      "id": "63.1",
+      "locked": false,
+      "dur": 3.9399999999999977,
+      "start": 183.86,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man shrugging at camera, don't ask",
+      "queries": [
+        "man shrugging",
+        "man shrugging"
+      ],
+      "audio": "coin CFD. Don't ask me why I am trying to trade prop firms.",
+      "theme": 85.3
+    },
+    {
+      "n": 75,
+      "id": "63.2",
+      "locked": false,
+      "dur": 3.5,
+      "start": 187.8,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man rolling his eyes and waving it off",
+      "queries": [
+        "man rolling eyes",
+        "man rolling eyes"
+      ],
+      "audio": "They're a scam, blah, blah, blah. Well, I need to start somewhere",
+      "theme": 100.0
+    },
+    {
+      "n": 76,
+      "id": "63.3",
+      "locked": false,
+      "dur": 2.839999999999975,
+      "start": 191.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man starting up the first step of a long staircase",
+      "queries": [
+        "man climbing stairs",
+        "man climbing stairs"
+      ],
+      "audio": "in its net sharp 0",
+      "theme": 59.2
+    },
+    {
+      "n": 77,
+      "id": "63.4",
+      "locked": false,
+      "dur": 3.630000000000024,
+      "start": 194.14,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man grimacing slightly, meh",
+      "queries": [
+        "man unimpressed grimace",
+        "man unimpressed grimace"
+      ],
+      "audio": ".38. Okay, slightly bad.",
+      "theme": 100.0
+    },
+    {
+      "n": 78,
+      "id": "63.5",
+      "locked": false,
+      "dur": 3.7299999999999898,
+      "start": 197.77,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a tape measure pulled out across a desk",
+      "queries": [
+        "tape measure desk",
+        "tape measure desk"
+      ],
+      "audio": "Then I went and measured the actual swap.",
+      "theme": 20.9
+    },
+    {
+      "n": 79,
+      "id": "63.6",
+      "locked": false,
+      "dur": 3.3100000000000023,
+      "start": 201.5,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a broker fee table on a screen",
+      "queries": [
+        "broker fee table screen",
+        "broker fee table screen",
+        "broker fee table screen"
+      ],
+      "audio": "Crypto CFD, 30 % a year",
+      "theme": 100.0
+    },
+    {
+      "n": 80,
+      "id": "64",
+      "locked": false,
+      "dur": 2.0600000000000023,
+      "start": 204.81,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a serious man's face against a blue backdrop",
+      "queries": [
+        "serious man close up blue",
+        "serious man close up blue"
+      ],
+      "audio": "per SIDE. I'd",
+      "theme": 65.9
+    },
+    {
+      "n": 81,
+      "id": "65",
+      "locked": false,
+      "dur": 1.9799999999999898,
+      "start": 206.87,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a machine pressing down on a material in a stress test",
+      "queries": [
+        "stress test machine",
+        "stress test machine"
+      ],
+      "audio": "stress tested it at",
+      "theme": 19.1
+    },
+    {
+      "n": 82,
+      "id": "66",
+      "locked": false,
+      "dur": 1.5200000000000102,
+      "start": 208.85,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man with his back to camera in an empty stadium, looking up",
+      "queries": [
+        "man back to camera stadium",
+        "man back to camera stadium"
+      ],
+      "audio": "15 % as",
+      "theme": 100.0
+    },
+    {
+      "n": 83,
+      "id": "67",
+      "locked": false,
+      "dur": 1.1999999999999886,
+      "start": 210.37,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man on a field shaking his head",
+      "queries": [
+        "man shaking head",
+        "man shaking head"
+      ],
+      "audio": "my worst case.",
+      "theme": 100.0
+    },
+    {
+      "n": 84,
+      "id": "68",
+      "locked": false,
+      "dur": 2.0,
+      "start": 211.57,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Pedestrians crossing a busy street at dusk as cars stream past",
+      "queries": [
+        "city street dusk traffic",
+        "city street dusk traffic"
+      ],
+      "audio": "Reality was double",
+      "theme": 84.4
+    },
+    {
+      "n": 85,
+      "id": "69",
+      "locked": false,
+      "dur": 2.1599999999999966,
+      "start": 213.57,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Wide shot of commuters rushing past in both directions",
+      "queries": [
+        "commuters rushing",
+        "commuters rushing"
+      ],
+      "audio": "my worst case. Okay, I don't seem to",
+      "theme": 100.0
+    },
+    {
+      "n": 86,
+      "id": "70",
+      "locked": false,
+      "dur": 2.5700000000000216,
+      "start": 215.73,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Abstract radial light burst, rainbow rays from the centre",
+      "queries": [
+        "prismatic light burst",
+        "prismatic light burst"
+      ],
+      "audio": "be getting anywhere solely based on my own ideas.",
+      "theme": 100.0
+    },
+    {
+      "n": 87,
+      "id": "71",
+      "locked": false,
+      "dur": 2.1499999999999773,
+      "start": 218.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man stuck waist-deep in mud under a grey sky",
+      "queries": [
+        "man stuck mud",
+        "man stuck mud"
+      ],
+      "audio": "So let's go jack some",
+      "theme": 100.0
+    },
+    {
+      "n": 88,
+      "id": "72",
+      "locked": false,
+      "dur": 2.2600000000000193,
+      "start": 220.45,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a giant classical statue, a tiny figure at its base",
+      "queries": [
+        "giant statue small person",
+        "giant statue small person",
+        "giant statue small person"
+      ],
+      "audio": "ideas then. Stand on the shoulders of giants and",
+      "theme": 71.6
+    },
+    {
+      "n": 89,
+      "id": "73",
+      "locked": false,
+      "dur": 2.079999999999984,
+      "start": 222.71,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Albert Einstein looking straight at camera",
+      "queries": [
+        "Albert Einstein",
+        "Albert Einstein"
+      ],
+      "audio": "all that. Hey, Einstein, I",
+      "theme": 0.0
+    },
+    {
+      "n": 90,
+      "id": "74",
+      "locked": false,
+      "dur": 1.9000000000000057,
+      "start": 224.79,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young man on a bench raising both hands in surrender",
+      "queries": [
+        "man hands up surrender",
+        "man hands up surrender"
+      ],
+      "audio": "take what I said back. So",
+      "theme": 37.1
+    },
+    {
+      "n": 91,
+      "id": "75",
+      "locked": false,
+      "dur": 2.5999999999999943,
+      "start": 226.69,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in glasses leafing through academic papers in a library",
+      "queries": [
+        "man reading papers library",
+        "man reading papers library"
+      ],
+      "audio": "I went looking for papers,",
+      "theme": 57.2
+    },
+    {
+      "n": 92,
+      "id": "76",
+      "locked": false,
+      "dur": 2.180000000000007,
+      "start": 229.29,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an intraday bitcoin chart",
+      "queries": [
+        "bitcoin intraday chart",
+        "bitcoin intraday chart",
+        "bitcoin intraday chart"
+      ],
+      "audio": "BTC intraday",
+      "theme": 100.0
+    },
+    {
+      "n": 93,
+      "id": "77",
+      "locked": false,
+      "dur": 2.4199999999999875,
+      "start": 231.47,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man at a desk in a pink-walled office crossing something out",
+      "queries": [
+        "man crossing out notebook",
+        "man crossing out notebook"
+      ],
+      "audio": "trend, dead at",
+      "theme": 100.0
+    },
+    {
+      "n": 94,
+      "id": "78",
+      "locked": false,
+      "dur": 1.6400000000000148,
+      "start": 233.89,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Street at dusk outside a closed shop front",
+      "queries": [
+        "city storefront dusk",
+        "city storefront dusk"
+      ],
+      "audio": "the decay check, US",
+      "theme": 0.0
+    },
+    {
+      "n": 95,
+      "id": "79",
+      "locked": false,
+      "dur": 1.6399999999999864,
+      "start": 235.53,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Opening bell on the trading floor, first half hour",
+      "queries": [
+        "stock exchange opening bell",
+        "stock exchange opening bell",
+        "stock exchange opening bell"
+      ],
+      "audio": "500 first half hour",
+      "theme": 71.9
+    },
+    {
+      "n": 96,
+      "id": "80",
+      "locked": false,
+      "dur": 1.3800000000000239,
+      "start": 237.17,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a clock ticking toward the close",
+      "queries": [
+        "clock ticking close up",
+        "clock ticking close up"
+      ],
+      "audio": "into last half",
+      "theme": 40.0
+    },
+    {
+      "n": 97,
+      "id": "81",
+      "locked": false,
+      "dur": 1.4599999999999795,
+      "start": 238.55,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Two figures on a dark stage under a single spotlight",
+      "queries": [
+        "spotlight stage two figures",
+        "spotlight stage two figures"
+      ],
+      "audio": "hour, dead",
+      "theme": 100.0
+    },
+    {
+      "n": 98,
+      "id": "82",
+      "locked": false,
+      "dur": 1.0400000000000205,
+      "start": 240.01,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Stage spotlight snapping off",
+      "queries": [
+        "spotlight turning off",
+        "spotlight turning off"
+      ],
+      "audio": "at the decay",
+      "theme": 100.0
+    },
+    {
+      "n": 99,
+      "id": "83",
+      "locked": false,
+      "dur": 2.039999999999992,
+      "start": 241.05,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'US500' then 'overnight drift'",
+      "queries": [
+        "US500 card",
+        "US500 card"
+      ],
+      "audio": "check, US 500",
+      "theme": 80.8
+    },
+    {
+      "n": 100,
+      "id": "84",
+      "locked": false,
+      "dur": 2.204999999999984,
+      "start": 243.09,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'overnight drift,' types on",
+      "queries": [
+        "overnight drift card",
+        "overnight drift card"
+      ],
+      "audio": "overnight drift,",
+      "theme": 70.7
+    },
+    {
+      "n": 101,
+      "id": "85",
+      "locked": false,
+      "dur": 1.9450000000000216,
+      "start": 245.295,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a weathered stone ruin",
+      "queries": [
+        "old stone building ruin",
+        "old stone building ruin",
+        "old stone building ruin"
+      ],
+      "audio": "dead at the",
+      "theme": 0.0
+    },
+    {
+      "n": 102,
+      "id": "86",
+      "locked": false,
+      "dur": 1.4799999999999898,
+      "start": 247.24,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man from behind gazing up at a modern glass building",
+      "queries": [
+        "man looking up glass building",
+        "man looking up glass building"
+      ],
+      "audio": "decay check, three",
+      "theme": 62.5
+    },
+    {
+      "n": 103,
+      "id": "87",
+      "locked": false,
+      "dur": 1.9199999999999875,
+      "start": 248.72,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Two figures in a dim blue room facing each other",
+      "queries": [
+        "two people dim room",
+        "two people dim room"
+      ],
+      "audio": "for three. The pattern is",
+      "theme": 73.6
+    },
+    {
+      "n": 104,
+      "id": "88",
+      "locked": false,
+      "dur": 2.0200000000000102,
+      "start": 250.64,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a chart with one window highlighted, flat after it",
+      "queries": [
+        "chart highlighted window",
+        "chart highlighted window"
+      ],
+      "audio": "there in the paper sample window and",
+      "theme": 100.0
+    },
+    {
+      "n": 105,
+      "id": "89",
+      "locked": false,
+      "dur": 2.0999999999999943,
+      "start": 252.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an athlete's serious face",
+      "queries": [
+        "athlete close up serious",
+        "athlete close up serious"
+      ],
+      "audio": "gone afterwards. Every time like",
+      "theme": 83.7
+    },
+    {
+      "n": 106,
+      "id": "90",
+      "locked": false,
+      "dur": 2.180000000000007,
+      "start": 254.76,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a blazer reading a newspaper on the street",
+      "queries": [
+        "man reading newspaper",
+        "man reading newspaper"
+      ],
+      "audio": "clockwork. If I can read",
+      "theme": 81.8
+    },
+    {
+      "n": 107,
+      "id": "91",
+      "locked": false,
+      "dur": 2.3600000000000136,
+      "start": 256.94,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crowd of people all reading their phones at once",
+      "queries": [
+        "crowd reading phones",
+        "crowd reading phones"
+      ],
+      "audio": "it, everyone can read it. The half",
+      "theme": 71.2
+    },
+    {
+      "n": 108,
+      "id": "92",
+      "locked": false,
+      "dur": 1.240000000000009,
+      "start": 259.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Documentary shot of a crowd gathering around",
+      "queries": [
+        "crowd gathering",
+        "crowd gathering"
+      ],
+      "audio": "life of a published",
+      "theme": 100.0
+    },
+    {
+      "n": 109,
+      "id": "93",
+      "locked": false,
+      "dur": 1.6200000000000045,
+      "start": 260.54,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Speaker at a press conference podium",
+      "queries": [
+        "press conference speaker",
+        "press conference speaker"
+      ],
+      "audio": "anomaly is roughly",
+      "theme": 40.3
+    },
+    {
+      "n": 110,
+      "id": "94",
+      "locked": false,
+      "dur": 2.019999999999982,
+      "start": 262.16,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a white shirt speaking to camera at a press event",
+      "queries": [
+        "man speaking to camera",
+        "man speaking to camera"
+      ],
+      "audio": "publication. Multi asset",
+      "theme": 100.0
+    },
+    {
+      "n": 111,
+      "id": "95",
+      "locked": false,
+      "dur": 1.9399999999999977,
+      "start": 264.18,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "World map covered in market tickers",
+      "queries": [
+        "world map financial markets",
+        "world map financial markets",
+        "world map financial markets"
+      ],
+      "audio": "trend across 45",
+      "theme": 0.0
+    },
+    {
+      "n": 112,
+      "id": "96",
+      "locked": false,
+      "dur": 2.480000000000018,
+      "start": 266.12,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Empty arena under dramatic overhead lights",
+      "queries": [
+        "empty arena spotlights",
+        "empty arena spotlights"
+      ],
+      "audio": "instruments, dead and not from",
+      "theme": 63.6
+    },
+    {
+      "n": 113,
+      "id": "97",
+      "locked": false,
+      "dur": 2.7399999999999523,
+      "start": 268.6,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a flat, going-nowhere line on a monitor",
+      "queries": [
+        "flat line monitor",
+        "flat line monitor"
+      ],
+      "audio": "cost. Those instruments just don't",
+      "theme": 100.0
+    },
+    {
+      "n": 114,
+      "id": "98",
+      "locked": false,
+      "dur": 3.080000000000041,
+      "start": 271.34,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'BTC weekly trend' then '+0.95% a week'",
+      "queries": [
+        "BTC weekly trend card",
+        "BTC weekly trend card"
+      ],
+      "audio": "trend. BTC weekly trend grows plus",
+      "theme": 100.0
+    },
+    {
+      "n": 115,
+      "id": "99",
+      "locked": false,
+      "dur": 2.044999999999959,
+      "start": 274.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Child seen from behind sitting alone indoors",
+      "queries": [
+        "child sitting alone",
+        "child sitting alone"
+      ],
+      "audio": "0 .95 % a week.",
+      "theme": 100.0
+    },
+    {
+      "n": 116,
+      "id": "100",
+      "locked": false,
+      "dur": 1.7450000000000045,
+      "start": 276.465,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Child turning round with a small smile",
+      "queries": [
+        "child turning smile",
+        "child turning smile"
+      ],
+      "audio": "Genuinely real,",
+      "theme": 38.4
+    },
+    {
+      "n": 117,
+      "id": "101",
+      "locked": false,
+      "dur": 0.9399999999999977,
+      "start": 278.21,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a young boy's face falling",
+      "queries": [
+        "boy face falling",
+        "boy face falling"
+      ],
+      "audio": "eaten by",
+      "theme": 100.0
+    },
+    {
+      "n": 118,
+      "id": "102",
+      "locked": false,
+      "dur": 0.2400000000000091,
+      "start": 279.15,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a young boy",
+      "queries": [
+        "boy close up",
+        "boy close up"
+      ],
+      "audio": "0",
+      "theme": 62.2
+    },
+    {
+      "n": 119,
+      "id": "103",
+      "locked": false,
+      "dur": 2.4850000000000136,
+      "start": 279.39,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Cyclist riding down a city street",
+      "queries": [
+        "cyclist city street",
+        "cyclist city street"
+      ],
+      "audio": ".577 % a week of swap. And",
+      "theme": 100.0
+    },
+    {
+      "n": 120,
+      "id": "104",
+      "locked": false,
+      "dur": 2.704999999999984,
+      "start": 281.875,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Cyclist riding away down the street",
+      "queries": [
+        "cyclist riding away",
+        "cyclist riding away"
+      ],
+      "audio": "the leftover profit was",
+      "theme": 100.0
+    },
+    {
+      "n": 121,
+      "id": "105",
+      "locked": false,
+      "dur": 4.199999999999989,
+      "start": 284.58,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "News footage of the 2017 bitcoin mania, crowds and headlines",
+      "queries": [
+        "2017 bitcoin mania news",
+        "2017 bitcoin mania news",
+        "2017 bitcoin mania news"
+      ],
+      "audio": "100 % the 2017 mania. FX time of day",
+      "theme": 100.0
+    },
+    {
+      "n": 122,
+      "id": "106",
+      "locked": false,
+      "dur": 4.400000000000034,
+      "start": 288.78,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of currency pair quotes on trading screens",
+      "queries": [
+        "forex trading screens",
+        "forex trading screens",
+        "forex trading screens"
+      ],
+      "audio": "seasonality, three pairs, short at 21 o 'clock, long at",
+      "theme": 100.0
+    },
+    {
+      "n": 123,
+      "id": "107",
+      "locked": false,
+      "dur": 4.579999999999984,
+      "start": 293.18,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of the London skyline at night",
+      "queries": [
+        "london skyline night",
+        "london skyline night",
+        "london skyline night"
+      ],
+      "audio": "23 o 'clock London. Back test net sharp 5 .28 plus",
+      "theme": 0.0
+    },
+    {
+      "n": 124,
+      "id": "108",
+      "locked": false,
+      "dur": 5.139999999999986,
+      "start": 297.76,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "A near-white faded frame, glowing",
+      "queries": [
+        "white light glow",
+        "white light glow",
+        "white light glow"
+      ],
+      "audio": "12 .5 % a year. Five out of five out of sample",
+      "theme": 100.0
+    },
+    {
+      "n": 125,
+      "id": "109",
+      "locked": false,
+      "dur": 2.640000000000043,
+      "start": 302.9,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young man in a light shirt leaning in to his laptop, excited",
+      "queries": [
+        "young man excited laptop",
+        "young man excited laptop"
+      ],
+      "audio": "years positive. It held on currencies I never",
+      "theme": 63.2
+    },
+    {
+      "n": 126,
+      "id": "110",
+      "locked": false,
+      "dur": 2.5399999999999636,
+      "start": 305.54,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young man scrolling through tick data spreadsheets",
+      "queries": [
+        "man scrolling spreadsheet",
+        "man scrolling spreadsheet"
+      ],
+      "audio": "fitted on. Costs weren't guessed, I pulled",
+      "theme": 71.5
+    },
+    {
+      "n": 127,
+      "id": "111",
+      "locked": false,
+      "dur": 1.8400000000000318,
+      "start": 308.08,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Dark blurred room with a green table under a lamp",
+      "queries": [
+        "green table dark room",
+        "green table dark room"
+      ],
+      "audio": "tick data and measured the real",
+      "theme": 100.0
+    },
+    {
+      "n": 128,
+      "id": "112",
+      "locked": false,
+      "dur": 0.6999999999999886,
+      "start": 309.92,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a hand holding up a printout",
+      "queries": [
+        "hand holding paper",
+        "hand holding paper"
+      ],
+      "audio": "spread hour by",
+      "theme": 61.3
+    },
+    {
+      "n": 129,
+      "id": "113",
+      "locked": false,
+      "dur": 0.339999999999975,
+      "start": 310.62,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man at a party raising his glass",
+      "queries": [
+        "man raising glass party",
+        "man raising glass party"
+      ],
+      "audio": "hour.",
+      "theme": 69.9
+    },
+    {
+      "n": 130,
+      "id": "114",
+      "locked": false,
+      "dur": 3.2900000000000205,
+      "start": 310.96,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of Albert Einstein smiling",
+      "queries": [
+        "Albert Einstein smiling",
+        "Albert Einstein smiling"
+      ],
+      "audio": "Swap free by design. Einstein,",
+      "theme": 0.0
+    },
+    {
+      "n": 131,
+      "id": "115",
+      "locked": false,
+      "dur": 3.170000000000016,
+      "start": 314.25,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Dart hitting the bullseye",
+      "queries": [
+        "dart bullseye",
+        "dart bullseye"
+      ],
+      "audio": "this clear the prop firms target",
+      "theme": 31.4
+    },
+    {
+      "n": 132,
+      "id": "116",
+      "locked": false,
+      "dur": 2.259999999999991,
+      "start": 317.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a suit and red tie at an office desk nodding",
+      "queries": [
+        "man suit office desk",
+        "man suit office desk"
+      ],
+      "audio": "organically. No leverage",
+      "theme": 100.0
+    },
+    {
+      "n": 133,
+      "id": "117",
+      "locked": false,
+      "dur": 2.990000000000009,
+      "start": 319.68,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a finger pressing a big launch button",
+      "queries": [
+        "finger pressing button",
+        "finger pressing button"
+      ],
+      "audio": "games deployed it.",
+      "theme": 48.1
+    },
+    {
+      "n": 134,
+      "id": "118",
+      "locked": false,
+      "dur": 1.7899999999999636,
+      "start": 322.67,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a suit walking down a long corridor",
+      "queries": [
+        "man walking corridor",
+        "man walking corridor"
+      ],
+      "audio": "How did it",
+      "theme": 100.0
+    },
+    {
+      "n": 135,
+      "id": "119",
+      "locked": false,
+      "dur": 2.5100000000000477,
+      "start": 324.46,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Profile of a man in formal attire, waiting",
+      "queries": [
+        "man profile waiting",
+        "man profile waiting"
+      ],
+      "audio": "actually do? Well,",
+      "theme": 100.0
+    },
+    {
+      "n": 136,
+      "id": "120.1",
+      "locked": false,
+      "dur": 4.059999999999945,
+      "start": 326.97,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Old CRT monitor in a dim room showing a performance chart",
+      "queries": [
+        "old monitor chart",
+        "old monitor chart"
+      ],
+      "audio": "well, half the edge wasn't real.",
+      "theme": 100.0
+    },
+    {
+      "n": 137,
+      "id": "120.2",
+      "locked": false,
+      "dur": 3.1200000000000045,
+      "start": 331.03,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of bid and ask quotes ticking on a screen",
+      "queries": [
+        "forex bid ask quotes",
+        "forex bid ask quotes",
+        "forex bid ask quotes"
+      ],
+      "audio": "The 21 o 'clock session had been measured on bid quotes.",
+      "theme": 100.0
+    },
+    {
+      "n": 138,
+      "id": "120.3",
+      "locked": false,
+      "dur": 3.5100000000000477,
+      "start": 334.15,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man redoing his maths in a notebook",
+      "queries": [
+        "man recalculating notebook",
+        "man recalculating notebook"
+      ],
+      "audio": "And when I redid it properly, the book was sharp about one",
+      "theme": 23.7
+    },
+    {
+      "n": 139,
+      "id": "120.4",
+      "locked": false,
+      "dur": 3.759999999999991,
+      "start": 337.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Glitching old monitor screen",
+      "queries": [
+        "glitching monitor",
+        "glitching monitor"
+      ],
+      "audio": "point or not 5 .3. A quoting artifact.",
+      "theme": 90.6
+    },
+    {
+      "n": 140,
+      "id": "120.5",
+      "locked": false,
+      "dur": 3.319999999999993,
+      "start": 341.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "House of cards collapsing on a table",
+      "queries": [
+        "house of cards collapse",
+        "house of cards collapse"
+      ],
+      "audio": "I had built a strategy on top of",
+      "theme": 94.8
+    },
+    {
+      "n": 141,
+      "id": "120.6",
+      "locked": false,
+      "dur": 3.6399999999999864,
+      "start": 344.74,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an old monitor reading 0.00",
+      "queries": [
+        "zero on screen",
+        "zero on screen"
+      ],
+      "audio": "the live edge was zero. Not",
+      "theme": 100.0
+    },
+    {
+      "n": 142,
+      "id": "121.1",
+      "locked": false,
+      "dur": 4.0400000000000205,
+      "start": 348.38,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Old CRT monitor in a dim room flickering to static",
+      "queries": [
+        "old monitor static",
+        "old monitor static"
+      ],
+      "audio": "smaller, zero. Gross,",
+      "theme": 67.4
+    },
+    {
+      "n": 143,
+      "id": "121.2",
+      "locked": false,
+      "dur": 3.0,
+      "start": 352.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a broker commission table on a screen",
+      "queries": [
+        "forex broker commission screen",
+        "forex broker commission screen",
+        "forex broker commission screen"
+      ],
+      "audio": "negative. FTMO charges a commission",
+      "theme": 100.0
+    },
+    {
+      "n": 144,
+      "id": "121.3",
+      "locked": false,
+      "dur": 3.089999999999975,
+      "start": 355.42,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of quarters dropped one by one onto a desk",
+      "queries": [
+        "coins on desk",
+        "coins on desk"
+      ],
+      "audio": "on FX 25 cents. A deal,",
+      "theme": 36.8
+    },
+    {
+      "n": 145,
+      "id": "121.4",
+      "locked": false,
+      "dur": 3.569999999999993,
+      "start": 358.51,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of fingers punching numbers into a calculator",
+      "queries": [
+        "calculator typing",
+        "calculator typing"
+      ],
+      "audio": "50 cents a leg round trip. On my size, that is 2",
+      "theme": 11.5
+    },
+    {
+      "n": 146,
+      "id": "121.5",
+      "locked": false,
+      "dur": 3.980000000000018,
+      "start": 362.08,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a cash register ringing up at night",
+      "queries": [
+        "cash register night",
+        "cash register night"
+      ],
+      "audio": ".00 BP a night across three legs",
+      "theme": 100.0
+    },
+    {
+      "n": 147,
+      "id": "121.6",
+      "locked": false,
+      "dur": 3.5,
+      "start": 366.06,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a balance scale tipping the wrong way",
+      "queries": [
+        "scale balance weighing",
+        "scale balance weighing"
+      ],
+      "audio": "against an expected edge of 1 .24",
+      "theme": 24.5
+    },
+    {
+      "n": 148,
+      "id": "122",
+      "locked": false,
+      "dur": 2.3500000000000227,
+      "start": 369.56,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Basketball player missing the shot as the buzzer goes",
+      "queries": [
+        "basketball player missing shot",
+        "basketball player missing shot"
+      ],
+      "audio": "BP a night negative",
+      "theme": 100.0
+    },
+    {
+      "n": 149,
+      "id": "123",
+      "locked": false,
+      "dur": 4.149999999999977,
+      "start": 371.91,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in headphones scanning lines of code on a screen",
+      "queries": [
+        "man headphones focused screen",
+        "man headphones focused screen"
+      ],
+      "audio": "before it opened the first trade. I gripped every",
+      "theme": 0.0
+    },
+    {
+      "n": 150,
+      "id": "124",
+      "locked": false,
+      "dur": 3.9599999999999795,
+      "start": 376.06,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a terminal running a search across code files",
+      "queries": [
+        "code search terminal",
+        "code search terminal"
+      ],
+      "audio": "script I'd ever written for a commission term, zero",
+      "theme": 100.0
+    },
+    {
+      "n": 151,
+      "id": "125",
+      "locked": false,
+      "dur": 2.990000000000009,
+      "start": 380.02,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up profile of a man as it dawns on him",
+      "queries": [
+        "man profile realization",
+        "man profile realization"
+      ],
+      "audio": "hits. I had been",
+      "theme": 100.0
+    },
+    {
+      "n": 152,
+      "id": "126",
+      "locked": false,
+      "dur": 2.8600000000000136,
+      "start": 383.01,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'spread, swap, slippage' types on",
+      "queries": [
+        "modelling list card",
+        "modelling list card"
+      ],
+      "audio": "modeling spread, swap, slippage,",
+      "theme": 100.0
+    },
+    {
+      "n": 153,
+      "id": "127",
+      "locked": false,
+      "dur": 2.740000000000009,
+      "start": 385.87,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an invoice sliding across a table",
+      "queries": [
+        "invoice paper close up",
+        "invoice paper close up"
+      ],
+      "audio": "impact, and just not",
+      "theme": 90.0
+    },
+    {
+      "n": 154,
+      "id": "128",
+      "locked": false,
+      "dur": 2.419999999999959,
+      "start": 388.61,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man reading a bill, eyebrows rising",
+      "queries": [
+        "man reading bill shocked",
+        "man reading bill shocked"
+      ],
+      "audio": "the invoice. Well, well,",
+      "theme": 100.0
+    },
+    {
+      "n": 155,
+      "id": "129",
+      "locked": false,
+      "dur": 1.3800000000000523,
+      "start": 391.03,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Live basketball action, a player driving to the hoop",
+      "queries": [
+        "basketball game action",
+        "basketball game action"
+      ],
+      "audio": "well, I can't give up now.",
+      "theme": 74.6
+    },
+    {
+      "n": 156,
+      "id": "130",
+      "locked": false,
+      "dur": 3.3999999999999773,
+      "start": 392.41,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Athlete pushing himself back up off the floor",
+      "queries": [
+        "athlete getting up",
+        "athlete getting up"
+      ],
+      "audio": "Might as well keep going. Went to options",
+      "theme": 100.0
+    },
+    {
+      "n": 157,
+      "id": "131",
+      "locked": false,
+      "dur": 3.1999999999999886,
+      "start": 395.81,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an options chain on a trading screen",
+      "queries": [
+        "options trading screen",
+        "options trading screen",
+        "options trading screen"
+      ],
+      "audio": "dealer positioning, gamma exposure.",
+      "theme": 100.0
+    },
+    {
+      "n": 158,
+      "id": "132",
+      "locked": false,
+      "dur": 2.0,
+      "start": 399.01,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a phone scrolling finance twitter",
+      "queries": [
+        "twitter phone finance",
+        "twitter phone finance",
+        "twitter phone finance"
+      ],
+      "audio": "Very cool, very quant",
+      "theme": 96.5
+    },
+    {
+      "n": 159,
+      "id": "133",
+      "locked": false,
+      "dur": 1.670000000000016,
+      "start": 401.01,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a light coat standing between two tall buildings",
+      "queries": [
+        "man between buildings",
+        "man between buildings"
+      ],
+      "audio": "Twitter. The theory,",
+      "theme": 100.0
+    },
+    {
+      "n": 160,
+      "id": "134",
+      "locked": false,
+      "dur": 2.089999999999975,
+      "start": 402.68,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a calm ocean swell rolling one way",
+      "queries": [
+        "calm sea trend",
+        "calm sea trend"
+      ],
+      "audio": "low gamma days trend, high",
+      "theme": 28.1
+    },
+    {
+      "n": 161,
+      "id": "135",
+      "locked": false,
+      "dur": 1.9800000000000182,
+      "start": 404.77,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a pendulum swinging back",
+      "queries": [
+        "pendulum swinging",
+        "pendulum swinging"
+      ],
+      "audio": "gamma days revert. The",
+      "theme": 54.9
+    },
+    {
+      "n": 162,
+      "id": "136",
+      "locked": false,
+      "dur": 2.089999999999975,
+      "start": 406.75,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young man with both arms out, empty-handed",
+      "queries": [
+        "man arms out shrug",
+        "man arms out shrug"
+      ],
+      "audio": "reverting half doesn't exist.",
+      "theme": 99.9
+    },
+    {
+      "n": 163,
+      "id": "137",
+      "locked": false,
+      "dur": 2.8700000000000045,
+      "start": 408.84,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'high-gamma days' then 'are just quiet.'",
+      "queries": [
+        "just quiet card",
+        "just quiet card"
+      ],
+      "audio": "High gamma days are just quiet. And",
+      "theme": 86.1
+    },
+    {
+      "n": 164,
+      "id": "138",
+      "locked": false,
+      "dur": 2.7000000000000455,
+      "start": 411.71,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'GEX' vs 'realised vol' side by side",
+      "queries": [
+        "race card",
+        "race card"
+      ],
+      "audio": "when I raised Jax against boring, free realized",
+      "theme": 68.6
+    },
+    {
+      "n": 165,
+      "id": "139",
+      "locked": false,
+      "dur": 2.3799999999999955,
+      "start": 414.41,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of an open notebook with handwritten predictions",
+      "queries": [
+        "notebook handwritten",
+        "notebook handwritten",
+        "notebook handwritten"
+      ],
+      "audio": "volatility to predict tomorrow's",
+      "theme": 100.0
+    },
+    {
+      "n": 166,
+      "id": "140",
+      "locked": false,
+      "dur": 0.6499999999999773,
+      "start": 416.79,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a notebook page reading 'tomorrow'",
+      "queries": [
+        "notebook tomorrow",
+        "notebook tomorrow",
+        "notebook tomorrow"
+      ],
+      "audio": "return,",
+      "theme": 100.0
+    },
+    {
+      "n": 167,
+      "id": "141",
+      "locked": false,
+      "dur": 1.4499999999999886,
+      "start": 417.44,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "First-person view from a car on a long desert road",
+      "queries": [
+        "car driving desert road",
+        "car driving desert road"
+      ],
+      "audio": "Jax's T stat",
+      "theme": 100.0
+    },
+    {
+      "n": 168,
+      "id": "142",
+      "locked": false,
+      "dur": 1.4399999999999977,
+      "start": 418.89,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Car braking hard on an empty road",
+      "queries": [
+        "car brakes",
+        "car brakes"
+      ],
+      "audio": "collapsed to minus 1",
+      "theme": 100.0
+    },
+    {
+      "n": 169,
+      "id": "143",
+      "locked": false,
+      "dur": 1.8400000000000318,
+      "start": 420.33,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Aerial view of a car on a straight highway",
+      "queries": [
+        "aerial car highway",
+        "aerial car highway"
+      ],
+      "audio": ".1 and past five",
+      "theme": 60.7
+    },
+    {
+      "n": 170,
+      "id": "144",
+      "locked": false,
+      "dur": 3.159999999999968,
+      "start": 422.17,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in dark clothes gesturing mid-explanation",
+      "queries": [
+        "man gesturing explaining",
+        "man gesturing explaining"
+      ],
+      "audio": "day return did all the work. The expensive data",
+      "theme": 78.3
+    },
+    {
+      "n": 171,
+      "id": "145",
+      "locked": false,
+      "dur": 2.6999999999999886,
+      "start": 425.33,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a long expensive receipt",
+      "queries": [
+        "expensive receipt",
+        "expensive receipt"
+      ],
+      "audio": "was a worse proxy for short -term",
+      "theme": 68.9
+    },
+    {
+      "n": 172,
+      "id": "146",
+      "locked": false,
+      "dur": 2.660000000000025,
+      "start": 428.03,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man holding a big bunch of balloons, deflating",
+      "queries": [
+        "man holding balloons",
+        "man holding balloons"
+      ],
+      "audio": "reversal than the price itself.",
+      "theme": 100.0
+    },
+    {
+      "n": 173,
+      "id": "147",
+      "locked": false,
+      "dur": 2.420000000000016,
+      "start": 430.69,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man's intense, serious face",
+      "queries": [
+        "man serious close up",
+        "man serious close up"
+      ],
+      "audio": "Index intraday seasonality, zero",
+      "theme": 100.0
+    },
+    {
+      "n": 174,
+      "id": "148",
+      "locked": false,
+      "dur": 2.5399999999999636,
+      "start": 433.11,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the same kind of face shaking no",
+      "queries": [
+        "man shaking head close up",
+        "man shaking head close up"
+      ],
+      "audio": "hour survive, multiple testing correction,",
+      "theme": 100.0
+    },
+    {
+      "n": 175,
+      "id": "149",
+      "locked": false,
+      "dur": 0.660000000000025,
+      "start": 435.65,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person running through a forest",
+      "queries": [
+        "person running forest",
+        "person running forest"
+      ],
+      "audio": "FX day",
+      "theme": 100.0
+    },
+    {
+      "n": 176,
+      "id": "150",
+      "locked": false,
+      "dur": 0.7300000000000182,
+      "start": 436.31,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person running through shallow water on a beach",
+      "queries": [
+        "person running beach",
+        "person running beach"
+      ],
+      "audio": "of week,",
+      "theme": 61.8
+    },
+    {
+      "n": 177,
+      "id": "151",
+      "locked": false,
+      "dur": 0.8299999999999841,
+      "start": 437.04,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person bent over, hands on knees",
+      "queries": [
+        "person crouching tired",
+        "person crouching tired"
+      ],
+      "audio": "T of 1",
+      "theme": 100.0
+    },
+    {
+      "n": 178,
+      "id": "152",
+      "locked": false,
+      "dur": 1.0500000000000114,
+      "start": 437.87,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person breathing hard, bent over",
+      "queries": [
+        "person breathing hard",
+        "person breathing hard"
+      ],
+      "audio": ".75.",
+      "theme": 100.0
+    },
+    {
+      "n": 179,
+      "id": "153",
+      "locked": false,
+      "dur": 1.240000000000009,
+      "start": 438.92,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Figure climbing the corner of a building",
+      "queries": [
+        "person climbing wall",
+        "person climbing wall"
+      ],
+      "audio": "Plausible,",
+      "theme": 85.2
+    },
+    {
+      "n": 180,
+      "id": "154",
+      "locked": false,
+      "dur": 1.1199999999999477,
+      "start": 440.16,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person leaping and falling short",
+      "queries": [
+        "parkour fall",
+        "parkour fall"
+      ],
+      "audio": "not significant.",
+      "theme": 100.0
+    },
+    {
+      "n": 181,
+      "id": "155",
+      "locked": false,
+      "dur": 1.490000000000009,
+      "start": 441.28,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Two people arguing, pointing at each other",
+      "queries": [
+        "two people arguing",
+        "two people arguing"
+      ],
+      "audio": "And the pairs contradict",
+      "theme": 100.0
+    },
+    {
+      "n": 182,
+      "id": "156",
+      "locked": false,
+      "dur": 0.7000000000000455,
+      "start": 442.77,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man shrugging",
+      "queries": [
+        "man close up shrug",
+        "man close up shrug"
+      ],
+      "audio": "each other.",
+      "theme": 92.7
+    },
+    {
+      "n": 183,
+      "id": "157",
+      "locked": false,
+      "dur": 0.9399999999999977,
+      "start": 443.47,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Basketball player turning toward camera",
+      "queries": [
+        "basketball player turning",
+        "basketball player turning"
+      ],
+      "audio": "Okay, let's",
+      "theme": 100.0
+    },
+    {
+      "n": 184,
+      "id": "158",
+      "locked": false,
+      "dur": 1.1199999999999477,
+      "start": 444.41,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a humanoid robot face",
+      "queries": [
+        "robot humanoid",
+        "robot humanoid",
+        "robot humanoid"
+      ],
+      "audio": "seek the help",
+      "theme": 41.7
+    },
+    {
+      "n": 185,
+      "id": "159",
+      "locked": false,
+      "dur": 0.9600000000000364,
+      "start": 445.53,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Dark server room with blinking lights",
+      "queries": [
+        "server room dark",
+        "server room dark"
+      ],
+      "audio": "of the machines",
+      "theme": 45.0
+    },
+    {
+      "n": 186,
+      "id": "160",
+      "locked": false,
+      "dur": 1.4800000000000182,
+      "start": 446.49,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Animated neural network graphic on a screen",
+      "queries": [
+        "machine learning neural network",
+        "machine learning neural network",
+        "machine learning neural network"
+      ],
+      "audio": "now. Machine learning,",
+      "theme": 78.1
+    },
+    {
+      "n": 187,
+      "id": "161",
+      "locked": false,
+      "dur": 1.2399999999999523,
+      "start": 447.97,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of feet walking forward step by step",
+      "queries": [
+        "walking forward steps",
+        "walking forward steps"
+      ],
+      "audio": "regime model, walk",
+      "theme": 90.4
+    },
+    {
+      "n": 188,
+      "id": "162",
+      "locked": false,
+      "dur": 1.6299999999999955,
+      "start": 449.21,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a heavy vault door swinging shut",
+      "queries": [
+        "vault door closing",
+        "vault door closing"
+      ],
+      "audio": "forward, sealed vault,",
+      "theme": 62.4
+    },
+    {
+      "n": 189,
+      "id": "163",
+      "locked": false,
+      "dur": 0.8300000000000409,
+      "start": 450.84,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man at a press conference nodding",
+      "queries": [
+        "man press conference nod",
+        "man press conference nod"
+      ],
+      "audio": "all done",
+      "theme": 100.0
+    },
+    {
+      "n": 190,
+      "id": "164",
+      "locked": false,
+      "dur": 0.839999999999975,
+      "start": 451.67,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man looking smug and confident",
+      "queries": [
+        "man smug confident",
+        "man smug confident"
+      ],
+      "audio": "properly. Take",
+      "theme": 64.3
+    },
+    {
+      "n": 191,
+      "id": "165",
+      "locked": false,
+      "dur": 1.240000000000009,
+      "start": 452.51,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Reaction meme of someone firing a machine gun",
+      "queries": [
+        "machine gun meme",
+        "machine gun meme",
+        "machine gun meme",
+        "machine gun meme"
+      ],
+      "audio": "that, boom,",
+      "theme": 100.0
+    },
+    {
+      "n": 192,
+      "id": "166",
+      "locked": false,
+      "dur": 1.5400000000000205,
+      "start": 453.75,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a machine gun firing",
+      "queries": [
+        "machine gun firing",
+        "machine gun firing"
+      ],
+      "audio": "boom, boom. Loses to a",
+      "theme": 36.4
+    },
+    {
+      "n": 193,
+      "id": "167",
+      "locked": false,
+      "dur": 1.8799999999999955,
+      "start": 455.29,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a stock chart with a smooth 200-day moving average line",
+      "queries": [
+        "200 day moving average chart",
+        "200 day moving average chart",
+        "200 day moving average chart"
+      ],
+      "audio": "200 day moving",
+      "theme": 100.0
+    },
+    {
+      "n": 194,
+      "id": "168",
+      "locked": false,
+      "dur": 3.1999999999999886,
+      "start": 457.17,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man's face in an interview",
+      "queries": [
+        "man interview face",
+        "man interview face"
+      ],
+      "audio": "average. Oak 0 .68",
+      "theme": 100.0
+    },
+    {
+      "n": 195,
+      "id": "169",
+      "locked": false,
+      "dur": 1.0199999999999818,
+      "start": 460.37,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Two men on a sideline watching",
+      "queries": [
+        "two men sideline",
+        "two men sideline"
+      ],
+      "audio": "in",
+      "theme": 100.0
+    },
+    {
+      "n": 196,
+      "id": "170",
+      "locked": false,
+      "dur": 1.1999999999999886,
+      "start": 461.39,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man at an awards ceremony, waiting",
+      "queries": [
+        "man awards ceremony",
+        "man awards ceremony"
+      ],
+      "audio": "development, 0",
+      "theme": 100.0
+    },
+    {
+      "n": 197,
+      "id": "171",
+      "locked": false,
+      "dur": 1.3800000000000523,
+      "start": 462.59,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Same man looking disappointed",
+      "queries": [
+        "man awards disappointed",
+        "man awards disappointed"
+      ],
+      "audio": ".57 out",
+      "theme": 100.0
+    },
+    {
+      "n": 198,
+      "id": "172",
+      "locked": false,
+      "dur": 1.579999999999984,
+      "start": 463.97,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Player shouting in disbelief",
+      "queries": [
+        "player emotional shout",
+        "player emotional shout"
+      ],
+      "audio": "of sample. Ho,",
+      "theme": 100.0
+    },
+    {
+      "n": 199,
+      "id": "173",
+      "locked": false,
+      "dur": 0.8299999999999841,
+      "start": 465.55,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Player running in training",
+      "queries": [
+        "player running training",
+        "player running training"
+      ],
+      "audio": "Lee,",
+      "theme": 84.1
+    },
+    {
+      "n": 200,
+      "id": "174",
+      "locked": false,
+      "dur": 0.9499999999999886,
+      "start": 466.38,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man's face at an event",
+      "queries": [
+        "man face close up event",
+        "man face close up event"
+      ],
+      "audio": "Molly, caught",
+      "theme": 100.0
+    },
+    {
+      "n": 201,
+      "id": "175",
+      "locked": false,
+      "dur": 0.7400000000000091,
+      "start": 467.33,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man looking down",
+      "queries": [
+        "man looking down",
+        "man looking down"
+      ],
+      "audio": "positioning",
+      "theme": 100.0
+    },
+    {
+      "n": 202,
+      "id": "176",
+      "locked": false,
+      "dur": 0.8199999999999932,
+      "start": 468.07,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man holding up an award",
+      "queries": [
+        "man holding award",
+        "man holding award"
+      ],
+      "audio": "real",
+      "theme": 77.3
+    },
+    {
+      "n": 203,
+      "id": "177",
+      "locked": false,
+      "dur": 1.2200000000000273,
+      "start": 468.89,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the award in his hands",
+      "queries": [
+        "man award close up",
+        "man award close up"
+      ],
+      "audio": "reversal at",
+      "theme": 58.0
+    },
+    {
+      "n": 204,
+      "id": "178",
+      "locked": false,
+      "dur": 2.419999999999959,
+      "start": 470.11,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'extremes,' then 'swap-killed.'",
+      "queries": [
+        "swap killed card",
+        "swap killed card"
+      ],
+      "audio": "extremes, swap killed. And",
+      "theme": 100.0
+    },
+    {
+      "n": 205,
+      "id": "179",
+      "locked": false,
+      "dur": 2.4400000000000546,
+      "start": 472.53,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'the entire effect was' then 'crude oil'",
+      "queries": [
+        "crude oil card",
+        "crude oil card"
+      ],
+      "audio": "the entire effect was crude oil",
+      "theme": 100.0
+    },
+    {
+      "n": 206,
+      "id": "180",
+      "locked": false,
+      "dur": 1.5,
+      "start": 474.97,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Aerial shot of an oil field by a long straight road",
+      "queries": [
+        "oil field aerial",
+        "oil field aerial"
+      ],
+      "audio": "in a trench coat, month",
+      "theme": 0.0
+    },
+    {
+      "n": 207,
+      "id": "181",
+      "locked": false,
+      "dur": 2.3099999999999454,
+      "start": 476.47,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Car driving through heavy rain at night",
+      "queries": [
+        "car driving rain night",
+        "car driving rain night"
+      ],
+      "audio": "and FX rebalancing flow.",
+      "theme": 100.0
+    },
+    {
+      "n": 208,
+      "id": "182",
+      "locked": false,
+      "dur": 2.7700000000000387,
+      "start": 478.78,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Lone cyclist on a straight road toward mountains",
+      "queries": [
+        "cyclist road mountains",
+        "cyclist road mountains"
+      ],
+      "audio": "Looked great 2019 plus, pulled",
+      "theme": 100.0
+    },
+    {
+      "n": 209,
+      "id": "183",
+      "locked": false,
+      "dur": 3.180000000000007,
+      "start": 481.55,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Cyclist turning back the other way",
+      "queries": [
+        "cyclist turning back",
+        "cyclist turning back"
+      ],
+      "audio": "2003 to 2019 and the",
+      "theme": 100.0
+    },
+    {
+      "n": 210,
+      "id": "184",
+      "locked": false,
+      "dur": 1.3999999999999773,
+      "start": 484.73,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Modern glass-walled office, one person standing",
+      "queries": [
+        "office glass walls",
+        "office glass walls"
+      ],
+      "audio": "sign flipped a window",
+      "theme": 100.0
+    },
+    {
+      "n": 211,
+      "id": "185",
+      "locked": false,
+      "dur": 0.9599999999999795,
+      "start": 486.13,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man hunched over his phone beside a lake",
+      "queries": [
+        "man phone lake",
+        "man phone lake"
+      ],
+      "audio": "artifact.",
+      "theme": 100.0
+    },
+    {
+      "n": 212,
+      "id": "186",
+      "locked": false,
+      "dur": 1.400000000000034,
+      "start": 487.09,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the same kind of man frowning at his phone",
+      "queries": [
+        "man phone frowning",
+        "man phone frowning"
+      ],
+      "audio": "IE, I'd",
+      "theme": 100.0
+    },
+    {
+      "n": 213,
+      "id": "187",
+      "locked": false,
+      "dur": 1.6399999999999864,
+      "start": 488.49,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man's exhausted face",
+      "queries": [
+        "man exhausted face",
+        "man exhausted face"
+      ],
+      "audio": "found a coincidence and",
+      "theme": 100.0
+    },
+    {
+      "n": 214,
+      "id": "188",
+      "locked": false,
+      "dur": 0.6399999999999864,
+      "start": 490.13,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person in a hoodie standing still in a crowd",
+      "queries": [
+        "person hoodie crowd",
+        "person hoodie crowd"
+      ],
+      "audio": "given it a",
+      "theme": 100.0
+    },
+    {
+      "n": 215,
+      "id": "189",
+      "locked": false,
+      "dur": 2.2900000000000205,
+      "start": 490.77,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of an oil price chart, WTI and Brent lines",
+      "queries": [
+        "wti brent oil price chart",
+        "wti brent oil price chart",
+        "wti brent oil price chart"
+      ],
+      "audio": "name. Daily statistical arbitrage.",
+      "theme": 100.0
+    },
+    {
+      "n": 216,
+      "id": "190",
+      "locked": false,
+      "dur": 2.1899999999999977,
+      "start": 493.06,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Black and white photo of stacked oil barrels",
+      "queries": [
+        "oil barrels",
+        "oil barrels",
+        "oil barrels"
+      ],
+      "audio": "WTI Brent was the only robust",
+      "theme": 0.0
+    },
+    {
+      "n": 217,
+      "id": "191",
+      "locked": false,
+      "dur": 2.490000000000009,
+      "start": 495.25,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man standing in an institutional doorway",
+      "queries": [
+        "man doorway institution",
+        "man doorway institution"
+      ],
+      "audio": "pair. Oil swap, ate it.",
+      "theme": 76.1
+    },
+    {
+      "n": 218,
+      "id": "192.1",
+      "locked": false,
+      "dur": 4.829999999999984,
+      "start": 497.74,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a currency chart with intraday bars",
+      "queries": [
+        "forex chart screenshot",
+        "forex chart screenshot",
+        "forex chart screenshot"
+      ],
+      "audio": "Everything else was dead gross. Intraday FX stat arb.",
+      "theme": 100.0
+    },
+    {
+      "n": 219,
+      "id": "192.2",
+      "locked": false,
+      "dur": 3.394999999999982,
+      "start": 502.57,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a bed at night, someone wide awake",
+      "queries": [
+        "insomnia bed night",
+        "insomnia bed night",
+        "insomnia bed night"
+      ],
+      "audio": "This is the one that keeps",
+      "theme": 62.6
+    },
+    {
+      "n": 220,
+      "id": "193.1",
+      "locked": false,
+      "dur": 3.3350000000000364,
+      "start": 505.965,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'information coefficient' then '+0.0205'",
+      "queries": [
+        "information coefficient card",
+        "information coefficient card"
+      ],
+      "audio": "me up. Information coefficient of plus 0",
+      "theme": 80.2
+    },
+    {
+      "n": 221,
+      "id": "193.2",
+      "locked": false,
+      "dur": 4.0400000000000205,
+      "start": 509.3,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '2.16 million' counts up",
+      "queries": [
+        "observations counter card",
+        "observations counter card"
+      ],
+      "audio": ".0205 on 2 .16 million",
+      "theme": 100.0
+    },
+    {
+      "n": 222,
+      "id": "194",
+      "locked": false,
+      "dur": 3.519999999999982,
+      "start": 513.34,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screen recording of a data analysis notebook running",
+      "queries": [
+        "data analysis screen recording",
+        "data analysis screen recording"
+      ],
+      "audio": "observations. That is about 30 standard",
+      "theme": 100.0
+    },
+    {
+      "n": 223,
+      "id": "195",
+      "locked": false,
+      "dur": 1.8500000000000227,
+      "start": 516.86,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a normal distribution with a point far in the tail",
+      "queries": [
+        "statistics normal distribution chart",
+        "statistics normal distribution chart",
+        "statistics normal distribution chart"
+      ],
+      "audio": "errors from zero.",
+      "theme": 68.6
+    },
+    {
+      "n": 224,
+      "id": "196",
+      "locked": false,
+      "dur": 5.3799999999999955,
+      "start": 518.71,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a backtest equity curve climbing",
+      "queries": [
+        "backtest equity curve screenshot",
+        "backtest equity curve screenshot",
+        "backtest equity curve screenshot"
+      ],
+      "audio": "It is not noise. It is not a bug, grow sharp 3 .71.",
+      "theme": 100.0
+    },
+    {
+      "n": 225,
+      "id": "197",
+      "locked": false,
+      "dur": 5.809999999999945,
+      "start": 524.09,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of the same backtest net of spread, flat",
+      "queries": [
+        "backtest net flat line",
+        "backtest net flat line",
+        "backtest net flat line"
+      ],
+      "audio": "After real per bar spreads plus 0 .03",
+      "theme": 100.0
+    },
+    {
+      "n": 226,
+      "id": "198",
+      "locked": false,
+      "dur": 3.9400000000000546,
+      "start": 529.9,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Warm-lit desk with a monitor showing a graph dropping off fast",
+      "queries": [
+        "monitor decaying graph",
+        "monitor decaying graph"
+      ],
+      "audio": "% a year. It decays 75 % in one",
+      "theme": 100.0
+    },
+    {
+      "n": 227,
+      "id": "199",
+      "locked": false,
+      "dur": 1.3799999999999955,
+      "start": 533.84,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a trading platform with several panels",
+      "queries": [
+        "split screen trading platform",
+        "split screen trading platform",
+        "split screen trading platform"
+      ],
+      "audio": "bar. So you have",
+      "theme": 100.0
+    },
+    {
+      "n": 228,
+      "id": "200",
+      "locked": false,
+      "dur": 1.3500000000000227,
+      "start": 535.22,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a stopwatch at zero",
+      "queries": [
+        "stopwatch",
+        "stopwatch",
+        "stopwatch"
+      ],
+      "audio": "to trade it instantly.",
+      "theme": 32.0
+    },
+    {
+      "n": 229,
+      "id": "201",
+      "locked": false,
+      "dur": 2.409999999999968,
+      "start": 536.57,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of an order book with the spread highlighted",
+      "queries": [
+        "order book screenshot",
+        "order book screenshot",
+        "order book screenshot"
+      ],
+      "audio": "And the spread is right there waiting. So",
+      "theme": 93.1
+    },
+    {
+      "n": 230,
+      "id": "202",
+      "locked": false,
+      "dur": 2.259999999999991,
+      "start": 538.98,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a portfolio pool dashboard",
+      "queries": [
+        "pool of signals diagram",
+        "pool of signals diagram",
+        "pool of signals diagram"
+      ],
+      "audio": "I built a pool because the book says",
+      "theme": 77.8
+    },
+    {
+      "n": 231,
+      "id": "203",
+      "locked": false,
+      "dur": 0.6000000000000227,
+      "start": 541.24,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of two cars passing in opposite directions",
+      "queries": [
+        "two arrows opposing",
+        "two arrows opposing"
+      ],
+      "audio": "if you run",
+      "theme": 100.0
+    },
+    {
+      "n": 232,
+      "id": "204",
+      "locked": false,
+      "dur": 1.8799999999999955,
+      "start": 541.84,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of several research paper tabs open",
+      "queries": [
+        "research articles browser",
+        "research articles browser",
+        "research articles browser"
+      ],
+      "audio": "opposing signals together, their",
+      "theme": 100.0
+    },
+    {
+      "n": 233,
+      "id": "205",
+      "locked": false,
+      "dur": 1.7799999999999727,
+      "start": 543.72,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of a toll booth barrier",
+      "queries": [
+        "toll booth",
+        "toll booth",
+        "toll booth"
+      ],
+      "audio": "trades cancel and you stop paying the",
+      "theme": 12.2
+    },
+    {
+      "n": 234,
+      "id": "206",
+      "locked": false,
+      "dur": 4.519999999999982,
+      "start": 545.5,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '87%' counts up, 'of turnover netted out'",
+      "queries": [
+        "turnover netted card",
+        "turnover netted card"
+      ],
+      "audio": "toll. Guess what? It works. 87 % of the turnover netted",
+      "theme": 100.0
+    },
+    {
+      "n": 235,
+      "id": "207",
+      "locked": false,
+      "dur": 4.289999999999964,
+      "start": 550.02,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a spreadsheet with a sub-economic result row",
+      "queries": [
+        "spreadsheet results",
+        "spreadsheet results",
+        "spreadsheet results"
+      ],
+      "audio": "out and the pool was still sub -economic.",
+      "theme": 58.8
+    },
+    {
+      "n": 236,
+      "id": "208",
+      "locked": false,
+      "dur": 4.810000000000059,
+      "start": 554.31,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a long list of currency pairs",
+      "queries": [
+        "currency pairs list",
+        "currency pairs list",
+        "currency pairs list"
+      ],
+      "audio": "Widened it from 12 to 28 pairs. Gross went",
+      "theme": 93.3
+    },
+    {
+      "n": 237,
+      "id": "209",
+      "locked": false,
+      "dur": 2.340000000000032,
+      "start": 559.12,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a results panel with a large negative number",
+      "queries": [
+        "sharpe negative screen",
+        "sharpe negative screen",
+        "sharpe negative screen"
+      ],
+      "audio": "up. Net went to minus",
+      "theme": 100.0
+    },
+    {
+      "n": 238,
+      "id": "210.1",
+      "locked": false,
+      "dur": 2.8999999999999773,
+      "start": 561.46,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a cross-rates table",
+      "queries": [
+        "currency cross rates table",
+        "currency cross rates table",
+        "currency cross rates table"
+      ],
+      "audio": "85 sharp because the extra bread",
+      "theme": 100.0
+    },
+    {
+      "n": 239,
+      "id": "210.2",
+      "locked": false,
+      "dur": 3.1399999999999864,
+      "start": 564.36,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of an order book with a wide 3 bp spread",
+      "queries": [
+        "wide spread order book",
+        "wide spread order book",
+        "wide spread order book"
+      ],
+      "audio": "came from crosses with three BP spreads.",
+      "theme": 97.0
+    },
+    {
+      "n": 240,
+      "id": "211",
+      "locked": false,
+      "dur": 5.779999999999973,
+      "start": 567.5,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": true,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a filter panel switching on, a tiny sliver of bars highlighted",
+      "queries": [
+        "gate barrier filter",
+        "gate barrier filter",
+        "gate barrier filter"
+      ],
+      "audio": "Added a spread gate which flips it positive and then trades 1 % of available",
+      "theme": 84.8
+    },
+    {
+      "n": 241,
+      "id": "212",
+      "locked": false,
+      "dur": 2.2200000000000273,
+      "start": 573.28,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Locker room, a team sitting in silence",
+      "queries": [
+        "locker room team quiet",
+        "locker room team quiet"
+      ],
+      "audio": "bars which is roughly 0",
+      "theme": 100.0
+    },
+    {
+      "n": 242,
+      "id": "213",
+      "locked": false,
+      "dur": 1.2200000000000273,
+      "start": 575.5,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Footballer in a tracksuit walking out of a tunnel",
+      "queries": [
+        "footballer walking tunnel",
+        "footballer walking tunnel"
+      ],
+      "audio": "% a year. Final",
+      "theme": 100.0
+    },
+    {
+      "n": 243,
+      "id": "214",
+      "locked": false,
+      "dur": 1.2799999999999727,
+      "start": 576.72,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Same kind of footballer looking up, determined",
+      "queries": [
+        "footballer looking up",
+        "footballer looking up"
+      ],
+      "audio": "salvage use",
+      "theme": 100.0
+    },
+    {
+      "n": 244,
+      "id": "215",
+      "locked": false,
+      "dur": 1.5199999999999818,
+      "start": 578.0,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of limit orders resting in an order book",
+      "queries": [
+        "limit order book screen",
+        "limit order book screen"
+      ],
+      "audio": "limit orders become",
+      "theme": 100.0
+    },
+    {
+      "n": 245,
+      "id": "216",
+      "locked": false,
+      "dur": 1.3000000000000682,
+      "start": 579.52,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Young player in a bright training kit, ready",
+      "queries": [
+        "young player training",
+        "young player training"
+      ],
+      "audio": "a maker instead",
+      "theme": 100.0
+    },
+    {
+      "n": 246,
+      "id": "217",
+      "locked": false,
+      "dur": 0.8700000000000045,
+      "start": 580.82,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Men in black tie on a gold-lit stage",
+      "queries": [
+        "men black tie ceremony",
+        "men black tie ceremony"
+      ],
+      "audio": "of a taker.",
+      "theme": 100.0
+    },
+    {
+      "n": 247,
+      "id": "218",
+      "locked": false,
+      "dur": 2.119999999999891,
+      "start": 581.69,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Athlete gazing at a trophy in his hands",
+      "queries": [
+        "athlete holding trophy",
+        "athlete holding trophy"
+      ],
+      "audio": "Get the spread back. It works.",
+      "theme": 100.0
+    },
+    {
+      "n": 248,
+      "id": "219",
+      "locked": false,
+      "dur": 2.1700000000000728,
+      "start": 583.81,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the trophy",
+      "queries": [
+        "trophy close up",
+        "trophy close up"
+      ],
+      "audio": "Limits recover essentially the",
+      "theme": 94.5
+    },
+    {
+      "n": 249,
+      "id": "220",
+      "locked": false,
+      "dur": 1.7999999999999545,
+      "start": 585.98,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Athlete celebrating, arms wide",
+      "queries": [
+        "athlete celebrating headband",
+        "athlete celebrating headband"
+      ],
+      "audio": "full spread and then I measured",
+      "theme": 75.3
+    },
+    {
+      "n": 250,
+      "id": "221",
+      "locked": false,
+      "dur": 0.8400000000000318,
+      "start": 587.78,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Player in a white kit looking up",
+      "queries": [
+        "player white kit",
+        "player white kit"
+      ],
+      "audio": "the ceiling.",
+      "theme": 100.0
+    },
+    {
+      "n": 251,
+      "id": "222",
+      "locked": false,
+      "dur": 0.6000000000000227,
+      "start": 588.62,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Football match action near the box",
+      "queries": [
+        "football match action",
+        "football match action"
+      ],
+      "audio": "What this",
+      "theme": 100.0
+    },
+    {
+      "n": 252,
+      "id": "223",
+      "locked": false,
+      "dur": 0.7400000000000091,
+      "start": 589.22,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Hard tackle in a football match",
+      "queries": [
+        "football tackle",
+        "football tackle"
+      ],
+      "audio": "thing earns",
+      "theme": 100.0
+    },
+    {
+      "n": 253,
+      "id": "224",
+      "locked": false,
+      "dur": 0.8999999999999773,
+      "start": 589.96,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Defender blocking a shot",
+      "queries": [
+        "defender blocking shot",
+        "defender blocking shot"
+      ],
+      "audio": "with execution",
+      "theme": 100.0
+    },
+    {
+      "n": 254,
+      "id": "225",
+      "locked": false,
+      "dur": 0.9600000000000364,
+      "start": 590.86,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Goalkeeper diving to save",
+      "queries": [
+        "goalkeeper save",
+        "goalkeeper save"
+      ],
+      "audio": "costs set",
+      "theme": 100.0
+    },
+    {
+      "n": 255,
+      "id": "226",
+      "locked": false,
+      "dur": 2.4599999999999227,
+      "start": 591.82,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Basketball player standing alone on the court",
+      "queries": [
+        "basketball player standing",
+        "basketball player standing"
+      ],
+      "audio": "to zero. Free, magic,",
+      "theme": 72.1
+    },
+    {
+      "n": 256,
+      "id": "227",
+      "locked": false,
+      "dur": 1.9400000000000546,
+      "start": 594.28,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Football training on a sunny pitch",
+      "queries": [
+        "football training pitch",
+        "football training pitch"
+      ],
+      "audio": "perfect. And it is 0",
+      "theme": 100.0
+    },
+    {
+      "n": 257,
+      "id": "228",
+      "locked": false,
+      "dur": 1.9399999999999409,
+      "start": 596.22,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Player passing in training",
+      "queries": [
+        "player passing training",
+        "player passing training"
+      ],
+      "audio": ".057",
+      "theme": 86.7
+    },
+    {
+      "n": 258,
+      "id": "229",
+      "locked": false,
+      "dur": 2.9600000000000364,
+      "start": 598.16,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a basketball player's tired face",
+      "queries": [
+        "basketball player close up",
+        "basketball player close up"
+      ],
+      "audio": "BP per S signal. Call it",
+      "theme": 100.0
+    },
+    {
+      "n": 259,
+      "id": "230",
+      "locked": false,
+      "dur": 2.840000000000032,
+      "start": 601.12,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Basketball player wiping sweat, exhausted",
+      "queries": [
+        "basketball player wiping sweat",
+        "basketball player wiping sweat"
+      ],
+      "audio": "0 .8 % a year",
+      "theme": 100.0
+    },
+    {
+      "n": 260,
+      "id": "231",
+      "locked": false,
+      "dur": 2.339999999999918,
+      "start": 603.96,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Footballer dribbling past a defender",
+      "queries": [
+        "footballer dribbling",
+        "footballer dribbling"
+      ],
+      "audio": "in the universe where friction",
+      "theme": 100.0
+    },
+    {
+      "n": 261,
+      "id": "232",
+      "locked": false,
+      "dur": 1.0,
+      "start": 606.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Youth football action",
+      "queries": [
+        "youth football action",
+        "youth football action"
+      ],
+      "audio": "doesn't",
+      "theme": 4.1
+    },
+    {
+      "n": 262,
+      "id": "233.1",
+      "locked": false,
+      "dur": 3.82000000000005,
+      "start": 607.3,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of The Flash running, a red lightning blur",
+      "queries": [
+        "The Flash DC comics",
+        "The Flash DC comics"
+      ],
+      "audio": "exist. You'd need some absolute superhuman flash",
+      "theme": 0.0
+    },
+    {
+      "n": 263,
+      "id": "233.2",
+      "locked": false,
+      "dur": 4.240000000000009,
+      "start": 611.12,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of the Jane Street office",
+      "queries": [
+        "Jane Street trading office",
+        "Jane Street trading office"
+      ],
+      "audio": "plus quick silver type speed. And I ain't Jane Street.",
+      "theme": 22.2
+    },
+    {
+      "n": 264,
+      "id": "234.1",
+      "locked": false,
+      "dur": 4.080000000000041,
+      "start": 615.36,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a locker room smirking: not yet",
+      "queries": [
+        "man smirking not yet",
+        "man smirking not yet"
+      ],
+      "audio": "Well, not yet. Well, turns out the only thing that",
+      "theme": 100.0
+    },
+    {
+      "n": 265,
+      "id": "234.2",
+      "locked": false,
+      "dur": 4.219999999999914,
+      "start": 619.44,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of an S&P 500 chart with the overnight gaps highlighted",
+      "queries": [
+        "S&P 500 overnight chart",
+        "S&P 500 overnight chart",
+        "S&P 500 overnight chart"
+      ],
+      "audio": "worked was simply by the S and P overnight. That is it.",
+      "theme": 100.0
+    },
+    {
+      "n": 266,
+      "id": "235",
+      "locked": false,
+      "dur": 2.160000000000082,
+      "start": 623.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Lone figure on a beach at dusk watching the sky",
+      "queries": [
+        "person beach dusk",
+        "person beach dusk"
+      ],
+      "audio": "That is the whole idea. Close to",
+      "theme": 61.3
+    },
+    {
+      "n": 267,
+      "id": "236",
+      "locked": false,
+      "dur": 3.6200000000000045,
+      "start": 625.82,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in sunglasses walking home down a street",
+      "queries": [
+        "man walking home street",
+        "man walking home street"
+      ],
+      "audio": "open, go home flat, two wrinkles.",
+      "theme": 100.0
+    },
+    {
+      "n": 268,
+      "id": "237",
+      "locked": false,
+      "dur": 3.699999999999932,
+      "start": 629.44,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man counting off on his fingers: one, two",
+      "queries": [
+        "man counting fingers",
+        "man counting fingers"
+      ],
+      "audio": "Make it mine. One, swap is only charged on positions open",
+      "theme": 80.7
+    },
+    {
+      "n": 269,
+      "id": "238",
+      "locked": false,
+      "dur": 1.6800000000000637,
+      "start": 633.14,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a clock hitting five o'clock",
+      "queries": [
+        "clock 5pm",
+        "clock 5pm"
+      ],
+      "audio": "at the broker's 17 o 'clock",
+      "theme": 27.0
+    },
+    {
+      "n": 270,
+      "id": "239",
+      "locked": false,
+      "dur": 4.4799999999999045,
+      "start": 634.82,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a camera shutter snapping",
+      "queries": [
+        "camera snapshot shutter",
+        "camera snapshot shutter"
+      ],
+      "audio": "roll over snapshot. So if you enter after the snapshot, you get most of the",
+      "theme": 70.2
+    },
+    {
+      "n": 271,
+      "id": "240",
+      "locked": false,
+      "dur": 4.560000000000059,
+      "start": 639.3,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man in a purple shirt smiling, relaxed",
+      "queries": [
+        "man relaxed smile",
+        "man relaxed smile"
+      ],
+      "audio": "overnight move and pay zero financing. Two, raw overnight is",
+      "theme": 100.0
+    },
+    {
+      "n": 272,
+      "id": "241",
+      "locked": false,
+      "dur": 3.080000000000041,
+      "start": 643.86,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man pumping his fist, then letting it drop",
+      "queries": [
+        "man fake pump fist",
+        "man fake pump fist"
+      ],
+      "audio": "just long beta pump faking. So gated with",
+      "theme": 100.0
+    },
+    {
+      "n": 273,
+      "id": "242",
+      "locked": false,
+      "dur": 2.5399999999999636,
+      "start": 646.94,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Chart with a 200-day moving average gating the trades",
+      "queries": [
+        "200 day moving average chart",
+        "200 day moving average chart",
+        "200 day moving average chart"
+      ],
+      "audio": "the 200 day moving average and it",
+      "theme": 79.3
+    },
+    {
+      "n": 274,
+      "id": "243",
+      "locked": false,
+      "dur": 2.3199999999999363,
+      "start": 649.48,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a bandage being tightened",
+      "queries": [
+        "bleeding stopped bandage",
+        "bleeding stopped bandage"
+      ],
+      "audio": "stops bleeding in bears. Sharpe",
+      "theme": 0.0
+    },
+    {
+      "n": 275,
+      "id": "244",
+      "locked": false,
+      "dur": 1.900000000000091,
+      "start": 651.8,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man driving at night, focused",
+      "queries": [
+        "man driving night",
+        "man driving night"
+      ],
+      "audio": "0 .47 to 0",
+      "theme": 100.0
+    },
+    {
+      "n": 276,
+      "id": "245",
+      "locked": false,
+      "dur": 2.259999999999991,
+      "start": 653.7,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man nodding in approval",
+      "queries": [
+        "man nodding approval",
+        "man nodding approval"
+      ],
+      "audio": ".77, draw down minus",
+      "theme": 96.1
+    },
+    {
+      "n": 277,
+      "id": "246",
+      "locked": false,
+      "dur": 2.2799999999999727,
+      "start": 655.96,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a chart whose dip gets shallower",
+      "queries": [
+        "stock chart drawdown",
+        "stock chart drawdown"
+      ],
+      "audio": "20 % to minus 8",
+      "theme": 100.0
+    },
+    {
+      "n": 278,
+      "id": "247",
+      "locked": false,
+      "dur": 2.840000000000032,
+      "start": 658.24,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a chart recovering, green",
+      "queries": [
+        "chart recovery green",
+        "chart recovery green"
+      ],
+      "audio": ".3%. That is",
+      "theme": 96.9
+    },
+    {
+      "n": 279,
+      "id": "248",
+      "locked": false,
+      "dur": 3.8199999999999363,
+      "start": 661.08,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man yawning, bored",
+      "queries": [
+        "man yawning bored",
+        "man yawning bored"
+      ],
+      "audio": "the deployed boring",
+      "theme": 99.1
+    },
+    {
+      "n": 280,
+      "id": "249.1",
+      "locked": false,
+      "dur": 3.0,
+      "start": 664.9,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man giving a lukewarm thumbs up",
+      "queries": [
+        "man thumbs up meh",
+        "man thumbs up meh"
+      ],
+      "audio": "fine. Then I",
+      "theme": 70.2
+    },
+    {
+      "n": 281,
+      "id": "249.2",
+      "locked": false,
+      "dur": 3.080000000000041,
+      "start": 667.9,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man tapping his temple, scheming",
+      "queries": [
+        "man thinking smarter",
+        "man thinking smarter"
+      ],
+      "audio": "tried to make it smarter. First, the",
+      "theme": 100.0
+    },
+    {
+      "n": 282,
+      "id": "250",
+      "locked": false,
+      "dur": 1.5199999999999818,
+      "start": 670.98,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a coding notebook on a screen",
+      "queries": [
+        "jupyter notebook screen",
+        "jupyter notebook screen"
+      ],
+      "audio": "notebook caught me trading",
+      "theme": 100.0
+    },
+    {
+      "n": 283,
+      "id": "251",
+      "locked": false,
+      "dur": 0.8099999999999454,
+      "start": 672.5,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a patterned shirt caught off guard",
+      "queries": [
+        "man shocked caught",
+        "man shocked caught"
+      ],
+      "audio": "on prices",
+      "theme": 100.0
+    },
+    {
+      "n": 284,
+      "id": "252",
+      "locked": false,
+      "dur": 2.8500000000000227,
+      "start": 673.31,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a price chart with a gap of missing prints",
+      "queries": [
+        "ghost price chart",
+        "ghost price chart"
+      ],
+      "audio": "that never existed. Cell one of the new build",
+      "theme": 100.0
+    },
+    {
+      "n": 285,
+      "id": "253",
+      "locked": false,
+      "dur": 2.5,
+      "start": 676.16,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of one line of code typed into a notebook cell",
+      "queries": [
+        "code cell typing",
+        "code cell typing"
+      ],
+      "audio": "had one sanity line in it. What",
+      "theme": 100.0
+    },
+    {
+      "n": 286,
+      "id": "254",
+      "locked": false,
+      "dur": 2.3799999999999955,
+      "start": 678.66,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a tan shirt asking a question to camera",
+      "queries": [
+        "man interview question",
+        "man interview question"
+      ],
+      "audio": "fraction of nights are green? It came",
+      "theme": 100.0
+    },
+    {
+      "n": 287,
+      "id": "255",
+      "locked": false,
+      "dur": 1.2800000000000864,
+      "start": 681.04,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Athlete glancing sideways",
+      "queries": [
+        "athlete side angle",
+        "athlete side angle"
+      ],
+      "audio": "back 0",
+      "theme": 99.1
+    },
+    {
+      "n": 288,
+      "id": "256",
+      "locked": false,
+      "dur": 1.8399999999999181,
+      "start": 682.32,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Same athlete stunned",
+      "queries": [
+        "athlete stunned",
+        "athlete stunned"
+      ],
+      "audio": ".313.",
+      "theme": 98.5
+    },
+    {
+      "n": 289,
+      "id": "257",
+      "locked": false,
+      "dur": 3.0300000000000864,
+      "start": 684.16,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Photo of the word 'impossible' printed big",
+      "queries": [
+        "impossible text",
+        "impossible text",
+        "impossible text"
+      ],
+      "audio": "That is impossible.",
+      "theme": 33.6
+    },
+    {
+      "n": 290,
+      "id": "258",
+      "locked": false,
+      "dur": 3.4899999999998954,
+      "start": 687.19,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a black Nike jacket explaining to camera",
+      "queries": [
+        "man talking head nike",
+        "man talking head nike"
+      ],
+      "audio": "The market goes up overnight more often than that.",
+      "theme": 100.0
+    },
+    {
+      "n": 291,
+      "id": "259",
+      "locked": false,
+      "dur": 3.5400000000000773,
+      "start": 690.68,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Same kind of man nodding, obvious",
+      "queries": [
+        "man talking head nod",
+        "man talking head nod"
+      ],
+      "audio": "Everyone knows it. That is the whole premise. Yahoo's",
+      "theme": 100.0
+    },
+    {
+      "n": 292,
+      "id": "260",
+      "locked": false,
+      "dur": 2.740000000000009,
+      "start": 694.22,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of the Yahoo Finance ^GSPC page",
+      "queries": [
+        "Yahoo Finance GSPC",
+        "Yahoo Finance GSPC"
+      ],
+      "audio": "opening prints for GSPC, the S and P index",
+      "theme": 92.0
+    },
+    {
+      "n": 293,
+      "id": "261.1",
+      "locked": false,
+      "dur": 3.669999999999959,
+      "start": 696.96,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Dark warehouse interior, dust in the light",
+      "queries": [
+        "warehouse dark interior",
+        "warehouse dark interior"
+      ],
+      "audio": "feed. Not the ETF are fake before roughly 2014.",
+      "theme": 46.6
+    },
+    {
+      "n": 294,
+      "id": "261.2",
+      "locked": false,
+      "dur": 4.230000000000018,
+      "start": 700.63,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a photocopier spitting out identical copies",
+      "queries": [
+        "photocopier copies",
+        "photocopier copies"
+      ],
+      "audio": "There are stale copies of the previous close. Zero gap rate of 78 to",
+      "theme": 48.3
+    },
+    {
+      "n": 295,
+      "id": "262.1",
+      "locked": false,
+      "dur": 4.199999999999932,
+      "start": 704.86,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Old archive shelves full of ledgers",
+      "queries": [
+        "old archive shelves",
+        "old archive shelves"
+      ],
+      "audio": "98%. A year through 2005 and still 25",
+      "theme": 0.0
+    },
+    {
+      "n": 296,
+      "id": "262.2",
+      "locked": false,
+      "dur": 3.800000000000068,
+      "start": 709.06,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of dusty ledger pages turning",
+      "queries": [
+        "dusty ledger pages",
+        "dusty ledger pages"
+      ],
+      "audio": "% in 2012 to 13. Which means my beautiful",
+      "theme": 100.0
+    },
+    {
+      "n": 297,
+      "id": "263.1",
+      "locked": false,
+      "dur": 3.980000000000018,
+      "start": 712.86,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '36-year validation' types on",
+      "queries": [
+        "36 year card",
+        "36 year card"
+      ],
+      "audio": "36 year validation of number or 23 had",
+      "theme": 65.9
+    },
+    {
+      "n": 298,
+      "id": "263.2",
+      "locked": false,
+      "dur": 3.2099999999999227,
+      "start": 716.84,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'three decades' then 'of a number'",
+      "queries": [
+        "three decades card",
+        "three decades card"
+      ],
+      "audio": "been computed across three decades of a number.",
+      "theme": 100.0
+    },
+    {
+      "n": 299,
+      "id": "263.3",
+      "locked": false,
+      "dur": 4.840000000000032,
+      "start": 720.05,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'the vendor made up.'",
+      "queries": [
+        "vendor made up card",
+        "vendor made up card"
+      ],
+      "audio": "The vendor made up not wrong data,",
+      "theme": 98.7
+    },
+    {
+      "n": 300,
+      "id": "264",
+      "locked": false,
+      "dur": 3.060000000000059,
+      "start": 724.89,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of hands holding a phone with a red chart",
+      "queries": [
+        "phone red chart",
+        "phone red chart"
+      ],
+      "audio": "absent data, silently padded,",
+      "theme": 100.0
+    },
+    {
+      "n": 301,
+      "id": "265",
+      "locked": false,
+      "dur": 2.990000000000009,
+      "start": 727.95,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a SPY chart on a screen",
+      "queries": [
+        "SPY ETF chart",
+        "SPY ETF chart",
+        "SPY ETF chart"
+      ],
+      "audio": "rebuilt it on spy, the actual ETF,",
+      "theme": 100.0
+    },
+    {
+      "n": 302,
+      "id": "266.1",
+      "locked": false,
+      "dur": 3.9899999999998954,
+      "start": 730.94,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of terminal output counting rows",
+      "queries": [
+        "terminal command line output",
+        "terminal command line output",
+        "terminal command line output"
+      ],
+      "audio": "actual prints, 8262 real nights.",
+      "theme": 100.0
+    },
+    {
+      "n": 303,
+      "id": "266.2",
+      "locked": false,
+      "dur": 2.6900000000000546,
+      "start": 734.93,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of terminal output: base rate 0.559",
+      "queries": [
+        "terminal output number",
+        "terminal output number",
+        "terminal output number"
+      ],
+      "audio": "Base rate, 0 .559.",
+      "theme": 100.0
+    },
+    {
+      "n": 304,
+      "id": "266.3",
+      "locked": false,
+      "dur": 4.0,
+      "start": 737.62,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of terminal results table",
+      "queries": [
+        "terminal results sharpe",
+        "terminal results sharpe",
+        "terminal results sharpe"
+      ],
+      "audio": "The strategy survived and got better. Sharp 1 .38",
+      "theme": 100.0
+    },
+    {
+      "n": 305,
+      "id": "266.4",
+      "locked": false,
+      "dur": 3.7000000000000455,
+      "start": 741.62,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of filtered terminal results",
+      "queries": [
+        "terminal filtered results",
+        "terminal filtered results",
+        "terminal filtered results"
+      ],
+      "audio": "filtered on the real prints, but it survived by",
+      "theme": 100.0
+    },
+    {
+      "n": 306,
+      "id": "267.1",
+      "locked": false,
+      "dur": 3.67999999999995,
+      "start": 745.32,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of dark terminal code scrolling",
+      "queries": [
+        "terminal code dark",
+        "terminal code dark",
+        "terminal code dark"
+      ],
+      "audio": "luck. If the effect had been smaller, I'd have been trading",
+      "theme": 100.0
+    },
+    {
+      "n": 307,
+      "id": "267.2",
+      "locked": false,
+      "dur": 3.4600000000000364,
+      "start": 749.0,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a data column with repeated values",
+      "queries": [
+        "terminal fill forward",
+        "terminal fill forward",
+        "terminal fill forward"
+      ],
+      "audio": "a vendor's fill forward for months. Then Vee",
+      "theme": 83.2
+    },
+    {
+      "n": 308,
+      "id": "267.3",
+      "locked": false,
+      "dur": 3.8600000000000136,
+      "start": 752.46,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a random forest decision tree diagram",
+      "queries": [
+        "random forest diagram",
+        "random forest diagram",
+        "random forest diagram"
+      ],
+      "audio": "put a random forest on it. Sensor features,",
+      "theme": 82.9
+    },
+    {
+      "n": 309,
+      "id": "267.4",
+      "locked": false,
+      "dur": 3.199999999999932,
+      "start": 756.32,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a list of 30 feature names in code",
+      "queries": [
+        "python features list",
+        "python features list",
+        "python features list"
+      ],
+      "audio": "all entry noble purged chronological",
+      "theme": 55.9
+    },
+    {
+      "n": 310,
+      "id": "268",
+      "locked": false,
+      "dur": 2.7899999999999636,
+      "start": 759.52,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person at a desk setup logging results",
+      "queries": [
+        "person streaming desk setup",
+        "person streaming desk setup"
+      ],
+      "audio": "splits. Chishar log trials.",
+      "theme": 88.8
+    },
+    {
+      "n": 311,
+      "id": "269",
+      "locked": false,
+      "dur": 3.6100000000000136,
+      "start": 762.31,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Person sitting in a tiny toy sports car",
+      "queries": [
+        "toy car parking lot",
+        "toy car parking lot"
+      ],
+      "audio": "So the multiple testing charge is honest. Champion model on a",
+      "theme": 100.0
+    },
+    {
+      "n": 312,
+      "id": "270",
+      "locked": false,
+      "dur": 3.4600000000000364,
+      "start": 765.92,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Tiny toy car driving off",
+      "queries": [
+        "toy car driving",
+        "toy car driving"
+      ],
+      "audio": "sealed 2021 to 26 window. It had never",
+      "theme": 100.0
+    },
+    {
+      "n": 313,
+      "id": "271",
+      "locked": false,
+      "dur": 4.740000000000009,
+      "start": 769.38,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of terminal output comparing two strategies",
+      "queries": [
+        "terminal results comparison",
+        "terminal results comparison",
+        "terminal results comparison"
+      ],
+      "audio": "seen plus 3 .21 BP per night VS",
+      "theme": 100.0
+    },
+    {
+      "n": 314,
+      "id": "272",
+      "locked": false,
+      "dur": 0.36000000000001364,
+      "start": 774.12,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '+'",
+      "queries": [
+        "plus card",
+        "plus card"
+      ],
+      "audio": "plus",
+      "theme": 94.9
+    },
+    {
+      "n": 315,
+      "id": "273",
+      "locked": false,
+      "dur": 2.75,
+      "start": 774.48,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man adjusting his glasses",
+      "queries": [
+        "man adjusting glasses",
+        "man adjusting glasses"
+      ],
+      "audio": "1 .76 for always long,",
+      "theme": 100.0
+    },
+    {
+      "n": 316,
+      "id": "274",
+      "locked": false,
+      "dur": 2.7100000000000364,
+      "start": 777.23,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the same kind of man, eyebrows up",
+      "queries": [
+        "man glasses close up",
+        "man glasses close up"
+      ],
+      "audio": "sharper 0 .9 or VS 0",
+      "theme": 100.0
+    },
+    {
+      "n": 317,
+      "id": "275.1",
+      "locked": false,
+      "dur": 4.8599999999999,
+      "start": 779.94,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: a gold line beating a grey line, every year",
+      "queries": [
+        "ahead every year chart card",
+        "ahead every year chart card"
+      ],
+      "audio": ".44 ahead in every year, plus 1 .0 in 2022.",
+      "theme": 100.0
+    },
+    {
+      "n": 318,
+      "id": "275.2",
+      "locked": false,
+      "dur": 3.060000000000059,
+      "start": 784.8,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'baseline' with a red down bar",
+      "queries": [
+        "baseline card",
+        "baseline card"
+      ],
+      "audio": "While the baseline did minus",
+      "theme": 94.8
+    },
+    {
+      "n": 319,
+      "id": "276.1",
+      "locked": false,
+      "dur": 3.3799999999999955,
+      "start": 787.86,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: '-6.7' then 'deflated Sharpe ratio'",
+      "queries": [
+        "minus 6.7 card",
+        "minus 6.7 card"
+      ],
+      "audio": "6 .7, deflated sharp ratio 0",
+      "theme": 100.0
+    },
+    {
+      "n": 320,
+      "id": "276.2",
+      "locked": false,
+      "dur": 4.439999999999941,
+      "start": 791.24,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'DSR 0.887' against a bar at '0.95'",
+      "queries": [
+        "DSR card",
+        "DSR card"
+      ],
+      "audio": ".887. My bar is 0 .95. The frozen",
+      "theme": 90.5
+    },
+    {
+      "n": 321,
+      "id": "277",
+      "locked": false,
+      "dur": 4.680000000000064,
+      "start": 795.68,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Top-down shot of a person working at a desk",
+      "queries": [
+        "top down person desk working",
+        "top down person desk working"
+      ],
+      "audio": "model did not graduate. So I walked forward the recipe",
+      "theme": 72.9
+    },
+    {
+      "n": 322,
+      "id": "278",
+      "locked": false,
+      "dur": 4.360000000000014,
+      "start": 800.36,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Night footage of streaking light trails",
+      "queries": [
+        "light trails night",
+        "light trails night"
+      ],
+      "audio": "instead, freeze the features and hyper parameters, refit",
+      "theme": 100.0
+    },
+    {
+      "n": 323,
+      "id": "279",
+      "locked": false,
+      "dur": 4.67999999999995,
+      "start": 804.72,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Long-exposure light trails on a highway",
+      "queries": [
+        "light trails long exposure",
+        "light trails long exposure"
+      ],
+      "audio": "every January, never peak. 2 ,870",
+      "theme": 19.6
+    },
+    {
+      "n": 324,
+      "id": "280",
+      "locked": false,
+      "dur": 0.5600000000000591,
+      "start": 809.4,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 'out of'",
+      "queries": [
+        "out of card",
+        "out of card"
+      ],
+      "audio": "out of",
+      "theme": 100.0
+    },
+    {
+      "n": 325,
+      "id": "281",
+      "locked": false,
+      "dur": 3.9599999999999227,
+      "start": 809.96,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "People gathered together, starting to cheer",
+      "queries": [
+        "people gathered celebration",
+        "people gathered celebration"
+      ],
+      "audio": "sample nights, plus 3 .59 VS plus 2",
+      "theme": 100.0
+    },
+    {
+      "n": 326,
+      "id": "282",
+      "locked": false,
+      "dur": 4.1200000000000045,
+      "start": 813.92,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crowd celebrating",
+      "queries": [
+        "crowd celebrating",
+        "crowd celebrating"
+      ],
+      "audio": ".13. Sharp if 0 .96, positive",
+      "theme": 47.5
+    },
+    {
+      "n": 327,
+      "id": "283",
+      "locked": false,
+      "dur": 1.4600000000000364,
+      "start": 818.04,
+      "type": "MOTION_GRAPHICS",
+      "kind": "graphic",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Crimson card: 12 green bars in a row",
+      "queries": [
+        "12 years chart card",
+        "12 years chart card"
+      ],
+      "audio": "in all 12 years.",
+      "theme": 71.3
+    },
+    {
+      "n": 328,
+      "id": "284",
+      "locked": false,
+      "dur": 3.1200000000000045,
+      "start": 819.5,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Cartoon illustration of a huge explosion",
+      "queries": [
+        "cartoon explosion fireworks",
+        "cartoon explosion fireworks",
+        "cartoon explosion fireworks"
+      ],
+      "audio": "DSR 0 .988",
+      "theme": 0.0
+    },
+    {
+      "n": 329,
+      "id": "285",
+      "locked": false,
+      "dur": 1.8999999999999773,
+      "start": 822.62,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a man shouting with joy",
+      "queries": [
+        "man shouting joy",
+        "man shouting joy"
+      ],
+      "audio": "that graduates",
+      "theme": 72.6
+    },
+    {
+      "n": 330,
+      "id": "286",
+      "locked": false,
+      "dur": 2.07000000000005,
+      "start": 824.52,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of a fist pump",
+      "queries": [
+        "man fist pump close up",
+        "man fist pump close up"
+      ],
+      "audio": "deployed as Vee Fee.",
+      "theme": 74.4
+    },
+    {
+      "n": 331,
+      "id": "287",
+      "locked": false,
+      "dur": 3.409999999999968,
+      "start": 826.59,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a SHAP summary plot",
+      "queries": [
+        "SHAP summary plot",
+        "SHAP summary plot",
+        "SHAP summary plot"
+      ],
+      "audio": "And I plugged sharp to it to actually see what the model",
+      "theme": 100.0
+    },
+    {
+      "n": 332,
+      "id": "288",
+      "locked": false,
+      "dur": 3.3600000000000136,
+      "start": 830.0,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Screenshot of a chart with dip-buys marked",
+      "queries": [
+        "buy the dip chart",
+        "buy the dip chart",
+        "buy the dip chart"
+      ],
+      "audio": "learned. Debuying confirmed by Trent plus",
+      "theme": 100.0
+    },
+    {
+      "n": 333,
+      "id": "289",
+      "locked": false,
+      "dur": 3.580000000000041,
+      "start": 833.36,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Close-up of the VIX index spiking on a screen",
+      "queries": [
+        "VIX volatility index chart",
+        "VIX volatility index chart",
+        "VIX volatility index chart"
+      ],
+      "audio": "Hivix is bullish. So I did finally find",
+      "theme": 100.0
+    },
+    {
+      "n": 334,
+      "id": "290",
+      "locked": false,
+      "dur": 3.8199999999999363,
+      "start": 836.94,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Man in a pink shirt pausing, thoughtful",
+      "queries": [
+        "man pink shirt thinking",
+        "man pink shirt thinking"
+      ],
+      "audio": "something. And I guess this is evidence that",
+      "theme": 100.0
+    },
+    {
+      "n": 335,
+      "id": "291",
+      "locked": false,
+      "dur": 1.5600000000000591,
+      "start": 840.76,
+      "type": "REAL_FOOTAGE",
+      "kind": "footage",
+      "overlay": false,
+      "text": true,
+      "panels": 1,
+      "clips": 1,
+      "desc": "Same kind of man breaking into a small smile",
+      "queries": [
+        "man smile slight",
+        "man smile slight"
+      ],
+      "audio": "alpha maybe",
+      "theme": 86.5
+    },
+    {
+      "n": 336,
+      "id": "292",
+      "locked": false,
+      "dur": 1.0489999999999782,
+      "start": 842.32,
+      "type": "REAL_IMAGE",
+      "kind": "still",
+      "overlay": false,
+      "text": false,
+      "panels": 1,
+      "clips": 1,
+      "desc": "A black frame",
+      "queries": [
+        "black screen",
+        "black screen",
+        "black screen"
+      ],
+      "audio": "exists.",
+      "theme": 100.0
+    }
+  ],
+  "history": [
+    {
+      "at": "2026-09-29T22:06:22.381842+00:00",
+      "round": null,
+      "overall": 51.6,
+      "sections": {
+        "a": 63.3,
+        "b": null,
+        "c": 87.5,
+        "d": 61.8,
+        "e": 22.7
+      },
+      "note": ""
+    },
+    {
+      "at": "2026-09-29T22:18:03.397325+00:00",
+      "round": null,
+      "overall": 56.4,
+      "sections": {
+        "a": 61.1,
+        "b": null,
+        "c": 87.5,
+        "d": 87.8,
+        "e": 22.7
+      },
+      "note": ""
+    },
+    {
+      "at": "2026-09-29T22:21:13.137468+00:00",
+      "round": 1,
+      "overall": 79.9,
+      "sections": {
+        "a": 61.1,
+        "b": null,
+        "c": 87.4,
+        "d": 87.8,
+        "e": 81.7
+      },
+      "note": "split shot 143 at 'Chishar'; split shot 142 at 'Sensor'; split shot 141 at 'forward'; split shot 139 at 'on'; split shot 138 at 'real'; split shot 136 at 'data'; split shot 135 at 'Which'; split shot 134 at 'before'; split shot 133 at 'knows'; split shot 132 at '313'; split shot 131 at 'had'; split shot 128 at 'boring'; split shot 127 at 'bleeding'; split shot 126 at 'Two'; split shot 125 at 'snapshot'; split shot 122 at 'flat'; split shot 115 at 'speed'; split shot 114 at 'the'; split shot 113 at 'costs'; split shot 111 at 'become'"
+    },
+    {
+      "at": "2026-09-29T22:23:20.540580+00:00",
+      "round": 2,
+      "overall": 84.1,
+      "sections": {
+        "a": 83.0,
+        "b": null,
+        "c": 87.6,
+        "d": 86.5,
+        "e": 81.7
+      },
+      "note": "retyped shot 50 still -> footage; retyped shot 81 still -> footage; retyped shot 25 still -> footage; retyped shot 49 still -> footage; retyped shot 31 still -> footage; retyped shot 165 still -> footage; retyped shot 41 still -> footage; retyped shot 40 still -> footage; retyped shot 118 graphic -> footage; retyped shot 48 still -> footage; retyped shot 108 still -> footage; retyped shot 14 still -> footage; retyped shot 126 still -> footage; retyped shot 43 still -> footage; retyped shot 68 still -> footage; retyped shot 140 graphic -> footage; retyped shot 129 still -> footage; retyped shot 2 still -> footage; retyped shot 22 still -> footage; retyped shot 183 graphic -> footage"
+    },
+    {
+      "at": "2026-09-29T22:24:37.091084+00:00",
+      "round": 0,
+      "overall": 79.9,
+      "sections": {
+        "a": 61.1,
+        "b": null,
+        "c": 87.4,
+        "d": 87.8,
+        "e": 81.7
+      },
+      "note": "before adjust"
+    },
+    {
+      "at": "2026-09-29T22:28:09.817443+00:00",
+      "round": 1,
+      "overall": 82.9,
+      "sections": {
+        "a": 82.5,
+        "b": null,
+        "c": 83.3,
+        "d": 85.2,
+        "e": 81.7
+      },
+      "note": "retyped shot 50 still -> footage; retyped shot 81 still -> footage; retyped shot 25 still -> footage; retyped shot 49 still -> footage; retyped shot 31 still -> footage; retyped shot 165 still -> footage; retyped shot 41 still -> footage; retyped shot 40 still -> footage; retyped shot 118 graphic -> footage; retyped shot 48 still -> footage; retyped shot 108 still -> footage; retyped shot 14 still -> footage; retyped shot 126 still -> footage; retyped shot 43 still -> footage; retyped shot 68 still -> footage; retyped shot 140 graphic -> footage; retyped shot 129 still -> footage; retyped shot 2 still -> footage; retyped shot 22 still -> footage; retyped shot 183 graphic -> footage"
+    },
+    {
+      "at": "2026-09-29T22:28:57.770596+00:00",
+      "round": null,
+      "overall": 81.2,
+      "sections": {
+        "a": 75.3,
+        "b": null,
+        "c": 83.3,
+        "d": 84.0,
+        "e": 81.7
+      },
+      "note": "guard: kept graphic-described retypes as graphics"
+    },
+    {
+      "at": "2026-09-29T22:30:00.081859+00:00",
+      "round": null,
+      "overall": 80.6,
+      "sections": {
+        "a": 72.1,
+        "b": null,
+        "c": 83.3,
+        "d": 84.0,
+        "e": 81.7
+      },
+      "note": "guard: graphic descriptions stay graphics"
+    },
+    {
+      "at": "2026-10-04T11:06:07.563135+00:00",
+      "round": 0,
+      "overall": 87.5,
+      "sections": {
+        "a": 99.0,
+        "b": null,
+        "c": 79.2,
+        "d": 96.1,
+        "e": 81.6
+      },
+      "note": "before adjust"
+    }
+  ],
+  "adjust": {
+    "rounds": [],
+    "cost_usd": 0.0,
+    "passed": true
+  }
+}

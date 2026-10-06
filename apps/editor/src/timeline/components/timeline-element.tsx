@@ -377,6 +377,7 @@ export function TimelineElement({
 			<ContextMenu>
 				<ContextMenuTrigger asChild>
 					<div
+						data-element-id={element.id}
 						className="absolute top-0 select-none"
 						style={{
 							left: `${elementLeft}px`,

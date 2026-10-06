@@ -1,0 +1,235 @@
+{
+ "slots": [
+  {
+   "key": "1-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_1-overlay.webm"
+  },
+  {
+   "key": "100",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_100.mp4"
+  },
+  {
+   "key": "114",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_114.mp4"
+  },
+  {
+   "key": "13",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_13.mp4"
+  },
+  {
+   "key": "14",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_14.mp4"
+  },
+  {
+   "key": "146-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_146-overlay.webm"
+  },
+  {
+   "key": "147-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_147-overlay.webm"
+  },
+  {
+   "key": "152",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_152.mp4"
+  },
+  {
+   "key": "163",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_163.mp4"
+  },
+  {
+   "key": "164",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_164.mp4"
+  },
+  {
+   "key": "18-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_18-overlay.webm"
+  },
+  {
+   "key": "204",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_204.mp4"
+  },
+  {
+   "key": "205",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_205.mp4"
+  },
+  {
+   "key": "220",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_220.mp4"
+  },
+  {
+   "key": "221",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_221.mp4"
+  },
+  {
+   "key": "234",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_234.mp4"
+  },
+  {
+   "key": "236-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_236-overlay.webm"
+  },
+  {
+   "key": "24",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_24.mp4"
+  },
+  {
+   "key": "240-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_240-overlay.webm"
+  },
+  {
+   "key": "28",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_28.mp4"
+  },
+  {
+   "key": "29",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_29.mp4"
+  },
+  {
+   "key": "297",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_297.mp4"
+  },
+  {
+   "key": "298",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_298.mp4"
+  },
+  {
+   "key": "299",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_299.mp4"
+  },
+  {
+   "key": "30",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_30.mp4"
+  },
+  {
+   "key": "314",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_314.mp4"
+  },
+  {
+   "key": "317",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_317.mp4"
+  },
+  {
+   "key": "318",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_318.mp4"
+  },
+  {
+   "key": "319",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_319.mp4"
+  },
+  {
+   "key": "320",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_320.mp4"
+  },
+  {
+   "key": "324",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_324.mp4"
+  },
+  {
+   "key": "327",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_327.mp4"
+  },
+  {
+   "key": "33-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_33-overlay.webm"
+  },
+  {
+   "key": "50",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_50.mp4"
+  },
+  {
+   "key": "55-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_55-overlay.webm"
+  },
+  {
+   "key": "69-overlay",
+   "flavor": "overlay",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_69-overlay.webm"
+  },
+  {
+   "key": "86",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_86.mp4"
+  },
+  {
+   "key": "99",
+   "flavor": "full_frame",
+   "ok": true,
+   "file": "sessions/do-alphas-even-exist-2026-09-29/assets/source_pool/mg_99.mp4"
+  }
+ ],
+ "generated": 38,
+ "fallbacks": 0,
+ "generated_at": "2026-10-04T21:57:32.805419+00:00"
+}

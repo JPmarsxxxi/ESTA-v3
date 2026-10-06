@@ -1,0 +1,15 @@
+This is one keyframe of one shot from a YouTube video. Reply with ONLY a JSON object:
+{"description": "one or two plain sentences: what is on screen, the setting, the camera feel, and any text or graphics overlaid (ignore subtitles that transcribe speech)", "likely_sources": ["1 to 3 sources from the list below, most likely first, judged by the look and feel"], "text_on_screen": true/false (any on-screen text/captions visible), "overlay_extra": true/false (ignoring subtitles or captions that transcribe speech, is there any OTHER graphic, sticker, label, number card or text overlay floating over the picture)}
+Sources:
+- pexels_video: free stock video clip (clean, generic, well lit)
+- pixabay_video: free stock video clip (often lower budget than Pexels)
+- youtube: a clip lifted from another YouTube video, podcast, news or film
+- archive: Archive.org: old, historical, public-domain or vintage footage
+- pexels_image: free stock photo
+- pixabay_image: free stock photo or illustration
+- pinterest: aesthetic or moody image, meme-ish picture, artwork, screenshot
+- wikimedia: documentary photo of a real person, place or historical item
+- google_images: a specific real-world image: logo, headline, screenshot, product, chart
+- giphy: GIF, reaction clip or meme loop
+- hyperframes: motion graphic made in-house: animated text, numbers, charts, UI cards
+- ai_video: AI-generated video (smooth surreal motion, synthetic look)

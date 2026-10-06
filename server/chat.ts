@@ -1,6 +1,7 @@
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { spawn, type ChildProcess } from "node:child_process";
 import { randomUUID } from "node:crypto";
+import { resolve } from "node:path";
 import { REPO_ROOT, claudeBin, json, readBody } from "./lib.ts";
 import { publish } from "./hub.ts";
 import { killTree } from "./jobs.ts";
@@ -34,6 +35,9 @@ function spawnChat(id: string, resume: boolean): Chat {
 		"--replay-user-messages",
 		"--verbose",
 		"--permission-mode", PERMISSION_MODE,
+		// Headless runs skip unapproved project MCP servers; the live-edit tools must load.
+		"--mcp-config", JSON.stringify({ mcpServers: { "esta-opencut": { command: process.execPath, args: [resolve(REPO_ROOT, "tools", "opencut", "mcp-server.mjs")] } } }),
+		"--allowedTools", "mcp__esta-opencut",
 		resume ? "--resume" : "--session-id", id,
 	];
 	const child = spawn(claudeBin(), args, { cwd: REPO_ROOT, env: process.env, windowsHide: true });

@@ -1,0 +1,107 @@
+{
+  "last": {
+    "picked": 12,
+    "lane": "haiku judge",
+    "judge_cost_usd": 0.0693,
+    "no_candidates": [],
+    "short_clip": [],
+    "shots": {
+      "4": {
+        "file": "pexels_14266942.jpg",
+        "why": "haiku: Dark wolf close-up matches educational infographic tone; candidate 2 is too bright and shows wrong wolf behavior",
+        "fit": 0.087,
+        "look": 0.013,
+        "of": 2,
+        "in_point": 0.0
+      },
+      "15": {
+        "file": "pexels_7140928.mp4",
+        "why": "haiku: Server rack with dramatic blue lighting matches data center aesthetic; candidate 3 is abstract circuit art",
+        "fit": 0.14,
+        "look": 0.213,
+        "of": 4,
+        "in_point": 1.0
+      },
+      "51": {
+        "file": "pexels_36635591.mp4",
+        "why": "haiku: Only candidate showing busy checkout with multiple cashiers; candidate 3 is money pile, wrong subject",
+        "fit": 0.158,
+        "look": 0.036,
+        "of": 4,
+        "in_point": 15.5
+      },
+      "61": {
+        "file": "pexels_13518189.mp4",
+        "why": "haiku: Vintage open suitcase matches planned subject; candidate 1 is radio, candidate 3 is modern person not retro",
+        "fit": 0.032,
+        "look": 0.038,
+        "of": 4,
+        "in_point": 0.5
+      },
+      "78": {
+        "file": "pexels_7504607.mp4",
+        "why": "haiku: Office desk setup with hands on keyboard matches; candidate 3 is too blurry and out of focus",
+        "fit": 0.085,
+        "look": 0.314,
+        "of": 4,
+        "in_point": 44.0
+      },
+      "96": {
+        "file": "pexels_12350157.mp4",
+        "why": "haiku: Large clock with warm amber lighting perfectly matches intimate documentary aesthetic; candidate 1 too dark",
+        "fit": 0.102,
+        "look": 0.066,
+        "of": 4,
+        "in_point": 4.0
+      },
+      "105": {
+        "file": "pexels_32067984.mp4",
+        "why": "haiku: Only candidate with person subject; candidate 2 is empty court, candidate 3 is cameraman",
+        "fit": 0.085,
+        "look": 0.148,
+        "of": 4,
+        "in_point": 0.0
+      },
+      "131": {
+        "file": "pexels_6603101.mp4",
+        "why": "haiku: Man confidently aiming at targets matches bullseye concept; candidate 3 is just concert crowd",
+        "fit": 0.133,
+        "look": 0.07,
+        "of": 4,
+        "in_point": 0.0
+      },
+      "228": {
+        "file": "pixabay_3411373.jpg",
+        "why": "haiku: Split-screen multi-panel layout matches grid UI mockup requirement; candidate 3 is single analog stopwatch",
+        "fit": 0.068,
+        "look": 0.484,
+        "of": 4,
+        "in_point": 0.0
+      },
+      "269": {
+        "file": "pexels_29865770.mp4",
+        "why": "haiku: Expansive cityscape with clock tower and horizon matches seascape composition; candidates 2 and 3 are wrong scale/setting",
+        "fit": 0.101,
+        "look": 0.124,
+        "of": 4,
+        "in_point": 27.5
+      },
+      "274": {
+        "file": "pexels_5721605.mp4",
+        "why": "haiku: Candidate 2 clearly shows hands applying medical bandage with proper close-up framing. Candidate 3 is a graphic illustration, not live footage.",
+        "fit": 0.17,
+        "look": 0.023,
+        "of": 4,
+        "in_point": 33.0
+      },
+      "294": {
+        "file": "pexels_6638820.mp4",
+        "why": "haiku: Candidate 1 matches INSPO with dramatic light beam cutting through dusty warehouse air. Candidate 2 lacks the dramatic lighting effect; Candidate 3 is wrong subject entirely.",
+        "fit": 0.159,
+        "look": 0.466,
+        "of": 4,
+        "in_point": 0.0
+      }
+    }
+  }
+}
