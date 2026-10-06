@@ -70,7 +70,7 @@ def test_ranking_uses_the_ref_shot_keyframe(tmp_path, monkeypatch):
     eye = np.eye(4)
     monkeypatch.setattr(P, "_gather", lambda session, n, per: {"candidates": files})
     monkeypatch.setattr(P.scorer, "load_inspo", lambda session: {"shots": [{"id": "r0"}, {"id": "r1"}], "dino": eye[[0, 2]]})
-    monkeypatch.setattr(P, "media_frames", lambda path, a, b: [np.full((2, 2, 3), int(Path(path).stem[1:]))])
+    monkeypatch.setattr(P, "media_frames", lambda path, a, b, **_: [np.full((2, 2, 3), int(Path(path).stem[1:]))])
     monkeypatch.setattr(P, "save_jpg", lambda arr, path, max_side=640: path)
     monkeypatch.setattr(P, "judge", lambda items, log: ({}, 0.0, []))
     monkeypatch.setattr(P, "JOBS_DIR", tmp_path / "jobs")
@@ -141,7 +141,7 @@ def _fake_run(tmp_path, monkeypatch, cands, verdict=None, frames_at=None):
     eye = np.eye(8)
     monkeypatch.setattr(P, "_gather", lambda session, n, per: {"candidates": cands})
     monkeypatch.setattr(P.scorer, "load_inspo", lambda session: None)
-    monkeypatch.setattr(P, "media_frames", lambda path, a, b: [np.full((2, 2, 3), int(Path(path).stem[1:]))])
+    monkeypatch.setattr(P, "media_frames", lambda path, a, b, **_: [np.full((2, 2, 3), int(Path(path).stem[1:]))])
     if frames_at:
         monkeypatch.setattr(P, "frames_at", frames_at)
     monkeypatch.setattr(P, "save_jpg", lambda arr, path, max_side=640: path)
@@ -166,7 +166,7 @@ def _fake_run(tmp_path, monkeypatch, cands, verdict=None, frames_at=None):
 def test_long_clip_gets_its_best_window(tmp_path, monkeypatch):
     long = {**video(0, 60.0), "file": str(tmp_path / "c0.mp4")}
 
-    def frames_at(path, times):
+    def frames_at(path, times, *_):
         # The matching scene sits at 30-32 s; everything else scores 0.
         return [np.full((2, 2, 3), 7 if 30 <= t < 32 else 0) for t in times]
 
@@ -176,7 +176,7 @@ def test_long_clip_gets_its_best_window(tmp_path, monkeypatch):
 
 def test_youtube_keeps_its_finder_window(tmp_path, monkeypatch):
     yt = {**video(0, 600.0, "youtube"), "file": str(tmp_path / "c0.mp4"), "in_point": 412.0}
-    out = _fake_run(tmp_path, monkeypatch, [yt], frames_at=lambda path, times: pytest.fail("re-windowed youtube"))
+    out = _fake_run(tmp_path, monkeypatch, [yt], frames_at=lambda path, times, *_: pytest.fail("re-windowed youtube"))
     assert out["shots"][1]["in_point"] == 412.0
 
 

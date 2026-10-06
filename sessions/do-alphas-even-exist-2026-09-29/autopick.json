@@ -1,169 +1,106 @@
 {
   "last": {
-    "picked": 23,
-    "lane": "local ranking",
+    "picked": 12,
+    "lane": "haiku judge",
+    "judge_cost_usd": 0.0693,
     "no_candidates": [],
+    "short_clip": [],
     "shots": {
-      "91": {
-        "file": "pexels_6781557.mp4",
-        "why": "local rank",
-        "fit": 0.114,
-        "look": 0.221,
-        "of": 4
+      "4": {
+        "file": "pexels_14266942.jpg",
+        "why": "haiku: Dark wolf close-up matches educational infographic tone; candidate 2 is too bright and shows wrong wolf behavior",
+        "fit": 0.087,
+        "look": 0.013,
+        "of": 2,
+        "in_point": 0.0
       },
-      "94": {
-        "file": "pexels_3868419.jpg",
-        "why": "local rank",
-        "fit": 0.143,
-        "look": 0.457,
-        "of": 4
+      "15": {
+        "file": "pexels_7140928.mp4",
+        "why": "haiku: Server rack with dramatic blue lighting matches data center aesthetic; candidate 3 is abstract circuit art",
+        "fit": 0.14,
+        "look": 0.213,
+        "of": 4,
+        "in_point": 1.0
       },
-      "106": {
-        "file": "pexels_7055350.mp4",
-        "why": "local rank",
-        "fit": 0.168,
-        "look": 0.207,
-        "of": 4
+      "51": {
+        "file": "pexels_36635591.mp4",
+        "why": "haiku: Only candidate showing busy checkout with multiple cashiers; candidate 3 is money pile, wrong subject",
+        "fit": 0.158,
+        "look": 0.036,
+        "of": 4,
+        "in_point": 15.5
       },
-      "108": {
-        "file": "pexels_7579954.mp4",
-        "why": "local rank",
-        "fit": 0.073,
-        "look": 0.813,
-        "of": 4
+      "61": {
+        "file": "pexels_13518189.mp4",
+        "why": "haiku: Vintage open suitcase matches planned subject; candidate 1 is radio, candidate 3 is modern person not retro",
+        "fit": 0.032,
+        "look": 0.038,
+        "of": 4,
+        "in_point": 0.5
       },
-      "121": {
-        "file": "pixabay_9566.mp4",
-        "why": "local rank",
-        "fit": 0.081,
-        "look": 0.739,
-        "of": 4
+      "78": {
+        "file": "pexels_7504607.mp4",
+        "why": "haiku: Office desk setup with hands on keyboard matches; candidate 3 is too blurry and out of focus",
+        "fit": 0.085,
+        "look": 0.314,
+        "of": 4,
+        "in_point": 44.0
       },
-      "128": {
-        "file": "giphy_mw29zTVSce0N6zbnCm.mp4",
-        "why": "local rank",
-        "fit": 0.105,
-        "look": 0.111,
-        "of": 4
+      "96": {
+        "file": "pexels_12350157.mp4",
+        "why": "haiku: Large clock with warm amber lighting perfectly matches intimate documentary aesthetic; candidate 1 too dark",
+        "fit": 0.102,
+        "look": 0.066,
+        "of": 4,
+        "in_point": 4.0
       },
-      "129": {
-        "file": "pixabay_5793625.jpg",
-        "why": "local rank",
-        "fit": 0.089,
-        "look": 0.077,
-        "of": 4
+      "105": {
+        "file": "pexels_32067984.mp4",
+        "why": "haiku: Only candidate with person subject; candidate 2 is empty court, candidate 3 is cameraman",
+        "fit": 0.085,
+        "look": 0.148,
+        "of": 4,
+        "in_point": 0.0
       },
-      "135": {
-        "file": "pexels_27822161.mp4",
-        "why": "local rank",
-        "fit": 0.147,
-        "look": 0.268,
-        "of": 4
+      "131": {
+        "file": "pexels_6603101.mp4",
+        "why": "haiku: Man confidently aiming at targets matches bullseye concept; candidate 3 is just concert crowd",
+        "fit": 0.133,
+        "look": 0.07,
+        "of": 4,
+        "in_point": 0.0
       },
-      "165": {
-        "file": "pexels_18900594.mp4",
-        "why": "local rank",
-        "fit": 0.125,
-        "look": 0.1,
-        "of": 2
+      "228": {
+        "file": "pixabay_3411373.jpg",
+        "why": "haiku: Split-screen multi-panel layout matches grid UI mockup requirement; candidate 3 is single analog stopwatch",
+        "fit": 0.068,
+        "look": 0.484,
+        "of": 4,
+        "in_point": 0.0
       },
-      "169": {
-        "file": "pexels_7579953.mp4",
-        "why": "local rank",
-        "fit": 0.141,
-        "look": 0.88,
-        "of": 4
+      "269": {
+        "file": "pexels_29865770.mp4",
+        "why": "haiku: Expansive cityscape with clock tower and horizon matches seascape composition; candidates 2 and 3 are wrong scale/setting",
+        "fit": 0.101,
+        "look": 0.124,
+        "of": 4,
+        "in_point": 27.5
       },
-      "170": {
-        "file": "pexels_7579574.mp4",
-        "why": "local rank",
-        "fit": 0.115,
-        "look": 0.406,
-        "of": 4
+      "274": {
+        "file": "pexels_5721605.mp4",
+        "why": "haiku: Candidate 2 clearly shows hands applying medical bandage with proper close-up framing. Candidate 3 is a graphic illustration, not live footage.",
+        "fit": 0.17,
+        "look": 0.023,
+        "of": 4,
+        "in_point": 33.0
       },
-      "171": {
-        "file": "pexels_7580430.mp4",
-        "why": "local rank",
-        "fit": 0.113,
-        "look": 0.861,
-        "of": 4
-      },
-      "174": {
-        "file": "pexels_7578613.mp4",
-        "why": "local rank",
-        "fit": 0.111,
-        "look": 0.914,
-        "of": 4
-      },
-      "178": {
-        "file": "pexels_6337501.jpg",
-        "why": "local rank",
-        "fit": 0.09,
-        "look": 0.322,
-        "of": 4
-      },
-      "179": {
-        "file": "pexels_8727522.jpg",
-        "why": "local rank",
-        "fit": 0.117,
-        "look": 0.268,
-        "of": 4
-      },
-      "183": {
-        "file": "pexels_18382358.mp4",
-        "why": "local rank",
-        "fit": 0.146,
-        "look": 0.202,
-        "of": 4
-      },
-      "186": {
-        "file": "yt_p0qMxFY29WA.mp4",
-        "why": "local rank",
-        "fit": 0.11,
-        "look": 0.429,
-        "of": 4
-      },
-      "194": {
-        "file": "pexels_3044698.mp4",
-        "why": "local rank",
-        "fit": 0.125,
-        "look": 0.282,
-        "of": 2
-      },
-      "196": {
-        "file": "pexels_35475096.mp4",
-        "why": "local rank",
-        "fit": 0.075,
-        "look": 0.47,
-        "of": 4
-      },
-      "198": {
-        "file": "pexels_8865886.mp4",
-        "why": "local rank",
-        "fit": 0.132,
-        "look": 0.229,
-        "of": 3
-      },
-      "201": {
-        "file": "pixabay_38388.mp4",
-        "why": "local rank",
-        "fit": 0.099,
-        "look": 0.094,
-        "of": 2
-      },
-      "202": {
-        "file": "pixabay_496.mp4",
-        "why": "local rank",
-        "fit": 0.077,
-        "look": 0.127,
-        "of": 2
-      },
-      "208": {
-        "file": "giphy_R8DVURV4cHjfOV5Dco.mp4",
-        "why": "local rank",
-        "fit": 0.059,
-        "look": 0.255,
-        "of": 2
+      "294": {
+        "file": "pexels_6638820.mp4",
+        "why": "haiku: Candidate 1 matches INSPO with dramatic light beam cutting through dusty warehouse air. Candidate 2 lacks the dramatic lighting effect; Candidate 3 is wrong subject entirely.",
+        "fit": 0.159,
+        "look": 0.466,
+        "of": 4,
+        "in_point": 0.0
       }
     }
   }

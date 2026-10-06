@@ -85,7 +85,8 @@ def build_slot(session: Path, cfg: dict, kit_css: str, kit_js: str) -> Path:
 
     html = TEMPLATE.format(
         W=W, H=H, res="landscape" if W > H else "portrait", gsap=GSAP, bg=bg,
-        surface_css=kit_css.rstrip(),
+        # A kit that paints #root (a full-frame surface colour) would make every overlay opaque.
+        surface_css=kit_css.rstrip() + ("\n      #root { background: transparent !important; }" if flavor == "overlay" else ""),
         body=cfg.get("body", "").rstrip(),
         helpers_js=kit_js.strip(),
         timeline=cfg.get("timeline", "").rstrip(),

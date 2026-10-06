@@ -126,7 +126,7 @@ def probe(video: Path) -> tuple[float, float]:
     return (frames / fps if fps else 0.0), fps
 
 
-def frames_at(video: Path, times: list[float]):
+def frames_at(video: Path, times: list[float], max_side: int = 0):
     """RGB uint8 arrays at the given seconds (missing frames skipped)."""
     import cv2
     cap = cv2.VideoCapture(str(video))
@@ -136,6 +136,10 @@ def frames_at(video: Path, times: list[float]):
         cap.set(cv2.CAP_PROP_POS_FRAMES, max(0, round(t * fps)))
         ok, frame = cap.read()
         if ok:
+            # Hundreds of 4K frames held at full size exhaust RAM; the embedders downscale anyway.
+            scale = max_side / max(frame.shape[:2]) if max_side else 1.0
+            if scale < 1.0:
+                frame = cv2.resize(frame, None, fx=scale, fy=scale, interpolation=cv2.INTER_AREA)
             out.append(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
     cap.release()
     return out
@@ -149,7 +153,7 @@ def image_rgb(path: Path):
         return np.asarray(im.convert("RGB"))
 
 
-def media_frames(path: Path, in_point: float = 0.0, out_point: float = 0.0, n: int = 3):
+def media_frames(path: Path, in_point: float = 0.0, out_point: float = 0.0, n: int = 3, max_side: int = 0):
     """Keyframes of a clip window, or the image itself."""
     suffix = Path(path).suffix.lower()
     if suffix in {".jpg", ".jpeg", ".png", ".webp", ".bmp"}:
@@ -161,7 +165,7 @@ def media_frames(path: Path, in_point: float = 0.0, out_point: float = 0.0, n: i
     if hi <= lo:
         hi = lo + 0.1
     times = [lo + (hi - lo) * (k + 0.5) / n for k in range(n)]
-    return frames_at(Path(path), times)
+    return frames_at(Path(path), times, max_side)
 
 
 def save_jpg(arr, path: Path, max_side: int = 640) -> Path:

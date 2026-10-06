@@ -27,6 +27,7 @@ import hashlib
 import json
 import math
 import re
+import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -46,6 +47,7 @@ JUDGE_BATCH = 10
 WINDOW_OVER = 3.0     # a candidate this many times its shot's length is searched for its best section
 WINDOW_STEP = 0.5
 WINDOW_MAX_FRAMES = 600
+FRAME_SIDE = 640      # judged at 512, embedded at 384
 SLOW_FLOOR = 0.6      # slower than this stops reading as natural slow motion
 SHOT_KIND = {"REAL_IMAGE": "still", "MOTION_GRAPHICS": "graphic"}
 JUDGE_SYSTEM = "You pick stock footage for a video editor. Reply with only the requested JSON."
@@ -149,13 +151,18 @@ def _gather(session: Path, n: int, per_source: int) -> dict:
     # every query, then to stock video sources (a retype can leave a footage
     # shot with image-only sources).
     base = ["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n), "--per-source", str(per_source)]
-    r = None
+    err = ""
     for extra in (["--max-queries", "1"], [], ["--sources", "pexels_video,pixabay_video,giphy"]):
-        r = run_esta(base + extra, timeout=2400)
+        # A hung source (a huge archive.org file) must cost this shot, not the whole run.
+        try:
+            err = run_esta(base + extra, timeout=600).stderr[-200:]
+        except subprocess.TimeoutExpired:
+            err = f"gather timed out: {' '.join(extra)}"
+            continue
         got = read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {}
         if got.get("candidates"):
             return got
-    return {"candidates": [], "error": r.stderr[-200:]}
+    return {"candidates": [], "error": err}
 
 
 def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=log) -> dict:
@@ -171,6 +178,9 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     with ThreadPoolExecutor(max_workers=4) as pool:
         manifests = dict(zip([s["shot_number"] for s in wanted],
                              pool.map(lambda s: _gather(session, s["shot_number"], per_source), wanted)))
+    for n, m in manifests.items():
+        if not m.get("candidates"):
+            log(f"[autopick] shot {n}: no candidates: {m.get('error', '')[-160:]}")
 
     inspo = scorer.load_inspo(session)
     emb = Embedder()
@@ -214,7 +224,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                 step = max(WINDOW_STEP, usable / WINDOW_MAX_FRAMES)
                 times = [c.get("in_point", 0) + i * step for i in range(int(usable / step))]
                 try:
-                    frames = frames_at(path, times)
+                    frames = frames_at(path, times, FRAME_SIDE)
                 except Exception:
                     frames = []
                 if len(frames) == len(times) and frames:
@@ -222,7 +232,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                     i = best_window(0.6 * z(emb.siglip_images(frames) @ text) + 0.4 * z(likeness(frames)), step, dur)
                     c = {**c, "in_point": round(times[i], 3), "out_point": round(times[i] + dur, 3), "windowed": True}
             try:
-                frames = media_frames(path, c.get("in_point") or 0, c.get("out_point") or 0)
+                frames = media_frames(path, c.get("in_point") or 0, c.get("out_point") or 0, max_side=FRAME_SIDE)
             except Exception:
                 frames = []
             if frames:

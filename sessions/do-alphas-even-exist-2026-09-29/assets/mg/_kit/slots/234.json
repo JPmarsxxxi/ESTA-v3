@@ -1,0 +1,1 @@
+{"key": "234", "flavor": "full_frame", "duration": 4.52, "body": "<div class='line'><span class='w big' id='v'>0%</span><br><span class='w sub' id='l'>of the turnover netted out</span></div>", "timeline": "countUp(tl, '#v', 87, 0, 0.05, 3.62, '', '%'); land(tl, '#l', 3.72);"}

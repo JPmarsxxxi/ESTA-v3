@@ -810,7 +810,9 @@ def search_youtube(
             with _CACHE_LOCK:
                 _SEARCH_CACHE[query] = all_entries
 
-        entries = [e for e in all_entries if (e.get("duration") or 0) <= 600]
+        # A live stream has no duration and its download never ends, so a real one is required.
+        entries = [e for e in all_entries if 0 < (e.get("duration") or 0) <= 600
+                   and e.get("live_status") not in ("is_live", "is_upcoming")]
         print(f"    [youtube] {len(all_entries)} results, {len(entries)} under 10 min", flush=True)
         if not entries:
             return []

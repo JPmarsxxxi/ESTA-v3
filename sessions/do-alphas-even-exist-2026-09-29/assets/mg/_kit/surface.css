@@ -1,0 +1,26 @@
+      /* Surface: the inspo's crimson word card (refs 0017, 0100, 0049...). One ink, one accent (black, the break only). */
+      #root { position: relative; width: 100%; height: 100%; background: #B0001E; overflow: hidden;
+              font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #FFFFFF; }
+      .line { position: absolute; left: 200px; top: 50%; transform: translateY(-50%);
+              font-size: 64px; font-weight: 700; line-height: 1.15; white-space: nowrap; }
+      .w { display: inline-block; opacity: 0; }
+      .sep { display: inline-block; opacity: 0; font-weight: 400; padding: 0 0.45em; }
+      .small { font-size: 34px; font-weight: 400; }
+      .label { position: absolute; left: 200px; font-size: 40px; font-weight: 700; }
+      .col { position: absolute; top: 50%; transform: translateY(-50%); width: 440px; opacity: 0; }
+      .col .k { font-size: 30px; font-weight: 400; opacity: 0.8; display: block; margin-bottom: 14px; }
+      .col .v { font-size: 64px; font-weight: 700; display: block; }
+      .rule { position: absolute; top: 38%; height: 24%; width: 2px; background: #FFFFFF; opacity: 0; }
+      .break { background: #14070A; padding: 0.05em 0.22em; }
+      svg.plot { position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: visible; }
+      svg.plot path { fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linejoin: round; stroke-linecap: round; }
+      .dot { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; opacity: 0; }
+      .big { font-size: 140px; font-weight: 700; line-height: 1; }
+      .sub { font-size: 40px; font-weight: 400; }
+      .bars { position: absolute; left: 200px; bottom: 300px; display: flex; align-items: flex-end; gap: 22px; height: 420px; }
+      .bar { width: 56px; background: #FFFFFF; transform-origin: bottom; transform: scaleY(0); }
+      .bar.neg { background: #14070A; transform-origin: top; align-self: flex-start; }
+      .ref { position: absolute; height: 3px; background: #FFFFFF; opacity: 0; }
+      /* Overlay card: floats over footage, top-left, clear of the subtitle band. Transparent around it. */
+      .ov { position: absolute; left: 120px; top: 110px; background: #B0001E; color: #FFFFFF; padding: 18px 28px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 52px; font-weight: 700; opacity: 0; }

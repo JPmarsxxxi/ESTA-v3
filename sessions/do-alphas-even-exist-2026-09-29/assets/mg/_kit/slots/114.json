@@ -1,0 +1,1 @@
+{"key": "114", "flavor": "full_frame", "duration": 3.08, "body": "<div class='line'><span class='w big' id='v'>+0% a week</span><br><span class='w sub' id='l'>BTC weekly trend, gross</span></div>", "timeline": "countUp(tl, '#v', 0.95, 2, 0.05, 2.1799999999999997, '+', '% a week'); land(tl, '#l', 2.28);"}

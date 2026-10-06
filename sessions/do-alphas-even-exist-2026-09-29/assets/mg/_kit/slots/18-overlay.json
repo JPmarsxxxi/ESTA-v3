@@ -1,0 +1,1 @@
+{"key": "18-overlay", "flavor": "overlay", "duration": 1.68, "body": "<div class='ov' id='o'>WORLDQUANT</div>", "timeline": "land(tl, '#o', 0.1);"}

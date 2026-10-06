@@ -1,0 +1,1 @@
+{"key": "319", "flavor": "full_frame", "duration": 3.38, "body": "<div class='line'><span class='w big' id='v'>0</span><br><span class='w sub' id='l'>baseline in 2022</span></div>", "timeline": "countUp(tl, '#v', -6.7, 1, 0.05, 2.48, '', ''); land(tl, '#l', 2.58);"}

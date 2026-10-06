@@ -855,3 +855,138 @@ End to end (Kaggle)
 
 M9.5
 - [ ] The ai-video SKILL.md model table names only `anisora` and `wan5b`, with the measured per-clip times. `PORTING.md` logs the SKILL.md change and the model removals.
+
+---
+
+# Part 7 — Stock as last resort, 15% cap (M10)
+
+Decided with the user on 2026-10-06, after the first full end-to-end video (`sessions/do-alphas-even-exist-2026-09-29`). Earlier parts still apply where not overridden here.
+
+## Goal
+
+In that video Pexels and Pixabay supplied 263 of 307 footage shots, 74% of the runtime (Pexels 61.2%, Pixabay 12.9%). The user said the video "feels dry and dead". The cause is routing, not ranking: the plan skill's sourcing rules tell every low-specificity shot to *lead* with Pexels/Pixabay, so 227 shots searched nowhere else and the picker had nothing better to choose.
+
+M10 makes the four stock sources (`pexels_video`, `pixabay_video`, `pexels_image`, `pixabay_image`, called **stock** below) a last resort:
+
+- The plan never routes a shot to stock, so stock is not even fetched in the normal path.
+- When a shot finds nothing, its query is rewritten (up to 3 times) and searched again on non-stock sources.
+- Only after that may stock be used, and only while the video-wide budget lasts: **at most 15% of the plan's shots** (configurable).
+- Past the budget the shot becomes a motion graphic. Stock never goes over the cap.
+- Where stock and non-stock candidates are both present, a non-stock candidate always wins.
+
+It also fixes YouTube media handling: the kept clip is the best video-only stream up to 1080p, and the shot's own audio is fetched and muxed in only when the plan says the clip's sound matters.
+
+The current session is then re-routed and re-picked under the new rules.
+
+## Non-goals
+
+- Removing stock sources, their code, or their API keys. They stay available as the capped fallback, and to the editor's manual picker.
+- Changing how motion graphics look (the kit, Part 3 decision 16) or the M6 mapped-plan cutting.
+- A runtime-share measure. The cap counts shots (user's choice), not seconds.
+- Any change to licensing stances. `free_only` still drops `youtube` and `google_images`; see Edge cases.
+- Rewriting this session's shots, cuts, graphics, voiceover or subtitles. Only sources and picks change.
+- Making Google Images work headless (it gets a CAPTCHA). It runs through Claude in Chrome (decision 6).
+
+## Files & interfaces involved
+
+- `config.yaml`: new `assets:` block: `stock_cap: 0.15`, `stock_rewrites: 3`. A session may override with `pipeline.json` `ui.stock_cap`.
+- `.claude/skills/plan/SKILL.md` (v2 copy, log in `PORTING.md`): specificity rules and the default-source table (around lines 191-206) rewritten per decision 2; `visual.keep_audio` documented (decision 7).
+- `tools/assets/run.py` (v2 copy, log in `PORTING.md`):
+  - `_DEFAULT_SOURCES` (decision 2);
+  - YouTube download (`_download_youtube_full`) per decision 7;
+  - every implicit stock fallback in the gather cascade removed.
+- `tools/assets/search.py` (v2 copy): Google Images CAPTCHA/empty result reported as `needs_chrome`, not as no results.
+- `tools/match/autopick.py`:
+  - `_gather`: the stock fallback (`--sources pexels_video,pixabay_video,giphy`) replaced by the rewrite loop (decision 3);
+  - the stock filter in ranking (decision 4);
+  - budget accounting and the graphic fallback (decision 5).
+- `tools/match/adjust.py`: the retype prompt's source table (lines 52-54) matches decision 2.
+- `tools/match/validate_plan.py`: a shot whose `search_sources` lists a stock source fails validation.
+- `tools/match/review.py`: stock picks flagged; the header shows `stock: N/M shots (cap K)`.
+- `tools/render/run.py`: video clips get `volume: 0` unless the shot has `visual.keep_audio: true` (decision 7).
+- `.claude/skills/assets/SKILL.md` and `.claude/skills/match/SKILL.md`: the Chrome pass for queued Google Images shots (decision 6).
+- Tests: `tools/match/tests/test_autopick.py` (stock filter, rewrite loop, budget, graphic fallback), `tools/match/tests/test_validate_plan.py` (stock rejected), a render test for `keep_audio` volume.
+- Session script (gitignored): `sessions/do-alphas-even-exist-2026-09-29/reroute.py` for decision 8.
+
+## Key decisions & tradeoffs
+
+1. **Cap = share of shots, 15%, from config (user).** Budget = `floor(stock_cap × total shots in plan.json)`, graphics included in the total. For this session that is 50 of 336. The cap counts shot count, not seconds. It lives in `config.yaml` `assets.stock_cap`, with an optional per-session override in `pipeline.json` `ui.stock_cap`.
+
+2. **No stock at plan time (user: "none by default").** The planner never lists a stock source. New default sources:
+
+   | Type / specificity | Sources, in order |
+   |---|---|
+   | REAL_FOOTAGE high | `youtube`, `archive` |
+   | REAL_FOOTAGE medium/low | `youtube`, `archive`, `giphy` |
+   | REAL_IMAGE high | `google_images`, `wikimedia` |
+   | REAL_IMAGE medium/low | `google_images`, `pinterest`, `wikimedia`, `openverse` |
+   | MOTION_GRAPHICS (fallback only) | `giphy` |
+
+   The aesthetic override (Pinterest first) and the meme override (Giphy first) stay. `validate_plan.py` rejects stock in `search_sources`.
+
+3. **Empty gather → rewrite the query (user: "rewrite query or tweak search").** When a shot's non-stock sources return no usable candidate, Haiku rewrites the query from the shot's desc, spoken line and the failed query, using the batched lean `claude -p` call already used by `describe.py`. Each rewrite is searched on the shot's sources plus all non-stock sources of the same kind. There are at most `stock_rewrites` (3) rounds, and every query tried is recorded in the candidates manifest.
+
+4. **Bias = filter, not a weight.** In `autopick.run`, if any non-stock candidate survives the hard filters, every stock candidate for that shot is dropped before ranking and judging. A stock candidate is only ever picked when it is the only kind left.
+
+5. **Over budget → motion graphic (user).** Stock is allowed only after the rewrites are exhausted *and* while `used < budget`. `used` counts the shots whose current feed pick is stock, video-wide (read from `assets_progress.jsonl`, so chunked runs share one budget).
+   - Past the budget, the shot is retyped to `MOTION_GRAPHICS` in `plan.json` (and `plan_progress.jsonl`) with `retyped_from` and `retype_reason: "stock_cap"`.
+   - It gets a word-card config written from its spoken line with the session kit's `line()` shape, then is built, rendered and published like any MG slot (Part 3 decision 16).
+   - When the session has no kit yet, the shot is listed in `stock_overflow.json` for the motion-graphics skill.
+   - The run never writes a stock pick that would take `used` over the budget.
+
+6. **Google Images through Claude in Chrome (user).** Headless `search_google_images` gets a CAPTCHA, so a shot whose image sources include `google_images` gets that source queued in `assets/chrome_queue.json`; the other image sources still run headless. The assets/match skills then run a Chrome pass in conversation: search, open the full-resolution image in a new tab, save it into `source_pool`, and append it to the shot's candidates manifest. After that, autopick is re-run for those shots. A queued shot is not "empty" (and does not reach stock) until its Chrome pass is done.
+
+7. **YouTube: best video-only, audio only when needed (user).**
+   - The kept clip is `bestvideo[height<=1080][ext=mp4]`, video-only.
+   - When the shot has `visual.keep_audio: true`, `bestaudio[ext=m4a]` is also fetched and muxed with ffmpeg (`-c copy`) into `yt_<id>.av.mp4`. The plan sets `keep_audio` when the clip's own sound is the point: a quote, a famous moment, a meme's sound.
+   - Render gives video clips `volume: 0` unless `keep_audio`.
+   - The finder's low-res analysis copy (`worst`) is unchanged; it is never the kept file.
+   - There is no height floor. YouTube serves HD video-only streams to the `mweb` client (checked 2026-10-06: 720p–2160p available; only the muxed formats stop at 360p).
+
+8. **Re-route this session (user).** `reroute.py` rewrites `search_sources` on the existing `plan.json` per decision 2, keeping shot numbers, cuts, refs, captions, overlays, graphics and `user_directions`. Then:
+   - Every shot whose pick is stock gets its candidates manifest cleared and is re-picked through the new autopick, in detached chunks (memory, see Edge cases).
+   - Non-stock picks and all 38 graphics are kept.
+   - Then: prune, render, final match score, and the review page.
+
+## Edge cases
+
+- **`free_only` sessions.** `youtube` and `google_images` are unavailable, so footage leans on `archive`/`giphy` and images on `pinterest`/`wikimedia`/`openverse`. The cap still holds, so expect more graphic fallbacks there. Report the count.
+- **A YouTube live stream or upcoming premiere** is skipped (no duration). This is already fixed in `search.py`.
+- **A video with no 1080p/720p stream** takes the best it has. A video that has only muxed formats takes that one.
+- **`keep_audio` video with no m4a audio:** keep the video-only file, log it, and set `audio_missing: true` on the feed row.
+- **Re-picking a shot that already holds a stock pick:** that pick is not counted against the budget while the shot is being re-picked.
+- **Two chunks running at once** would race the budget. Chunks run sequentially (as now); the budget is re-read from the feed at pick time.
+- **Haiku unavailable for rewrites:** fall back to dropping the last word of the query, then to the shot's desc nouns, and count each as a round.
+- **Memory.** Long runs launch detached (`Start-Process`) so a memory reap of the launching shell can't strand the picker. This was learned on this session: a stranded picker failed every gather.
+- **Google Images pass skipped by the user:** queued shots fall through to the rewrite loop on their other sources.
+- **The plan validator on old sessions:** stock in an old plan fails validation only when the plan is re-validated; old sessions keep loading and rendering.
+
+## Acceptance criteria
+
+M10.1 Routing
+- [ ] The plan skill's `SKILL.md` and `tools/assets/run.py` `_DEFAULT_SOURCES` list no stock source for any type/specificity (grep check). `adjust.py`'s prompt table matches decision 2.
+- [ ] `validate_plan.py` fails a plan with `pexels_video` in a shot's `search_sources`, naming the shot (test).
+
+M10.2 Picking
+- [ ] Autopick with one stock and one non-stock candidate that both pass filters picks the non-stock one, even when the stock one ranks higher (test).
+- [ ] Autopick on a shot whose gathers return nothing calls the rewriter up to 3 times with distinct queries, records them in the manifest, and only then considers stock (test with a stubbed gather and rewriter).
+- [ ] With the budget already spent (feed holds `floor(cap × shots)` stock picks), a shot that would need stock is retyped to `MOTION_GRAPHICS` with `retype_reason: "stock_cap"`, and no stock row is written (test).
+- [ ] `config.yaml` `assets.stock_cap: 0.10` changes the budget accordingly, and `pipeline.json` `ui.stock_cap` overrides it (test).
+
+M10.3 YouTube media and audio
+- [ ] A YouTube candidate download without `keep_audio` yields a file with no audio stream, at the best available height ≤1080 (ffprobe on one real download). With `keep_audio: true` the file has both an audio and a video stream.
+- [ ] Render emits `volume: 0` for video clips without `keep_audio` and `1` with it (test).
+
+M10.4 Google Images via Chrome
+- [ ] A headless Google Images CAPTCHA queues the shot in `assets/chrome_queue.json` instead of counting as empty (test). The assets and match `SKILL.md`s describe the Chrome pass.
+
+M10.5 This session
+- [ ] After `reroute.py` and the re-pick:
+  - stock picks are ≤ 50 of 336 shots (≤15%), measured from `assets_progress.jsonl` against `plan.json`;
+  - 336/336 shots are covered and the render has 0 placeholders;
+  - the final match score is reported;
+  - the `match_review.html` header shows the stock count.
+
+General
+- [ ] `bun run typecheck`, `bun run lint` and `python -m pytest tools/match/tests tools/genvideo/tests -q` pass.
+- [ ] `PORTING.md` logs the changes to v2 copies (`plan/SKILL.md`, `tools/assets/run.py`, `tools/assets/search.py`, the assets/match `SKILL.md`s) with reasons.

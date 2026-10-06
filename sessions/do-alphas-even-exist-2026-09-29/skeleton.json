@@ -1,0 +1,5696 @@
+[
+ {
+  "id": "1",
+  "slot": 1,
+  "start": 0.0,
+  "end": 2.47,
+  "words": "So, alphas, nah,",
+  "ref_shot": "018a4aa42a2b-0001",
+  "target": 2.533,
+  "alts": [
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004"
+  ]
+ },
+ {
+  "id": "2",
+  "slot": 2,
+  "start": 2.47,
+  "end": 4.88,
+  "words": "not these guys or these",
+  "ref_shot": "018a4aa42a2b-0001",
+  "target": 2.533,
+  "alts": [
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004"
+  ]
+ },
+ {
+  "id": "3",
+  "slot": 3,
+  "start": 4.88,
+  "end": 5.78,
+  "words": "guys.",
+  "ref_shot": "018a4aa42a2b-0002",
+  "target": 1.467,
+  "alts": [
+   "018a4aa42a2b-0001",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005"
+  ]
+ },
+ {
+  "id": "4",
+  "slot": 4,
+  "start": 5.78,
+  "end": 7.4,
+  "words": "This fucking",
+  "ref_shot": "018a4aa42a2b-0002",
+  "target": 1.467,
+  "alts": [
+   "018a4aa42a2b-0001",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005"
+  ]
+ },
+ {
+  "id": "5",
+  "slot": 5,
+  "start": 7.4,
+  "end": 9.9,
+  "words": "annoying ass shit. You see these ones",
+  "ref_shot": "018a4aa42a2b-0003",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0001",
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0006"
+  ]
+ },
+ {
+  "id": "6",
+  "slot": 6,
+  "start": 9.9,
+  "end": 10.7,
+  "words": "wouldn't drive you to edge",
+  "ref_shot": "018a4aa42a2b-0004",
+  "target": 0.8,
+  "alts": [
+   "018a4aa42a2b-0001",
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007"
+  ]
+ },
+ {
+  "id": "7",
+  "slot": 7,
+  "start": 10.7,
+  "end": 14.0,
+  "words": "of the world, questioning your sanity and intelligence and make you stare at the",
+  "ref_shot": "018a4aa42a2b-0005",
+  "target": 3.266,
+  "alts": [
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0008"
+  ]
+ },
+ {
+  "id": "8",
+  "slot": 8,
+  "start": 14.0,
+  "end": 17.28,
+  "words": "ceiling at question, your wild existence from the moment you ran from your dad's",
+  "ref_shot": "018a4aa42a2b-0005",
+  "target": 3.266,
+  "alts": [
+   "018a4aa42a2b-0002",
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0008"
+  ]
+ },
+ {
+  "id": "9",
+  "slot": 9,
+  "start": 17.28,
+  "end": 19.12,
+  "words": "balls and spun into the world. Goodness",
+  "ref_shot": "018a4aa42a2b-0006",
+  "target": 2.1,
+  "alts": [
+   "018a4aa42a2b-0003",
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0009"
+  ]
+ },
+ {
+  "id": "10",
+  "slot": 10,
+  "start": 19.12,
+  "end": 22.67,
+  "words": "gracious. Sorry, I went off on a tangent",
+  "ref_shot": "018a4aa42a2b-0007",
+  "target": 3.7,
+  "alts": [
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010"
+  ]
+ },
+ {
+  "id": "11",
+  "slot": 11,
+  "start": 22.67,
+  "end": 26.51,
+  "words": "there, but eesh. So let's talk about alphas.",
+  "ref_shot": "018a4aa42a2b-0007",
+  "target": 3.7,
+  "alts": [
+   "018a4aa42a2b-0004",
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010"
+  ]
+ },
+ {
+  "id": "12",
+  "slot": 12,
+  "start": 26.51,
+  "end": 31.3,
+  "words": "Fundamentally, an alpha is an idea about how the market works.",
+  "ref_shot": "018a4aa42a2b-0008",
+  "target": 4.4,
+  "alts": [
+   "018a4aa42a2b-0005",
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011"
+  ]
+ },
+ {
+  "id": "13",
+  "slot": 13,
+  "start": 31.3,
+  "end": 35.31,
+  "words": "Concretely, it is an automated predictive model that",
+  "ref_shot": "018a4aa42a2b-0009",
+  "target": 3.867,
+  "alts": [
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0012"
+  ]
+ },
+ {
+  "id": "14",
+  "slot": 14,
+  "start": 35.31,
+  "end": 39.19,
+  "words": "decodes some market relation. It contains rules that",
+  "ref_shot": "018a4aa42a2b-0009",
+  "target": 3.867,
+  "alts": [
+   "018a4aa42a2b-0006",
+   "018a4aa42a2b-0007",
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0012"
+  ]
+ },
+ {
+  "id": "15",
+  "slot": 15,
+  "start": 39.19,
+  "end": 40.87,
+  "words": "convert input data to",
+  "ref_shot": "018a4aa42a2b-0011",
+  "target": 1.734,
+  "alts": [
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014"
+  ]
+ },
+ {
+  "id": "16",
+  "slot": 16,
+  "start": 40.87,
+  "end": 42.59,
+  "words": "positions trades in",
+  "ref_shot": "018a4aa42a2b-0011",
+  "target": 1.734,
+  "alts": [
+   "018a4aa42a2b-0008",
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014"
+  ]
+ },
+ {
+  "id": "17",
+  "slot": 17,
+  "start": 42.59,
+  "end": 44.91,
+  "words": "the securities markets. Igor",
+  "ref_shot": "018a4aa42a2b-0012",
+  "target": 2.333,
+  "alts": [
+   "018a4aa42a2b-0009",
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015"
+  ]
+ },
+ {
+  "id": "18",
+  "slot": 18,
+  "start": 44.91,
+  "end": 46.59,
+  "words": "Tolchinsky, finding",
+  "ref_shot": "018a4aa42a2b-0013",
+  "target": 1.8,
+  "alts": [
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016"
+  ]
+ },
+ {
+  "id": "19",
+  "slot": 19,
+  "start": 46.59,
+  "end": 48.33,
+  "words": "alphas world quant widely",
+  "ref_shot": "018a4aa42a2b-0013",
+  "target": 1.8,
+  "alts": [
+   "018a4aa42a2b-0010",
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016"
+  ]
+ },
+ {
+  "id": "20",
+  "slot": 20,
+  "start": 48.33,
+  "end": 50.54,
+  "words": "2020. Thanks,",
+  "ref_shot": "018a4aa42a2b-0014",
+  "target": 1.733,
+  "alts": [
+   "018a4aa42a2b-0011",
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0017"
+  ]
+ },
+ {
+  "id": "21",
+  "slot": 21,
+  "start": 50.54,
+  "end": 53.06,
+  "words": "Tolch. I love money.",
+  "ref_shot": "018a4aa42a2b-0015",
+  "target": 2.4,
+  "alts": [
+   "018a4aa42a2b-0012",
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018"
+  ]
+ },
+ {
+  "id": "22",
+  "slot": 22,
+  "start": 53.06,
+  "end": 55.04,
+  "words": "You love money, we all love money. So why",
+  "ref_shot": "018a4aa42a2b-0016",
+  "target": 1.967,
+  "alts": [
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019"
+  ]
+ },
+ {
+  "id": "23",
+  "slot": 23,
+  "start": 55.04,
+  "end": 57.12,
+  "words": "not do some maths and make some money sounds easy, doesn't",
+  "ref_shot": "018a4aa42a2b-0016",
+  "target": 1.967,
+  "alts": [
+   "018a4aa42a2b-0013",
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019"
+  ]
+ },
+ {
+  "id": "24",
+  "slot": 24,
+  "start": 57.12,
+  "end": 59.64,
+  "words": "it? Well, Psyche, I've been writing maths equations",
+  "ref_shot": "018a4aa42a2b-0017",
+  "target": 2.433,
+  "alts": [
+   "018a4aa42a2b-0014",
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020"
+  ]
+ },
+ {
+  "id": "25",
+  "slot": 25,
+  "start": 59.64,
+  "end": 61.44,
+  "words": "to find these alphas for the",
+  "ref_shot": "018a4aa42a2b-0018",
+  "target": 1.8,
+  "alts": [
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021"
+  ]
+ },
+ {
+  "id": "26",
+  "slot": 26,
+  "start": 61.44,
+  "end": 63.5,
+  "words": "past two months and",
+  "ref_shot": "018a4aa42a2b-0018",
+  "target": 1.8,
+  "alts": [
+   "018a4aa42a2b-0015",
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021"
+  ]
+ },
+ {
+  "id": "27",
+  "slot": 27,
+  "start": 63.5,
+  "end": 65.86,
+  "words": "I might be convinced they don't exist started",
+  "ref_shot": "018a4aa42a2b-0019",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0016",
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022"
+  ]
+ },
+ {
+  "id": "28",
+  "slot": 28,
+  "start": 65.86,
+  "end": 67.1,
+  "words": "where everyone",
+  "ref_shot": "018a4aa42a2b-0020",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023"
+  ]
+ },
+ {
+  "id": "29",
+  "slot": 29,
+  "start": 67.1,
+  "end": 68.62,
+  "words": "starts. Short -term",
+  "ref_shot": "018a4aa42a2b-0020",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0017",
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023"
+  ]
+ },
+ {
+  "id": "30",
+  "slot": 30,
+  "start": 68.62,
+  "end": 70.2,
+  "words": "reversal. Stock drops relative",
+  "ref_shot": "018a4aa42a2b-0021",
+  "target": 1.467,
+  "alts": [
+   "018a4aa42a2b-0018",
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0024"
+  ]
+ },
+ {
+  "id": "31",
+  "slot": 31,
+  "start": 70.2,
+  "end": 75.1,
+  "words": "to its peers. You buy it, it bounces, you are a genius. It is in every",
+  "ref_shot": "018a4aa42a2b-0022",
+  "target": 5.166,
+  "alts": [
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0025"
+  ]
+ },
+ {
+  "id": "32",
+  "slot": 32,
+  "start": 75.1,
+  "end": 80.3,
+  "words": "paper, Limon 1990. It is practically folklore. Ran it",
+  "ref_shot": "018a4aa42a2b-0022",
+  "target": 5.166,
+  "alts": [
+   "018a4aa42a2b-0019",
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0025"
+  ]
+ },
+ {
+  "id": "33",
+  "slot": 33,
+  "start": 80.3,
+  "end": 85.66,
+  "words": "on the S and P100. Gross Sharpe 0 .05. Okay,",
+  "ref_shot": "018a4aa42a2b-0023",
+  "target": 5.2,
+  "alts": [
+   "018a4aa42a2b-0020",
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026"
+  ]
+ },
+ {
+  "id": "34",
+  "slot": 34,
+  "start": 85.66,
+  "end": 88.64,
+  "words": "bad. Maybe reversal lives in",
+  "ref_shot": "018a4aa42a2b-0024",
+  "target": 2.934,
+  "alts": [
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027"
+  ]
+ },
+ {
+  "id": "35",
+  "slot": 35,
+  "start": 88.64,
+  "end": 91.72,
+  "words": "illiquid names and the S and P100",
+  "ref_shot": "018a4aa42a2b-0024",
+  "target": 2.934,
+  "alts": [
+   "018a4aa42a2b-0021",
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027"
+  ]
+ },
+ {
+  "id": "36",
+  "slot": 36,
+  "start": 91.72,
+  "end": 93.8,
+  "words": "is the most picked over",
+  "ref_shot": "018a4aa42a2b-0025",
+  "target": 1.933,
+  "alts": [
+   "018a4aa42a2b-0022",
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0028"
+  ]
+ },
+ {
+  "id": "37",
+  "slot": 37,
+  "start": 93.8,
+  "end": 95.95,
+  "words": "stretch of water on earth.",
+  "ref_shot": "018a4aa42a2b-0026",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0023",
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0029"
+  ]
+ },
+ {
+  "id": "38",
+  "slot": 38,
+  "start": 95.95,
+  "end": 97.16,
+  "words": "Fine, move",
+  "ref_shot": "018a4aa42a2b-0027",
+  "target": 1.3,
+  "alts": [
+   "018a4aa42a2b-0024",
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030"
+  ]
+ },
+ {
+  "id": "39",
+  "slot": 39,
+  "start": 97.16,
+  "end": 97.99,
+  "words": "to mid caps.",
+  "ref_shot": "018a4aa42a2b-0028",
+  "target": 0.9,
+  "alts": [
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031"
+  ]
+ },
+ {
+  "id": "40",
+  "slot": 40,
+  "start": 97.99,
+  "end": 98.88,
+  "words": "PWW",
+  "ref_shot": "018a4aa42a2b-0028",
+  "target": 0.9,
+  "alts": [
+   "018a4aa42a2b-0025",
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031"
+  ]
+ },
+ {
+  "id": "41",
+  "slot": 41,
+  "start": 98.88,
+  "end": 100.18,
+  "words": "Gross Sharpe jumped",
+  "ref_shot": "018a4aa42a2b-0029",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0026",
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0032"
+  ]
+ },
+ {
+  "id": "42",
+  "slot": 42,
+  "start": 100.18,
+  "end": 101.04,
+  "words": "0",
+  "ref_shot": "018a4aa42a2b-0030",
+  "target": 0.867,
+  "alts": [
+   "018a4aa42a2b-0027",
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0033"
+  ]
+ },
+ {
+  "id": "43",
+  "slot": 43,
+  "start": 101.04,
+  "end": 102.34,
+  "words": ".05 to 0",
+  "ref_shot": "018a4aa42a2b-0031",
+  "target": 1.867,
+  "alts": [
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034"
+  ]
+ },
+ {
+  "id": "44",
+  "slot": 44,
+  "start": 102.34,
+  "end": 104.5,
+  "words": ".445. Beautiful",
+  "ref_shot": "018a4aa42a2b-0031",
+  "target": 1.867,
+  "alts": [
+   "018a4aa42a2b-0028",
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034"
+  ]
+ },
+ {
+  "id": "45",
+  "slot": 45,
+  "start": 104.5,
+  "end": 105.74,
+  "words": "net sharp",
+  "ref_shot": "018a4aa42a2b-0032",
+  "target": 1.633,
+  "alts": [
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035"
+  ]
+ },
+ {
+  "id": "46",
+  "slot": 46,
+  "start": 105.74,
+  "end": 106.66,
+  "words": "0",
+  "ref_shot": "018a4aa42a2b-0032",
+  "target": 1.633,
+  "alts": [
+   "018a4aa42a2b-0029",
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035"
+  ]
+ },
+ {
+  "id": "47",
+  "slot": 47,
+  "start": 106.66,
+  "end": 108.41,
+  "words": ".58.",
+  "ref_shot": "018a4aa42a2b-0033",
+  "target": 2.167,
+  "alts": [
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036"
+  ]
+ },
+ {
+  "id": "48",
+  "slot": 48,
+  "start": 108.41,
+  "end": 110.49,
+  "words": "She A,",
+  "ref_shot": "018a4aa42a2b-0033",
+  "target": 2.167,
+  "alts": [
+   "018a4aa42a2b-0030",
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036"
+  ]
+ },
+ {
+  "id": "49",
+  "slot": 49,
+  "start": 110.49,
+  "end": 111.98,
+  "words": "the strategy traded",
+  "ref_shot": "018a4aa42a2b-0034",
+  "target": 1.833,
+  "alts": [
+   "018a4aa42a2b-0031",
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037"
+  ]
+ },
+ {
+  "id": "50",
+  "slot": 50,
+  "start": 111.98,
+  "end": 113.42,
+  "words": "143",
+  "ref_shot": "018a4aa42a2b-0035",
+  "target": 1.067,
+  "alts": [
+   "018a4aa42a2b-0032",
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0038"
+  ]
+ },
+ {
+  "id": "51",
+  "slot": 51,
+  "start": 113.42,
+  "end": 115.26,
+  "words": "times a year and paid a",
+  "ref_shot": "018a4aa42a2b-0036",
+  "target": 1.933,
+  "alts": [
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0038",
+   "018a4aa42a2b-0039"
+  ]
+ },
+ {
+  "id": "52",
+  "slot": 52,
+  "start": 115.26,
+  "end": 117.14,
+  "words": "spread every single time.",
+  "ref_shot": "018a4aa42a2b-0036",
+  "target": 1.933,
+  "alts": [
+   "018a4aa42a2b-0033",
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0038",
+   "018a4aa42a2b-0039"
+  ]
+ },
+ {
+  "id": "53",
+  "slot": 53,
+  "start": 117.14,
+  "end": 120.24,
+  "words": "I added signal decay to slow it down. Kept",
+  "ref_shot": "018a4aa42a2b-0037",
+  "target": 2.967,
+  "alts": [
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0038",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040"
+  ]
+ },
+ {
+  "id": "54",
+  "slot": 54,
+  "start": 120.24,
+  "end": 122.98,
+  "words": "94 % of the edge, cut cost",
+  "ref_shot": "018a4aa42a2b-0037",
+  "target": 2.967,
+  "alts": [
+   "018a4aa42a2b-0034",
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0038",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040"
+  ]
+ },
+ {
+  "id": "55.1",
+  "slot": 55,
+  "start": 122.98,
+  "end": 127.06,
+  "words": "26 % and got net sharp 0 .126",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "55.2",
+  "slot": 55,
+  "start": 127.06,
+  "end": 129.76,
+  "words": "with a 40 % drawdown for about",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "55.3",
+  "slot": 55,
+  "start": 129.76,
+  "end": 133.34,
+  "words": "1 % a year. Then I sector",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "55.4",
+  "slot": 55,
+  "start": 133.34,
+  "end": 137.18,
+  "words": "neutralized it to reduce risk and it deleted the",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "56.1",
+  "slot": 56,
+  "start": 137.18,
+  "end": 140.64,
+  "words": "signal because the sector level move was the edge.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "56.2",
+  "slot": 56,
+  "start": 140.64,
+  "end": 144.24,
+  "words": "Triple the vol lowered the gross. Okay, let's",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "56.3",
+  "slot": 56,
+  "start": 144.24,
+  "end": 148.67,
+  "words": "switch locations. Ran the same reversal on crypto,",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "56.4",
+  "slot": 56,
+  "start": 148.67,
+  "end": 151.52,
+  "words": "expecting it to be stronger. More retail presence,",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.575,
+  "alts": [
+   "018a4aa42a2b-0035",
+   "018a4aa42a2b-0036",
+   "018a4aa42a2b-0037",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041"
+  ]
+ },
+ {
+  "id": "57",
+  "slot": 57,
+  "start": 151.52,
+  "end": 154.18,
+  "words": "24 sevens. Degenerate, got gross",
+  "ref_shot": "018a4aa42a2b-0041",
+  "target": 2.7,
+  "alts": [
+   "018a4aa42a2b-0038",
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044"
+  ]
+ },
+ {
+  "id": "58",
+  "slot": 58,
+  "start": 154.18,
+  "end": 158.39,
+  "words": "sharp B minus 1 .01.",
+  "ref_shot": "018a4aa42a2b-0042",
+  "target": 3.2,
+  "alts": [
+   "018a4aa42a2b-0039",
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0045"
+  ]
+ },
+ {
+  "id": "59",
+  "slot": 59,
+  "start": 158.39,
+  "end": 160.0,
+  "words": "Beautifully",
+  "ref_shot": "018a4aa42a2b-0043",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041",
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0045",
+   "018a4aa42a2b-0046"
+  ]
+ },
+ {
+  "id": "60",
+  "slot": 60,
+  "start": 160.0,
+  "end": 161.55,
+  "words": "catastrophically wrong,",
+  "ref_shot": "018a4aa42a2b-0043",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0040",
+   "018a4aa42a2b-0041",
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0045",
+   "018a4aa42a2b-0046"
+  ]
+ },
+ {
+  "id": "61",
+  "slot": 61,
+  "start": 161.55,
+  "end": 163.14,
+  "words": "but wait, flip it.",
+  "ref_shot": "018a4aa42a2b-0044",
+  "target": 1.666,
+  "alts": [
+   "018a4aa42a2b-0041",
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0045",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047"
+  ]
+ },
+ {
+  "id": "62.1",
+  "slot": 62,
+  "start": 163.14,
+  "end": 166.72,
+  "words": "Crypto doesn't revert, it trends. Number, oh,",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "62.2",
+  "slot": 62,
+  "start": 166.72,
+  "end": 170.12,
+  "words": "oh, six crypto 30 day momentum. Net sharp 1 .1.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "62.3",
+  "slot": 62,
+  "start": 170.12,
+  "end": 174.22,
+  "words": "Oh, positive in seven of eight years, including the 2022 bear.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "62.4",
+  "slot": 62,
+  "start": 174.22,
+  "end": 177.14,
+  "words": "I am a fucking genius where Einstein",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "62.5",
+  "slot": 62,
+  "start": 177.14,
+  "end": 180.58,
+  "words": "at rolling in his grave.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "62.6",
+  "slot": 62,
+  "start": 180.58,
+  "end": 183.86,
+  "words": "Then I ran it on the FTMOs 14",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.1",
+  "slot": 63,
+  "start": 183.86,
+  "end": 187.8,
+  "words": "coin CFD. Don't ask me why I am trying to trade prop firms.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.2",
+  "slot": 63,
+  "start": 187.8,
+  "end": 191.3,
+  "words": "They're a scam, blah, blah, blah. Well, I need to start somewhere",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.3",
+  "slot": 63,
+  "start": 191.3,
+  "end": 194.14,
+  "words": "in its net sharp 0",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.4",
+  "slot": 63,
+  "start": 194.14,
+  "end": 197.77,
+  "words": ".38. Okay, slightly bad.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.5",
+  "slot": 63,
+  "start": 197.77,
+  "end": 201.5,
+  "words": "Then I went and measured the actual swap.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "63.6",
+  "slot": 63,
+  "start": 201.5,
+  "end": 204.81,
+  "words": "Crypto CFD, 30 % a year",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.472,
+  "alts": [
+   "018a4aa42a2b-0042",
+   "018a4aa42a2b-0043",
+   "018a4aa42a2b-0044",
+   "018a4aa42a2b-0046",
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048"
+  ]
+ },
+ {
+  "id": "64",
+  "slot": 64,
+  "start": 204.81,
+  "end": 206.87,
+  "words": "per SIDE. I'd",
+  "ref_shot": "018a4aa42a2b-0050",
+  "target": 2.066,
+  "alts": [
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048",
+   "018a4aa42a2b-0049",
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053"
+  ]
+ },
+ {
+  "id": "65",
+  "slot": 65,
+  "start": 206.87,
+  "end": 208.85,
+  "words": "stress tested it at",
+  "ref_shot": "018a4aa42a2b-0050",
+  "target": 2.066,
+  "alts": [
+   "018a4aa42a2b-0047",
+   "018a4aa42a2b-0048",
+   "018a4aa42a2b-0049",
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053"
+  ]
+ },
+ {
+  "id": "66",
+  "slot": 66,
+  "start": 208.85,
+  "end": 210.37,
+  "words": "15 % as",
+  "ref_shot": "018a4aa42a2b-0051",
+  "target": 1.334,
+  "alts": [
+   "018a4aa42a2b-0048",
+   "018a4aa42a2b-0049",
+   "018a4aa42a2b-0050",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0054"
+  ]
+ },
+ {
+  "id": "67",
+  "slot": 67,
+  "start": 210.37,
+  "end": 211.57,
+  "words": "my worst case.",
+  "ref_shot": "018a4aa42a2b-0052",
+  "target": 1.2,
+  "alts": [
+   "018a4aa42a2b-0049",
+   "018a4aa42a2b-0050",
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0055"
+  ]
+ },
+ {
+  "id": "68",
+  "slot": 68,
+  "start": 211.57,
+  "end": 213.57,
+  "words": "Reality was double",
+  "ref_shot": "018a4aa42a2b-0053",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0050",
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056"
+  ]
+ },
+ {
+  "id": "69",
+  "slot": 69,
+  "start": 213.57,
+  "end": 215.73,
+  "words": "my worst case. Okay, I don't seem to",
+  "ref_shot": "018a4aa42a2b-0053",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0050",
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056"
+  ]
+ },
+ {
+  "id": "70",
+  "slot": 70,
+  "start": 215.73,
+  "end": 218.3,
+  "words": "be getting anywhere solely based on my own ideas.",
+  "ref_shot": "018a4aa42a2b-0054",
+  "target": 2.8,
+  "alts": [
+   "018a4aa42a2b-0051",
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057"
+  ]
+ },
+ {
+  "id": "71",
+  "slot": 71,
+  "start": 218.3,
+  "end": 220.45,
+  "words": "So let's go jack some",
+  "ref_shot": "018a4aa42a2b-0055",
+  "target": 2.233,
+  "alts": [
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058"
+  ]
+ },
+ {
+  "id": "72",
+  "slot": 72,
+  "start": 220.45,
+  "end": 222.71,
+  "words": "ideas then. Stand on the shoulders of giants and",
+  "ref_shot": "018a4aa42a2b-0055",
+  "target": 2.233,
+  "alts": [
+   "018a4aa42a2b-0052",
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058"
+  ]
+ },
+ {
+  "id": "73",
+  "slot": 73,
+  "start": 222.71,
+  "end": 224.79,
+  "words": "all that. Hey, Einstein, I",
+  "ref_shot": "018a4aa42a2b-0056",
+  "target": 2.033,
+  "alts": [
+   "018a4aa42a2b-0053",
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0059"
+  ]
+ },
+ {
+  "id": "74",
+  "slot": 74,
+  "start": 224.79,
+  "end": 226.69,
+  "words": "take what I said back. So",
+  "ref_shot": "018a4aa42a2b-0057",
+  "target": 1.8,
+  "alts": [
+   "018a4aa42a2b-0054",
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060"
+  ]
+ },
+ {
+  "id": "75",
+  "slot": 75,
+  "start": 226.69,
+  "end": 229.29,
+  "words": "I went looking for papers,",
+  "ref_shot": "018a4aa42a2b-0058",
+  "target": 2.434,
+  "alts": [
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061"
+  ]
+ },
+ {
+  "id": "76",
+  "slot": 76,
+  "start": 229.29,
+  "end": 231.47,
+  "words": "BTC intraday",
+  "ref_shot": "018a4aa42a2b-0058",
+  "target": 2.434,
+  "alts": [
+   "018a4aa42a2b-0055",
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061"
+  ]
+ },
+ {
+  "id": "77",
+  "slot": 77,
+  "start": 231.47,
+  "end": 233.89,
+  "words": "trend, dead at",
+  "ref_shot": "018a4aa42a2b-0059",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0056",
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062"
+  ]
+ },
+ {
+  "id": "78",
+  "slot": 78,
+  "start": 233.89,
+  "end": 235.53,
+  "words": "the decay check, US",
+  "ref_shot": "018a4aa42a2b-0060",
+  "target": 1.833,
+  "alts": [
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0063"
+  ]
+ },
+ {
+  "id": "79",
+  "slot": 79,
+  "start": 235.53,
+  "end": 237.17,
+  "words": "500 first half hour",
+  "ref_shot": "018a4aa42a2b-0060",
+  "target": 1.833,
+  "alts": [
+   "018a4aa42a2b-0057",
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0063"
+  ]
+ },
+ {
+  "id": "80",
+  "slot": 80,
+  "start": 237.17,
+  "end": 238.55,
+  "words": "into last half",
+  "ref_shot": "018a4aa42a2b-0061",
+  "target": 1.667,
+  "alts": [
+   "018a4aa42a2b-0058",
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064"
+  ]
+ },
+ {
+  "id": "81",
+  "slot": 81,
+  "start": 238.55,
+  "end": 240.01,
+  "words": "hour, dead",
+  "ref_shot": "018a4aa42a2b-0062",
+  "target": 1.3,
+  "alts": [
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065"
+  ]
+ },
+ {
+  "id": "82",
+  "slot": 82,
+  "start": 240.01,
+  "end": 241.05,
+  "words": "at the decay",
+  "ref_shot": "018a4aa42a2b-0062",
+  "target": 1.3,
+  "alts": [
+   "018a4aa42a2b-0059",
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065"
+  ]
+ },
+ {
+  "id": "83",
+  "slot": 83,
+  "start": 241.05,
+  "end": 243.09,
+  "words": "check, US 500",
+  "ref_shot": "018a4aa42a2b-0063",
+  "target": 1.966,
+  "alts": [
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066"
+  ]
+ },
+ {
+  "id": "84",
+  "slot": 84,
+  "start": 243.09,
+  "end": 245.295,
+  "words": "overnight drift,",
+  "ref_shot": "018a4aa42a2b-0063",
+  "target": 1.966,
+  "alts": [
+   "018a4aa42a2b-0060",
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066"
+  ]
+ },
+ {
+  "id": "85",
+  "slot": 85,
+  "start": 245.295,
+  "end": 247.24,
+  "words": "dead at the",
+  "ref_shot": "018a4aa42a2b-0064",
+  "target": 1.9,
+  "alts": [
+   "018a4aa42a2b-0061",
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0067"
+  ]
+ },
+ {
+  "id": "86",
+  "slot": 86,
+  "start": 247.24,
+  "end": 248.72,
+  "words": "decay check, three",
+  "ref_shot": "018a4aa42a2b-0065",
+  "target": 1.767,
+  "alts": [
+   "018a4aa42a2b-0062",
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0068"
+  ]
+ },
+ {
+  "id": "87",
+  "slot": 87,
+  "start": 248.72,
+  "end": 250.64,
+  "words": "for three. The pattern is",
+  "ref_shot": "018a4aa42a2b-0066",
+  "target": 1.967,
+  "alts": [
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069"
+  ]
+ },
+ {
+  "id": "88",
+  "slot": 88,
+  "start": 250.64,
+  "end": 252.66,
+  "words": "there in the paper sample window and",
+  "ref_shot": "018a4aa42a2b-0066",
+  "target": 1.967,
+  "alts": [
+   "018a4aa42a2b-0063",
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069"
+  ]
+ },
+ {
+  "id": "89",
+  "slot": 89,
+  "start": 252.66,
+  "end": 254.76,
+  "words": "gone afterwards. Every time like",
+  "ref_shot": "018a4aa42a2b-0067",
+  "target": 2.033,
+  "alts": [
+   "018a4aa42a2b-0064",
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070"
+  ]
+ },
+ {
+  "id": "90",
+  "slot": 90,
+  "start": 254.76,
+  "end": 256.94,
+  "words": "clockwork. If I can read",
+  "ref_shot": "018a4aa42a2b-0068",
+  "target": 2.367,
+  "alts": [
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071"
+  ]
+ },
+ {
+  "id": "91",
+  "slot": 91,
+  "start": 256.94,
+  "end": 259.3,
+  "words": "it, everyone can read it. The half",
+  "ref_shot": "018a4aa42a2b-0068",
+  "target": 2.367,
+  "alts": [
+   "018a4aa42a2b-0065",
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071"
+  ]
+ },
+ {
+  "id": "92",
+  "slot": 92,
+  "start": 259.3,
+  "end": 260.54,
+  "words": "life of a published",
+  "ref_shot": "018a4aa42a2b-0069",
+  "target": 1.333,
+  "alts": [
+   "018a4aa42a2b-0066",
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071",
+   "018a4aa42a2b-0072"
+  ]
+ },
+ {
+  "id": "93",
+  "slot": 93,
+  "start": 260.54,
+  "end": 262.16,
+  "words": "anomaly is roughly",
+  "ref_shot": "018a4aa42a2b-0070",
+  "target": 1.7,
+  "alts": [
+   "018a4aa42a2b-0067",
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0071",
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0073"
+  ]
+ },
+ {
+  "id": "94",
+  "slot": 94,
+  "start": 262.16,
+  "end": 264.18,
+  "words": "publication. Multi asset",
+  "ref_shot": "018a4aa42a2b-0071",
+  "target": 2.0,
+  "alts": [
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074"
+  ]
+ },
+ {
+  "id": "95",
+  "slot": 95,
+  "start": 264.18,
+  "end": 266.12,
+  "words": "trend across 45",
+  "ref_shot": "018a4aa42a2b-0071",
+  "target": 2.0,
+  "alts": [
+   "018a4aa42a2b-0068",
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074"
+  ]
+ },
+ {
+  "id": "96",
+  "slot": 96,
+  "start": 266.12,
+  "end": 268.6,
+  "words": "instruments, dead and not from",
+  "ref_shot": "018a4aa42a2b-0072",
+  "target": 2.633,
+  "alts": [
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0075"
+  ]
+ },
+ {
+  "id": "97",
+  "slot": 97,
+  "start": 268.6,
+  "end": 271.34,
+  "words": "cost. Those instruments just don't",
+  "ref_shot": "018a4aa42a2b-0072",
+  "target": 2.633,
+  "alts": [
+   "018a4aa42a2b-0069",
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0075"
+  ]
+ },
+ {
+  "id": "98",
+  "slot": 98,
+  "start": 271.34,
+  "end": 274.42,
+  "words": "trend. BTC weekly trend grows plus",
+  "ref_shot": "018a4aa42a2b-0073",
+  "target": 2.934,
+  "alts": [
+   "018a4aa42a2b-0070",
+   "018a4aa42a2b-0071",
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0075",
+   "018a4aa42a2b-0076"
+  ]
+ },
+ {
+  "id": "99",
+  "slot": 99,
+  "start": 274.42,
+  "end": 276.465,
+  "words": "0 .95 % a week.",
+  "ref_shot": "018a4aa42a2b-0075",
+  "target": 1.833,
+  "alts": [
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0078"
+  ]
+ },
+ {
+  "id": "100",
+  "slot": 100,
+  "start": 276.465,
+  "end": 278.21,
+  "words": "Genuinely real,",
+  "ref_shot": "018a4aa42a2b-0075",
+  "target": 1.833,
+  "alts": [
+   "018a4aa42a2b-0072",
+   "018a4aa42a2b-0073",
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0078"
+  ]
+ },
+ {
+  "id": "101",
+  "slot": 101,
+  "start": 278.21,
+  "end": 279.15,
+  "words": "eaten by",
+  "ref_shot": "018a4aa42a2b-0077",
+  "target": 0.733,
+  "alts": [
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0075",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080"
+  ]
+ },
+ {
+  "id": "102",
+  "slot": 102,
+  "start": 279.15,
+  "end": 279.39,
+  "words": "0",
+  "ref_shot": "018a4aa42a2b-0077",
+  "target": 0.733,
+  "alts": [
+   "018a4aa42a2b-0074",
+   "018a4aa42a2b-0075",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080"
+  ]
+ },
+ {
+  "id": "103",
+  "slot": 103,
+  "start": 279.39,
+  "end": 281.875,
+  "words": ".577 % a week of swap. And",
+  "ref_shot": "018a4aa42a2b-0078",
+  "target": 2.534,
+  "alts": [
+   "018a4aa42a2b-0075",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081"
+  ]
+ },
+ {
+  "id": "104",
+  "slot": 104,
+  "start": 281.875,
+  "end": 284.58,
+  "words": "the leftover profit was",
+  "ref_shot": "018a4aa42a2b-0078",
+  "target": 2.534,
+  "alts": [
+   "018a4aa42a2b-0075",
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081"
+  ]
+ },
+ {
+  "id": "105",
+  "slot": 105,
+  "start": 284.58,
+  "end": 288.78,
+  "words": "100 % the 2017 mania. FX time of day",
+  "ref_shot": "018a4aa42a2b-0079",
+  "target": 4.366,
+  "alts": [
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081",
+   "018a4aa42a2b-0082"
+  ]
+ },
+ {
+  "id": "106",
+  "slot": 106,
+  "start": 288.78,
+  "end": 293.18,
+  "words": "seasonality, three pairs, short at 21 o 'clock, long at",
+  "ref_shot": "018a4aa42a2b-0079",
+  "target": 4.366,
+  "alts": [
+   "018a4aa42a2b-0076",
+   "018a4aa42a2b-0077",
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081",
+   "018a4aa42a2b-0082"
+  ]
+ },
+ {
+  "id": "107",
+  "slot": 107,
+  "start": 293.18,
+  "end": 297.76,
+  "words": "23 o 'clock London. Back test net sharp 5 .28 plus",
+  "ref_shot": "018a4aa42a2b-0081",
+  "target": 4.7,
+  "alts": [
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0083",
+   "018a4aa42a2b-0084"
+  ]
+ },
+ {
+  "id": "108",
+  "slot": 108,
+  "start": 297.76,
+  "end": 302.9,
+  "words": "12 .5 % a year. Five out of five out of sample",
+  "ref_shot": "018a4aa42a2b-0081",
+  "target": 4.7,
+  "alts": [
+   "018a4aa42a2b-0078",
+   "018a4aa42a2b-0079",
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0083",
+   "018a4aa42a2b-0084"
+  ]
+ },
+ {
+  "id": "109",
+  "slot": 109,
+  "start": 302.9,
+  "end": 305.54,
+  "words": "years positive. It held on currencies I never",
+  "ref_shot": "018a4aa42a2b-0083",
+  "target": 2.6,
+  "alts": [
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081",
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0086"
+  ]
+ },
+ {
+  "id": "110",
+  "slot": 110,
+  "start": 305.54,
+  "end": 308.08,
+  "words": "fitted on. Costs weren't guessed, I pulled",
+  "ref_shot": "018a4aa42a2b-0083",
+  "target": 2.6,
+  "alts": [
+   "018a4aa42a2b-0080",
+   "018a4aa42a2b-0081",
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0086"
+  ]
+ },
+ {
+  "id": "111",
+  "slot": 111,
+  "start": 308.08,
+  "end": 309.92,
+  "words": "tick data and measured the real",
+  "ref_shot": "018a4aa42a2b-0084",
+  "target": 1.9,
+  "alts": [
+   "018a4aa42a2b-0081",
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0083",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0087"
+  ]
+ },
+ {
+  "id": "112",
+  "slot": 112,
+  "start": 309.92,
+  "end": 310.62,
+  "words": "spread hour by",
+  "ref_shot": "018a4aa42a2b-0085",
+  "target": 0.8,
+  "alts": [
+   "018a4aa42a2b-0082",
+   "018a4aa42a2b-0083",
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0087",
+   "018a4aa42a2b-0088"
+  ]
+ },
+ {
+  "id": "113",
+  "slot": 113,
+  "start": 310.62,
+  "end": 310.96,
+  "words": "hour.",
+  "ref_shot": "018a4aa42a2b-0086",
+  "target": 0.6,
+  "alts": [
+   "018a4aa42a2b-0083",
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0087",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0089"
+  ]
+ },
+ {
+  "id": "114",
+  "slot": 114,
+  "start": 310.96,
+  "end": 314.25,
+  "words": "Swap free by design. Einstein,",
+  "ref_shot": "018a4aa42a2b-0087",
+  "target": 3.333,
+  "alts": [
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0089",
+   "018a4aa42a2b-0090"
+  ]
+ },
+ {
+  "id": "115",
+  "slot": 115,
+  "start": 314.25,
+  "end": 317.42,
+  "words": "this clear the prop firms target",
+  "ref_shot": "018a4aa42a2b-0087",
+  "target": 3.333,
+  "alts": [
+   "018a4aa42a2b-0084",
+   "018a4aa42a2b-0085",
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0089",
+   "018a4aa42a2b-0090"
+  ]
+ },
+ {
+  "id": "116",
+  "slot": 116,
+  "start": 317.42,
+  "end": 319.68,
+  "words": "organically. No leverage",
+  "ref_shot": "018a4aa42a2b-0089",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0087",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092"
+  ]
+ },
+ {
+  "id": "117",
+  "slot": 117,
+  "start": 319.68,
+  "end": 322.67,
+  "words": "games deployed it.",
+  "ref_shot": "018a4aa42a2b-0089",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0086",
+   "018a4aa42a2b-0087",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092"
+  ]
+ },
+ {
+  "id": "118",
+  "slot": 118,
+  "start": 322.67,
+  "end": 324.46,
+  "words": "How did it",
+  "ref_shot": "018a4aa42a2b-0090",
+  "target": 1.633,
+  "alts": [
+   "018a4aa42a2b-0087",
+   "018a4aa42a2b-0088",
+   "018a4aa42a2b-0089",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0093"
+  ]
+ },
+ {
+  "id": "119",
+  "slot": 119,
+  "start": 324.46,
+  "end": 326.97,
+  "words": "actually do? Well,",
+  "ref_shot": "018a4aa42a2b-0092",
+  "target": 2.1,
+  "alts": [
+   "018a4aa42a2b-0089",
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0093",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095"
+  ]
+ },
+ {
+  "id": "120.1",
+  "slot": 120,
+  "start": 326.97,
+  "end": 331.03,
+  "words": "well, half the edge wasn't real.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "120.2",
+  "slot": 120,
+  "start": 331.03,
+  "end": 334.15,
+  "words": "The 21 o 'clock session had been measured on bid quotes.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "120.3",
+  "slot": 120,
+  "start": 334.15,
+  "end": 337.66,
+  "words": "And when I redid it properly, the book was sharp about one",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "120.4",
+  "slot": 120,
+  "start": 337.66,
+  "end": 341.42,
+  "words": "point or not 5 .3. A quoting artifact.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "120.5",
+  "slot": 120,
+  "start": 341.42,
+  "end": 344.74,
+  "words": "I had built a strategy on top of",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "120.6",
+  "slot": 120,
+  "start": 344.74,
+  "end": 348.38,
+  "words": "the live edge was zero. Not",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.1",
+  "slot": 121,
+  "start": 348.38,
+  "end": 352.42,
+  "words": "smaller, zero. Gross,",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.2",
+  "slot": 121,
+  "start": 352.42,
+  "end": 355.42,
+  "words": "negative. FTMO charges a commission",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.3",
+  "slot": 121,
+  "start": 355.42,
+  "end": 358.51,
+  "words": "on FX 25 cents. A deal,",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.4",
+  "slot": 121,
+  "start": 358.51,
+  "end": 362.08,
+  "words": "50 cents a leg round trip. On my size, that is 2",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.5",
+  "slot": 121,
+  "start": 362.08,
+  "end": 366.06,
+  "words": ".00 BP a night across three legs",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "121.6",
+  "slot": 121,
+  "start": 366.06,
+  "end": 369.56,
+  "words": "against an expected edge of 1 .24",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.517,
+  "alts": [
+   "018a4aa42a2b-0090",
+   "018a4aa42a2b-0091",
+   "018a4aa42a2b-0092",
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096"
+  ]
+ },
+ {
+  "id": "122",
+  "slot": 122,
+  "start": 369.56,
+  "end": 371.91,
+  "words": "BP a night negative",
+  "ref_shot": "018a4aa42a2b-0097",
+  "target": 2.433,
+  "alts": [
+   "018a4aa42a2b-0094",
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096",
+   "018a4aa42a2b-0098",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0100"
+  ]
+ },
+ {
+  "id": "123",
+  "slot": 123,
+  "start": 371.91,
+  "end": 376.06,
+  "words": "before it opened the first trade. I gripped every",
+  "ref_shot": "018a4aa42a2b-0098",
+  "target": 3.8,
+  "alts": [
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096",
+   "018a4aa42a2b-0097",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0101"
+  ]
+ },
+ {
+  "id": "124",
+  "slot": 124,
+  "start": 376.06,
+  "end": 380.02,
+  "words": "script I'd ever written for a commission term, zero",
+  "ref_shot": "018a4aa42a2b-0098",
+  "target": 3.8,
+  "alts": [
+   "018a4aa42a2b-0095",
+   "018a4aa42a2b-0096",
+   "018a4aa42a2b-0097",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0101"
+  ]
+ },
+ {
+  "id": "125",
+  "slot": 125,
+  "start": 380.02,
+  "end": 383.01,
+  "words": "hits. I had been",
+  "ref_shot": "018a4aa42a2b-0099",
+  "target": 2.967,
+  "alts": [
+   "018a4aa42a2b-0096",
+   "018a4aa42a2b-0097",
+   "018a4aa42a2b-0098",
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0101",
+   "018a4aa42a2b-0102"
+  ]
+ },
+ {
+  "id": "126",
+  "slot": 126,
+  "start": 383.01,
+  "end": 385.87,
+  "words": "modeling spread, swap, slippage,",
+  "ref_shot": "018a4aa42a2b-0100",
+  "target": 2.767,
+  "alts": [
+   "018a4aa42a2b-0097",
+   "018a4aa42a2b-0098",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0101",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103"
+  ]
+ },
+ {
+  "id": "127",
+  "slot": 127,
+  "start": 385.87,
+  "end": 388.61,
+  "words": "impact, and just not",
+  "ref_shot": "018a4aa42a2b-0101",
+  "target": 2.433,
+  "alts": [
+   "018a4aa42a2b-0098",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0104"
+  ]
+ },
+ {
+  "id": "128",
+  "slot": 128,
+  "start": 388.61,
+  "end": 391.03,
+  "words": "the invoice. Well, well,",
+  "ref_shot": "018a4aa42a2b-0101",
+  "target": 2.433,
+  "alts": [
+   "018a4aa42a2b-0098",
+   "018a4aa42a2b-0099",
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0104"
+  ]
+ },
+ {
+  "id": "129",
+  "slot": 129,
+  "start": 391.03,
+  "end": 392.41,
+  "words": "well, I can't give up now.",
+  "ref_shot": "018a4aa42a2b-0103",
+  "target": 1.366,
+  "alts": [
+   "018a4aa42a2b-0100",
+   "018a4aa42a2b-0101",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0104",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106"
+  ]
+ },
+ {
+  "id": "130",
+  "slot": 130,
+  "start": 392.41,
+  "end": 395.81,
+  "words": "Might as well keep going. Went to options",
+  "ref_shot": "018a4aa42a2b-0104",
+  "target": 3.367,
+  "alts": [
+   "018a4aa42a2b-0101",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107"
+  ]
+ },
+ {
+  "id": "131",
+  "slot": 131,
+  "start": 395.81,
+  "end": 399.01,
+  "words": "dealer positioning, gamma exposure.",
+  "ref_shot": "018a4aa42a2b-0104",
+  "target": 3.367,
+  "alts": [
+   "018a4aa42a2b-0101",
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107"
+  ]
+ },
+ {
+  "id": "132",
+  "slot": 132,
+  "start": 399.01,
+  "end": 401.01,
+  "words": "Very cool, very quant",
+  "ref_shot": "018a4aa42a2b-0105",
+  "target": 2.033,
+  "alts": [
+   "018a4aa42a2b-0102",
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0104",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0108"
+  ]
+ },
+ {
+  "id": "133",
+  "slot": 133,
+  "start": 401.01,
+  "end": 402.68,
+  "words": "Twitter. The theory,",
+  "ref_shot": "018a4aa42a2b-0106",
+  "target": 1.667,
+  "alts": [
+   "018a4aa42a2b-0103",
+   "018a4aa42a2b-0104",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0109"
+  ]
+ },
+ {
+  "id": "134",
+  "slot": 134,
+  "start": 402.68,
+  "end": 404.77,
+  "words": "low gamma days trend, high",
+  "ref_shot": "018a4aa42a2b-0107",
+  "target": 1.933,
+  "alts": [
+   "018a4aa42a2b-0104",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110"
+  ]
+ },
+ {
+  "id": "135",
+  "slot": 135,
+  "start": 404.77,
+  "end": 406.75,
+  "words": "gamma days revert. The",
+  "ref_shot": "018a4aa42a2b-0107",
+  "target": 1.933,
+  "alts": [
+   "018a4aa42a2b-0104",
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110"
+  ]
+ },
+ {
+  "id": "136",
+  "slot": 136,
+  "start": 406.75,
+  "end": 408.84,
+  "words": "reverting half doesn't exist.",
+  "ref_shot": "018a4aa42a2b-0108",
+  "target": 2.334,
+  "alts": [
+   "018a4aa42a2b-0105",
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111"
+  ]
+ },
+ {
+  "id": "137",
+  "slot": 137,
+  "start": 408.84,
+  "end": 411.71,
+  "words": "High gamma days are just quiet. And",
+  "ref_shot": "018a4aa42a2b-0109",
+  "target": 2.866,
+  "alts": [
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112"
+  ]
+ },
+ {
+  "id": "138",
+  "slot": 138,
+  "start": 411.71,
+  "end": 414.41,
+  "words": "when I raised Jax against boring, free realized",
+  "ref_shot": "018a4aa42a2b-0109",
+  "target": 2.866,
+  "alts": [
+   "018a4aa42a2b-0106",
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112"
+  ]
+ },
+ {
+  "id": "139",
+  "slot": 139,
+  "start": 414.41,
+  "end": 416.79,
+  "words": "volatility to predict tomorrow's",
+  "ref_shot": "018a4aa42a2b-0110",
+  "target": 2.234,
+  "alts": [
+   "018a4aa42a2b-0107",
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0113"
+  ]
+ },
+ {
+  "id": "140",
+  "slot": 140,
+  "start": 416.79,
+  "end": 417.44,
+  "words": "return,",
+  "ref_shot": "018a4aa42a2b-0111",
+  "target": 0.833,
+  "alts": [
+   "018a4aa42a2b-0108",
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114"
+  ]
+ },
+ {
+  "id": "141",
+  "slot": 141,
+  "start": 417.44,
+  "end": 418.89,
+  "words": "Jax's T stat",
+  "ref_shot": "018a4aa42a2b-0112",
+  "target": 1.367,
+  "alts": [
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0115"
+  ]
+ },
+ {
+  "id": "142",
+  "slot": 142,
+  "start": 418.89,
+  "end": 420.33,
+  "words": "collapsed to minus 1",
+  "ref_shot": "018a4aa42a2b-0112",
+  "target": 1.367,
+  "alts": [
+   "018a4aa42a2b-0109",
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0115"
+  ]
+ },
+ {
+  "id": "143",
+  "slot": 143,
+  "start": 420.33,
+  "end": 422.17,
+  "words": ".1 and past five",
+  "ref_shot": "018a4aa42a2b-0113",
+  "target": 1.766,
+  "alts": [
+   "018a4aa42a2b-0110",
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0116"
+  ]
+ },
+ {
+  "id": "144",
+  "slot": 144,
+  "start": 422.17,
+  "end": 425.33,
+  "words": "day return did all the work. The expensive data",
+  "ref_shot": "018a4aa42a2b-0114",
+  "target": 3.0,
+  "alts": [
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0116",
+   "018a4aa42a2b-0117"
+  ]
+ },
+ {
+  "id": "145",
+  "slot": 145,
+  "start": 425.33,
+  "end": 428.03,
+  "words": "was a worse proxy for short -term",
+  "ref_shot": "018a4aa42a2b-0114",
+  "target": 3.0,
+  "alts": [
+   "018a4aa42a2b-0111",
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0116",
+   "018a4aa42a2b-0117"
+  ]
+ },
+ {
+  "id": "146",
+  "slot": 146,
+  "start": 428.03,
+  "end": 430.69,
+  "words": "reversal than the price itself.",
+  "ref_shot": "018a4aa42a2b-0115",
+  "target": 2.767,
+  "alts": [
+   "018a4aa42a2b-0112",
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0116",
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118"
+  ]
+ },
+ {
+  "id": "147",
+  "slot": 147,
+  "start": 430.69,
+  "end": 433.11,
+  "words": "Index intraday seasonality, zero",
+  "ref_shot": "018a4aa42a2b-0116",
+  "target": 2.533,
+  "alts": [
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0119"
+  ]
+ },
+ {
+  "id": "148",
+  "slot": 148,
+  "start": 433.11,
+  "end": 435.65,
+  "words": "hour survive, multiple testing correction,",
+  "ref_shot": "018a4aa42a2b-0116",
+  "target": 2.533,
+  "alts": [
+   "018a4aa42a2b-0113",
+   "018a4aa42a2b-0114",
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0119"
+  ]
+ },
+ {
+  "id": "149",
+  "slot": 149,
+  "start": 435.65,
+  "end": 436.31,
+  "words": "FX day",
+  "ref_shot": "018a4aa42a2b-0118",
+  "target": 0.734,
+  "alts": [
+   "018a4aa42a2b-0115",
+   "018a4aa42a2b-0116",
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0120",
+   "018a4aa42a2b-0121"
+  ]
+ },
+ {
+  "id": "150",
+  "slot": 150,
+  "start": 436.31,
+  "end": 437.04,
+  "words": "of week,",
+  "ref_shot": "018a4aa42a2b-0119",
+  "target": 0.8,
+  "alts": [
+   "018a4aa42a2b-0116",
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0120",
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0122"
+  ]
+ },
+ {
+  "id": "151",
+  "slot": 151,
+  "start": 437.04,
+  "end": 437.87,
+  "words": "T of 1",
+  "ref_shot": "018a4aa42a2b-0120",
+  "target": 0.766,
+  "alts": [
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123"
+  ]
+ },
+ {
+  "id": "152",
+  "slot": 152,
+  "start": 437.87,
+  "end": 438.92,
+  "words": ".75.",
+  "ref_shot": "018a4aa42a2b-0120",
+  "target": 0.766,
+  "alts": [
+   "018a4aa42a2b-0117",
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123"
+  ]
+ },
+ {
+  "id": "153",
+  "slot": 153,
+  "start": 438.92,
+  "end": 440.16,
+  "words": "Plausible,",
+  "ref_shot": "018a4aa42a2b-0121",
+  "target": 0.8,
+  "alts": [
+   "018a4aa42a2b-0118",
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0120",
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124"
+  ]
+ },
+ {
+  "id": "154",
+  "slot": 154,
+  "start": 440.16,
+  "end": 441.28,
+  "words": "not significant.",
+  "ref_shot": "018a4aa42a2b-0122",
+  "target": 1.4,
+  "alts": [
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0120",
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0125"
+  ]
+ },
+ {
+  "id": "155",
+  "slot": 155,
+  "start": 441.28,
+  "end": 442.77,
+  "words": "And the pairs contradict",
+  "ref_shot": "018a4aa42a2b-0122",
+  "target": 1.4,
+  "alts": [
+   "018a4aa42a2b-0119",
+   "018a4aa42a2b-0120",
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0125"
+  ]
+ },
+ {
+  "id": "156",
+  "slot": 156,
+  "start": 442.77,
+  "end": 443.47,
+  "words": "each other.",
+  "ref_shot": "018a4aa42a2b-0124",
+  "target": 0.666,
+  "alts": [
+   "018a4aa42a2b-0121",
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0125",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127"
+  ]
+ },
+ {
+  "id": "157",
+  "slot": 157,
+  "start": 443.47,
+  "end": 444.41,
+  "words": "Okay, let's",
+  "ref_shot": "018a4aa42a2b-0125",
+  "target": 1.034,
+  "alts": [
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128"
+  ]
+ },
+ {
+  "id": "158",
+  "slot": 158,
+  "start": 444.41,
+  "end": 445.53,
+  "words": "seek the help",
+  "ref_shot": "018a4aa42a2b-0125",
+  "target": 1.034,
+  "alts": [
+   "018a4aa42a2b-0122",
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128"
+  ]
+ },
+ {
+  "id": "159",
+  "slot": 159,
+  "start": 445.53,
+  "end": 446.49,
+  "words": "of the machines",
+  "ref_shot": "018a4aa42a2b-0126",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0123",
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0125",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129"
+  ]
+ },
+ {
+  "id": "160",
+  "slot": 160,
+  "start": 446.49,
+  "end": 447.97,
+  "words": "now. Machine learning,",
+  "ref_shot": "018a4aa42a2b-0127",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0125",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130"
+  ]
+ },
+ {
+  "id": "161",
+  "slot": 161,
+  "start": 447.97,
+  "end": 449.21,
+  "words": "regime model, walk",
+  "ref_shot": "018a4aa42a2b-0127",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0124",
+   "018a4aa42a2b-0125",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130"
+  ]
+ },
+ {
+  "id": "162",
+  "slot": 162,
+  "start": 449.21,
+  "end": 450.84,
+  "words": "forward, sealed vault,",
+  "ref_shot": "018a4aa42a2b-0128",
+  "target": 1.467,
+  "alts": [
+   "018a4aa42a2b-0125",
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0131"
+  ]
+ },
+ {
+  "id": "163",
+  "slot": 163,
+  "start": 450.84,
+  "end": 451.67,
+  "words": "all done",
+  "ref_shot": "018a4aa42a2b-0129",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132"
+  ]
+ },
+ {
+  "id": "164",
+  "slot": 164,
+  "start": 451.67,
+  "end": 452.51,
+  "words": "properly. Take",
+  "ref_shot": "018a4aa42a2b-0129",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0126",
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132"
+  ]
+ },
+ {
+  "id": "165",
+  "slot": 165,
+  "start": 452.51,
+  "end": 453.75,
+  "words": "that, boom,",
+  "ref_shot": "018a4aa42a2b-0130",
+  "target": 1.2,
+  "alts": [
+   "018a4aa42a2b-0127",
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133"
+  ]
+ },
+ {
+  "id": "166",
+  "slot": 166,
+  "start": 453.75,
+  "end": 455.29,
+  "words": "boom, boom. Loses to a",
+  "ref_shot": "018a4aa42a2b-0131",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0134"
+  ]
+ },
+ {
+  "id": "167",
+  "slot": 167,
+  "start": 455.29,
+  "end": 457.17,
+  "words": "200 day moving",
+  "ref_shot": "018a4aa42a2b-0131",
+  "target": 1.5,
+  "alts": [
+   "018a4aa42a2b-0128",
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0134"
+  ]
+ },
+ {
+  "id": "168",
+  "slot": 168,
+  "start": 457.17,
+  "end": 460.37,
+  "words": "average. Oak 0 .68",
+  "ref_shot": "018a4aa42a2b-0132",
+  "target": 3.067,
+  "alts": [
+   "018a4aa42a2b-0129",
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0135"
+  ]
+ },
+ {
+  "id": "169",
+  "slot": 169,
+  "start": 460.37,
+  "end": 461.39,
+  "words": "in",
+  "ref_shot": "018a4aa42a2b-0133",
+  "target": 0.7,
+  "alts": [
+   "018a4aa42a2b-0130",
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136"
+  ]
+ },
+ {
+  "id": "170",
+  "slot": 170,
+  "start": 461.39,
+  "end": 462.59,
+  "words": "development, 0",
+  "ref_shot": "018a4aa42a2b-0134",
+  "target": 1.266,
+  "alts": [
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137"
+  ]
+ },
+ {
+  "id": "171",
+  "slot": 171,
+  "start": 462.59,
+  "end": 463.97,
+  "words": ".57 out",
+  "ref_shot": "018a4aa42a2b-0134",
+  "target": 1.266,
+  "alts": [
+   "018a4aa42a2b-0131",
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137"
+  ]
+ },
+ {
+  "id": "172",
+  "slot": 172,
+  "start": 463.97,
+  "end": 465.55,
+  "words": "of sample. Ho,",
+  "ref_shot": "018a4aa42a2b-0135",
+  "target": 1.267,
+  "alts": [
+   "018a4aa42a2b-0132",
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0138"
+  ]
+ },
+ {
+  "id": "173",
+  "slot": 173,
+  "start": 465.55,
+  "end": 466.38,
+  "words": "Lee,",
+  "ref_shot": "018a4aa42a2b-0136",
+  "target": 1.067,
+  "alts": [
+   "018a4aa42a2b-0133",
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0139"
+  ]
+ },
+ {
+  "id": "174",
+  "slot": 174,
+  "start": 466.38,
+  "end": 467.33,
+  "words": "Molly, caught",
+  "ref_shot": "018a4aa42a2b-0137",
+  "target": 0.933,
+  "alts": [
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140"
+  ]
+ },
+ {
+  "id": "175",
+  "slot": 175,
+  "start": 467.33,
+  "end": 468.07,
+  "words": "positioning",
+  "ref_shot": "018a4aa42a2b-0137",
+  "target": 0.933,
+  "alts": [
+   "018a4aa42a2b-0134",
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140"
+  ]
+ },
+ {
+  "id": "176",
+  "slot": 176,
+  "start": 468.07,
+  "end": 468.89,
+  "words": "real",
+  "ref_shot": "018a4aa42a2b-0138",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141"
+  ]
+ },
+ {
+  "id": "177",
+  "slot": 177,
+  "start": 468.89,
+  "end": 470.11,
+  "words": "reversal at",
+  "ref_shot": "018a4aa42a2b-0138",
+  "target": 1.033,
+  "alts": [
+   "018a4aa42a2b-0135",
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141"
+  ]
+ },
+ {
+  "id": "178",
+  "slot": 178,
+  "start": 470.11,
+  "end": 472.53,
+  "words": "extremes, swap killed. And",
+  "ref_shot": "018a4aa42a2b-0139",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142"
+  ]
+ },
+ {
+  "id": "179",
+  "slot": 179,
+  "start": 472.53,
+  "end": 474.97,
+  "words": "the entire effect was crude oil",
+  "ref_shot": "018a4aa42a2b-0139",
+  "target": 2.467,
+  "alts": [
+   "018a4aa42a2b-0136",
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142"
+  ]
+ },
+ {
+  "id": "180",
+  "slot": 180,
+  "start": 474.97,
+  "end": 476.47,
+  "words": "in a trench coat, month",
+  "ref_shot": "018a4aa42a2b-0140",
+  "target": 1.733,
+  "alts": [
+   "018a4aa42a2b-0137",
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0143"
+  ]
+ },
+ {
+  "id": "181",
+  "slot": 181,
+  "start": 476.47,
+  "end": 478.78,
+  "words": "and FX rebalancing flow.",
+  "ref_shot": "018a4aa42a2b-0141",
+  "target": 2.167,
+  "alts": [
+   "018a4aa42a2b-0138",
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0144"
+  ]
+ },
+ {
+  "id": "182",
+  "slot": 182,
+  "start": 478.78,
+  "end": 481.55,
+  "words": "Looked great 2019 plus, pulled",
+  "ref_shot": "018a4aa42a2b-0142",
+  "target": 3.167,
+  "alts": [
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145"
+  ]
+ },
+ {
+  "id": "183",
+  "slot": 183,
+  "start": 481.55,
+  "end": 484.73,
+  "words": "2003 to 2019 and the",
+  "ref_shot": "018a4aa42a2b-0142",
+  "target": 3.167,
+  "alts": [
+   "018a4aa42a2b-0139",
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145"
+  ]
+ },
+ {
+  "id": "184",
+  "slot": 184,
+  "start": 484.73,
+  "end": 486.13,
+  "words": "sign flipped a window",
+  "ref_shot": "018a4aa42a2b-0143",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0140",
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146"
+  ]
+ },
+ {
+  "id": "185",
+  "slot": 185,
+  "start": 486.13,
+  "end": 487.09,
+  "words": "artifact.",
+  "ref_shot": "018a4aa42a2b-0144",
+  "target": 1.233,
+  "alts": [
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147"
+  ]
+ },
+ {
+  "id": "186",
+  "slot": 186,
+  "start": 487.09,
+  "end": 488.49,
+  "words": "IE, I'd",
+  "ref_shot": "018a4aa42a2b-0144",
+  "target": 1.233,
+  "alts": [
+   "018a4aa42a2b-0141",
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147"
+  ]
+ },
+ {
+  "id": "187",
+  "slot": 187,
+  "start": 488.49,
+  "end": 490.13,
+  "words": "found a coincidence and",
+  "ref_shot": "018a4aa42a2b-0145",
+  "target": 1.433,
+  "alts": [
+   "018a4aa42a2b-0142",
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148"
+  ]
+ },
+ {
+  "id": "188",
+  "slot": 188,
+  "start": 490.13,
+  "end": 490.77,
+  "words": "given it a",
+  "ref_shot": "018a4aa42a2b-0146",
+  "target": 0.734,
+  "alts": [
+   "018a4aa42a2b-0143",
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0149"
+  ]
+ },
+ {
+  "id": "189",
+  "slot": 189,
+  "start": 490.77,
+  "end": 493.06,
+  "words": "name. Daily statistical arbitrage.",
+  "ref_shot": "018a4aa42a2b-0147",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0149",
+   "018a4aa42a2b-0150"
+  ]
+ },
+ {
+  "id": "190",
+  "slot": 190,
+  "start": 493.06,
+  "end": 495.25,
+  "words": "WTI Brent was the only robust",
+  "ref_shot": "018a4aa42a2b-0147",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0144",
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0149",
+   "018a4aa42a2b-0150"
+  ]
+ },
+ {
+  "id": "191",
+  "slot": 191,
+  "start": 495.25,
+  "end": 497.74,
+  "words": "pair. Oil swap, ate it.",
+  "ref_shot": "018a4aa42a2b-0148",
+  "target": 2.4,
+  "alts": [
+   "018a4aa42a2b-0145",
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0149",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151"
+  ]
+ },
+ {
+  "id": "192.1",
+  "slot": 192,
+  "start": 497.74,
+  "end": 502.57,
+  "words": "Everything else was dead gross. Intraday FX stat arb.",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 3.85,
+  "alts": [
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152"
+  ]
+ },
+ {
+  "id": "192.2",
+  "slot": 192,
+  "start": 502.57,
+  "end": 505.965,
+  "words": "This is the one that keeps",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 3.85,
+  "alts": [
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152"
+  ]
+ },
+ {
+  "id": "193.1",
+  "slot": 193,
+  "start": 505.965,
+  "end": 509.3,
+  "words": "me up. Information coefficient of plus 0",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 3.85,
+  "alts": [
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152"
+  ]
+ },
+ {
+  "id": "193.2",
+  "slot": 193,
+  "start": 509.3,
+  "end": 513.34,
+  "words": ".0205 on 2 .16 million",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 3.85,
+  "alts": [
+   "018a4aa42a2b-0146",
+   "018a4aa42a2b-0147",
+   "018a4aa42a2b-0148",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152"
+  ]
+ },
+ {
+  "id": "194",
+  "slot": 194,
+  "start": 513.34,
+  "end": 516.86,
+  "words": "observations. That is about 30 standard",
+  "ref_shot": "018a4aa42a2b-0152",
+  "target": 3.233,
+  "alts": [
+   "018a4aa42a2b-0149",
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0153",
+   "018a4aa42a2b-0154",
+   "018a4aa42a2b-0155"
+  ]
+ },
+ {
+  "id": "195",
+  "slot": 195,
+  "start": 516.86,
+  "end": 518.71,
+  "words": "errors from zero.",
+  "ref_shot": "018a4aa42a2b-0153",
+  "target": 1.7,
+  "alts": [
+   "018a4aa42a2b-0150",
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152",
+   "018a4aa42a2b-0154",
+   "018a4aa42a2b-0155",
+   "018a4aa42a2b-0156"
+  ]
+ },
+ {
+  "id": "196",
+  "slot": 196,
+  "start": 518.71,
+  "end": 524.09,
+  "words": "It is not noise. It is not a bug, grow sharp 3 .71.",
+  "ref_shot": "018a4aa42a2b-0154",
+  "target": 5.234,
+  "alts": [
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152",
+   "018a4aa42a2b-0153",
+   "018a4aa42a2b-0155",
+   "018a4aa42a2b-0156",
+   "018a4aa42a2b-0157"
+  ]
+ },
+ {
+  "id": "197",
+  "slot": 197,
+  "start": 524.09,
+  "end": 529.9,
+  "words": "After real per bar spreads plus 0 .03",
+  "ref_shot": "018a4aa42a2b-0154",
+  "target": 5.234,
+  "alts": [
+   "018a4aa42a2b-0151",
+   "018a4aa42a2b-0152",
+   "018a4aa42a2b-0153",
+   "018a4aa42a2b-0155",
+   "018a4aa42a2b-0156",
+   "018a4aa42a2b-0157"
+  ]
+ },
+ {
+  "id": "198",
+  "slot": 198,
+  "start": 529.9,
+  "end": 533.84,
+  "words": "% a year. It decays 75 % in one",
+  "ref_shot": "018a4aa42a2b-0155",
+  "target": 4.233,
+  "alts": [
+   "018a4aa42a2b-0152",
+   "018a4aa42a2b-0153",
+   "018a4aa42a2b-0154",
+   "018a4aa42a2b-0156",
+   "018a4aa42a2b-0157",
+   "018a4aa42a2b-0158"
+  ]
+ },
+ {
+  "id": "199",
+  "slot": 199,
+  "start": 533.84,
+  "end": 535.22,
+  "words": "bar. So you have",
+  "ref_shot": "018a4aa42a2b-0158",
+  "target": 1.367,
+  "alts": [
+   "018a4aa42a2b-0155",
+   "018a4aa42a2b-0156",
+   "018a4aa42a2b-0157",
+   "018a4aa42a2b-0159",
+   "018a4aa42a2b-0160",
+   "018a4aa42a2b-0161"
+  ]
+ },
+ {
+  "id": "200",
+  "slot": 200,
+  "start": 535.22,
+  "end": 536.57,
+  "words": "to trade it instantly.",
+  "ref_shot": "018a4aa42a2b-0158",
+  "target": 1.367,
+  "alts": [
+   "018a4aa42a2b-0155",
+   "018a4aa42a2b-0156",
+   "018a4aa42a2b-0157",
+   "018a4aa42a2b-0159",
+   "018a4aa42a2b-0160",
+   "018a4aa42a2b-0161"
+  ]
+ },
+ {
+  "id": "201",
+  "slot": 201,
+  "start": 536.57,
+  "end": 538.98,
+  "words": "And the spread is right there waiting. So",
+  "ref_shot": "018a4aa42a2b-0160",
+  "target": 2.334,
+  "alts": [
+   "018a4aa42a2b-0157",
+   "018a4aa42a2b-0158",
+   "018a4aa42a2b-0159",
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0163"
+  ]
+ },
+ {
+  "id": "202",
+  "slot": 202,
+  "start": 538.98,
+  "end": 541.24,
+  "words": "I built a pool because the book says",
+  "ref_shot": "018a4aa42a2b-0160",
+  "target": 2.334,
+  "alts": [
+   "018a4aa42a2b-0157",
+   "018a4aa42a2b-0158",
+   "018a4aa42a2b-0159",
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0163"
+  ]
+ },
+ {
+  "id": "203",
+  "slot": 203,
+  "start": 541.24,
+  "end": 541.84,
+  "words": "if you run",
+  "ref_shot": "018a4aa42a2b-0162",
+  "target": 0.6,
+  "alts": [
+   "018a4aa42a2b-0159",
+   "018a4aa42a2b-0160",
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0163",
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165"
+  ]
+ },
+ {
+  "id": "204",
+  "slot": 204,
+  "start": 541.84,
+  "end": 543.72,
+  "words": "opposing signals together, their",
+  "ref_shot": "018a4aa42a2b-0163",
+  "target": 1.734,
+  "alts": [
+   "018a4aa42a2b-0160",
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166"
+  ]
+ },
+ {
+  "id": "205",
+  "slot": 205,
+  "start": 543.72,
+  "end": 545.5,
+  "words": "trades cancel and you stop paying the",
+  "ref_shot": "018a4aa42a2b-0163",
+  "target": 1.734,
+  "alts": [
+   "018a4aa42a2b-0160",
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166"
+  ]
+ },
+ {
+  "id": "206",
+  "slot": 206,
+  "start": 545.5,
+  "end": 550.02,
+  "words": "toll. Guess what? It works. 87 % of the turnover netted",
+  "ref_shot": "018a4aa42a2b-0164",
+  "target": 4.3,
+  "alts": [
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0163",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0167"
+  ]
+ },
+ {
+  "id": "207",
+  "slot": 207,
+  "start": 550.02,
+  "end": 554.31,
+  "words": "out and the pool was still sub -economic.",
+  "ref_shot": "018a4aa42a2b-0164",
+  "target": 4.3,
+  "alts": [
+   "018a4aa42a2b-0161",
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0163",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0167"
+  ]
+ },
+ {
+  "id": "208",
+  "slot": 208,
+  "start": 554.31,
+  "end": 559.12,
+  "words": "Widened it from 12 to 28 pairs. Gross went",
+  "ref_shot": "018a4aa42a2b-0165",
+  "target": 4.833,
+  "alts": [
+   "018a4aa42a2b-0162",
+   "018a4aa42a2b-0163",
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0167",
+   "018a4aa42a2b-0168"
+  ]
+ },
+ {
+  "id": "209",
+  "slot": 209,
+  "start": 559.12,
+  "end": 561.46,
+  "words": "up. Net went to minus",
+  "ref_shot": "018a4aa42a2b-0166",
+  "target": 2.3,
+  "alts": [
+   "018a4aa42a2b-0163",
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0167",
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169"
+  ]
+ },
+ {
+  "id": "210.1",
+  "slot": 210,
+  "start": 561.46,
+  "end": 564.36,
+  "words": "85 sharp because the extra bread",
+  "ref_shot": "018a4aa42a2b-0167",
+  "target": 2.933,
+  "alts": [
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170"
+  ]
+ },
+ {
+  "id": "210.2",
+  "slot": 210,
+  "start": 564.36,
+  "end": 567.5,
+  "words": "came from crosses with three BP spreads.",
+  "ref_shot": "018a4aa42a2b-0167",
+  "target": 2.933,
+  "alts": [
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170"
+  ]
+ },
+ {
+  "id": "211",
+  "slot": 211,
+  "start": 567.5,
+  "end": 573.28,
+  "words": "Added a spread gate which flips it positive and then trades 1 % of available",
+  "ref_shot": "018a4aa42a2b-0167",
+  "target": 5.867,
+  "alts": [
+   "018a4aa42a2b-0164",
+   "018a4aa42a2b-0165",
+   "018a4aa42a2b-0166",
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170"
+  ]
+ },
+ {
+  "id": "212",
+  "slot": 212,
+  "start": 573.28,
+  "end": 575.5,
+  "words": "bars which is roughly 0",
+  "ref_shot": "018a4aa42a2b-0170",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0167",
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0171",
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173"
+  ]
+ },
+ {
+  "id": "213",
+  "slot": 213,
+  "start": 575.5,
+  "end": 576.72,
+  "words": "% a year. Final",
+  "ref_shot": "018a4aa42a2b-0171",
+  "target": 1.1,
+  "alts": [
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170",
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174"
+  ]
+ },
+ {
+  "id": "214",
+  "slot": 214,
+  "start": 576.72,
+  "end": 578.0,
+  "words": "salvage use",
+  "ref_shot": "018a4aa42a2b-0171",
+  "target": 1.1,
+  "alts": [
+   "018a4aa42a2b-0168",
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170",
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174"
+  ]
+ },
+ {
+  "id": "215",
+  "slot": 215,
+  "start": 578.0,
+  "end": 579.52,
+  "words": "limit orders become",
+  "ref_shot": "018a4aa42a2b-0172",
+  "target": 1.167,
+  "alts": [
+   "018a4aa42a2b-0169",
+   "018a4aa42a2b-0170",
+   "018a4aa42a2b-0171",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0175"
+  ]
+ },
+ {
+  "id": "216",
+  "slot": 216,
+  "start": 579.52,
+  "end": 580.82,
+  "words": "a maker instead",
+  "ref_shot": "018a4aa42a2b-0173",
+  "target": 1.233,
+  "alts": [
+   "018a4aa42a2b-0170",
+   "018a4aa42a2b-0171",
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0176"
+  ]
+ },
+ {
+  "id": "217",
+  "slot": 217,
+  "start": 580.82,
+  "end": 581.69,
+  "words": "of a taker.",
+  "ref_shot": "018a4aa42a2b-0174",
+  "target": 0.634,
+  "alts": [
+   "018a4aa42a2b-0171",
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177"
+  ]
+ },
+ {
+  "id": "218",
+  "slot": 218,
+  "start": 581.69,
+  "end": 583.81,
+  "words": "Get the spread back. It works.",
+  "ref_shot": "018a4aa42a2b-0175",
+  "target": 2.233,
+  "alts": [
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178"
+  ]
+ },
+ {
+  "id": "219",
+  "slot": 219,
+  "start": 583.81,
+  "end": 585.98,
+  "words": "Limits recover essentially the",
+  "ref_shot": "018a4aa42a2b-0175",
+  "target": 2.233,
+  "alts": [
+   "018a4aa42a2b-0172",
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178"
+  ]
+ },
+ {
+  "id": "220",
+  "slot": 220,
+  "start": 585.98,
+  "end": 587.78,
+  "words": "full spread and then I measured",
+  "ref_shot": "018a4aa42a2b-0176",
+  "target": 1.7,
+  "alts": [
+   "018a4aa42a2b-0173",
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0179"
+  ]
+ },
+ {
+  "id": "221",
+  "slot": 221,
+  "start": 587.78,
+  "end": 588.62,
+  "words": "the ceiling.",
+  "ref_shot": "018a4aa42a2b-0177",
+  "target": 0.967,
+  "alts": [
+   "018a4aa42a2b-0174",
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180"
+  ]
+ },
+ {
+  "id": "222",
+  "slot": 222,
+  "start": 588.62,
+  "end": 589.22,
+  "words": "What this",
+  "ref_shot": "018a4aa42a2b-0178",
+  "target": 0.7,
+  "alts": [
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181"
+  ]
+ },
+ {
+  "id": "223",
+  "slot": 223,
+  "start": 589.22,
+  "end": 589.96,
+  "words": "thing earns",
+  "ref_shot": "018a4aa42a2b-0178",
+  "target": 0.7,
+  "alts": [
+   "018a4aa42a2b-0175",
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181"
+  ]
+ },
+ {
+  "id": "224",
+  "slot": 224,
+  "start": 589.96,
+  "end": 590.86,
+  "words": "with execution",
+  "ref_shot": "018a4aa42a2b-0179",
+  "target": 1.0,
+  "alts": [
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0182"
+  ]
+ },
+ {
+  "id": "225",
+  "slot": 225,
+  "start": 590.86,
+  "end": 591.82,
+  "words": "costs set",
+  "ref_shot": "018a4aa42a2b-0179",
+  "target": 1.0,
+  "alts": [
+   "018a4aa42a2b-0176",
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0182"
+  ]
+ },
+ {
+  "id": "226",
+  "slot": 226,
+  "start": 591.82,
+  "end": 594.28,
+  "words": "to zero. Free, magic,",
+  "ref_shot": "018a4aa42a2b-0180",
+  "target": 2.266,
+  "alts": [
+   "018a4aa42a2b-0177",
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183"
+  ]
+ },
+ {
+  "id": "227",
+  "slot": 227,
+  "start": 594.28,
+  "end": 596.22,
+  "words": "perfect. And it is 0",
+  "ref_shot": "018a4aa42a2b-0181",
+  "target": 1.867,
+  "alts": [
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184"
+  ]
+ },
+ {
+  "id": "228",
+  "slot": 228,
+  "start": 596.22,
+  "end": 598.16,
+  "words": ".057",
+  "ref_shot": "018a4aa42a2b-0181",
+  "target": 1.867,
+  "alts": [
+   "018a4aa42a2b-0178",
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184"
+  ]
+ },
+ {
+  "id": "229",
+  "slot": 229,
+  "start": 598.16,
+  "end": 601.12,
+  "words": "BP per S signal. Call it",
+  "ref_shot": "018a4aa42a2b-0182",
+  "target": 3.033,
+  "alts": [
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0185"
+  ]
+ },
+ {
+  "id": "230",
+  "slot": 230,
+  "start": 601.12,
+  "end": 603.96,
+  "words": "0 .8 % a year",
+  "ref_shot": "018a4aa42a2b-0182",
+  "target": 3.033,
+  "alts": [
+   "018a4aa42a2b-0179",
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0185"
+  ]
+ },
+ {
+  "id": "231",
+  "slot": 231,
+  "start": 603.96,
+  "end": 606.3,
+  "words": "in the universe where friction",
+  "ref_shot": "018a4aa42a2b-0183",
+  "target": 2.667,
+  "alts": [
+   "018a4aa42a2b-0180",
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0185",
+   "018a4aa42a2b-0186"
+  ]
+ },
+ {
+  "id": "232",
+  "slot": 232,
+  "start": 606.3,
+  "end": 607.3,
+  "words": "doesn't",
+  "ref_shot": "018a4aa42a2b-0184",
+  "target": 0.9,
+  "alts": [
+   "018a4aa42a2b-0181",
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0185",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187"
+  ]
+ },
+ {
+  "id": "233.1",
+  "slot": 233,
+  "start": 607.3,
+  "end": 611.12,
+  "words": "exist. You'd need some absolute superhuman flash",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 4.15,
+  "alts": [
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0188"
+  ]
+ },
+ {
+  "id": "233.2",
+  "slot": 233,
+  "start": 611.12,
+  "end": 615.36,
+  "words": "plus quick silver type speed. And I ain't Jane Street.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 4.15,
+  "alts": [
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0188"
+  ]
+ },
+ {
+  "id": "234.1",
+  "slot": 234,
+  "start": 615.36,
+  "end": 619.44,
+  "words": "Well, not yet. Well, turns out the only thing that",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 4.15,
+  "alts": [
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0188"
+  ]
+ },
+ {
+  "id": "234.2",
+  "slot": 234,
+  "start": 619.44,
+  "end": 623.66,
+  "words": "worked was simply by the S and P overnight. That is it.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 4.15,
+  "alts": [
+   "018a4aa42a2b-0182",
+   "018a4aa42a2b-0183",
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0188"
+  ]
+ },
+ {
+  "id": "235",
+  "slot": 235,
+  "start": 623.66,
+  "end": 625.82,
+  "words": "That is the whole idea. Close to",
+  "ref_shot": "018a4aa42a2b-0187",
+  "target": 2.2,
+  "alts": [
+   "018a4aa42a2b-0184",
+   "018a4aa42a2b-0185",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0188",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0190"
+  ]
+ },
+ {
+  "id": "236",
+  "slot": 236,
+  "start": 625.82,
+  "end": 629.44,
+  "words": "open, go home flat, two wrinkles.",
+  "ref_shot": "018a4aa42a2b-0188",
+  "target": 3.8,
+  "alts": [
+   "018a4aa42a2b-0185",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0190",
+   "018a4aa42a2b-0191"
+  ]
+ },
+ {
+  "id": "237",
+  "slot": 237,
+  "start": 629.44,
+  "end": 633.14,
+  "words": "Make it mine. One, swap is only charged on positions open",
+  "ref_shot": "018a4aa42a2b-0188",
+  "target": 3.8,
+  "alts": [
+   "018a4aa42a2b-0185",
+   "018a4aa42a2b-0186",
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0190",
+   "018a4aa42a2b-0191"
+  ]
+ },
+ {
+  "id": "238",
+  "slot": 238,
+  "start": 633.14,
+  "end": 634.82,
+  "words": "at the broker's 17 o 'clock",
+  "ref_shot": "018a4aa42a2b-0190",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0187",
+   "018a4aa42a2b-0188",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0191",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193"
+  ]
+ },
+ {
+  "id": "239",
+  "slot": 239,
+  "start": 634.82,
+  "end": 639.3,
+  "words": "roll over snapshot. So if you enter after the snapshot, you get most of the",
+  "ref_shot": "018a4aa42a2b-0191",
+  "target": 4.534,
+  "alts": [
+   "018a4aa42a2b-0188",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0190",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0194"
+  ]
+ },
+ {
+  "id": "240",
+  "slot": 240,
+  "start": 639.3,
+  "end": 643.86,
+  "words": "overnight move and pay zero financing. Two, raw overnight is",
+  "ref_shot": "018a4aa42a2b-0191",
+  "target": 4.534,
+  "alts": [
+   "018a4aa42a2b-0188",
+   "018a4aa42a2b-0189",
+   "018a4aa42a2b-0190",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0194"
+  ]
+ },
+ {
+  "id": "241",
+  "slot": 241,
+  "start": 643.86,
+  "end": 646.94,
+  "words": "just long beta pump faking. So gated with",
+  "ref_shot": "018a4aa42a2b-0193",
+  "target": 3.0,
+  "alts": [
+   "018a4aa42a2b-0190",
+   "018a4aa42a2b-0191",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196"
+  ]
+ },
+ {
+  "id": "242",
+  "slot": 242,
+  "start": 646.94,
+  "end": 649.48,
+  "words": "the 200 day moving average and it",
+  "ref_shot": "018a4aa42a2b-0194",
+  "target": 2.633,
+  "alts": [
+   "018a4aa42a2b-0191",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197"
+  ]
+ },
+ {
+  "id": "243",
+  "slot": 243,
+  "start": 649.48,
+  "end": 651.8,
+  "words": "stops bleeding in bears. Sharpe",
+  "ref_shot": "018a4aa42a2b-0194",
+  "target": 2.633,
+  "alts": [
+   "018a4aa42a2b-0191",
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197"
+  ]
+ },
+ {
+  "id": "244",
+  "slot": 244,
+  "start": 651.8,
+  "end": 653.7,
+  "words": "0 .47 to 0",
+  "ref_shot": "018a4aa42a2b-0195",
+  "target": 2.0,
+  "alts": [
+   "018a4aa42a2b-0192",
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0198"
+  ]
+ },
+ {
+  "id": "245",
+  "slot": 245,
+  "start": 653.7,
+  "end": 655.96,
+  "words": ".77, draw down minus",
+  "ref_shot": "018a4aa42a2b-0196",
+  "target": 2.167,
+  "alts": [
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199"
+  ]
+ },
+ {
+  "id": "246",
+  "slot": 246,
+  "start": 655.96,
+  "end": 658.24,
+  "words": "20 % to minus 8",
+  "ref_shot": "018a4aa42a2b-0196",
+  "target": 2.167,
+  "alts": [
+   "018a4aa42a2b-0193",
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199"
+  ]
+ },
+ {
+  "id": "247",
+  "slot": 247,
+  "start": 658.24,
+  "end": 661.08,
+  "words": ".3%. That is",
+  "ref_shot": "018a4aa42a2b-0197",
+  "target": 3.2,
+  "alts": [
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200"
+  ]
+ },
+ {
+  "id": "248",
+  "slot": 248,
+  "start": 661.08,
+  "end": 664.9,
+  "words": "the deployed boring",
+  "ref_shot": "018a4aa42a2b-0197",
+  "target": 3.2,
+  "alts": [
+   "018a4aa42a2b-0194",
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200"
+  ]
+ },
+ {
+  "id": "249.1",
+  "slot": 249,
+  "start": 664.9,
+  "end": 667.9,
+  "words": "fine. Then I",
+  "ref_shot": "018a4aa42a2b-0198",
+  "target": 3.017,
+  "alts": [
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201"
+  ]
+ },
+ {
+  "id": "249.2",
+  "slot": 249,
+  "start": 667.9,
+  "end": 670.98,
+  "words": "tried to make it smarter. First, the",
+  "ref_shot": "018a4aa42a2b-0198",
+  "target": 3.017,
+  "alts": [
+   "018a4aa42a2b-0195",
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201"
+  ]
+ },
+ {
+  "id": "250",
+  "slot": 250,
+  "start": 670.98,
+  "end": 672.5,
+  "words": "notebook caught me trading",
+  "ref_shot": "018a4aa42a2b-0199",
+  "target": 1.467,
+  "alts": [
+   "018a4aa42a2b-0196",
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0202"
+  ]
+ },
+ {
+  "id": "251",
+  "slot": 251,
+  "start": 672.5,
+  "end": 673.31,
+  "words": "on prices",
+  "ref_shot": "018a4aa42a2b-0200",
+  "target": 0.766,
+  "alts": [
+   "018a4aa42a2b-0197",
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203"
+  ]
+ },
+ {
+  "id": "252",
+  "slot": 252,
+  "start": 673.31,
+  "end": 676.16,
+  "words": "that never existed. Cell one of the new build",
+  "ref_shot": "018a4aa42a2b-0201",
+  "target": 2.667,
+  "alts": [
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204"
+  ]
+ },
+ {
+  "id": "253",
+  "slot": 253,
+  "start": 676.16,
+  "end": 678.66,
+  "words": "had one sanity line in it. What",
+  "ref_shot": "018a4aa42a2b-0201",
+  "target": 2.667,
+  "alts": [
+   "018a4aa42a2b-0198",
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204"
+  ]
+ },
+ {
+  "id": "254",
+  "slot": 254,
+  "start": 678.66,
+  "end": 681.04,
+  "words": "fraction of nights are green? It came",
+  "ref_shot": "018a4aa42a2b-0202",
+  "target": 2.267,
+  "alts": [
+   "018a4aa42a2b-0199",
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205"
+  ]
+ },
+ {
+  "id": "255",
+  "slot": 255,
+  "start": 681.04,
+  "end": 682.32,
+  "words": "back 0",
+  "ref_shot": "018a4aa42a2b-0203",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206"
+  ]
+ },
+ {
+  "id": "256",
+  "slot": 256,
+  "start": 682.32,
+  "end": 684.16,
+  "words": ".313.",
+  "ref_shot": "018a4aa42a2b-0203",
+  "target": 1.6,
+  "alts": [
+   "018a4aa42a2b-0200",
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206"
+  ]
+ },
+ {
+  "id": "257",
+  "slot": 257,
+  "start": 684.16,
+  "end": 687.19,
+  "words": "That is impossible.",
+  "ref_shot": "018a4aa42a2b-0204",
+  "target": 2.533,
+  "alts": [
+   "018a4aa42a2b-0201",
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207"
+  ]
+ },
+ {
+  "id": "258",
+  "slot": 258,
+  "start": 687.19,
+  "end": 690.68,
+  "words": "The market goes up overnight more often than that.",
+  "ref_shot": "018a4aa42a2b-0205",
+  "target": 3.3,
+  "alts": [
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207",
+   "018a4aa42a2b-0208"
+  ]
+ },
+ {
+  "id": "259",
+  "slot": 259,
+  "start": 690.68,
+  "end": 694.22,
+  "words": "Everyone knows it. That is the whole premise. Yahoo's",
+  "ref_shot": "018a4aa42a2b-0205",
+  "target": 3.3,
+  "alts": [
+   "018a4aa42a2b-0202",
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207",
+   "018a4aa42a2b-0208"
+  ]
+ },
+ {
+  "id": "260",
+  "slot": 260,
+  "start": 694.22,
+  "end": 696.96,
+  "words": "opening prints for GSPC, the S and P index",
+  "ref_shot": "018a4aa42a2b-0206",
+  "target": 2.867,
+  "alts": [
+   "018a4aa42a2b-0203",
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0207",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001"
+  ]
+ },
+ {
+  "id": "261.1",
+  "slot": 261,
+  "start": 696.96,
+  "end": 700.63,
+  "words": "feed. Not the ETF are fake before roughly 2014.",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 4.1,
+  "alts": [
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002"
+  ]
+ },
+ {
+  "id": "261.2",
+  "slot": 261,
+  "start": 700.63,
+  "end": 704.86,
+  "words": "There are stale copies of the previous close. Zero gap rate of 78 to",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 4.1,
+  "alts": [
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002"
+  ]
+ },
+ {
+  "id": "262.1",
+  "slot": 262,
+  "start": 704.86,
+  "end": 709.06,
+  "words": "98%. A year through 2005 and still 25",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 4.1,
+  "alts": [
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002"
+  ]
+ },
+ {
+  "id": "262.2",
+  "slot": 262,
+  "start": 709.06,
+  "end": 712.86,
+  "words": "% in 2012 to 13. Which means my beautiful",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 4.1,
+  "alts": [
+   "018a4aa42a2b-0204",
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002"
+  ]
+ },
+ {
+  "id": "263.1",
+  "slot": 263,
+  "start": 712.86,
+  "end": 716.84,
+  "words": "36 year validation of number or 23 had",
+  "ref_shot": "018a4aa42a2b-0208",
+  "target": 3.989,
+  "alts": [
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0003"
+  ]
+ },
+ {
+  "id": "263.2",
+  "slot": 263,
+  "start": 716.84,
+  "end": 720.05,
+  "words": "been computed across three decades of a number.",
+  "ref_shot": "018a4aa42a2b-0208",
+  "target": 3.989,
+  "alts": [
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0003"
+  ]
+ },
+ {
+  "id": "263.3",
+  "slot": 263,
+  "start": 720.05,
+  "end": 724.89,
+  "words": "The vendor made up not wrong data,",
+  "ref_shot": "018a4aa42a2b-0208",
+  "target": 3.989,
+  "alts": [
+   "018a4aa42a2b-0205",
+   "018a4aa42a2b-0206",
+   "018a4aa42a2b-0207",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0003"
+  ]
+ },
+ {
+  "id": "264",
+  "slot": 264,
+  "start": 724.89,
+  "end": 727.95,
+  "words": "absent data, silently padded,",
+  "ref_shot": "c29e0189d9c4-0002",
+  "target": 2.933,
+  "alts": [
+   "018a4aa42a2b-0207",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0003",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005"
+  ]
+ },
+ {
+  "id": "265",
+  "slot": 265,
+  "start": 727.95,
+  "end": 730.94,
+  "words": "rebuilt it on spy, the actual ETF,",
+  "ref_shot": "c29e0189d9c4-0002",
+  "target": 2.933,
+  "alts": [
+   "018a4aa42a2b-0207",
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0003",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005"
+  ]
+ },
+ {
+  "id": "266.1",
+  "slot": 266,
+  "start": 730.94,
+  "end": 734.93,
+  "words": "actual prints, 8262 real nights.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "266.2",
+  "slot": 266,
+  "start": 734.93,
+  "end": 737.62,
+  "words": "Base rate, 0 .559.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "266.3",
+  "slot": 266,
+  "start": 737.62,
+  "end": 741.62,
+  "words": "The strategy survived and got better. Sharp 1 .38",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "266.4",
+  "slot": 266,
+  "start": 741.62,
+  "end": 745.32,
+  "words": "filtered on the real prints, but it survived by",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "267.1",
+  "slot": 267,
+  "start": 745.32,
+  "end": 749.0,
+  "words": "luck. If the effect had been smaller, I'd have been trading",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "267.2",
+  "slot": 267,
+  "start": 749.0,
+  "end": 752.46,
+  "words": "a vendor's fill forward for months. Then Vee",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "267.3",
+  "slot": 267,
+  "start": 752.46,
+  "end": 756.32,
+  "words": "put a random forest on it. Sensor features,",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "267.4",
+  "slot": 267,
+  "start": 756.32,
+  "end": 759.52,
+  "words": "all entry noble purged chronological",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.625,
+  "alts": [
+   "018a4aa42a2b-0208",
+   "c29e0189d9c4-0001",
+   "c29e0189d9c4-0002",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006"
+  ]
+ },
+ {
+  "id": "268",
+  "slot": 268,
+  "start": 759.52,
+  "end": 762.31,
+  "words": "splits. Chishar log trials.",
+  "ref_shot": "c29e0189d9c4-0006",
+  "target": 2.6,
+  "alts": [
+   "c29e0189d9c4-0003",
+   "c29e0189d9c4-0004",
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0007",
+   "c29e0189d9c4-0008",
+   "c29e0189d9c4-0009"
+  ]
+ },
+ {
+  "id": "269",
+  "slot": 269,
+  "start": 762.31,
+  "end": 765.92,
+  "words": "So the multiple testing charge is honest. Champion model on a",
+  "ref_shot": "c29e0189d9c4-0008",
+  "target": 3.567,
+  "alts": [
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006",
+   "c29e0189d9c4-0007",
+   "c29e0189d9c4-0009",
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011"
+  ]
+ },
+ {
+  "id": "270",
+  "slot": 270,
+  "start": 765.92,
+  "end": 769.38,
+  "words": "sealed 2021 to 26 window. It had never",
+  "ref_shot": "c29e0189d9c4-0008",
+  "target": 3.567,
+  "alts": [
+   "c29e0189d9c4-0005",
+   "c29e0189d9c4-0006",
+   "c29e0189d9c4-0007",
+   "c29e0189d9c4-0009",
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011"
+  ]
+ },
+ {
+  "id": "271",
+  "slot": 271,
+  "start": 769.38,
+  "end": 774.12,
+  "words": "seen plus 3 .21 BP per night VS",
+  "ref_shot": "c29e0189d9c4-0009",
+  "target": 4.333,
+  "alts": [
+   "c29e0189d9c4-0006",
+   "c29e0189d9c4-0007",
+   "c29e0189d9c4-0008",
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012"
+  ]
+ },
+ {
+  "id": "272",
+  "slot": 272,
+  "start": 774.12,
+  "end": 774.48,
+  "words": "plus",
+  "ref_shot": "c29e0189d9c4-0010",
+  "target": 0.333,
+  "alts": [
+   "c29e0189d9c4-0007",
+   "c29e0189d9c4-0008",
+   "c29e0189d9c4-0009",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0013"
+  ]
+ },
+ {
+  "id": "273",
+  "slot": 273,
+  "start": 774.48,
+  "end": 777.23,
+  "words": "1 .76 for always long,",
+  "ref_shot": "c29e0189d9c4-0011",
+  "target": 2.934,
+  "alts": [
+   "c29e0189d9c4-0008",
+   "c29e0189d9c4-0009",
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0013",
+   "c29e0189d9c4-0014"
+  ]
+ },
+ {
+  "id": "274",
+  "slot": 274,
+  "start": 777.23,
+  "end": 779.94,
+  "words": "sharper 0 .9 or VS 0",
+  "ref_shot": "c29e0189d9c4-0011",
+  "target": 2.934,
+  "alts": [
+   "c29e0189d9c4-0008",
+   "c29e0189d9c4-0009",
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0013",
+   "c29e0189d9c4-0014"
+  ]
+ },
+ {
+  "id": "275.1",
+  "slot": 275,
+  "start": 779.94,
+  "end": 784.8,
+  "words": ".44 ahead in every year, plus 1 .0 in 2022.",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 3.884,
+  "alts": [
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016"
+  ]
+ },
+ {
+  "id": "275.2",
+  "slot": 275,
+  "start": 784.8,
+  "end": 787.86,
+  "words": "While the baseline did minus",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 3.884,
+  "alts": [
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016"
+  ]
+ },
+ {
+  "id": "276.1",
+  "slot": 276,
+  "start": 787.86,
+  "end": 791.24,
+  "words": "6 .7, deflated sharp ratio 0",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 3.884,
+  "alts": [
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016"
+  ]
+ },
+ {
+  "id": "276.2",
+  "slot": 276,
+  "start": 791.24,
+  "end": 795.68,
+  "words": ".887. My bar is 0 .95. The frozen",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 3.884,
+  "alts": [
+   "c29e0189d9c4-0010",
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016"
+  ]
+ },
+ {
+  "id": "277",
+  "slot": 277,
+  "start": 795.68,
+  "end": 800.36,
+  "words": "model did not graduate. So I walked forward the recipe",
+  "ref_shot": "c29e0189d9c4-0014",
+  "target": 4.8,
+  "alts": [
+   "c29e0189d9c4-0011",
+   "c29e0189d9c4-0012",
+   "c29e0189d9c4-0013",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016",
+   "c29e0189d9c4-0017"
+  ]
+ },
+ {
+  "id": "278",
+  "slot": 278,
+  "start": 800.36,
+  "end": 804.72,
+  "words": "instead, freeze the features and hyper parameters, refit",
+  "ref_shot": "c29e0189d9c4-0016",
+  "target": 4.0,
+  "alts": [
+   "c29e0189d9c4-0013",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0017",
+   "c29e0189d9c4-0018",
+   "c29e0189d9c4-0019"
+  ]
+ },
+ {
+  "id": "279",
+  "slot": 279,
+  "start": 804.72,
+  "end": 809.4,
+  "words": "every January, never peak. 2 ,870",
+  "ref_shot": "c29e0189d9c4-0016",
+  "target": 4.0,
+  "alts": [
+   "c29e0189d9c4-0013",
+   "c29e0189d9c4-0014",
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0017",
+   "c29e0189d9c4-0018",
+   "c29e0189d9c4-0019"
+  ]
+ },
+ {
+  "id": "280",
+  "slot": 280,
+  "start": 809.4,
+  "end": 809.96,
+  "words": "out of",
+  "ref_shot": "c29e0189d9c4-0018",
+  "target": 0.5,
+  "alts": [
+   "c29e0189d9c4-0015",
+   "c29e0189d9c4-0016",
+   "c29e0189d9c4-0017",
+   "c29e0189d9c4-0019",
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021"
+  ]
+ },
+ {
+  "id": "281",
+  "slot": 281,
+  "start": 809.96,
+  "end": 813.92,
+  "words": "sample nights, plus 3 .59 VS plus 2",
+  "ref_shot": "c29e0189d9c4-0019",
+  "target": 3.867,
+  "alts": [
+   "c29e0189d9c4-0016",
+   "c29e0189d9c4-0017",
+   "c29e0189d9c4-0018",
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021",
+   "c29e0189d9c4-0022"
+  ]
+ },
+ {
+  "id": "282",
+  "slot": 282,
+  "start": 813.92,
+  "end": 818.04,
+  "words": ".13. Sharp if 0 .96, positive",
+  "ref_shot": "c29e0189d9c4-0019",
+  "target": 3.867,
+  "alts": [
+   "c29e0189d9c4-0016",
+   "c29e0189d9c4-0017",
+   "c29e0189d9c4-0018",
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021",
+   "c29e0189d9c4-0022"
+  ]
+ },
+ {
+  "id": "283",
+  "slot": 283,
+  "start": 818.04,
+  "end": 819.5,
+  "words": "in all 12 years.",
+  "ref_shot": "c29e0189d9c4-0021",
+  "target": 1.534,
+  "alts": [
+   "c29e0189d9c4-0018",
+   "c29e0189d9c4-0019",
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0022",
+   "c29e0189d9c4-0023",
+   "c29e0189d9c4-0024"
+  ]
+ },
+ {
+  "id": "284",
+  "slot": 284,
+  "start": 819.5,
+  "end": 822.62,
+  "words": "DSR 0 .988",
+  "ref_shot": "c29e0189d9c4-0022",
+  "target": 2.6,
+  "alts": [
+   "c29e0189d9c4-0019",
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021",
+   "c29e0189d9c4-0023",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0025"
+  ]
+ },
+ {
+  "id": "285",
+  "slot": 285,
+  "start": 822.62,
+  "end": 824.52,
+  "words": "that graduates",
+  "ref_shot": "c29e0189d9c4-0023",
+  "target": 2.1,
+  "alts": [
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021",
+   "c29e0189d9c4-0022",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0025",
+   "c29e0189d9c4-0026"
+  ]
+ },
+ {
+  "id": "286",
+  "slot": 286,
+  "start": 824.52,
+  "end": 826.59,
+  "words": "deployed as Vee Fee.",
+  "ref_shot": "c29e0189d9c4-0023",
+  "target": 2.1,
+  "alts": [
+   "c29e0189d9c4-0020",
+   "c29e0189d9c4-0021",
+   "c29e0189d9c4-0022",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0025",
+   "c29e0189d9c4-0026"
+  ]
+ },
+ {
+  "id": "287",
+  "slot": 287,
+  "start": 826.59,
+  "end": 830.0,
+  "words": "And I plugged sharp to it to actually see what the model",
+  "ref_shot": "c29e0189d9c4-0025",
+  "target": 3.266,
+  "alts": [
+   "c29e0189d9c4-0022",
+   "c29e0189d9c4-0023",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0026",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0028"
+  ]
+ },
+ {
+  "id": "288",
+  "slot": 288,
+  "start": 830.0,
+  "end": 833.36,
+  "words": "learned. Debuying confirmed by Trent plus",
+  "ref_shot": "c29e0189d9c4-0025",
+  "target": 3.266,
+  "alts": [
+   "c29e0189d9c4-0022",
+   "c29e0189d9c4-0023",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0026",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0028"
+  ]
+ },
+ {
+  "id": "289",
+  "slot": 289,
+  "start": 833.36,
+  "end": 836.94,
+  "words": "Hivix is bullish. So I did finally find",
+  "ref_shot": "c29e0189d9c4-0026",
+  "target": 3.567,
+  "alts": [
+   "c29e0189d9c4-0023",
+   "c29e0189d9c4-0024",
+   "c29e0189d9c4-0025",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0028",
+   "c29e0189d9c4-0029"
+  ]
+ },
+ {
+  "id": "290",
+  "slot": 290,
+  "start": 836.94,
+  "end": 840.76,
+  "words": "something. And I guess this is evidence that",
+  "ref_shot": "c29e0189d9c4-0028",
+  "target": 4.0,
+  "alts": [
+   "c29e0189d9c4-0025",
+   "c29e0189d9c4-0026",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0029"
+  ]
+ },
+ {
+  "id": "291",
+  "slot": 291,
+  "start": 840.76,
+  "end": 842.32,
+  "words": "alpha maybe",
+  "ref_shot": "c29e0189d9c4-0028",
+  "target": 4.0,
+  "alts": [
+   "c29e0189d9c4-0025",
+   "c29e0189d9c4-0026",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0029"
+  ]
+ },
+ {
+  "id": "292",
+  "slot": 292,
+  "start": 842.32,
+  "end": 843.369,
+  "words": "exists.",
+  "ref_shot": "c29e0189d9c4-0029",
+  "target": 0.9,
+  "alts": [
+   "c29e0189d9c4-0026",
+   "c29e0189d9c4-0027",
+   "c29e0189d9c4-0028"
+  ]
+ }
+]
