@@ -227,15 +227,33 @@ def _download_file(url: str, dest: Path, timeout: int = 30) -> bool:
     return False
 
 
-def _download_youtube_full(url: str, dest: Path) -> bool:
-    """Download the best available YouTube quality (E1: no range-trim).
+# The kept clip is video-only (SPEC.md Part 7, decision 7): render mutes footage
+# unless the plan sets visual.keep_audio, so an audio track is only fetched then.
+# mweb serves 720p-2160p video-only streams; only the muxed formats stop at 360p.
+_YT_VIDEO = "bestvideo[height<=1080][ext=mp4]/bestvideo[height<=1080]/bestvideo/best[ext=mp4]/best"
+_YT_WITH_AUDIO = ("bestvideo[height<=1080][ext=mp4]+bestaudio[ext=m4a]/bestvideo[height<=1080]+bestaudio[ext=m4a]/"
+                  + _YT_VIDEO)
 
-    Copied from the ESTA-Final notebook's proven download (workers/secretary):
-    a best-first format with a progressive fallback + a browser user-agent, and
-    NO height floor. YouTube now gates 720p+ behind PO tokens for anonymous
-    clients, so a hard >=720 floor just turns gated videos into placeholders.
-    Best-available keeps real HD wherever YouTube still serves it and degrades
-    gracefully to whatever's offered otherwise — always returning footage.
+
+def _has_audio(path: Path) -> bool:
+    import subprocess
+    try:
+        r = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index",
+                            "-of", "csv=p=0", str(path)], capture_output=True, text=True, timeout=10)
+        return bool(r.stdout.strip())
+    except Exception:
+        return False
+
+
+def _download_youtube_full(url: str, dest: Path, keep_audio: bool = False) -> tuple[bool, bool]:
+    """Download a YouTube source in full (E1: no range-trim). Returns (ok, audio_missing).
+
+    The kept file is the best video-only stream up to 1080p. With keep_audio the
+    m4a audio is fetched too and muxed in (`-c copy`, by yt-dlp's ffmpeg merge)
+    into `dest`, which _source_path names `yt_<id>.av.mp4`. A video with no m4a
+    audio keeps its video-only file and reports audio_missing. A video that only
+    has muxed formats takes the best of those. The finder's low-res analysis copy
+    (search.py, `worst`) is separate and never the kept file.
 
     Source media is kept inviolate — trim lives in assets.json as in_point/
     out_point, applied by render/the editor — so a cut can be extended later.
@@ -246,9 +264,8 @@ def _download_youtube_full(url: str, dest: Path) -> bool:
         opts = {
             "quiet": True,
             "no_warnings": True,
-            # Notebook parity: best-available, mp4-preferred, progressive fallback.
-            "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
-            "merge_output_format": "mp4",  # land the video+audio merge as .mp4 (dest ext)
+            "format": _YT_WITH_AUDIO if keep_audio else _YT_VIDEO,
+            "merge_output_format": "mp4",
             "user_agent": (
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
                 "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -260,10 +277,15 @@ def _download_youtube_full(url: str, dest: Path) -> bool:
         }
         with yt_dlp.YoutubeDL(opts) as ydl:
             ydl.download([url])
-        return dest.exists()
+        if not dest.exists():
+            return False, False
+        missing = keep_audio and not _has_audio(dest)
+        if missing:
+            print(f"[assets] {dest.name}: no m4a audio, kept video-only", file=sys.stderr, flush=True)
+        return True, missing
     except Exception as exc:
         print(f"[assets] YouTube download failed: {exc}", file=sys.stderr, flush=True)
-        return False
+        return False, False
 
 
 def _probe_resolution(path: Path) -> tuple[int, int]:
@@ -300,7 +322,7 @@ def _placeholder_result(n: int, query: str, error: str) -> dict:
     }
 
 
-def _source_path(assets_dir: Path, candidate: dict) -> Path:
+def _source_path(assets_dir: Path, candidate: dict, keep_audio: bool = False) -> Path:
     """E1+E2: stable path in the shared source_pool for a candidate's full source.
 
     Keyed by source + id so shots that share an upload point at ONE file on disk
@@ -311,7 +333,8 @@ def _source_path(assets_dir: Path, candidate: dict) -> Path:
     ext = candidate.get("ext", "mp4")
     if src == "youtube":
         vid = candidate.get("url", "").split("v=")[-1].split("&")[0] or "unknown"
-        key = f"yt_{vid}"
+        # The video-only and the muxed copy of one upload are different files.
+        key = f"yt_{vid}.av" if keep_audio else f"yt_{vid}"
     else:
         key = f"{src}_{candidate.get('id', 'x')}"
     return assets_dir / "source_pool" / f"{key}.{ext}"
@@ -601,8 +624,10 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
     # share an upload point at ONE file with different in/out points.
     raw_dest = None
     best = None
+    keep_audio = bool(visual.get("keep_audio"))
+    audio_missing = False
     for candidate in ranked:
-        dest = _source_path(assets_dir, candidate)
+        dest = _source_path(assets_dir, candidate, keep_audio)
         dest.parent.mkdir(parents=True, exist_ok=True)
 
         if dest.exists() and dest.stat().st_size > 1024:
@@ -611,8 +636,7 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
             break
 
         if candidate["source"] == "youtube":
-            # Notebook parity: accept the best YouTube serves (no height floor).
-            ok = _download_youtube_full(candidate["url"], dest)
+            ok, audio_missing = _download_youtube_full(candidate["url"], dest, keep_audio)
         else:
             ok = _download_file(candidate["url"], dest)
 
@@ -656,6 +680,7 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
         "visual_verdict": best.get("visual_verdict", ""),
         "visual_confidence": int(best.get("visual_confidence", 0) or 0),
         "error": "",
+        **({"audio_missing": True} if audio_missing else {}),
     }
 
 
@@ -860,13 +885,16 @@ def cmd_candidates(args: argparse.Namespace) -> None:
     # Download every survivor — the user can't pick what isn't on disk.
     from tools.assets.processor import _get_duration
     out: list[dict] = []
+    keep_audio = bool(visual.get("keep_audio"))
     for c in collected:
-        dest = _source_path(assets_dir, c)
+        dest = _source_path(assets_dir, c, keep_audio)
+        audio_missing = False
         dest.parent.mkdir(parents=True, exist_ok=True)
         if dest.exists() and dest.stat().st_size > 1024:
             pass  # source_pool hit — shared across shots and re-runs
         elif c["source"] == "youtube":
-            if not _download_youtube_full(c["url"], dest):
+            ok, audio_missing = _download_youtube_full(c["url"], dest, keep_audio)
+            if not ok:
                 dest.unlink(missing_ok=True)
                 continue
         elif not _download_file(c["url"], dest):
@@ -897,6 +925,7 @@ def cmd_candidates(args: argparse.Namespace) -> None:
             "width": c.get("width", 0), "height": c.get("height", 0),
             "source_duration": round(source_dur, 3),
             "in_point": round(in_pt, 3), "out_point": round(out_pt, 3),
+            **({"audio_missing": True} if audio_missing else {}),
         })
         print(f"[candidates]   ✓ {c['source']} → {dest.name}", flush=True)
 

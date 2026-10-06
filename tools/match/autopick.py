@@ -509,7 +509,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                    "url": c.get("url", ""), "file": c["file"], "search_query": c.get("query", ""),
                    "in_point": c.get("in_point", 0), "out_point": c.get("out_point", 0),
                    "visual_verdict": "auto_picked", "visual_confidence": int(max(0, min(100, 50 + 20 * total))),
-                   "error": "", **filled}
+                   "error": "", **filled, **({"audio_missing": True} if c.get("audio_missing") else {})}
             fh.write(json.dumps(row) + "\n")
             report[n] = {"file": Path(c["file"]).name, "why": why, "fit": round(fit, 3), "look": round(look, 3),
                          "of": len(cands), "in_point": c.get("in_point", 0), **filled}

@@ -54,8 +54,9 @@ type ImportVideo = {
 	speed?: number | null;
 	keyframes: ImportKeyframe[];
 	transform?: ImportTransform | null;
+	volume?: number;
 };
-type ImportAudio = Omit<ImportVideo, "kind" | "speed" | "keyframes"> & { volume: number };
+type ImportAudio = Omit<ImportVideo, "kind" | "speed" | "keyframes" | "volume"> & { volume: number };
 type ImportText = { startTime: number; duration: number; content: string; params: Record<string, string | number | boolean>; keyframes: ImportKeyframe[]; words?: [number, number][]; highlight?: string | null };
 type Lane<T> = { name: string; elements: T[]; muted: boolean };
 // A stream-pending shot of render's early pass; url is set once its asset landed.
@@ -173,8 +174,8 @@ function visualElement({ clip, muted, canvas, media, grade }: { clip: ImportVide
 		// OpenCut's trim is what is cut off each end of the source; OpenReel's is the kept window.
 		trimEnd: clip.sourceDuration > 0 ? t(clip.sourceDuration - clip.outPoint) : ZERO_MEDIA_TIME,
 		sourceDuration: clip.sourceDuration > 0 ? t(clip.sourceDuration) : base.sourceDuration,
-		// Render mutes the video lanes so source audio never competes with the voiceover.
-		isSourceAudioEnabled: !muted,
+		// Source audio never competes with the voiceover: render mutes footage per clip, except a shot that keeps its sound.
+		isSourceAudioEnabled: !muted && (clip.volume ?? 1) > 0,
 		...(rate !== 1 && { retime: { rate } }),
 		...(effects.length && { effects }),
 	};
@@ -249,7 +250,7 @@ function pendingMedia(doc: EstaImport): ImportMedia[] {
 }
 
 function pendingClip({ p, info }: { p: Pending; info: Map<string, MediaInfo> }): ImportVideo {
-	const base = { clipId: p.clipId, startTime: p.startTime, duration: p.duration, keyframes: [], transform: p.transform };
+	const base = { clipId: p.clipId, startTime: p.startTime, duration: p.duration, keyframes: [], transform: p.transform, volume: 0 };
 	if (!p.url) return { ...base, mediaId: placeholderId(p.shot), kind: "image", name: `Shot ${p.shot}: fetching`, inPoint: 0, outPoint: p.duration, sourceDuration: 0 };
 	const mediaId = `media-shot-${p.shot}`;
 	const src = info.get(mediaId)?.duration ?? 0;

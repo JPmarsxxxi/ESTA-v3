@@ -750,7 +750,8 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             "effects": [],
             "audioEffects": [],
             "transform": base_transform,
-            "volume": 1,
+            # Footage is picture only unless the plan says its own sound is the point (SPEC.md Part 7, decision 7).
+            "volume": 1 if mtype == "video" and url and visual.get("keep_audio") else 0,
             "keyframes": [],
         }
         fx = visual.get("fx") or []
@@ -920,8 +921,11 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
     tracks = [
         # Video tracks are muted (source audio never fights the audio tracks).
         _track(VIDEO_TRACK_GRAPHICS, "video", "Graphics", graphics_clips, muted=True),
-        _track(VIDEO_TRACK_OVERLAY,  "video", "Overlay",  overlay_clips,  muted=True),
-        _track(VIDEO_TRACK_MAIN,     "video", "Main",     main_clips,     muted=True, transitions=main_transitions),
+        # Clip volume mutes the footage; a lane stays muted only when none of its clips keeps its sound.
+        _track(VIDEO_TRACK_OVERLAY,  "video", "Overlay",  overlay_clips,
+               muted=not any(c.get("volume") for c in overlay_clips)),
+        _track(VIDEO_TRACK_MAIN,     "video", "Main",     main_clips,
+               muted=not any(c.get("volume") for c in main_clips), transitions=main_transitions),
         _track(AUDIO_TRACK_VOICE,    "audio", "Voice",    voice_clips,    muted=False),
         _track(AUDIO_TRACK_MUSIC,    "audio", "Music",    music_clips,    muted=False),
         _track(AUDIO_TRACK_AMBIENCE, "audio", "Ambience", ambience_clips, muted=False),

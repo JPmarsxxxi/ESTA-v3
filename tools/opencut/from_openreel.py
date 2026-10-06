@@ -97,6 +97,8 @@ def _video_element(clip: dict, media: dict) -> dict:
         "sourceDuration": round(float(meta.get("duration", 0) or 0), 3),
         "speed": clip.get("speed"),
         "keyframes": keyframes,  # [] when none
+        # Render gives footage volume 0 unless the shot keeps its sound; older renders carry no volume.
+        "volume": round(float(clip.get("volume", 1)), 4),
     }
 
 
