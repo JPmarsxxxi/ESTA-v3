@@ -188,22 +188,23 @@ For each sentence (= one shot), fill every field. After generating each shot's c
 - Pick the `on` word from the shot's own `audio` line (the words actually spoken in that shot). Bare-string form is fine when timing to the shot is enough.
 
 **specificity rules:**
-- `"high"` — shot requires a specific named person, named event, or named place that stock libraries won't have. Examples: "Leandro Trossard goal", "Donald Trump press conference", "2022 World Cup final penalty". For high-specificity shots: `search_sources` must include `youtube` or `wikimedia` first — never lead with `pexels`/`pixabay`.
-- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". Mix of sources; YouTube or Archive alongside Pexels/Pixabay.
-- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Lead with `pexels`/`pixabay`/`giphy`.
+- `"high"` — shot requires a specific named person, named event, or named place that stock libraries won't have. Examples: "Leandro Trossard goal", "Donald Trump press conference", "2022 World Cup final penalty". For high-specificity shots: `search_sources` must include `youtube` or `wikimedia` first.
+- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". YouTube and Archive, with Giphy as the loose fallback.
+- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Same sources as medium: YouTube, Archive, Giphy for footage; Google Images, Pinterest, Wikimedia, Openverse for images.
 
 **search_sources rules:**
 - 2–3 sources ordered best-first for this shot's specificity
 - Each source gets 1–3 queries: most specific first, broadening toward fallback
 - Include at least 2 of these in high-specificity queries: exact name, year, event, location, opposing team
-- Available sources: `youtube`, `pexels_video`, `pixabay_video`, `pexels_image`, `pixabay_image`, `wikimedia`, `archive`, `giphy`, `google_images`, `pinterest`
+- Available sources: `youtube`, `archive`, `giphy`, `google_images`, `pinterest`, `wikimedia`, `openverse`
+- **Never list a stock source** (the four Pexels and Pixabay video and image sources). Stock is a capped last resort that auto-pick reaches on its own after query rewrites (SPEC.md Part 7); `validate_plan.py` fails a plan that routes a shot to it.
 - For `REAL_FOOTAGE` high: `["youtube", "archive"]`
 - For `REAL_IMAGE` high: `["google_images", "wikimedia"]` — Google Images returns real press/news photos; wikimedia as fallback for CC-strict needs
-- For `REAL_FOOTAGE` low/medium: `["pexels_video", "pixabay_video", "archive"]`
-- For `REAL_IMAGE` low/medium: `["pexels_image", "pixabay_image", "pinterest", "wikimedia"]`
-- For `MOTION_GRAPHICS`: `["giphy", "pixabay_image"]`
+- For `REAL_FOOTAGE` low/medium: `["youtube", "archive", "giphy"]`
+- For `REAL_IMAGE` low/medium: `["google_images", "pinterest", "wikimedia", "openverse"]`
+- For `MOTION_GRAPHICS` (fallback only; the graphic is generated): `["giphy"]`
 - **Meme override:** when `desc` mentions "meme", "reaction", "this is fine", "shrug", "facepalm", or similar reaction-meme cues, the source list MUST include `giphy` as the first or second source — even for `type: REAL_IMAGE`. Giphy is the reaction-meme library; without it the picked candidate will be generic stock that doesn't land.
-- **Aesthetic override:** when `desc` (or the `style` from style_analysis) mentions "aesthetic", "moodboard", "mood board", "vibe", "vibes", "minimalist", "minimal", "cozy", "dreamy", "ethereal", "ambient", "lo-fi", "softcore", "core" (as a vibe suffix like cottagecore / dark academia), or similar mood/atmosphere cues, **lead with `pinterest`** in the source list. Pinterest is the moodboard library — without it the picks will be flat stock that doesn't carry the vibe. Example: aesthetic shot → `[{"source": "pinterest", "queries": ["minimalist desk morning light"]}, {"source": "pexels_image", "queries": ["minimalist desk"]}]`.
+- **Aesthetic override:** when `desc` (or the `style` from style_analysis) mentions "aesthetic", "moodboard", "mood board", "vibe", "vibes", "minimalist", "minimal", "cozy", "dreamy", "ethereal", "ambient", "lo-fi", "softcore", "core" (as a vibe suffix like cottagecore / dark academia), or similar mood/atmosphere cues, **lead with `pinterest`** in the source list. Pinterest is the moodboard library — without it the picks will be flat stock that doesn't carry the vibe. Example: aesthetic shot → `[{"source": "pinterest", "queries": ["minimalist desk morning light"]}, {"source": "google_images", "queries": ["minimalist desk"]}]`.
 
 **instance_markers rules (optional — include only when shot references a specific dated/recurring instance):**
 - Use ONLY when the audio references a specific instance of a recurring topic — a particular match, speech, launch, keynote, earnings call, news event. SKIP for generic b-roll, reactions, motion graphics.

@@ -91,7 +91,7 @@ function applyProposal({ f, p, shot }: { f: Fields; p: Record<string, unknown>; 
 	if (p.fx != null) put({ key: "fx", value: (Array.isArray(p.fx) ? p.fx : [p.fx]).join(", ") });
 	if (Array.isArray(p.search_queries)) {
 		// Spread the new queries over the shot's existing sources.
-		const srcs: string[] = (shot.visual?.search_sources || [{ source: "pexels_video" }]).map((e: Shot) => e.source);
+		const srcs: string[] = (shot.visual?.search_sources || [{ source: "youtube" }]).map((e: Shot) => e.source);
 		const qs = p.search_queries.map(String);
 		const per = Math.ceil(qs.length / srcs.length) || 1;
 		put({

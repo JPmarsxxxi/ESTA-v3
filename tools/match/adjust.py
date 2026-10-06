@@ -48,10 +48,10 @@ WRITER_SYSTEM = (
     "one entry per task, same n. Include caption only when the task asks for an overlay caption "
     "(2-4 words, ALL CAPS, the number or punchline of the spoken line).\n"
     "desc: what the shot shows, concrete, in the inspo's visual grammar (given below). Never change the spoken line.\n"
-    "search_sources rules: specificity=high must lead with youtube or wikimedia; medium mixes youtube/archive "
-    "with pexels/pixabay; low leads with pexels/pixabay/giphy. REAL_FOOTAGE high: [youtube, archive]; "
-    "REAL_IMAGE high: [google_images, wikimedia]; REAL_FOOTAGE low/medium: [pexels_video, pixabay_video, archive]; "
-    "REAL_IMAGE low/medium: [pexels_image, pixabay_image, pinterest, wikimedia]; MOTION_GRAPHICS: [giphy, pixabay_image]. "
+    "search_sources rules: specificity=high must lead with youtube or wikimedia. Never list a stock source "
+    "(pexels_video, pixabay_video, pexels_image, pixabay_image). REAL_FOOTAGE high: [youtube, archive]; "
+    "REAL_FOOTAGE low/medium: [youtube, archive, giphy]; REAL_IMAGE high: [google_images, wikimedia]; "
+    "REAL_IMAGE low/medium: [google_images, pinterest, wikimedia, openverse]; MOTION_GRAPHICS: [giphy]. "
     "A meme/reaction shot leads with giphy. 2-3 sources best-first, 1-3 queries each, 3-5 words, concrete nouns."
 )
 

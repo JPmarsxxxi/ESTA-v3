@@ -4,7 +4,7 @@
 
 Checks: the shots cover the voiceover from 0 to its end, no gap or overlap over 0.1 s, every cut on a word
 boundary, every shot within 35 % of its ref target (unless no boundary lies closer), every shot carrying a
-ref_shot. Failing shots are grouped into sections with one shot of context each side; each section says
+ref_shot, no shot routed to a stock source (SPEC.md Part 7). Failing shots are grouped into sections with one shot of context each side; each section says
 what to change. Every other shot is frozen: the plan skill rewrites only the failing sections.
 """
 
@@ -15,6 +15,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from tools.assets.run import STOCK_SOURCES  # noqa: E402
 from tools.match.common import read_json, utf8_stdout, write_json  # noqa: E402
 from tools.match.slots import LAST_MERGE, boundaries, load_words, voice_end  # noqa: E402
 
@@ -79,6 +80,10 @@ def check(shots: list[dict], words: list[dict], end: float) -> dict:
                      f"cut shot {s['shot_number']} at {near:.2f} s, after '{_word_before(near, words)}'")
         if not s.get("ref_shot"):
             flag(i, "has no ref_shot", "map it to the slot's ref_shot (or one of its alts)")
+        stock = [e.get("source") for e in (s.get("visual") or {}).get("search_sources") or [] if e.get("source") in STOCK_SOURCES]
+        if stock:
+            flag(i, f"routes to stock ({', '.join(stock)})",
+                 f"replace {', '.join(stock)} in shot {s['shot_number']} with the non-stock sources for its type")
         target = s.get("ref_target_dur")
         if target:
             dur = b - a

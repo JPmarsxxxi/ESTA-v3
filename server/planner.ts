@@ -312,13 +312,11 @@ const REQUERY_SYSTEM =
 	'"queries": ["<query>", ...]}, ...], "desc": "<optional revised desc, only if ' +
 	'the shot type changed and desc no longer fits>"}.\n' +
 	"specificity=high: search_sources must lead with youtube or wikimedia. " +
-	"specificity=medium: mix youtube/archive with pexels/pixabay. " +
-	"specificity=low: lead with pexels/pixabay/giphy.\n" +
+	"Never list a stock source (pexels_video, pixabay_video, pexels_image, pixabay_image).\n" +
 	'Type+specificity source lists — REAL_FOOTAGE high: ["youtube","archive"]; ' +
-	'REAL_IMAGE high: ["google_images","wikimedia"]; REAL_FOOTAGE low/medium: ' +
-	'["pexels_video","pixabay_video","archive"]; REAL_IMAGE low/medium: ' +
-	'["pexels_image","pixabay_image","pinterest","wikimedia"]; MOTION_GRAPHICS: ' +
-	'["giphy","pixabay_image"].\n' +
+	'REAL_FOOTAGE low/medium: ["youtube","archive","giphy"]; REAL_IMAGE high: ' +
+	'["google_images","wikimedia"]; REAL_IMAGE low/medium: ' +
+	'["google_images","pinterest","wikimedia","openverse"]; MOTION_GRAPHICS: ["giphy"].\n' +
 	"2-3 sources, best-first; each gets 1-3 queries, most specific first. High " +
 	"specificity needs at least 2 of: exact name, year, event, location, opposing team. " +
 	"Meme/reaction cues (meme, reaction, shrug, facepalm, this is fine) -> giphy must be " +

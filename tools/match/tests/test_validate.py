@@ -97,3 +97,10 @@ def test_last_shot_merge_allowance():
     p = plan([1.95, 3.95, 6.75])
     p[2]["ref_target_dur"] = 2.8
     assert V.check(p, WORDS, END)["pass"]  # last shot 3.25 s = 1.63x its 2 s target
+
+
+def test_stock_source_fails_naming_the_shot():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[2]["visual"] = {"search_sources": [{"source": "youtube", "queries": ["q"]}, {"source": "pexels_video", "queries": ["q"]}]}
+    r = V.check(p, WORDS, END)
+    assert not r["pass"] and problems(r) == ["shot 3: routes to stock (pexels_video)"]

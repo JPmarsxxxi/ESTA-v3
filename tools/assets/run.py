@@ -35,17 +35,20 @@ _DURATION_FLOOR_EPSILON = 0.05
 # Pinterest joins REAL_IMAGE low/medium as a moodboard-style addition; the
 # plan SKILL promotes it to FIRST position when a shot's desc cues aesthetic /
 # vibe / minimalist content.
+# No stock (STOCK_SOURCES) here: stock is a capped last resort that only
+# tools/match/autopick.py reaches, after query rewrites (SPEC.md Part 7).
 _DEFAULT_SOURCES = {
     ("REAL_FOOTAGE", "high"):   [("youtube", 1), ("archive", 1)],
-    ("REAL_FOOTAGE", "medium"): [("pexels_video", 1), ("pixabay_video", 1), ("archive", 2), ("youtube", 3)],
-    ("REAL_FOOTAGE", "low"):    [("pexels_video", 1), ("pixabay_video", 1), ("archive", 2), ("youtube", 3)],
+    ("REAL_FOOTAGE", "medium"): [("youtube", 1), ("archive", 1), ("giphy", 2)],
+    ("REAL_FOOTAGE", "low"):    [("youtube", 1), ("archive", 1), ("giphy", 2)],
     ("REAL_IMAGE",   "high"):   [("google_images", 1), ("wikimedia", 2)],
-    ("REAL_IMAGE",   "medium"): [("pexels_image", 1), ("pixabay_image", 1), ("pinterest", 2), ("wikimedia", 2)],
-    ("REAL_IMAGE",   "low"):    [("pexels_image", 1), ("pixabay_image", 1), ("pinterest", 2), ("wikimedia", 2)],
-    ("MOTION_GRAPHICS", "high"):   [("giphy", 1), ("pixabay_image", 1)],
-    ("MOTION_GRAPHICS", "medium"): [("giphy", 1), ("pixabay_image", 1)],
-    ("MOTION_GRAPHICS", "low"):    [("giphy", 1), ("pixabay_image", 1)],
+    ("REAL_IMAGE",   "medium"): [("google_images", 1), ("pinterest", 1), ("wikimedia", 2), ("openverse", 2)],
+    ("REAL_IMAGE",   "low"):    [("google_images", 1), ("pinterest", 1), ("wikimedia", 2), ("openverse", 2)],
+    ("MOTION_GRAPHICS", "high"):   [("giphy", 1)],
+    ("MOTION_GRAPHICS", "medium"): [("giphy", 1)],
+    ("MOTION_GRAPHICS", "low"):    [("giphy", 1)],
 }
+STOCK_SOURCES = {"pexels_video", "pixabay_video", "pexels_image", "pixabay_image"}
 
 # Sources that surface copyrighted material (arbitrary uploads / editorial press
 # photos). Skipped when requirements.licensing == "free_only"; everything else
