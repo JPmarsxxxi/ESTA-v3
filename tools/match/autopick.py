@@ -19,6 +19,13 @@
 6. Writes the pick to assets_progress.jsonl (visual_verdict "auto_picked") and
    assets.json, and clears the shot's queries_stale.
 
+Stock (Pexels, Pixabay) is a capped last resort (SPEC.md Part 7). A shot whose
+gathers find nothing outside stock gets its query rewritten by Haiku up to
+`assets.stock_rewrites` times, searched on every non-stock source of its kind.
+Only then may it take stock, while fewer than floor(stock_cap x shots) shots
+hold a stock pick; past that it becomes a word-card motion graphic. A non-stock
+candidate that survives the filters always beats any stock one.
+
 Without `claude` the local ranking decides, and the report says so.
 """
 
@@ -36,10 +43,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match import score as scorer  # noqa: E402
+from tools.assets.run import STOCK_SOURCES  # noqa: E402
 from tools.match.common import (  # noqa: E402
-    REPO_ROOT, frames_at, match_config, media_frames, read_json, run_esta, save_jpg, utf8_stdout, write_json,
+    REPO_ROOT, frames_at, load_config, match_config, media_frames, read_json, run_esta, save_jpg, utf8_stdout,
+    write_json,
 )
 from tools.match.describe import ask, image_block  # noqa: E402
+from tools.motiongraphics import wordcard  # noqa: E402
 
 JOBS_DIR = REPO_ROOT / "cache" / "pick"
 FINALISTS = 3
@@ -50,6 +60,22 @@ WINDOW_MAX_FRAMES = 600
 FRAME_SIDE = 640      # judged at 512, embedded at 384
 SLOW_FLOOR = 0.6      # slower than this stops reading as natural slow motion
 SHOT_KIND = {"REAL_IMAGE": "still", "MOTION_GRAPHICS": "graphic"}
+STOCK = {"pexels", "pixabay"}  # the `source` a stock candidate or feed row carries
+STOCK_CAP, STOCK_REWRITES = 0.15, 3
+# Rewritten queries search the shot's own sources plus every non-stock source of its kind.
+KIND_SOURCES = {"footage": ["youtube", "archive", "giphy"], "still": ["google_images", "pinterest", "wikimedia", "openverse"],
+                "graphic": ["giphy"]}
+STOCK_BY_KIND = {"footage": "pexels_video,pixabay_video", "still": "pexels_image,pixabay_image",
+                 "graphic": "pexels_video,pixabay_video,pexels_image,pixabay_image"}
+STOP = {"the", "a", "an", "of", "in", "on", "at", "to", "and", "with", "for", "from", "into", "over", "his", "her",
+        "their", "its", "that", "this", "shot", "photo", "image", "video", "clip", "footage"}
+REWRITE_SYSTEM = "You write search queries for stock and archive footage. Reply with only the requested JSON."
+REWRITE_PROMPT = (
+    "Each shot above found nothing on the listed sources with the failed queries. For each shot write ONE new "
+    "search query, 2-4 words, that a clip or image library would match: plainer, more visual words, the subject "
+    "and an action or setting, no names the library can't know. It must differ from every failed query. "
+    'Reply with ONLY one JSON object mapping each shot number to its query, e.g. {"12": "crowd cheering stadium"}.'
+)
 JUDGE_SYSTEM = "You pick stock footage for a video editor. Reply with only the requested JSON."
 
 JUDGE_PROMPT = (
@@ -139,20 +165,183 @@ def log(m: str) -> None:
     print(m, flush=True)
 
 
+def is_stock(c: dict) -> bool:
+    return c.get("source") in STOCK
+
+
+def prefer_non_stock(cands: list[dict]) -> list[dict]:
+    """A stock candidate is only ever ranked when nothing else survived the filters."""
+    other = [c for c in cands if not is_stock(c)]
+    return other or cands
+
+
+def assets_config() -> dict:
+    try:
+        return load_config().get("assets") or {}
+    except OSError:
+        return {}
+
+
+def stock_budget(session: Path, total: int) -> int:
+    ui = (read_json(session / "pipeline.json", {}) or {}).get("ui") or {}
+    cap = ui.get("stock_cap")
+    if cap is None:
+        cap = assets_config().get("stock_cap", STOCK_CAP)
+    return math.floor(float(cap) * total + 1e-9)
+
+
+def stock_used(rows: dict, skip: set[int]) -> int:
+    """Shots whose current pick is stock; the shots being re-picked don't count."""
+    return sum(1 for k, r in rows.items() if k.isdigit() and int(k) not in skip and r.get("ok") and is_stock(r))
+
+
+def shot_kind(shot: dict) -> str:
+    return SHOT_KIND.get((shot.get("visual") or {}).get("type"), "footage")
+
+
+def has_usable(manifest: dict, shot: dict) -> bool:
+    """Something outside stock survives the shot's hard filters."""
+    return any(not is_stock(c) for c in filter_candidates(shot, manifest.get("candidates", []))[0])
+
+
+def chrome_pending(session: Path) -> set[int]:
+    q = read_json(session / "assets" / "chrome_queue.json", {}) or {}
+    return {int(k) for k, v in (q.get("shots") or {}).items() if str(k).isdigit() and v.get("status") == "pending"}
+
+
+def _fallback_query(shot: dict, tried: list[str]) -> str:
+    """Without Haiku: the last query minus its last word, then the desc's nouns."""
+    last = (tried[-1] if tried else "").split()
+    if len(last) > 2 and " ".join(last[:-1]) not in tried:
+        return " ".join(last[:-1])
+    words = [w for w in re.findall(r"[A-Za-z][A-Za-z'-]+", (shot.get("visual") or {}).get("desc", "")) if w.lower() not in STOP]
+    for k in (3, 2, 4):
+        q = " ".join(words[:k]).lower()
+        if q and q not in tried:
+            return q
+    return ""
+
+
+def rewrite(items: list[dict], log=log) -> dict[int, str]:
+    """items: [{"n", "shot", "kind", "sources", "tried"}] -> {n: new query}, batched like the judge.
+    A shot Haiku can't answer gets the plain fallback; a query already tried comes back empty."""
+    cfg = match_config()["describe"]
+    out: dict[int, str] = {}
+
+    def one(batch):
+        content = [{"type": "text", "text": f"Shot {it['n']} ({it['kind']}). Spoken line: \"{it['shot'].get('audio', '')}\". "
+                    f"Planned: {(it['shot'].get('visual') or {}).get('desc', '')}. Sources: {', '.join(it['sources'])}. "
+                    f"Failed queries: {json.dumps(it['tried'])}"} for it in batch]
+        content.append({"type": "text", "text": REWRITE_PROMPT})
+        return ask(content, REWRITE_SYSTEM, cfg["model"])
+
+    batches = [items[i:i + JUDGE_BATCH] for i in range(0, len(items), JUDGE_BATCH)]
+    try:
+        with ThreadPoolExecutor(cfg["workers"]) as pool:
+            results = list(pool.map(one, batches))
+    except Exception as e:  # noqa: BLE001 - claude missing: every shot takes the fallback
+        log(f"[autopick] rewriter unavailable, using plain fallbacks: {e}")
+        results = [{"error": str(e)}] * len(batches)
+    for res in results:
+        for k, v in (res.get("answer") or {}).items():
+            if str(k).isdigit() and isinstance(v, str):
+                out[int(k)] = " ".join(v.split()[:5])
+    for it in items:
+        q = out.get(it["n"], "").strip().lower()
+        out[it["n"]] = q if q and q not in it["tried"] else _fallback_query(it["shot"], it["tried"])
+    return out
+
+
+def _search(session: Path, n: int, per_source: int, query: str, sources: list[str]) -> dict:
+    """One extra gather for a shot: `query` on `sources`. Overwrites the shot's manifest; the caller merges."""
+    args = ["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n), "--per-source",
+            str(per_source), "--queries", query, "--sources", ",".join(sources)]
+    try:
+        err = run_esta(args, timeout=600).stderr[-200:]
+    except subprocess.TimeoutExpired:
+        return {"candidates": [], "error": f"gather timed out: {query}"}
+    got = read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {}
+    return got if got.get("candidates") else {"candidates": [], "error": err}
+
+
+def _merge(base: dict, extra: dict) -> dict:
+    seen = {c.get("candidate_id") or c.get("file") for c in base.get("candidates", [])}
+    add = [c for c in extra.get("candidates", []) if (c.get("candidate_id") or c.get("file")) not in seen]
+    return {**base, "candidates": base.get("candidates", []) + add}
+
+
+def widen(session: Path, plan_shots: dict, manifests: dict, per_source: int, skip: set[int], log=log) -> None:
+    """Rewrite rounds for every shot with nothing outside stock (decision 3). Mutates and saves `manifests`."""
+    rounds = int(assets_config().get("stock_rewrites", STOCK_REWRITES))
+    tried = {n: [q for e in (plan_shots[n].get("visual") or {}).get("search_sources") or [] for q in e.get("queries") or []]
+             for n in manifests}
+    for n, m in manifests.items():
+        tried[n] = list(dict.fromkeys(tried[n] + [r["query"] for r in m.get("rewrites", [])]))
+    for r in range(1, rounds + 1):
+        empty = [n for n, m in manifests.items() if not has_usable(m, plan_shots[n]) and n not in skip
+                 and sum(1 for x in m.get("rewrites", [])) < rounds]
+        if not empty:
+            break
+        items = []
+        for n in empty:
+            s = plan_shots[n]
+            own = [e.get("source") for e in (s.get("visual") or {}).get("search_sources") or []
+                   if e.get("source") and e.get("source") not in STOCK_SOURCES]
+            items.append({"n": n, "shot": s, "kind": shot_kind(s), "tried": [q.lower() for q in tried[n]],
+                          "sources": list(dict.fromkeys(own + KIND_SOURCES[shot_kind(s)]))})
+        log(f"[autopick] rewrite round {r}: {len(items)} shots found nothing outside stock")
+        queries = rewrite(items, log)
+
+        def go(it):
+            q = queries.get(it["n"], "")
+            got = _search(session, it["n"], per_source, q, it["sources"]) if q else {"candidates": []}
+            return it, q, got
+
+        with ThreadPoolExecutor(max_workers=4) as pool:
+            for it, q, got in pool.map(go, items):
+                n = it["n"]
+                manifests[n] = _merge(manifests[n], got)
+                manifests[n].setdefault("rewrites", []).append(
+                    {"round": r, "query": q, "sources": it["sources"], "found": len(got.get("candidates", []))})
+                if q:
+                    tried[n].append(q)
+    for n, m in manifests.items():
+        if m.get("rewrites"):
+            m["queries"] = list(dict.fromkeys((m.get("queries") or []) + [x["query"] for x in m["rewrites"] if x["query"]]))
+            save_manifest(session, n, m)
+
+
+def retype(shot: dict, reason: str) -> None:
+    v = shot.setdefault("visual", {})
+    if v.get("type") != "MOTION_GRAPHICS":
+        v["retyped_from"] = v.get("type", "")
+    v["type"] = "MOTION_GRAPHICS"
+    v["retype_reason"] = reason
+
+
+def make_graphics(session: Path, shots: list[dict], log=log) -> dict:
+    """Word cards for the retyped shots (tests replace this: it renders with HyperFrames)."""
+    return wordcard.make(session, shots, log)
+
+
+def save_manifest(session: Path, n: int, m: dict) -> None:
+    path = session / "assets" / "candidates" / f"shot_{n}.json"
+    write_json(path, {**(read_json(path, {}) or {}), **m})
+
+
 def _gather(session: Path, n: int, per_source: int) -> dict:
     # A shot gathered earlier with the same queries is reused (the run may have been cut off).
     have = read_json(session / "assets" / "candidates" / f"shot_{n}.json")
     plan = read_json(session / "plan.json", {}) or {}
     shot = next((s for s in plan.get("shots", []) if s["shot_number"] == n), {})
     queries = [q for e in (shot.get("visual") or {}).get("search_sources") or [] for q in (e.get("queries") or [])[:1]]
-    if have and have.get("candidates") and set(queries) <= set(have.get("queries", [])):
+    if have and has_usable(have, shot) and set(queries) <= set(have.get("queries", [])):
         return have
     # One query per source keeps downloads bounded; an empty result widens to
-    # every query, then to stock video sources (a retype can leave a footage
-    # shot with image-only sources).
+    # every query. Nothing here reaches stock: that is widen()'s rewrites, then the budget.
     base = ["tools/assets/run.py", "candidates", "--session", str(session), "--n", str(n), "--per-source", str(per_source)]
-    err = ""
-    for extra in (["--max-queries", "1"], [], ["--sources", "pexels_video,pixabay_video,giphy"]):
+    err, got = "", {}
+    for extra in (["--max-queries", "1"], []):
         # A hung source (a huge archive.org file) must cost this shot, not the whole run.
         try:
             err = run_esta(base + extra, timeout=600).stderr[-200:]
@@ -160,9 +349,9 @@ def _gather(session: Path, n: int, per_source: int) -> dict:
             err = f"gather timed out: {' '.join(extra)}"
             continue
         got = read_json(session / "assets" / "candidates" / f"shot_{n}.json", {}) or {}
-        if got.get("candidates"):
+        if has_usable(got, shot):
             return got
-    return {"candidates": [], "error": err}
+    return {**got, "error": err} if got.get("candidates") else {"candidates": [], "error": err}
 
 
 def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=log) -> dict:
@@ -178,6 +367,28 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     with ThreadPoolExecutor(max_workers=4) as pool:
         manifests = dict(zip([s["shot_number"] for s in wanted],
                              pool.map(lambda s: _gather(session, s["shot_number"], per_source), wanted)))
+    by_n = {s["shot_number"]: s for s in wanted}
+    pending = chrome_pending(session)
+    widen(session, by_n, manifests, per_source, pending, log)
+
+    # Stock only after the rewrites, and only while the video-wide budget lasts (decision 5).
+    budget = stock_budget(session, len(plan.get("shots", [])))
+    stock_n = stock_used(scorer._asset_rows(session), set(manifests))
+    need = [n for n, m in manifests.items() if not has_usable(m, by_n[n]) and n not in pending]
+    room = max(0, budget - stock_n)
+    to_graphic = {n: "stock_cap" for n in need[room:]}
+    for n in need[:room]:
+        m = manifests[n]
+        if not any(is_stock(c) for c in m.get("candidates", [])):
+            q = (by_n[n].get("visual") or {}).get("search_query", "") or (m.get("queries") or [""])[0] \
+                or next((x["query"] for x in m.get("rewrites", []) if x["query"]), "")
+            got = _search(session, n, per_source, q, STOCK_BY_KIND[shot_kind(by_n[n])].split(","))
+            manifests[n] = {**_merge(m, got), "stock_fallback": {"query": q, "found": len(got.get("candidates", []))}}
+            save_manifest(session, n, manifests[n])
+        if not filter_candidates(by_n[n], manifests[n].get("candidates", []))[0]:
+            to_graphic[n] = "no_candidates"
+    log(f"[autopick] stock: {stock_n} of {budget} used before this run; {len(need)} shots need it, "
+        f"{len(to_graphic)} become graphics, {len(pending)} wait on the Chrome pass")
     for n, m in manifests.items():
         if not m.get("candidates"):
             log(f"[autopick] shot {n}: no candidates: {m.get('error', '')[-160:]}")
@@ -201,8 +412,12 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     ranked, items, short = {}, [], {}
     for s in wanted:
         n = s["shot_number"]
+        # A shot waiting on the Chrome pass is picked from what it has, and re-picked after the pass.
+        if n in to_graphic or (n in pending and not has_usable(manifests[n], s)):
+            continue
         cands = [c for c in manifests[n].get("candidates", []) if Path(REPO_ROOT / c["file"]).exists() or Path(c["file"]).exists()]
         cands, short[n] = filter_candidates(s, cands)
+        cands = prefer_non_stock(cands)
         if not cands:
             continue
         v = s.get("visual") or {}
@@ -264,10 +479,15 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             log(f"[autopick] judge unavailable, using local ranking: {e}")
 
     feed = session / "assets_progress.jsonl"
-    by_n = {s["shot_number"]: s for s in wanted}
     picked, report = 0, {}
     with open(feed, "a", encoding="utf-8") as fh:
         for n, cands in ranked.items():
+            if is_stock(cands[0][0]):
+                # Only stock is left for this shot (prefer_non_stock): it takes a budget slot or becomes a graphic.
+                if stock_n >= budget:
+                    to_graphic[n] = "stock_cap"
+                    continue
+                stock_n += 1
             choice, why = cands[0], "local rank"
             vd = verdicts.get(n)
             if vd:
@@ -305,10 +525,35 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     for s in plan.get("shots", []):
         if s["shot_number"] in ranked:
             (s.get("visual") or {}).pop("queries_stale", None)
+        if s["shot_number"] in to_graphic:
+            retype(s, to_graphic[s["shot_number"]])
     (session / "plan.json").write_text(json.dumps(plan, indent=2, ensure_ascii=False), encoding="utf-8")
-    missing = [s["shot_number"] for s in wanted if s["shot_number"] not in ranked]
+    graphics = {}
+    if to_graphic:
+        retyped = [s for s in plan.get("shots", []) if s["shot_number"] in to_graphic]
+        progress = session / "plan_progress.jsonl"
+        if progress.exists():
+            lines = []
+            for line in progress.read_text(encoding="utf-8").splitlines():
+                try:
+                    row = json.loads(line)
+                except ValueError:
+                    lines.append(line)
+                    continue
+                if row.get("shot_number") in to_graphic:
+                    retype(row, to_graphic[row["shot_number"]])
+                lines.append(json.dumps(row, ensure_ascii=False))
+            progress.write_text("".join(x + "\n" for x in lines), encoding="utf-8")
+        log(f"[autopick] {len(retyped)} shots become word-card graphics")
+        graphics = make_graphics(session, retyped, log)
+    missing = [s["shot_number"] for s in wanted if s["shot_number"] not in ranked
+               and s["shot_number"] not in to_graphic and s["shot_number"] not in pending]
+    rows = scorer._asset_rows(session)
     out = {"picked": picked, "lane": lane, "judge_cost_usd": round(judge_cost, 4), "no_candidates": missing,
-           "short_clip": sorted(n for n, r in report.items() if r.get("short_clip")), "shots": report}
+           "short_clip": sorted(n for n, r in report.items() if r.get("short_clip")), "shots": report,
+           "stock": {"budget": budget, "used": stock_used(rows, set()), "shots": len(plan.get("shots", [])),
+                     "to_graphic": {str(n): r for n, r in sorted(to_graphic.items())}, **graphics},
+           "chrome_pending": sorted(pending & set(manifests))}
     write_json(session / "autopick.json", {**(read_json(session / "autopick.json", {}) or {}), **{"last": out}})
     return out
 

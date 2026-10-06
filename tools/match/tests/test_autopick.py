@@ -17,18 +17,22 @@ from tools.match.common import DEFAULT_MATCH  # noqa: E402
 @pytest.fixture(autouse=True)
 def _defaults(monkeypatch):
     monkeypatch.setattr(P, "match_config", lambda: DEFAULT_MATCH)
+    monkeypatch.setattr(P, "assets_config", lambda: {})
+    monkeypatch.setattr(P, "run_esta", lambda *a, **k: pytest.fail("a test reached a real gather"))
+    monkeypatch.setattr(D, "_call", lambda *a: pytest.fail("a test reached claude"))
+    monkeypatch.setattr(P, "make_graphics", lambda session, shots, log=None: pytest.fail("unexpected graphic fallback"))
 
 
 def shot(typ="REAL_FOOTAGE", dur=4.0):
     return {"shot_number": 1, "start": 10.0, "end": 10.0 + dur, "visual": {"type": typ}}
 
 
-def video(i, length, source="pexels"):
+def video(i, length, source="archive"):
     return {"file": f"v{i}.mp4", "asset_type": "video", "source": source, "source_duration": length, "in_point": 0.0}
 
 
 def image(i):
-    return {"file": f"p{i}.jpg", "asset_type": "image", "source": "pexels", "source_duration": 0}
+    return {"file": f"p{i}.jpg", "asset_type": "image", "source": "wikimedia", "source_duration": 0}
 
 
 def test_short_videos_never_chosen_when_a_long_one_exists():
@@ -133,13 +137,14 @@ def test_best_window_finds_the_middle():
     assert P.best_window(scores, 0.5, 1.5) == 4
 
 
-def _fake_run(tmp_path, monkeypatch, cands, verdict=None, frames_at=None):
-    plan = {"shots": [{**shot(dur=2.0), "audio": "x", "visual": {"type": "REAL_FOOTAGE", "desc": "d"}}]}
+def _fake_run(tmp_path, monkeypatch, cands, verdict=None, frames_at=None, total=1, shots=None):
+    plan = {"shots": [{**shot(dur=2.0), "shot_number": k, "audio": "x", "visual": {"type": "REAL_FOOTAGE", "desc": "d"}}
+                      for k in range(1, total + 1)]}
     (tmp_path / "plan.json").write_text(json.dumps(plan))
     for c in cands:
         Path(c["file"]).write_bytes(b"x")
     eye = np.eye(8)
-    monkeypatch.setattr(P, "_gather", lambda session, n, per: {"candidates": cands})
+    monkeypatch.setattr(P, "_gather", lambda session, n, per: {"candidates": cands if n == 1 else []})
     monkeypatch.setattr(P.scorer, "load_inspo", lambda session: None)
     monkeypatch.setattr(P, "media_frames", lambda path, a, b, **_: [np.full((2, 2, 3), int(Path(path).stem[1:]))])
     if frames_at:
@@ -160,7 +165,7 @@ def _fake_run(tmp_path, monkeypatch, cands, verdict=None, frames_at=None):
             return np.ones((len(texts), 8)) / 8
 
     monkeypatch.setattr("tools.match.common.Embedder", Emb)
-    return P.run(tmp_path, log=lambda m: None)
+    return P.run(tmp_path, shots or [1], log=lambda m: None)
 
 
 def test_long_clip_gets_its_best_window(tmp_path, monkeypatch):
@@ -185,3 +190,102 @@ def test_all_finalists_rejected_takes_the_fourth(tmp_path, monkeypatch):
     cands = [{**video(k, 5.0), "file": str(tmp_path / f"c{k}.mp4")} for k in (1, 2, 3, 4)]
     out = _fake_run(tmp_path, monkeypatch, cands, verdict={"best": 1, "reject": [1, 2, 3], "why": "watermarks"})
     assert out["shots"][1]["file"] == "c1.mp4"
+
+
+# ── M10: stock as a capped last resort ───────────────────────────────────────
+
+def test_non_stock_beats_a_higher_ranked_stock_candidate(tmp_path, monkeypatch):
+    # c7 is stock and fits the line far better than c1; c1 must still be picked.
+    cands = [{**video(7, 5.0, "pexels"), "file": str(tmp_path / "c7.mp4")},
+             {**video(1, 5.0, "youtube"), "file": str(tmp_path / "c1.mp4")}]
+    out = _fake_run(tmp_path, monkeypatch, cands)
+    assert out["shots"][1]["file"] == "c1.mp4"
+
+
+def test_stock_ranks_only_when_nothing_else_survives():
+    stock, short = video(1, 5.0, "pixabay"), video(2, 5.0, "archive")
+    assert P.prefer_non_stock([stock, short]) == [short] and P.prefer_non_stock([stock]) == [stock]
+
+
+def test_empty_gather_rewrites_three_times_before_stock(tmp_path, monkeypatch):
+    (tmp_path / "pipeline.json").write_text(json.dumps({"ui": {"stock_cap": 1.0}}))
+    calls, asked = [], []
+    (tmp_path / "c3.mp4").write_bytes(b"x")
+
+    def search(session, n, per, query, sources):
+        calls.append((query, sources))
+        if any(s in P.STOCK_SOURCES for s in sources):
+            return {"candidates": [{**video(3, 5.0, "pexels"), "file": str(tmp_path / "c3.mp4"), "candidate_id": "p:3"}]}
+        return {"candidates": []}
+
+    def rewriter(items, log=None):
+        asked.append(items[0]["tried"])
+        return {it["n"]: f"rewrite {len(asked)}" for it in items}
+
+    monkeypatch.setattr(P, "_search", search)
+    monkeypatch.setattr(P, "rewrite", rewriter)
+    out = _fake_run(tmp_path, monkeypatch, [])
+    queries = [q for q, _ in calls]
+    assert queries[:3] == ["rewrite 1", "rewrite 2", "rewrite 3"]
+    assert all(not set(src) & P.STOCK_SOURCES for _, src in calls[:3])
+    assert set(calls[3][1]) == {"pexels_video", "pixabay_video"} and len(calls) == 4
+    assert asked[2] == ["rewrite 1", "rewrite 2"]  # each round sees every query already tried
+    manifest = json.loads((tmp_path / "assets" / "candidates" / "shot_1.json").read_text())
+    assert [r["query"] for r in manifest["rewrites"]] == queries[:3] and manifest["stock_fallback"]["found"] == 1
+    assert out["shots"][1]["file"] == "c3.mp4" and out["stock"]["used"] == 1
+
+
+def test_spent_budget_turns_the_shot_into_a_graphic(tmp_path, monkeypatch):
+    # 10 shots at a 0.2 cap: a budget of 2, already held by shots 5 and 6.
+    (tmp_path / "pipeline.json").write_text(json.dumps({"ui": {"stock_cap": 0.2}}))
+    feed = tmp_path / "assets_progress.jsonl"
+    feed.write_text("".join(json.dumps({"shot_number": k, "ok": True, "source": "pexels", "file": f"s{k}.mp4"}) + "\n"
+                            for k in (5, 6)))
+    made = []
+    monkeypatch.setattr(P, "make_graphics", lambda session, shots, log=None: made.extend(shots) or {"published": [1]})
+    monkeypatch.setattr(P, "rewrite", lambda items, log=None: {it["n"]: "" for it in items})
+    monkeypatch.setattr(P, "_search", lambda *a: pytest.fail("searched stock past the budget"))
+    stock = [{**video(4, 5.0, "pexels"), "file": str(tmp_path / "c4.mp4")}]
+    (tmp_path / "plan_progress.jsonl").write_text(json.dumps({"shot_number": 1, "visual": {"type": "REAL_FOOTAGE"}}) + "\n")
+    out = _fake_run(tmp_path, monkeypatch, stock, total=10)
+    rows = [json.loads(x) for x in feed.read_text().splitlines()]
+    assert [r["shot_number"] for r in rows] == [5, 6]
+    plan = json.loads((tmp_path / "plan.json").read_text())["shots"][0]["visual"]
+    assert plan["type"] == "MOTION_GRAPHICS" and plan["retyped_from"] == "REAL_FOOTAGE" and plan["retype_reason"] == "stock_cap"
+    progress = json.loads((tmp_path / "plan_progress.jsonl").read_text())
+    assert progress["visual"]["retype_reason"] == "stock_cap"
+    assert [s["shot_number"] for s in made] == [1] and out["stock"]["to_graphic"] == {"1": "stock_cap"}
+
+
+def test_a_shot_being_repicked_frees_its_own_stock_slot(tmp_path, monkeypatch):
+    # Shot 1 already holds the only budget slot; re-picking it may keep stock.
+    (tmp_path / "pipeline.json").write_text(json.dumps({"ui": {"stock_cap": 0.1}}))
+    (tmp_path / "assets_progress.jsonl").write_text(json.dumps({"shot_number": 1, "ok": True, "source": "pixabay"}) + "\n")
+    monkeypatch.setattr(P, "rewrite", lambda items, log=None: {it["n"]: "" for it in items})
+    stock = [{**video(4, 5.0, "pexels"), "file": str(tmp_path / "c4.mp4")}]
+    out = _fake_run(tmp_path, monkeypatch, stock, total=10)
+    assert out["shots"][1]["file"] == "c4.mp4" and out["stock"]["used"] == 1
+
+
+def test_budget_follows_config_and_the_session_override(tmp_path, monkeypatch):
+    assert P.stock_budget(tmp_path, 336) == 50
+    monkeypatch.setattr(P, "assets_config", lambda: {"stock_cap": 0.10})
+    assert P.stock_budget(tmp_path, 336) == 33
+    (tmp_path / "pipeline.json").write_text(json.dumps({"ui": {"stock_cap": 0.2}}))
+    assert P.stock_budget(tmp_path, 336) == 67
+
+
+def test_rewriter_falls_back_without_haiku(monkeypatch):
+    monkeypatch.setattr(P, "ask", lambda *a: {"error": "no claude"})
+    s = {"shot_number": 4, "visual": {"desc": "A man counting money at a desk"}}
+    items = [{"n": 4, "shot": s, "kind": "footage", "sources": ["youtube"], "tried": ["rich man counting cash"]}]
+    assert P.rewrite(items, log=lambda m: None) == {4: "rich man counting"}
+    items[0]["tried"] += ["rich man counting", "rich man"]
+    assert P.rewrite(items, log=lambda m: None) == {4: "man counting money"}
+
+
+def test_rewriter_rejects_a_query_already_tried(monkeypatch):
+    monkeypatch.setattr(P, "ask", lambda *a: {"answer": {"4": "Rich Man Counting Cash"}})
+    s = {"shot_number": 4, "visual": {"desc": "banknotes on a table"}}
+    items = [{"n": 4, "shot": s, "kind": "footage", "sources": ["youtube"], "tried": ["rich man counting cash"]}]
+    assert P.rewrite(items, log=lambda m: None) == {4: "rich man counting"}
