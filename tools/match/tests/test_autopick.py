@@ -289,3 +289,36 @@ def test_rewriter_rejects_a_query_already_tried(monkeypatch):
     s = {"shot_number": 4, "visual": {"desc": "banknotes on a table"}}
     items = [{"n": 4, "shot": s, "kind": "footage", "sources": ["youtube"], "tried": ["rich man counting cash"]}]
     assert P.rewrite(items, log=lambda m: None) == {4: "rich man counting"}
+
+
+def test_later_chunks_of_a_repick_hold_no_budget_slot(tmp_path, monkeypatch):
+    # Shots 2-4 still show stock but a later chunk re-picks them: shot 1 may take the one slot.
+    (tmp_path / "pipeline.json").write_text(json.dumps({"ui": {"stock_cap": 0.1}}))
+    (tmp_path / "assets_progress.jsonl").write_text("".join(
+        json.dumps({"shot_number": k, "ok": True, "source": "pexels"}) + "\n" for k in (2, 3, 4)))
+    monkeypatch.setattr(P, "rewrite", lambda items, log=None: {it["n"]: "" for it in items})
+    stock = [{**video(4, 5.0, "pexels"), "file": str(tmp_path / "c4.mp4")}]
+    plan = {"shots": [{**shot(dur=2.0), "shot_number": k, "audio": "x", "visual": {"type": "REAL_FOOTAGE", "desc": "d"}}
+                      for k in range(1, 11)]}
+    (tmp_path / "plan.json").write_text(json.dumps(plan))
+    Path(stock[0]["file"]).write_bytes(b"x")
+    monkeypatch.setattr(P, "_gather", lambda session, n, per: {"candidates": stock})
+    monkeypatch.setattr(P.scorer, "load_inspo", lambda session: None)
+    monkeypatch.setattr(P, "media_frames", lambda path, a, b, **_: [np.zeros((2, 2, 3))])
+    monkeypatch.setattr(P, "save_jpg", lambda arr, path, max_side=640: path)
+    monkeypatch.setattr(P, "judge", lambda items, log: ({}, 0.0, []))
+    monkeypatch.setattr(P, "JOBS_DIR", tmp_path / "jobs")
+
+    class Emb:
+        def dino(self, frames):
+            return np.ones((len(frames), 4))
+
+        def siglip_images(self, frames):
+            return np.ones((len(frames), 4))
+
+        def siglip_texts(self, texts):
+            return np.ones((len(texts), 4))
+
+    monkeypatch.setattr("tools.match.common.Embedder", Emb)
+    out = P.run(tmp_path, [1], log=lambda m: None, repicking={2, 3, 4})
+    assert out["shots"][1]["file"] == "c4.mp4"

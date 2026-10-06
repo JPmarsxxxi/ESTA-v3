@@ -354,7 +354,8 @@ def _gather(session: Path, n: int, per_source: int) -> dict:
     return {**got, "error": err} if got.get("candidates") else {"candidates": [], "error": err}
 
 
-def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=log) -> dict:
+def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=log,
+        repicking: set[int] | None = None) -> dict:
     import numpy as np
     from tools.match.common import Embedder
     plan = read_json(session / "plan.json", {}) or {}
@@ -373,7 +374,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
 
     # Stock only after the rewrites, and only while the video-wide budget lasts (decision 5).
     budget = stock_budget(session, len(plan.get("shots", [])))
-    stock_n = stock_used(scorer._asset_rows(session), set(manifests))
+    # A stock pick that is about to be replaced (this run, or a later chunk of the same re-pick) holds no slot.
+    stock_n = stock_used(scorer._asset_rows(session), set(manifests) | (repicking or set()))
     need = [n for n, m in manifests.items() if not has_usable(m, by_n[n]) and n not in pending]
     room = max(0, budget - stock_n)
     to_graphic = {n: "stock_cap" for n in need[room:]}
@@ -565,6 +567,7 @@ def main() -> None:
     ap.add_argument("--shots", default="", help="comma-separated shot numbers (default: every shot)")
     ap.add_argument("--stale", action="store_true", help="only shots marked queries_stale")
     ap.add_argument("--per-source", type=int, default=2)
+    ap.add_argument("--repicking", default="", help="shots a later chunk re-picks: their stock picks hold no budget slot")
     a = ap.parse_args()
     session = Path(a.session)
     shots = [int(x) for x in re.split(r"[,\s]+", a.shots) if x.strip()] or None
@@ -572,7 +575,8 @@ def main() -> None:
         shots = [s["shot_number"] for s in (read_json(session / "plan.json", {}) or {}).get("shots", [])
                  if (s.get("visual") or {}).get("queries_stale")]
     try:
-        out = run(session, shots, a.per_source)
+        out = run(session, shots, a.per_source,
+                  repicking={int(x) for x in re.split(r"[,\s]+", a.repicking) if x.strip()})
         print(json.dumps({"ok": True, "picked": out["picked"], "lane": out["lane"], "no_candidates": out["no_candidates"]}))
     except Exception as exc:  # noqa: BLE001
         import traceback
