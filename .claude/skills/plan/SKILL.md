@@ -54,12 +54,12 @@ Mapped mode replaces "Derive pacing", "Timing estimation" and the one-shot-per-s
    - `search_sources`: the existing specificity rules decide the sources; the ref's `sourcing_hint` shapes the query wording (adapted to this topic).
    - `text.caption` only when the ref has `text_extra: true`; an `overlay` only when the ref has `overlay_extra: true` and the shot is not `MOTION_GRAPHICS`. This keeps the on-screen-text rate at the inspo's.
    - `camera`: `{"move", "amount"}` from the ref's `motion` when it has one (omit otherwise); `transition_in` / `transition_out`: `fade_black` / `fade_white` when the ref's `motion.fade_in` / `fade_out` is `black` / `white`, else `cut`.
-4. **Write `plan.json`** with `"timing_source": "timestamps"` and `editing_notes.method: "inspo-mapped"` (reconcile then skips it: the timing is already real). Do NOT run reconcile.
+4. **Write `plan.json`** with `"timing_source": "timestamps"` and `editing_notes.method: "inspo-mapped"` (reconcile then skips it: the timing is already real), assembled from the streamed shots: pipe the top-level fields only (no `shots`) into `python tools/plan/append_shot.py build --session sessions/<id>`. Do NOT run reconcile.
 5. **Validate, section by section.**
    ```bash
    python tools/match/validate_plan.py --session sessions/<id>
    ```
-   Exit 0: done. Exit 1: read `plan_validation.json`. Each entry in `failures` is a section (`section: [first, last]` shot numbers) with its `problems` and a `fix`. Rewrite **only** those sections, following each `fix`; every shot listed in `frozen` must stay byte-identical. Shots listed in a failure's `locked` were edited by hand: never rewrite them, tell the user they need a hand fix. Re-run the validator; at most 3 attempts, then stop and show the remaining failures to the user in plain words. If a rewrite changes the queries of a shot already streamed, set `visual.queries_stale: true` so its asset is refetched.
+   Exit 0: done. Exit 1: read `plan_validation.json`. Each entry in `failures` is a section (`section: [first, last]` shot numbers) with its `problems` and a `fix`. Rewrite **only** those sections, following each `fix` (stream the rewritten shots with `append_shot.py append --replace`, then re-run `build` with the same header); every shot listed in `frozen` must stay byte-identical. Shots listed in a failure's `locked` were edited by hand: never rewrite them, tell the user they need a hand fix. Re-run the validator; at most 3 attempts, then stop and show the remaining failures to the user in plain words. If a rewrite changes the queries of a shot already streamed, set `visual.queries_stale: true` so its asset is refetched.
 
 Show the summary with the slot median against the inspo median (`median_slot` / `median_inspo` in `slots.json`) and how many shots swapped refs, instead of the cuts-per-minute line.
 
@@ -125,7 +125,15 @@ Use `run_in_background: true`. Assets will poll `plan_progress.jsonl` and start 
 
 ### Pass 2 — full shot detail
 
-For each sentence (= one shot), fill every field. After generating each shot's complete JSON, append it to `plan_progress.jsonl` (Write tool, full accumulated content so far — one shot JSON per line, no trailing comma, each line valid standalone JSON). This lets assets start downloading each shot the moment its search query exists.
+For each sentence (= one shot), fill every field. After generating each shot's complete JSON, append it to `plan_progress.jsonl` with the append tool — never re-Write the whole file, which re-types every earlier shot and makes output grow with the square of the shot count:
+
+```bash
+python tools/plan/append_shot.py append --session sessions/<id> <<'SHOT'
+{"shot_number": 1, ...}
+SHOT
+```
+
+One shot per call keeps assets fetching each shot the moment its search query exists; a JSON array of a few shots per call is fine when shots come fast. The tool checks each line is a shot and refuses a shot number already streamed; pass `--replace` when a validator fix rewrites a streamed shot.
 
 ```json
 {
@@ -255,13 +263,13 @@ The loop, for each script sentence in order:
 1. Generate the shot's complete JSON (Pass 2 detail) internally.
 2. Show a **compact card** — not raw JSON: the spoken line, visual type + one-line desc, the search query, caption/overlay text, duration, transition. One or two sentences of rationale only when the choice is non-obvious.
 3. Read the reply per pipeline rules:
-   - **Green light** ("go", "yeah", "next", silence-equivalents) → append the shot's JSON line to `plan_progress.jsonl` (assets starts fetching it) → **immediately present the next card**. Never wait for the fetch.
+   - **Green light** ("go", "yeah", "next", silence-equivalents) → append the shot's JSON line to `plan_progress.jsonl` with `append_shot.py append` (assets starts fetching it) → **immediately present the next card**. Never wait for the fetch.
    - **Tweak** ("make it a meme", "different query", "no caption") → apply to the card in place, re-show ONLY what changed, wait again. Tweaks are cheap; never regenerate the whole card unless asked.
    - **Redo a released shot** ("redo shot 3", "shot 3 is ugly") → re-fetch with `run.py shot --n 3 --source <src> --query "..."` (new query/source per their feedback), then continue where you were.
    - **Mode switch** ("just finish the rest", "back to auto") → append all remaining shots without approval (bulk the tail), or the reverse.
 4. When a fetch completes in the background, run the render pass (`tools/render/run.py build`) so the timeline hydrates shot by shot — do this without narrating it every time; one short note every few shots is plenty.
 
-After the last line is approved: assemble `plan.json` from all released lines (same schema as bulk), run reconcile if `timestamps.json` exists, and continue with the normal handoff below. MOTION_GRAPHICS shots and `overlay` blocks fire their hyperframes generation on approval too (same rhythm — the sub-agent renders while you present the next card; publishing follows the motion-graphics skill's feed rules).
+After the last line is approved: assemble `plan.json` from all released lines with `append_shot.py build` (same schema as bulk), run reconcile if `timestamps.json` exists, and continue with the normal handoff below. MOTION_GRAPHICS shots and `overlay` blocks fire their hyperframes generation on approval too (same rhythm — the sub-agent renders while you present the next card; publishing follows the motion-graphics skill's feed rules).
 
 ## Output format
 
@@ -288,7 +296,15 @@ Build the full plan in one JSON block. Chunk shots into groups of `sentences_per
 }
 ```
 
-Write to `sessions/<session-id>/plan.json`.
+Write `sessions/<session-id>/plan.json` from the streamed shots rather than typing them again: pipe the top-level fields (everything above except `shots`) into
+
+```bash
+python tools/plan/append_shot.py build --session sessions/<id> <<'HEADER'
+{"session_id": "<session-id>", "timing_source": "estimated", "video_metadata": {...}, "editing_notes": {...}}
+HEADER
+```
+
+It fills `shots` from `plan_progress.jsonl` in shot order, plus `video_metadata.shot_count` and `generated_at`.
 
 ## Timing safety
 

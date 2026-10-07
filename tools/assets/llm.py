@@ -1,22 +1,38 @@
 """Claude-via-CLI helper for asset-picking decisions.
 
-Calls `claude -p <prompt> --output-format json` as a subprocess, which uses
-the user's existing Claude Code subscription auth — no API key needed.
+Calls `claude -p` as a subprocess, which uses the user's existing Claude Code
+subscription auth — no API key needed.
 
-Uses haiku for speed/cost on text calls. Vision calls (frame validation) save
-frames to temp files and pass them via the @ attachment syntax.
+Uses haiku for speed/cost. Calls are lean (SPEC.md Part 8): stream-json input
+with images inline, a one-line system prompt, no tools/MCP/settings/skills and
+thinking off. A full Claude Code session per call carried ~33k tokens of
+overhead and took 15-19 s; lean calls take ~2k tokens and ~5 s.
 """
 
+import base64
+import hashlib
 import json
 import os
 import re
 import subprocess
-import tempfile
+import sys
+import time
 from pathlib import Path
 from typing import Any
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.usage import ledger  # noqa: E402
+
 _HAIKU  = "claude-haiku-4-5-20251001"
 _SONNET = "claude-sonnet-4-6"
+
+_SYSTEM = "You check footage and pick moments for a video editor. Reply with only the requested JSON."
+_LEAN = ["--strict-mcp-config", "--setting-sources", "", "--tools", "", "--max-turns", "1", "--no-session-persistence"]
+MAX_SIDE = 768
+
+
+class ClaudeUnavailable(RuntimeError):
+    pass
 
 
 def _claude_bin() -> str:
@@ -49,31 +65,113 @@ def _claude_bin() -> str:
     return shutil.which("claude") or "claude"
 
 
-def _call(prompt: str, model: str = _HAIKU, timeout: int = 30) -> str:
-    """Run `claude -p <prompt>` and return the result text."""
-    cmd = [_claude_bin(), "-p", prompt, "--output-format", "json", "--model", model]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, env=os.environ,
-                       stdin=subprocess.DEVNULL)
-    if r.returncode != 0:
-        raise RuntimeError(r.stderr[:300] or r.stdout[:300])
-    data = json.loads(r.stdout)
-    return data.get("result", "")
+def _spawn(argv: list[str], message: str, timeout: int) -> str:
+    """One `claude -p` process; returns stdout. Tests replace this."""
+    r = subprocess.run(argv, input=message + "\n", capture_output=True, text=True, encoding="utf-8",
+                       errors="replace", timeout=timeout, env={**os.environ, "MAX_THINKING_TOKENS": "0"})
+    return r.stdout or r.stderr
 
 
-def _call_with_images(prompt: str, image_paths: list[str], model: str = _HAIKU, timeout: int = 45) -> str:
-    """Run `claude -p "<prompt> @img1 @img2 ..."` for vision calls."""
-    from pathlib import Path as _Path
-    # Use forward-slash paths so Claude CLI's @ parser handles them correctly on Windows
-    fwd_paths = [_Path(p).as_posix() for p in image_paths]
-    attachments = " ".join(f"@{p}" for p in fwd_paths)
-    full_prompt = f"{prompt} {attachments}"
-    cmd = [_claude_bin(), "-p", full_prompt, "--output-format", "json", "--model", model]
-    r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, env=os.environ,
-                       stdin=subprocess.DEVNULL)
-    if r.returncode != 0:
-        raise RuntimeError(r.stderr[:300] or r.stdout[:300])
-    data = json.loads(r.stdout)
-    return data.get("result", "")
+def _ask(content: list[dict], kind: str, model: str = _HAIKU, timeout: int = 60) -> str:
+    """One lean turn over text and image blocks; returns the reply text.
+    Raises ClaudeUnavailable once a limit/auth reply has been seen in this process."""
+    if ledger.unavailable():
+        raise ClaudeUnavailable(ledger.unavailable())
+    msg = json.dumps({"type": "user", "message": {"role": "user", "content": content}})
+    argv = [_claude_bin(), "-p", "--model", model, "--input-format", "stream-json", "--output-format",
+            "stream-json", "--verbose", "--system-prompt", _SYSTEM, *_LEAN]
+    t0 = time.time()
+    try:
+        out = _spawn(argv, msg, timeout)
+    except subprocess.TimeoutExpired:
+        ledger.record(kind, model, None, time.time() - t0, "timeout")
+        raise
+    result = None
+    for line in out.splitlines():
+        if line.startswith("{"):
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if e.get("type") == "result":
+                result = e
+    text = (result or {}).get("result") or ""
+    if ledger.fatal_reply(text or out[-500:]):
+        print(f"    [llm] claude unavailable, skipping further checks: {ledger.unavailable()}", flush=True)
+        ledger.record(kind, model, result, time.time() - t0, ledger.unavailable())
+        raise ClaudeUnavailable(ledger.unavailable())
+    if result is None or result.get("is_error"):
+        err = (text or out[-300:]).strip()[:300] or "no result"
+        ledger.record(kind, model, result, time.time() - t0, err)
+        raise RuntimeError(err)
+    ledger.record(kind, model, result, time.time() - t0)
+    return text
+
+
+def _jpeg_b64(data: bytes, max_side: int = MAX_SIDE) -> str:
+    """Re-encode an image as a JPEG no larger than max_side: a 1080p frame is ~2.7k
+    image tokens, 768 px ~0.8k, and full-size originals can exceed the API's limits."""
+    try:
+        import cv2
+        import numpy as np
+        img = cv2.imdecode(np.frombuffer(data, np.uint8), cv2.IMREAD_COLOR)
+        if img is None:
+            raise ValueError("undecodable image")
+        h, w = img.shape[:2]
+        if max(h, w) > max_side:
+            s = max_side / max(h, w)
+            img = cv2.resize(img, (max(1, int(w * s)), max(1, int(h * s))), interpolation=cv2.INTER_AREA)
+        ok, buf = cv2.imencode(".jpg", img, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        if ok:
+            return base64.b64encode(buf.tobytes()).decode("ascii")
+    except ImportError:
+        pass
+    return base64.b64encode(data).decode("ascii")
+
+
+def _image(b64: str) -> dict:
+    return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": b64}}
+
+
+def _call(prompt: str, model: str = _HAIKU, timeout: int = 60, kind: str = "text") -> str:
+    """Run a lean text-only turn and return the result text."""
+    return _ask([{"type": "text", "text": prompt}], kind, model, timeout)
+
+
+def _call_with_images(prompt: str, images_b64: list[str], model: str = _HAIKU, timeout: int = 60,
+                      kind: str = "vision", labels: list[str] | None = None) -> str:
+    """Vision turn: images (re-encoded <= MAX_SIDE, optionally each preceded by a label), then the prompt."""
+    content = []
+    for i, b in enumerate(images_b64):
+        if labels:
+            content.append({"type": "text", "text": labels[i]})
+        content.append(_image(_jpeg_b64(base64.b64decode(b))))
+    content.append({"type": "text", "text": prompt})
+    return _ask(content, kind, model, timeout)
+
+
+def _capture(kind: str, prompt: str, images_b64: list[str], raw: str, parsed: Any, error: str,
+             secs: float, meta: dict | None) -> None:
+    """Opt-in eval capture (ESTA_VISION_CAPTURE=1): the exact frames, prompt and verdict of a vision call,
+    under <session>/vision_eval/, for tools/vision_eval/replay.py."""
+    if os.environ.get("ESTA_VISION_CAPTURE") != "1":
+        return
+    try:
+        root = ledger.ledger_path().parent / "vision_eval"
+        cid = hashlib.sha1((prompt + "".join(b[:200] for b in images_b64)).encode()).hexdigest()[:16]
+        d = root / cid
+        d.mkdir(parents=True, exist_ok=True)
+        files = []
+        for i, b in enumerate(images_b64):
+            p = d / f"frame_{i}.jpg"
+            p.write_bytes(base64.b64decode(_jpeg_b64(base64.b64decode(b))))
+            files.append(str(p.relative_to(root)))
+        rec = {"id": cid, "kind": kind, "prompt": prompt, "frame_files": files, "model": _HAIKU,
+               "raw_result": raw, "parsed": parsed, "error": error, "latency_s": round(secs, 2), **(meta or {})}
+        with ledger._LOCK, open(root / "records.jsonl", "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    except OSError:
+        pass
 
 
 def _parse_json(text: str) -> Any:
@@ -108,7 +206,7 @@ def pick_best_videos(entries: list[dict], query: str, n: int = 3) -> list[int]:
         f'Reply with JSON only, no explanation: {{"picks": [{{"index": 0}}, ...]}}'
     )
     try:
-        result = _parse_json(_call(prompt))
+        result = _parse_json(_call(prompt, kind="pick_videos"))
         if result and result.get("picks"):
             return [p["index"] for p in result["picks"] if "index" in p][:n]
     except Exception:
@@ -137,7 +235,7 @@ def find_moment_in_transcript(
         f'Reply with JSON only: {{"found": true, "segments": [{{"start": 0.0, "end": {target_dur:.1f}, "confidence": 80, "reason": "brief"}}]}}'
     )
     try:
-        result = _parse_json(_call(prompt))
+        result = _parse_json(_call(prompt, kind="find_moment"))
         if result and result.get("segments"):
             return result["segments"]
     except Exception:
@@ -147,7 +245,7 @@ def find_moment_in_transcript(
 
 def find_best_frame_at_timestamps(
     frame_paths: list[str], timestamps: list[float], query: str, shot_desc: str, round_n: int = 1,
-    instance_markers: dict | None = None,
+    instance_markers: dict | None = None, meta: dict | None = None,
 ) -> dict | None:
     """Ask Claude Vision which of N sampled frames is closest to the target moment.
 
@@ -169,12 +267,17 @@ def find_best_frame_at_timestamps(
         f"If instance_markers are present and the frame appears to contradict any of them, that frame is NOT a match — pick something else (or signal low confidence).\n"
         f'JSON only: {{"best_index": 0, "confidence": 0-100, "reasoning": "what you see and why it matches TARGET"}}'
     )
+    t0, raw, err, result = time.time(), "", "", None
+    images = [base64.b64encode(Path(p).read_bytes()).decode("ascii") for p in frame_paths]
     try:
-        result = _parse_json(_call_with_images(prompt, frame_paths))
-        if result and "best_index" in result:
-            return result
+        raw = _call_with_images(prompt, images, kind="frame_search", labels=[f"frame {i}:" for i in range(len(images))])
+        result = _parse_json(raw)
     except Exception as e:
+        err = str(e)[:300]
         print(f"    [llm] vision error: {e}", flush=True)
+    _capture("frame_search", prompt, images, raw, result, err, time.time() - t0, meta)
+    if result and "best_index" in result:
+        return result
     return None
 
 
@@ -204,57 +307,57 @@ def _format_instance_block(instance_markers: dict | None) -> str:
     return "\n".join(lines) + "\n"
 
 
+def validate_prompt(query: str, shot_desc: str, instance_markers: dict | None = None) -> str:
+    """The validator's prompt text, shared with tools/vision_eval/replay.py."""
+    instance_block = _format_instance_block(instance_markers)
+    return (
+        f'These frames are from a clip we downloaded.\n'
+        f'Verify the frames show the SPECIFIC visual content described below — not just the right general topic.\n\n'
+        f'REQUIRED VISUAL CONTENT (primary criterion — judge against this):\n'
+        f'  "{shot_desc[:400]}"\n\n'
+        f'Search query that surfaced this clip (reference only — topical match alone is NOT sufficient):\n'
+        f'  "{query}"\n'
+        f'{instance_block}\n'
+        f'STRICT RULES:\n'
+        f'- The frames must show the specific physical action, mood, composition, AND subjects described above.\n'
+        f'- Same teams / same location / same sport / same season / same person is NOT enough on its own.\n'
+        f'- If desc says "under pressure / defending" but frames show celebration → MISMATCH.\n'
+        f'- If desc says "wide stadium shot" but frames are close-ups → MISMATCH.\n'
+        f'- If desc names person X but frames show person Y doing the action → MISMATCH.\n'
+        f'- If desc says "midfield possession" but frames show a set piece / corner → MISMATCH.\n'
+        f'- If instance_markers are present, any contradiction (wrong date, wrong venue, wrong participant, contradicting outcome) → MISMATCH regardless of how well other criteria match.\n'
+        f'- Default to MISMATCH when uncertain. False positives are worse than false negatives here.\n\n'
+        f'Describe literally what you see (specific action, body positions, kit/clothing colours, location cues, identifiable subjects, any visible text/score/date).\n'
+        f'Then judge AGAINST the REQUIRED VISUAL CONTENT and INSTANCE CONSTRAINTS only.\n\n'
+        f'JSON only: {{"what_i_see": "specific observation", "matches": true/false, "confidence": 0-100, "reason": "why it matches or not, citing specifics from desc and instance markers"}}'
+    )
+
+
 def validate_frames(
     frames_b64: list[str], query: str, shot_desc: str, audio_txt: str,
-    instance_markers: dict | None = None,
-) -> dict:
-    """Save frames to temp files, send to Claude Vision for content validation.
+    instance_markers: dict | None = None, meta: dict | None = None,
+) -> dict | None:
+    """Send up to 4 frames to Claude Vision for content validation.
 
     Strict prompt: must see the specific action AND match any instance_markers,
-    not just topical context.
+    not just topical context. Returns None when there is nothing to judge or the
+    check fails, so callers leave the candidate unvalidated: a failed check must
+    never approve a clip (v2 returned a 50% match here).
     """
     if not frames_b64:
-        return {"matches": True, "confidence": 50, "what_i_see": "no frames"}
-
-    import base64
-
+        return None
+    prompt = validate_prompt(query, shot_desc, instance_markers)
+    images = frames_b64[:4]
+    t0, raw, err, result = time.time(), "", "", None
     try:
-        with tempfile.TemporaryDirectory() as tmpdir:
-            paths = []
-            for i, fb in enumerate(frames_b64[:4]):
-                p = Path(tmpdir) / f"frame_{i}.jpg"
-                p.write_bytes(base64.b64decode(fb))
-                paths.append(str(p))
-
-            instance_block = _format_instance_block(instance_markers)
-
-            prompt = (
-                f'These frames are from a clip we downloaded.\n'
-                f'Verify the frames show the SPECIFIC visual content described below — not just the right general topic.\n\n'
-                f'REQUIRED VISUAL CONTENT (primary criterion — judge against this):\n'
-                f'  "{shot_desc[:400]}"\n\n'
-                f'Search query that surfaced this clip (reference only — topical match alone is NOT sufficient):\n'
-                f'  "{query}"\n'
-                f'{instance_block}\n'
-                f'STRICT RULES:\n'
-                f'- The frames must show the specific physical action, mood, composition, AND subjects described above.\n'
-                f'- Same teams / same location / same sport / same season / same person is NOT enough on its own.\n'
-                f'- If desc says "under pressure / defending" but frames show celebration → MISMATCH.\n'
-                f'- If desc says "wide stadium shot" but frames are close-ups → MISMATCH.\n'
-                f'- If desc names person X but frames show person Y doing the action → MISMATCH.\n'
-                f'- If desc says "midfield possession" but frames show a set piece / corner → MISMATCH.\n'
-                f'- If instance_markers are present, any contradiction (wrong date, wrong venue, wrong participant, contradicting outcome) → MISMATCH regardless of how well other criteria match.\n'
-                f'- Default to MISMATCH when uncertain. False positives are worse than false negatives here.\n\n'
-                f'Describe literally what you see (specific action, body positions, kit/clothing colours, location cues, identifiable subjects, any visible text/score/date).\n'
-                f'Then judge AGAINST the REQUIRED VISUAL CONTENT and INSTANCE CONSTRAINTS only.\n\n'
-                f'JSON only: {{"what_i_see": "specific observation", "matches": true/false, "confidence": 0-100, "reason": "why it matches or not, citing specifics from desc and instance markers"}}'
-            )
-            result = _parse_json(_call_with_images(prompt, paths))
-            if result:
-                return result
-    except Exception:
-        pass
-    return {"matches": True, "confidence": 50, "what_i_see": "validation failed"}
+        raw = _call_with_images(prompt, images, kind="validate")
+        result = _parse_json(raw)
+        if not isinstance(result, dict) or "matches" not in result:
+            err, result = "unparseable reply", None
+    except Exception as e:
+        err = str(e)[:300]
+    _capture("validate", prompt, images, raw, result, err, time.time() - t0, meta)
+    return result
 
 
 def validate_image_url(
@@ -268,7 +371,6 @@ def validate_image_url(
     validate_frames result dict, or None if download fails.
     """
     try:
-        import base64
         import requests
 
         headers = {"User-Agent": "ESTA-Pipeline/1.0 (image validation; github.com/esta-v2)"}
@@ -276,6 +378,7 @@ def validate_image_url(
         if r.status_code != 200 or not r.content:
             return None
         b64 = base64.b64encode(r.content).decode("ascii")
-        return validate_frames([b64], query, shot_desc, audio_txt, instance_markers=instance_markers)
+        return validate_frames([b64], query, shot_desc, audio_txt, instance_markers=instance_markers,
+                               meta={"url": url})
     except Exception:
         return None

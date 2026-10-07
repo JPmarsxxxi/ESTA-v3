@@ -1104,6 +1104,9 @@ def main() -> None:
     b.add_argument("--session", help="Session dir; only affects the licensing stance applied")
 
     args = parser.parse_args()
+    if getattr(args, "session", None):
+        # llm.py's usage ledger and eval capture go to this session's folder.
+        os.environ.setdefault("ESTA_SESSION_DIR", args.session)
 
     try:
         if args.mode == "fetch":

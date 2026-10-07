@@ -33,6 +33,7 @@ import argparse
 import hashlib
 import json
 import math
+import os
 import re
 import subprocess
 import sys
@@ -144,7 +145,7 @@ def judge(items: list[dict], log=print) -> tuple[dict, float, list[str]]:
                 content.append({"type": "text", "text": f"Shot {it['n']} candidate {j}:"})
                 content.append(image_block(f, cfg["max_side"]))
         content.append({"type": "text", "text": JUDGE_PROMPT})
-        return ask(content, JUDGE_SYSTEM, cfg["model"])
+        return ask(content, JUDGE_SYSTEM, cfg["model"], kind="judge")
 
     log(f"[autopick] Haiku judges {len(items)} shots in {len(batches)} calls")
     with ThreadPoolExecutor(cfg["workers"]) as pool:
@@ -233,7 +234,7 @@ def rewrite(items: list[dict], log=log) -> dict[int, str]:
                     f"Planned: {(it['shot'].get('visual') or {}).get('desc', '')}. Sources: {', '.join(it['sources'])}. "
                     f"Failed queries: {json.dumps(it['tried'])}"} for it in batch]
         content.append({"type": "text", "text": REWRITE_PROMPT})
-        return ask(content, REWRITE_SYSTEM, cfg["model"])
+        return ask(content, REWRITE_SYSTEM, cfg["model"], kind="rewrite")
 
     batches = [items[i:i + JUDGE_BATCH] for i in range(0, len(items), JUDGE_BATCH)]
     try:
@@ -358,6 +359,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
         repicking: set[int] | None = None) -> dict:
     import numpy as np
     from tools.match.common import Embedder
+    # The usage ledger (judge, rewrites, and the gathers' llm.py calls) goes to this session.
+    os.environ.setdefault("ESTA_SESSION_DIR", str(session))
     plan = read_json(session / "plan.json", {}) or {}
     mg = {str(s.get("key")) for s in (read_json(session / "motion_graphics.json", {}) or {}).get("slots", []) if s.get("ok")}
     # Graphics are generated (motion-graphics skill); stock for them is only a
