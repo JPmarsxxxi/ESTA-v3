@@ -240,6 +240,8 @@ SPEC.md Part 8. Measured from the 2026-10-01..07 run's transcripts (`python tool
 - **`server/planner.ts`.** Rewrite, command and requery spawns carry the lean flags.
 - **`.claude/settings.json`.** The `UserPromptSubmit` env check tests for `~/.conda/envs/esta/python.exe` before falling back to `conda env list`: 60 ms instead of 1.4 s on every prompt.
 - **Plan skill (v2 copy `.claude/skills/plan/SKILL.md`), `tools/plan/append_shot.py` (new).** Shots stream with `append_shot.py append` (one line per shot, `--replace` for validator fixes) instead of a Write of the whole accumulated file after every shot, whose output grew with the square of the shot count. `append_shot.py build` writes `plan.json` from the streamed shots plus a header, so the plan is not typed out twice.
+- **`tools/kaggle_lane.py` (v2 copy) `wait_dataset_ready`.** It returned False on the first status that read "error", which Kaggle reports transiently right after an upload (the dataset was ready seconds later; also noted in the describe bake-off). It now gives up only after 4 consecutive error readings.
+- **`tools/vision_eval/` (new).** `extract.py` (eval set from Claude Code transcripts or capture records), `replay.py` (claude / OpenAI-compatible / CLIP / SigLIP backends, metrics against Haiku and human labels), `label.py` (labelling page), `kaggle.py` (the same replay on a larger open VLM on Kaggle). Results: `reports/vision-eval-results.md`.
 
 ## Known baseline issues (not introduced by v3)
 
