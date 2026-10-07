@@ -76,7 +76,7 @@ What the numbers say:
 3. **Decision rule** (handoff): adopt an open judge only if its false-match rate on your labelled negatives is within ~3 points of Haiku's and JSON validity is >= 99%.
 4. To grow the set on the next run: `ESTA_VISION_CAPTURE=1` before the assets/autopick job saves every vision call's frames and verdict under `sessions/<id>/vision_eval/`. Add them with `extract.py --captures sessions/<id>/vision_eval`.
 
-5. **Local 4B spike, when the PC is otherwise idle** (no autopick/assets job, Chrome mostly closed): `python D:\esta-perf\local_spike.py 30` waits for a free GPU, then runs Qwen3-VL-4B and Qwen3.5-4B through llama-server on 30 items per kind and yields if a pipeline job starts. Then re-score as in step 2. Expect it to work only as a junk pre-filter (handoff: "never approves").
+5. **Local 4B spike, when the PC is otherwise idle** (no autopick/assets job, Chrome mostly closed): `python tools/vision_eval/local_spike.py 30` (from the worktree) waits for a free GPU, then runs Qwen3-VL-4B and Qwen3.5-4B through llama-server on 30 items per kind and yields if a pipeline job starts. Then re-score as in step 2. Expect it to work only as a junk pre-filter (handoff: "never approves").
 
 ## 5. Recommendations, in order of impact
 
