@@ -190,18 +190,19 @@ For each sentence (= one shot), fill every field. After generating each shot's c
 
 **specificity rules:**
 - `"high"` — shot requires a specific named person, named event, or named place that stock libraries won't have. Examples: "Leandro Trossard goal", "Donald Trump press conference", "2022 World Cup final penalty". For high-specificity shots: `search_sources` must include `youtube` or `wikimedia` first.
-- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". YouTube and Archive, with Giphy as the loose fallback.
-- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Same sources as medium: YouTube, Archive, Giphy for footage; Google Images, Pinterest, Wikimedia, Openverse for images.
+- `"medium"` — specific event or context but generic footage can work. Examples: "goalkeeper diving save", "bench erupting celebration". YouTube and Archive.
+- `"low"` — fully generic b-roll, reactions, or graphics. Examples: "crowd cheering", "man surprised face", "clock graphic". Same sources as medium: YouTube and Archive for footage (Giphy only through the meme override); Google Images, Pinterest, Wikimedia, Openverse for images.
 
 **search_sources rules:**
 - 2–3 sources ordered best-first for this shot's specificity
-- Each source gets 1–3 queries: most specific first, broadening toward fallback
+- Each source gets 2–3 queries (the lead source at least 2): most specific first, broadening toward fallback. Write each source's queries in that source's own terms, never one query copied to every source. `validate_plan.py` fails a shot without a ladder, with one query shared by all its sources, or with Giphy on a shot that is not a reaction/meme beat.
+- **YouTube queries name a real clip, not a stock description.** YouTube holds films, shows, news, interviews, vlogs and screen recordings, not posed stock: "man exhaling surprised" finds nothing, "Michael Scott sigh" or "Jordan Belfort reaction" does. Ladder: the named film/show/news/person clip first, then the scene type ("trader reacting to loss live stream"), then a b-roll fallback ("trading floor b roll").
 - Include at least 2 of these in high-specificity queries: exact name, year, event, location, opposing team
 - Available sources: `youtube`, `archive`, `giphy`, `google_images`, `pinterest`, `wikimedia`, `openverse`
 - **Never list a stock source** (the four Pexels and Pixabay video and image sources). Stock is a capped last resort that auto-pick reaches on its own after query rewrites (SPEC.md Part 7); `validate_plan.py` fails a plan that routes a shot to it.
 - For `REAL_FOOTAGE` high: `["youtube", "archive"]`
 - For `REAL_IMAGE` high: `["google_images", "wikimedia"]` — Google Images returns real press/news photos; wikimedia as fallback for CC-strict needs
-- For `REAL_FOOTAGE` low/medium: `["youtube", "archive", "giphy"]`
+- For `REAL_FOOTAGE` low/medium: `["youtube", "archive"]`. Giphy is never a footage fallback: it answers every query, so as a fallback it wins every shot YouTube misses (SPEC.md Part 9).
 - For `REAL_IMAGE` low/medium: `["google_images", "pinterest", "wikimedia", "openverse"]`
 - For `MOTION_GRAPHICS` (fallback only; the graphic is generated): `["giphy"]`
 - **Meme override:** when `desc` mentions "meme", "reaction", "this is fine", "shrug", "facepalm", or similar reaction-meme cues, the source list MUST include `giphy` as the first or second source — even for `type: REAL_IMAGE`. Giphy is the reaction-meme library; without it the picked candidate will be generic stock that doesn't land.

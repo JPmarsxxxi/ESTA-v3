@@ -39,8 +39,8 @@ _DURATION_FLOOR_EPSILON = 0.05
 # tools/match/autopick.py reaches, after query rewrites (SPEC.md Part 7).
 _DEFAULT_SOURCES = {
     ("REAL_FOOTAGE", "high"):   [("youtube", 1), ("archive", 1)],
-    ("REAL_FOOTAGE", "medium"): [("youtube", 1), ("archive", 1), ("giphy", 2)],
-    ("REAL_FOOTAGE", "low"):    [("youtube", 1), ("archive", 1), ("giphy", 2)],
+    ("REAL_FOOTAGE", "medium"): [("youtube", 1), ("archive", 1)],
+    ("REAL_FOOTAGE", "low"):    [("youtube", 1), ("archive", 1)],
     ("REAL_IMAGE",   "high"):   [("google_images", 1), ("wikimedia", 2)],
     ("REAL_IMAGE",   "medium"): [("google_images", 1), ("pinterest", 1), ("wikimedia", 2), ("openverse", 2)],
     ("REAL_IMAGE",   "low"):    [("google_images", 1), ("pinterest", 1), ("wikimedia", 2), ("openverse", 2)],

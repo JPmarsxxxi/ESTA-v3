@@ -4,7 +4,7 @@
 
 Checks: the shots cover the voiceover from 0 to its end, no gap or overlap over 0.1 s, every cut on a word
 boundary, every shot within 35 % of its ref target (unless no boundary lies closer), every shot carrying a
-ref_shot, no shot routed to a stock source (SPEC.md Part 7). Failing shots are grouped into sections with one shot of context each side; each section says
+ref_shot, no shot routed to a stock source (SPEC.md Part 7), and the sourcing rules (SPEC.md Part 9). Failing shots are grouped into sections with one shot of context each side; each section says
 what to change. Every other shot is frozen: the plan skill rewrites only the failing sections.
 """
 
@@ -22,6 +22,7 @@ from tools.match.slots import LAST_MERGE, boundaries, load_words, voice_end  # n
 TOL = 0.1          # gap / overlap / coverage, seconds
 WORD_TOL = 0.05    # a cut this close to a word edge counts as on it
 TARGET_TOL = 0.35  # share of ref_target_dur a shot may differ by
+REACTION = ("meme", "reaction", "this is fine", "shrug", "facepalm")  # the plan skill's meme-override cues
 
 
 def _span(s: dict) -> tuple[float, float]:
@@ -40,6 +41,30 @@ def inside_word(t: float, words: list[dict]) -> dict | None:
 def _word_before(t: float, words: list[dict]) -> str:
     prev = [w for w in words if w["end"] <= t + WORD_TOL]
     return prev[-1]["word"].strip(" ,.!?\"'") if prev else ""
+
+
+def sourcing_problems(s: dict) -> list[tuple[str, str]]:
+    """The plan skill's sourcing rules (query ladder, per-source queries, Giphy for reactions only), enforced
+    because a plan that skipped them sent 206 of 307 footage shots to Giphy (SPEC.md Part 9)."""
+    v = s.get("visual") or {}
+    if v.get("type") == "MOTION_GRAPHICS":
+        return []
+    entries = v.get("search_sources") or []
+    if not entries:
+        return []  # assets falls back to the type's default sources
+    out = []
+    n = s["shot_number"]
+    if len(entries[0].get("queries") or []) < 2:
+        out.append((f"lead source {entries[0].get('source')} has no query ladder",
+                    f"give shot {n}'s {entries[0].get('source')} 2-3 queries, most specific first"))
+    queries = {q for e in entries for q in e.get("queries") or []}
+    if len(entries) > 1 and len(queries) == 1:
+        out.append(("every source has the same single query",
+                    f"write queries for each of shot {n}'s sources in that source's own terms"))
+    if any(e.get("source") == "giphy" for e in entries) and not any(m in (v.get("desc") or "").lower() for m in REACTION):
+        out.append(("routes to giphy but is not a reaction or meme beat",
+                    f"drop giphy from shot {n}, or mark its desc as a reaction/meme if that is what it is"))
+    return out
 
 
 def check(shots: list[dict], words: list[dict], end: float) -> dict:
@@ -84,6 +109,8 @@ def check(shots: list[dict], words: list[dict], end: float) -> dict:
         if stock:
             flag(i, f"routes to stock ({', '.join(stock)})",
                  f"replace {', '.join(stock)} in shot {s['shot_number']} with the non-stock sources for its type")
+        for problem, fix in sourcing_problems(s):
+            flag(i, problem, fix)
         target = s.get("ref_target_dur")
         if target:
             dur = b - a

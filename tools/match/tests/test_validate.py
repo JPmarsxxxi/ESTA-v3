@@ -101,6 +101,33 @@ def test_last_shot_merge_allowance():
 
 def test_stock_source_fails_naming_the_shot():
     p = plan([1.95, 3.95, 5.95, 7.95])
-    p[2]["visual"] = {"search_sources": [{"source": "youtube", "queries": ["q"]}, {"source": "pexels_video", "queries": ["q"]}]}
+    p[2]["visual"] = {"search_sources": [{"source": "youtube", "queries": ["q1", "q2"]}, {"source": "pexels_video", "queries": ["q3"]}]}
     r = V.check(p, WORDS, END)
     assert not r["pass"] and problems(r) == ["shot 3: routes to stock (pexels_video)"]
+
+
+def sourced(sources, desc="trader at screens"):
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1]["visual"] = {"type": "REAL_FOOTAGE", "desc": desc, "search_sources": sources}
+    return problems(V.check(p, WORDS, END))
+
+
+def test_lead_source_needs_a_query_ladder():
+    assert sourced([{"source": "youtube", "queries": ["trading floor"]}, {"source": "archive", "queries": ["stock exchange"]}])         == ["shot 2: lead source youtube has no query ladder"]
+
+
+def test_one_query_shared_by_every_source_fails():
+    got = sourced([{"source": "youtube", "queries": ["trading floor", "trading floor"]}, {"source": "archive", "queries": ["trading floor"]}])
+    assert got == ["shot 2: every source has the same single query"]
+
+
+def test_giphy_only_on_reaction_beats():
+    ladder = [{"source": "youtube", "queries": ["Wolf of Wall Street sigh", "man sighs at desk"]}, {"source": "giphy", "queries": ["sigh"]}]
+    assert sourced(ladder) == ["shot 2: routes to giphy but is not a reaction or meme beat"]
+    assert sourced(ladder, desc="Reaction: a man sighs") == []
+
+
+def test_graphics_are_not_held_to_the_sourcing_rules():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1]["visual"] = {"type": "MOTION_GRAPHICS", "search_sources": [{"source": "giphy", "queries": ["stat counter"]}]}
+    assert V.check(p, WORDS, END)["pass"]

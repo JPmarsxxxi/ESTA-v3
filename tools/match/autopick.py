@@ -63,7 +63,7 @@ SHOT_KIND = {"REAL_IMAGE": "still", "MOTION_GRAPHICS": "graphic"}
 STOCK = {"pexels", "pixabay"}  # the `source` a stock candidate or feed row carries
 STOCK_CAP, STOCK_REWRITES = 0.15, 3
 # Rewritten queries search the shot's own sources plus every non-stock source of its kind.
-KIND_SOURCES = {"footage": ["youtube", "archive", "giphy"], "still": ["google_images", "pinterest", "wikimedia", "openverse"],
+KIND_SOURCES = {"footage": ["youtube", "archive"], "still": ["google_images", "pinterest", "wikimedia", "openverse"],
                 "graphic": ["giphy"]}
 STOCK_BY_KIND = {"footage": "pexels_video,pixabay_video", "still": "pexels_image,pixabay_image",
                  "graphic": "pexels_video,pixabay_video,pexels_image,pixabay_image"}

@@ -1,0 +1,308 @@
+# n|specificity|R (reaction beat: desc gets "Reaction:" and giphy is allowed)|source:query;query;query|source:...
+1|high||wikimedia:Andrew Tate;Andrew Tate 2023|pinterest:Andrew Tate podcast sunglasses;Andrew Tate cigar|openverse:Andrew Tate
+2|high||wikimedia:Andrew Tate speaking;Andrew Tate|pinterest:Andrew Tate podcast rant;Andrew Tate mic|openverse:Andrew Tate interview
+3|medium||pinterest:wolf pack snow staring;wolf pack winter|wikimedia:wolf pack snow;Canis lupus pack|openverse:wolf pack snow
+4|medium||pinterest:grey wolf portrait eyes;alpha wolf close up|wikimedia:grey wolf portrait;Canis lupus face|openverse:grey wolf portrait
+5|low|R|youtube:Michael Scott frustrated face;man dragging hands down face frustrated;frustrated man at desk b roll|giphy:frustrated facepalm;hands down face
+6|medium||youtube:coding late at night laptop vlog;programmer tired at night laptop;man staring at laptop night b roll|archive:computer screen night
+7|medium||youtube:man standing still crowd time lapse;crowd moving around still person timelapse;lonely in crowd b roll|archive:crowd street walking
+8|medium||youtube:can't sleep staring at ceiling scene;insomnia lying awake at night;man lying in bed awake b roll|archive:insomnia film
+9|medium||youtube:newborn baby first moments hospital;newborn baby hands close up;newborn baby b roll|archive:newborn baby hospital
+10|low|R|youtube:sorry I went off on a tangent meme;awkward sorry shrug reaction;man shrugging sorry b roll|giphy:sorry shrug;my bad
+11|medium||youtube:professor at whiteboard explaining lecture;teacher walks to whiteboard lecture;whiteboard explanation b roll|archive:classroom lecture blackboard
+12|medium||youtube:NYSE trading floor traders 2008;stock exchange trading floor footage;trading floor b roll|archive:stock exchange trading floor
+15|medium||youtube:data center servers blinking lights tour;Google data center tour;server room b roll|archive:computer room mainframe
+16|medium||youtube:Bloomberg terminal orders filling;day trader screen orders live;trading screens close up b roll|archive:stock ticker screen
+17|medium||youtube:stock ticker screens red green Times Square;market prices scrolling screen;stock market screens b roll|archive:stock ticker tape
+18|high||wikimedia:Igor Tulchinsky;WorldQuant founder|pinterest:Igor Tulchinsky WorldQuant;Igor Tulchinsky conference|openverse:Igor Tulchinsky
+19|high||pinterest:Finding Alphas Tulchinsky book;Finding Alphas second edition cover|wikimedia:Finding Alphas book;WorldQuant book|openverse:Finding Alphas book
+20|high||wikimedia:Igor Tulchinsky WorldQuant;WorldQuant logo|pinterest:Igor Tulchinsky portrait;WorldQuant office|openverse:WorldQuant
+21|low|R|youtube:Scrooge McDuck counting money;Wolf of Wall Street counting cash;man counting money grinning|giphy:counting money;make it rain money
+22|medium||youtube:money falling slow motion 4k;cash raining down slow motion;falling banknotes b roll|archive:money falling
+23|medium||youtube:Good Will Hunting math scene;writing equations fast on paper timelapse;math equations handwriting b roll|archive:mathematician blackboard equations
+25|medium||youtube:late night coding session vlog;programmer working late night laptop;working late laptop b roll|archive:working late office night
+26|medium||youtube:calendar pages flipping time passing;calendar flip transition;calendar pages b roll|archive:calendar pages flipping
+27|medium||youtube:man staring out window rain thinking;contemplative man window scene;staring out window b roll|archive:man looking out window
+31|medium||youtube:stock chart drop and rebound animation;mean reversion stock chart explained;stock chart bounce screen recording|archive:stock market chart
+32|medium||pinterest:stack of academic papers desk;finance research papers pile|wikimedia:academic journal stack;Journal of Finance|openverse:stack of papers research
+33|medium||youtube:S&P 100 index stock list screen;stock screener list of tickers screen recording;stock tickers list screen|archive:stock quotations board
+34|low|R|youtube:man leans back unimpressed meme;not impressed reaction;leaning back from laptop disappointed|giphy:unimpressed;not impressed
+35|medium||youtube:empty trading floor after hours;quiet empty stock exchange floor;empty office floor b roll|archive:empty trading floor
+36|medium||youtube:crowded fishing harbour boats aerial;packed marina drone;crowded harbor b roll|archive:fishing harbour boats
+37|medium||youtube:calm open ocean drone 4k;empty ocean aerial footage;open sea b roll|archive:open ocean
+38|low||pinterest:handwritten note fine;sticky note fine handwriting|openverse:handwritten note;note paper handwriting|wikimedia:handwritten note
+39|medium||youtube:man in long coat walking city street cinematic;walking with purpose city scene;man walking city street b roll|archive:man walking city street
+40|low|R|youtube:Kevin Hart surprised face;man blowing out cheeks reaction;surprised exhale reaction|giphy:phew;whew surprised
+41|medium||youtube:trader leaning into screen live stream;man staring at monitor dark room;leaning toward screen b roll|archive:man at computer screen
+42|medium||youtube:stock chart spike up screen recording;stock price spike live chart;chart going up b roll|archive:stock chart rising
+43|low|R|youtube:man throwing arms up celebration outdoors;yes celebration arms up;celebrating arms raised b roll|giphy:arms up celebration;yes
+44|low|R|youtube:Tiger Woods fist pump;fist pump celebration reaction;man fist pump grinning|giphy:fist pump;yes fist pump
+45|low|R|youtube:smile fades reaction meme;trader smile turns to worry;reading screen smile fading|giphy:smile fade;smile disappears
+46|low|R|youtube:face falls disappointment reaction;Jordan Belfort disappointed;disappointed face close up|giphy:disappointed face;face falls
+47|low|R|youtube:frustrated man fence;hands gripping fence frustration;frustrated clenching b roll|giphy:frustrated;ugh
+48|low|R|youtube:man wincing through teeth reaction;cringe wince meme;yikes wince|giphy:wince;yikes
+49|medium||youtube:man looking over city skyline from above;man overlooking city night;city skyline man silhouette b roll|archive:city skyline view
+51|medium||youtube:receipt printer printing nonstop;cash register printing receipts close up;receipt printer b roll|archive:cash register
+52|medium||youtube:toll booth coins machine;coins dropping into machine slow motion;paying toll b roll|archive:toll booth
+53|medium||youtube:programmer typing code close up screen;coding Python screen recording;typing code b roll|archive:computer programmer typing
+54|medium||youtube:scissors cutting paper close up slow motion;cutting strip paper scissors;scissors b roll|archive:scissors cutting paper
+55|medium||youtube:backtest results Python screen recording;quant backtest output table;old CRT monitor data|archive:computer terminal data
+56|medium||youtube:equity curve drawdown backtest;portfolio crash chart red;falling chart screen b roll|archive:stock market crash chart
+57|low|R|youtube:stressed trader hands on head;trader losing money reaction;stressed man hands on head|giphy:stressed hands on head;oh no
+58|medium||youtube:dragging file to trash old computer;deleting files Windows 98;recycle bin delete screen|archive:old computer screen
+59|medium||youtube:sector heatmap stock market finviz;stock market heat map live;heatmap screen recording|archive:stock market board
+60|medium||youtube:volatile choppy stock chart live;choppy price action chart;choppy chart screen recording|archive:stock chart
+61|medium||youtube:man packing suitcase zipping up;packing suitcase travel moving;suitcase zip b roll|archive:packing suitcase
+62|medium||youtube:crypto prices live screen Binance;cryptocurrency prices scrolling phone;crypto ticker screen b roll|archive:bitcoin price screen
+63|medium||youtube:crypto trader at 3am live stream;checking crypto on phone at night;phone in bed night b roll|archive:phone screen night
+64|medium||youtube:crypto trader dark room losing;man in beanie staring at monitors;dark room monitor glow b roll|archive:computer screen dark room
+65|low|R|youtube:man laughing in disbelief meme;Jordan Belfort laughing;laughing in disbelief reaction|giphy:laughing disbelief;lol
+66|low|R|youtube:man head in hands defeated;head in hands reaction meme;defeated head in hands|giphy:head in hands;facepalm
+67|low|R|youtube:wait a minute idea meme;snapping fingers idea;man points finger got it|giphy:wait a minute;idea snap
+68|medium||youtube:trending crypto chart climbing;bitcoin chart uptrend screen recording;line chart rising b roll|archive:chart rising
+69|medium||youtube:bitcoin momentum indicator chart;crypto chart momentum line TradingView;TradingView chart screen recording|archive:bitcoin chart
+70|high||youtube:2022 crypto crash news footage;Luna crash 2022 news;crypto market crash CNBC 2022|archive:cryptocurrency crash news
+71|low|R|youtube:I am a genius scene;man celebrating at desk triumph;triumphant desk celebration|giphy:genius;I am a genius
+72|high||wikimedia:Albert Einstein;Einstein portrait|pinterest:Albert Einstein unimpressed;Einstein serious face|openverse:Albert Einstein
+73|high||youtube:FTMO office Prague;prop trading firm office tour;prop firm trading office b roll|archive:trading office screens
+74|low|R|youtube:don't ask meme shrug;man shrugging at camera;shrug don't ask reaction|giphy:shrug;don't ask
+75|low|R|youtube:eye roll whatever meme;blah blah blah reaction;man rolling eyes waving off|giphy:eye roll;blah blah blah
+76|medium||youtube:first step long staircase cinematic;climbing long stairs;stairs b roll|archive:staircase climbing
+77|low|R|youtube:meh face reaction;slight grimace reaction;it's not great meme|giphy:meh;grimace
+78|medium||youtube:tape measure pulled across desk close up;measuring tape b roll;tape measure macro|archive:tape measure
+79|medium||youtube:broker fees table screen;trading fees swap rates explained screen;broker spread table screen recording|archive:price list board
+80|low|R|youtube:dead serious face meme;man serious face close up;serious stare reaction|giphy:serious face;per side
+81|medium||youtube:hydraulic press stress test;material stress test machine slow motion;hydraulic press b roll|archive:stress test machine
+82|medium||youtube:empty stadium man alone looking up;alone in empty stadium cinematic;empty stadium b roll|archive:empty stadium
+83|low|R|youtube:man shaking head no meme;head shake disappointed;shaking head reaction|giphy:shaking head no;nope
+84|medium||youtube:busy street crossing dusk timelapse;rush hour pedestrians crossing;city crossing b roll|archive:busy street crossing
+85|medium||youtube:commuters rushing station timelapse;rush hour commuters both directions;commuters b roll|archive:commuters station
+87|medium||youtube:stuck in mud scene;man stuck waist deep mud;stuck in mud b roll|archive:stuck in mud
+88|medium||pinterest:giant statue tiny person base;colossus statue scale|wikimedia:Colossus statue;giant classical statue|openverse:giant statue person
+89|high||wikimedia:Albert Einstein portrait;Einstein 1921|pinterest:Albert Einstein looking at camera;Einstein black and white|openverse:Einstein portrait
+90|low|R|youtube:hands up I surrender meme;man raising hands surrender;okay okay surrender reaction|giphy:surrender hands up;I give up
+91|medium||youtube:researcher library academic papers;student reading papers library;library research b roll|archive:library reading
+92|medium||youtube:bitcoin intraday chart live;BTC 5 minute chart TradingView;bitcoin chart screen recording|archive:bitcoin chart
+93|medium||youtube:crossing out list pen close up;striking through notes;crossing out b roll|archive:writing crossing out
+94|medium||youtube:closed shop street dusk;shuttered store night street;closed shop b roll|archive:closed shop street
+95|high||youtube:NYSE opening bell ringing;opening bell stock exchange;trading floor open b roll|archive:stock exchange opening bell
+96|medium||youtube:clock ticking close up time;clock hands ticking macro;clock b roll|archive:clock ticking
+97|medium||youtube:spotlight on stage two people dark;stage spotlight dark theatre;spotlight b roll|archive:theatre spotlight stage
+98|medium||youtube:spotlight turning off stage;lights going out stage;lights off b roll|archive:stage lights off
+101|medium||pinterest:weathered stone ruin;ancient stone ruins|wikimedia:stone ruin abbey;ruined building stone|openverse:stone ruin
+102|medium||youtube:man looking up at skyscraper glass;looking up glass building cinematic;skyscraper b roll|archive:skyscraper looking up
+103|medium||youtube:two people facing each other dark room;tense standoff dim room;dim room b roll|archive:two men talking dark room
+104|medium||youtube:chart highlighted window then flat;backtest in sample out of sample chart;chart b roll|archive:chart
+105|low|R|youtube:athlete serious face focus;game face close up;serious athlete b roll|giphy:serious face;focused
+106|medium||youtube:man reading newspaper street;reading newspaper city morning;newspaper b roll|archive:man reading newspaper
+107|medium||youtube:everyone on their phones crowd;crowd all looking at phones;phones crowd b roll|archive:crowd reading newspapers
+108|medium||youtube:crowd gathering around documentary;people crowding around;crowd gathers b roll|archive:crowd gathering
+109|medium||youtube:press conference podium speaker;Federal Reserve press conference;press conference b roll|archive:press conference
+110|medium||youtube:Jerome Powell press conference;speaker at press event;press event b roll|archive:press conference speaker
+111|medium||youtube:world map market tickers animation;global markets map;world map b roll|archive:world map
+112|medium||youtube:empty arena dramatic lights;empty arena lights on;arena b roll|archive:empty arena
+113|medium||youtube:flat line chart screen;sideways market chart;flat chart b roll|archive:flat chart
+115|medium||youtube:child alone indoors from behind;kid sitting alone room;child b roll|archive:child sitting alone
+116|medium||youtube:child turning around smiling;kid turns smile;child smile b roll|archive:child smiling
+117|low|R|youtube:kid face falls disappointed;disappointed child reaction;sad kid face|giphy:disappointed kid;sad face
+118|medium||youtube:young boy close up face;boy portrait close up;kid face b roll|archive:boy close up
+119|medium||youtube:cyclist city street cinematic;riding bike through city;cyclist b roll|archive:cyclist street
+120|medium||youtube:cyclist riding away street;bike riding away camera;cycling away b roll|archive:cyclist riding away
+121|high||youtube:2017 bitcoin bubble news;bitcoin mania December 2017;crypto bubble 2017 CNBC|archive:bitcoin 2017
+122|medium||youtube:forex quotes screen EURUSD;currency pairs live quotes;forex screen b roll|archive:currency exchange board
+123|medium||pinterest:London skyline night;London city night lights|wikimedia:City of London skyline night;London night skyline|openverse:London skyline night
+124|low||pinterest:white glow light abstract;bright white light leak|openverse:white light glow;overexposed white|wikimedia:white light
+125|medium||youtube:excited guy at laptop;man leaning into laptop excited;laptop excitement b roll|archive:man at computer excited
+126|medium||youtube:scrolling spreadsheet data screen;tick data spreadsheet scrolling;spreadsheet b roll|archive:spreadsheet data
+127|medium||youtube:pool table lamp dark room;green table under lamp;dark room lamp b roll|archive:poker table lamp
+128|medium||youtube:holding up printout paper;hand holding document close up;printout b roll|archive:holding paper document
+129|low|R|youtube:Leonardo DiCaprio cheers meme;Great Gatsby toast;raising glass cheers|giphy:cheers;Gatsby toast
+130|high||wikimedia:Albert Einstein smiling;Einstein tongue|pinterest:Albert Einstein smiling;Einstein happy|openverse:Albert Einstein smiling
+131|medium||youtube:dart bullseye slow motion;hitting bullseye darts;bullseye b roll|archive:dart bullseye
+132|low|R|youtube:businessman nodding approval;man in suit nodding;nod approval reaction|giphy:nodding approval;yes nod
+133|medium||youtube:pressing big red launch button;launch button press close up;big red button b roll|archive:launch button
+134|medium||youtube:businessman walking long corridor;man in suit walking hallway;corridor walk b roll|archive:man walking corridor
+135|medium||youtube:man in suit waiting profile;formal man waiting;waiting b roll|archive:man waiting
+136|medium||youtube:old CRT monitor performance chart;retro computer screen chart;CRT monitor b roll|archive:computer screen chart
+137|medium||youtube:bid ask quotes ticking screen;level 2 quotes screen recording;bid ask b roll|archive:stock quotes board
+138|medium||youtube:redoing math in notebook;man calculating in notebook;math notebook b roll|archive:writing calculations
+139|medium||youtube:glitching CRT monitor;old monitor glitch effect;screen glitch b roll|archive:tv static screen
+140|medium||youtube:house of cards collapsing slow motion;card tower falling;house of cards b roll|archive:house of cards
+141|medium||youtube:monitor showing zero;screen reading 0.00;zero balance screen|archive:computer screen zero
+142|medium||youtube:old CRT monitor turning to static;tv static screen;static b roll|archive:television static
+143|medium||youtube:FTMO commission explained;broker commission table screen;broker fees screen recording|archive:price list
+144|medium||youtube:quarters dropping onto desk slow motion;coins dropping table;coins b roll|archive:coins falling table
+145|medium||youtube:typing numbers into calculator close up;calculator close up;calculator b roll|archive:calculator
+146|medium||youtube:cash register ringing up night;cash register close up;register b roll|archive:cash register
+147|medium||youtube:balance scale tipping;scales of justice tipping;balance scale b roll|archive:balance scale
+148|high||youtube:buzzer beater miss basketball;missed shot at buzzer NBA;basketball miss b roll|archive:basketball game
+149|medium||youtube:programmer headphones reviewing code;man reading code on screen;code review b roll|archive:programmer screen
+150|medium||youtube:terminal grep search code;command line search files screen recording;terminal b roll|archive:computer terminal
+151|low|R|youtube:realization moment face meme;it dawns on him reaction;man realizing close up|giphy:realization;oh no realization
+153|medium||youtube:invoice slid across table;bill handed over table;invoice b roll|archive:bill on table
+154|low|R|youtube:man reading bill shocked;eyebrows raised reading bill;reading invoice reaction|giphy:eyebrows raised;shocked bill
+155|high||youtube:LeBron James drive to the hoop;NBA drive highlights;basketball drive b roll|archive:basketball game
+156|medium||youtube:athlete getting back up motivation;pushing up off the floor;getting back up b roll|archive:athlete training
+157|medium||youtube:options chain screen thinkorswim;options chain explained screen;options chain screen recording|archive:stock options board
+158|medium||pinterest:phone scrolling finance twitter;fintwit phone screen|openverse:smartphone twitter screen;phone social media|wikimedia:smartphone screen
+159|medium||youtube:man between tall buildings city;standing between skyscrapers;city man b roll|archive:man between buildings
+160|medium||youtube:ocean swell rolling drone;calm sea swell;ocean swell b roll|archive:ocean swell
+161|medium||youtube:Newton's cradle pendulum slow motion;pendulum swinging back;pendulum b roll|archive:pendulum
+162|low|R|youtube:man arms out empty handed meme;nothing here shrug;empty hands reaction|giphy:empty hands;nothing
+165|medium||pinterest:open notebook handwritten notes;notebook predictions handwriting|openverse:open notebook handwriting;notebook notes|wikimedia:handwritten notebook
+166|medium||pinterest:notebook page tomorrow handwritten;journal tomorrow note|openverse:notebook page handwriting;journal page|wikimedia:notebook page
+167|medium||youtube:driving desert road POV;long desert highway drive;desert road b roll|archive:desert road car
+168|medium||youtube:car braking hard empty road;car skidding stop;braking b roll|archive:car braking
+169|medium||youtube:car on straight highway aerial;drone following car highway;highway b roll|archive:car highway aerial
+170|medium||youtube:man explaining to camera dark clothes;talking head explanation;explaining b roll|archive:man explaining
+171|medium||youtube:long receipt unrolling;very long receipt;receipt b roll|archive:long receipt
+172|medium||youtube:balloons deflating;man holding balloons;deflating balloons b roll|archive:balloons
+173|low|R|youtube:intense serious stare meme;intense face close up;serious man stare|giphy:intense stare;serious
+174|low|R|youtube:shaking head no close up;nope head shake meme;man saying no|giphy:no no no;head shake
+175|medium||youtube:running through forest cinematic;trail running forest;forest run b roll|archive:running forest
+176|medium||youtube:running through shallow water beach;beach run water;beach running b roll|archive:running beach
+177|medium||youtube:runner bent over exhausted;hands on knees out of breath;tired runner b roll|archive:runner exhausted
+178|medium||youtube:breathing hard after sprint;athlete catching breath;out of breath b roll|archive:athlete tired
+179|medium||youtube:climbing building corner parkour;buildering free climb;climbing b roll|archive:climbing building
+180|medium||youtube:jump fail falls short;missed jump fail;jump fail b roll|archive:jump fall
+181|low|R|youtube:two people arguing pointing meme;Spider-Man pointing meme;arguing pointing|giphy:spiderman pointing;arguing
+182|low|R|youtube:shrug meme close up;man shrugging close up;shrug reaction|giphy:shrug;idk
+183|high||youtube:NBA player turning to camera;basketball player looks at camera;basketball b roll|archive:basketball player
+184|medium||pinterest:humanoid robot face;Ameca robot face|wikimedia:humanoid robot;Sophia robot|openverse:humanoid robot face
+185|medium||youtube:dark server room blinking lights;data center night;server room b roll|archive:computer room
+186|medium||youtube:neural network visualization;neural network animation explained;AI network b roll|archive:computer network
+187|medium||youtube:feet walking step by step close up;walking forward feet;footsteps b roll|archive:feet walking
+188|medium||youtube:bank vault door closing;heavy vault door shut;vault b roll|archive:bank vault door
+189|low|R|youtube:man nodding press conference;knowing nod;nodding reaction|giphy:nodding;knowing nod
+190|low|R|youtube:smug face meme;Robert Downey Jr smug;smug confident face|giphy:smug;smirk
+191|low|R|pinterest:machine gun meme;firing machine gun reaction meme|giphy:machine gun meme;boom boom boom|wikimedia:machine gun firing
+192|low|R|youtube:machine gun firing slow motion;minigun firing;gun firing b roll|giphy:machine gun;boom boom
+193|medium||youtube:200 day moving average chart;moving average explained chart;stock chart moving average screen recording|archive:stock chart
+194|medium||youtube:man interviewed close up;interview face close up;interview b roll|archive:interview close up
+195|medium||youtube:two coaches watching sideline;men watching game sideline;sideline b roll|archive:sideline coaches
+196|medium||youtube:man waiting awards ceremony;nominee waiting award;awards ceremony b roll|archive:awards ceremony
+197|low|R|youtube:disappointed losing award reaction;award loser face;disappointed face meme|giphy:disappointed;losing award
+198|low|R|youtube:footballer shouting disbelief;player screaming disbelief;disbelief shout|giphy:disbelief;what
+199|medium||youtube:football player training run;footballer running training;training b roll|archive:football training
+200|medium||youtube:man face at event close up;guest at event close up;event b roll|archive:man at event
+201|medium||youtube:man looking down close up;looking down thoughtful;looking down b roll|archive:man looking down
+202|medium||youtube:man holding up award;award winner holding trophy;award b roll|archive:holding award
+203|medium||youtube:award in hands close up;trophy close up hands;trophy b roll|archive:trophy close up
+206|medium||youtube:oil field aerial drone;oil pumpjacks aerial;oil field b roll|archive:oil field
+207|medium||youtube:driving in heavy rain at night;car rain night;rain driving b roll|archive:car rain night
+208|medium||youtube:cyclist road toward mountains;lone cyclist mountain road;cycling b roll|archive:cyclist mountains
+209|medium||youtube:cyclist turning around road;bike u turn;cyclist b roll|archive:cyclist road
+210|medium||youtube:glass office one person standing;modern office alone;office b roll|archive:modern office
+211|medium||youtube:man on phone by lake;man hunched over phone outdoors;phone lake b roll|archive:man phone lake
+212|low|R|youtube:man frowning at phone;confused looking at phone meme;frowning phone|giphy:confused phone;frown
+213|low|R|youtube:exhausted face close up;tired man close up;exhausted reaction|giphy:exhausted;tired
+214|medium||youtube:person standing still in moving crowd;hoodie still crowd timelapse;crowd b roll|archive:crowd standing
+215|medium||pinterest:oil price chart WTI Brent;crude oil chart|wikimedia:Brent WTI price chart;crude oil price chart|openverse:oil price chart
+216|medium||pinterest:stacked oil barrels black and white;oil drums stacked|wikimedia:oil barrels stacked;oil drums|openverse:oil barrels
+217|medium||youtube:man standing institutional doorway;man in doorway building;doorway b roll|archive:man in doorway
+218|medium||pinterest:forex intraday chart;currency chart candlesticks|openverse:forex chart;candlestick chart|wikimedia:candlestick chart
+219|medium||pinterest:awake in bed at night;insomnia bed night|openverse:insomnia bed;bed at night|wikimedia:insomnia
+222|medium||youtube:Jupyter notebook running data analysis;pandas data analysis screen recording;notebook b roll|archive:computer data
+223|medium||pinterest:normal distribution tail outlier;bell curve tail point|wikimedia:normal distribution;bell curve|openverse:normal distribution graph
+224|medium||pinterest:backtest equity curve climbing;equity curve chart|openverse:equity curve chart;rising chart|wikimedia:stock chart rising
+225|medium||pinterest:flat equity curve chart;flat line chart|openverse:flat line chart;sideways chart|wikimedia:flat chart
+226|medium||youtube:graph dropping off fast monitor;chart crashing on screen;dropping graph b roll|archive:chart falling
+227|medium||pinterest:trading platform multiple panels;trading software screen|openverse:trading platform screen;trading software|wikimedia:trading terminal
+228|medium||pinterest:stopwatch at zero;stopwatch close up|wikimedia:stopwatch;chronometer|openverse:stopwatch
+229|medium||pinterest:order book spread screenshot;order book depth|openverse:order book;market depth|wikimedia:order book
+230|medium||pinterest:portfolio dashboard screen;trading dashboard dark|openverse:dashboard screen;analytics dashboard|wikimedia:dashboard
+231|medium||youtube:two cars passing opposite directions;cars passing each other road;traffic b roll|archive:cars passing road
+232|medium||pinterest:research papers browser tabs;many browser tabs open|openverse:browser tabs;research papers screen|wikimedia:browser window
+233|medium||pinterest:toll booth barrier;toll gate barrier|wikimedia:toll booth;toll plaza|openverse:toll booth barrier
+235|medium||pinterest:spreadsheet result row highlighted;excel results table|openverse:spreadsheet;excel table|wikimedia:spreadsheet
+236|medium||pinterest:list of currency pairs;forex pairs list|openverse:currency pairs list;forex quotes|wikimedia:currency pairs
+237|medium||pinterest:large negative number red screen;loss red number trading|openverse:negative number red;loss chart|wikimedia:red number
+238|medium||pinterest:currency cross rates table;forex cross rates|wikimedia:cross rates table;exchange rate table|openverse:exchange rates table
+239|medium||pinterest:order book wide spread;bid ask spread order book|openverse:order book spread;bid ask spread|wikimedia:bid ask spread
+240|medium||pinterest:filter panel software;data filter screen|openverse:filter panel;software settings panel|wikimedia:software filter
+241|medium||youtube:silent locker room team after loss;locker room silence;locker room b roll|archive:locker room team
+242|high||youtube:footballer walking out tunnel;Premier League tunnel walk out;tunnel b roll|archive:football tunnel
+243|medium||youtube:footballer looking up determined;player determined face;determined b roll|archive:footballer close up
+244|medium||youtube:limit orders order book screen;placing limit order screen recording;order book b roll|archive:order book screen
+245|medium||youtube:young player training kit ready;footballer warm up;training b roll|archive:football training
+246|medium||youtube:men black tie gold stage;black tie awards stage;gala b roll|archive:awards stage
+247|medium||youtube:athlete looking at trophy;player holding trophy gazing;trophy b roll|archive:holding trophy
+248|medium||youtube:trophy close up shiny;trophy rotating close up;trophy b roll|archive:trophy close up
+249|low|R|youtube:athlete celebrating arms wide;celebration arms out;celebrating b roll|giphy:celebration arms wide;yes
+250|medium||youtube:player in white kit looking up;footballer looking up sky;looking up b roll|archive:footballer looking up
+251|high||youtube:Premier League attack near box;football match attack highlights;football b roll|archive:football match
+252|high||youtube:hard tackle football highlights;crunching tackle Premier League;tackle b roll|archive:football tackle
+253|high||youtube:defender blocks shot football;goal line block;block b roll|archive:football defender
+254|high||youtube:goalkeeper diving save highlights;best goalkeeper saves;save b roll|archive:goalkeeper save
+255|medium||youtube:basketball player alone on court;empty court lone player;basketball b roll|archive:basketball court
+256|medium||youtube:football training sunny pitch;team training session;training b roll|archive:football training
+257|medium||youtube:football passing drill training;passing practice;training b roll|archive:football passing
+258|low|R|youtube:tired basketball player face;exhausted athlete close up;tired face|giphy:tired;exhausted
+259|medium||youtube:basketball player wiping sweat;wiping sweat exhausted;sweat b roll|archive:athlete sweat
+260|high||youtube:Messi dribbling past defender;best dribbles football;dribble b roll|archive:football dribble
+261|medium||youtube:youth football match action;kids football game;youth football b roll|archive:youth football
+262|high||wikimedia:The Flash DC;Flash comics|pinterest:The Flash running lightning;Flash speed force|openverse:The Flash superhero
+263|high||wikimedia:Jane Street Capital;Jane Street office New York|pinterest:Jane Street office;Jane Street trading|openverse:Jane Street office
+264|low|R|youtube:not yet smirk meme;man smirking locker room;smirk reaction|giphy:not yet;smirk
+265|medium||youtube:S&P 500 overnight gap chart;SPY gap up chart;stock gaps screen recording|archive:stock chart
+266|medium||youtube:lone figure beach dusk sky;person watching sunset beach;beach dusk b roll|archive:beach sunset
+267|medium||youtube:man in sunglasses walking home street;walking down street sunglasses;street walk b roll|archive:man walking street
+268|low|R|youtube:counting on fingers one two meme;man counting fingers;counting fingers|giphy:counting fingers;one two
+269|medium||youtube:clock striking five close up;clock hitting 5pm;clock b roll|archive:clock five oclock
+270|medium||youtube:camera shutter snapping slow motion;shutter close up;camera b roll|archive:camera shutter
+271|low|R|youtube:relaxed man smiling close up;chill smile;content smile|giphy:relaxed smile;chill
+272|low|R|youtube:fist pump then drop meme;half hearted celebration;fist pump fail|giphy:fist pump fail;meh celebration
+273|medium||youtube:200 day moving average trading strategy chart;trend filter chart;moving average screen recording|archive:stock chart
+274|medium||youtube:tightening bandage close up;wrapping bandage;bandage b roll|archive:bandage
+275|medium||youtube:driving at night focused face;night drive POV;night driving b roll|archive:driving night
+276|low|R|youtube:man nodding in approval meme;approving nod;nod reaction|giphy:nodding approval;nice
+277|medium||youtube:chart dip shallower recovery;stock chart recovery;chart b roll|archive:chart recovery
+278|medium||youtube:stock chart recovering green;market rebound chart;green chart b roll|archive:chart rising
+279|low|R|youtube:man yawning bored meme;bored yawn;yawning reaction|giphy:yawn;bored
+280|low|R|youtube:lukewarm thumbs up meme;meh thumbs up;thumbs up reaction|giphy:meh thumbs up;thumbs up
+281|low|R|youtube:tapping temple smart meme;roll safe meme;thinking smart|giphy:roll safe;tapping head
+282|medium||youtube:Jupyter notebook screen close up;coding notebook screen recording;notebook b roll|archive:computer code screen
+283|low|R|youtube:caught off guard reaction meme;surprised caught;caught off guard|giphy:caught off guard;surprised
+284|medium||youtube:chart with gap missing data;stock chart gap;chart gap screen recording|archive:chart gap
+285|medium||youtube:typing one line of code close up;code cell typing;typing code b roll|archive:typing code
+286|medium||youtube:man asking question to camera;talking to camera question;question b roll|archive:man talking camera
+287|low|R|youtube:side eye glance meme;athlete glancing sideways;side eye|giphy:side eye;glance
+288|low|R|youtube:stunned athlete reaction;shocked face meme;stunned|giphy:shocked;stunned
+289|low||pinterest:word impossible typography;impossible text|openverse:impossible sign;impossible word|wikimedia:impossible
+290|medium||youtube:man explaining to camera jacket;explaining talking head;explaining b roll|archive:man explaining
+291|low|R|youtube:obviously nod meme;nodding obvious;of course nod|giphy:obviously;of course
+292|high||wikimedia:Yahoo Finance;S&P 500 index chart|pinterest:Yahoo Finance GSPC page;Yahoo Finance screen|openverse:Yahoo Finance
+293|medium||youtube:dark warehouse dust light;dusty warehouse light beams;warehouse b roll|archive:warehouse interior
+294|medium||youtube:photocopier copying pages;copy machine close up;photocopier b roll|archive:photocopier
+295|medium||youtube:archive shelves ledgers;old records archive room;archive b roll|archive:archive shelves ledgers
+296|medium||youtube:old ledger pages turning;dusty book pages turning;ledger b roll|archive:ledger pages
+300|medium||youtube:phone red stock chart hands;stock app red phone;phone chart b roll|archive:phone stock chart
+301|high||youtube:SPY ETF chart;SPY chart TradingView;SPY screen recording|archive:stock chart
+302|medium||pinterest:terminal output dark screen;command line output|openverse:terminal output;command line screen|wikimedia:terminal screen
+303|medium||pinterest:terminal output number;command line result|openverse:terminal result;console output|wikimedia:console output
+304|medium||pinterest:terminal results table;console table output|openverse:terminal table;console results|wikimedia:terminal results
+305|medium||pinterest:filtered terminal output;console filter output|openverse:terminal filtered;console filter|wikimedia:terminal filter
+306|medium||pinterest:dark terminal code scrolling;matrix code terminal|openverse:terminal code dark;scrolling code|wikimedia:terminal code
+307|medium||pinterest:spreadsheet repeated values column;data column repeated|openverse:data column;spreadsheet column|wikimedia:data table
+308|medium||pinterest:random forest decision tree diagram;decision tree chart|wikimedia:random forest diagram;decision tree|openverse:decision tree diagram
+309|medium||pinterest:feature list code python;python code list|openverse:python code list;code screen|wikimedia:python code
+310|medium||youtube:desk setup logging results;person working desk setup;desk work b roll|archive:desk working
+311|medium||youtube:man in tiny toy car funny;adult in toy car;toy car b roll|archive:toy car
+312|medium||youtube:tiny toy car driving away;remote control car driving off;toy car b roll|archive:toy car driving
+313|medium||pinterest:terminal comparing strategies output;console comparison table|openverse:terminal comparison;console output table|wikimedia:terminal output
+315|low|R|youtube:man adjusting glasses meme;push up glasses smart;adjusting glasses|giphy:adjusting glasses;nerd glasses
+316|low|R|youtube:eyebrows up reaction meme;raised eyebrows surprised;eyebrows raise|giphy:eyebrows raised;interesting
+321|medium||youtube:top down desk working;overhead desk work;desk b roll|archive:desk overhead
+322|medium||youtube:light trails night timelapse;car light trails city;light trails b roll|archive:light trails night
+323|medium||youtube:highway light trails long exposure;highway timelapse night;light trails b roll|archive:highway night lights
+325|low|R|youtube:people starting to cheer;crowd begins cheering;cheering b roll|giphy:cheering crowd;yay
+326|low|R|youtube:crowd celebrating confetti;celebrating crowd;celebration b roll|giphy:celebration crowd;party
+328|low|R|pinterest:cartoon explosion;comic explosion boom|giphy:cartoon explosion;boom explosion|openverse:cartoon explosion
+329|low|R|youtube:man shouting with joy;screaming yes joy;joy shout|giphy:yes shout;joy
+330|low|R|youtube:fist pump close up;fist pump yes;fist pump b roll|giphy:fist pump;yes
+331|medium||pinterest:SHAP summary plot;SHAP values chart|wikimedia:SHAP plot;feature importance chart|openverse:SHAP summary plot
+332|medium||pinterest:buy the dip chart arrows;chart buy signals marked|openverse:buy signals chart;stock chart arrows|wikimedia:stock chart signals
+333|high||youtube:VIX spike chart;VIX volatility index spike;VIX chart screen recording|archive:volatility chart
+334|medium||youtube:man in pink shirt thinking;thoughtful pause close up;thinking b roll|archive:man thinking
+335|low|R|youtube:small smile breaking meme;slow smile;smiling slowly|giphy:slow smile;smile
+336|low||pinterest:black screen;pure black|openverse:black;black background|wikimedia:black
