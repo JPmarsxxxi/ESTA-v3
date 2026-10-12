@@ -1110,3 +1110,150 @@ M11 makes the plan validator enforce the sourcing rules, removes Giphy as a foot
 - [ ] This session's plan passes `validate_plan.py`, and its audit shows a ladder on every lead source, 0 shots with one query shared by all sources, and Giphy only on shots marked as reactions.
 - [ ] After the re-pick, Giphy picks ≤ the number of reaction beats, stock ≤ 15%, 336/336 covered, 0 placeholders, and the final score reported.
 - [ ] `PORTING.md` logs the `plan/SKILL.md` and `tools/assets/run.py` changes.
+
+---
+
+# Part 10 — Qwen vision trial and idea-first planning (M13)
+
+Decided with the user on 2026-10-12, on branch `qwen-vision-trial` (from M12 + the `perf-vision` merge). Two changes, then a full recompute of `do-alphas-even-exist-2026-09-29` that replaces Part 9's unfinished re-pick:
+
+1. **Every automated image call that Claude makes goes to Qwen3.5-9B instead.** Qwen is served live from Kaggle's free 2xT4, with batching, and reached through the user's ngrok static domain.
+2. **The plan thinks in ideas, not fragments.** Mapped mode cuts to the inspo's rhythm first and gives each fragment its own picture. That put Andrew Tate on two shots in a row and the wolves on the next two, cut "Igor | Tolchinsky" and "0 | .05" in half, and reused one Igor photo on shots 18 and 20.
+
+## Goal
+
+**A. Qwen does the looking.** The Part 8 eval had Qwen3.5-9B close to Haiku, scored against Haiku's own answers. This trial runs a whole video with Qwen doing every automated image check, so the user can judge the result:
+
+- assets frame search (`find_best_frame_at_timestamps`);
+- clip check (`validate_frames`);
+- image check (`validate_image_url`);
+- the auto-pick judge (`autopick.py` via `describe.ask`);
+- inspo describe and motion (`describe_shots`, `animate_shots`) if they run. Their answers are cached, so they won't re-run for this session.
+
+The server batches concurrent requests so a full video fits in one Kaggle session.
+
+**B. Idea-first planning.** For each script sentence, the plan first splits the words into visual ideas: word spans that each show one thing ("not these guys" = Tate, "or these guys" = wolves). Only then does it place cuts:
+
+- Cuts move onto idea boundaries wherever the 35% shot-length tolerance allows.
+- An idea that still spans several cuts gets a different angle or a step forward on each cut (Tate at the mic, then a Tate headline). It never repeats the same subject.
+- A cut never falls inside a name, a number or a short phrase.
+- The picker never reuses one photo or video within 10 shots.
+
+## Non-goals
+
+- **Text-only Claude calls stay on Claude:** `pick_best_videos`, `find_moment_in_transcript`, autopick query rewrites, and the planner's Rewrite/Command/Requery.
+- **In-conversation work stays with Claude:** writing the plan, style analysis, look refs.
+- **No Claude fallback.** A failed Qwen call never retries on Claude.
+- **No adoption decision.** Qwen does not become the default. The Claude path stays, one config switch away (`vision.backend: claude`). Human labels (Part 8) still decide adoption.
+- **No other inference hosts:** no local 4B model and no paid API.
+- No editor/UI changes, no new stage buttons.
+- **No new shot-length tolerance.** It stays 35% (Part 3), and the inspo rhythm is kept: merging stays as the Part 3 plan rules allow.
+- Audio, timestamps, the script, the inspo profiles and style analysis are reused as they are.
+
+## Files & interfaces involved
+
+New:
+- `tools/vision_server/kernel.py`: the Kaggle kernel. It runs Qwen3.5-9B behind an OpenAI-compatible `POST /v1/chat/completions`, plus `GET /health` and `POST /shutdown`, all requiring `Authorization: Bearer <token>`. It opens the ngrok tunnel (pyngrok) on the static domain, and stops itself after 20 minutes with no requests or at 11.5 hours.
+- `tools/vision_server/run.py` (system python, where the Kaggle CLI lives): `up` pushes the kernel and waits for `/health` at the domain (prints the GPU and the model server); `status` reports `/health` plus Kaggle kernel status; `down` calls `/shutdown`.
+- `tools/vision_server/client.py`: `chat(content_blocks, system, kind) -> str` against the server, honouring the breaker and ledger. It converts the Anthropic-style blocks that `llm.py` and `describe.ask` already build into OpenAI-style `image_url` data URIs.
+- `tools/vision_server/tests/`: client tests against a stub HTTP server.
+- `tools/match/tests/test_ideas.py` (or extended `test_validate.py`): the new plan checks.
+- `.esta/vision_server.json` (gitignored): the per-`up` bearer token and kernel id.
+
+Changed:
+- `tools/assets/llm.py` `_call_with_images`: routes to `client.chat` when `vision.backend` is `qwen`. `_call` (text) is unchanged.
+- `tools/match/describe.ask`: routes to `client.chat` when the content holds an image block and the backend is `qwen`. Text-only content (rewrites) stays on Claude.
+- `tools/usage/ledger.py` / `report.py`: each record carries `backend` (`claude`/`qwen`). The report splits by backend and adds Qwen counts: calls, failures, invalid JSON, median seconds.
+- `config.yaml` (gitignored) gets a `vision:` block: `backend: qwen|claude`, `url: https://<static domain>`, `concurrency: 8`, `timeout: 120`. `config.example.yaml` documents it if the repo has one.
+- `.claude/skills/plan/SKILL.md` mapped mode pass 1: idea-first rules (decisions 7-9), and the new `idea` field per shot. PORTING.md logs it.
+- `tools/match/validate_plan.py`: protected-phrase cuts, idea tiling and adjacent-repeat checks (decision 9).
+- `tools/match/autopick.py` final pass, and `tools/assets/run.py` where it picks: no same media within 10 shots (decision 10).
+- `PORTING.md`: every change to a v2 copy (`llm.py`, `run.py`, plan `SKILL.md`).
+
+## Key decisions & tradeoffs
+
+1. **Host: Kaggle 2xT4, live.** It's free and runs the same model the eval scored. A pushed kernel can't report its address until it finishes, so the address is fixed in advance: the user's ngrok static domain (the host in `config.yaml` `ollama_url`). Free ngrok allows one online endpoint, so nothing else may hold the domain during the run.
+2. **ngrok authtoken via a Kaggle secret, never in kernel source.** The user adds `NGROK_AUTHTOKEN` once as a Kaggle secret and attaches it to the kernel in the Kaggle editor after the first push (one manual step). The kernel reads it with `UserSecretsClient`. The bearer token is random per `up`, written into the private kernel and `.esta/vision_server.json`. It only gates the endpoint.
+3. **Model server: vLLM first, our own batching server as fallback.** vLLM runs fp16 (T4 has no bf16), tensor-parallel 2, thinking off, greedy, images capped at 768 px long side. If vLLM won't load Qwen3.5-9B on sm_75, the kernel falls back to transformers. That fallback runs fp16 with `device_map="auto"`, the setup that worked in the Part 8 eval, behind a small server that gathers waiting requests into batches (up to 8, 150 ms window). `/health` reports which one is running. The model stays Qwen3.5-9B either way.
+4. **Batching needs concurrent callers.** The client allows `vision.concurrency` (8) requests in flight. The assets validate pool (now `min(n, 4)`) and autopick workers are raised to at least that when the backend is `qwen`.
+5. **Fail closed, no Claude.** A timeout, HTTP error, unreachable server or invalid JSON returns the existing "unchecked" result:
+   - `None` from `validate_frames`/`validate_image_url`;
+   - the existing no-pick path for frame search;
+   - the local ranking for the judge, as when Claude is missing.
+
+   After 5 consecutive connection failures the breaker trips: no more requests from that process, and the job log and ledger say so. Each record is logged with `backend: qwen` and its error.
+6. **Same prompts.** Qwen gets the exact prompts and images Claude got, as in the eval. No prompt tuning tonight, so the trial compares models, not prompts.
+7. **Ideas before cuts (plan skill, mapped mode).** Before choosing slots, the plan splits each sentence into visual ideas, each a contiguous word span with one subject. Each shot records `"idea": {"id": "<sentence>-<n>", "step": <k>}`. Cuts move to idea boundaries when the shot stays within 35% of its ref target. An idea that still spans several shots shows a different angle or a step forward on each (`step` 1, 2, ...), never the same subject framed the same way. This is what the user asked for when the plan "isn't carrying the context of a sentence that has many sections".
+8. **Protected phrases.** A cut may not fall:
+   - between two words of a run of capitalised words (a name: "Igor Tolchinsky", "Andrew Tate");
+   - between two numeric tokens or a number and its unit ("0 .05", ".445", "S and P100", "Lehmann 1990" as name + year);
+   - before a word that only completes the previous phrase. This last one is the skill's judgment; the validator checks the first two.
+
+   The 35% tolerance stays; the plan picks the nearest allowed boundary.
+9. **Validator adds** (graphics are exempt from the repeat checks, not from the phrase check):
+   - a cut inside a protected phrase (decision 8, mechanical rules);
+   - every non-graphic shot must carry `idea`;
+   - two adjacent shots with different `idea.id` whose `desc` token overlap (Jaccard on lowercased content words) is 0.6 or more ("same subject twice");
+   - two adjacent shots with the same `idea.id` and `desc` overlap of 0.6 or more ("repeats instead of progressing").
+10. **No same media within 10 shots.** "Same" means the same YouTube video id, the same image URL, or the same file SHA-1. In autopick's final pass, walked in shot order, a shot whose best candidate is already the pick within the previous 10 shots takes its next-best candidate. If none is left it keeps the repeat and is flagged on the review page. Assets' own pick follows the same rule where it chooses among validated candidates.
+11. **Recompute from the plan.** Back up the current artifacts first:
+    - what is backed up: `plan.json`, `plan_progress.jsonl`, `assets.json`, `assets_progress.jsonl`, `autopick.json`, `match_*.json`, `match_review.html`, `.openreel.json`;
+    - where: `sessions/<id>/backup_m12_claude/`;
+    - the order: replan with the plan skill (Claude, in conversation, idea-first) → `validate_plan.py` passes → assets (Qwen) → motion-graphics → autopick (Qwen) → render final → match final.
+
+    The run reuses audio, timestamps, script, inspo profiles and style analysis.
+
+## Edge cases
+
+- **The server isn't up when a job starts.** Assets and autopick check `/health` first when the backend is `qwen`, and stop with a clear message, instead of marking every shot unchecked.
+- **The server dies mid-run** (Kaggle preemption, 12 h cap, idle stop). The breaker trips. The job finishes with the remaining checks unchecked and reports how many. `run.py up` and re-running the stage resume, because shots already picked are kept.
+- **ngrok domain already online** (old ollama tunnel). The kernel fails fast, and `run.py up` reports "domain in use" from the kernel log.
+- **Kaggle secret not attached.** The kernel exits with "NGROK_AUTHTOKEN secret missing: attach it in the kernel editor", and `up` prints that line.
+- **Invalid JSON from Qwen.** The client tries the same `_parse_json`/`parse_json` extraction Claude answers get. Still invalid means unchecked, and the failure is counted.
+- **Large judge batches.** Autopick sends several shots per judge call. The server's context (`max_model_len` at least 16k) and image limit per request must fit the largest batch. If they don't, the client splits the batch.
+- **A sentence that is one word, or an idea shorter than any allowed shot.** It merges into the neighbouring idea and takes the neighbour's `idea` id.
+- **No allowed boundary within 35%** (a long name or number run). The protected-phrase rule wins: the shot may exceed 35%, and the validator reports it as a target miss, not a phrase cut.
+- **Repeat avoidance runs out of candidates.** The repeat is kept and flagged, never left empty.
+- **`vision.backend` missing** means `claude`: the old behaviour.
+
+## Acceptance criteria
+
+Vision backend
+- [ ] `python -m pytest tools/vision_server/tests tools/usage/tests -q` passes, covering against a stub server:
+  - block conversion (text + base64 image to OpenAI format);
+  - a success;
+  - timeout → unchecked;
+  - invalid JSON → unchecked;
+  - 5 connection failures trip the breaker;
+  - ledger records carrying `backend: qwen`.
+- [ ] With `vision.backend: qwen`, a stubbed `claude` binary is never spawned by `validate_frames`, `validate_image_url`, `find_best_frame_at_timestamps` or a judge `describe.ask` (test). A text-only `describe.ask` still uses Claude (test).
+- [ ] `python tools/vision_server/run.py up` brings the server up on Kaggle. `/health` at the static domain reports the model, the server type (vLLM or fallback) and 2 GPUs. `status` and `down` work. (Manual run; output pasted into the M13 report.)
+- [ ] **Sanity replay:** the 180-item sample from Part 8 goes through the live server with concurrency 8 via `tools/vision_eval/replay.py`, using a new `--backend qwen-live`.
+  - It finishes, JSON validity is 99% or more, and agreement with Haiku is within 5 points of `results_kaggle-qwen3-5-9b` on each kind (same model, so it should match).
+  - Throughput is recorded (items per minute), alongside the one-at-a-time 12.5 s/item.
+
+Idea-first plan
+- [ ] Validator tests cover: a cut inside a capitalised name; a cut between numeric tokens; a missing `idea`; the same subject on adjacent shots with different ideas; the same idea not progressing; graphics exempt from the repeat checks. `python -m pytest tools/match/tests tools/genvideo/tests -q` passes.
+- [ ] The plan skill's mapped-mode text describes ideas first, `idea` {id, step}, protected phrases and progression. PORTING.md logs it.
+- [ ] Autopick test: a shot whose best candidate repeats a pick within 10 shots takes the next-best; with no other candidate, the repeat is kept and flagged.
+
+Recompute of `do-alphas-even-exist-2026-09-29`
+- [ ] `backup_m12_claude/` holds the pre-trial artifacts listed in decision 11.
+- [ ] The new plan passes `validate_plan.py`. The opening no longer puts Tate on two shots then wolves on two: the Tate idea and the wolves idea each get their own words, and no adjacent pair repeats a subject. No cut splits "Igor Tolchinsky" or the Sharpe numbers.
+- [ ] Assets and autopick ran with `vision.backend: qwen`. `usage.jsonl` shows 0 Claude image calls for the run, and the report gives Qwen's calls, failures, invalid JSON and median seconds.
+- [ ] After autopick:
+  - 336/336 shots covered, or the new shot count from the replan;
+  - 0 placeholders;
+  - stock 15% or less;
+  - Giphy picks no more than the reaction beats;
+  - no media reused within 10 shots, except flagged ones (count reported).
+- [ ] Render final and match final ran. The M13 report gives:
+  - the final score next to 81.9 (the last score, from before the M12 re-pick);
+  - picks by source;
+  - unchecked checks;
+  - Kaggle GPU hours used.
+- [ ] A side-by-side review page (each shot: the pre-trial pick from `backup_m12_claude/` next to the Qwen-era pick, with line and desc) lets the user judge the two runs.
+
+General
+- [ ] `bun run typecheck` and `bun run lint` pass (no TS changes are expected, but run them anyway).
+- [ ] Nothing is committed to `main`/`m2-surfaces`. Work is committed on `qwen-vision-trial`.
