@@ -227,6 +227,23 @@ SPEC.md Part 7. In the first full video Pexels and Pixabay filled 263 of 307 foo
 - **Review page (`tools/match/review.py`).** Stock picks and retyped shots are flagged; the header shows `stock: N/M shots (cap K)`.
 - **Session re-route.** `sessions/do-alphas-even-exist-2026-09-29/reroute.py` (`route`, `pick`, `finish`, `report`) applies the above to that session; it needs the session's media, so it runs on the local PC.
 
+## M11 usage and speed
+
+SPEC.md Part 8. Measured from the 2026-10-01..07 run's transcripts (`python tools/usage/report.py --transcripts`): the one interactive Opus conversation was ~89% of spend; `tools/assets/llm.py`'s Haiku calls ~9%, and 1,507 of them ran after the session limit was hit.
+
+- **`tools/assets/llm.py` (v2 copy).** Every call is a lean `claude -p` turn: stream-json input with the frames inline (re-encoded to <= 768 px), a one-line `--system-prompt`, `--strict-mcp-config --setting-sources "" --tools "" --max-turns 1 --no-session-persistence`, and `MAX_THINKING_TOKENS=0`. Measured on one validate call: 2.6k input tokens and 5 s, against ~33k and a 15.7 s median before (the old call loaded the whole Claude Code session per check: system prompt, MCP servers, hooks, CLAUDE.md, skills, plus Haiku thinking). Prompts are unchanged; the validator's is now built by `validate_prompt()` so the eval replays the same text, and frame-search images are labelled `frame i:`.
+- **Fail closed (v2 copy `llm.py`).** `validate_frames` returned `{"matches": true, "confidence": 50}` on any failure, so a timeout or a usage-limit reply approved the clip. It now returns `None`, which `run.py` and `search.py` already treat as unvalidated (and `[]` frames also gives `None`).
+- **Limit breaker (`tools/usage/ledger.py`, new).** A limit or auth reply trips a process-wide flag. `llm.py` and `tools/match/describe.ask` (judge, rewrite, describe lanes) stop spawning `claude` for the rest of the process instead of making one doomed 15 s call per candidate.
+- **Usage ledger.** Every `llm.py` and `describe.ask` call appends tokens, cost and seconds to `<session>/usage.jsonl` (`cache/usage.jsonl` without a session). `run.py` (v2 copy) and `autopick.run` set `ESTA_SESSION_DIR`. `python tools/usage/report.py --session sessions/<id>` summarises it.
+- **Eval capture.** `ESTA_VISION_CAPTURE=1` makes `llm.py` save each vision call's frames, prompt and verdict under `<session>/vision_eval/`, with the candidate URL threaded through from `search.py` (v2 copy) as `meta`.
+- **`describe.ask` thinking off.** Same `MAX_THINKING_TOKENS=0`; `match.describe.thinking: true` in `config.yaml` turns it back on.
+- **CLIP moment finder (v2 copy `tools/assets/search.py`).** `assets.moment_finder: clip` in `config.yaml` replaces the 3-round Haiku binary search over a YouTube video with local CLIP (the `openai/clip-vit-base-patch32` style-analysis already caches) scoring a frame per ~1 s. Default stays `claude`; see `reports/` for the replay against Haiku's picks.
+- **`server/planner.ts`.** Rewrite, command and requery spawns carry the lean flags.
+- **`.claude/settings.json`.** The `UserPromptSubmit` env check tests for `~/.conda/envs/esta/python.exe` before falling back to `conda env list`: 60 ms instead of 1.4 s on every prompt.
+- **Plan skill (v2 copy `.claude/skills/plan/SKILL.md`), `tools/plan/append_shot.py` (new).** Shots stream with `append_shot.py append` (one line per shot, `--replace` for validator fixes) instead of a Write of the whole accumulated file after every shot, whose output grew with the square of the shot count. `append_shot.py build` writes `plan.json` from the streamed shots plus a header, so the plan is not typed out twice.
+- **`tools/kaggle_lane.py` (v2 copy) `wait_dataset_ready`.** It returned False on the first status that read "error", which Kaggle reports transiently right after an upload (the dataset was ready seconds later; also noted in the describe bake-off). It now gives up only after 4 consecutive error readings.
+- **`tools/vision_eval/` (new).** `extract.py` (eval set from Claude Code transcripts or capture records), `replay.py` (claude / OpenAI-compatible / CLIP / SigLIP backends, metrics against Haiku and human labels), `label.py` (labelling page), `kaggle.py` (the same replay on a larger open VLM on Kaggle). Results: `reports/vision-eval-results.md`.
+
 ## Known baseline issues (not introduced by v3)
 
 - `bun run typecheck` fails on `src/changelog/` and `src/app/changelog/` until `next dev` has generated `.content-collections` once (upstream's content-collections setup).

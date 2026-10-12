@@ -874,6 +874,82 @@ def search_youtube(
         return []
 
 
+def _moment_finder() -> str:
+    """`assets.moment_finder` in config.yaml: "claude" (3 Haiku rounds) or "clip" (local, no tokens)."""
+    try:
+        from tools.assets.run import _load_config
+        return str(((_load_config() or {}).get("assets") or {}).get("moment_finder") or "claude")
+    except Exception:
+        return "claude"
+
+
+_CLIP = {}
+_CLIP_LOCK = __import__("threading").Lock()
+
+
+def clip_scores(frames: list, text: str) -> list[float]:
+    """Cosine similarity of each BGR frame to `text` with the CLIP model style-analysis already caches."""
+    import torch
+    with _CLIP_LOCK:
+        if not _CLIP:
+            from transformers import CLIPModel, CLIPProcessor
+            mid = "openai/clip-vit-base-patch32"
+            _CLIP["model"], _CLIP["proc"] = CLIPModel.from_pretrained(mid).eval(), CLIPProcessor.from_pretrained(mid)
+        model, proc = _CLIP["model"], _CLIP["proc"]
+        rgb = [f[:, :, ::-1] for f in frames]
+        with torch.no_grad():
+            t = model.get_text_features(**proc(text=[text[:300]], return_tensors="pt", padding=True, truncation=True))
+            out = []
+            for i in range(0, len(rgb), 32):
+                out.append(model.get_image_features(**proc(images=rgb[i:i + 32], return_tensors="pt")))
+            im = torch.cat(out)
+        im = im / im.norm(dim=-1, keepdim=True)
+        t = t / t.norm(dim=-1, keepdim=True)
+        return (im @ t.T).squeeze(1).tolist()
+
+
+def _clip_moment_finder(video_path: Path, shot_desc: str, target_dur: float) -> dict | None:
+    """Local stand-in for the Haiku binary search: score a frame every ~1 s against the
+    shot's desc and centre the segment on the best shot-length window. The segment is
+    still checked by _validate_segment afterwards."""
+    import cv2
+
+    cap = cv2.VideoCapture(str(video_path))
+    fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
+    total = cap.get(cv2.CAP_PROP_FRAME_COUNT)
+    dur = total / fps if fps > 0 else 0
+    if dur <= 0:
+        cap.release()
+        return None
+    step = max(1.0, dur / 240)
+    times, frames = [], []
+    t = step / 2
+    while t < dur:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, int(t * fps))
+        ret, frame = cap.read()
+        if ret:
+            h, w = frame.shape[:2]
+            s = 336 / max(h, w)
+            frames.append(cv2.resize(frame, (int(w * s), int(h * s))) if s < 1 else frame)
+            times.append(t)
+        t += step
+    cap.release()
+    if not frames:
+        return None
+    scores = clip_scores(frames, shot_desc)
+    w = max(1, min(len(scores), round(target_dur / step)))
+    means = [sum(scores[i:i + w]) / w for i in range(len(scores) - w + 1)]
+    i = max(range(len(means)), key=means.__getitem__)
+    centre = (times[i] + times[i + w - 1]) / 2
+    # CLIP ViT-B/32 cosine for a good text-frame match sits ~0.30, unrelated ~0.18.
+    conf = int(max(0, min(100, (max(scores[i:i + w]) - 0.18) / 0.14 * 100)))
+    print(f"    [youtube] clip moment finder: best at {centre:.1f}s (conf:{conf}%) over {len(frames)} frames", flush=True)
+    if conf < 20:
+        return None
+    start = max(0.0, min(centre - target_dur / 2, dur - target_dur))
+    return {"start": start, "end": min(dur, start + target_dur), "confidence": conf, "reason": "clip moment finder"}
+
+
 def _visual_moment_finder(
     vid_url: str, vid_dur: float, query: str, shot_desc: str, target_dur: float,
     instance_markers: dict | None = None,
@@ -897,6 +973,9 @@ def _visual_moment_finder(
         return None
 
     try:
+        if _moment_finder() == "clip":
+            return _clip_moment_finder(video_path, shot_desc, target_dur)
+
         cap = cv2.VideoCapture(str(video_path))
         total_frames = cap.get(cv2.CAP_PROP_FRAME_COUNT)
         fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
@@ -928,7 +1007,7 @@ def _visual_moment_finder(
 
                 result = find_best_frame_at_timestamps(
                     frame_paths, timestamps[:len(frame_paths)], query, shot_desc, round_n + 1,
-                    instance_markers=instance_markers,
+                    instance_markers=instance_markers, meta={"url": vid_url, "round": round_n + 1},
                 )
                 if not result:
                     break
@@ -1024,7 +1103,8 @@ def _validate_segment(
                 frames_b64.append(base64.b64encode(buf.tobytes()).decode())
         cap.release()
 
-        return validate_frames(frames_b64, query, shot_desc, audio_txt, instance_markers=instance_markers)
+        return validate_frames(frames_b64, query, shot_desc, audio_txt, instance_markers=instance_markers,
+                               meta={"url": vid_url, "segment": [seg["start"], seg["end"]]})
     except Exception:
         return None
     finally:
@@ -1096,7 +1176,8 @@ def validate_stock_candidate(
 
             if not frames_b64:
                 return None
-            return validate_frames(frames_b64, query, shot_desc, audio_txt, instance_markers=instance_markers)
+            return validate_frames(frames_b64, query, shot_desc, audio_txt, instance_markers=instance_markers,
+                                   meta={"url": url})
         except Exception:
             return None
 

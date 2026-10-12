@@ -993,6 +993,89 @@ General
 
 ---
 
+# Part 8 — Usage and speed (M11)
+
+Asked for on 2026-10-07: a full run of `do-alphas-even-exist-2026-09-29` hit the usage limit twice and was slow. Plan and research: `reports/HANDOFF-limits-speed-vision.md` and `reports/Free Claude quality vision models.md`. Those were written against the M1 code. This part re-bases them on M10, using numbers measured from the run's own transcripts (`~/.claude/projects/C--Users-User-ESTA-v3/*.jsonl`, 2026-10-01 to 10-07).
+
+## Goal
+
+Measured split of the run's Claude usage (tokens; API-price weights are only for ranking the items):
+
+| Item | Calls | Tokens | Share of spend (approx.) |
+|---|---|---|---|
+| The one interactive Opus conversation, 818 turns over 7 days, average context 150k-600k per turn, peak 967k, compacted twice | 818 | 310M cache-read, 6.9M cache-write, 0.57M out | ~85-90% |
+| `tools/assets/llm.py` Haiku vision/text calls: frame search, validate, find-moment, pick-videos. Each was a full Claude Code session: ~33k input tokens of system prompt, tools, MCP, CLAUDE.md and skills, plus Haiku thinking | 917 ok + 1,507 failed | 30.9M in, 0.9M out | ~10% |
+| Lean `claude -p` (autopick judge, rewrites, describe) | 101 | 0.5M in, 0.6M out | <1% |
+
+Two defects made it worse:
+
+- **The usage limit approved clips.** On 10-06 and 10-07, 1,507 `llm.py` calls ran after the session limit was hit. Each got the reply "You've hit your session limit". `validate_frames` turns any failure into `{"matches": true, "confidence": 50}`, so stock and YouTube candidates were approved unchecked, and the gather kept hammering.
+- **Speed.** Median wall time per `llm.py` call was 15-19 s; the YouTube visual binary search makes 3 sequential calls per video, 185 min of call time in all. A lean call with thinking off measured 5.5 s and 2.1k input tokens (vs 33k), $0.0034 vs ~$0.022.
+
+M11 fixes the leaks, adds measurement, and runs the free-vision-model test (handoff P1) on this run's own Haiku calls.
+
+## Non-goals
+
+- Switching the production vision judge to an open model. M11 builds and runs the comparison. Switching is a later, user-approved change, made only if the decision rule below passes.
+- Changing `tools/timestamps/` (notebook-ground-truth constants; faster-whisper is CPU-pinned on purpose; ~3-5 min, off the critical path).
+- Hiding the 22 `ss-*` StyleSeed skills. Their listing is ~2-3k tokens in a context averaging 300k, and they are used for v3 UI work. Lean `claude -p` calls already skip them.
+- Changing models of the interactive session or of skills on the user's behalf. Recommendations go in the report.
+
+## Files & interfaces involved
+
+- `tools/assets/llm.py` (v2 copy): calls go through lean `claude -p` with `--input-format stream-json`, inline base64 images downscaled to <= 768 px, a short `--system-prompt`, `LEAN_CLAUDE` flags, `--no-session-persistence` and `MAX_THINKING_TOKENS=0`. Failure returns `None` (unvalidated), never a match. A usage-limit reply trips a process-wide breaker: later calls return at once. Every call appends to the usage ledger. Opt-in capture (`ESTA_VISION_CAPTURE=1`) stores frames, prompt and verdict.
+- `tools/assets/search.py` (v2 copy): frames downscaled before encoding; the YouTube moment finder can rank frames with local CLIP instead of Haiku (`assets.moment_finder: claude | clip` in `config.yaml`, default `claude` until the replay says otherwise).
+- `tools/assets/run.py` (v2 copy): sets `ESTA_SESSION_DIR` so `llm.py` knows where the ledger goes.
+- `tools/match/describe.py`: `ask` gets the same breaker, ledger and thinking-off env; the judge, rewrite and describe lanes inherit it.
+- `server/planner.ts`: the three `claude -p` spawns (rewrite, command, requery) get the lean flags.
+- `.claude/settings.json`: the `UserPromptSubmit` conda hook checks the env folder first and only runs `conda env list` when it is missing.
+- `.claude/skills/plan/SKILL.md` (v2 copy): each shot is appended to `plan_progress.jsonl` with `tools/plan/append_shot.py` instead of rewriting the whole file per shot.
+- New `tools/usage/`: `ledger.py` (shared append helper) and `report.py` (per-call ledger summary, plus a transcript scan that reproduces the table above for any project dir).
+- New `tools/vision_eval/`: `extract.py` (builds the eval set from transcripts and captures), `replay.py` (backends `claude-haiku`, `openai` for llama-server or any OpenAI-compatible server, `clip` for the moment finder), `label.py` (static labelling page), `kaggle/` (offline batch kernel).
+- Data and models live on `D:` (C: has ~25 GB free): `D:\esta-perf\` for eval sets, model weights and llama.cpp.
+
+## Key decisions & tradeoffs
+
+1. **Fix the measured leaks first.** The lean flags and thinking-off cut each `llm.py` call ~6x in cost and ~3x in time, with no change of model. Thinking-off could cost accuracy, so the replay measures lean Haiku against the run's original Haiku answers on the same frames.
+2. **Fail closed.** A failed or limited check leaves the candidate unvalidated, which callers already handle: medium/high-specificity shots then need a real match through B2, low-spec shots rank by score. The breaker stops a limit from turning into hundreds of 15 s calls.
+3. **The eval set is the run's own Haiku calls.** Claude Code transcripts store the exact images each `llm.py` call sent, its prompt and its reply. So ~750 real decisions are replayable with no re-download: validate (match/mismatch), frame search (best index of 5), plus the lean judge calls. Haiku's answer is the baseline, not ground truth; the labelling page gives the user a fast way to add truth.
+4. **Decision rule (from the handoff).** An open judge replaces Haiku only if its false-match rate on labelled negatives is within ~3 points of Haiku's and its JSON validity is >= 99%. Until labels exist, agreement with Haiku is the proxy, and nothing switches.
+5. **Main-thread usage is a workflow issue.** One 7-day Opus conversation with a near-1M context is ~85-90% of spend. Code cannot fix that. The report gives the measured cost per turn and concrete habits (fresh session per stage or milestone with a resume file, which the user already does, earlier compaction, UI buttons for stage work).
+
+## Edge cases
+
+- **`claude` missing or logged out:** same as a failed call: unvalidated, and the breaker trips on an auth error too.
+- **Stream-json image limits:** images over ~5 MB or 8000 px are rejected by the API; downscaling to 768 px keeps every frame far below.
+- **Ledger writes from 4 threads:** one short line per call, appended under a lock.
+- **Capture on a long run:** ~4 x 60 KB per call; it is opt-in and goes to the session folder.
+- **A replayed call whose transcript has no images** (the 1,507 limit failures, or calls with unreadable frames) is skipped by `extract.py` and counted.
+
+## Acceptance criteria
+
+M11.1 Leaks
+- [x] `validate_frames` returns `None` when the call fails, times out or hits the usage limit (tests with a stubbed `claude`). After a limit reply, later calls in the same process do not spawn `claude` (test).
+- [x] One real lean `validate_frames` call returns a verdict with images attached (manual run), and the ledger records its tokens.
+- [x] `planner.ts` spawns carry `--strict-mcp-config --setting-sources "" --tools ""`; typecheck and lint pass.
+- [x] The plan skill no longer tells Claude to rewrite `plan_progress.jsonl` per shot; `append_shot.py` appends one validated line (test).
+
+M11.2 Measurement
+- [ ] `python tools/usage/report.py --transcripts <dir>` reproduces the Goal table for the v3 project dir.
+- [ ] `python tools/usage/report.py --session sessions/<id>` summarises `usage.jsonl` by call type.
+
+M11.3 Free-model test
+- [x] `extract.py` builds the eval set on `D:` from the v3 transcripts, with counts per call type.
+- [ ] (partial: lean Haiku and CLIP/SigLIP done; the local 4B run was cut short, see reports/vision-eval-results.md) `replay.py` runs lean Haiku and at least one local open model (llama-server, 4B-class on the 4 GB GPU) on the same items, writing per-item results and a metrics summary: agreement with the original Haiku, JSON validity, latency.
+- [x] The CLIP moment finder is scored against Haiku's frame-search picks.
+- [x] A Kaggle kernel runs a larger open VLM on the same items, or the report records why it could not.
+- [x] `label.py` writes a page where the user can label items match/mismatch, saving `labels.jsonl`.
+- [x] A results report in `reports/` with the numbers and a recommendation.
+
+General
+- [x] `python -m pytest tools/usage/tests tools/match/tests -q` passes (137); `bun run lint` passes; server typecheck passes, the editor typecheck has only the known upstream changelog baseline.
+- [x] `PORTING.md` logs every change to v2 copies (`llm.py`, `search.py`, `run.py`, plan `SKILL.md`) with reasons.
+
+---
+
 # Part 9 — Sourcing rules enforced; Giphy for reactions only (M12)
 
 Decided with the user on 2026-10-07, after the M10 re-route of `do-alphas-even-exist-2026-09-29` filled 206 of 307 footage shots with Giphy. Overrides Part 7 decision 2's footage rows.

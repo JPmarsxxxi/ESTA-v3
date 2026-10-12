@@ -200,12 +200,15 @@ def wait_dataset_ready(dataset_id: str, timeout: int = 600, interval: int = 15) 
     """
     import time
     deadline = time.time() + timeout
+    errors = 0
     while time.time() < deadline:
         res = run_kaggle("datasets", "status", dataset_id, timeout=120)
         state = ((res.stdout or "") + (res.stderr or "")).strip().lower()
         if "ready" in state:
             return True
-        if "error" in state:
+        # Right after an upload the status can read "error" and then "ready".
+        errors = errors + 1 if "error" in state else 0
+        if errors >= 4:
             return False
         time.sleep(interval)
     return False

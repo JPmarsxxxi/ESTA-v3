@@ -113,8 +113,12 @@ const REWRITE_SYSTEM =
 	"queries_pinned=true, in which case leave search_queries out entirely even if desc " +
 	"or type changed. Return {} if nothing should change.";
 
+// Without these each call loads MCP servers, hooks, CLAUDE.md and every skill:
+// ~30k tokens of overhead on a one-shot JSON edit (SPEC.md Part 8).
+const LEAN_CLAUDE = ["--strict-mcp-config", "--setting-sources", "", "--tools", "", "--max-turns", "1", "--no-session-persistence"];
+
 function spawnClaude(args: string[]): ChildProcess {
-	return spawn(claudeBin(), args, { cwd: REPO_ROOT, env: PY_ENV });
+	return spawn(claudeBin(), [...args, ...LEAN_CLAUDE], { cwd: REPO_ROOT, env: PY_ENV });
 }
 
 export async function planRewrite(req: IncomingMessage, res: ServerResponse) {

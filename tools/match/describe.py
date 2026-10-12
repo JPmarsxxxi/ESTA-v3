@@ -12,6 +12,7 @@ import base64
 import hashlib
 import io
 import json
+import os
 import subprocess
 import sys
 import time
@@ -20,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
+from tools.usage import ledger  # noqa: E402
 from tools.match.common import (  # noqa: E402
     LEAN_CLAUDE, REPO_ROOT, claude_bin, match_config, read_json, utf8_stdout, write_json,
 )
@@ -108,11 +110,18 @@ def normalise(ans: dict) -> dict:
 def _call(argv: list[str], message: str) -> str:
     """One `claude -p` turn; returns stdout. Tests replace this."""
     r = subprocess.run(argv, input=message + "\n", capture_output=True, text=True, encoding="utf-8",
-                       errors="replace", cwd=REPO_ROOT, timeout=900)
+                       errors="replace", cwd=REPO_ROOT, timeout=900, env=_env())
     return r.stdout or r.stderr
 
 
-def ask(content: list[dict], system: str, model: str) -> dict:
+def _env() -> dict:
+    # Haiku's thinking tripled these calls' output tokens and wall time (SPEC.md Part 8).
+    if match_config()["describe"].get("thinking"):
+        return dict(os.environ)
+    return {**os.environ, "MAX_THINKING_TOKENS": "0"}
+
+
+def ask(content: list[dict], system: str, model: str, kind: str = "describe") -> dict:
     """One `claude -p` turn over inline text and images, answer parsed as a JSON object; retried once.
     Returns {"answer", "cost", "secs", "attempts"} or {"error", "secs"}. The auto-pick judge uses it too."""
     msg = json.dumps({"type": "user", "message": {"role": "user", "content": content}})
@@ -121,15 +130,24 @@ def ask(content: list[dict], system: str, model: str) -> dict:
     t0 = time.time()
     err = ""
     for attempt in (1, 2):
+        if ledger.unavailable():
+            return {"error": f"claude unavailable: {ledger.unavailable()}", "secs": time.time() - t0}
+        t1, env = time.time(), None
         out = _call(argv, msg)
         try:
             env = next(e for e in (json.loads(line) for line in out.splitlines() if line.startswith("{"))
                        if e.get("type") == "result")
             text = env.get("result", "")
-            return {"answer": json.loads(text[text.index("{"): text.rindex("}") + 1]),
-                    "cost": float(env.get("total_cost_usd") or 0), "secs": time.time() - t0, "attempts": attempt}
+            if ledger.fatal_reply(text):
+                raise RuntimeError(text)
+            answer = json.loads(text[text.index("{"): text.rindex("}") + 1])
+            ledger.record(kind, model, env, time.time() - t1)
+            return {"answer": answer, "cost": float(env.get("total_cost_usd") or 0), "secs": time.time() - t0,
+                    "attempts": attempt}
         except Exception as e:  # noqa: BLE001 - one retry, then the caller keeps its fallback
             err = f"{e}: {out[-300:]}"
+            ledger.fatal_reply(out[-300:])
+            ledger.record(kind, model, env, time.time() - t1, err)
     return {"error": err, "secs": time.time() - t0}
 
 
