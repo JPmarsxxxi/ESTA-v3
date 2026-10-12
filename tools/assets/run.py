@@ -20,6 +20,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.vision_server import client as vision  # noqa: E402
 
 TARGET_CANDIDATES = 5  # stop cascading once we have this many candidates
 # D1: resolution floor for downloaded YouTube clips. Overridable per-shot via the
@@ -608,7 +609,10 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
                       f"{c['visual_verdict']} ({c['visual_confidence']}%)", flush=True)
 
         if to_validate:
-            with ThreadPoolExecutor(max_workers=min(len(to_validate), 4)) as pool:
+            # The Qwen server batches concurrent requests (SPEC.md Part 10), so feed it more at once.
+            vcfg = vision.config()
+            width = max(4, vcfg["concurrency"]) if vcfg["backend"] == "qwen" else 4
+            with ThreadPoolExecutor(max_workers=min(len(to_validate), width)) as pool:
                 list(pool.map(_validate_one, to_validate))
 
     # B2: if the validator ran and nothing came back as a confident match, fail
@@ -1107,6 +1111,8 @@ def main() -> None:
     if getattr(args, "session", None):
         # llm.py's usage ledger and eval capture go to this session's folder.
         os.environ.setdefault("ESTA_SESSION_DIR", args.session)
+    if args.mode in ("fetch", "shot", "candidates"):
+        vision.require_up()
 
     try:
         if args.mode == "fetch":

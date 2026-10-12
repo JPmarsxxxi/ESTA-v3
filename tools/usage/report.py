@@ -112,17 +112,22 @@ def report_session(session: Path) -> None:
     if not path.exists():
         sys.exit(f"no {path}")
     agg = collections.defaultdict(collections.Counter)
-    for line in path.read_text(encoding="utf-8").splitlines():
-        r = json.loads(line)
-        a = agg[r["kind"]]
+    rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+    for r in rows:
+        a = agg[f"{r['kind']}/{r.get('backend', 'claude')}"]
         a["calls"] += 1
         a["failed"] += 0 if r.get("ok") else 1
         for f in ("input", "cache_write", "cache_read", "output", "cost_usd", "secs"):
             a[f] += r.get(f, 0)
-    print(f"{'kind':14} {'calls':>6} {'failed':>6} {'in':>9} {'out':>8} {'cost $':>8} {'avg s':>6}")
+    print(f"{'kind/backend':22} {'calls':>6} {'failed':>6} {'in':>9} {'out':>8} {'cost $':>8} {'avg s':>6}")
     for k, a in sorted(agg.items(), key=lambda kv: -kv[1]["cost_usd"]):
-        print(f"{k:14} {a['calls']:6} {a['failed']:6} {a['input'] + a['cache_write'] + a['cache_read']:9} "
+        print(f"{k:22} {a['calls']:6} {a['failed']:6} {a['input'] + a['cache_write'] + a['cache_read']:9} "
               f"{a['output']:8} {a['cost_usd']:8.3f} {a['secs'] / a['calls']:6.1f}")
+    sys.path.insert(0, str(REPO_ROOT))
+    from tools.vision_server.client import summary
+    q = summary(rows)
+    if q["calls"]:
+        print(f"\nqwen: {q['calls']} calls, {q['failed']} failed, {q['invalid_json']} invalid JSON, median {q['median_s']} s")
 
 
 def main() -> None:

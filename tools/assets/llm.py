@@ -22,6 +22,7 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 from tools.usage import ledger  # noqa: E402
+from tools.vision_server import client as vision  # noqa: E402
 
 _HAIKU  = "claude-haiku-4-5-20251001"
 _SONNET = "claude-sonnet-4-6"
@@ -74,7 +75,10 @@ def _spawn(argv: list[str], message: str, timeout: int) -> str:
 
 def _ask(content: list[dict], kind: str, model: str = _HAIKU, timeout: int = 60) -> str:
     """One lean turn over text and image blocks; returns the reply text.
-    Raises ClaudeUnavailable once a limit/auth reply has been seen in this process."""
+    Raises ClaudeUnavailable once a limit/auth reply has been seen in this process.
+    Image turns go to the Qwen server instead when vision.backend is qwen (SPEC.md Part 10)."""
+    if vision.wants(content):
+        return vision.chat(content, _SYSTEM, kind)
     if ledger.unavailable():
         raise ClaudeUnavailable(ledger.unavailable())
     msg = json.dumps({"type": "user", "message": {"role": "user", "content": content}})

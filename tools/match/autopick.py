@@ -51,6 +51,7 @@ from tools.match.common import (  # noqa: E402
 )
 from tools.match.describe import ask, image_block  # noqa: E402
 from tools.motiongraphics import wordcard  # noqa: E402
+from tools.vision_server import client as vision  # noqa: E402
 
 JOBS_DIR = REPO_ROOT / "cache" / "pick"
 FINALISTS = 3
@@ -129,10 +130,40 @@ def fill(c: dict, shot_dur: float) -> dict:
     return {"speed": SLOW_FLOOR, "repeat": math.ceil(shot_dur * SLOW_FLOOR / usable), "short_clip": True}
 
 
+REPEAT_GAP = 10  # no photo or video twice within this many shots (SPEC.md Part 10, decision 10)
+
+
+def media_key(c: dict) -> str:
+    """One photo or video, however it was fetched: the YouTube video id, else the URL, else the file's hash."""
+    url = c.get("url") or ""
+    if m := re.search(r"(?:v=|youtu\.be/|shorts/)([\w-]{11})", url):
+        return "yt:" + m.group(1)
+    if url:
+        return url
+    f = Path(c.get("file") or "")
+    f = f if f.is_absolute() else REPO_ROOT / f
+    try:
+        return "sha:" + hashlib.sha1(f.read_bytes()).hexdigest()
+    except OSError:
+        return "file:" + f.name
+
+
+def avoid_repeat(n: int, options: list[dict], taken: dict[str, set[int]]) -> tuple[dict, int | None]:
+    """The first option no shot within REPEAT_GAP already shows; with none left, the first option and the shot
+    it repeats (kept and flagged, never left empty)."""
+    near = lambda k: sorted(m for m in taken.get(k, ()) if m != n and abs(m - n) <= REPEAT_GAP)  # noqa: E731
+    for c in options:
+        if not near(media_key(c)):
+            return c, None
+    return options[0], near(media_key(options[0]))[0]
+
+
 def judge(items: list[dict], log=print) -> tuple[dict, float, list[str]]:
     """items: [{"n", "ref_image", "ref_desc", "desc", "audio", "finals": [jpg]}] -> ({n: verdict}, cost, errors)."""
     cfg = match_config()["describe"]
-    batches = [items[i:i + JUDGE_BATCH] for i in range(0, len(items), JUDGE_BATCH)]
+    # Qwen's server takes at most 40 images a request: 4 shots of inspo + 3 finals stay well inside it.
+    size = 4 if vision.config()["backend"] == "qwen" else JUDGE_BATCH
+    batches = [items[i:i + size] for i in range(0, len(items), size)]
 
     def one(batch):
         content = []
@@ -147,8 +178,9 @@ def judge(items: list[dict], log=print) -> tuple[dict, float, list[str]]:
         content.append({"type": "text", "text": JUDGE_PROMPT})
         return ask(content, JUDGE_SYSTEM, cfg["model"], kind="judge")
 
-    log(f"[autopick] Haiku judges {len(items)} shots in {len(batches)} calls")
-    with ThreadPoolExecutor(cfg["workers"]) as pool:
+    qwen = vision.config()["backend"] == "qwen"
+    log(f"[autopick] {'Qwen' if qwen else 'Haiku'} judges {len(items)} shots in {len(batches)} calls")
+    with ThreadPoolExecutor(max(cfg["workers"], vision.config()["concurrency"]) if qwen else cfg["workers"]) as pool:
         results = list(pool.map(one, batches))
     verdicts, cost, errors = {}, 0.0, []
     for res in results:
@@ -361,6 +393,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     from tools.match.common import Embedder
     # The usage ledger (judge, rewrites, and the gathers' llm.py calls) goes to this session.
     os.environ.setdefault("ESTA_SESSION_DIR", str(session))
+    vision.require_up()
     plan = read_json(session / "plan.json", {}) or {}
     mg = {str(s.get("key")) for s in (read_json(session / "motion_graphics.json", {}) or {}).get("slots", []) if s.get("ok")}
     # Graphics are generated (motion-graphics skill); stock for them is only a
@@ -485,8 +518,12 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
 
     feed = session / "assets_progress.jsonl"
     picked, report = 0, {}
+    taken: dict[str, set[int]] = {}
+    for k, r in feed_rows.items():
+        if r.get("ok") and k.isdigit() and int(k) not in ranked:
+            taken.setdefault(media_key(r), set()).add(int(k))
     with open(feed, "a", encoding="utf-8") as fh:
-        for n, cands in ranked.items():
+        for n, cands in sorted(ranked.items()):
             if is_stock(cands[0][0]):
                 # Only stock is left for this shot (prefer_non_stock): it takes a budget slot or becomes a graphic.
                 if stock_n >= budget:
@@ -505,6 +542,13 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                     keep = [c for j, c in enumerate(finals, 1) if j not in reject]
                     spare = cands[FINALISTS] if len(cands) > FINALISTS else finals[0]
                     choice, why = (keep[0] if keep else spare), f"haiku rejected its pick; next best ({vd.get('why', '')})"[:200]
+            rejected = {id(finals[j - 1][0]) for j in reject if 1 <= j <= len(finals)} if vd else set()
+            options = [choice] + [x for x in cands if x is not choice and id(x[0]) not in rejected]
+            choice, repeat_of = avoid_repeat(n, [o[0] for o in options], taken)
+            choice = next(o for o in options if o[0] is choice)
+            if repeat_of:
+                why += f"; repeats shot {repeat_of} (no other candidate)"
+            taken.setdefault(media_key(choice[0]), set()).add(n)
             c, total, fit, look = choice
             shot_dur = float(by_n[n].get("end", 0) or 0) - float(by_n[n].get("start", 0) or 0)
             filled = fill(c, shot_dur)
@@ -517,7 +561,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                    "error": "", **filled, **({"audio_missing": True} if c.get("audio_missing") else {})}
             fh.write(json.dumps(row) + "\n")
             report[n] = {"file": Path(c["file"]).name, "why": why, "fit": round(fit, 3), "look": round(look, 3),
-                         "of": len(cands), "in_point": c.get("in_point", 0), **filled}
+                         "of": len(cands), "in_point": c.get("in_point", 0), **filled,
+                         **({"repeat_of": repeat_of} if repeat_of else {})}
             picked += 1
 
     rows = scorer._asset_rows(session)
@@ -556,6 +601,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
     rows = scorer._asset_rows(session)
     out = {"picked": picked, "lane": lane, "judge_cost_usd": round(judge_cost, 4), "no_candidates": missing,
            "short_clip": sorted(n for n, r in report.items() if r.get("short_clip")), "shots": report,
+           "repeats": {str(n): r["repeat_of"] for n, r in report.items() if r.get("repeat_of")},
            "stock": {"budget": budget, "used": stock_used(rows, set()), "shots": len(plan.get("shots", [])),
                      "to_graphic": {str(n): r for n, r in sorted(to_graphic.items())}, **graphics},
            "chrome_pending": sorted(pending & set(manifests))}

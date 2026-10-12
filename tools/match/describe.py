@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.usage import ledger  # noqa: E402
+from tools.vision_server import client as vision  # noqa: E402
 from tools.match.common import (  # noqa: E402
     LEAN_CLAUDE, REPO_ROOT, claude_bin, match_config, read_json, utf8_stdout, write_json,
 )
@@ -123,7 +124,16 @@ def _env() -> dict:
 
 def ask(content: list[dict], system: str, model: str, kind: str = "describe") -> dict:
     """One `claude -p` turn over inline text and images, answer parsed as a JSON object; retried once.
-    Returns {"answer", "cost", "secs", "attempts"} or {"error", "secs"}. The auto-pick judge uses it too."""
+    Returns {"answer", "cost", "secs", "attempts"} or {"error", "secs"}. The auto-pick judge uses it too.
+    With vision.backend qwen an image turn goes to the Qwen server, once, with no Claude fallback (SPEC.md Part 10)."""
+    if vision.wants(content):
+        t0 = time.time()
+        try:
+            text = vision.chat(content, system, kind, max_tokens=4096)
+            return {"answer": json.loads(text[text.index("{"): text.rindex("}") + 1]), "cost": 0.0,
+                    "secs": time.time() - t0, "attempts": 1}
+        except Exception as e:  # noqa: BLE001 - the caller keeps its fallback
+            return {"error": f"qwen: {e}"[:300], "secs": time.time() - t0}
     msg = json.dumps({"type": "user", "message": {"role": "user", "content": content}})
     argv = [claude_bin(), "-p", "--model", model, "--input-format", "stream-json", "--output-format",
             "stream-json", "--verbose", "--system-prompt", system, *LEAN_CLAUDE]

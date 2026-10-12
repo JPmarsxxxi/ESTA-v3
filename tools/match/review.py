@@ -67,6 +67,7 @@ def render(session: Path, stage: str, report: dict) -> str:
     failing = _failing(session)
     assets = _asset_rows(session)
     gen_errors = (read_json(session / "gen_video.json", {}) or {}).get("errors") or {}
+    repeats = ((read_json(session / "autopick.json", {}) or {}).get("last") or {}).get("repeats") or {}
     pool: dict = {}
     rows = []
     for r in report.get("shots", []):
@@ -98,6 +99,8 @@ def render(session: Path, stage: str, report: dict) -> str:
             flags.append(f"retyped from {v.get('retyped_from') or '?'} to a graphic: {v['retype_reason']}")
         if v.get("queries_stale"):
             flags.append("queries changed, refetch pending")
+        if repeats.get(str(n)):
+            flags.append(f"repeats shot {repeats[str(n)]}'s photo/video (no other candidate)")
         if ps.get("locked"):
             flags.append("locked (hand-edited)")
         ours_img = _img(r.get("keyframe"), pool) if stage == "final" else ""

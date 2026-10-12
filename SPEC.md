@@ -1173,7 +1173,7 @@ Changed:
 ## Key decisions & tradeoffs
 
 1. **Host: Kaggle 2xT4, live.** It's free and runs the same model the eval scored. A pushed kernel can't report its address until it finishes, so the address is fixed in advance: the user's ngrok static domain (the host in `config.yaml` `ollama_url`). Free ngrok allows one online endpoint, so nothing else may hold the domain during the run.
-2. **ngrok authtoken via a Kaggle secret, never in kernel source.** The user adds `NGROK_AUTHTOKEN` once as a Kaggle secret and attaches it to the kernel in the Kaggle editor after the first push (one manual step). The kernel reads it with `UserSecretsClient`. The bearer token is random per `up`, written into the private kernel and `.esta/vision_server.json`. It only gates the endpoint.
+2. **ngrok authtoken: a Kaggle secret when attached, else `config.yaml`'s `ngrok_token` in the private kernel.** The kernel tries the Kaggle secrets `NGROK_AUTHTOKEN` and `NGROK_TOKEN` first. Revised during the unattended build: an unattached secret would have blocked the whole night, and the user's own earlier server notebook (`applypilot-llm-server`) already carries the token in its private source, as the eval kernels carry the HF token. The kernel reads it with `UserSecretsClient`. The bearer token is random per `up`, written into the private kernel and `.esta/vision_server.json`. It only gates the endpoint.
 3. **Model server: vLLM first, our own batching server as fallback.** vLLM runs fp16 (T4 has no bf16), tensor-parallel 2, thinking off, greedy, images capped at 768 px long side. If vLLM won't load Qwen3.5-9B on sm_75, the kernel falls back to transformers. That fallback runs fp16 with `device_map="auto"`, the setup that worked in the Part 8 eval, behind a small server that gathers waiting requests into batches (up to 8, 150 ms window). `/health` reports which one is running. The model stays Qwen3.5-9B either way.
 4. **Batching needs concurrent callers.** The client allows `vision.concurrency` (8) requests in flight. The assets validate pool (now `min(n, 4)`) and autopick workers are raised to at least that when the backend is `qwen`.
 5. **Fail closed, no Claude.** A timeout, HTTP error, unreachable server or invalid JSON returns the existing "unchecked" result:
@@ -1183,7 +1183,7 @@ Changed:
 
    After 5 consecutive connection failures the breaker trips: no more requests from that process, and the job log and ledger say so. Each record is logged with `backend: qwen` and its error.
 6. **Same prompts.** Qwen gets the exact prompts and images Claude got, as in the eval. No prompt tuning tonight, so the trial compares models, not prompts.
-7. **Ideas before cuts (plan skill, mapped mode).** Before choosing slots, the plan splits each sentence into visual ideas, each a contiguous word span with one subject. Each shot records `"idea": {"id": "<sentence>-<n>", "step": <k>}`. Cuts move to idea boundaries when the shot stays within 35% of its ref target. An idea that still spans several shots shows a different angle or a step forward on each (`step` 1, 2, ...), never the same subject framed the same way. This is what the user asked for when the plan "isn't carrying the context of a sentence that has many sections".
+7. **Ideas before cuts (plan skill, mapped mode).** Before choosing slots, the plan splits each sentence into visual ideas, each a contiguous word span with one subject. Each shot records `"idea": {"id": "<sentence>-<n>", "step": <k>, "subject": "<few words>"}`. Cuts move to idea boundaries when the shot stays within 35% of its ref target. An idea that still spans several shots shows a different angle or a step forward on each (`step` 1, 2, ...), never the same subject framed the same way. This is what the user asked for when the plan "isn't carrying the context of a sentence that has many sections".
 8. **Protected phrases.** A cut may not fall:
    - between two words of a run of capitalised words (a name: "Igor Tolchinsky", "Andrew Tate");
    - between two numeric tokens or a number and its unit ("0 .05", ".445", "S and P100", "Lehmann 1990" as name + year);
@@ -1192,10 +1192,10 @@ Changed:
    The 35% tolerance stays; the plan picks the nearest allowed boundary.
 9. **Validator adds** (graphics are exempt from the repeat checks, not from the phrase check):
    - a cut inside a protected phrase (decision 8, mechanical rules);
-   - every non-graphic shot must carry `idea`;
-   - two adjacent shots with different `idea.id` whose `desc` token overlap (Jaccard on lowercased content words) is 0.6 or more ("same subject twice");
-   - two adjacent shots with the same `idea.id` and `desc` overlap of 0.6 or more ("repeats instead of progressing").
-10. **No same media within 10 shots.** "Same" means the same YouTube video id, the same image URL, or the same file SHA-1. In autopick's final pass, walked in shot order, a shot whose best candidate is already the pick within the previous 10 shots takes its next-best candidate. If none is left it keeps the repeat and is flagged on the review page. Assets' own pick follows the same rule where it chooses among validated candidates.
+   - every footage/image/AI shot must carry `idea` with `id` and `subject`;
+   - two adjacent shots with different `idea.id` and the same `idea.subject` ("same subject twice"). Revised during the build: a desc-overlap test missed the very case that prompted this (the two Tate descs overlap 0.42), so the subject is named explicitly;
+   - two adjacent shots with the same `idea.id` whose `desc` token overlap (Jaccard on lowercased content words) is 0.5 or more ("repeats instead of progressing").
+10. **No same media within 10 shots.** "Same" means the same YouTube video id, the same image URL, or the same file SHA-1. In autopick's final pass, walked in shot order, a shot whose best candidate is already the pick within the previous 10 shots takes its next-best candidate. If none is left it keeps the repeat and is flagged on the review page. Assets' own fetch-time pick is not changed: it picks shots in parallel, and autopick's final pass decides the picks in this pipeline.
 11. **Recompute from the plan.** Back up the current artifacts first:
     - what is backed up: `plan.json`, `plan_progress.jsonl`, `assets.json`, `assets_progress.jsonl`, `autopick.json`, `match_*.json`, `match_review.html`, `.openreel.json`;
     - where: `sessions/<id>/backup_m12_claude/`;

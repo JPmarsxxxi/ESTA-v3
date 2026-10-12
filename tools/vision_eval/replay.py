@@ -4,6 +4,7 @@ original answers and any human labels (SPEC.md Part 8).
     python tools/vision_eval/replay.py --set D:/esta-perf/vision_eval/<name> --backend claude
     python tools/vision_eval/replay.py --set ... --backend openai --url http://localhost:8080/v1 --name qwen3vl-4b
     python tools/vision_eval/replay.py --set ... --backend clip      # frame_search only, local CLIP
+    python tools/vision_eval/replay.py --set ... --backend qwen-live --per-kind 60 --workers 8   # the live Kaggle server (Part 10)
     python tools/vision_eval/replay.py --set ... --score             # metrics for every results_*.jsonl
 
 Results go to <set>/results_<name>.jsonl (resumable: items already there are skipped).
@@ -88,6 +89,21 @@ def openai_backend(url: str, model: str, max_tokens: int, json_mode: bool):
         r.raise_for_status()
         j = r.json()
         return j["choices"][0]["message"]["content"], time.time() - t, {"usage": j.get("usage"), "timings": j.get("timings")}
+    return run
+
+
+def qwen_live_backend(max_tokens: int):
+    """The live Kaggle server (SPEC.md Part 10) through the pipeline's own client, same system prompt as the
+    Part 8 Kaggle replay."""
+    from tools.vision_server import client
+
+    def run(item, root):
+        content = [{"type": "text", "text": v} if k == "text" else
+                   {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": v}} for k, v in blocks(item, root)]
+        t = time.time()
+        raw = client.chat(content, "You check footage for a video editor. Reply with only the requested JSON.",
+                          f"eval_{item['kind']}", max_tokens=max_tokens)
+        return raw, time.time() - t, {}
     return run
 
 
@@ -214,7 +230,7 @@ def load_labels(root: Path) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--set", required=True)
-    ap.add_argument("--backend", choices=["claude", "openai", "clip", "siglip"])
+    ap.add_argument("--backend", choices=["claude", "openai", "qwen-live", "clip", "siglip"])
     ap.add_argument("--name")
     ap.add_argument("--model", default="claude-haiku-4-5-20251001")
     ap.add_argument("--url", default="http://localhost:8080/v1")
@@ -263,6 +279,7 @@ def main() -> None:
     todo = [it for it in todo if it["id"] not in done]
     run = {"claude": lambda: claude_backend(a.model, a.thinking),
            "openai": lambda: openai_backend(a.url, a.name or "local", a.max_tokens, not a.no_json_mode),
+           "qwen-live": lambda: qwen_live_backend(max(a.max_tokens, 1024)),
            "clip": lambda: embed_backend("clip"), "siglip": lambda: embed_backend("siglip")}[a.backend]()
     lock = threading.Lock()
     print(f"{name}: {len(todo)} items to run ({len(done)} already done)", flush=True)

@@ -18,6 +18,9 @@ def plan(cuts, target=2.0, **extra):
             for i, (a, b) in enumerate(zip(edges, edges[1:]))]
 
 
+IDEA = {"id": "1-1", "step": 1, "subject": "trader"}
+
+
 def problems(r):
     return [p for f in r["failures"] for p in f["problems"]]
 
@@ -102,6 +105,7 @@ def test_last_shot_merge_allowance():
 def test_stock_source_fails_naming_the_shot():
     p = plan([1.95, 3.95, 5.95, 7.95])
     p[2]["visual"] = {"search_sources": [{"source": "youtube", "queries": ["q1", "q2"]}, {"source": "pexels_video", "queries": ["q3"]}]}
+    p[2]["idea"] = IDEA
     r = V.check(p, WORDS, END)
     assert not r["pass"] and problems(r) == ["shot 3: routes to stock (pexels_video)"]
 
@@ -109,6 +113,7 @@ def test_stock_source_fails_naming_the_shot():
 def sourced(sources, desc="trader at screens"):
     p = plan([1.95, 3.95, 5.95, 7.95])
     p[1]["visual"] = {"type": "REAL_FOOTAGE", "desc": desc, "search_sources": sources}
+    p[1]["idea"] = IDEA
     return problems(V.check(p, WORDS, END))
 
 
@@ -130,4 +135,60 @@ def test_giphy_only_on_reaction_beats():
 def test_graphics_are_not_held_to_the_sourcing_rules():
     p = plan([1.95, 3.95, 5.95, 7.95])
     p[1]["visual"] = {"type": "MOTION_GRAPHICS", "search_sources": [{"source": "giphy", "queries": ["stat counter"]}]}
+    assert V.check(p, WORDS, END)["pass"]
+
+
+# Idea-first planning (SPEC.md Part 10). Words for "these guys Andrew Tate 0 .05 percent".
+NAMED = [{"word": w, "start": 0.4 * i, "end": 0.4 * i + 0.3} for i, w in
+         enumerate([" not", " these", " guys", " Andrew", " Tate,", " jumped", " 0", " .05", " to", " 50", " percent."])]
+
+
+def footage(n, a, b, idea, subject, desc):
+    return {"shot_number": n, "start": a, "end": b, "ref_shot": f"i{n}", "visual": {"type": "REAL_FOOTAGE", "desc": desc},
+            "idea": {"id": idea, "step": 1, "subject": subject}}
+
+
+def test_cut_inside_a_name_fails():
+    assert V.protected_cut(1.55, NAMED) == "splits the name 'Andrew Tate'"
+    assert V.protected_cut(1.95, NAMED) == ""  # after "Tate," the comma ends the name
+
+
+def test_cut_between_numeric_tokens_fails():
+    assert V.protected_cut(2.75, NAMED).startswith("splits the number '0 .05'")
+    assert V.protected_cut(3.95, NAMED).startswith("splits the number '50 percent")
+    assert V.protected_cut(0.35, NAMED) == ""
+
+
+def test_name_cut_is_flagged_by_check():
+    shots = [footage(1, 0.0, 1.55, "1-1", "tate", "Andrew Tate at a podcast mic"),
+             footage(2, 1.55, 4.4, "1-2", "chart", "A chart jumping up")]
+    assert any("splits the name 'Andrew Tate'" in x for x in problems(V.check(shots, NAMED, 4.4)))
+
+
+def test_missing_idea_fails():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1]["visual"] = {"type": "REAL_FOOTAGE", "desc": "trader"}
+    assert problems(V.check(p, WORDS, END)) == ["shot 2: has no idea {id, step, subject}"]
+
+
+def test_same_subject_on_adjacent_ideas_fails():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1].update(footage(2, 1.95, 3.95, "1-1", "Andrew Tate", "Andrew Tate smiling at a podcast mic"))
+    p[2].update(footage(3, 3.95, 5.95, "1-2", "andrew tate", "Andrew Tate mid-rant"))
+    assert problems(V.check(p, WORDS, END))[0].startswith("shot 3: shows 'andrew tate' again right after shot 2")
+
+
+def test_same_idea_must_progress():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1].update(footage(2, 1.95, 3.95, "1-1", "wolf", "Grey wolf staring into the camera in snow"))
+    p[2].update(footage(3, 3.95, 5.95, "1-1", "wolf", "Grey wolf staring at the camera, snow falling"))
+    assert problems(V.check(p, WORDS, END)) == ["shot 3: repeats shot 2 instead of moving its idea on"]
+    p[2]["visual"]["desc"] = "Wolf pack running across a frozen lake"
+    assert V.check(p, WORDS, END)["pass"]
+
+
+def test_graphics_exempt_from_idea_rules():
+    p = plan([1.95, 3.95, 5.95, 7.95])
+    p[1]["visual"] = {"type": "MOTION_GRAPHICS", "desc": "stat card"}
+    p[2]["visual"] = {"type": "MOTION_GRAPHICS", "desc": "stat card"}
     assert V.check(p, WORDS, END)["pass"]

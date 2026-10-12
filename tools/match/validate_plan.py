@@ -4,12 +4,15 @@
 
 Checks: the shots cover the voiceover from 0 to its end, no gap or overlap over 0.1 s, every cut on a word
 boundary, every shot within 35 % of its ref target (unless no boundary lies closer), every shot carrying a
-ref_shot, no shot routed to a stock source (SPEC.md Part 7), and the sourcing rules (SPEC.md Part 9). Failing shots are grouped into sections with one shot of context each side; each section says
+ref_shot, no shot routed to a stock source (SPEC.md Part 7), the sourcing rules (SPEC.md Part 9), and the
+idea rules (SPEC.md Part 10): no cut inside a name or number, every footage/image shot carrying its idea, and
+no subject repeated across neighbouring shots. Failing shots are grouped into sections with one shot of context each side; each section says
 what to change. Every other shot is frozen: the plan skill rewrites only the failing sections.
 """
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -23,6 +26,10 @@ TOL = 0.1          # gap / overlap / coverage, seconds
 WORD_TOL = 0.05    # a cut this close to a word edge counts as on it
 TARGET_TOL = 0.35  # share of ref_target_dur a shot may differ by
 REACTION = ("meme", "reaction", "this is fine", "shrug", "facepalm")  # the plan skill's meme-override cues
+UNITS = {"%", "percent", "per", "bps", "x", "k", "million", "billion", "trillion"}
+STOP = {"the", "and", "with", "from", "into", "onto", "over", "that", "this", "his", "her", "their", "its", "at",
+        "of", "in", "on", "a", "an", "to", "for", "shot", "close", "wide", "medium", "photo", "up"}
+REPEAT_JACCARD = 0.5
 
 
 def _span(s: dict) -> tuple[float, float]:
@@ -67,6 +74,61 @@ def sourcing_problems(s: dict) -> list[tuple[str, str]]:
     return out
 
 
+def _bare(w: dict | None) -> str:
+    return (w or {}).get("word", "").strip(" \"'")
+
+
+def _numeric(s: str) -> bool:
+    return bool(re.fullmatch(r"[$£€]?\.?\d[\d.,]*%?", s.rstrip(".,!?;:")))
+
+
+def protected_cut(t: float, words: list[dict]) -> str:
+    """Why a cut at t splits a name or a number ("" when it doesn't): two capitalised words, or a number
+    followed by a number or unit, with no punctuation between them (SPEC.md Part 10, decision 8)."""
+    before = next((w for w in reversed(words) if w["end"] <= t + WORD_TOL), None)
+    after = next((w for w in words if w["start"] >= t - WORD_TOL), None)
+    a, b = _bare(before), _bare(after)
+    if not a or not b or a[-1] in ".,!?;:":
+        return ""
+    if a[0].isupper() and b[0].isupper() and a.rstrip(".,!?").isalpha() and "I" not in (a, b.rstrip(".,!?;:'")):
+        return f"splits the name '{a} {b.rstrip('.,!?;:')}'"
+    if (_numeric(a) or a[0].isupper()) and (_numeric(b) or b.lower().rstrip(".,!?;:") in UNITS) and (_numeric(a) or _numeric(b)):
+        return f"splits the number '{a} {b.rstrip(',!?;:')}'"
+    return ""
+
+
+def _content(desc: str) -> set[str]:
+    return {w for w in re.findall(r"[a-z]+", (desc or "").lower()) if len(w) > 2 and w not in STOP}
+
+
+def idea_problems(shots: list[dict], i: int) -> list[tuple[str, str]]:
+    """Ideas before cuts (SPEC.md Part 10): every footage/image shot names its idea and subject, a subject is
+    not repeated by the next idea, and an idea spanning shots moves on instead of repeating itself."""
+    s = shots[i]
+    v = s.get("visual") or {}
+    if not v or v.get("type") == "MOTION_GRAPHICS":
+        return []
+    n, idea = s["shot_number"], s.get("idea") or {}
+    if not idea.get("id") or not idea.get("subject"):
+        return [("has no idea {id, step, subject}", f"give shot {n} the idea its words belong to and that idea's subject")]
+    if i == 0:
+        return []
+    p = shots[i - 1]
+    pv, pidea = p.get("visual") or {}, p.get("idea") or {}
+    if not pv or pv.get("type") == "MOTION_GRAPHICS" or not pidea.get("id"):
+        return []
+    if pidea["id"] != idea["id"]:
+        if str(pidea.get("subject", "")).strip().lower() == str(idea["subject"]).strip().lower():
+            return [(f"shows '{idea['subject']}' again right after shot {p['shot_number']} (a different idea)",
+                     f"give shot {n} its own idea's subject, or move the cut so one idea holds both")]
+        return []
+    a, b = _content(pv.get("desc", "")), _content(v.get("desc", ""))
+    if a and b and len(a & b) / len(a | b) >= REPEAT_JACCARD:
+        return [(f"repeats shot {p['shot_number']} instead of moving its idea on",
+                 f"show the next angle or step of the idea in shot {n} (a different framing, moment or detail)")]
+    return []
+
+
 def check(shots: list[dict], words: list[dict], end: float) -> dict:
     cuts = boundaries(words)
     problems: dict[int, list[str]] = {}
@@ -103,13 +165,15 @@ def check(shots: list[dict], words: list[dict], end: float) -> dict:
                 near = min(cuts, key=lambda c: abs(c - b)) if cuts else b
                 flag(i, f"cut at {b:.2f} s falls inside the word '{w['word']}'",
                      f"cut shot {s['shot_number']} at {near:.2f} s, after '{_word_before(near, words)}'")
+            elif why := protected_cut(b, words):
+                flag(i, f"cut at {b:.2f} s {why}", f"move shot {s['shot_number']}'s cut to the nearest boundary outside it")
         if not s.get("ref_shot"):
             flag(i, "has no ref_shot", "map it to the slot's ref_shot (or one of its alts)")
         stock = [e.get("source") for e in (s.get("visual") or {}).get("search_sources") or [] if e.get("source") in STOCK_SOURCES]
         if stock:
             flag(i, f"routes to stock ({', '.join(stock)})",
                  f"replace {', '.join(stock)} in shot {s['shot_number']} with the non-stock sources for its type")
-        for problem, fix in sourcing_problems(s):
+        for problem, fix in sourcing_problems(s) + idea_problems(shots, i):
             flag(i, problem, fix)
         target = s.get("ref_target_dur")
         if target:

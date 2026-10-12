@@ -40,3 +40,11 @@ apis:
 assets:
   stock_cap: 0.15
   stock_rewrites: 3
+
+# Vision backend for automated image checks (SPEC.md Part 10). claude (default) or qwen: the live
+# Qwen3.5-9B server on Kaggle, started with `python tools/vision_server/run.py up`.
+vision:
+  backend: claude
+  url: https://<your-ngrok-static-domain>
+  concurrency: 8
+  timeout: 180

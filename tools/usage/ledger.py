@@ -45,7 +45,7 @@ def ledger_path(session_dir: str | Path | None = None) -> Path:
 
 
 def record(kind: str, model: str, result: dict | None, secs: float, error: str = "",
-           session_dir: str | Path | None = None) -> None:
+           session_dir: str | Path | None = None, backend: str = "claude", json_ok: bool | None = None) -> None:
     """`result` is the stream-json `result` event (its `usage` and `total_cost_usd`), or None on failure."""
     u = (result or {}).get("usage") or {}
     row = {
@@ -59,6 +59,8 @@ def record(kind: str, model: str, result: dict | None, secs: float, error: str =
         "cost_usd": float((result or {}).get("total_cost_usd") or 0),
         "secs": round(secs, 2),
         "ok": not error,
+        "backend": backend,
+        **({"json_ok": json_ok} if json_ok is not None else {}),
         **({"error": error[:200]} if error else {}),
     }
     path = ledger_path(session_dir)
