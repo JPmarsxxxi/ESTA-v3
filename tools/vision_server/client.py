@@ -31,10 +31,10 @@ class VisionUnavailable(RuntimeError):
 
 
 def config() -> dict:
+    import yaml  # a missing yaml must fail loudly, not quietly send the checks back to Claude
     try:
-        import yaml
         cfg = (yaml.safe_load((REPO_ROOT / "config.yaml").read_text(encoding="utf-8")) or {}).get("vision") or {}
-    except (OSError, ImportError):
+    except OSError:
         cfg = {}
     return {"backend": cfg.get("backend", "claude"), "url": (cfg.get("url") or "").rstrip("/"),
             "concurrency": int(cfg.get("concurrency", 8)), "timeout": int(cfg.get("timeout", 120))}

@@ -1,180 +1,130 @@
 {
   "last": {
-    "picked": 20,
-    "lane": "haiku judge (2 failed calls: local ranking there)",
+    "picked": 13,
+    "lane": "haiku judge",
     "judge_cost_usd": 0.0,
     "no_candidates": [],
     "short_clip": [],
     "shots": {
-      "65": {
-        "file": "giphy_Zd9GtzSMAfURsX5pM0.mp4",
+      "280": {
+        "file": "yt_xAV1dsCU5_Y.mp4",
+        "why": "haiku: Candidate 1 matches the 'throwing caps' subject and the chaotic, high-energy vibe of the inspo. Candidate 2 is a static group photo, which lacks the dynamic action of the inspo.",
+        "fit": 0.133,
+        "look": 0.013,
+        "of": 2,
+        "in_point": 0.0
+      },
+      "281": {
+        "file": "yt_OwUUrPifTN4.mp4",
         "why": "local rank",
-        "fit": 0.129,
-        "look": 0.143,
+        "fit": 0.074,
+        "look": 0.167,
+        "of": 1,
+        "in_point": 58.262
+      },
+      "282": {
+        "file": "yt_8fuoNImcGHQ.mp4",
+        "why": "haiku: Candidate 2 (calendar) matches the 'January' subject and the concept of time passing. Candidate 1 is a generic white screen with a watermark, lacking specific subject matter.",
+        "fit": 0.144,
+        "look": -0.017,
+        "of": 2,
+        "in_point": 22.01
+      },
+      "283": {
+        "file": "yt_MT7vx1LTCXg.mp4",
+        "why": "haiku: Candidate 2 matches the 'highway' subject and the long-exposure light trail aesthetic of the inspo. Candidate 1 is a different angle of the same footage but lacks the specific highway context.",
+        "fit": 0.161,
+        "look": 0.112,
+        "of": 2,
+        "in_point": 0.0
+      },
+      "284": {
+        "file": "giphy_zdjQpEtni7XIX4ncNg.mp4",
+        "why": "haiku: Candidate 1 matches the 'cheering crowd' subject and the high-energy vibe of the inspo. Candidate 2 is cheerleaders (wrong subject), and Candidate 3 is an animation (wrong tone).",
+        "fit": 0.146,
+        "look": 0.244,
         "of": 4,
         "in_point": 0.0,
-        "speed": 0.621
+        "repeat": 3
       },
-      "66": {
-        "file": "giphy_6yRVg0HWzgS88.mp4",
-        "why": "local rank",
-        "fit": 0.129,
-        "look": 0.171,
+      "286": {
+        "file": "giphy_J07B6e4vLAGieXR7s2.mp4",
+        "why": "haiku: Candidate 1 matches the cartoon style and chaotic destruction theme of the INSPO frame. Candidate 2 is a generic vector set with a white background, and Candidate 3 is a simple emoji, neither m",
+        "fit": 0.152,
+        "look": 0.305,
+        "of": 6,
+        "in_point": 0.0,
+        "repeat": 2
+      },
+      "287": {
+        "file": "giphy_iDIV2HpWFYpFzZYHXL.mp4",
+        "why": "haiku: Candidate 2 is a clear, high-quality reaction shot of a man shouting in joy, fitting the 'close-up' requirement perfectly. Candidate 1 is too dark and blurry, and Candidate 3 is a wide shot of ",
+        "fit": 0.126,
+        "look": 0.105,
         "of": 4,
+        "in_point": 0.0,
+        "speed": 0.653
+      },
+      "288": {
+        "file": "giphy_fkD36jhiqzJ9m.mp4",
+        "why": "haiku: Candidate 3 is a clear close-up of a fist pump, matching the planned reaction. Candidates 1 and 2 are wide shots of a soccer field, failing the 'close-up' requirement.",
+        "fit": 0.08,
+        "look": 0.198,
+        "of": 4,
+        "in_point": 0.0,
+        "repeat": 3
+      },
+      "289": {
+        "file": "wikimedia_1728643.png",
+        "why": "haiku: Candidate 3 is a screenshot of a SHAP summary plot, which matches the requested subject matter. Candidates 1 and 2 are generic story structure diagrams, not SHAP plots.",
+        "fit": 0.066,
+        "look": -0.011,
+        "of": 3,
         "in_point": 0.0
       },
-      "67": {
-        "file": "giphy_RkKMFRHh71RvhCYUx6.mp4",
-        "why": "local rank",
-        "fit": 0.098,
-        "look": 0.098,
-        "of": 4,
-        "in_point": 0.0
-      },
-      "68": {
-        "file": "yt_n0TzUX7zYIw.mp4",
-        "why": "local rank",
-        "fit": 0.16,
-        "look": 0.037,
+      "290": {
+        "file": "yt_GzuvRC623a0.mp4",
+        "why": "haiku: Candidate 1 is a clean chart matching the 'bullish' line. Candidate 2 is a video call with a visible logo and UI, which is off-tone.",
+        "fit": 0.15,
+        "look": 0.055,
         "of": 2,
-        "in_point": 269.61
+        "in_point": 170.347
       },
-      "69": {
-        "file": "yt_ZmOxLXxUnKk.mp4",
+      "291": {
+        "file": "yt_ntvyMfRPKBM.mp4",
         "why": "local rank",
-        "fit": 0.157,
+        "fit": 0.081,
         "look": 0.03,
         "of": 1,
-        "in_point": 311.556
-      },
-      "71": {
-        "file": "yt_T5-Hbj2AYNs.mp4",
-        "why": "local rank",
-        "fit": 0.082,
-        "look": 0.225,
-        "of": 4,
-        "in_point": 14.328
-      },
-      "72": {
-        "file": "openverse_db44b83f-4d33-4eb2-9d6e-5c11edfb0440.jpg",
-        "why": "local rank",
-        "fit": 0.166,
-        "look": 0.054,
-        "of": 6,
         "in_point": 0.0
       },
-      "74": {
-        "file": "giphy_fXy3Bc6HAtlsFIlHqA.mp4",
-        "why": "local rank",
-        "fit": 0.125,
-        "look": 0.156,
-        "of": 4,
-        "in_point": 0.0,
-        "repeat": 4
-      },
-      "75": {
-        "file": "yt_CZ1m39K4Tgw.mp4",
-        "why": "local rank",
-        "fit": 0.083,
-        "look": 0.159,
-        "of": 4,
-        "in_point": 19.344
-      },
-      "76": {
-        "file": "pexels_32066619.mp4",
-        "why": "local rank",
-        "fit": 0.107,
-        "look": -0.001,
-        "of": 4,
-        "in_point": 7.0
-      },
-      "77": {
-        "file": "giphy_iA8jqAN2GXSTe.mp4",
-        "why": "local rank",
-        "fit": 0.161,
-        "look": 0.289,
-        "of": 2,
-        "in_point": 7.5
-      },
-      "78": {
-        "file": "pexels_27876429.mp4",
-        "why": "local rank",
-        "fit": 0.19,
-        "look": 0.008,
-        "of": 4,
-        "in_point": 3.0
-      },
-      "79": {
-        "file": "pexels_5726502.mp4",
-        "why": "local rank",
-        "fit": 0.139,
-        "look": 0.054,
-        "of": 4,
-        "in_point": 9.5
-      },
-      "80": {
-        "file": "giphy_Fr51PdEf2NxOE.mp4",
-        "why": "local rank",
-        "fit": 0.118,
-        "look": 0.248,
-        "of": 2,
-        "in_point": 0.0
-      },
-      "81": {
-        "file": "pexels_29564687.mp4",
-        "why": "local rank",
-        "fit": 0.169,
-        "look": 0.053,
-        "of": 4,
-        "in_point": 3.5
-      },
-      "83": {
-        "file": "giphy_12ClTeBg4yvkiI.mp4",
-        "why": "local rank",
-        "fit": 0.085,
-        "look": -0.019,
-        "of": 2,
-        "in_point": 0.0
-      },
-      "84": {
-        "file": "pexels_5034981.mp4",
-        "why": "local rank",
-        "fit": 0.139,
-        "look": 0.242,
+      "292": {
+        "file": "giphy_L5jXcnbp2dkZi.mp4",
+        "why": "haiku: Candidate 1 is a close-up reaction shot matching the 'small smile' description. Candidate 2 is a bearded man in a forest (wrong subject). Candidate 3 is a child (wrong subject).",
+        "fit": 0.114,
+        "look": 0.457,
         "of": 4,
         "in_point": 0.0
       },
-      "85": {
-        "file": "pexels_5848336.mp4",
-        "why": "local rank",
-        "fit": 0.15,
-        "look": 0.072,
+      "293": {
+        "file": "c23e44f8e1f429b6e3b1b7cba86fc98c.jpg",
+        "why": "haiku: Candidate 1 is a solid black frame matching the 'black frame' description. Candidate 2 is too dark/low contrast. Candidate 3 is a forest scene (wrong subject).",
+        "fit": 0.111,
+        "look": 0.628,
         "of": 4,
-        "in_point": 0.0
-      },
-      "87": {
-        "file": "pexels_14491045.mp4",
-        "why": "local rank",
-        "fit": 0.106,
-        "look": 0.192,
-        "of": 4,
-        "in_point": 14.5
-      },
-      "88": {
-        "file": "754595389490af2771e03658ec8a9b64.jpg",
-        "why": "local rank",
-        "fit": 0.131,
-        "look": 0.166,
-        "of": 5,
         "in_point": 0.0
       }
     },
+    "repeats": {},
     "stock": {
-      "budget": 50,
-      "used": 7,
-      "shots": 336,
+      "budget": 43,
+      "used": 0,
+      "shots": 293,
       "to_graphic": {}
     },
     "chrome_pending": []
+  },
+  "repeats": {
+    "90": 89
   }
 }

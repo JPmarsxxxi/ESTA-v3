@@ -1,0 +1,200 @@
+# Visual ideas for the M13 replan (SPEC.md Part 10). One line per idea, in spoken order:
+# @ <the exact spoken words> | <subject>
+# Neighbouring ideas never share a subject. replan.py cuts on these boundaries.
+@ So, alphas, nah, | alphas title
+@ not these guys | andrew tate
+@ or these guys. | wolf pack
+@ This fucking annoying ass shit. | frustrated man
+@ You see these ones wouldn't drive you to edge of the world, | quant alpha hunter
+@ questioning your sanity and intelligence | man doubting himself
+@ and make you stare at the ceiling at question, your wild existence | sleepless man
+@ from the moment you ran from your dad's balls and spun into the world. | newborn baby
+@ Goodness gracious. Sorry, I went off on a tangent there, but eesh. | sheepish apology
+@ So let's talk about alphas. | explainer at whiteboard
+@ Fundamentally, an alpha is an idea about how the market works. | stock market
+@ Concretely, it is an automated predictive model that decodes some market relation. | alpha definition card
+@ It contains rules that convert input data to positions | data into trades
+@ trades in the securities markets. | trading screens
+@ Igor Tolchinsky, finding alphas world quant widely 2020. | igor tulchinsky
+@ Thanks, Tolch. | thank you nod
+@ I love money. You love money, we all love money. | money
+@ So why not do some maths and make some money sounds easy, doesn't it? | maths equations
+@ Well, Psyche, | psych reaction
+@ I've been writing maths equations to find these alphas for the past two months | late night research
+@ and I might be convinced they don't exist | doubtful man
+@ started where everyone starts. Short -term reversal. | short-term reversal card
+@ Stock drops relative to its peers. You buy it, it bounces, | dip and bounce chart
+@ you are a genius. | genius reaction
+@ It is in every paper, Limon 1990. It is practically folklore. | academic papers
+@ Ran it on the S and P100. Gross Sharpe 0 .05. | flat backtest
+@ Okay, bad. | unimpressed reaction
+@ Maybe reversal lives in illiquid names | quiet trading floor
+@ and the S and P100 is the most picked over stretch of water on earth. | crowded fishing harbour
+@ Fine, move to mid caps. | moving on
+@ PWW Gross Sharpe jumped 0 .05 to 0 .445. | spiking chart
+@ Beautiful | celebration reaction
+@ net sharp 0 .58. | face falling
+@ She A, | wince reaction
+@ the strategy traded 143 times a year | 143 trades card
+@ and paid a spread every single time. | fees paid
+@ I added signal decay to slow it down. | programmer slowing down
+@ Kept 94 % of the edge, cut cost 26 % | cutting costs
+@ and got net sharp 0 .126 with a 40 % drawdown for about 1 % a year. | sliding equity curve
+@ Then I sector neutralized it to reduce risk and it deleted the signal | deleted signal
+@ because the sector level move was the edge. | sector heatmap
+@ Triple the vol lowered the gross. | choppy price line
+@ Okay, let's switch locations. | packing to leave
+@ Ran the same reversal on crypto, expecting it to be stronger. | crypto prices
+@ More retail presence, 24 sevens. Degenerate, | crypto degen
+@ got gross sharp B minus 1 .01. | shocked trader
+@ Beautifully catastrophically wrong, | laughing then despair
+@ but wait, flip it. | idea strikes
+@ Crypto doesn't revert, it trends. | trending chart
+@ Number, oh, oh, six crypto 30 day momentum. Net sharp 1 .1. | momentum card
+@ Oh, positive in seven of eight years, including the 2022 bear. | 2022 crypto crash
+@ I am a fucking genius | triumph reaction
+@ where Einstein at rolling in his grave. | albert einstein
+@ Then I ran it on the FTMOs 14 coin CFD. | prop firm office
+@ Don't ask me why I am trying to trade prop firms. | don't ask shrug
+@ They're a scam, blah, blah, blah. | eye roll
+@ Well, I need to start somewhere | first step
+@ in its net sharp 0 .38. Okay, slightly bad. | meh grimace
+@ Then I went and measured the actual swap. | measuring tape
+@ Crypto CFD, 30 % a year per SIDE. | broker fee table
+@ I'd stress tested it at 15 % as my worst case. | stress test machine
+@ Reality was double my worst case. | double shock
+@ Okay, I don't seem to be getting anywhere solely based on my own ideas. | stuck going nowhere
+@ So let's go jack some ideas then. | heist
+@ Stand on the shoulders of giants and all that. | shoulders of giants
+@ Hey, Einstein, I take what I said back. | einstein apology
+@ So I went looking for papers, | library research
+@ BTC intraday trend, | bitcoin intraday chart
+@ dead at the decay check, | dead stamp
+@ US 500 first half hour into last half hour, | market clock
+@ dead at the decay check, | flatline monitor
+@ US 500 overnight drift, | overnight market card
+@ dead at the decay check, three for three. | three strikes
+@ The pattern is there in the paper sample window and gone afterwards. | vanishing pattern
+@ Every time like clockwork. | clockwork
+@ If I can read it, everyone can read it. | everyone reading
+@ The half life of a published anomaly is roughly publication. | published paper
+@ Multi asset trend across 45 instruments, | world markets map
+@ dead and not from cost. Those instruments just don't trend. | flat line
+@ BTC weekly trend grows plus 0 .95 % a week. | weekly trend card
+@ Genuinely real, | hopeful kid
+@ eaten by 0 .577 % a week of swap. | eaten away
+@ And the leftover profit was 100 % the 2017 mania. | 2017 bitcoin mania
+@ FX time of day seasonality, three pairs, short at 21 o 'clock, long at 23 o 'clock London. | london fx night
+@ Back test net sharp 5 .28 plus 12 .5 % a year. | huge backtest
+@ Five out of five out of sample years positive. | five green years
+@ It held on currencies I never fitted on. | excited trader
+@ Costs weren't guessed, I pulled tick data and measured the real spread hour by hour. | tick data
+@ Swap free by design. | swap free card
+@ Einstein, this clear the prop firms target organically. | bullseye
+@ No leverage games deployed it. | launch button
+@ How did it actually do? Well, well, | nervous wait
+@ half the edge wasn't real. | half gone
+@ The 21 o 'clock session had been measured on bid quotes. | bid ask quotes
+@ And when I redid it properly, the book was sharp about one point or not 5 .3. | redoing the maths
+@ A quoting artifact. | glitch
+@ I had built a strategy on top of | house of cards
+@ the live edge was zero. Not smaller, zero. Gross, negative. | zero on screen
+@ FTMO charges a commission on FX 25 cents. A deal, 50 cents a leg round trip. | commission coins
+@ On my size, that is 2 .00 BP a night across three legs | calculator
+@ against an expected edge of 1 .24 BP a night | tipping scale
+@ negative before it opened the first trade. | buzzer miss
+@ I gripped every script I'd ever written for a commission term, zero hits. | code search
+@ I had been modeling spread, swap, slippage, impact, | cost list card
+@ and just not the invoice. | invoice
+@ Well, well, well, I can't give up now. Might as well keep going. | getting back up
+@ Went to options dealer positioning, gamma exposure. | options chain
+@ Very cool, very quant Twitter. | finance twitter
+@ The theory, low gamma days trend, high gamma days revert. | gamma theory
+@ The reverting half doesn't exist. | empty hands
+@ High gamma days are just quiet. | quiet days card
+@ And when I raised Jax against boring, free realized volatility to predict tomorrow's return, | gex versus vol
+@ Jax's T stat collapsed to minus 1 .1 | collapse
+@ and past five day return did all the work. | old reliable
+@ The expensive data was a worse proxy for short -term reversal than the price itself. | expensive receipt
+@ Index intraday seasonality, zero hour survive, multiple testing correction, | head shake no
+@ FX day of week, T of 1 .75. | runner tiring
+@ Plausible, not significant. | falling short
+@ And the pairs contradict each other. | arguing pair
+@ Okay, let's seek the help of the machines now. | robot help
+@ Machine learning, regime model, walk forward, sealed vault, all done properly. | ml pipeline
+@ Take that, boom, boom, boom. | machine gun boom
+@ Loses to a 200 day moving average. | moving average chart
+@ Oak 0 .68 in development, 0 .57 out of sample. | disappointed athlete
+@ Ho, Lee, Molly, caught positioning real reversal at extremes, swap killed. | cot positioning
+@ And the entire effect was crude oil in a trench coat, | crude oil
+@ month and FX rebalancing flow. | month end flows
+@ Looked great 2019 plus, pulled 2003 to 2019 and the sign flipped | sign flip
+@ a window artifact. IE, I'd found a coincidence and given it a name. | coincidence
+@ Daily statistical arbitrage. WTI Brent was the only robust pair. | oil price pair
+@ Oil swap, ate it. Everything else was dead gross. | oil barrels
+@ Intraday FX stat arb. | intraday fx chart
+@ This is the one that keeps me up. | awake at night
+@ Information coefficient of plus 0 .0205 on 2 .16 million observations. | ic card
+@ That is about 30 standard errors from zero. | far tail
+@ It is not noise. It is not a bug, grow sharp 3 .71. | rising equity curve
+@ After real per bar spreads plus 0 .03 % a year. | flat net curve
+@ It decays 75 % in one bar. So you have to trade it instantly. | stopwatch
+@ And the spread is right there waiting. | order book spread
+@ So I built a pool because the book says if you run opposing signals together, | signal pool
+@ their trades cancel and you stop paying the toll. | toll booth
+@ Guess what? It works. 87 % of the turnover netted out | 87 percent card
+@ and the pool was still sub -economic. | sub-economic result
+@ Widened it from 12 to 28 pairs. Gross went up. | currency pairs list
+@ Net went to minus 85 sharp because the extra bread came from crosses with three BP spreads. | wide spreads
+@ Added a spread gate which flips it positive and then trades 1 % of available bars | spread gate
+@ which is roughly 0 % a year. | silent locker room
+@ Final salvage use limit orders become a maker instead of a taker. | limit orders
+@ Get the spread back. It works. Limits recover essentially the full spread | trophy
+@ and then I measured the ceiling. | looking up
+@ What this thing earns with execution costs set to zero. Free, magic, perfect. | frictionless magic
+@ And it is 0 .057 BP per S signal. Call it 0 .8 % a year | tiny number
+@ in the universe where friction doesn't exist. | frictionless space
+@ You'd need some absolute superhuman flash plus quick silver type speed. | the flash
+@ And I ain't Jane Street. | jane street
+@ Well, not yet. | not yet smirk
+@ Well, turns out the only thing that worked was simply by the S and P overnight. | s&p overnight chart
+@ That is it. That is the whole idea. Close to open, go home flat, | going home
+@ two wrinkles. Make it mine. | two fingers
+@ One, swap is only charged on positions open at the broker's 17 o 'clock roll over snapshot. | five o'clock clock
+@ So if you enter after the snapshot, you get most of the overnight move and pay zero financing. | camera snapshot
+@ Two, raw overnight is just long beta pump faking. | pump fake
+@ So gated with the 200 day moving average and it stops bleeding in bears. | gated chart
+@ Sharpe 0 .47 to 0 .77, draw down minus 20 % to minus 8 .3%. | improving stats
+@ That is the deployed boring fine. | bored yawn
+@ Then I tried to make it smarter. | scheming
+@ First, the notebook caught me trading on prices that never existed. | coding notebook
+@ Cell one of the new build had one sanity line in it. | one line of code
+@ What fraction of nights are green? It came back 0 .313. | stunned athlete
+@ That is impossible. | impossible
+@ The market goes up overnight more often than that. Everyone knows it. That is the whole premise. | explainer nodding
+@ Yahoo's opening prints for GSPC, the S and P index feed. | yahoo finance page
+@ Not the ETF are fake before roughly 2014. There are stale copies of the previous close. | photocopies
+@ Zero gap rate of 78 to 98%. A year through 2005 and still 25 % in 2012 to 13. | old archive
+@ Which means my beautiful 36 year validation of number or 23 had been computed across three decades of a number. | validation card
+@ The vendor made up not wrong data, absent data, silently padded, | padded data
+@ rebuilt it on spy, the actual ETF, actual prints, 8262 real nights. | spy chart
+@ Base rate, 0 .559. | base rate output
+@ The strategy survived and got better. Sharp 1 .38 filtered on the real prints, | results table
+@ but it survived by luck. If the effect had been smaller, I'd have been trading a vendor's fill forward for months. | repeated values
+@ Then Vee put a random forest on it. | random forest
+@ Sensor features, all entry noble purged chronological splits. Chishar log trials. | feature list
+@ So the multiple testing charge is honest. | logging results
+@ Champion model on a sealed 2021 to 26 window. It had never seen | sealed window
+@ plus 3 .21 BP per night VS plus 1 .76 for always long, | strategy comparison
+@ sharper 0 .9 or VS 0 .44 ahead in every year, plus 1 .0 in 2022. | eyebrows up
+@ While the baseline did minus 6 .7, deflated sharp ratio 0 .887. My bar is 0 .95. | dsr bar card
+@ The frozen model did not graduate. | not graduating
+@ So I walked forward the recipe instead, freeze the features and hyper parameters, refit every January, never peak. | walk forward
+@ 2 ,870 out of sample nights, plus 3 .59 VS plus 2 .13. | night light trails
+@ Sharp if 0 .96, positive in all 12 years. | twelve green bars
+@ DSR 0 .988 that graduates | graduation joy
+@ deployed as Vee Fee. | fist pump
+@ And I plugged sharp to it to actually see what the model learned. | shap plot
+@ Debuying confirmed by Trent plus Hivix is bullish. | vix spike
+@ So I did finally find something. | thoughtful pause
+@ And I guess this is evidence that alpha maybe exists. | small smile

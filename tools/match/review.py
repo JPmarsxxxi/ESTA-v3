@@ -67,7 +67,8 @@ def render(session: Path, stage: str, report: dict) -> str:
     failing = _failing(session)
     assets = _asset_rows(session)
     gen_errors = (read_json(session / "gen_video.json", {}) or {}).get("errors") or {}
-    repeats = ((read_json(session / "autopick.json", {}) or {}).get("last") or {}).get("repeats") or {}
+    ap = read_json(session / "autopick.json", {}) or {}
+    repeats = ap.get("repeats") or (ap.get("last") or {}).get("repeats") or {}
     pool: dict = {}
     rows = []
     for r in report.get("shots", []):

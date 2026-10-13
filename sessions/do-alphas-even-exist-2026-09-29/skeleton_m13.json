@@ -1,0 +1,2932 @@
+[
+ {
+  "idea": "1",
+  "step": 1,
+  "subject": "alphas title",
+  "start": 0.0,
+  "end": 2.47,
+  "words": "So, alphas, nah,",
+  "ref_shot": "018a4aa42a2b-0001",
+  "target": 2.533
+ },
+ {
+  "idea": "2",
+  "step": 1,
+  "subject": "andrew tate",
+  "start": 2.47,
+  "end": 3.44,
+  "words": "not these guys",
+  "ref_shot": "018a4aa42a2b-0001",
+  "target": 1.02
+ },
+ {
+  "idea": "3",
+  "step": 1,
+  "subject": "wolf pack",
+  "start": 3.44,
+  "end": 5.78,
+  "words": "or these guys.",
+  "ref_shot": "018a4aa42a2b-0001",
+  "target": 2.98
+ },
+ {
+  "idea": "4",
+  "step": 1,
+  "subject": "frustrated man",
+  "start": 5.78,
+  "end": 9.05,
+  "words": "This fucking annoying ass shit.",
+  "ref_shot": "018a4aa42a2b-0003",
+  "target": 3.095
+ },
+ {
+  "idea": "5",
+  "step": 1,
+  "subject": "quant alpha hunter",
+  "start": 9.05,
+  "end": 11.33,
+  "words": "You see these ones wouldn't drive you to edge of the world,",
+  "ref_shot": "018a4aa42a2b-0004",
+  "target": 2.262
+ },
+ {
+  "idea": "6",
+  "step": 1,
+  "subject": "man doubting himself",
+  "start": 11.33,
+  "end": 13.16,
+  "words": "questioning your sanity and intelligence",
+  "ref_shot": "018a4aa42a2b-0005",
+  "target": 1.811
+ },
+ {
+  "idea": "7",
+  "step": 1,
+  "subject": "sleepless man",
+  "start": 13.16,
+  "end": 15.74,
+  "words": "and make you stare at the ceiling at question, your wild existence",
+  "ref_shot": "018a4aa42a2b-0005",
+  "target": 2.564
+ },
+ {
+  "idea": "8",
+  "step": 1,
+  "subject": "newborn baby",
+  "start": 15.74,
+  "end": 18.72,
+  "words": "from the moment you ran from your dad's balls and spun into the world.",
+  "ref_shot": "018a4aa42a2b-0005",
+  "target": 3.177
+ },
+ {
+  "idea": "9",
+  "step": 1,
+  "subject": "sheepish apology",
+  "start": 18.72,
+  "end": 24.08,
+  "words": "Goodness gracious. Sorry, I went off on a tangent there, but eesh.",
+  "ref_shot": "018a4aa42a2b-0007",
+  "target": 5.515
+ },
+ {
+  "idea": "10",
+  "step": 1,
+  "subject": "explainer at whiteboard",
+  "start": 24.08,
+  "end": 26.51,
+  "words": "So let's talk about alphas.",
+  "ref_shot": "018a4aa42a2b-0007",
+  "target": 2.341
+ },
+ {
+  "idea": "11",
+  "step": 1,
+  "subject": "stock market",
+  "start": 26.51,
+  "end": 31.3,
+  "words": "Fundamentally, an alpha is an idea about how the market works.",
+  "ref_shot": "018a4aa42a2b-0008",
+  "target": 4.4
+ },
+ {
+  "idea": "12",
+  "step": 1,
+  "subject": "alpha definition card",
+  "start": 31.3,
+  "end": 34.21,
+  "words": "Concretely, it is an automated predictive",
+  "ref_shot": "018a4aa42a2b-0009",
+  "target": 2.806
+ },
+ {
+  "idea": "12",
+  "step": 2,
+  "subject": "alpha definition card",
+  "start": 34.21,
+  "end": 37.47,
+  "words": "model that decodes some market relation.",
+  "ref_shot": "018a4aa42a2b-0009",
+  "target": 3.214
+ },
+ {
+  "idea": "13",
+  "step": 1,
+  "subject": "data into trades",
+  "start": 37.47,
+  "end": 40.11,
+  "words": "It contains rules that convert input",
+  "ref_shot": "018a4aa42a2b-0009",
+  "target": 2.664
+ },
+ {
+  "idea": "13",
+  "step": 2,
+  "subject": "data into trades",
+  "start": 40.11,
+  "end": 41.45,
+  "words": "data to positions",
+  "ref_shot": "018a4aa42a2b-0011",
+  "target": 1.369
+ },
+ {
+  "idea": "14",
+  "step": 1,
+  "subject": "trading screens",
+  "start": 41.45,
+  "end": 44.11,
+  "words": "trades in the securities markets.",
+  "ref_shot": "018a4aa42a2b-0012",
+  "target": 2.678
+ },
+ {
+  "idea": "15",
+  "step": 1,
+  "subject": "igor tulchinsky",
+  "start": 44.11,
+  "end": 45.94,
+  "words": "Igor Tolchinsky,",
+  "ref_shot": "018a4aa42a2b-0013",
+  "target": 1.908
+ },
+ {
+  "idea": "15",
+  "step": 2,
+  "subject": "igor tulchinsky",
+  "start": 45.94,
+  "end": 47.63,
+  "words": "finding alphas world",
+  "ref_shot": "018a4aa42a2b-0013",
+  "target": 1.772
+ },
+ {
+  "idea": "15",
+  "step": 3,
+  "subject": "igor tulchinsky",
+  "start": 47.63,
+  "end": 49.42,
+  "words": "quant widely 2020.",
+  "ref_shot": "018a4aa42a2b-0014",
+  "target": 1.579
+ },
+ {
+  "idea": "16",
+  "step": 1,
+  "subject": "thank you nod",
+  "start": 49.42,
+  "end": 51.895,
+  "words": "Thanks, Tolch.",
+  "ref_shot": "018a4aa42a2b-0015",
+  "target": 2.169
+ },
+ {
+  "idea": "17",
+  "step": 1,
+  "subject": "money",
+  "start": 51.895,
+  "end": 54.64,
+  "words": "I love money. You love money, we all love money.",
+  "ref_shot": "018a4aa42a2b-0016",
+  "target": 2.679
+ },
+ {
+  "idea": "18",
+  "step": 1,
+  "subject": "maths equations",
+  "start": 54.64,
+  "end": 57.26,
+  "words": "So why not do some maths and make some money sounds easy, doesn't it?",
+  "ref_shot": "018a4aa42a2b-0016",
+  "target": 2.5
+ },
+ {
+  "idea": "19",
+  "step": 1,
+  "subject": "psych reaction",
+  "start": 57.26,
+  "end": 58.13,
+  "words": "Well, Psyche,",
+  "ref_shot": "018a4aa42a2b-0017",
+  "target": 0.84
+ },
+ {
+  "idea": "20",
+  "step": 1,
+  "subject": "late night research",
+  "start": 58.13,
+  "end": 60.98,
+  "words": "I've been writing maths equations to find these alphas",
+  "ref_shot": "018a4aa42a2b-0017",
+  "target": 2.798
+ },
+ {
+  "idea": "20",
+  "step": 2,
+  "subject": "late night research",
+  "start": 60.98,
+  "end": 62.71,
+  "words": "for the past two months",
+  "ref_shot": "018a4aa42a2b-0018",
+  "target": 1.57
+ },
+ {
+  "idea": "21",
+  "step": 1,
+  "subject": "doubtful man",
+  "start": 62.71,
+  "end": 65.16,
+  "words": "and I might be convinced they don't exist",
+  "ref_shot": "018a4aa42a2b-0019",
+  "target": 2.426
+ },
+ {
+  "idea": "22",
+  "step": 1,
+  "subject": "short-term reversal card",
+  "start": 65.16,
+  "end": 67.1,
+  "words": "started where everyone",
+  "ref_shot": "018a4aa42a2b-0020",
+  "target": 2.332
+ },
+ {
+  "idea": "22",
+  "step": 2,
+  "subject": "short-term reversal card",
+  "start": 67.1,
+  "end": 69.28,
+  "words": "starts. Short -term reversal.",
+  "ref_shot": "018a4aa42a2b-0020",
+  "target": 2.213
+ },
+ {
+  "idea": "23",
+  "step": 1,
+  "subject": "dip and bounce chart",
+  "start": 69.28,
+  "end": 73.04,
+  "words": "Stock drops relative to its peers. You buy it, it bounces,",
+  "ref_shot": "018a4aa42a2b-0022",
+  "target": 3.848
+ },
+ {
+  "idea": "24",
+  "step": 1,
+  "subject": "genius reaction",
+  "start": 73.04,
+  "end": 74.03,
+  "words": "you are a genius.",
+  "ref_shot": "018a4aa42a2b-0022",
+  "target": 1.044
+ },
+ {
+  "idea": "25",
+  "step": 1,
+  "subject": "academic papers",
+  "start": 74.03,
+  "end": 79.49,
+  "words": "It is in every paper, Limon 1990. It is practically folklore.",
+  "ref_shot": "018a4aa42a2b-0022",
+  "target": 5.489
+ },
+ {
+  "idea": "26",
+  "step": 1,
+  "subject": "flat backtest",
+  "start": 79.49,
+  "end": 84.51,
+  "words": "Ran it on the S and P100. Gross Sharpe 0 .05.",
+  "ref_shot": "018a4aa42a2b-0023",
+  "target": 4.889
+ },
+ {
+  "idea": "27",
+  "step": 1,
+  "subject": "unimpressed reaction",
+  "start": 84.51,
+  "end": 86.52,
+  "words": "Okay, bad.",
+  "ref_shot": "018a4aa42a2b-0023",
+  "target": 1.962
+ },
+ {
+  "idea": "28",
+  "step": 1,
+  "subject": "quiet trading floor",
+  "start": 86.52,
+  "end": 89.88,
+  "words": "Maybe reversal lives in illiquid names",
+  "ref_shot": "018a4aa42a2b-0024",
+  "target": 3.268
+ },
+ {
+  "idea": "29",
+  "step": 1,
+  "subject": "crowded fishing harbour",
+  "start": 89.88,
+  "end": 93.24,
+  "words": "and the S and P100 is the most picked",
+  "ref_shot": "018a4aa42a2b-0024",
+  "target": 3.165
+ },
+ {
+  "idea": "29",
+  "step": 2,
+  "subject": "crowded fishing harbour",
+  "start": 93.24,
+  "end": 95.95,
+  "words": "over stretch of water on earth.",
+  "ref_shot": "018a4aa42a2b-0026",
+  "target": 2.72
+ },
+ {
+  "idea": "30",
+  "step": 1,
+  "subject": "moving on",
+  "start": 95.95,
+  "end": 97.16,
+  "words": "Fine, move",
+  "ref_shot": "018a4aa42a2b-0027",
+  "target": 1.3
+ },
+ {
+  "idea": "30",
+  "step": 2,
+  "subject": "moving on",
+  "start": 97.16,
+  "end": 97.99,
+  "words": "to mid caps.",
+  "ref_shot": "018a4aa42a2b-0028",
+  "target": 0.9
+ },
+ {
+  "idea": "31",
+  "step": 1,
+  "subject": "spiking chart",
+  "start": 97.99,
+  "end": 99.54,
+  "words": "PWW Gross Sharpe",
+  "ref_shot": "018a4aa42a2b-0028",
+  "target": 1.424
+ },
+ {
+  "idea": "31",
+  "step": 2,
+  "subject": "spiking chart",
+  "start": 99.54,
+  "end": 100.18,
+  "words": "jumped",
+  "ref_shot": "018a4aa42a2b-0029",
+  "target": 0.509
+ },
+ {
+  "idea": "31",
+  "step": 3,
+  "subject": "spiking chart",
+  "start": 100.18,
+  "end": 102.08,
+  "words": "0 .05 to",
+  "ref_shot": "018a4aa42a2b-0031",
+  "target": 2.361
+ },
+ {
+  "idea": "31",
+  "step": 4,
+  "subject": "spiking chart",
+  "start": 102.08,
+  "end": 103.56,
+  "words": "0 .445.",
+  "ref_shot": "018a4aa42a2b-0031",
+  "target": 1.428
+ },
+ {
+  "idea": "32",
+  "step": 1,
+  "subject": "celebration reaction",
+  "start": 103.56,
+  "end": 104.5,
+  "words": "Beautiful",
+  "ref_shot": "018a4aa42a2b-0031",
+  "target": 0.812
+ },
+ {
+  "idea": "33",
+  "step": 1,
+  "subject": "face falling",
+  "start": 104.5,
+  "end": 105.74,
+  "words": "net sharp",
+  "ref_shot": "018a4aa42a2b-0032",
+  "target": 1.633
+ },
+ {
+  "idea": "33",
+  "step": 2,
+  "subject": "face falling",
+  "start": 105.74,
+  "end": 108.41,
+  "words": "0 .58.",
+  "ref_shot": "018a4aa42a2b-0033",
+  "target": 3.8
+ },
+ {
+  "idea": "34",
+  "step": 1,
+  "subject": "wince reaction",
+  "start": 108.41,
+  "end": 110.49,
+  "words": "She A,",
+  "ref_shot": "018a4aa42a2b-0033",
+  "target": 2.167
+ },
+ {
+  "idea": "35",
+  "step": 1,
+  "subject": "143 trades card",
+  "start": 110.49,
+  "end": 111.98,
+  "words": "the strategy traded",
+  "ref_shot": "018a4aa42a2b-0034",
+  "target": 1.833
+ },
+ {
+  "idea": "35",
+  "step": 2,
+  "subject": "143 trades card",
+  "start": 111.98,
+  "end": 114.26,
+  "words": "143 times a year",
+  "ref_shot": "018a4aa42a2b-0035",
+  "target": 1.949
+ },
+ {
+  "idea": "36",
+  "step": 1,
+  "subject": "fees paid",
+  "start": 114.26,
+  "end": 117.14,
+  "words": "and paid a spread every single time.",
+  "ref_shot": "018a4aa42a2b-0036",
+  "target": 2.984
+ },
+ {
+  "idea": "37",
+  "step": 1,
+  "subject": "programmer slowing down",
+  "start": 117.14,
+  "end": 119.81,
+  "words": "I added signal decay to slow it down.",
+  "ref_shot": "018a4aa42a2b-0037",
+  "target": 2.555
+ },
+ {
+  "idea": "38",
+  "step": 1,
+  "subject": "cutting costs",
+  "start": 119.81,
+  "end": 124.27,
+  "words": "Kept 94 % of the edge, cut cost 26 %",
+  "ref_shot": "018a4aa42a2b-0037",
+  "target": 4.678
+ },
+ {
+  "idea": "39",
+  "step": 1,
+  "subject": "sliding equity curve",
+  "start": 124.27,
+  "end": 132.3,
+  "words": "and got net sharp 0 .126 with a 40 % drawdown for about 1 % a year.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 8.087
+ },
+ {
+  "idea": "40",
+  "step": 1,
+  "subject": "deleted signal",
+  "start": 132.3,
+  "end": 137.84,
+  "words": "Then I sector neutralized it to reduce risk and it deleted the signal",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 5.573
+ },
+ {
+  "idea": "41",
+  "step": 1,
+  "subject": "sector heatmap",
+  "start": 137.84,
+  "end": 140.64,
+  "words": "because the sector level move was the edge.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 2.792
+ },
+ {
+  "idea": "42",
+  "step": 1,
+  "subject": "choppy price line",
+  "start": 140.64,
+  "end": 142.72,
+  "words": "Triple the vol lowered the gross.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 2.074
+ },
+ {
+  "idea": "43",
+  "step": 1,
+  "subject": "packing to leave",
+  "start": 142.72,
+  "end": 146.0,
+  "words": "Okay, let's switch locations.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 3.271
+ },
+ {
+  "idea": "44",
+  "step": 1,
+  "subject": "crypto prices",
+  "start": 146.0,
+  "end": 150.22,
+  "words": "Ran the same reversal on crypto, expecting it to be stronger.",
+  "ref_shot": "018a4aa42a2b-0038",
+  "target": 4.208
+ },
+ {
+  "idea": "45",
+  "step": 1,
+  "subject": "crypto degen",
+  "start": 150.22,
+  "end": 153.64,
+  "words": "More retail presence, 24 sevens. Degenerate,",
+  "ref_shot": "018a4aa42a2b-0041",
+  "target": 3.448
+ },
+ {
+  "idea": "46",
+  "step": 1,
+  "subject": "shocked trader",
+  "start": 153.64,
+  "end": 158.39,
+  "words": "got gross sharp B minus 1 .01.",
+  "ref_shot": "018a4aa42a2b-0042",
+  "target": 3.748
+ },
+ {
+  "idea": "47",
+  "step": 1,
+  "subject": "laughing then despair",
+  "start": 158.39,
+  "end": 160.0,
+  "words": "Beautifully",
+  "ref_shot": "018a4aa42a2b-0043",
+  "target": 1.5
+ },
+ {
+  "idea": "47",
+  "step": 2,
+  "subject": "laughing then despair",
+  "start": 160.0,
+  "end": 161.55,
+  "words": "catastrophically wrong,",
+  "ref_shot": "018a4aa42a2b-0043",
+  "target": 1.5
+ },
+ {
+  "idea": "48",
+  "step": 1,
+  "subject": "idea strikes",
+  "start": 161.55,
+  "end": 163.14,
+  "words": "but wait, flip it.",
+  "ref_shot": "018a4aa42a2b-0044",
+  "target": 1.666
+ },
+ {
+  "idea": "49",
+  "step": 1,
+  "subject": "trending chart",
+  "start": 163.14,
+  "end": 165.74,
+  "words": "Crypto doesn't revert, it trends.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 2.614
+ },
+ {
+  "idea": "50",
+  "step": 1,
+  "subject": "momentum card",
+  "start": 165.74,
+  "end": 170.12,
+  "words": "Number, oh, oh, six crypto 30 day momentum. Net sharp 1 .1.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 4.404
+ },
+ {
+  "idea": "51",
+  "step": 1,
+  "subject": "2022 crypto crash",
+  "start": 170.12,
+  "end": 174.22,
+  "words": "Oh, positive in seven of eight years, including the 2022 bear.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 4.123
+ },
+ {
+  "idea": "52",
+  "step": 1,
+  "subject": "triumph reaction",
+  "start": 174.22,
+  "end": 175.95,
+  "words": "I am a fucking genius",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 1.74
+ },
+ {
+  "idea": "53",
+  "step": 1,
+  "subject": "albert einstein",
+  "start": 175.95,
+  "end": 180.58,
+  "words": "where Einstein at rolling in his grave.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 4.655
+ },
+ {
+  "idea": "54",
+  "step": 1,
+  "subject": "prop firm office",
+  "start": 180.58,
+  "end": 185.3,
+  "words": "Then I ran it on the FTMOs 14 coin CFD.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 4.73
+ },
+ {
+  "idea": "55",
+  "step": 1,
+  "subject": "don't ask shrug",
+  "start": 185.3,
+  "end": 187.8,
+  "words": "Don't ask me why I am trying to trade prop firms.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 2.486
+ },
+ {
+  "idea": "56",
+  "step": 1,
+  "subject": "eye roll",
+  "start": 187.8,
+  "end": 189.48,
+  "words": "They're a scam, blah, blah, blah.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 1.671
+ },
+ {
+  "idea": "57",
+  "step": 1,
+  "subject": "first step",
+  "start": 189.48,
+  "end": 191.3,
+  "words": "Well, I need to start somewhere",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 1.81
+ },
+ {
+  "idea": "58",
+  "step": 1,
+  "subject": "meh grimace",
+  "start": 191.3,
+  "end": 197.77,
+  "words": "in its net sharp 0 .38. Okay, slightly bad.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 6.434
+ },
+ {
+  "idea": "59",
+  "step": 1,
+  "subject": "measuring tape",
+  "start": 197.77,
+  "end": 201.5,
+  "words": "Then I went and measured the actual swap.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 3.709
+ },
+ {
+  "idea": "60",
+  "step": 1,
+  "subject": "broker fee table",
+  "start": 201.5,
+  "end": 206.48,
+  "words": "Crypto CFD, 30 % a year per SIDE.",
+  "ref_shot": "018a4aa42a2b-0045",
+  "target": 4.967
+ },
+ {
+  "idea": "61",
+  "step": 1,
+  "subject": "stress test machine",
+  "start": 206.48,
+  "end": 208.85,
+  "words": "I'd stress tested it at",
+  "ref_shot": "018a4aa42a2b-0050",
+  "target": 2.457
+ },
+ {
+  "idea": "61",
+  "step": 2,
+  "subject": "stress test machine",
+  "start": 208.85,
+  "end": 210.37,
+  "words": "15 % as",
+  "ref_shot": "018a4aa42a2b-0051",
+  "target": 1.334
+ },
+ {
+  "idea": "61",
+  "step": 3,
+  "subject": "stress test machine",
+  "start": 210.37,
+  "end": 211.57,
+  "words": "my worst case.",
+  "ref_shot": "018a4aa42a2b-0052",
+  "target": 1.2
+ },
+ {
+  "idea": "62",
+  "step": 1,
+  "subject": "double shock",
+  "start": 211.57,
+  "end": 214.69,
+  "words": "Reality was double my worst case.",
+  "ref_shot": "018a4aa42a2b-0053",
+  "target": 3.341
+ },
+ {
+  "idea": "63",
+  "step": 1,
+  "subject": "stuck going nowhere",
+  "start": 214.69,
+  "end": 218.3,
+  "words": "Okay, I don't seem to be getting anywhere solely based on my own ideas.",
+  "ref_shot": "018a4aa42a2b-0054",
+  "target": 3.859
+ },
+ {
+  "idea": "64",
+  "step": 1,
+  "subject": "heist",
+  "start": 218.3,
+  "end": 221.23,
+  "words": "So let's go jack some ideas then.",
+  "ref_shot": "018a4aa42a2b-0055",
+  "target": 3.004
+ },
+ {
+  "idea": "65",
+  "step": 1,
+  "subject": "shoulders of giants",
+  "start": 221.23,
+  "end": 223.12,
+  "words": "Stand on the shoulders of giants and all that.",
+  "ref_shot": "018a4aa42a2b-0055",
+  "target": 1.863
+ },
+ {
+  "idea": "66",
+  "step": 1,
+  "subject": "einstein apology",
+  "start": 223.12,
+  "end": 224.79,
+  "words": "Hey, Einstein, I",
+  "ref_shot": "018a4aa42a2b-0056",
+  "target": 1.632
+ },
+ {
+  "idea": "66",
+  "step": 2,
+  "subject": "einstein apology",
+  "start": 224.79,
+  "end": 226.21,
+  "words": "take what I said back.",
+  "ref_shot": "018a4aa42a2b-0057",
+  "target": 1.345
+ },
+ {
+  "idea": "67",
+  "step": 1,
+  "subject": "library research",
+  "start": 226.21,
+  "end": 229.29,
+  "words": "So I went looking for papers,",
+  "ref_shot": "018a4aa42a2b-0058",
+  "target": 2.889
+ },
+ {
+  "idea": "68",
+  "step": 1,
+  "subject": "bitcoin intraday chart",
+  "start": 229.29,
+  "end": 232.27,
+  "words": "BTC intraday trend,",
+  "ref_shot": "018a4aa42a2b-0058",
+  "target": 3.161
+ },
+ {
+  "idea": "69",
+  "step": 1,
+  "subject": "dead stamp",
+  "start": 232.27,
+  "end": 234.99,
+  "words": "dead at the decay check,",
+  "ref_shot": "018a4aa42a2b-0059",
+  "target": 2.702
+ },
+ {
+  "idea": "70",
+  "step": 1,
+  "subject": "market clock",
+  "start": 234.99,
+  "end": 237.17,
+  "words": "US 500 first half hour",
+  "ref_shot": "018a4aa42a2b-0060",
+  "target": 2.437
+ },
+ {
+  "idea": "70",
+  "step": 2,
+  "subject": "market clock",
+  "start": 237.17,
+  "end": 239.22,
+  "words": "into last half hour,",
+  "ref_shot": "018a4aa42a2b-0061",
+  "target": 2.264
+ },
+ {
+  "idea": "71",
+  "step": 1,
+  "subject": "flatline monitor",
+  "start": 239.22,
+  "end": 240.55,
+  "words": "dead at",
+  "ref_shot": "018a4aa42a2b-0062",
+  "target": 1.378
+ },
+ {
+  "idea": "71",
+  "step": 2,
+  "subject": "flatline monitor",
+  "start": 240.55,
+  "end": 241.73,
+  "words": "the decay check,",
+  "ref_shot": "018a4aa42a2b-0063",
+  "target": 1.28
+ },
+ {
+  "idea": "72",
+  "step": 1,
+  "subject": "overnight market card",
+  "start": 241.73,
+  "end": 243.09,
+  "words": "US 500",
+  "ref_shot": "018a4aa42a2b-0063",
+  "target": 1.311
+ },
+ {
+  "idea": "72",
+  "step": 2,
+  "subject": "overnight market card",
+  "start": 243.09,
+  "end": 245.295,
+  "words": "overnight drift,",
+  "ref_shot": "018a4aa42a2b-0063",
+  "target": 1.966
+ },
+ {
+  "idea": "73",
+  "step": 1,
+  "subject": "three strikes",
+  "start": 245.295,
+  "end": 247.66,
+  "words": "dead at the decay",
+  "ref_shot": "018a4aa42a2b-0064",
+  "target": 2.401
+ },
+ {
+  "idea": "73",
+  "step": 2,
+  "subject": "three strikes",
+  "start": 247.66,
+  "end": 249.84,
+  "words": "check, three for three.",
+  "ref_shot": "018a4aa42a2b-0066",
+  "target": 2.413
+ },
+ {
+  "idea": "74",
+  "step": 1,
+  "subject": "vanishing pattern",
+  "start": 249.84,
+  "end": 251.58,
+  "words": "The pattern is there in the paper",
+  "ref_shot": "018a4aa42a2b-0066",
+  "target": 1.735
+ },
+ {
+  "idea": "74",
+  "step": 2,
+  "subject": "vanishing pattern",
+  "start": 251.58,
+  "end": 253.42,
+  "words": "sample window and gone afterwards.",
+  "ref_shot": "018a4aa42a2b-0066",
+  "target": 1.787
+ },
+ {
+  "idea": "75",
+  "step": 1,
+  "subject": "clockwork",
+  "start": 253.42,
+  "end": 255.3,
+  "words": "Every time like clockwork.",
+  "ref_shot": "018a4aa42a2b-0067",
+  "target": 1.884
+ },
+ {
+  "idea": "76",
+  "step": 1,
+  "subject": "everyone reading",
+  "start": 255.3,
+  "end": 258.83,
+  "words": "If I can read it, everyone can read it.",
+  "ref_shot": "018a4aa42a2b-0068",
+  "target": 3.676
+ },
+ {
+  "idea": "77",
+  "step": 1,
+  "subject": "published paper",
+  "start": 258.83,
+  "end": 260.16,
+  "words": "The half life of a",
+  "ref_shot": "018a4aa42a2b-0069",
+  "target": 1.396
+ },
+ {
+  "idea": "77",
+  "step": 2,
+  "subject": "published paper",
+  "start": 260.16,
+  "end": 261.76,
+  "words": "published anomaly is",
+  "ref_shot": "018a4aa42a2b-0070",
+  "target": 1.689
+ },
+ {
+  "idea": "77",
+  "step": 3,
+  "subject": "published paper",
+  "start": 261.76,
+  "end": 263.21,
+  "words": "roughly publication.",
+  "ref_shot": "018a4aa42a2b-0071",
+  "target": 1.459
+ },
+ {
+  "idea": "78",
+  "step": 1,
+  "subject": "world markets map",
+  "start": 263.21,
+  "end": 264.66,
+  "words": "Multi asset trend",
+  "ref_shot": "018a4aa42a2b-0071",
+  "target": 1.455
+ },
+ {
+  "idea": "78",
+  "step": 2,
+  "subject": "world markets map",
+  "start": 264.66,
+  "end": 266.93,
+  "words": "across 45 instruments,",
+  "ref_shot": "018a4aa42a2b-0071",
+  "target": 2.365
+ },
+ {
+  "idea": "79",
+  "step": 1,
+  "subject": "flat line",
+  "start": 266.93,
+  "end": 269.35,
+  "words": "dead and not from cost.",
+  "ref_shot": "018a4aa42a2b-0072",
+  "target": 2.494
+ },
+ {
+  "idea": "79",
+  "step": 2,
+  "subject": "flat line",
+  "start": 269.35,
+  "end": 271.94,
+  "words": "Those instruments just don't trend.",
+  "ref_shot": "018a4aa42a2b-0072",
+  "target": 2.484
+ },
+ {
+  "idea": "80",
+  "step": 1,
+  "subject": "weekly trend card",
+  "start": 271.94,
+  "end": 274.42,
+  "words": "BTC weekly trend grows plus",
+  "ref_shot": "018a4aa42a2b-0073",
+  "target": 2.362
+ },
+ {
+  "idea": "80",
+  "step": 2,
+  "subject": "weekly trend card",
+  "start": 274.42,
+  "end": 276.465,
+  "words": "0 .95 % a week.",
+  "ref_shot": "018a4aa42a2b-0075",
+  "target": 1.833
+ },
+ {
+  "idea": "81",
+  "step": 1,
+  "subject": "hopeful kid",
+  "start": 276.465,
+  "end": 278.21,
+  "words": "Genuinely real,",
+  "ref_shot": "018a4aa42a2b-0075",
+  "target": 1.833
+ },
+ {
+  "idea": "82",
+  "step": 1,
+  "subject": "eaten away",
+  "start": 278.21,
+  "end": 281.25,
+  "words": "eaten by 0 .577 % a week of swap.",
+  "ref_shot": "018a4aa42a2b-0078",
+  "target": 3.363
+ },
+ {
+  "idea": "83",
+  "step": 1,
+  "subject": "2017 bitcoin mania",
+  "start": 281.25,
+  "end": 283.8,
+  "words": "And the leftover profit",
+  "ref_shot": "018a4aa42a2b-0078",
+  "target": 2.441
+ },
+ {
+  "idea": "83",
+  "step": 2,
+  "subject": "2017 bitcoin mania",
+  "start": 283.8,
+  "end": 287.51,
+  "words": "was 100 % the 2017 mania.",
+  "ref_shot": "018a4aa42a2b-0079",
+  "target": 3.776
+ },
+ {
+  "idea": "84",
+  "step": 1,
+  "subject": "london fx night",
+  "start": 287.51,
+  "end": 291.02,
+  "words": "FX time of day seasonality, three pairs,",
+  "ref_shot": "018a4aa42a2b-0079",
+  "target": 3.543
+ },
+ {
+  "idea": "84",
+  "step": 2,
+  "subject": "london fx night",
+  "start": 291.02,
+  "end": 294.49,
+  "words": "short at 21 o 'clock, long at 23 o 'clock London.",
+  "ref_shot": "018a4aa42a2b-0079",
+  "target": 3.488
+ },
+ {
+  "idea": "85",
+  "step": 1,
+  "subject": "huge backtest",
+  "start": 294.49,
+  "end": 299.93,
+  "words": "Back test net sharp 5 .28 plus 12 .5 % a year.",
+  "ref_shot": "018a4aa42a2b-0081",
+  "target": 5.34
+ },
+ {
+  "idea": "86",
+  "step": 1,
+  "subject": "five green years",
+  "start": 299.93,
+  "end": 304.09,
+  "words": "Five out of five out of sample years positive.",
+  "ref_shot": "018a4aa42a2b-0081",
+  "target": 3.888
+ },
+ {
+  "idea": "87",
+  "step": 1,
+  "subject": "excited trader",
+  "start": 304.09,
+  "end": 306.25,
+  "words": "It held on currencies I never fitted on.",
+  "ref_shot": "018a4aa42a2b-0083",
+  "target": 2.155
+ },
+ {
+  "idea": "88",
+  "step": 1,
+  "subject": "tick data",
+  "start": 306.25,
+  "end": 308.66,
+  "words": "Costs weren't guessed, I pulled tick data",
+  "ref_shot": "018a4aa42a2b-0083",
+  "target": 2.472
+ },
+ {
+  "idea": "88",
+  "step": 2,
+  "subject": "tick data",
+  "start": 308.66,
+  "end": 310.96,
+  "words": "and measured the real spread hour by hour.",
+  "ref_shot": "018a4aa42a2b-0084",
+  "target": 2.701
+ },
+ {
+  "idea": "89",
+  "step": 1,
+  "subject": "swap free card",
+  "start": 310.96,
+  "end": 313.03,
+  "words": "Swap free by design.",
+  "ref_shot": "018a4aa42a2b-0087",
+  "target": 2.097
+ },
+ {
+  "idea": "90",
+  "step": 1,
+  "subject": "bullseye",
+  "start": 313.03,
+  "end": 316.36,
+  "words": "Einstein, this clear the",
+  "ref_shot": "018a4aa42a2b-0087",
+  "target": 3.454
+ },
+ {
+  "idea": "90",
+  "step": 2,
+  "subject": "bullseye",
+  "start": 316.36,
+  "end": 318.82,
+  "words": "prop firms target organically.",
+  "ref_shot": "018a4aa42a2b-0089",
+  "target": 2.643
+ },
+ {
+  "idea": "91",
+  "step": 1,
+  "subject": "launch button",
+  "start": 318.82,
+  "end": 322.67,
+  "words": "No leverage games deployed it.",
+  "ref_shot": "018a4aa42a2b-0089",
+  "target": 3.406
+ },
+ {
+  "idea": "92",
+  "step": 1,
+  "subject": "nervous wait",
+  "start": 322.67,
+  "end": 324.14,
+  "words": "How did",
+  "ref_shot": "018a4aa42a2b-0090",
+  "target": 1.341
+ },
+ {
+  "idea": "92",
+  "step": 2,
+  "subject": "nervous wait",
+  "start": 324.14,
+  "end": 326.03,
+  "words": "it actually do?",
+  "ref_shot": "018a4aa42a2b-0092",
+  "target": 1.605
+ },
+ {
+  "idea": "92",
+  "step": 3,
+  "subject": "nervous wait",
+  "start": 326.03,
+  "end": 327.83,
+  "words": "Well, well,",
+  "ref_shot": "018a4aa42a2b-0092",
+  "target": 1.634
+ },
+ {
+  "idea": "93",
+  "step": 1,
+  "subject": "half gone",
+  "start": 327.83,
+  "end": 331.03,
+  "words": "half the edge wasn't real.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.154
+ },
+ {
+  "idea": "94",
+  "step": 1,
+  "subject": "bid ask quotes",
+  "start": 331.03,
+  "end": 334.15,
+  "words": "The 21 o 'clock session had been measured on bid quotes.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.075
+ },
+ {
+  "idea": "95",
+  "step": 1,
+  "subject": "redoing the maths",
+  "start": 334.15,
+  "end": 339.58,
+  "words": "And when I redid it properly, the book was sharp about one point or not 5 .3.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 5.351
+ },
+ {
+  "idea": "96",
+  "step": 1,
+  "subject": "glitch",
+  "start": 339.58,
+  "end": 341.42,
+  "words": "A quoting artifact.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 1.813
+ },
+ {
+  "idea": "97",
+  "step": 1,
+  "subject": "house of cards",
+  "start": 341.42,
+  "end": 344.74,
+  "words": "I had built a strategy on top of",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 3.272
+ },
+ {
+  "idea": "98",
+  "step": 1,
+  "subject": "zero on screen",
+  "start": 344.74,
+  "end": 353.52,
+  "words": "the live edge was zero. Not smaller, zero. Gross, negative.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 8.708
+ },
+ {
+  "idea": "99",
+  "step": 1,
+  "subject": "commission coins",
+  "start": 353.52,
+  "end": 360.44,
+  "words": "FTMO charges a commission on FX 25 cents. A deal, 50 cents a leg round trip.",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 6.894
+ },
+ {
+  "idea": "100",
+  "step": 1,
+  "subject": "calculator",
+  "start": 360.44,
+  "end": 366.06,
+  "words": "On my size, that is 2 .00 BP a night across three legs",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 5.599
+ },
+ {
+  "idea": "101",
+  "step": 1,
+  "subject": "tipping scale",
+  "start": 366.06,
+  "end": 370.98,
+  "words": "against an expected edge of 1 .24 BP a night",
+  "ref_shot": "018a4aa42a2b-0093",
+  "target": 4.957
+ },
+ {
+  "idea": "102",
+  "step": 1,
+  "subject": "buzzer miss",
+  "start": 370.98,
+  "end": 374.46,
+  "words": "negative before it opened the first trade.",
+  "ref_shot": "018a4aa42a2b-0098",
+  "target": 3.298
+ },
+ {
+  "idea": "103",
+  "step": 1,
+  "subject": "code search",
+  "start": 374.46,
+  "end": 378.22,
+  "words": "I gripped every script I'd ever written for",
+  "ref_shot": "018a4aa42a2b-0098",
+  "target": 3.538
+ },
+ {
+  "idea": "103",
+  "step": 2,
+  "subject": "code search",
+  "start": 378.22,
+  "end": 381.785,
+  "words": "a commission term, zero hits.",
+  "ref_shot": "018a4aa42a2b-0098",
+  "target": 3.479
+ },
+ {
+  "idea": "104",
+  "step": 1,
+  "subject": "cost list card",
+  "start": 381.785,
+  "end": 384.11,
+  "words": "I had been modeling spread,",
+  "ref_shot": "018a4aa42a2b-0099",
+  "target": 2.28
+ },
+ {
+  "idea": "104",
+  "step": 2,
+  "subject": "cost list card",
+  "start": 384.11,
+  "end": 386.94,
+  "words": "swap, slippage, impact,",
+  "ref_shot": "018a4aa42a2b-0100",
+  "target": 2.653
+ },
+ {
+  "idea": "105",
+  "step": 1,
+  "subject": "invoice",
+  "start": 386.94,
+  "end": 390.26,
+  "words": "and just not the invoice.",
+  "ref_shot": "018a4aa42a2b-0101",
+  "target": 3.142
+ },
+ {
+  "idea": "106",
+  "step": 1,
+  "subject": "getting back up",
+  "start": 390.26,
+  "end": 391.83,
+  "words": "Well, well, well, I can't give",
+  "ref_shot": "018a4aa42a2b-0103",
+  "target": 1.566
+ },
+ {
+  "idea": "106",
+  "step": 2,
+  "subject": "getting back up",
+  "start": 391.83,
+  "end": 393.88,
+  "words": "up now. Might as well keep going.",
+  "ref_shot": "018a4aa42a2b-0104",
+  "target": 2.03
+ },
+ {
+  "idea": "107",
+  "step": 1,
+  "subject": "options chain",
+  "start": 393.88,
+  "end": 399.01,
+  "words": "Went to options dealer positioning, gamma exposure.",
+  "ref_shot": "018a4aa42a2b-0104",
+  "target": 5.278
+ },
+ {
+  "idea": "108",
+  "step": 1,
+  "subject": "finance twitter",
+  "start": 399.01,
+  "end": 401.81,
+  "words": "Very cool, very quant Twitter.",
+  "ref_shot": "018a4aa42a2b-0105",
+  "target": 2.832
+ },
+ {
+  "idea": "109",
+  "step": 1,
+  "subject": "gamma theory",
+  "start": 401.81,
+  "end": 403.81,
+  "words": "The theory, low gamma days",
+  "ref_shot": "018a4aa42a2b-0107",
+  "target": 1.914
+ },
+ {
+  "idea": "109",
+  "step": 2,
+  "subject": "gamma theory",
+  "start": 403.81,
+  "end": 406.33,
+  "words": "trend, high gamma days revert.",
+  "ref_shot": "018a4aa42a2b-0107",
+  "target": 2.411
+ },
+ {
+  "idea": "110",
+  "step": 1,
+  "subject": "empty hands",
+  "start": 406.33,
+  "end": 408.84,
+  "words": "The reverting half doesn't exist.",
+  "ref_shot": "018a4aa42a2b-0108",
+  "target": 2.744
+ },
+ {
+  "idea": "111",
+  "step": 1,
+  "subject": "quiet days card",
+  "start": 408.84,
+  "end": 411.42,
+  "words": "High gamma days are just quiet.",
+  "ref_shot": "018a4aa42a2b-0109",
+  "target": 2.576
+ },
+ {
+  "idea": "112",
+  "step": 1,
+  "subject": "gex versus vol",
+  "start": 411.42,
+  "end": 415.17,
+  "words": "And when I raised Jax against boring, free realized volatility",
+  "ref_shot": "018a4aa42a2b-0109",
+  "target": 3.869
+ },
+ {
+  "idea": "112",
+  "step": 2,
+  "subject": "gex versus vol",
+  "start": 415.17,
+  "end": 417.44,
+  "words": "to predict tomorrow's return,",
+  "ref_shot": "018a4aa42a2b-0110",
+  "target": 2.354
+ },
+ {
+  "idea": "113",
+  "step": 1,
+  "subject": "collapse",
+  "start": 417.44,
+  "end": 418.57,
+  "words": "Jax's T",
+  "ref_shot": "018a4aa42a2b-0112",
+  "target": 1.065
+ },
+ {
+  "idea": "113",
+  "step": 2,
+  "subject": "collapse",
+  "start": 418.57,
+  "end": 419.67,
+  "words": "stat collapsed to",
+  "ref_shot": "018a4aa42a2b-0112",
+  "target": 1.042
+ },
+ {
+  "idea": "113",
+  "step": 3,
+  "subject": "collapse",
+  "start": 419.67,
+  "end": 420.93,
+  "words": "minus 1 .1",
+  "ref_shot": "018a4aa42a2b-0112",
+  "target": 1.202
+ },
+ {
+  "idea": "114",
+  "step": 1,
+  "subject": "old reliable",
+  "start": 420.93,
+  "end": 424.35,
+  "words": "and past five day return did all the work.",
+  "ref_shot": "018a4aa42a2b-0114",
+  "target": 3.26
+ },
+ {
+  "idea": "115",
+  "step": 1,
+  "subject": "expensive receipt",
+  "start": 424.35,
+  "end": 427.71,
+  "words": "The expensive data was a worse proxy for short",
+  "ref_shot": "018a4aa42a2b-0114",
+  "target": 3.575
+ },
+ {
+  "idea": "115",
+  "step": 2,
+  "subject": "expensive receipt",
+  "start": 427.71,
+  "end": 430.69,
+  "words": "-term reversal than the price itself.",
+  "ref_shot": "018a4aa42a2b-0115",
+  "target": 3.123
+ },
+ {
+  "idea": "116",
+  "step": 1,
+  "subject": "head shake no",
+  "start": 430.69,
+  "end": 433.11,
+  "words": "Index intraday seasonality, zero",
+  "ref_shot": "018a4aa42a2b-0116",
+  "target": 2.533
+ },
+ {
+  "idea": "116",
+  "step": 2,
+  "subject": "head shake no",
+  "start": 433.11,
+  "end": 435.65,
+  "words": "hour survive, multiple testing correction,",
+  "ref_shot": "018a4aa42a2b-0116",
+  "target": 2.533
+ },
+ {
+  "idea": "117",
+  "step": 1,
+  "subject": "runner tiring",
+  "start": 435.65,
+  "end": 436.31,
+  "words": "FX day",
+  "ref_shot": "018a4aa42a2b-0118",
+  "target": 0.734
+ },
+ {
+  "idea": "117",
+  "step": 2,
+  "subject": "runner tiring",
+  "start": 436.31,
+  "end": 437.04,
+  "words": "of week,",
+  "ref_shot": "018a4aa42a2b-0119",
+  "target": 0.8
+ },
+ {
+  "idea": "117",
+  "step": 3,
+  "subject": "runner tiring",
+  "start": 437.04,
+  "end": 437.69,
+  "words": "T of",
+  "ref_shot": "018a4aa42a2b-0120",
+  "target": 0.6
+ },
+ {
+  "idea": "117",
+  "step": 4,
+  "subject": "runner tiring",
+  "start": 437.69,
+  "end": 438.92,
+  "words": "1 .75.",
+  "ref_shot": "018a4aa42a2b-0120",
+  "target": 0.932
+ },
+ {
+  "idea": "118",
+  "step": 1,
+  "subject": "falling short",
+  "start": 438.92,
+  "end": 440.16,
+  "words": "Plausible,",
+  "ref_shot": "018a4aa42a2b-0121",
+  "target": 0.8
+ },
+ {
+  "idea": "118",
+  "step": 2,
+  "subject": "falling short",
+  "start": 440.16,
+  "end": 441.28,
+  "words": "not significant.",
+  "ref_shot": "018a4aa42a2b-0122",
+  "target": 1.4
+ },
+ {
+  "idea": "119",
+  "step": 1,
+  "subject": "arguing pair",
+  "start": 441.28,
+  "end": 442.77,
+  "words": "And the pairs contradict",
+  "ref_shot": "018a4aa42a2b-0122",
+  "target": 1.4
+ },
+ {
+  "idea": "119",
+  "step": 2,
+  "subject": "arguing pair",
+  "start": 442.77,
+  "end": 443.47,
+  "words": "each other.",
+  "ref_shot": "018a4aa42a2b-0124",
+  "target": 0.666
+ },
+ {
+  "idea": "120",
+  "step": 1,
+  "subject": "robot help",
+  "start": 443.47,
+  "end": 444.65,
+  "words": "Okay, let's seek",
+  "ref_shot": "018a4aa42a2b-0125",
+  "target": 1.256
+ },
+ {
+  "idea": "120",
+  "step": 2,
+  "subject": "robot help",
+  "start": 444.65,
+  "end": 445.93,
+  "words": "the help of",
+  "ref_shot": "018a4aa42a2b-0125",
+  "target": 1.243
+ },
+ {
+  "idea": "120",
+  "step": 3,
+  "subject": "robot help",
+  "start": 445.93,
+  "end": 447.13,
+  "words": "the machines now.",
+  "ref_shot": "018a4aa42a2b-0127",
+  "target": 1.251
+ },
+ {
+  "idea": "121",
+  "step": 1,
+  "subject": "ml pipeline",
+  "start": 447.13,
+  "end": 448.65,
+  "words": "Machine learning, regime model,",
+  "ref_shot": "018a4aa42a2b-0127",
+  "target": 1.674
+ },
+ {
+  "idea": "121",
+  "step": 2,
+  "subject": "ml pipeline",
+  "start": 448.65,
+  "end": 450.15,
+  "words": "walk forward, sealed",
+  "ref_shot": "018a4aa42a2b-0128",
+  "target": 1.523
+ },
+ {
+  "idea": "121",
+  "step": 3,
+  "subject": "ml pipeline",
+  "start": 450.15,
+  "end": 451.37,
+  "words": "vault, all",
+  "ref_shot": "018a4aa42a2b-0128",
+  "target": 1.281
+ },
+ {
+  "idea": "121",
+  "step": 4,
+  "subject": "ml pipeline",
+  "start": 451.37,
+  "end": 452.23,
+  "words": "done properly.",
+  "ref_shot": "018a4aa42a2b-0129",
+  "target": 1.062
+ },
+ {
+  "idea": "122",
+  "step": 1,
+  "subject": "machine gun boom",
+  "start": 452.23,
+  "end": 453.15,
+  "words": "Take that,",
+  "ref_shot": "018a4aa42a2b-0130",
+  "target": 0.964
+ },
+ {
+  "idea": "122",
+  "step": 2,
+  "subject": "machine gun boom",
+  "start": 453.15,
+  "end": 454.32,
+  "words": "boom, boom, boom.",
+  "ref_shot": "018a4aa42a2b-0130",
+  "target": 1.136
+ },
+ {
+  "idea": "123",
+  "step": 1,
+  "subject": "moving average chart",
+  "start": 454.32,
+  "end": 455.85,
+  "words": "Loses to a 200",
+  "ref_shot": "018a4aa42a2b-0131",
+  "target": 1.392
+ },
+ {
+  "idea": "123",
+  "step": 2,
+  "subject": "moving average chart",
+  "start": 455.85,
+  "end": 458.07,
+  "words": "day moving average.",
+  "ref_shot": "018a4aa42a2b-0131",
+  "target": 1.916
+ },
+ {
+  "idea": "124",
+  "step": 1,
+  "subject": "disappointed athlete",
+  "start": 458.07,
+  "end": 462.09,
+  "words": "Oak 0 .68 in development,",
+  "ref_shot": "018a4aa42a2b-0132",
+  "target": 3.643
+ },
+ {
+  "idea": "124",
+  "step": 2,
+  "subject": "disappointed athlete",
+  "start": 462.09,
+  "end": 463.31,
+  "words": "0 .57",
+  "ref_shot": "018a4aa42a2b-0134",
+  "target": 1.188
+ },
+ {
+  "idea": "124",
+  "step": 3,
+  "subject": "disappointed athlete",
+  "start": 463.31,
+  "end": 464.69,
+  "words": "out of sample.",
+  "ref_shot": "018a4aa42a2b-0135",
+  "target": 1.183
+ },
+ {
+  "idea": "125",
+  "step": 1,
+  "subject": "cot positioning",
+  "start": 464.69,
+  "end": 466.38,
+  "words": "Ho, Lee,",
+  "ref_shot": "018a4aa42a2b-0135",
+  "target": 1.757
+ },
+ {
+  "idea": "125",
+  "step": 2,
+  "subject": "cot positioning",
+  "start": 466.38,
+  "end": 467.33,
+  "words": "Molly, caught",
+  "ref_shot": "018a4aa42a2b-0137",
+  "target": 0.933
+ },
+ {
+  "idea": "125",
+  "step": 3,
+  "subject": "cot positioning",
+  "start": 467.33,
+  "end": 468.07,
+  "words": "positioning",
+  "ref_shot": "018a4aa42a2b-0137",
+  "target": 0.933
+ },
+ {
+  "idea": "125",
+  "step": 4,
+  "subject": "cot positioning",
+  "start": 468.07,
+  "end": 468.89,
+  "words": "real",
+  "ref_shot": "018a4aa42a2b-0138",
+  "target": 1.033
+ },
+ {
+  "idea": "125",
+  "step": 5,
+  "subject": "cot positioning",
+  "start": 468.89,
+  "end": 471.99,
+  "words": "reversal at extremes, swap killed.",
+  "ref_shot": "018a4aa42a2b-0139",
+  "target": 2.95
+ },
+ {
+  "idea": "126",
+  "step": 1,
+  "subject": "crude oil",
+  "start": 471.99,
+  "end": 474.53,
+  "words": "And the entire effect was crude",
+  "ref_shot": "018a4aa42a2b-0139",
+  "target": 2.573
+ },
+ {
+  "idea": "126",
+  "step": 2,
+  "subject": "crude oil",
+  "start": 474.53,
+  "end": 476.11,
+  "words": "oil in a trench coat,",
+  "ref_shot": "018a4aa42a2b-0140",
+  "target": 1.762
+ },
+ {
+  "idea": "127",
+  "step": 1,
+  "subject": "month end flows",
+  "start": 476.11,
+  "end": 478.78,
+  "words": "month and FX rebalancing flow.",
+  "ref_shot": "018a4aa42a2b-0141",
+  "target": 2.583
+ },
+ {
+  "idea": "128",
+  "step": 1,
+  "subject": "sign flip",
+  "start": 478.78,
+  "end": 481.55,
+  "words": "Looked great 2019 plus, pulled",
+  "ref_shot": "018a4aa42a2b-0142",
+  "target": 3.167
+ },
+ {
+  "idea": "128",
+  "step": 2,
+  "subject": "sign flip",
+  "start": 481.55,
+  "end": 485.37,
+  "words": "2003 to 2019 and the sign flipped",
+  "ref_shot": "018a4aa42a2b-0142",
+  "target": 3.898
+ },
+ {
+  "idea": "129",
+  "step": 1,
+  "subject": "coincidence",
+  "start": 485.37,
+  "end": 487.09,
+  "words": "a window artifact.",
+  "ref_shot": "018a4aa42a2b-0144",
+  "target": 2.102
+ },
+ {
+  "idea": "129",
+  "step": 2,
+  "subject": "coincidence",
+  "start": 487.09,
+  "end": 488.49,
+  "words": "IE, I'd",
+  "ref_shot": "018a4aa42a2b-0144",
+  "target": 1.233
+ },
+ {
+  "idea": "129",
+  "step": 3,
+  "subject": "coincidence",
+  "start": 488.49,
+  "end": 490.13,
+  "words": "found a coincidence and",
+  "ref_shot": "018a4aa42a2b-0145",
+  "target": 1.433
+ },
+ {
+  "idea": "129",
+  "step": 4,
+  "subject": "coincidence",
+  "start": 490.13,
+  "end": 491.15,
+  "words": "given it a name.",
+  "ref_shot": "018a4aa42a2b-0146",
+  "target": 1.099
+ },
+ {
+  "idea": "130",
+  "step": 1,
+  "subject": "oil price pair",
+  "start": 491.15,
+  "end": 493.06,
+  "words": "Daily statistical arbitrage.",
+  "ref_shot": "018a4aa42a2b-0147",
+  "target": 1.835
+ },
+ {
+  "idea": "130",
+  "step": 2,
+  "subject": "oil price pair",
+  "start": 493.06,
+  "end": 495.75,
+  "words": "WTI Brent was the only robust pair.",
+  "ref_shot": "018a4aa42a2b-0147",
+  "target": 2.682
+ },
+ {
+  "idea": "131",
+  "step": 1,
+  "subject": "oil barrels",
+  "start": 495.75,
+  "end": 499.58,
+  "words": "Oil swap, ate it. Everything else was dead gross.",
+  "ref_shot": "018a4aa42a2b-0148",
+  "target": 3.641
+ },
+ {
+  "idea": "132",
+  "step": 1,
+  "subject": "intraday fx chart",
+  "start": 499.58,
+  "end": 502.57,
+  "words": "Intraday FX stat arb.",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 2.799
+ },
+ {
+  "idea": "133",
+  "step": 1,
+  "subject": "awake at night",
+  "start": 502.57,
+  "end": 506.91,
+  "words": "This is the one that keeps me up.",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 4.165
+ },
+ {
+  "idea": "134",
+  "step": 1,
+  "subject": "ic card",
+  "start": 506.91,
+  "end": 514.21,
+  "words": "Information coefficient of plus 0 .0205 on 2 .16 million observations.",
+  "ref_shot": "018a4aa42a2b-0149",
+  "target": 7.512
+ },
+ {
+  "idea": "135",
+  "step": 1,
+  "subject": "far tail",
+  "start": 514.21,
+  "end": 516.86,
+  "words": "That is about 30 standard",
+  "ref_shot": "018a4aa42a2b-0152",
+  "target": 2.434
+ },
+ {
+  "idea": "135",
+  "step": 2,
+  "subject": "far tail",
+  "start": 516.86,
+  "end": 518.71,
+  "words": "errors from zero.",
+  "ref_shot": "018a4aa42a2b-0153",
+  "target": 1.7
+ },
+ {
+  "idea": "136",
+  "step": 1,
+  "subject": "rising equity curve",
+  "start": 518.71,
+  "end": 524.09,
+  "words": "It is not noise. It is not a bug, grow sharp 3 .71.",
+  "ref_shot": "018a4aa42a2b-0154",
+  "target": 5.234
+ },
+ {
+  "idea": "137",
+  "step": 1,
+  "subject": "flat net curve",
+  "start": 524.09,
+  "end": 531.56,
+  "words": "After real per bar spreads plus 0 .03 % a year.",
+  "ref_shot": "018a4aa42a2b-0154",
+  "target": 7.017
+ },
+ {
+  "idea": "138",
+  "step": 1,
+  "subject": "stopwatch",
+  "start": 531.56,
+  "end": 535.22,
+  "words": "It decays 75 % in one bar. So you have",
+  "ref_shot": "018a4aa42a2b-0155",
+  "target": 3.817
+ },
+ {
+  "idea": "138",
+  "step": 2,
+  "subject": "stopwatch",
+  "start": 535.22,
+  "end": 536.57,
+  "words": "to trade it instantly.",
+  "ref_shot": "018a4aa42a2b-0158",
+  "target": 1.367
+ },
+ {
+  "idea": "139",
+  "step": 1,
+  "subject": "order book spread",
+  "start": 536.57,
+  "end": 538.77,
+  "words": "And the spread is right there waiting.",
+  "ref_shot": "018a4aa42a2b-0160",
+  "target": 2.131
+ },
+ {
+  "idea": "140",
+  "step": 1,
+  "subject": "signal pool",
+  "start": 538.77,
+  "end": 541.5,
+  "words": "So I built a pool because the book says if",
+  "ref_shot": "018a4aa42a2b-0160",
+  "target": 2.797
+ },
+ {
+  "idea": "140",
+  "step": 2,
+  "subject": "signal pool",
+  "start": 541.5,
+  "end": 543.38,
+  "words": "you run opposing signals together,",
+  "ref_shot": "018a4aa42a2b-0163",
+  "target": 1.76
+ },
+ {
+  "idea": "141",
+  "step": 1,
+  "subject": "toll booth",
+  "start": 543.38,
+  "end": 545.79,
+  "words": "their trades cancel and you stop paying the toll.",
+  "ref_shot": "018a4aa42a2b-0163",
+  "target": 2.323
+ },
+ {
+  "idea": "142",
+  "step": 1,
+  "subject": "87 percent card",
+  "start": 545.79,
+  "end": 550.26,
+  "words": "Guess what? It works. 87 % of the turnover netted out",
+  "ref_shot": "018a4aa42a2b-0164",
+  "target": 4.265
+ },
+ {
+  "idea": "143",
+  "step": 1,
+  "subject": "sub-economic result",
+  "start": 550.26,
+  "end": 554.31,
+  "words": "and the pool was still sub -economic.",
+  "ref_shot": "018a4aa42a2b-0164",
+  "target": 4.059
+ },
+ {
+  "idea": "144",
+  "step": 1,
+  "subject": "currency pairs list",
+  "start": 554.31,
+  "end": 559.79,
+  "words": "Widened it from 12 to 28 pairs. Gross went up.",
+  "ref_shot": "018a4aa42a2b-0165",
+  "target": 5.492
+ },
+ {
+  "idea": "145",
+  "step": 1,
+  "subject": "wide spreads",
+  "start": 559.79,
+  "end": 562.06,
+  "words": "Net went to minus 85",
+  "ref_shot": "018a4aa42a2b-0166",
+  "target": 2.224
+ },
+ {
+  "idea": "145",
+  "step": 2,
+  "subject": "wide spreads",
+  "start": 562.06,
+  "end": 567.5,
+  "words": "sharp because the extra bread came from crosses with three BP spreads.",
+  "ref_shot": "018a4aa42a2b-0167",
+  "target": 5.284
+ },
+ {
+  "idea": "146",
+  "step": 1,
+  "subject": "spread gate",
+  "start": 567.5,
+  "end": 574.02,
+  "words": "Added a spread gate which flips it positive and then trades 1 % of available bars",
+  "ref_shot": "018a4aa42a2b-0167",
+  "target": 6.6
+ },
+ {
+  "idea": "147",
+  "step": 1,
+  "subject": "silent locker room",
+  "start": 574.02,
+  "end": 576.37,
+  "words": "which is roughly 0 % a year.",
+  "ref_shot": "018a4aa42a2b-0170",
+  "target": 2.251
+ },
+ {
+  "idea": "148",
+  "step": 1,
+  "subject": "limit orders",
+  "start": 576.37,
+  "end": 577.46,
+  "words": "Final salvage",
+  "ref_shot": "018a4aa42a2b-0171",
+  "target": 0.952
+ },
+ {
+  "idea": "148",
+  "step": 2,
+  "subject": "limit orders",
+  "start": 577.46,
+  "end": 578.8,
+  "words": "use limit orders",
+  "ref_shot": "018a4aa42a2b-0172",
+  "target": 1.078
+ },
+ {
+  "idea": "148",
+  "step": 3,
+  "subject": "limit orders",
+  "start": 578.8,
+  "end": 579.86,
+  "words": "become a",
+  "ref_shot": "018a4aa42a2b-0172",
+  "target": 0.875
+ },
+ {
+  "idea": "148",
+  "step": 4,
+  "subject": "limit orders",
+  "start": 579.86,
+  "end": 581.12,
+  "words": "maker instead of a",
+  "ref_shot": "018a4aa42a2b-0173",
+  "target": 1.129
+ },
+ {
+  "idea": "148",
+  "step": 5,
+  "subject": "limit orders",
+  "start": 581.12,
+  "end": 581.69,
+  "words": "taker.",
+  "ref_shot": "018a4aa42a2b-0174",
+  "target": 0.415
+ },
+ {
+  "idea": "149",
+  "step": 1,
+  "subject": "trophy",
+  "start": 581.69,
+  "end": 583.81,
+  "words": "Get the spread back. It works.",
+  "ref_shot": "018a4aa42a2b-0175",
+  "target": 2.233
+ },
+ {
+  "idea": "149",
+  "step": 2,
+  "subject": "trophy",
+  "start": 583.81,
+  "end": 586.64,
+  "words": "Limits recover essentially the full spread",
+  "ref_shot": "018a4aa42a2b-0175",
+  "target": 2.856
+ },
+ {
+  "idea": "150",
+  "step": 1,
+  "subject": "looking up",
+  "start": 586.64,
+  "end": 588.62,
+  "words": "and then I measured the ceiling.",
+  "ref_shot": "018a4aa42a2b-0176",
+  "target": 2.044
+ },
+ {
+  "idea": "151",
+  "step": 1,
+  "subject": "frictionless magic",
+  "start": 588.62,
+  "end": 589.22,
+  "words": "What this",
+  "ref_shot": "018a4aa42a2b-0178",
+  "target": 0.7
+ },
+ {
+  "idea": "151",
+  "step": 2,
+  "subject": "frictionless magic",
+  "start": 589.22,
+  "end": 589.96,
+  "words": "thing earns",
+  "ref_shot": "018a4aa42a2b-0178",
+  "target": 0.7
+ },
+ {
+  "idea": "151",
+  "step": 3,
+  "subject": "frictionless magic",
+  "start": 589.96,
+  "end": 590.86,
+  "words": "with execution",
+  "ref_shot": "018a4aa42a2b-0179",
+  "target": 1.0
+ },
+ {
+  "idea": "151",
+  "step": 4,
+  "subject": "frictionless magic",
+  "start": 590.86,
+  "end": 593.17,
+  "words": "costs set to zero. Free,",
+  "ref_shot": "018a4aa42a2b-0180",
+  "target": 2.244
+ },
+ {
+  "idea": "151",
+  "step": 5,
+  "subject": "frictionless magic",
+  "start": 593.17,
+  "end": 595.03,
+  "words": "magic, perfect.",
+  "ref_shot": "018a4aa42a2b-0180",
+  "target": 1.744
+ },
+ {
+  "idea": "152",
+  "step": 1,
+  "subject": "tiny number",
+  "start": 595.03,
+  "end": 598.16,
+  "words": "And it is 0 .057",
+  "ref_shot": "018a4aa42a2b-0181",
+  "target": 3.012
+ },
+ {
+  "idea": "152",
+  "step": 2,
+  "subject": "tiny number",
+  "start": 598.16,
+  "end": 601.12,
+  "words": "BP per S signal. Call it",
+  "ref_shot": "018a4aa42a2b-0182",
+  "target": 3.033
+ },
+ {
+  "idea": "152",
+  "step": 3,
+  "subject": "tiny number",
+  "start": 601.12,
+  "end": 603.96,
+  "words": "0 .8 % a year",
+  "ref_shot": "018a4aa42a2b-0182",
+  "target": 3.033
+ },
+ {
+  "idea": "153",
+  "step": 1,
+  "subject": "frictionless space",
+  "start": 603.96,
+  "end": 608.06,
+  "words": "in the universe where friction doesn't exist.",
+  "ref_shot": "018a4aa42a2b-0183",
+  "target": 4.35
+ },
+ {
+  "idea": "154",
+  "step": 1,
+  "subject": "the flash",
+  "start": 608.06,
+  "end": 613.55,
+  "words": "You'd need some absolute superhuman flash plus quick silver type speed.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 5.653
+ },
+ {
+  "idea": "155",
+  "step": 1,
+  "subject": "jane street",
+  "start": 613.55,
+  "end": 615.36,
+  "words": "And I ain't Jane Street.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 1.864
+ },
+ {
+  "idea": "156",
+  "step": 1,
+  "subject": "not yet smirk",
+  "start": 615.36,
+  "end": 617.05,
+  "words": "Well, not yet.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 1.69
+ },
+ {
+  "idea": "157",
+  "step": 1,
+  "subject": "s&p overnight chart",
+  "start": 617.05,
+  "end": 622.53,
+  "words": "Well, turns out the only thing that worked was simply by the S and P overnight.",
+  "ref_shot": "018a4aa42a2b-0185",
+  "target": 5.48
+ },
+ {
+  "idea": "158",
+  "step": 1,
+  "subject": "going home",
+  "start": 622.53,
+  "end": 624.96,
+  "words": "That is it. That is the whole idea.",
+  "ref_shot": "018a4aa42a2b-0187",
+  "target": 2.454
+ },
+ {
+  "idea": "158",
+  "step": 2,
+  "subject": "going home",
+  "start": 624.96,
+  "end": 627.79,
+  "words": "Close to open, go home flat,",
+  "ref_shot": "018a4aa42a2b-0188",
+  "target": 2.944
+ },
+ {
+  "idea": "159",
+  "step": 1,
+  "subject": "two fingers",
+  "start": 627.79,
+  "end": 630.49,
+  "words": "two wrinkles. Make it mine.",
+  "ref_shot": "018a4aa42a2b-0188",
+  "target": 2.81
+ },
+ {
+  "idea": "160",
+  "step": 1,
+  "subject": "five o'clock clock",
+  "start": 630.49,
+  "end": 633.68,
+  "words": "One, swap is only charged on positions open at the",
+  "ref_shot": "018a4aa42a2b-0188",
+  "target": 3.236
+ },
+ {
+  "idea": "160",
+  "step": 2,
+  "subject": "five o'clock clock",
+  "start": 633.68,
+  "end": 635.95,
+  "words": "broker's 17 o 'clock roll over snapshot.",
+  "ref_shot": "018a4aa42a2b-0190",
+  "target": 2.229
+ },
+ {
+  "idea": "161",
+  "step": 1,
+  "subject": "camera snapshot",
+  "start": 635.95,
+  "end": 641.44,
+  "words": "So if you enter after the snapshot, you get most of the overnight move and pay zero financing.",
+  "ref_shot": "018a4aa42a2b-0191",
+  "target": 5.518
+ },
+ {
+  "idea": "162",
+  "step": 1,
+  "subject": "pump fake",
+  "start": 641.44,
+  "end": 646.09,
+  "words": "Two, raw overnight is just long beta pump faking.",
+  "ref_shot": "018a4aa42a2b-0191",
+  "target": 4.578
+ },
+ {
+  "idea": "163",
+  "step": 1,
+  "subject": "gated chart",
+  "start": 646.09,
+  "end": 648.665,
+  "words": "So gated with the 200 day moving average",
+  "ref_shot": "018a4aa42a2b-0194",
+  "target": 2.616
+ },
+ {
+  "idea": "163",
+  "step": 2,
+  "subject": "gated chart",
+  "start": 648.665,
+  "end": 651.25,
+  "words": "and it stops bleeding in bears.",
+  "ref_shot": "018a4aa42a2b-0194",
+  "target": 2.854
+ },
+ {
+  "idea": "164",
+  "step": 1,
+  "subject": "improving stats",
+  "start": 651.25,
+  "end": 653.24,
+  "words": "Sharpe 0 .47",
+  "ref_shot": "018a4aa42a2b-0195",
+  "target": 2.14
+ },
+ {
+  "idea": "164",
+  "step": 2,
+  "subject": "improving stats",
+  "start": 653.24,
+  "end": 655.3,
+  "words": "to 0 .77, draw",
+  "ref_shot": "018a4aa42a2b-0196",
+  "target": 2.018
+ },
+ {
+  "idea": "164",
+  "step": 3,
+  "subject": "improving stats",
+  "start": 655.3,
+  "end": 657.08,
+  "words": "down minus 20 %",
+  "ref_shot": "018a4aa42a2b-0196",
+  "target": 1.697
+ },
+ {
+  "idea": "164",
+  "step": 4,
+  "subject": "improving stats",
+  "start": 657.08,
+  "end": 659.445,
+  "words": "to minus 8 .3%.",
+  "ref_shot": "018a4aa42a2b-0197",
+  "target": 2.46
+ },
+ {
+  "idea": "165",
+  "step": 1,
+  "subject": "bored yawn",
+  "start": 659.445,
+  "end": 663.28,
+  "words": "That is the deployed",
+  "ref_shot": "018a4aa42a2b-0197",
+  "target": 3.685
+ },
+ {
+  "idea": "165",
+  "step": 2,
+  "subject": "bored yawn",
+  "start": 663.28,
+  "end": 666.51,
+  "words": "boring fine.",
+  "ref_shot": "018a4aa42a2b-0197",
+  "target": 2.955
+ },
+ {
+  "idea": "166",
+  "step": 1,
+  "subject": "scheming",
+  "start": 666.51,
+  "end": 669.58,
+  "words": "Then I tried to make it smarter.",
+  "ref_shot": "018a4aa42a2b-0198",
+  "target": 3.046
+ },
+ {
+  "idea": "167",
+  "step": 1,
+  "subject": "coding notebook",
+  "start": 669.58,
+  "end": 672.5,
+  "words": "First, the notebook caught me trading",
+  "ref_shot": "018a4aa42a2b-0199",
+  "target": 2.856
+ },
+ {
+  "idea": "167",
+  "step": 2,
+  "subject": "coding notebook",
+  "start": 672.5,
+  "end": 674.69,
+  "words": "on prices that never existed.",
+  "ref_shot": "018a4aa42a2b-0201",
+  "target": 2.057
+ },
+ {
+  "idea": "168",
+  "step": 1,
+  "subject": "one line of code",
+  "start": 674.69,
+  "end": 678.2,
+  "words": "Cell one of the new build had one sanity line in it.",
+  "ref_shot": "018a4aa42a2b-0201",
+  "target": 3.552
+ },
+ {
+  "idea": "169",
+  "step": 1,
+  "subject": "stunned athlete",
+  "start": 678.2,
+  "end": 681.34,
+  "words": "What fraction of nights are green? It came back",
+  "ref_shot": "018a4aa42a2b-0202",
+  "target": 3.133
+ },
+ {
+  "idea": "169",
+  "step": 2,
+  "subject": "stunned athlete",
+  "start": 681.34,
+  "end": 684.16,
+  "words": "0 .313.",
+  "ref_shot": "018a4aa42a2b-0203",
+  "target": 2.825
+ },
+ {
+  "idea": "170",
+  "step": 1,
+  "subject": "impossible",
+  "start": 684.16,
+  "end": 687.19,
+  "words": "That is impossible.",
+  "ref_shot": "018a4aa42a2b-0204",
+  "target": 2.533
+ },
+ {
+  "idea": "171",
+  "step": 1,
+  "subject": "explainer nodding",
+  "start": 687.19,
+  "end": 690.18,
+  "words": "The market goes up overnight more often than",
+  "ref_shot": "018a4aa42a2b-0205",
+  "target": 2.827
+ },
+ {
+  "idea": "171",
+  "step": 2,
+  "subject": "explainer nodding",
+  "start": 690.18,
+  "end": 693.57,
+  "words": "that. Everyone knows it. That is the whole premise.",
+  "ref_shot": "018a4aa42a2b-0205",
+  "target": 3.167
+ },
+ {
+  "idea": "172",
+  "step": 1,
+  "subject": "yahoo finance page",
+  "start": 693.57,
+  "end": 697.3,
+  "words": "Yahoo's opening prints for GSPC, the S and P index feed.",
+  "ref_shot": "018a4aa42a2b-0206",
+  "target": 3.826
+ },
+ {
+  "idea": "173",
+  "step": 1,
+  "subject": "photocopies",
+  "start": 697.3,
+  "end": 702.83,
+  "words": "Not the ETF are fake before roughly 2014. There are stale copies of the previous close.",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 5.74
+ },
+ {
+  "idea": "174",
+  "step": 1,
+  "subject": "old archive",
+  "start": 702.83,
+  "end": 711.56,
+  "words": "Zero gap rate of 78 to 98%. A year through 2005 and still 25 % in 2012 to 13.",
+  "ref_shot": "018a4aa42a2b-0207",
+  "target": 8.975
+ },
+ {
+  "idea": "175",
+  "step": 1,
+  "subject": "validation card",
+  "start": 711.56,
+  "end": 720.05,
+  "words": "Which means my beautiful 36 year validation of number or 23 had been computed across three decades of a number.",
+  "ref_shot": "018a4aa42a2b-0208",
+  "target": 8.484
+ },
+ {
+  "idea": "176",
+  "step": 1,
+  "subject": "padded data",
+  "start": 720.05,
+  "end": 727.95,
+  "words": "The vendor made up not wrong data, absent data, silently padded,",
+  "ref_shot": "018a4aa42a2b-0208",
+  "target": 7.747
+ },
+ {
+  "idea": "177",
+  "step": 1,
+  "subject": "spy chart",
+  "start": 727.95,
+  "end": 734.93,
+  "words": "rebuilt it on spy, the actual ETF, actual prints, 8262 real nights.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 6.956
+ },
+ {
+  "idea": "178",
+  "step": 1,
+  "subject": "base rate output",
+  "start": 734.93,
+  "end": 737.62,
+  "words": "Base rate, 0 .559.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 2.712
+ },
+ {
+  "idea": "179",
+  "step": 1,
+  "subject": "results table",
+  "start": 737.62,
+  "end": 743.85,
+  "words": "The strategy survived and got better. Sharp 1 .38 filtered on the real prints,",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 6.282
+ },
+ {
+  "idea": "180",
+  "step": 1,
+  "subject": "repeated values",
+  "start": 743.85,
+  "end": 751.12,
+  "words": "but it survived by luck. If the effect had been smaller, I'd have been trading a vendor's fill forward for months.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 7.405
+ },
+ {
+  "idea": "181",
+  "step": 1,
+  "subject": "random forest",
+  "start": 751.12,
+  "end": 754.84,
+  "words": "Then Vee put a random forest on it.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 3.799
+ },
+ {
+  "idea": "182",
+  "step": 1,
+  "subject": "feature list",
+  "start": 754.84,
+  "end": 762.31,
+  "words": "Sensor features, all entry noble purged chronological splits. Chishar log trials.",
+  "ref_shot": "c29e0189d9c4-0003",
+  "target": 7.379
+ },
+ {
+  "idea": "183",
+  "step": 1,
+  "subject": "logging results",
+  "start": 762.31,
+  "end": 764.79,
+  "words": "So the multiple testing charge is honest.",
+  "ref_shot": "c29e0189d9c4-0008",
+  "target": 2.45
+ },
+ {
+  "idea": "184",
+  "step": 1,
+  "subject": "sealed window",
+  "start": 764.79,
+  "end": 769.82,
+  "words": "Champion model on a sealed 2021 to 26 window. It had never seen",
+  "ref_shot": "c29e0189d9c4-0008",
+  "target": 5.086
+ },
+ {
+  "idea": "185",
+  "step": 1,
+  "subject": "strategy comparison",
+  "start": 769.82,
+  "end": 774.12,
+  "words": "plus 3 .21 BP per night VS",
+  "ref_shot": "c29e0189d9c4-0009",
+  "target": 3.931
+ },
+ {
+  "idea": "185",
+  "step": 2,
+  "subject": "strategy comparison",
+  "start": 774.12,
+  "end": 777.23,
+  "words": "plus 1 .76 for always long,",
+  "ref_shot": "c29e0189d9c4-0011",
+  "target": 3.267
+ },
+ {
+  "idea": "186",
+  "step": 1,
+  "subject": "eyebrows up",
+  "start": 777.23,
+  "end": 784.8,
+  "words": "sharper 0 .9 or VS 0 .44 ahead in every year, plus 1 .0 in 2022.",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 7.7
+ },
+ {
+  "idea": "187",
+  "step": 1,
+  "subject": "dsr bar card",
+  "start": 784.8,
+  "end": 794.96,
+  "words": "While the baseline did minus 6 .7, deflated sharp ratio 0 .887. My bar is 0 .95.",
+  "ref_shot": "c29e0189d9c4-0013",
+  "target": 10.053
+ },
+ {
+  "idea": "188",
+  "step": 1,
+  "subject": "not graduating",
+  "start": 794.96,
+  "end": 798.27,
+  "words": "The frozen model did not graduate.",
+  "ref_shot": "c29e0189d9c4-0014",
+  "target": 3.372
+ },
+ {
+  "idea": "189",
+  "step": 1,
+  "subject": "walk forward",
+  "start": 798.27,
+  "end": 802.68,
+  "words": "So I walked forward the recipe instead, freeze the features and",
+  "ref_shot": "c29e0189d9c4-0016",
+  "target": 4.272
+ },
+ {
+  "idea": "189",
+  "step": 2,
+  "subject": "walk forward",
+  "start": 802.68,
+  "end": 806.66,
+  "words": "hyper parameters, refit every January, never peak.",
+  "ref_shot": "c29e0189d9c4-0016",
+  "target": 3.53
+ },
+ {
+  "idea": "190",
+  "step": 1,
+  "subject": "night light trails",
+  "start": 806.66,
+  "end": 810.92,
+  "words": "2 ,870 out of sample nights,",
+  "ref_shot": "c29e0189d9c4-0016",
+  "target": 3.779
+ },
+ {
+  "idea": "190",
+  "step": 2,
+  "subject": "night light trails",
+  "start": 810.92,
+  "end": 814.89,
+  "words": "plus 3 .59 VS plus 2 .13.",
+  "ref_shot": "c29e0189d9c4-0019",
+  "target": 3.84
+ },
+ {
+  "idea": "191",
+  "step": 1,
+  "subject": "twelve green bars",
+  "start": 814.89,
+  "end": 819.5,
+  "words": "Sharp if 0 .96, positive in all 12 years.",
+  "ref_shot": "c29e0189d9c4-0019",
+  "target": 4.491
+ },
+ {
+  "idea": "192",
+  "step": 1,
+  "subject": "graduation joy",
+  "start": 819.5,
+  "end": 822.62,
+  "words": "DSR 0 .988",
+  "ref_shot": "c29e0189d9c4-0022",
+  "target": 2.6
+ },
+ {
+  "idea": "192",
+  "step": 2,
+  "subject": "graduation joy",
+  "start": 822.62,
+  "end": 824.52,
+  "words": "that graduates",
+  "ref_shot": "c29e0189d9c4-0023",
+  "target": 2.1
+ },
+ {
+  "idea": "193",
+  "step": 1,
+  "subject": "fist pump",
+  "start": 824.52,
+  "end": 826.59,
+  "words": "deployed as Vee Fee.",
+  "ref_shot": "c29e0189d9c4-0023",
+  "target": 2.1
+ },
+ {
+  "idea": "194",
+  "step": 1,
+  "subject": "shap plot",
+  "start": 826.59,
+  "end": 830.56,
+  "words": "And I plugged sharp to it to actually see what the model learned.",
+  "ref_shot": "c29e0189d9c4-0025",
+  "target": 3.81
+ },
+ {
+  "idea": "195",
+  "step": 1,
+  "subject": "vix spike",
+  "start": 830.56,
+  "end": 834.81,
+  "words": "Debuying confirmed by Trent plus Hivix is bullish.",
+  "ref_shot": "c29e0189d9c4-0025",
+  "target": 4.166
+ },
+ {
+  "idea": "196",
+  "step": 1,
+  "subject": "thoughtful pause",
+  "start": 834.81,
+  "end": 837.63,
+  "words": "So I did finally find something.",
+  "ref_shot": "c29e0189d9c4-0026",
+  "target": 2.845
+ },
+ {
+  "idea": "197",
+  "step": 1,
+  "subject": "small smile",
+  "start": 837.63,
+  "end": 842.32,
+  "words": "And I guess this is evidence that alpha maybe",
+  "ref_shot": "c29e0189d9c4-0028",
+  "target": 7.277
+ },
+ {
+  "idea": "197",
+  "step": 2,
+  "subject": "small smile",
+  "start": 842.32,
+  "end": 843.369,
+  "words": "exists.",
+  "ref_shot": "c29e0189d9c4-0029",
+  "target": 0.9
+ }
+]

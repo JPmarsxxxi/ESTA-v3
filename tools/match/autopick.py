@@ -605,7 +605,11 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
            "stock": {"budget": budget, "used": stock_used(rows, set()), "shots": len(plan.get("shots", [])),
                      "to_graphic": {str(n): r for n, r in sorted(to_graphic.items())}, **graphics},
            "chrome_pending": sorted(pending & set(manifests))}
-    write_json(session / "autopick.json", {**(read_json(session / "autopick.json", {}) or {}), **{"last": out}})
+    prev = read_json(session / "autopick.json", {}) or {}
+    # Runs go in chunks and "last" is replaced each time, so the repeat flags accumulate beside it.
+    done = {str(s["shot_number"]) for s in wanted}
+    repeats = {k: v for k, v in (prev.get("repeats") or {}).items() if k not in done} | out["repeats"]
+    write_json(session / "autopick.json", {**prev, "last": out, "repeats": repeats})
     return out
 
 

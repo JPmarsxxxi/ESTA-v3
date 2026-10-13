@@ -1,0 +1,492 @@
+# visuals for the M13 replan: per idea, one line per shot (step), in order.
+# type(F/I/G or blank=ref)|spec(l/m/h)|R|desc|caption|overlay|direction|source:q1;q2;q3|source:...   or  =<old shot>
+@ 1 | alphas title
+I|m||Greek letter alpha glowing over a dark trading chart|ALPHAS?|||pinterest:alpha symbol trading chart dark;greek letter alpha finance;alpha symbol neon|google_images:alpha symbol stock market;greek alpha letter glowing|openverse:greek letter alpha
+@ 2 | andrew tate
+=2
+@ 3 | wolf pack
+=3
+@ 4 | frustrated man
+=5
+@ 5 | quant alpha hunter
+F|m||Close-up of a trader at night with screens of failing backtests, rubbing his eyes|||youtube:quant trader late night screens vlog;day trader losing money night reaction;trader rubbing eyes screens b roll|archive:computer screens night office
+@ 6 | man doubting himself
+=7
+@ 7 | sleepless man
+=8
+@ 8 | newborn baby
+=9
+@ 9 | sheepish apology
+=10
+@ 10 | explainer at whiteboard
+=11
+@ 11 | stock market
+=12
+@ 12 | alpha definition card
+=13
+=14
+@ 13 | data into trades
+F|m||Close-up of streams of numbers flowing across a dark screen|||youtube:data streaming numbers screen matrix;financial data feed scrolling terminal;numbers flowing screen b roll|archive:computer data screen
+=15
+@ 14 | trading screens
+=17
+@ 15 | igor tulchinsky
+=18
+=19
+=20
+@ 16 | thank you nod
+F|l|R|Man giving a grateful nod and a small salute to camera|THANKS TOLCH||youtube:thank you nod salute reaction;Tony Stark nod reaction;respectful nod meme|giphy:thank you nod;salute thanks
+@ 17 | money
+=22
+@ 18 | maths equations
+=23
+@ 19 | psych reaction
+F|l|R|Man pointing at camera grinning: psych!|PSYCH||youtube:psych gotcha reaction meme;just kidding pointing reaction;gotcha grin pointing|giphy:psych;gotcha
+@ 20 | late night research
+=25
+=26
+@ 21 | doubtful man
+=27
+@ 22 | short-term reversal card
+=28
+=29
+@ 23 | dip and bounce chart
+=31
+@ 24 | genius reaction
+F|l|R|Man tapping his head smugly, big brain|GENIUS||youtube:big brain smug tap head meme;roll safe think about it meme;smart guy tapping temple reaction|giphy:roll safe;big brain
+@ 25 | academic papers
+=32
+@ 26 | flat backtest
+=33
+@ 27 | unimpressed reaction
+=34
+@ 28 | quiet trading floor
+=35
+@ 29 | crowded fishing harbour
+=36
+=37
+@ 30 | moving on
+=38
+=39
+@ 31 | spiking chart
+F|m||Man in a dim room leaning toward his screen, eyes widening|||youtube:trader eyes widen at screen reaction;day trader shocked profit live;man staring screen surprised b roll|archive:man computer screen
+=42
+F|m||Close-up of a performance number ticking up on a monitor|0.05 → 0.445||youtube:numbers counting up screen close up;stock price ticking up monitor;counter rising digits b roll|archive:counter digits
+F|m||Close-up of an equity curve climbing steeply on a trading screen|||youtube:equity curve going up backtest;trading account growing chart;chart line rising screen b roll|archive:graph rising
+@ 32 | celebration reaction
+=44
+@ 33 | face falling
+=45
+=47
+@ 34 | wince reaction
+=48
+@ 35 | 143 trades card
+F|m||Close-up of trade confirmations flashing up one after another on a screen|||youtube:trade confirmations flashing screen;order fills executing rapidly platform;trading platform orders b roll|archive:stock ticker screen
+=50
+@ 36 | fees paid
+=52
+@ 37 | programmer slowing down
+=53
+@ 38 | cutting costs
+=54
+@ 39 | sliding equity curve
+=56
+@ 40 | deleted signal
+=58
+@ 41 | sector heatmap
+=59
+@ 42 | choppy price line
+=60
+@ 43 | packing to leave
+=61
+@ 44 | crypto prices
+=62
+@ 45 | crypto degen
+=63
+@ 46 | shocked trader
+=64
+@ 47 | laughing then despair
+=65
+=66
+@ 48 | idea strikes
+=67
+@ 49 | trending chart
+=68
+@ 50 | momentum card
+=69
+@ 51 | 2022 crypto crash
+=70
+@ 52 | triumph reaction
+=71
+@ 53 | albert einstein
+=72
+@ 54 | prop firm office
+=73
+@ 55 | don't ask shrug
+=74
+@ 56 | eye roll
+=75
+@ 57 | first step
+=76
+@ 58 | meh grimace
+=77
+@ 59 | measuring tape
+=78
+@ 60 | broker fee table
+=79
+@ 61 | stress test machine
+=81
+F|m||Close-up of a gauge needle pushed to a red warning zone|15%||youtube:pressure gauge needle red zone;gauge going into red close up;warning gauge b roll|archive:pressure gauge
+F|l|R|Man on a field shaking his head, worst case|||youtube:man shaking head disappointed field;player shaking head no reaction;shaking head no b roll|giphy:shaking head no;nope
+@ 62 | double shock
+F|l|R|Man doing a double take at his screen, jaw dropping|DOUBLE||youtube:double take reaction meme;man double take shocked screen;jaw drop reaction|giphy:double take;jaw drop
+@ 63 | stuck going nowhere
+F|m||Man running on a treadmill, going nowhere|||youtube:man running treadmill going nowhere;hamster wheel running b roll;treadmill running close up|archive:treadmill running
+@ 64 | heist
+F|m||Masked crew walking in slow motion for a heist|JACK SOME IDEAS||youtube:Ocean's Eleven crew walk scene;heist crew slow motion walk;Money Heist masks walking|archive:bank robbery film
+@ 65 | shoulders of giants
+=88
+@ 66 | einstein apology
+=89
+=90
+@ 67 | library research
+=91
+@ 68 | bitcoin intraday chart
+=92
+@ 69 | dead stamp
+F|m||Close-up of a red DEAD stamp slamming onto a printed chart|DEAD||youtube:rejected stamp slamming paper close up;stamp slamming down red ink;denied stamp b roll|archive:rubber stamp
+@ 70 | market clock
+=95
+=96
+@ 71 | flatline monitor
+F|m||Heart monitor flatlining in a dim hospital room|||youtube:heart monitor flatline scene;ECG flatline beep hospital;monitor flatline b roll|archive:hospital heart monitor
+F|m||Close-up of a doctor switching off the flatlined monitor|DEAD||youtube:doctor turns off monitor flatline;switching off hospital monitor scene;monitor turned off b roll|archive:hospital monitor
+@ 72 | overnight market card
+=99
+=100
+@ 73 | three strikes
+F|m||Baseball batter swinging and missing for strike three|||youtube:strike three swing and miss baseball;batter strikes out swinging;strikeout final out|archive:baseball strike out
+F|m||Umpire punching out: you're out|3 FOR 3||youtube:umpire strike three call punch out;umpire you're out call;strikeout call umpire|archive:baseball umpire
+@ 74 | vanishing pattern
+=104
+F|m||Close-up of chalk lines on a blackboard being wiped away by a hand|||youtube:wiping blackboard clean close up;eraser wiping chalk board;erasing chalkboard b roll|archive:blackboard eraser
+@ 75 | clockwork
+F|m||Close-up of clockwork gears turning in perfect rhythm|||youtube:clockwork gears turning macro;watch mechanism gears close up;clock gears b roll|archive:clock mechanism
+@ 76 | everyone reading
+=107
+@ 77 | published paper
+F|m||Close-up of a finance journal page with a highlighted anomaly result|||youtube:academic journal pages close up highlighting;research paper highlighted close up;scientific journal b roll|archive:scientific journal
+F|m||Printing press churning out copies of a journal|||youtube:printing press printing journal pages;newspaper printing press running;printing press b roll|archive:printing press
+F|m||Copies of the journal landing on desks across a busy trading floor|||youtube:traders reading newspaper trading floor;stock traders reading reports desk;trading floor reading b roll|archive:stock exchange traders reading
+@ 78 | world markets map
+F|m||Close-up of many market tickers scrolling side by side|||youtube:multiple market tickers scrolling screen;futures prices board many markets;ticker wall b roll|archive:stock ticker board
+=111
+@ 79 | flat line
+=112
+=113
+@ 80 | weekly trend card
+=114
+F|m||Close-up of a weekly bitcoin chart climbing in steps|+0.95% A WEEK||youtube:bitcoin weekly chart rising;bitcoin price chart going up close up;btc chart b roll|archive:graph rising
+@ 81 | hopeful kid
+=116
+@ 82 | eaten away
+F|m||Pac-Man eating dots on an arcade screen|||youtube:Pac-Man eating dots arcade gameplay;pacman original arcade footage;pac man game b roll|archive:pac-man arcade
+@ 83 | 2017 bitcoin mania
+F|m||Crowd cheering at a bitcoin price board in December 2017|||youtube:bitcoin 20000 December 2017 news;2017 bitcoin mania news report;crypto bubble 2017 crowd|archive:bitcoin 2017
+=121
+@ 84 | london fx night
+=122
+=123
+@ 85 | huge backtest
+F|m||Close-up of a backtest equity curve rocketing up on a monitor|5.28||youtube:backtest equity curve huge returns;amazing backtest results screen;equity curve rising b roll|archive:graph rising
+@ 86 | five green years
+F|m||Five green bars rising one after another on a chart|5 / 5||youtube:green bar chart animation rising;yearly returns bar chart green;bar chart growing b roll|archive:bar chart
+@ 87 | excited trader
+=125
+@ 88 | tick data
+=126
+F|m||Close-up of a spread number changing hour by hour on a quote screen|||youtube:bid ask spread changing live screen;forex spread widening live;quote screen close up b roll|archive:stock quote screen
+@ 89 | swap free card
+F|m||Close-up of a contract stamped SWAP FREE|SWAP FREE||youtube:stamping contract approved close up;signing stamping document close up;approved stamp paper b roll|archive:rubber stamp document
+@ 90 | bullseye
+=130
+=131
+@ 91 | launch button
+=133
+@ 92 | nervous wait
+=134
+=135
+F|l|R|Man drumming his fingers on the desk, waiting nervously|WELL WELL||youtube:nervous waiting drumming fingers reaction;anxious waiting reaction meme;tapping fingers waiting b roll|giphy:nervous waiting;drumming fingers
+@ 93 | half gone
+=136
+@ 94 | bid ask quotes
+=137
+@ 95 | redoing the maths
+=138
+@ 96 | glitch
+=139
+@ 97 | house of cards
+=140
+@ 98 | zero on screen
+=141
+@ 99 | commission coins
+=144
+@ 100 | calculator
+=145
+@ 101 | tipping scale
+=147
+@ 102 | buzzer miss
+=148
+@ 103 | code search
+F|m||Man in headphones scrolling through old scripts on a screen|||youtube:programmer scrolling through code headphones;developer reading code late night;scrolling code screen b roll|archive:computer programmer
+=150
+@ 104 | cost list card
+=151
+=152
+@ 105 | invoice
+=153
+@ 106 | getting back up
+F|l|R|Man sighing then cracking his knuckles: back to work|||youtube:cracking knuckles back to work reaction;let's go again determined reaction;rolling up sleeves b roll|giphy:cracking knuckles;back to work
+=156
+@ 107 | options chain
+=157
+@ 108 | finance twitter
+=158
+@ 109 | gamma theory
+=160
+=161
+@ 110 | empty hands
+=162
+@ 111 | quiet days card
+=163
+@ 112 | gex versus vol
+=164
+F|m||Weather forecaster pointing at tomorrow on a forecast map|||youtube:weather forecaster pointing map tomorrow;tv weatherman forecast;weather report b roll|archive:weather forecast television
+@ 113 | collapse
+F|m||Close-up of a t-stat number dropping fast on a screen|||youtube:numbers dropping red screen close up;stock crash numbers falling;counter dropping b roll|archive:counter digits
+=168
+F|m||Building demolition collapsing straight down|-1.1||youtube:building demolition collapse implosion;controlled demolition tower falls;demolition b roll|archive:building demolition
+@ 114 | old reliable
+=170
+@ 115 | expensive receipt
+=171
+=172
+@ 116 | head shake no
+=173
+=174
+@ 117 | runner tiring
+=175
+=176
+=177
+=178
+@ 118 | falling short
+=179
+=180
+@ 119 | arguing pair
+=181
+=182
+@ 120 | robot help
+F|m||Man at his desk turning to a robot arm for help|||youtube:robot arm helping human desk;humanoid robot handshake;robot assistant b roll|archive:robot arm
+=184
+=186
+@ 121 | ml pipeline
+F|m||Neural network diagram lighting up layer by layer|||youtube:neural network visualization lighting up;machine learning animation layers;neural net b roll|archive:computer network diagram
+F|m||Close-up of feet walking forward step by step on a path|||youtube:feet walking forward step by step close up;walking forward path close up;footsteps b roll|archive:feet walking
+=188
+=190
+@ 122 | machine gun boom
+=191
+F|l|R|Reaction: Cartoon-style explosion filling the frame, boom|BOOM||youtube:boom explosion meme;big explosion slow motion movie;explosion reaction meme|giphy:boom explosion;mind blown explosion
+@ 123 | moving average chart
+F|m||Close-up of a plain line chart with a single smooth average line|||youtube:200 day moving average chart explained;moving average line stock chart;simple chart b roll|archive:stock chart
+=193
+@ 124 | disappointed athlete
+=194
+=197
+=198
+@ 125 | cot positioning
+F|m||Close-up of a futures positioning report printout|||youtube:COT report explained futures positioning;commitment of traders report chart;futures report b roll|archive:futures trading report
+F|m||Commodity traders shouting in a pit|||youtube:commodity trading pit shouting 1990s;CME open outcry traders pit;trading pit b roll|archive:commodity trading pit
+F|m||Close-up of a positioning chart hitting an extreme and reversing|||youtube:sentiment indicator extreme reversal chart;positioning extreme chart reversal;chart reversing b roll|archive:graph reversing
+F|m||Pendulum swinging out to its extreme and back|||youtube:pendulum swinging slow motion;newton cradle pendulum swing;pendulum b roll|archive:pendulum
+=204
+@ 126 | crude oil
+=205
+F|m||Man in a long trench coat walking down a rainy street, collar up|TRENCH COAT||youtube:detective trench coat walking rain film;man in trench coat noir scene;trench coat walking b roll|archive:film noir detective
+@ 127 | month end flows
+F|m||Calendar page flipping to the last day of the month|||youtube:calendar month end flipping close up;tearing calendar page end of month;calendar b roll|archive:calendar pages
+@ 128 | sign flip
+=208
+=209
+@ 129 | coincidence
+F|m||Close-up of a chart window glitching then vanishing|||youtube:screen glitch chart vanishing;glitch effect monitor close up;screen glitch b roll|archive:tv static
+F|l|R|Man frowning at his phone, it dawns on him|||youtube:man realising mistake looking at phone;realization reaction face;it dawns on him reaction|giphy:realization;oh no
+F|m||Two dice landing on the same number|||youtube:dice rolling slow motion same number;dice landing close up;dice roll b roll|archive:dice
+F|m||Hand writing a name label and sticking it on a jar|||youtube:writing label sticking on jar close up;naming label close up;label maker b roll|archive:labelling jar
+@ 130 | oil price pair
+=215
+=216
+@ 131 | oil barrels
+F|m||Oil spilling over and swallowing a pile of coins|||youtube:oil pouring over coins slow motion;black oil spill close up;oil pouring b roll|archive:oil spill
+@ 132 | intraday fx chart
+=218
+@ 133 | awake at night
+=219
+@ 134 | ic card
+=220
+@ 135 | far tail
+F|m||Screen recording of a data notebook crunching millions of rows|||youtube:jupyter notebook running data analysis screen;python data analysis screen recording;data science notebook b roll|archive:computer data
+=223
+@ 136 | rising equity curve
+=224
+@ 137 | flat net curve
+=225
+@ 138 | stopwatch
+F|m||Close-up of a line graph dropping off a cliff on a monitor|-75%||youtube:graph line dropping sharply screen;chart falling off cliff close up;crash chart b roll|archive:graph falling
+=228
+@ 139 | order book spread
+=229
+@ 140 | signal pool
+=230
+F|m||Two opposing arrows meeting and cancelling out|||youtube:two forces cancelling out animation;opposing arrows collide;tug of war rope b roll|archive:tug of war
+@ 141 | toll booth
+=233
+@ 142 | 87 percent card
+=234
+@ 143 | sub-economic result
+=235
+@ 144 | currency pairs list
+=236
+@ 145 | wide spreads
+=237
+=239
+@ 146 | spread gate
+=240
+@ 147 | silent locker room
+=241
+@ 148 | limit orders
+F|m||Hand placing a limit order on a trading platform|||youtube:placing limit order trading platform tutorial;limit order entry screen;order entry b roll|archive:computer trading
+=244
+F|m||Market stall seller setting his own price sign|||youtube:market stall seller price sign;vendor setting price street market;market stall b roll|archive:street market vendor
+F|m||Shopkeeper waiting behind a counter for a customer|MAKER||youtube:shopkeeper waiting behind counter;store owner waiting for customers;shop counter b roll|archive:shopkeeper counter
+F|m||Customer grabbing an item and paying full price|TAKER||youtube:customer paying at counter close up;buying item paying cash close up;checkout b roll|archive:shop customer paying
+@ 149 | trophy
+=247
+=248
+@ 150 | looking up
+=250
+@ 151 | frictionless magic
+F|m||Hockey puck gliding endlessly across perfect ice|||youtube:hockey puck sliding across ice close up;puck gliding smooth ice;ice b roll|archive:ice hockey puck
+F|m||Close-up of a frictionless air table, discs floating|||youtube:air hockey table puck floating close up;frictionless air table physics demo;air table b roll|archive:air hockey
+F|m||Magician pulling a rabbit from a hat|||youtube:magician pulling rabbit out of hat;magic trick rabbit hat stage;magician b roll|archive:magician rabbit hat
+F|m||Close-up of a cost counter resetting to zero|COSTS = 0||youtube:counter resetting to zero close up;odometer rolling to zero;digital counter zero b roll|archive:counter digits
+F|l|R|Chef's kiss: perfect|PERFECT||youtube:chef's kiss perfect meme;chef kiss reaction;perfection kiss fingers|giphy:chefs kiss;perfect
+@ 152 | tiny number
+F|m||Magnifying glass over a tiny number on a page|0.057||youtube:magnifying glass over tiny text close up;looking through magnifier small print;magnifying glass b roll|archive:magnifying glass
+=258
+=259
+@ 153 | frictionless space
+F|m||Astronaut floating weightless inside a space station|||youtube:astronaut floating space station weightless;ISS astronaut zero gravity;space station b roll|archive:astronaut weightless
+@ 154 | the flash
+=262
+@ 155 | jane street
+=263
+@ 156 | not yet smirk
+=264
+@ 157 | s&p overnight chart
+=265
+@ 158 | going home
+=266
+=267
+@ 159 | two fingers
+=268
+@ 160 | five o'clock clock
+F|m||Close-up of a broker swap schedule on a screen|||youtube:forex swap rollover explained screen;broker swap rates table;rollover time b roll|archive:computer screen finance
+=269
+@ 161 | camera snapshot
+=270
+@ 162 | pump fake
+F|m||Basketball player pump faking a defender into the air|PUMP FAKE||youtube:basketball pump fake defender jumps;best pump fakes NBA;pump fake b roll|archive:basketball game
+@ 163 | gated chart
+=273
+=274
+@ 164 | improving stats
+F|m||Close-up of a Sharpe ratio figure updating on a results screen|0.47 → 0.77||youtube:trading results dashboard numbers updating;backtest stats screen;results screen b roll|archive:computer screen numbers
+=276
+=277
+=278
+@ 165 | bored yawn
+=279
+=280
+@ 166 | scheming
+=281
+@ 167 | coding notebook
+=282
+=284
+@ 168 | one line of code
+=285
+@ 169 | stunned athlete
+=286
+=288
+@ 170 | impossible
+=289
+@ 171 | explainer nodding
+=290
+=291
+@ 172 | yahoo finance page
+=292
+@ 173 | photocopies
+=294
+@ 174 | old archive
+=295
+@ 175 | validation card
+=297
+@ 176 | padded data
+=299
+@ 177 | spy chart
+=301
+@ 178 | base rate output
+=303
+@ 179 | results table
+=304
+@ 180 | repeated values
+=307
+@ 181 | random forest
+=308
+@ 182 | feature list
+=309
+@ 183 | logging results
+=310
+@ 184 | sealed window
+F|m||Heavy vault door sealing shut on a server room|SEALED||youtube:bank vault door closing slow;vault door locking close up;vault b roll|archive:bank vault door
+@ 185 | strategy comparison
+=313
+=315
+@ 186 | eyebrows up
+=317
+@ 187 | dsr bar card
+=320
+@ 188 | not graduating
+F|m||Student left sitting while classmates throw their caps|||youtube:graduation caps thrown in the air;students throwing graduation caps;graduation ceremony b roll|archive:graduation ceremony
+@ 189 | walk forward
+=321
+F|m||Calendar pages flipping year after year to January|||youtube:calendar pages flipping years;time passing calendar flipping;calendar b roll|archive:calendar pages
+@ 190 | night light trails
+=323
+=325
+@ 191 | twelve green bars
+=327
+@ 192 | graduation joy
+=328
+=329
+@ 193 | fist pump
+=330
+@ 194 | shap plot
+=331
+@ 195 | vix spike
+=333
+@ 196 | thoughtful pause
+=334
+@ 197 | small smile
+=335
+=336
