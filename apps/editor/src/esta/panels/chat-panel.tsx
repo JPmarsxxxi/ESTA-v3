@@ -5,6 +5,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/ui";
+import { readSelection, selectionBlock, selectionLabel, useTimelineSelection } from "../opencut/selection";
 import { useWorkspace } from "../store";
 import { inputClass } from "../ui";
 
@@ -15,6 +16,10 @@ export function ChatPanel() {
 	const [text, setText] = useState("");
 	const [error, setError] = useState<string | null>(null);
 	const scrollRef = useRef<HTMLDivElement>(null);
+	// The chip follows the live timeline selection; removing it detaches that selection only.
+	const selection = useTimelineSelection();
+	const [dismissed, setDismissed] = useState<string | null>(null);
+	const label = selection.key !== dismissed ? selectionLabel(selection) : null;
 
 	useEffect(() => {
 		const el = scrollRef.current;
@@ -26,7 +31,9 @@ export function ChatPanel() {
 		if (!t) return;
 		setError(null);
 		try {
-			await sendChat(t);
+			// The selection at the moment of sending, with fresh in/out points.
+			const now = readSelection();
+			await sendChat({ text: t, selection: (now.clips.length || now.track) && now.key !== dismissed ? selectionBlock(now) : undefined });
 			setText("");
 		} catch (e) {
 			setError(e instanceof Error ? e.message : String(e));
@@ -50,7 +57,17 @@ export function ChatPanel() {
 					</p>
 				)}
 				{chat.items.map((item, i) => {
-					if (item.kind === "user") return <div key={i} className="bg-accent ml-8 rounded-md px-2.5 py-1.5 whitespace-pre-wrap">{item.text}</div>;
+					if (item.kind === "user")
+						return (
+							<div key={i} className="bg-accent ml-8 rounded-md px-2.5 py-1.5 whitespace-pre-wrap">
+								{item.selection && (
+									<div className="text-muted-foreground mb-1 truncate text-[11px]" title={item.selection}>
+										with selection: {item.selection}
+									</div>
+								)}
+								{item.text}
+							</div>
+						);
 					if (item.kind === "assistant")
 						return item.streaming ? (
 							<div key={i} className="mr-4 whitespace-pre-wrap opacity-80">
@@ -82,12 +99,22 @@ export function ChatPanel() {
 				})}
 			</div>
 			{error && <div className="text-destructive shrink-0 px-2 text-xs">{error}</div>}
-			<div className="flex shrink-0 gap-1.5 border-t p-2">
+			{label && (
+				<div className="flex shrink-0 items-center gap-1 border-t px-2 pt-1.5">
+					<span className="bg-primary/15 text-primary flex max-w-full items-center gap-1 rounded-full py-0.5 pr-1 pl-2 text-xs">
+						<span className="truncate">{label}</span>
+						<button type="button" aria-label="Don't send the selection" className="hover:bg-primary/20 rounded-full px-1" onClick={() => setDismissed(selection.key)}>
+							×
+						</button>
+					</span>
+				</div>
+			)}
+			<div className={cn("flex shrink-0 gap-1.5 p-2", !label && "border-t")}>
 				<textarea
 					className={`${inputClass} min-h-9 resize-none`}
 					rows={2}
 					value={text}
-					placeholder={chatId && !chat.alive ? "Chat is disconnected" : "Message Claude…"}
+					placeholder={chatId && !chat.alive ? "Chat is disconnected" : label ? `What should Claude do with ${label}?` : "Message Claude…"}
 					disabled={Boolean(chatId) && !chat.alive}
 					onChange={(e) => setText(e.target.value)}
 					onKeyDown={(e) => {

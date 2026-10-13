@@ -247,7 +247,7 @@ function ActionRow({ action, onError }: { action: StageAction; onError: (e: stri
 				</div>
 				<div className="flex shrink-0 gap-1">
 					{action.kind === "skill" && (
-						<Button size="sm" variant="ghost" title="Run it interactively in the chat panel instead" onClick={() => sendChat(`Run the ${action.label.toLowerCase()} step for this session.`)}>
+						<Button size="sm" variant="ghost" title="Run it interactively in the chat panel instead" onClick={() => sendChat({ text: `Run the ${action.label.toLowerCase()} step for this session.` })}>
 							In chat
 						</Button>
 					)}

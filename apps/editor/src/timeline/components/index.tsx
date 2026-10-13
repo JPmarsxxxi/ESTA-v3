@@ -666,9 +666,20 @@ function TrackLabelsPanel({
 											height: `${baseHeight + getTrackExpansionHeight(index)}px`,
 										}}
 									>
+										{/* biome-ignore lint/a11y/useKeyWithClickEvents: the toggles inside are the keyboard path */}
 										<div
-											className="flex shrink-0 items-center justify-end gap-2 px-3"
+											className="flex shrink-0 cursor-pointer items-center justify-end gap-2 px-3"
 											style={{ height: `${baseHeight}px` }}
+											onClick={(event) => {
+												if (event.target !== event.currentTarget) return;
+												editor.selection.selectTrack({
+													trackId: track.id,
+													elements: track.elements.map((element) => ({
+														trackId: track.id,
+														elementId: element.id,
+													})),
+												});
+											}}
 										>
 											{canTrackHaveAudio(track) && (
 												<TrackToggleIcon

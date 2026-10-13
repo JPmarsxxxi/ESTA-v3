@@ -42,7 +42,7 @@ export function ScriptPanel() {
 						{points.length === 0 ? (
 							<p className="text-muted-foreground text-xs">No talking points recorded.</p>
 						) : (
-							<LineEditor lines={points} onChange={setPoints} onInstruct={(t) => void sendChat(`Edit the talking points (script_metadata.json). ${t}`)} showBlanks={false} saving={meta.saving} />
+							<LineEditor lines={points} onChange={setPoints} onInstruct={(t) => void sendChat({ text: `Edit the talking points (script_metadata.json). ${t}` })} showBlanks={false} saving={meta.saving} />
 						)}
 						<button type="button" onClick={() => setPoints([...points, ""])} className="text-muted-foreground hover:text-foreground flex items-center gap-1 text-[11px]">
 							<Plus size={11} /> add point
@@ -62,7 +62,7 @@ export function ScriptPanel() {
 						<LineEditor
 							lines={script.value}
 							onChange={script.change}
-							onInstruct={(t) => void sendChat(`Edit the script (script.md). ${t}`)}
+							onInstruct={(t) => void sendChat({ text: `Edit the script (script.md). ${t}` })}
 							isHeader={isScriptHeader}
 							saving={script.saving}
 						/>

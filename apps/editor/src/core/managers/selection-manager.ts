@@ -14,6 +14,9 @@ export class SelectionManager {
 	private keyframeSelectionAnchor: SelectedKeyframeRef | null = null;
 	private selectedMaskPoints: SelectedMaskPointSelection | null = null;
 	private listeners = new Set<() => void>();
+	// A track counts as selected only while the element selection it set is the
+	// current one: every other selection change assigns a new array.
+	private trackSelection: { trackId: string; elements: ElementRef[] } | null = null;
 
 	constructor(editor: EditorCore) {
 		void editor;
@@ -21,6 +24,24 @@ export class SelectionManager {
 
 	getSelectedElements(): ElementRef[] {
 		return this.selectedElements;
+	}
+
+	getSelectedTrackId(): string | null {
+		return this.trackSelection?.elements === this.selectedElements
+			? this.trackSelection.trackId
+			: null;
+	}
+
+	selectTrack({
+		trackId,
+		elements,
+	}: {
+		trackId: string;
+		elements: ElementRef[];
+	}): void {
+		this.setSelectedElements({ elements });
+		this.trackSelection = { trackId, elements: this.selectedElements };
+		this.notify();
 	}
 
 	getSelectedKeyframes(): SelectedKeyframeRef[] {

@@ -7,7 +7,7 @@ import { connectEvents, useChannel } from "./events";
 // Chat transcript, rebuilt from the headless session's stream-json events. It
 // lives here (not in the chat panel) so switching workspaces keeps it.
 export type ChatItem =
-	| { kind: "user"; text: string }
+	| { kind: "user"; text: string; selection: string | null }
 	| { kind: "assistant"; text: string; streaming: boolean }
 	| { kind: "tool"; name: string; input: string }
 	| { kind: "result"; cost: number | null; error: boolean }
@@ -32,9 +32,9 @@ function chatReducer({ state, ev }: { state: ChatState; ev: StreamEvent }): Chat
 			// Replayed user events also carry skill bodies and tool results; the
 			// turns this UI sent are the ones tagged with the session prefix.
 			const text: string = (ev.message?.content ?? []).filter((c: StreamEvent) => c.type === "text").map((c: StreamEvent) => c.text).join("\n");
-			const m = /^\[ESTA session:[^\]]*\]\n/.exec(text);
+			const m = /^\[ESTA session:[^\]]*\]\n(?:\[selection: ([^\]]*)\]\n[\s\S]*?\[\/selection\]\n)?/.exec(text);
 			if (!m) return state;
-			return { ...state, busy: true, items: [...items, { kind: "user", text: text.slice(m[0].length) }] };
+			return { ...state, busy: true, items: [...items, { kind: "user", text: text.slice(m[0].length), selection: m[1] ?? null }] };
 		}
 		case "stream_event": {
 			const d = ev.event?.delta;
@@ -77,7 +77,7 @@ type Ctx = {
 	chatId: string | null;
 	selectedShot: number | null;
 	selectShot: (n: number | null) => void;
-	sendChat: (text: string) => Promise<void>;
+	sendChat: (args: { text: string; selection?: string }) => Promise<void>;
 	restartChat: () => Promise<void>;
 	interruptChat: () => Promise<void>;
 };
@@ -218,10 +218,11 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	}, [chatId, session]);
 
 	const sendChat = useCallback(
-		async (text: string) => {
+		async ({ text, selection }: { text: string; selection?: string }) => {
 			const id = await ensureChat();
 			// Every turn names the session and stage, so the skills resolve the right folder.
-			await post({ path: "/chat/send", body: { chat: id, text: `[ESTA session: sessions/${session} · stage: ${stage}]\n${text}` } });
+			const header = `[ESTA session: sessions/${session} · stage: ${stage}]\n${selection ? `${selection}\n` : ""}`;
+			await post({ path: "/chat/send", body: { chat: id, text: header + text } });
 		},
 		[ensureChat, session, stage],
 	);

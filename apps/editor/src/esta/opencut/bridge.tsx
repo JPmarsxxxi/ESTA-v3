@@ -11,6 +11,8 @@ import { VOLUME_DB_MAX, VOLUME_DB_MIN } from "@/timeline/audio-constants";
 import { mediaTimeFromSeconds, mediaTimeToSeconds, type MediaTime } from "@/wasm";
 import { BACKEND } from "../api";
 import { useChannel } from "../events";
+import { buildDefaultEffectInstance } from "@/effects";
+import { readSelection } from "./selection";
 import { allTracks, find, shots } from "./tracks";
 
 // The live-edit channel of tools/opencut/mcp-server.mjs: commands arrive on the
@@ -18,13 +20,16 @@ import { allTracks, find, shots } from "./tracks";
 // timeline snapshot get_timeline reads is pushed to /_state (also the heartbeat
 // the MCP server uses to tell a live editor from a dead tab).
 type Key = { t: number; v: number };
+type Color = { brightness?: number; contrast?: number; saturation?: number; hue?: number };
+type Patch = { duration?: number; start?: number; trim_start?: number; trim_end?: number; volume?: number; color?: Color };
 type Cmd = {
 	cmd: string;
 	reqId?: string;
 	shot?: number;
 	seconds?: number;
 	id?: string;
-	patch?: { duration?: number; start?: number; trim_start?: number; trim_end?: number; volume?: number };
+	ids?: string[];
+	patch?: Patch;
 	property?: string;
 	keys?: Key[];
 	time?: number;
@@ -42,9 +47,11 @@ function snapshot(session: string) {
 	if (!project || !scene) return null;
 	const shotOf = new Map(shots(scene.tracks).map((s, i) => [s.element.id, i + 1]));
 	const media = new Map(editor.media.getAssets().map((m) => [m.id, m.name]));
+	const sel = readSelection();
 	return {
 		session,
 		project: project.metadata.id,
+		selection: { clips: sel.clips.map((c) => c.id), shots: sel.clips.flatMap((c) => (c.shot === null ? [] : [c.shot])), track: sel.track?.name ?? null },
 		duration: sec(editor.timeline.getTotalDuration()),
 		playhead: sec(editor.playback.getCurrentTime()),
 		tracks: allTracks(scene.tracks).map((track) => ({
@@ -85,6 +92,28 @@ const PATHS: Record<string, string[]> = {
 	volume: ["volume"],
 };
 
+function patchFor({ element, p }: { element: TimelineElement; p: Patch }): Partial<TimelineElement> {
+	const patch: Partial<TimelineElement> = {};
+	if (p.duration != null) patch.duration = ticks(p.duration);
+	if (p.start != null) patch.startTime = ticks(p.start);
+	if (p.trim_start != null) patch.trimStart = ticks(p.trim_start);
+	if (p.trim_end != null) patch.trimEnd = ticks(p.trim_end);
+	if (p.volume != null) {
+		if (typeof element.params.volume !== "number") throw new Error(`${element.name} has no volume`);
+		patch.params = { ...element.params, volume: toDb(p.volume) };
+	}
+	if (p.color) {
+		if (!("effects" in element)) throw new Error(`${element.name} is not a visual clip`);
+		// The clip's first Color effect (the M4 one) takes the values; add it if missing.
+		const effects = element.effects ?? [];
+		const existing = effects.find((e) => e.type === "color");
+		const color = existing ?? buildDefaultEffectInstance({ effectType: "color" });
+		const next = { ...color, enabled: true, params: { ...color.params, ...p.color } };
+		Object.assign(patch, { effects: existing ? effects.map((e) => (e === existing ? next : e)) : [...effects, next] });
+	}
+	return patch;
+}
+
 function apply(c: Cmd): string {
 	const editor = EditorCore.getInstance();
 	const tracks = editor.scenes.getActiveScene().tracks;
@@ -100,22 +129,27 @@ function apply(c: Cmd): string {
 		return `shot ${n} (${hit.element.name}) is now ${Number(c.seconds)}s`;
 	}
 
+	// Several clips take one patch in one updateElements call: one undo step.
+	if (c.cmd === "update_clips") {
+		const ids = c.ids ?? [];
+		if (!ids.length) throw new Error("ids is empty");
+		const hits = ids.map((id) => {
+			const h = find({ t: tracks, id });
+			if (!h) throw new Error(`no clip with id ${id}; call get_timeline for current ids`);
+			return h;
+		});
+		const updates = hits.map(({ trackId, element }) => ({ trackId, elementId: element.id, patch: patchFor({ element, p: c.patch ?? {} }) }));
+		editor.timeline.updateElements({ updates });
+		return `${hits.map((h) => h.element.name).join(", ")}: ${Object.keys(c.patch ?? {}).join(", ")} updated`;
+	}
+
 	const hit = find({ t: tracks, id: String(c.id) });
 	if (!hit) throw new Error(`no clip with id ${String(c.id)}; call get_timeline for current ids`);
 	const { trackId, element } = hit;
 
 	if (c.cmd === "update_clip") {
 		const p = c.patch ?? {};
-		const patch: Partial<TimelineElement> = {};
-		if (p.duration != null) patch.duration = ticks(p.duration);
-		if (p.start != null) patch.startTime = ticks(p.start);
-		if (p.trim_start != null) patch.trimStart = ticks(p.trim_start);
-		if (p.trim_end != null) patch.trimEnd = ticks(p.trim_end);
-		if (p.volume != null) {
-			if (typeof element.params.volume !== "number") throw new Error(`${element.name} has no volume`);
-			patch.params = { ...element.params, volume: toDb(p.volume) };
-		}
-		update({ trackId, element, patch });
+		update({ trackId, element, patch: patchFor({ element, p }) });
 		return `${element.name}: ${Object.keys(p).join(", ")} updated`;
 	}
 
@@ -202,7 +236,7 @@ export function EstaCmdBridge({ session }: { session: string }) {
 		};
 		push();
 		const beat = setInterval(push, 2000);
-		const unsubs = [editor.timeline.subscribe(soon), editor.scenes.subscribe(soon)];
+		const unsubs = [editor.timeline.subscribe(soon), editor.scenes.subscribe(soon), editor.selection.subscribe(soon)];
 		return () => {
 			clearInterval(beat);
 			if (queued) clearTimeout(queued);

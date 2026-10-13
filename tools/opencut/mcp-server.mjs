@@ -89,6 +89,45 @@ const TOOLS = [
     },
   },
   {
+    name: "get_selection",
+    description:
+      "What the user has selected on the live timeline right now: clip ids, " +
+      "their plan shot numbers, and the track if a whole track is selected. " +
+      "Chat turns already carry a [selection: ...] block when the user sent one; " +
+      "use this when that block is absent or may be stale.",
+    inputSchema: { type: "object", properties: {} },
+  },
+  {
+    name: "update_clips",
+    description:
+      "Apply the same edit to several clips at once, as one undo step. Same " +
+      "fields as update_clip, plus `color` for colour correction: brightness, " +
+      "contrast and saturation from -100 to 100 (0 = unchanged), hue in degrees " +
+      "(-180..180). Black and white = saturation -100. Use it for a selection " +
+      "(the ids in the turn's [selection: clips=...] block).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        ids: { type: "array", items: { type: "string" }, minItems: 1, description: "Clip ids from get_timeline or the selection" },
+        duration: { type: "number", description: "New duration (s)" },
+        trim_start: { type: "number", description: "Seconds into the source where playback starts" },
+        trim_end: { type: "number", description: "Seconds trimmed off the source's end" },
+        start: { type: "number", description: "New timeline start (s)" },
+        volume: { type: "number", description: "Static volume level, 1 = full, 0 = silent" },
+        color: {
+          type: "object",
+          properties: {
+            brightness: { type: "number", minimum: -100, maximum: 100 },
+            contrast: { type: "number", minimum: -100, maximum: 100 },
+            saturation: { type: "number", minimum: -100, maximum: 100 },
+            hue: { type: "number", minimum: -180, maximum: 180 },
+          },
+        },
+      },
+      required: ["ids"],
+    },
+  },
+  {
     name: "animate_clip",
     description:
       "Keyframe a property on a clip over time to apply editing-principle motion. " +
@@ -160,6 +199,12 @@ const DISPATCH = {
     if (args.start != null) patch.start = args.start;
     if (args.volume != null) patch.volume = args.volume;
     return { cmd: "update_clip", id: args.id, patch };
+  },
+  update_clips: (args) => {
+    const patch = {};
+    for (const k of ["duration", "trim_start", "trim_end", "start", "volume", "color"])
+      if (args[k] != null) patch[k] = args[k];
+    return { cmd: "update_clips", ids: args.ids, patch };
   },
   animate_clip: (args) => ({
     cmd: "animate_clip",
@@ -274,6 +319,23 @@ async function handle(msg) {
               { type: "text", text: `Failed to read timeline: ${err.message}` },
             ],
           });
+        }
+        return;
+      }
+
+      if (name === "get_selection") {
+        try {
+          const state = await (await fetch(STATE_URL)).json();
+          if (state._stale || !state.selection) {
+            reply(id, {
+              isError: true,
+              content: [{ type: "text", text: "No live editor is open: open the session's Edit stage first." }],
+            });
+            return;
+          }
+          reply(id, { content: [{ type: "text", text: JSON.stringify(state.selection, null, 2) }] });
+        } catch (err) {
+          reply(id, { isError: true, content: [{ type: "text", text: `Failed to read the selection: ${err.message}` }] });
         }
         return;
       }

@@ -4,14 +4,11 @@ import { useEffect, useRef } from "react";
 import { EditorCore } from "@/core";
 import type { SceneTracks } from "@/timeline";
 import { useWorkspace } from "../store";
+import { shotOfClip as shotOf } from "./selection";
 
 // Clips keep render's ids (clip-shot-N), so plan shot N is its clip on any
 // lane, crossfade split or not.
 const clipId = (shot: number) => `clip-shot-${shot}`;
-const shotOf = (id: string) => {
-	const m = /^clip-shot-(\d+)$/.exec(id);
-	return m ? Number(m[1]) : null;
-};
 
 function locate({ tracks, id }: { tracks: SceneTracks; id: string }) {
 	for (const track of [...tracks.overlay, tracks.main]) {
