@@ -21,6 +21,7 @@ import { ScriptPanel } from "./panels/script-panel";
 import { RequirementsPanel } from "./panels/requirements-panel";
 import { TaggedPanel } from "./panels/tagged-panel";
 import { PreviewPanel, TimelinePanel } from "./panels/shots-panels";
+import { EditChatPanel, SelectionPanel } from "./panels/selection-panel";
 import { BuildStatus, EditorPanel, EstaExport } from "./panels/editor-panel";
 import { OcAssetsPanel, OcPreviewPanel, OcPropertiesPanel, OcTimelinePanel } from "./panels/opencut-panels";
 import { OpenCutHost } from "./opencut/host";
@@ -45,6 +46,8 @@ export const PANELS: Record<string, { title: string; Component: ComponentType }>
 	"oc-timeline": { title: "Editor timeline", Component: OcTimelinePanel },
 	"oc-assets": { title: "Editor media", Component: OcAssetsPanel },
 	"oc-properties": { title: "Editor properties", Component: OcPropertiesPanel },
+	selection: { title: "Selection", Component: SelectionPanel },
+	"edit-chat": { title: "Chat", Component: EditChatPanel },
 };
 
 // A workspace is columns of stacked panels. Each stage has a preset; the user
@@ -63,7 +66,7 @@ const PRESETS: Record<string, Layout> = {
 	assets: [["stage", "jobs"], ["picker"], ["preview", "chat"]],
 	edit: [["stage", "editor", "jobs"], ["oc-preview", "oc-timeline"], ["oc-properties", "oc-assets", "chat"]],
 	// The Edit stage's default: just the picture, the cut and Claude.
-	"edit-simple": [["oc-preview", "oc-timeline"], ["chat"]],
+	"edit-simple": [["oc-preview", "oc-timeline"], ["edit-chat"]],
 };
 
 // Simple layouts are fixed: no slot pickers, no saved swaps.

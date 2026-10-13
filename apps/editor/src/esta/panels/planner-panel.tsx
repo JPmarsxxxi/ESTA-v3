@@ -120,7 +120,9 @@ async function saveShot({ session, shot }: { session: string; shot: Shot }) {
 	return post<{ ok: boolean }>({ path: "/_plan/api/shot", body: { session, shot } });
 }
 
-export function PlannerPanel() {
+// compact: the Edit stage's selection panel, which shows only the shot the
+// timeline selected: no shot list, no stepping, nothing that moves the selection.
+export function PlannerPanel({ compact = false }: { compact?: boolean } = {}) {
 	const { session, lastFile, selectedShot, selectShot } = useWorkspace();
 	const [shots, setShots] = useState<Shot[] | null>(null);
 	const [loadError, setLoadError] = useState<string | null>(null);
@@ -205,8 +207,8 @@ export function PlannerPanel() {
 		if (selectedShot != null) viewedAt.current = selectedShot;
 	}, [selectedShot]);
 	useEffect(() => {
-		if (shots?.length && !shots.some((s) => s.shot_number === selectedShot)) selectShot(shots[0].shot_number);
-	}, [shots, selectedShot, selectShot]);
+		if (!compact && shots?.length && !shots.some((s) => s.shot_number === selectedShot)) selectShot(shots[0].shot_number);
+	}, [compact, shots, selectedShot, selectShot]);
 
 	const markDirty = useCallback(({ shot, isDirty }: { shot: number; isDirty: boolean }) => {
 		const n = shot;
@@ -289,6 +291,7 @@ export function PlannerPanel() {
 
 	return (
 		<div className="flex size-full min-h-0 text-sm">
+			{!compact && (
 			<div className="w-64 shrink-0 overflow-auto border-r">
 				<div className="text-muted-foreground sticky top-0 border-b bg-inherit px-2 py-1.5 text-xs uppercase">
 					Shots · timing {timingSource}
@@ -315,6 +318,7 @@ export function PlannerPanel() {
 					);
 				})}
 			</div>
+			)}
 			<div className="flex min-w-0 flex-1 flex-col">
 				{conflict && (
 					<div className="p-2 pb-0">
@@ -355,7 +359,9 @@ export function PlannerPanel() {
 								return true;
 							}}
 							onSaved={onSaved}
+							compact={compact}
 							onSaveAndAdvance={() => {
+								if (compact) return;
 								// Past the last shot, v2 goes back to the first one not saved yet.
 								const nx = shots.find((x) => x.shot_number > current.shot_number) ?? shots.find((x) => x.shot_number !== current.shot_number && !saved.has(x.shot_number));
 								if (nx) selectShot(nx.shot_number);
@@ -374,12 +380,16 @@ export function PlannerPanel() {
 					)}
 				</div>
 				<div className="flex shrink-0 items-center gap-2 border-t px-3 py-1.5">
-					<Button size="sm" variant="outline" onClick={() => step(-1)}>
-						‹ Prev
-					</Button>
-					<Button size="sm" variant="outline" onClick={() => step(1)}>
-						Next ›
-					</Button>
+					{!compact && (
+						<>
+							<Button size="sm" variant="outline" onClick={() => step(-1)}>
+								‹ Prev
+							</Button>
+							<Button size="sm" variant="outline" onClick={() => step(1)}>
+								Next ›
+							</Button>
+						</>
+					)}
 					<span className="text-muted-foreground ml-auto truncate text-xs">{status}</span>
 				</div>
 			</div>
@@ -402,7 +412,9 @@ function ShotForm({
 	shouldDiscard,
 	hold,
 	viewedAt,
+	compact,
 }: {
+	compact: boolean;
 	session: string;
 	shot: Shot;
 	rewrite: Rewrite | undefined;
@@ -639,6 +651,11 @@ function ShotForm({
 					<textarea className={`${inputClass} min-h-12 font-mono text-xs`} value={f.queries} onChange={setQueries} />
 				</Lbl>
 				<div className="flex items-center gap-2 text-xs">
+					{compact && (
+						<Button size="sm" variant="outline" disabled={requery?.status === "running"} onClick={() => startRequery(shot.shot_number)}>
+							Requery
+						</Button>
+					)}
 					{queriesPinned && (
 						<>
 							<span className="text-muted-foreground">queries pinned — edits to type/split won&apos;t touch them</span>

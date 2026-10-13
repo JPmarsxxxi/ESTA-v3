@@ -7,6 +7,7 @@ import { CanvasRenderer } from "@/services/renderer/canvas-renderer";
 import { buildScene } from "@/services/renderer/scene-builder";
 import type { TimelineElement } from "@/timeline";
 import { resolveAnimationTarget } from "@/timeline/animation-targets";
+import { isVisualElement } from "@/timeline/element-utils";
 import { VOLUME_DB_MAX, VOLUME_DB_MIN } from "@/timeline/audio-constants";
 import { mediaTimeFromSeconds, mediaTimeToSeconds, type MediaTime } from "@/wasm";
 import { BACKEND } from "../api";
@@ -74,6 +75,7 @@ function snapshot(session: string) {
 				trim_end: sec(e.trimEnd),
 				...(typeof e.params.volume === "number" && { volume: fromDb(e.params.volume) }),
 				...(e.animations && { animated: Object.keys(e.animations).filter((k) => e.animations?.[k]) }),
+				...("effects" in e && e.effects?.some((x) => x.type === "color" && x.enabled) && { color: e.effects.find((x) => x.type === "color" && x.enabled)?.params }),
 			})),
 		})),
 	};
@@ -103,7 +105,7 @@ function patchFor({ element, p }: { element: TimelineElement; p: Patch }): Parti
 		patch.params = { ...element.params, volume: toDb(p.volume) };
 	}
 	if (p.color) {
-		if (!("effects" in element)) throw new Error(`${element.name} is not a visual clip`);
+		if (!isVisualElement(element)) throw new Error(`${element.name} is not a visual clip`);
 		// The clip's first Color effect (the M4 one) takes the values; add it if missing.
 		const effects = element.effects ?? [];
 		const existing = effects.find((e) => e.type === "color");

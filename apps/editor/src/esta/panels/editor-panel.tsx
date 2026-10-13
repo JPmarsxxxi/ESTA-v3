@@ -58,8 +58,9 @@ export function BuildStatus() {
 // Export from a proxied build rebuilds from the originals first, so the user
 // never has to pick between the two builds (export-guard.ts explains why).
 export function EstaExport() {
-	const { projectId, status, build } = useOpenCut();
-	if (status !== "ready") return null;
+	const { projectId, status, built, build } = useOpenCut();
+	// Mounted through the rebuild's reload too, or the popover it opens afterwards is lost.
+	if (!built && status !== "ready") return null;
 	return (
 		<ExportButton
 			prepare={async () => {

@@ -42,7 +42,8 @@ type Manifest = { queries?: string[]; sources?: string[]; candidates?: Candidate
 type BankSource = { name: string; kind: string; available: boolean; unavailable_reason?: string };
 type PickJob = { status: string; started: number; log?: string };
 
-export function PickerPanel() {
+// compact: the Edit stage's selection panel (see PlannerPanel).
+export function PickerPanel({ compact = false }: { compact?: boolean } = {}) {
 	const { session, selectedShot, selectShot } = useWorkspace();
 	const [shots, setShots] = useState<PickerShot[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
@@ -76,8 +77,8 @@ export function PickerPanel() {
 	}, [q, loadShots]);
 
 	useEffect(() => {
-		if (shots?.length && !shots.some((s) => s.shot_number === selectedShot)) selectShot(shots[0].shot_number);
-	}, [shots, selectedShot, selectShot]);
+		if (!compact && shots?.length && !shots.some((s) => s.shot_number === selectedShot)) selectShot(shots[0].shot_number);
+	}, [compact, shots, selectedShot, selectShot]);
 
 	// Fetches run server-side and outlive navigation; one poller keeps the rail current.
 	const jobsRef = useRef(jobs);
@@ -118,6 +119,7 @@ export function PickerPanel() {
 
 	return (
 		<div className="flex size-full min-h-0 text-sm">
+			{!compact && (
 			<div className="w-60 shrink-0 overflow-auto border-r">
 				<div className="text-muted-foreground sticky top-0 border-b bg-inherit px-2 py-1.5 text-xs uppercase">Shots</div>
 				{shots.map((s) => (
@@ -133,6 +135,7 @@ export function PickerPanel() {
 					</button>
 				))}
 			</div>
+			)}
 			<div className="flex min-w-0 flex-1 flex-col">
 				<div className="min-h-0 flex-1 overflow-auto p-3">
 					{shot && (
@@ -149,7 +152,7 @@ export function PickerPanel() {
 							onLog={setLog}
 							onPicked={async () => {
 								const fresh = await loadShots();
-								if (!fresh) return;
+								if (!fresh || compact) return;
 								// Advance to the next unpicked shot: the point is to keep moving.
 								const next = fresh.find((s) => s.shot_number > shot.shot_number && !s.picked?.ok) || fresh.find((s) => !s.picked?.ok);
 								selectShot(next ? next.shot_number : shot.shot_number);
