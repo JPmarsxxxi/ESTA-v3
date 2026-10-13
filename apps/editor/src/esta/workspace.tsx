@@ -21,7 +21,7 @@ import { ScriptPanel } from "./panels/script-panel";
 import { RequirementsPanel } from "./panels/requirements-panel";
 import { TaggedPanel } from "./panels/tagged-panel";
 import { PreviewPanel, TimelinePanel } from "./panels/shots-panels";
-import { EditorPanel } from "./panels/editor-panel";
+import { BuildStatus, EditorPanel, EstaExport } from "./panels/editor-panel";
 import { OcAssetsPanel, OcPreviewPanel, OcPropertiesPanel, OcTimelinePanel } from "./panels/opencut-panels";
 import { OpenCutHost } from "./opencut/host";
 
@@ -62,13 +62,30 @@ const PRESETS: Record<string, Layout> = {
 	plan: [["stage", "match", "jobs"], ["planner"], ["preview", "timeline", "chat"]],
 	assets: [["stage", "jobs"], ["picker"], ["preview", "chat"]],
 	edit: [["stage", "editor", "jobs"], ["oc-preview", "oc-timeline"], ["oc-properties", "oc-assets", "chat"]],
+	// The Edit stage's default: just the picture, the cut and Claude.
+	"edit-simple": [["oc-preview", "oc-timeline"], ["chat"]],
 };
+
+// Simple layouts are fixed: no slot pickers, no saved swaps.
+const FIXED = new Set(["edit-simple"]);
+
+type EditView = "simple" | "detailed";
+const editViewKey = "esta.editView";
+
+function readEditView(): EditView {
+	try {
+		return localStorage.getItem(editViewKey) === "detailed" ? "detailed" : "simple";
+	} catch {
+		return "simple";
+	}
+}
 
 const layoutKey = (stage: string) => `esta.layout.${stage}`;
 
 // The stage column is narrow, the surface in the middle gets the room.
-function columnSize({ index, count }: { index: number; count: number }) {
+function columnSize({ layout, index, count }: { layout: string; index: number; count: number }) {
 	if (count === 1) return 100;
+	if (FIXED.has(layout)) return index === 0 ? 72 : 28;
 	if (count === 2) return index === 0 ? 34 : 66;
 	if (index === 0) return 26;
 	if (index === count - 1) return 26;
@@ -77,6 +94,7 @@ function columnSize({ index, count }: { index: number; count: number }) {
 
 function loadLayout(stage: string): Layout {
 	const preset = PRESETS[stage] ?? PRESETS.research;
+	if (FIXED.has(stage)) return preset;
 	try {
 		const saved: unknown = JSON.parse(localStorage.getItem(layoutKey(stage)) || "null");
 		const valid =
@@ -103,6 +121,17 @@ export function EstaWorkspace({ session }: { session: string }) {
 function Shell() {
 	const { session, pipeline, pipelineError, stage } = useWorkspace();
 	const connected = useEventsConnected();
+	const [editView, setEditView] = useState<EditView>(readEditView);
+	const toggleEditView = () => {
+		const next = editView === "simple" ? "detailed" : "simple";
+		setEditView(next);
+		try {
+			localStorage.setItem(editViewKey, next);
+		} catch {
+			/* the choice just won't persist */
+		}
+	};
+	const layout = stage === "edit" && editView === "simple" ? "edit-simple" : stage;
 	return (
 		<div className="bg-background text-foreground flex h-screen w-screen flex-col overflow-hidden">
 			<header className="flex h-11 shrink-0 items-center justify-between gap-4 border-b px-3 text-sm">
@@ -114,6 +143,15 @@ function Shell() {
 					<span className="truncate font-medium">{pipeline?.requirements?.topic || session}</span>
 					{pipeline && <span className="text-muted-foreground truncate text-xs">{pipeline.template ?? "no pipeline.json (canonical order)"}</span>}
 				</div>
+				{stage === "edit" && (
+					<div className="flex min-w-0 items-center gap-2 text-xs">
+						<BuildStatus />
+						<Button variant="outline" size="sm" className="h-7 text-xs" onClick={toggleEditView}>
+							{editView === "simple" ? "Detailed" : "Simple"}
+						</Button>
+						<EstaExport />
+					</div>
+				)}
 				<div className="flex items-center gap-2 text-xs">
 					<span className={cn("size-2 rounded-full", connected ? "bg-constructive" : "bg-destructive")} />
 					<span className="text-muted-foreground">{connected ? "live" : "backend offline"}</span>
@@ -128,7 +166,7 @@ function Shell() {
 				<StageRail />
 				<main className="min-w-0 flex-1 p-1.5">
 					{pipelineError && <div className="p-4 text-sm">Could not load session: {pipelineError}</div>}
-					{pipeline && stage && <Workspace key={stage} stage={stage} />}
+					{pipeline && stage && <Workspace key={layout} stage={layout} />}
 				</main>
 			</div>
 		</div>
@@ -199,7 +237,7 @@ function Workspace({ stage }: { stage: string }) {
 			{layout.map((col, ci) => (
 				<Fragment key={ci}>
 					{ci > 0 && <ResizableHandle />}
-					<ResizablePanel minSize={12} defaultSize={columnSize({ index: ci, count: layout.length })}>
+					<ResizablePanel minSize={12} defaultSize={columnSize({ layout: stage, index: ci, count: layout.length })}>
 						<ResizablePanelGroup direction="vertical" autoSaveId={`esta-${stage}-col${ci}`} className="gap-1">
 							{col.map((panel, ri) => {
 								const def = PANELS[panel];
@@ -209,6 +247,9 @@ function Workspace({ stage }: { stage: string }) {
 										<ResizablePanel minSize={10} defaultSize={100 / col.length}>
 											<PanelShell
 												title={
+													FIXED.has(stage) ? (
+														<span className="text-sm font-medium">{def.title}</span>
+													) : (
 													<select
 														aria-label="Panel in this slot"
 														className="bg-transparent text-sm font-medium"
@@ -221,9 +262,10 @@ function Workspace({ stage }: { stage: string }) {
 															</option>
 														))}
 													</select>
+													)
 												}
 												controls={
-													ci === 0 && ri === 0 ? (
+													ci === 0 && ri === 0 && !FIXED.has(stage) ? (
 														<Button variant="ghost" size="sm" className="text-muted-foreground text-xs" onClick={reset}>
 															Reset layout
 														</Button>

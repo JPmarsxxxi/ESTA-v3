@@ -108,6 +108,7 @@ export type PipelineState = {
 	approvals: Record<string, { at: string; by: string }>;
 	overrides: Record<string, { at: string; missing: string[]; pendingApprovals: string[] }>;
 	taggedScript: { exists: boolean; approved: boolean };
+	renderOutput: boolean;
 	checkpointFiles: Record<string, boolean>;
 	steps: StepState[];
 	stages: Stage[];

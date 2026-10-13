@@ -315,6 +315,7 @@ export function computeState(sessionId: string, run: RunInfo) {
 		approvals: ui.approvals,
 		overrides: ui.overrides,
 		taggedScript: { exists: taggedExists, approved: approved("tagged_script") },
+		renderOutput: existsSync(resolve(dir, `${sessionId}.openreel.json`)),
 		checkpointFiles: {
 			requirements: existsSync(resolve(dir, "requirements.json")),
 			script: existsSync(resolve(dir, "script.md")),

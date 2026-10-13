@@ -54,18 +54,22 @@ export function readBuilt(session: string): Built | null {
 // feed that hydrates its pending shots.
 const sourceFiles = (session: string) => new Set([`${session}.openreel.json`, "assets_progress.jsonl", "assets.json"]);
 
-async function sourceMtime(session: string) {
+async function sources(session: string) {
 	const { files } = await api<{ files: { path: string; mtimeMs: number }[] }>(`/_files/${encodeURIComponent(session)}/list`);
 	const names = sourceFiles(session);
-	return Math.max(0, ...files.filter((f) => names.has(f.path)).map((f) => f.mtimeMs));
+	return {
+		mtime: Math.max(0, ...files.filter((f) => names.has(f.path)).map((f) => f.mtimeMs)),
+		render: files.some((f) => f.path === `${session}.openreel.json`),
+	};
 }
 
 // OpenCut's EditorCore is a singleton, so the workspace hosts one project: the
 // session's esta-<id>. It loads the first time an OpenCut panel is shown and
 // stays loaded across stage switches; shortcuts only listen on the Edit stage,
-// so Delete in the planner can't delete a clip. Once built, the project follows
-// render: a new revision rebuilds and reloads it in place, unless the timeline
-// has edits of its own, which raises a conflict instead of overwriting them.
+// so Delete in the planner can't delete a clip. The project builds itself from
+// proxies as soon as render output exists, and follows render from there: a new
+// revision rebuilds and reloads it in place, unless the timeline has edits of
+// its own, which raises a conflict instead of overwriting them.
 export function OpenCutHost({ children }: { children: ReactNode }) {
 	const { session, stage } = useWorkspace();
 	const projectId = projectIdFor(session);
@@ -142,7 +146,7 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 						editor.save.pause();
 					}
 					try {
-						const source = await sourceMtime(session);
+						const source = (await sources(session)).mtime;
 						const r = await emitSession({ session, originals: mode, onProgress: setProgress });
 						const next = { originals: r.originals, at: Date.now(), source, summary: r.summary, missing: r.missing, proxied: r.proxied };
 						builtRef.current = next;
@@ -168,14 +172,23 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 		[load, projectId, session, status],
 	);
 
-	// Follow render only once the user has built; a first build stays a choice.
+	// A first build only when there's no project yet: one already in storage
+	// without a build record (cleared localStorage) may hold the user's edits.
+	const firstBuild = useCallback(async () => {
+		if (!(await sources(session)).render || (await storageService.loadProject({ id: projectId }))) return;
+		await build(false);
+	}, [build, projectId, session]);
+
 	const follow = useCallback(() => {
 		const last = builtRef.current;
-		if (!last) return;
+		if (!last) {
+			void firstBuild().catch(() => {});
+			return;
+		}
 		const editor = EditorCore.getInstance();
 		if (editor.project.getActiveOrNull()?.metadata.id === projectId && editor.command.canUndo()) setConflict(true);
 		else void build(last.originals);
-	}, [build, projectId]);
+	}, [build, firstBuild, projectId]);
 	const followRef = useRef(follow);
 	useEffect(() => {
 		followRef.current = follow;
@@ -191,12 +204,11 @@ export function OpenCutHost({ children }: { children: ReactNode }) {
 		},
 	});
 
-	// Revisions written while this workspace wasn't open.
+	// Revisions written while this workspace wasn't open, or the first build.
 	useEffect(() => {
 		const last = builtRef.current;
-		if (!last) return;
-		sourceMtime(session)
-			.then((m) => m > (last.source ?? last.at) && followRef.current())
+		sources(session)
+			.then(({ mtime, render }) => render && (!last || mtime > (last.source ?? last.at)) && followRef.current())
 			.catch(() => {});
 	}, [session]);
 

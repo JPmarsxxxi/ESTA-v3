@@ -46,8 +46,12 @@ function isExportQuality(value: string): value is ExportQuality {
 	return EXPORT_QUALITY_VALUES.some((qualityValue) => qualityValue === value);
 }
 
-export function ExportButton() {
+export function ExportButton({ prepare }: { prepare?: () => Promise<boolean> } = {}) {
 	const [isExportPopoverOpen, setIsExportPopoverOpen] = useState(false);
+	const openExport = async () => {
+		if (prepare && !(await prepare())) return;
+		setIsExportPopoverOpen(true);
+	};
 	const editor = useEditor();
 	const activeProject = useEditor((e) => e.project.getActiveOrNull());
 	const hasProject = !!activeProject;
@@ -72,12 +76,20 @@ export function ExportButton() {
 						"flex items-center gap-1.5 rounded-md bg-[#38BDF8] px-[0.12rem] py-[0.12rem] text-white",
 						hasProject ? "cursor-pointer" : "cursor-not-allowed opacity-50",
 					)}
-					onClick={hasProject ? () => setIsExportPopoverOpen(true) : undefined}
+					onClick={
+						hasProject
+							? (event) => {
+									// Radix would open the popover itself, before prepare is done.
+									event.preventDefault();
+									void openExport();
+								}
+							: undefined
+					}
 					disabled={!hasProject}
 					onKeyDown={(event) => {
 						if (hasProject && (event.key === "Enter" || event.key === " ")) {
 							event.preventDefault();
-							setIsExportPopoverOpen(true);
+							void openExport();
 						}
 					}}
 				>

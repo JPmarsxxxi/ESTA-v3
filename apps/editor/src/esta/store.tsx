@@ -109,6 +109,16 @@ function writeStorage({ key, value }: { key: string; value: string | null }) {
 	}
 }
 
+// A session with something to edit opens on Edit; else the last stage the user
+// had open, else the conductor's next.
+function landingStage({ pipeline, session }: { pipeline: PipelineState; session: string }) {
+	const has = (id: string | null) => id !== null && pipeline.stages.some((s) => s.id === id);
+	if (has("edit") && (pipeline.renderOutput || readStorage(`esta.opencut.${session}`) !== null)) return "edit";
+	const stored = readStorage(`esta.stage.${session}`);
+	if (has(stored) && stored) return stored;
+	return (pipeline.stages.find((s) => s.isNext) ?? pipeline.stages[0]).id;
+}
+
 export function WorkspaceProvider({ session, children }: { session: string; children: ReactNode }) {
 	const [pipeline, setPipeline] = useState<PipelineState | null>(null);
 	const [pipelineError, setPipelineError] = useState<string | null>(null);
@@ -121,26 +131,29 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 	const [selectedShot, selectShot] = useState<number | null>(null);
 	const [chat, dispatch] = useReducer((state: ChatState, ev: StreamEvent) => chatReducer({ state, ev }), { items: [], alive: false, busy: false });
 
+	// Fixed by the first state of the visit, so a render landing mid-visit doesn't move the user.
+	const [landing, setLanding] = useState("");
+	const applyPipeline = useCallback(
+		(p: PipelineState) => {
+			setPipeline(p);
+			setLanding((current) => current || landingStage({ pipeline: p, session }));
+		},
+		[session],
+	);
+
 	const refresh = useCallback(() => {
 		api<PipelineState>(`/_pipeline/${encodeURIComponent(session)}`)
 			.then((p) => {
-				setPipeline(p);
+				applyPipeline(p);
 				setPipelineError(null);
 			})
 			.catch((e) => setPipelineError(e instanceof Error ? e.message : String(e)));
 		api<{ jobs: Job[] }>(`/_jobs?session=${encodeURIComponent(session)}`).then((d) => setJobs(d.jobs)).catch(() => {});
-	}, [session]);
+	}, [session, applyPipeline]);
 
 	useEffect(refresh, [refresh]);
 
-	// Until the user picks one: the last stage they had open, else the conductor's next.
-	const stage = useMemo(() => {
-		if (chosenStage) return chosenStage;
-		if (!pipeline) return "";
-		const stored = readStorage(`esta.stage.${session}`);
-		if (stored && pipeline.stages.some((s) => s.id === stored)) return stored;
-		return (pipeline.stages.find((s) => s.isNext) ?? pipeline.stages[0]).id;
-	}, [chosenStage, pipeline, session]);
+	const stage = chosenStage || landing;
 
 	const setStage = useCallback(
 		(id: string) => {
@@ -156,7 +169,7 @@ export function WorkspaceProvider({ session, children }: { session: string; chil
 
 	// A reconnect after a backend restart must not show stale state.
 	useChannel({ ch: "hello", fn: refresh });
-	useChannel<PipelineState>({ ch: "pipeline", fn: setPipeline });
+	useChannel<PipelineState>({ ch: "pipeline", fn: applyPipeline });
 	useChannel<{ type: string; job?: Job; id?: string; text?: string }>({
 		ch: "job",
 		fn: (d) => {

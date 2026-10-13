@@ -14,12 +14,12 @@ import { useOpenCut } from "../opencut/host";
 import { ConflictBanner } from "./editor-panel";
 
 function Gate({ children }: { children: ReactNode }) {
-	const { status, error, open } = useOpenCut();
+	const { status, error, open, progress } = useOpenCut();
 	useEffect(open, [open]);
 	if (status === "ready") return <div className="size-full min-h-0">{children}</div>;
 	return (
 		<div className="text-muted-foreground p-4 text-sm">
-			{status === "missing" && "No editor project yet. Build it from the Editor project panel once render has run."}
+			{status === "missing" && (progress ? "Building the project from render..." : "No editor project yet: it builds itself once render has run.")}
 			{(status === "idle" || status === "loading") && "Loading the editor project..."}
 			{status === "error" && <span className="text-destructive">Could not load the editor project: {error}</span>}
 		</div>
