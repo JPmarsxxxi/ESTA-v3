@@ -1257,3 +1257,87 @@ Recompute of `do-alphas-even-exist-2026-09-29`
 General
 - [ ] `bun run typecheck` and `bun run lint` pass (no TS changes are expected, but run them anyway).
 - [ ] Nothing is committed to `main`/`m2-surfaces`. Work is committed on `qwen-vision-trial`.
+
+# Part 11 — Chat-native Edit stage, and an editor-fork study (M14)
+
+Decided with the user on 2026-10-13, on branch `m14-chat-native-editor` (from `qwen-vision-trial` at `0785739`, so the M13 Qwen video stays as it is on that branch). The user builds this from a cloud session. The session media is not in git: it lives on the user's D: drive. A cloud session builds and tests the UI against a small fixture session and can't open the real do-alphas clips.
+
+The user's words: the Edit stage should be "easy on the eyes as much as possible and very chat native", with "a detailed view switcher for those who feel they want more granularity".
+
+## Goal
+
+1. **Auto-build, and Edit as the landing page.**
+   - Opening a session whose render output exists (`<id>.openreel.json`) builds the native OpenCut project on its own, with no Build project click. The same applies when the render output changes and there are no local edits; the existing conflict banner still covers the case with local edits.
+   - A session that has a built project, or a render output to build from, lands on the Edit stage by default. This beats both the stored last stage and the conductor's next step. Any stage the user picks during that visit is still respected.
+2. **Select, then tell Claude.** Selecting one clip, several clips, or a whole track on the OpenCut timeline attaches that selection to the chat panel as a chip: for example "3 clips: shots 12-14 (main)", "audio: voice", or "track: graphics". The next message goes to Claude with a structured description of the selection, and Claude acts on exactly those items through the live-edit tools (`esta-opencut` MCP) and the pipeline skills (re-pick, requery, rewrite).
+3. **Selecting a clip opens its controls.** Selecting one clip that maps to a plan shot opens that shot's plan-editor and picker controls in a side panel:
+   - from the planner: desc, Rewrite, Requery, Command, and the line editor;
+   - from the picker: candidates, Fetch, Generate, swap pick.
+
+   Several selected clips show a compact list with the shared actions. A track selection shows track actions only.
+4. **Simple view by default, with a detailed view switch.** The default Edit layout is three things:
+   - preview;
+   - timeline;
+   - chat, with the selection controls from goal 3 appearing in the chat column or a slide-over when something is selected.
+
+   Everything else (stage and jobs column, editor/build panel, OpenCut assets panel, properties panel) is hidden in simple view and returns with a **Detailed** toggle, which is persisted per user. Export stays reachable in simple view (a header button). Rebuilding with originals for export happens automatically when Export is pressed and the project was built from proxies (see `export-guard.ts`).
+5. **Fork study (research only, no decision).** Write `reports/editor-fork-study.md`. It compares OpenCut, which we fork today, with FilmCraft and EffectCraft, the open-source Adobe recreations the user found. It covers:
+   - each repo's licence, activity, stack and maturity;
+   - timeline, effects, compositor and export;
+   - how each one would host our plumbing. That means everything `src/esta/opencut/` does today: emitting the native project, shot-sync, the live command bridge and MCP tools, the grade/ducking/karaoke/transitions/export presets, and the wasm compositor in `rust/`;
+   - a ranked list of pros and cons, plus a migration-cost estimate.
+
+   First find the repos and confirm the names; if a name is ambiguous, note which repo was studied.
+
+## Non-goals
+
+- No change to the pipeline, skills, render output format or `tools/` (beyond an integration fix logged in PORTING.md).
+- No fork switch. Goal 5 is research only, and the user decides afterwards.
+- No re-render or re-pick of do-alphas on this branch. Its artifacts stay as committed in `0785739`.
+- No changes to other stages' layouts, apart from the Edit stage landing rule.
+- No new chat backend. It stays the existing headless Claude Code chat (`server/chat.ts`).
+
+## Files & interfaces involved
+
+- `apps/editor/src/esta/opencut/host.tsx` (`build`, `readBuilt`, `sourceMtime`): auto-build on open and on render change when there are no local edits.
+- `apps/editor/src/esta/store.tsx` (stage choice at line ~136): the Edit landing rule. `sendChat` adds the selection context.
+- `apps/editor/src/esta/panels/editor-panel.tsx`: the build buttons go. Build status, progress and errors move into a small status line. `ConflictBanner` stays.
+- `apps/editor/src/esta/workspace.tsx` (`PRESETS.edit`, layouts): simple vs detailed Edit layout, plus the toggle, persisted in localStorage (`esta.editView`).
+- `apps/editor/src/esta/panels/chat-panel.tsx`: the selection chip (removable), selection-aware placeholder text, and the attached context.
+- `apps/editor/src/esta/opencut/shot-sync.tsx`, `bridge.tsx`: read the OpenCut selection (`editor.selection.getSelectedElements()`, plus the track selection if OpenCut has one, or add it). Map clips to shot numbers through the clip ids `emit.ts` writes.
+- New `apps/editor/src/esta/panels/selection-panel.tsx`: goal 3. It reuses the planner/picker/line-editor components rather than copying them, and may refactor them into shot-scoped pieces.
+- `tools/opencut/mcp-server.mjs`: add tools only if multi-clip or track edits need them (for example `update_clips` and `get_selection`). Claude also needs to read the current selection.
+- OpenCut code outside `src/esta/`: keep edits minimal and list each one in `PORTING.md`.
+- `reports/editor-fork-study.md` (new).
+
+## Key decisions & tradeoffs
+
+1. **Chat panel with the selection attached**, not a popup at the timeline. That's the user's choice: one place to talk to Claude.
+2. **Selection context format.** It is prepended to the message after the existing `[ESTA session ... · stage ...]` header, as `[selection: clips=<element ids> shots=<n,...> tracks=<names>]` plus a one-line summary per item: shot number, track, source file and in/out. Claude needs the ids to call the MCP tools, and the shot numbers to use the pipeline skills.
+3. **The selection updates live.** The chip always shows the current timeline selection. When a message is sent, the selection at that moment is what goes. Removing the chip sends that message without a selection.
+4. **The simple view hides panels; it doesn't remove them.** The detailed view is today's layout, and any user-customised layout survives in detailed view.
+5. **Auto-build uses proxies.** The export-bound build stays a deliberate step, triggered automatically by Export so users never see the choice.
+
+## Edge cases
+
+- **No render output yet:** no auto-build. Edit isn't the landing stage, and the conductor's next step applies.
+- **Build fails or media is missing:** an error and a missing list in the status line, with a Retry. No silent empty timeline.
+- **Render changes while the timeline has local edits:** today's conflict banner, never an auto-overwrite.
+- **A selected clip that maps to no shot** (user-added media, text, an overlay without a shot): the chip still describes it by element id and track, and goal 3's panel shows "not a plan shot" with only the chat available.
+- **Selection across tracks:** a mixed list. Shared actions apply only where they make sense (Requery only for plan shots).
+- **Chat busy when the selection changes:** the chip updates, and the in-flight turn keeps the selection it was sent with.
+- **The full-page editor (`/editor/<id>`)** is unaffected.
+
+## Acceptance criteria
+
+- [ ] Opening `http://localhost:3000/esta/<id>` for a session with render output lands on Edit and shows the built timeline with no click. Check with the fixture session on a fresh browser profile (empty localStorage/IndexedDB).
+- [ ] A session without render output lands on the conductor's next stage, as before.
+- [ ] When render output changes with no local edits, the timeline rebuilds by itself. With local edits, the conflict banner shows.
+- [ ] The simple view shows only preview, timeline and chat (plus an Export button and the Detailed toggle). The Detailed toggle restores today's Edit layout, and the choice survives a reload.
+- [ ] Selecting one clip, several clips (shift/ctrl-click), and a track each show the right chip. The sent chat turn carries the `[selection: ...]` block. Check by inspecting the `/chat/send` body or the chat log.
+- [ ] Asked "make these two clips black and white" with two clips selected, Claude changes exactly those two through the MCP tools (manual run with a live chat).
+- [ ] Selecting one plan-shot clip opens its shot controls (desc, Rewrite, Requery, Command, picker candidates, swap). A swap there updates the timeline.
+- [ ] Export in simple view rebuilds from originals first when the project was built from proxies.
+- [ ] `reports/editor-fork-study.md` exists. It covers licence, activity, stack and maturity; timeline, effects and export; and integration of each `src/esta/opencut/` piece for OpenCut, FilmCraft and EffectCraft. It ends with a ranked pros/cons table and a migration-cost estimate, and makes no decision to switch.
+- [ ] `bun run typecheck` and `bun run lint` pass. OpenCut edits outside `src/esta/` are listed in `PORTING.md`.
+- [ ] Work is committed on `m14-chat-native-editor` only.
