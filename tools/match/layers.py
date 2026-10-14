@@ -88,7 +88,14 @@ def presenter(shots: list[dict], faces: dict[str, tuple]) -> dict | None:
             and 0.6 * size <= b[2] * b[3] <= 1.6 * size]
     share = sum(s["dur"] for s, _ in near) / total
     if share < PRESENTER_SHARE:
-        return None
+        # A full-frame talking head cuts between wide and punched-in framings, so its face size varies: footage
+        # with a centred face in 40% or more of the shots is still a presenter, not cut out (Part 12 edge case).
+        centred = [(s, b) for s, b in seen if (s.get("tags") or {}).get("kind") == "footage" and abs(b[0] + b[2] / 2 - 0.5) < 0.2]
+        if len(centred) < PRESENTER_SHARE * len(shots):
+            return None
+        med = [round(statistics.median(b[i] for _, b in centred), 4) for i in range(4)]
+        return {"share": round(sum(s["dur"] for s, _ in centred) / total, 3),
+                "bbox": {"x": med[0], "y": med[1], "w": med[2], "h": med[3]}, "cutout": False, "shots": len(centred)}
     art = sum(s["dur"] for s, _ in near if (s.get("tags") or {}).get("kind") in ("graphic", "still")
               or (s.get("tags") or {}).get("material") not in ("", None, "live_action"))
     med = [round(statistics.median(b[i] for _, b in near), 4) for i in range(4)]

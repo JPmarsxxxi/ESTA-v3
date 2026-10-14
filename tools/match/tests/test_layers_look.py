@@ -33,6 +33,13 @@ def test_full_frame_talking_head_is_not_cut_out():
     assert p and p["cutout"] is False
 
 
+def test_talking_head_with_varying_face_size_is_a_presenter():
+    shots = [shot(i, 2.0, "footage", "live_action") for i in range(10)]
+    faces = {f"s{i}": (0.4, 0.3, 0.2, 0.2) for i in range(3)} | {f"s{i}": (0.33, 0.2, 0.35, 0.35) for i in range(3, 6)}
+    p = L.presenter(shots, faces)
+    assert p and p["cutout"] is False and p["shots"] == 6
+
+
 def test_no_presenter_under_forty_percent():
     shots = [shot(i, 2.0) for i in range(10)]
     assert L.presenter(shots, {f"s{i}": (0.6, 0.55, 0.2, 0.25) for i in range(3)}) is None
