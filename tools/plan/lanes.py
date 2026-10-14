@@ -11,15 +11,15 @@ FINISHES = ("grain", "halftone", "paper_texture", "blur", "chromatic_aberration"
 SUBJECT_MOTION = ("none", "low", "high")
 LANES = ("hyperframes", "collage", "genimage", "footage", "image", "ai_video")
 
-# The materials each lane can produce. ai_video renders whatever its preset and prompt ask for, except flat
-# designed graphics, which come out mushy.
+# The materials each lane can produce. ai_video renders whatever its preset and prompt ask for: the table routes
+# any ref that looks generated there, whatever its material.
 CAN_MAKE = {
     "hyperframes": {"flat_vector", "kinetic_type", "data_ui"},
     "collage": {"photo_collage"},
     "genimage": {"illustration", "render_3d"},
     "footage": {"live_action", "screen_capture", "cel_animation"},
     "image": {"live_action", "screen_capture"},
-    "ai_video": {"illustration", "render_3d", "cel_animation", "live_action"},
+    "ai_video": set(MATERIALS),
 }
 # The plan types each lane is delivered as: genimage is a generated still animated in HyperFrames, or by i2v.
 LANE_TYPES = {"hyperframes": {"MOTION_GRAPHICS"}, "collage": {"MOTION_GRAPHICS"}, "genimage": {"MOTION_GRAPHICS", "AI_VIDEO"},
@@ -44,7 +44,7 @@ def route(ref: dict, licensing: str = "fair_use_ok") -> dict:
     material = ref_material(ref)
     motion = ref.get("subject_motion") if ref.get("subject_motion") in SUBJECT_MOTION else "none"
     out = {"material": material, "subject_motion": motion}
-    if looks_generated(ref) and material not in CAN_MAKE["hyperframes"]:
+    if looks_generated(ref):
         return out | {"lane": "ai_video", "type": "AI_VIDEO"}
     if material in CAN_MAKE["hyperframes"]:
         return out | {"lane": "hyperframes", "type": "MOTION_GRAPHICS"}

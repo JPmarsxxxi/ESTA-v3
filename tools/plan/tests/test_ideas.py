@@ -91,3 +91,12 @@ def test_cel_animation_never_becomes_a_still():
     ref = {"kind": "still", "material": "cel_animation", "subject_motion": "low"}
     assert lanes.route(ref, "fair_use_ok")["type"] == "REAL_FOOTAGE"
     assert lanes.route(ref, "free_only")["type"] == "AI_VIDEO"
+
+
+def test_generated_looking_graphic_ref_goes_to_ai_video():
+    # Profiles described before materials existed fall back on kind; a graphic that looks generated is still AI_VIDEO.
+    assert lanes.route({"kind": "graphic", "likely_sources": ["ai_video"]})["type"] == "AI_VIDEO"
+    assert lanes.route({"kind": "graphic", "material": "flat_vector", "ai_look": True})["lane"] == "ai_video"
+    v, _, _ = ideas.visual_for("|m||a melting clock", {"kind": "graphic", "likely_sources": ["ai_video"], "ai_preset": "orbit"},
+                               "clock", "fair_use_ok")
+    assert v["type"] == "AI_VIDEO" and v["generate"]["preset"] == "orbit"
