@@ -1,0 +1,2299 @@
+{
+ "hash": "6fbb8d80c63c",
+ "duration": 50.06666666666667,
+ "windows": [
+  [
+   0.0,
+   50.06666666666667
+  ]
+ ],
+ "shots": [
+  {
+   "id": "6fbb8d80c63c-0001",
+   "start": 0.0,
+   "end": 3.6,
+   "dur": 3.6,
+   "colour": {
+    "L_mean": 77.73268381754558,
+    "L_std": 16.33449109395345,
+    "chroma": 4.278829574584961,
+    "a_mean": 1.867877205212911,
+    "b_mean": 3.487562576929728,
+    "colourfulness": 8.53495179929958
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0001.jpg",
+   "tags": {
+    "description": "A stylized, 3D animated word 'BE' in black and white letters against a beige background.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d animated typography",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "text centered horizontally, three instances side-by-side",
+     "palette": "black ink, white text, beige background",
+     "type_style": "handwritten, sketchy",
+     "notes": "letters appear as if drawn with a marker, slight jitter in stroke"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0001.jpg",
+   "motion": {
+    "move": "push_in",
+    "amount": 0.214,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0002",
+   "start": 3.6,
+   "end": 5.767,
+   "dur": 2.167,
+   "colour": {
+    "L_mean": 69.88894653320312,
+    "L_std": 13.445446968078613,
+    "chroma": 27.423945744832356,
+    "a_mean": -17.1418612798055,
+    "b_mean": 13.014748891194662,
+    "colourfulness": 67.52381871411035
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0002.jpg",
+   "tags": {
+    "description": "A flat lay arrangement of various food items on white plates against a teal background with text overlay.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "flat lay food photography",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "large logo left, scattered food images across frame",
+     "palette": "mint green, white, brown, green",
+     "type_style": "bold sans-serif, rounded",
+     "notes": "food items pop in with bounce, logo scales up from center"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0002.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0003",
+   "start": 5.767,
+   "end": 5.933,
+   "dur": 0.166,
+   "colour": {
+    "L_mean": 77.18401590983073,
+    "L_std": 18.485872268676758,
+    "chroma": 20.009732564290363,
+    "a_mean": -4.769774595896403,
+    "b_mean": 14.740947723388672,
+    "colourfulness": 43.569219636945455
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0003.jpg",
+   "tags": {
+    "description": "A minimalist 3D animation of potted plants on a shelf with a calendar showing the 1st.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d animated interior design",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "slow",
+     "layout": "plant arrangement centered, calendar on wall above",
+     "palette": "pastel green, blue, pink, terracotta",
+     "type_style": "clean sans-serif on calendar",
+     "notes": "calendar slides in from right, plants settle gently"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0003.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0004",
+   "start": 5.933,
+   "end": 6.167,
+   "dur": 0.234,
+   "colour": {
+    "L_mean": 49.38641103108724,
+    "L_std": 21.50105158487956,
+    "chroma": 31.914230982462566,
+    "a_mean": -6.943360805511475,
+    "b_mean": 26.84991518656413,
+    "colourfulness": 51.41371168862307
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0004.jpg",
+   "tags": {
+    "description": "The same 3D animated interior scene, but the calendar on the wall now shows the 4th.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d animated interior design",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "counts_up",
+     "speed": "medium",
+     "layout": "same plant setup, calendar shows '4'",
+     "palette": "darker green, blue, pink, terracotta",
+     "type_style": "clean sans-serif on calendar",
+     "notes": "number on calendar counts up from 0 to 4"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0004.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0005",
+   "start": 6.167,
+   "end": 6.567,
+   "dur": 0.4,
+   "colour": {
+    "L_mean": 39.69721221923828,
+    "L_std": 25.348936716715496,
+    "chroma": 43.86620585123698,
+    "a_mean": 14.531405131022135,
+    "b_mean": 41.221920013427734,
+    "colourfulness": 92.61802994496442
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0005.jpg",
+   "tags": {
+    "description": "A dark, moody 3D animation of the same interior scene, now engulfed in flames with a calendar showing the 17th.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d animated fire destruction",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "fireplace scene, calendar on wall shows '17'",
+     "palette": "dark brown, orange, red, black",
+     "type_style": "clean sans-serif on calendar",
+     "notes": "fire pops into existence, calendar appears with number 17"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0005.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0006",
+   "start": 6.567,
+   "end": 7.067,
+   "dur": 0.5,
+   "colour": {
+    "L_mean": 24.19853146870931,
+    "L_std": 9.506503105163574,
+    "chroma": 102.48951975504558,
+    "a_mean": 60.24369557698568,
+    "b_mean": -82.86539459228516,
+    "colourfulness": 87.051424491729
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0006.jpg",
+   "tags": {
+    "description": "A vertical stack of UI cards or chat bubbles floating upwards against a solid blue background.",
+    "kind": "graphic",
+    "content": "ui_chart",
+    "sourcing_hint": "abstract ui animation",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "vertical bars on left and center, dark bar on right",
+     "palette": "deep blue, light blue, white",
+     "type_style": "monospace, small",
+     "notes": "bars draw upward like audio levels or data visualization"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0006.jpg",
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.761,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0007",
+   "start": 7.067,
+   "end": 7.7,
+   "dur": 0.633,
+   "colour": {
+    "L_mean": 76.06343332926433,
+    "L_std": 18.9680658976237,
+    "chroma": 10.386638323465982,
+    "a_mean": 3.89194122950236,
+    "b_mean": -5.8910854657491045,
+    "colourfulness": 24.336741384743874
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0007.jpg",
+   "tags": {
+    "description": "A cluster of metallic bottle caps rotating in 3D space against a light purple background.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d rotating bottle caps",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "three identical mechanical objects arranged horizontally",
+     "palette": "silver, yellow, purple background",
+     "type_style": "none (mechanical objects)",
+     "notes": "objects pop in with scale bounce, slight rotation on entry"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0007.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.338,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0008",
+   "start": 7.7,
+   "end": 8.367,
+   "dur": 0.667,
+   "colour": {
+    "L_mean": 70.13217671712239,
+    "L_std": 16.816301981608074,
+    "chroma": 3.1916107336680093,
+    "a_mean": 2.915609121322632,
+    "b_mean": 0.3270435507098834,
+    "colourfulness": 15.351306582744307
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0008.jpg",
+   "tags": {
+    "description": "The word 'BOUNC' in white text with a blue dot over the 'O', positioned above a grey rock.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d typography and rock",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "rock base at bottom, text 'BOUNC' appears above",
+     "palette": "gray, white, blue accent",
+     "type_style": "bold sans-serif",
+     "notes": "blue dot draws on rock, then letters draw on above it"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0008.jpg",
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.539,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0009",
+   "start": 8.367,
+   "end": 9.933,
+   "dur": 1.566,
+   "colour": {
+    "L_mean": 62.39247131347656,
+    "L_std": 25.01325289408366,
+    "chroma": 9.086277643839518,
+    "a_mean": 5.236103693644206,
+    "b_mean": 7.312414328257243,
+    "colourfulness": 22.525790968888447
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0009.jpg",
+   "tags": {
+    "description": "A sleek, black, floating rectangular device with the text 'FACTOR_' on it.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d floating tech device",
+    "likely_sources": [
+     "hyperframes",
+     "ai_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "black cards with 'FACTOR_' arranged in circular and linear patterns",
+     "palette": "black, white, beige background",
+     "type_style": "clean sans-serif",
+     "notes": "cards slide in from edges to form dynamic compositions"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0009.jpg",
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.684,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0010",
+   "start": 9.933,
+   "end": 10.8,
+   "dur": 0.867,
+   "colour": {
+    "L_mean": 85.70688883463542,
+    "L_std": 17.556921641031902,
+    "chroma": 6.169764439264934,
+    "a_mean": -1.4191304842631023,
+    "b_mean": 2.8557625313599906,
+    "colourfulness": 44.25734336857528
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0010.jpg",
+   "tags": {
+    "description": "A woman standing with a bicycle, partially obscured by a large, stylized graphic overlay.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "woman with bicycle outdoors",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "youtube"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0011",
+   "start": 10.8,
+   "end": 11.533,
+   "dur": 0.733,
+   "colour": {
+    "L_mean": 89.93096669514973,
+    "L_std": 12.604835033416748,
+    "chroma": 7.2414835294087725,
+    "a_mean": 3.226802666982015,
+    "b_mean": -6.093417644500732,
+    "colourfulness": 20.65011787631623
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0011.jpg",
+   "tags": {
+    "description": "A static graphic card displaying the word 'shouldn't' in blue text against a light purple background.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "minimalist text animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "slow",
+     "layout": "hand holding object on left, text 'shouldn't be' spaced out",
+     "palette": "light purple, dark blue text",
+     "type_style": "clean sans-serif",
+     "notes": "image and text slide in from left, text spaced widely"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0011.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0012",
+   "start": 11.533,
+   "end": 12.3,
+   "dur": 0.767,
+   "colour": {
+    "L_mean": 11.40145174662272,
+    "L_std": 14.002867380777994,
+    "chroma": 2.419593890508016,
+    "a_mean": 1.4035380283991497,
+    "b_mean": -1.968551794687907,
+    "colourfulness": 2.2072122442575437
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0012.jpg",
+   "tags": {
+    "description": "A static graphic card displaying the word 'contact' in white text against a black background.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "minimalist text animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "three instances of text spaced horizontally across the frame",
+     "palette": "white text on black background",
+     "type_style": "monospace",
+     "notes": "text slides in from the left, maintaining consistent spacing"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0012.jpg",
+   "motion": {
+    "move": "tilt_up",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0013",
+   "start": 12.3,
+   "end": 13.133,
+   "dur": 0.833,
+   "colour": {
+    "L_mean": 61.73582204182943,
+    "L_std": 26.973623275756836,
+    "chroma": 10.808311462402344,
+    "a_mean": 1.8841811418533325,
+    "b_mean": 3.0956763426462808,
+    "colourfulness": 27.986704195761174
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0013.jpg",
+   "tags": {
+    "description": "A close-up shot of two white and purple stacked objects on a desk, with a blurred background of colorful vertical bars.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "product photography desk",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0014",
+   "start": 13.133,
+   "end": 13.567,
+   "dur": 0.434,
+   "colour": {
+    "L_mean": 47.34563954671224,
+    "L_std": 17.497789065043133,
+    "chroma": 41.6446533203125,
+    "a_mean": 28.4997075398763,
+    "b_mean": 26.76692835489909,
+    "colourfulness": 72.46070714585811
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0014.jpg",
+   "tags": {
+    "description": "A shot of a pizza box on a table with a rolling pin and a yellow object nearby.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "pizza box on table",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0015",
+   "start": 13.567,
+   "end": 13.967,
+   "dur": 0.4,
+   "colour": {
+    "L_mean": 43.35077921549479,
+    "L_std": 22.521102905273438,
+    "chroma": 12.505910873413086,
+    "a_mean": 3.0425018469492593,
+    "b_mean": -6.283889293670654,
+    "colourfulness": 29.63108827116457
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0015.jpg",
+   "tags": {
+    "description": "A stack of cardboard boxes with 'nobrand' labels, partially obscured by a blurred foreground element.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "stack of cardboard boxes",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 0.245,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0016",
+   "start": 13.967,
+   "end": 14.733,
+   "dur": 0.766,
+   "colour": {
+    "L_mean": 45.207452138264976,
+    "L_std": 20.96102523803711,
+    "chroma": 14.252189636230469,
+    "a_mean": 5.8730042775472,
+    "b_mean": 4.602505207061768,
+    "colourfulness": 40.38836435043955
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0016.jpg",
+   "tags": {
+    "description": "A cardboard box is open, revealing a colorful, semi-circular object inside.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "product unboxing box",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.285,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0017",
+   "start": 14.733,
+   "end": 16.1,
+   "dur": 1.367,
+   "colour": {
+    "L_mean": 3.4574466149012246,
+    "L_std": 12.422627607981363,
+    "chroma": 0.1292567930649966,
+    "a_mean": 0.10667679676165183,
+    "b_mean": 0.062244647512367614,
+    "colourfulness": 4.474450360105119
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0017.jpg",
+   "tags": {
+    "description": "A black background with a pattern of grey dots and the text 'Over 170 investments later' in the center.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "minimalist text animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "world map on the left with numbered cities, dots expanding outward on the right",
+     "palette": "black background with white dots and red markers",
+     "type_style": "monospace",
+     "notes": "dots pop in and expand outward, creating a sense of growth"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0017.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0018",
+   "start": 16.1,
+   "end": 16.733,
+   "dur": 0.633,
+   "colour": {
+    "L_mean": 21.725112915039062,
+    "L_std": 12.738189379374186,
+    "chroma": 0.6927057504653931,
+    "a_mean": -0.32408224046230316,
+    "b_mean": -0.38165323932965595,
+    "colourfulness": 2.26237089447396
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0018.jpg",
+   "tags": {
+    "description": "A close-up of a black audio interface with a large knob and the brand name 'micro' visible.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "audio interface close up",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.261,
+    "fade_in": "black",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0019",
+   "start": 16.733,
+   "end": 17.167,
+   "dur": 0.434,
+   "colour": {
+    "L_mean": 17.776177088419598,
+    "L_std": 14.188518206278482,
+    "chroma": 0.5386096239089966,
+    "a_mean": -0.29976653059323627,
+    "b_mean": -0.3118127683798472,
+    "colourfulness": 3.189456596906657
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0019.jpg",
+   "tags": {
+    "description": "A close-up of a black cylindrical object with a star-shaped cutout, resting on a reflective surface.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "product photography close up",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0020",
+   "start": 17.167,
+   "end": 18.167,
+   "dur": 1.0,
+   "colour": {
+    "L_mean": 15.843708356221518,
+    "L_std": 20.42558765411377,
+    "chroma": 6.5715012550354,
+    "a_mean": 3.5376784006754556,
+    "b_mean": -5.529766480127971,
+    "colourfulness": 30.771806565825376
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0020.jpg",
+   "tags": {
+    "description": "A graphic card displaying the word 'worthwhile' in white text against a black background with a blue accent.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "minimalist text animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "text 'is worthwhile' with a blue arrow pointing upwards",
+     "palette": "white text and blue arrow on black background",
+     "type_style": "bold sans",
+     "notes": "text draws on with a smooth animation, arrow appears simultaneously"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0020.jpg",
+   "motion": {
+    "move": "pan_right",
+    "amount": 0.926,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0021",
+   "start": 18.167,
+   "end": 19.167,
+   "dur": 1.0,
+   "colour": {
+    "L_mean": 47.08014043172201,
+    "L_std": 13.625438372294107,
+    "chroma": 48.77893320719401,
+    "a_mean": -33.418338775634766,
+    "b_mean": 32.8530642191569,
+    "colourfulness": 61.55745171843132
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0021.jpg",
+   "tags": {
+    "description": "A graphic title card with the word 'WOW' in white text against a green background. The 'O' is replaced by a circular video clip of hands chopping vegetables on a wooden board.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "green background text graphic",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "text 'NO WOW WOW' with images of food items replacing letters",
+     "palette": "green background with white text and colorful food images",
+     "type_style": "handwritten",
+     "notes": "food images pop in to replace letters, creating a playful effect"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0021.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.602,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0022",
+   "start": 19.167,
+   "end": 20.1,
+   "dur": 0.933,
+   "colour": {
+    "L_mean": 46.75090026855469,
+    "L_std": 4.271685043970744,
+    "chroma": 83.27444203694661,
+    "a_mean": 68.72489166259766,
+    "b_mean": 47.01001993815104,
+    "colourfulness": 81.25222343608712
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0022.jpg",
+   "tags": {
+    "description": "A solid red background with the white text 'And they'll be all...' centered in the middle of the screen.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "red background text card",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "fades_in",
+     "speed": "slow",
+     "layout": "text 'And they'll be all...' centered on a red background",
+     "palette": "white text on red background",
+     "type_style": "serif",
+     "notes": "text fades in smoothly, creating a dramatic effect"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0022.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.419,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0023",
+   "start": 20.1,
+   "end": 20.733,
+   "dur": 0.633,
+   "colour": {
+    "L_mean": 91.60741170247395,
+    "L_std": 19.555556615193684,
+    "chroma": 4.065919955571492,
+    "a_mean": 3.23664927482605,
+    "b_mean": 0.7547330657641093,
+    "colourfulness": 27.745775927839606
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0023.jpg",
+   "tags": {
+    "description": "A vertical portrait photo of a young child with blonde hair laughing with their mouth wide open. The image is set against a plain white background.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "laughing baby portrait",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.416,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0024",
+   "start": 20.733,
+   "end": 21.867,
+   "dur": 1.134,
+   "colour": {
+    "L_mean": 8.28487491607666,
+    "L_std": 13.98514207204183,
+    "chroma": 11.020586967468262,
+    "a_mean": 5.41561237970988,
+    "b_mean": -9.541134039560953,
+    "colourfulness": 50.394886402900916
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0024.jpg",
+   "tags": {
+    "description": "A motion graphic featuring a blue, ribbed, 3D geometric structure rising diagonally. The text 'rapid pace' is overlaid in blue on the left side.",
+    "kind": "graphic",
+    "content": "background",
+    "sourcing_hint": "blue 3d geometric motion graphic",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "blue spiral structures with text 'rapid pace' appearing next to them",
+     "palette": "blue and black",
+     "type_style": "monospace",
+     "notes": "spirals draw on with a smooth animation, text appears simultaneously"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0024.jpg",
+   "motion": {
+    "move": "pan_right",
+    "amount": 0.358,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0025",
+   "start": 21.867,
+   "end": 23.2,
+   "dur": 1.333,
+   "colour": {
+    "L_mean": 8.735368092854818,
+    "L_std": 12.155526955922445,
+    "chroma": 29.830127875010174,
+    "a_mean": 15.393832365671793,
+    "b_mean": -25.442443052927654,
+    "colourfulness": 67.8841944296517
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0025.jpg",
+   "tags": {
+    "description": "A close-up shot of a blue, glossy, diamond-patterned surface. A single drop of liquid is suspended in mid-air above the center of the pattern.",
+    "kind": "footage",
+    "content": "background",
+    "sourcing_hint": "blue glossy surface water drop",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0026",
+   "start": 23.2,
+   "end": 25.233,
+   "dur": 2.033,
+   "colour": {
+    "L_mean": 74.69747924804688,
+    "L_std": 17.254748980204266,
+    "chroma": 30.73875029881795,
+    "a_mean": -3.4427835941314697,
+    "b_mean": 8.525689045588175,
+    "colourfulness": 102.58254057897238
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0026.jpg",
+   "tags": {
+    "description": "An abstract motion graphic with colorful, organic shapes in green, blue, yellow, and red flowing across a light blue background.",
+    "kind": "graphic",
+    "content": "background",
+    "sourcing_hint": "colorful abstract shapes motion graphic",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "pencils arranged in a circle on the left, colorful shapes on the right",
+     "palette": "gray background with colorful pencils and shapes",
+     "type_style": "none",
+     "notes": "pencils and shapes pop in with a scale bounce, creating a dynamic effect"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0026.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0027",
+   "start": 25.233,
+   "end": 25.733,
+   "dur": 0.5,
+   "colour": {
+    "L_mean": 80.77329762776692,
+    "L_std": 15.886540095011393,
+    "chroma": 2.11999241511027,
+    "a_mean": 1.0369104345639546,
+    "b_mean": 1.2354246377944946,
+    "colourfulness": 11.225617452032376
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0027.jpg",
+   "tags": {
+    "description": "A minimalist animation of a grey, twisted ribbon or tube floating in a white void. A small blue dot is positioned on the ribbon.",
+    "kind": "graphic",
+    "content": "background",
+    "sourcing_hint": "minimalist grey ribbon animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "a looped ribbon with a blue dot moving along it",
+     "palette": "gray ribbon with blue dot on a light background",
+     "type_style": "none",
+     "notes": "ribbon draws on with a smooth animation, blue dot moves along the path"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0027.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0028",
+   "start": 25.733,
+   "end": 27.7,
+   "dur": 1.967,
+   "colour": {
+    "L_mean": 76.74937947591145,
+    "L_std": 15.390451113382975,
+    "chroma": 6.1263047854105634,
+    "a_mean": 4.188453038533528,
+    "b_mean": -3.49157444636027,
+    "colourfulness": 42.629638510999996
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0028.jpg",
+   "tags": {
+    "description": "A 3D animation of various spheres, some transparent and some solid grey, floating in a white space. Some spheres contain blue liquid or reflections.",
+    "kind": "graphic",
+    "content": "background",
+    "sourcing_hint": "3d floating spheres animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "bubbles of various sizes and colors floating in the frame",
+     "palette": "white, blue, and gray bubbles on a light background",
+     "type_style": "none",
+     "notes": "bubbles pop in with a scale bounce, creating a playful and dynamic effect"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0028.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0029",
+   "start": 27.7,
+   "end": 28.667,
+   "dur": 0.967,
+   "colour": {
+    "L_mean": 70.89541117350261,
+    "L_std": 20.81492296854655,
+    "chroma": 19.49011294047038,
+    "a_mean": 6.076375643412272,
+    "b_mean": 13.05493958791097,
+    "colourfulness": 68.5783274699459
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0029.jpg",
+   "tags": {
+    "description": "A 3D animated scene featuring a cartoon frog standing on a small island with stylized orange and red trees. The frog is holding a fishing rod.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "3d cartoon frog fishing",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "a cartoon character standing under a tree with a sign",
+     "palette": "pastel colors with a light background",
+     "type_style": "none",
+     "notes": "character and scene pop in with a scale bounce, creating a whimsical effect"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0029.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.483,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0030",
+   "start": 28.667,
+   "end": 29.2,
+   "dur": 0.533,
+   "colour": {
+    "L_mean": 41.45011774698893,
+    "L_std": 24.375705083211262,
+    "chroma": 14.991840362548828,
+    "a_mean": 0.1810913383960724,
+    "b_mean": 11.715253194173178,
+    "colourfulness": 33.42884324234114
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0030.jpg",
+   "tags": {
+    "description": "A medium shot of a man and a woman sitting on the steps of a house. The word 'BIG' is superimposed in large white letters on the left side of the frame.",
+    "kind": "footage",
+    "content": "multi_subject",
+    "sourcing_hint": "couple sitting on front steps",
+    "likely_sources": [
+     "youtube",
+     "pexels_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0031",
+   "start": 29.2,
+   "end": 29.767,
+   "dur": 0.567,
+   "colour": {
+    "L_mean": 49.54017639160156,
+    "L_std": 31.538026173909504,
+    "chroma": 13.152728080749512,
+    "a_mean": -2.7429004510243735,
+    "b_mean": 9.984663327534994,
+    "colourfulness": 29.956900648437045
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0031.jpg",
+   "tags": {
+    "description": "Two women stand in a sunlit park with trees in the background. Large, semi-transparent white text reading 'BIG DEAL' is overlaid across the center of the frame.",
+    "kind": "footage",
+    "content": "multi_subject",
+    "sourcing_hint": "two women standing in park",
+    "likely_sources": [
+     "youtube",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0032",
+   "start": 29.767,
+   "end": 30.533,
+   "dur": 0.766,
+   "colour": {
+    "L_mean": 52.1556282043457,
+    "L_std": 24.641874313354492,
+    "chroma": 9.364002227783203,
+    "a_mean": 1.4416565895080566,
+    "b_mean": 7.757859865824382,
+    "colourfulness": 29.95683597722916
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0032.jpg",
+   "tags": {
+    "description": "A close-up shot of wooden geometric blocks and books arranged on a desk surface.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "wooden blocks on desk",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0033",
+   "start": 30.533,
+   "end": 31.367,
+   "dur": 0.834,
+   "colour": {
+    "L_mean": 84.8330815633138,
+    "L_std": 20.557740529378254,
+    "chroma": 15.638223012288412,
+    "a_mean": 3.9504575729370117,
+    "b_mean": 11.926640510559082,
+    "colourfulness": 45.79182788059713
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0033.jpg",
+   "tags": {
+    "description": "A flat-lay illustration featuring a wooden puzzle board, colorful blocks, and a white helmet with a red cross.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "flat lay illustration puzzle",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "centered on a beige background with a dark red circle and white line below",
+     "palette": "beige, dark red, pastel pink, green, blue",
+     "type_style": "none",
+     "notes": "blocks assemble into a keyboard-like structure with floating puzzle pieces"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0033.jpg",
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.804,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0034",
+   "start": 31.367,
+   "end": 32.2,
+   "dur": 0.833,
+   "colour": {
+    "L_mean": 45.241807301839195,
+    "L_std": 15.655686696370443,
+    "chroma": 84.3744633992513,
+    "a_mean": 40.41388066609701,
+    "b_mean": -71.61846669514973,
+    "colourfulness": 112.6486295663035
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0034.jpg",
+   "tags": {
+    "description": "A graphic animation on a blue background featuring a stylized trophy and the word 'Whoa' in white text.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "blue background trophy animation",
+    "likely_sources": [
+     "hyperframes",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "centered on a solid blue background",
+     "palette": "blue, gold, white",
+     "type_style": "bold sans",
+     "notes": "a stylized bird logo appears with the word 'Whoa' next to it"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0034.jpg",
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.152,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0035",
+   "start": 32.2,
+   "end": 32.833,
+   "dur": 0.633,
+   "colour": {
+    "L_mean": 83.9318339029948,
+    "L_std": 8.857460975646973,
+    "chroma": 14.695630391438803,
+    "a_mean": 7.037174065907796,
+    "b_mean": -12.81213124593099,
+    "colourfulness": 38.220554382061216
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0035.jpg",
+   "tags": {
+    "description": "A minimalist motion graphic showing a purple circle with an arrow icon connected to a line on a light purple background.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "purple circle arrow icon",
+    "likely_sources": [
+     "hyperframes"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "slow",
+     "layout": "centered on a light purple background",
+     "palette": "light purple, dark purple",
+     "type_style": "none",
+     "notes": "a horizontal line extends with a circle at the end that changes its internal icon"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0035.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.372,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0036",
+   "start": 32.833,
+   "end": 33.433,
+   "dur": 0.6,
+   "colour": {
+    "L_mean": 57.63418833414713,
+    "L_std": 30.013715744018555,
+    "chroma": 7.704370498657227,
+    "a_mean": -1.922520597775777,
+    "b_mean": 0.6447565605243047,
+    "colourfulness": 24.4654574659786
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0036.jpg",
+   "tags": {
+    "description": "A stack of white business cards with the text 'nobrand' in orange and social media handles printed on them.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "stack of business cards",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.282,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0037",
+   "start": 33.433,
+   "end": 34.1,
+   "dur": 0.667,
+   "colour": {
+    "L_mean": 72.08648173014323,
+    "L_std": 27.434791564941406,
+    "chroma": 10.210122426350912,
+    "a_mean": 0.7633463342984518,
+    "b_mean": 7.56658395131429,
+    "colourfulness": 45.42003718249396
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0037.jpg",
+   "tags": {
+    "description": "A close-up of a computer screen displaying a design interface with the text 'Single source' and the 'nobrand' logo.",
+    "kind": "footage",
+    "content": "ui_chart",
+    "sourcing_hint": "computer screen design interface",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_right",
+    "amount": 0.222,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0038",
+   "start": 34.1,
+   "end": 34.967,
+   "dur": 0.867,
+   "colour": {
+    "L_mean": 81.63607279459636,
+    "L_std": 12.645474433898926,
+    "chroma": 10.092503547668457,
+    "a_mean": 3.7548582553863525,
+    "b_mean": -4.484511375427246,
+    "colourfulness": 27.356457430470652
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0038.jpg",
+   "tags": {
+    "description": "A pile of colorful pencils with erasers scattered on a plain light background.",
+    "kind": "footage",
+    "content": "multi_subject",
+    "sourcing_hint": "pile of colorful pencils",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 0.641,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0039",
+   "start": 34.967,
+   "end": 36.5,
+   "dur": 1.533,
+   "colour": {
+    "L_mean": 11.342665672302246,
+    "L_std": 21.661266644795734,
+    "chroma": 4.669490348688972,
+    "a_mean": -2.225266016500124,
+    "b_mean": 1.552720485263156,
+    "colourfulness": 12.723229361414226
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0039.jpg",
+   "tags": {
+    "description": "A white silhouette of a rabbit running on a black background.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "white rabbit silhouette",
+    "likely_sources": [
+     "hyperframes",
+     "giphy"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "fast",
+     "layout": "left side has white silhouettes on black, right side shows a person in a tunnel",
+     "palette": "black, white, teal, orange",
+     "type_style": "none",
+     "notes": "silhouettes slide in from left, then cut to a live-action shot of a person walking down a lit tunnel"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0039.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.685,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0040",
+   "start": 36.5,
+   "end": 38.3,
+   "dur": 1.8,
+   "colour": {
+    "L_mean": 26.17914581298828,
+    "L_std": 30.47487195332845,
+    "chroma": 11.988998413085938,
+    "a_mean": -4.737906773885091,
+    "b_mean": 3.6883622805277505,
+    "colourfulness": 37.65624256606837
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0040.jpg",
+   "tags": {
+    "description": "A woman with dark hair walks away from the camera down a dark, tiled corridor illuminated by red neon lights.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "woman walking in dark corridor",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_left",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0041",
+   "start": 38.3,
+   "end": 39.2,
+   "dur": 0.9,
+   "colour": {
+    "L_mean": 43.02392832438151,
+    "L_std": 12.23508389790853,
+    "chroma": 62.23324076334635,
+    "a_mean": 32.15547243754069,
+    "b_mean": -52.46046574910482,
+    "colourfulness": 57.06234085397663
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0041.jpg",
+   "tags": {
+    "description": "A flat, 2D motion graphic animation featuring abstract geometric shapes in white, orange, and dark blue against a solid purple background.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "abstract geometric shapes animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": false,
+    "overlay_extra": true,
+    "text_on_screen": false,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "centered on a solid purple background",
+     "palette": "purple, white, orange, black",
+     "type_style": "none",
+     "notes": "a simple robot-like figure assembles piece by piece"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0041.jpg",
+   "motion": {
+    "move": "pan_right",
+    "amount": 0.126,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0042",
+   "start": 39.2,
+   "end": 39.8,
+   "dur": 0.6,
+   "colour": {
+    "L_mean": 76.43870290120442,
+    "L_std": 14.535873095194498,
+    "chroma": 32.922536849975586,
+    "a_mean": -20.044079462687176,
+    "b_mean": 19.942150115966797,
+    "colourfulness": 71.38624836788091
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0042.jpg",
+   "tags": {
+    "description": "A still image of a fresh salad in a white bowl with the word 'SALAD' in large white letters behind it against a green background.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "fresh salad bowl stock photo",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.817,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0043",
+   "start": 39.8,
+   "end": 40.333,
+   "dur": 0.533,
+   "colour": {
+    "L_mean": 81.8833516438802,
+    "L_std": 12.097681999206543,
+    "chroma": 13.279077529907227,
+    "a_mean": 0.423384686311086,
+    "b_mean": 11.299686431884766,
+    "colourfulness": 38.789490372321126
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0043.jpg",
+   "tags": {
+    "description": "A minimalist motion graphic of a stylized letter 'B' with layered paper textures in white, dark blue, and red on a beige background.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "minimalist letter b motion graphic",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": false,
+    "overlay_extra": true,
+    "text_on_screen": false,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "centered on a light beige background",
+     "palette": "beige, red, dark blue, white",
+     "type_style": "bold sans",
+     "notes": "the letter 'B' morphs through different color combinations"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0043.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0044",
+   "start": 40.333,
+   "end": 40.8,
+   "dur": 0.467,
+   "colour": {
+    "L_mean": 13.042339960734049,
+    "L_std": 27.677549362182617,
+    "chroma": 20.249698003133137,
+    "a_mean": 7.276511828104655,
+    "b_mean": -18.03109359741211,
+    "colourfulness": 34.09480911337993
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0044.jpg",
+   "tags": {
+    "description": "A motion graphic featuring floating glass bubbles on a dark blue background with the text 'No commission fees' overlaid.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "glass bubbles floating animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "fades_in",
+     "speed": "slow",
+     "layout": "centered on a dark blue background with floating bubbles",
+     "palette": "dark blue, white, light blue",
+     "type_style": "bold sans",
+     "notes": "text 'No commission fees' fades in with animated bubbles rising"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0044.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0045",
+   "start": 40.8,
+   "end": 42.0,
+   "dur": 1.2,
+   "colour": {
+    "L_mean": 45.95132319132487,
+    "L_std": 9.523428440093994,
+    "chroma": 94.64183553059895,
+    "a_mean": 49.357421875,
+    "b_mean": -80.74740854899089,
+    "colourfulness": 80.80439015399605
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0045.jpg",
+   "tags": {
+    "description": "A simple text card on a solid blue background displaying the words 'feel' and 'confident' with an arrow between them.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "minimalist text card animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "centered on a solid blue background",
+     "palette": "blue, white",
+     "type_style": "monospace",
+     "notes": "text appears sequentially with an arrow drawing itself to the right"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0045.jpg",
+   "motion": {
+    "move": "push_in",
+    "amount": 0.237,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0046",
+   "start": 42.0,
+   "end": 42.833,
+   "dur": 0.833,
+   "colour": {
+    "L_mean": 83.94995880126953,
+    "L_std": 27.77113087972005,
+    "chroma": 24.9241460164388,
+    "a_mean": 1.8214890956878662,
+    "b_mean": 12.499389012654623,
+    "colourfulness": 116.10089578492698
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0046.jpg",
+   "tags": {
+    "description": "A colorful motion graphic of overlapping circles in yellow, blue, red, and black on a white background.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "colorful overlapping circles animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": false,
+    "overlay_extra": true,
+    "text_on_screen": false,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "centered on a white background",
+     "palette": "yellow, blue, red, black",
+     "type_style": "none",
+     "notes": "abstract shapes expand and merge into a larger form"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0046.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0047",
+   "start": 42.833,
+   "end": 44.067,
+   "dur": 1.234,
+   "colour": {
+    "L_mean": 26.454379399617512,
+    "L_std": 22.116058349609375,
+    "chroma": 20.288082758585613,
+    "a_mean": -4.120092948277791,
+    "b_mean": 12.277626037597656,
+    "colourfulness": 62.51373383366385
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0047.jpg",
+   "tags": {
+    "description": "A close-up profile shot of a woman looking to the right with the text 'Let's take charge' overlaid on the left side.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "woman profile looking right stock video",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "youtube"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_right",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0048",
+   "start": 44.067,
+   "end": 45.733,
+   "dur": 1.666,
+   "colour": {
+    "L_mean": 89.95556386311848,
+    "L_std": 7.7445887724558515,
+    "chroma": 0.2536754012107849,
+    "a_mean": -0.06856409087777138,
+    "b_mean": -0.07838939689099789,
+    "colourfulness": 7.416327111947999
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0048.jpg",
+   "tags": {
+    "description": "A minimalist text animation on a light grey background showing the words 'to et' and a small green square.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "minimalist text animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "slow",
+     "layout": "left side has text on white, right side shows a 3D grid structure",
+     "palette": "white, green, grey",
+     "type_style": "monospace",
+     "notes": "text types out while a 3D grid structure assembles on the right"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0048.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.451,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0049",
+   "start": 45.733,
+   "end": 46.333,
+   "dur": 0.6,
+   "colour": {
+    "L_mean": 69.09178670247395,
+    "L_std": 28.96673011779785,
+    "chroma": 0.5935641527175903,
+    "a_mean": -0.31062499682108563,
+    "b_mean": -0.06368598093589146,
+    "colourfulness": 9.535194343644493
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0049.jpg",
+   "tags": {
+    "description": "A technical 3D animation showing the internal layers of a car battery with the text 'for automotive manufacturers' overlaid.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "car battery internal layers animation",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "centered product shot with a curved line tracing the bottom edge",
+     "palette": "silver, black, white, teal accent",
+     "type_style": "thin sans-serif",
+     "notes": "a glowing teal line traces the product's silhouette"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0049.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.142,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0050",
+   "start": 46.333,
+   "end": 46.633,
+   "dur": 0.3,
+   "colour": {
+    "L_mean": 70.85258483886719,
+    "L_std": 32.71165466308594,
+    "chroma": 3.591625134150187,
+    "a_mean": -0.42684390147527057,
+    "b_mean": 0.9953501423199972,
+    "colourfulness": 11.338445187735326
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0050.jpg",
+   "tags": {
+    "description": "A screenshot of a software interface displaying a speaker image and a 'Required metadata' card with an 'Image usage' field.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "software metadata interface screenshot",
+    "likely_sources": [
+     "google_images",
+     "hyperframes",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "three panels showing a speaker and a settings menu",
+     "palette": "dark grey, white, purple accent",
+     "type_style": "clean sans-serif",
+     "notes": "a purple checkmark icon appears in the menu"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0050.jpg",
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.253,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0051",
+   "start": 46.633,
+   "end": 47.3,
+   "dur": 0.667,
+   "colour": {
+    "L_mean": 76.94912211100261,
+    "L_std": 18.465065002441406,
+    "chroma": 13.910413106282553,
+    "a_mean": -5.583427906036377,
+    "b_mean": 11.84007708231608,
+    "colourfulness": 70.45015109723566
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0051.jpg",
+   "tags": {
+    "description": "A 3D rendered graphic of a futuristic device floating in front of a grey background with large, neon yellow text reading 'nye 2.1'. The camera is static.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "futuristic device 3d render",
+    "likely_sources": [
+     "ai_video",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "slow",
+     "layout": "product centered with large background text",
+     "palette": "white, black, neon yellow",
+     "type_style": "bold, oversized sans-serif",
+     "notes": "background text 'hye 2.1' slides in from the sides"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0051.jpg",
+   "motion": {
+    "move": "push_in",
+    "amount": 0.231,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "6fbb8d80c63c-0052",
+   "start": 47.3,
+   "end": 50.067,
+   "dur": 2.767,
+   "colour": {
+    "L_mean": 86.08692932128906,
+    "L_std": 5.731320858001709,
+    "chroma": 3.7986260255177817,
+    "a_mean": 1.720207969347636,
+    "b_mean": 3.3501598834991455,
+    "colourfulness": 5.4287569855653315
+   },
+   "keyframe": "keyframes/6fbb8d80c63c-0052.jpg",
+   "tags": {
+    "description": "A static end card featuring the text '@buffmotion' in the center and a 'Certified B' logo at the bottom against a beige background with abstract curved shapes.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "social media handle end card",
+    "likely_sources": [
+     "hyperframes",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "fades_in",
+     "speed": "slow",
+     "layout": "centered logo on a patterned background",
+     "palette": "beige, dark grey",
+     "type_style": "minimal sans-serif",
+     "notes": "background pattern is a subtle repeating wave shape"
+    }
+   },
+   "strip": "strips/6fbb8d80c63c-0052.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  }
+ ],
+ "calibration": {
+  "dino": {
+   "lo": 0.08085037767887115,
+   "hi": 0.49715152382850647
+  },
+  "siglip_text": {
+   "lo": 0.06858222931623459,
+   "hi": 0.13406319916248322
+  }
+ },
+ "tags_status": "done",
+ "complete": true,
+ "tags_error": "",
+ "describe": {
+  "cost_usd": 0.0,
+  "wall_secs": 140.4,
+  "described": 52,
+  "animate_cost_usd": 0.0
+ },
+ "source": {
+  "kind": "fixture",
+  "name": "label_showreel"
+ }
+}

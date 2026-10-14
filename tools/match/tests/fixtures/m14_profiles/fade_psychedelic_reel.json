@@ -1,0 +1,2380 @@
+{
+ "hash": "d2e1396662aa",
+ "duration": 178.23333333333332,
+ "windows": [
+  [
+   0.0,
+   178.23333333333332
+  ]
+ ],
+ "shots": [
+  {
+   "id": "d2e1396662aa-0001",
+   "start": 0.0,
+   "end": 3.633,
+   "dur": 3.633,
+   "colour": {
+    "L_mean": 47.01979955037435,
+    "L_std": 24.13355318705241,
+    "chroma": 42.40746180216471,
+    "a_mean": 15.476173082987467,
+    "b_mean": 18.44808864593506,
+    "colourfulness": 123.23599383018376
+   },
+   "keyframe": "keyframes/d2e1396662aa-0001.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a psychedelic, colorful background featuring a large, stylized human head silhouette. Green text overlays the image reading 'OZEMPIC for the BRAIN' and '$100BN market for'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "psychedelic background art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially from left to right across three panels; speaker remains static in foreground",
+     "palette": "Bright psychedelic colors: red, yellow, blue, green",
+     "type_style": "Bold sans-serif, neon green",
+     "notes": "Background features a stylized human head silhouette with concentric rings"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0001.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0002",
+   "start": 3.633,
+   "end": 5.8,
+   "dur": 2.167,
+   "colour": {
+    "L_mean": 24.791622161865234,
+    "L_std": 26.5612735748291,
+    "chroma": 18.888933181762695,
+    "a_mean": 7.328874270121257,
+    "b_mean": -2.116693456967672,
+    "colourfulness": 56.78111097805236
+   },
+   "keyframe": "keyframes/d2e1396662aa-0002.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark, abstract background featuring a close-up of a glowing, stylized eye. Green text at the bottom reads 'current developments promise'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "abstract glowing eye art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text appears in sequence across three panels; speaker centered in foreground",
+     "palette": "Dark background with glowing purple, blue, and orange highlights",
+     "type_style": "Neon green sans-serif",
+     "notes": "Background shows close-up of glowing eyes with abstract patterns"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0002.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0003",
+   "start": 5.8,
+   "end": 8.433,
+   "dur": 2.633,
+   "colour": {
+    "L_mean": 18.840401967366535,
+    "L_std": 21.77586619059245,
+    "chroma": 15.012113253275553,
+    "a_mean": 6.3024342854817705,
+    "b_mean": -0.8522642850875854,
+    "colourfulness": 47.90452461091011
+   },
+   "keyframe": "keyframes/d2e1396662aa-0003.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background with a large, stylized face featuring glowing yellow eyes and pink cheeks. Green text at the bottom reads 'focus motivation or'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "psychedelic face art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays slide in left to right; speaker static in foreground",
+     "palette": "Dark with glowing yellow, pink, and purple accents",
+     "type_style": "Neon green sans-serif",
+     "notes": "Background features glowing eyes with wavy lines above"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0003.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0004",
+   "start": 8.433,
+   "end": 10.533,
+   "dur": 2.1,
+   "colour": {
+    "L_mean": 36.350088119506836,
+    "L_std": 25.006731669108074,
+    "chroma": 33.179266611735024,
+    "a_mean": 16.51159159342448,
+    "b_mean": -10.927842458089193,
+    "colourfulness": 86.02670330770196
+   },
+   "keyframe": "keyframes/d2e1396662aa-0004.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a large, colorful, spinning kaleidoscope-like circle. Green text at the bottom reads 'narrower for now'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "kaleidoscope abstract art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "Three circular eye motifs pop into view; speaker static below",
+     "palette": "Vibrant rainbow gradient with black background",
+     "type_style": "Neon green sans-serif",
+     "notes": "Each panel shows a different stage of the eye graphic evolving"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0004.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0005",
+   "start": 10.533,
+   "end": 12.633,
+   "dur": 2.1,
+   "colour": {
+    "L_mean": 15.502263387044271,
+    "L_std": 15.242341677347818,
+    "chroma": 27.830928802490234,
+    "a_mean": 16.963391145070393,
+    "b_mean": -16.03942934672038,
+    "colourfulness": 73.95295752209078
+   },
+   "keyframe": "keyframes/d2e1396662aa-0005.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a large, shadowy silhouette of a face with glowing white eyes. Green text at the bottom reads 'learned how to'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "shadowy face silhouette art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text appears sequentially; speaker static in foreground",
+     "palette": "Dark with glowing green, purple, and white eyes",
+     "type_style": "Neon green sans-serif",
+     "notes": "Background features a shadowy figure with glowing eyes"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0005.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0006",
+   "start": 12.633,
+   "end": 17.833,
+   "dur": 5.2,
+   "colour": {
+    "L_mean": 32.53287315368652,
+    "L_std": 15.022982915242514,
+    "chroma": 45.91387685139974,
+    "a_mean": 22.465749104817707,
+    "b_mean": -35.247496922810875,
+    "colourfulness": 79.51044909585649
+   },
+   "keyframe": "keyframes/d2e1396662aa-0006.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a blue background filled with colorful bokeh lights. A dark silhouette of a face with white eyes is visible behind him. Green text at the bottom reads 'wakefulness'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "bokeh lights face silhouette",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear left to right; speaker static in foreground",
+     "palette": "Deep blue with multicolored bokeh lights",
+     "type_style": "Neon green sans-serif",
+     "notes": "Background shows vertical columns with floating glowing orbs"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0006.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.511,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0007",
+   "start": 17.833,
+   "end": 22.533,
+   "dur": 4.7,
+   "colour": {
+    "L_mean": 36.7266845703125,
+    "L_std": 26.094120025634766,
+    "chroma": 24.651291529337566,
+    "a_mean": 9.402501424153646,
+    "b_mean": 2.0019221107165017,
+    "colourfulness": 79.98711677729592
+   },
+   "keyframe": "keyframes/d2e1396662aa-0007.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring two vertical columns of colorful, glowing spheres resembling eyes. Green text at the bottom reads 'are betting billions'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "colorful glowing spheres art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text appears sequentially; speaker static in foreground",
+     "palette": "Dark with vibrant rainbow-colored eye beads",
+     "type_style": "Neon green sans-serif",
+     "notes": "Background features cascading rows of colorful eye-shaped beads"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0007.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.547,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0008",
+   "start": 22.533,
+   "end": 30.367,
+   "dur": 7.834,
+   "colour": {
+    "L_mean": 42.474847157796226,
+    "L_std": 20.499841054280598,
+    "chroma": 45.224666595458984,
+    "a_mean": 33.07406870524088,
+    "b_mean": -20.04542287190755,
+    "colourfulness": 102.78267929838358
+   },
+   "keyframe": "keyframes/d2e1396662aa-0008.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a purple background with radiating lines. A large, pink, stylized eye graphic is visible behind him. Green text at the bottom reads '80,000 neurons that'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "stylized eye graphic art",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "Three versions of a pink eye graphic pop in; speaker static below",
+     "palette": "Pink, purple, blue with radial burst background",
+     "type_style": "Neon green sans-serif",
+     "notes": "Each panel shows progressive detail in the eye graphic"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0008.jpg",
+   "motion": {
+    "move": "pan_right",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0009",
+   "start": 30.367,
+   "end": 30.8,
+   "dur": 0.433,
+   "colour": {
+    "L_mean": 70.1130142211914,
+    "L_std": 13.409223238627115,
+    "chroma": 26.906373977661133,
+    "a_mean": 9.422531445821127,
+    "b_mean": 16.35902690887451,
+    "colourfulness": 97.94951750468294
+   },
+   "keyframe": "keyframes/d2e1396662aa-0009.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a gradient background transitioning from green to red. A small, red, glowing orb floats above his head. Green text at the bottom reads 'the the boundary'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "gradient background red orb",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "counts_up",
+     "speed": "slow",
+     "layout": "Red oval grows from small to large; speaker static in foreground",
+     "palette": "Gradient from pale green to deep red",
+     "type_style": "Neon green sans-serif",
+     "notes": "Oval expands smoothly while text appears below"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0009.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0010",
+   "start": 30.8,
+   "end": 31.367,
+   "dur": 0.567,
+   "colour": {
+    "L_mean": 50.650946299235024,
+    "L_std": 12.188528696695963,
+    "chroma": 77.47364298502605,
+    "a_mean": 54.785528818766274,
+    "b_mean": 48.25241216023763,
+    "colourfulness": 167.95019672231217
+   },
+   "keyframe": "keyframes/d2e1396662aa-0010.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a solid red background. A small, dark clock graphic floats above his head. Green text at the bottom reads 'between sleeping and'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "red background clock graphic",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "pinterest"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "fast",
+     "layout": "Three circular graphics pop in; speaker static in foreground",
+     "palette": "Bright red background with black and pink elements",
+     "type_style": "Neon green sans-serif",
+     "notes": "Each panel shows increasing complexity in the central graphic"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0010.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0011",
+   "start": 31.367,
+   "end": 34.5,
+   "dur": 3.133,
+   "colour": {
+    "L_mean": 56.97237014770508,
+    "L_std": 17.136061986287434,
+    "chroma": 52.33618672688802,
+    "a_mean": 15.610941251118978,
+    "b_mean": 17.6015887260437,
+    "colourfulness": 140.102777422292
+   },
+   "keyframe": "keyframes/d2e1396662aa-0011.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in the foreground against a psychedelic, colorful background featuring a large, stylized eye graphic. The background has a distinct synthetic, AI-generated look.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "psychedelic eye background",
+    "likely_sources": [
+     "ai_video",
+     "pinterest",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "neon green, hot pink, purple, orange",
+     "type_style": "green monospace",
+     "notes": "psychedelic spiral and geometric patterns animate behind the speaker"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0011.jpg",
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.533,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0012",
+   "start": 34.5,
+   "end": 35.067,
+   "dur": 0.567,
+   "colour": {
+    "L_mean": 50.5900624593099,
+    "L_std": 12.080958366394043,
+    "chroma": 77.40325673421223,
+    "a_mean": 55.23222223917643,
+    "b_mean": 48.18297576904297,
+    "colourfulness": 166.8336462422013
+   },
+   "keyframe": "keyframes/d2e1396662aa-0012.jpg",
+   "tags": {
+    "description": "The man is now framed against a solid red background with a small clock graphic floating above his head. The style remains consistent with the previous shot.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "red background clock graphic",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "bright red, yellow, black",
+     "type_style": "green monospace",
+     "notes": "abstract shapes and a clock-like circle animate in the center of the panels"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0012.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0013",
+   "start": 35.067,
+   "end": 38.933,
+   "dur": 3.866,
+   "colour": {
+    "L_mean": 61.33879470825195,
+    "L_std": 18.601342519124348,
+    "chroma": 37.57533264160156,
+    "a_mean": 9.282973766326904,
+    "b_mean": 14.3930025100708,
+    "colourfulness": 113.75602393336517
+   },
+   "keyframe": "keyframes/d2e1396662aa-0013.jpg",
+   "tags": {
+    "description": "The background shifts to a space theme with stars, featuring a large, glowing, stylized brain or eye graphic behind the man.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "space background brain graphic",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "green, pink, blue, orange",
+     "type_style": "green monospace",
+     "notes": "geometric mandalas and floating hands animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0013.jpg",
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.584,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0014",
+   "start": 38.933,
+   "end": 41.067,
+   "dur": 2.134,
+   "colour": {
+    "L_mean": 59.50373967488607,
+    "L_std": 22.797828038533527,
+    "chroma": 40.67535909016927,
+    "a_mean": 15.988141695658365,
+    "b_mean": 1.5672051111857097,
+    "colourfulness": 122.30909690871319
+   },
+   "keyframe": "keyframes/d2e1396662aa-0014.jpg",
+   "tags": {
+    "description": "The background changes to a geometric pattern with intersecting black lines and a glowing pink and blue circle behind the man.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "geometric lines glowing circle",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "purple, pink, teal, black",
+     "type_style": "green monospace",
+     "notes": "abstract geometric shapes and a blue silhouette animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0014.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0015",
+   "start": 41.067,
+   "end": 42.6,
+   "dur": 1.533,
+   "colour": {
+    "L_mean": 65.98252614339192,
+    "L_std": 17.188918431599934,
+    "chroma": 30.1620610555013,
+    "a_mean": 15.014727592468262,
+    "b_mean": 16.944213549296062,
+    "colourfulness": 105.17092858179637
+   },
+   "keyframe": "keyframes/d2e1396662aa-0015.jpg",
+   "tags": {
+    "description": "The background is a gradient of red and green with two large, cartoonish red hands reaching down from the top corners.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "cartoon hands reaching down",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "red, orange, black, pink",
+     "type_style": "green monospace",
+     "notes": "floating hands and abstract shapes animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0015.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0016",
+   "start": 42.6,
+   "end": 44.733,
+   "dur": 2.133,
+   "colour": {
+    "L_mean": 59.40296427408854,
+    "L_std": 22.766417185465496,
+    "chroma": 40.641466776529946,
+    "a_mean": 16.477170944213867,
+    "b_mean": 1.423326015472412,
+    "colourfulness": 121.92909439140158
+   },
+   "keyframe": "keyframes/d2e1396662aa-0016.jpg",
+   "tags": {
+    "description": "The background returns to the geometric pattern with intersecting black lines and a glowing pink and blue circle, similar to the previous shot.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "geometric lines glowing circle",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "purple, pink, teal, black",
+     "type_style": "green monospace",
+     "notes": "abstract geometric shapes and a blue silhouette animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0016.jpg",
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.183,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0017",
+   "start": 44.733,
+   "end": 46.7,
+   "dur": 1.967,
+   "colour": {
+    "L_mean": 67.944580078125,
+    "L_std": 15.380214055379232,
+    "chroma": 29.309192657470703,
+    "a_mean": 13.509848594665527,
+    "b_mean": 16.689922014872234,
+    "colourfulness": 100.91398012446302
+   },
+   "keyframe": "keyframes/d2e1396662aa-0017.jpg",
+   "tags": {
+    "description": "The background is a gradient with a large, stylized eye graphic floating above the man's head.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "stylized eye graphic gradient",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "red, orange, black, pink",
+     "type_style": "green monospace",
+     "notes": "floating hands and abstract shapes animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0017.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0018",
+   "start": 46.7,
+   "end": 51.633,
+   "dur": 4.933,
+   "colour": {
+    "L_mean": 65.30272674560547,
+    "L_std": 16.615273157755535,
+    "chroma": 34.79477055867513,
+    "a_mean": 9.258604685465494,
+    "b_mean": 16.565024852752686,
+    "colourfulness": 96.84275323765515
+   },
+   "keyframe": "keyframes/d2e1396662aa-0018.jpg",
+   "tags": {
+    "description": "The background features a large, abstract green shape with a white center against a pink and purple gradient.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "abstract green shape gradient",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "pink, green, black, orange",
+     "type_style": "green monospace",
+     "notes": "abstract geometric shapes and a green silhouette animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0018.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0019",
+   "start": 51.633,
+   "end": 53.6,
+   "dur": 1.967,
+   "colour": {
+    "L_mean": 66.45354080200195,
+    "L_std": 14.869308789571127,
+    "chroma": 30.47794532775879,
+    "a_mean": 22.797643025716145,
+    "b_mean": 7.663427273432414,
+    "colourfulness": 77.77747071532862
+   },
+   "keyframe": "keyframes/d2e1396662aa-0019.jpg",
+   "tags": {
+    "description": "The background shows a glowing pink and purple cone shape pointing downwards against a soft gradient.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "glowing cone shape gradient",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "pink, orange, black, teal",
+     "type_style": "green monospace",
+     "notes": "abstract geometric shapes and a pink circle animate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0019.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0020",
+   "start": 53.6,
+   "end": 61.2,
+   "dur": 7.6,
+   "colour": {
+    "L_mean": 49.14457575480143,
+    "L_std": 15.14273452758789,
+    "chroma": 41.395554860432945,
+    "a_mean": 17.272663752237957,
+    "b_mean": -5.662802244226138,
+    "colourfulness": 125.63635985658395
+   },
+   "keyframe": "keyframes/d2e1396662aa-0020.jpg",
+   "tags": {
+    "description": "The man is superimposed over a background of floating, colorful capsules (pills) in blue, pink, and green.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "floating colorful pills",
+    "likely_sources": [
+     "ai_video",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "draws_on",
+     "speed": "medium",
+     "layout": "three vertical panels with the speaker at the bottom of each",
+     "palette": "blue, pink, green, red",
+     "type_style": "green monospace",
+     "notes": "capsules float and rotate in the background"
+    }
+   },
+   "strip": "strips/d2e1396662aa-0020.jpg",
+   "motion": {
+    "move": "tilt_up",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0021",
+   "start": 61.2,
+   "end": 68.733,
+   "dur": 7.533,
+   "colour": {
+    "L_mean": 49.38542048136393,
+    "L_std": 17.110056559244793,
+    "chroma": 33.99735895792643,
+    "a_mean": 15.069665590922037,
+    "b_mean": 9.764088948567709,
+    "colourfulness": 91.33938050139177
+   },
+   "keyframe": "keyframes/d2e1396662aa-0021.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in the foreground with a large, colorful pile of pills raining down behind him. The shot is a composite of a talking head and a stock video background.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "colorful pills falling stock video",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "White background, multi-colored pills (green, pink, blue, orange), light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of falling pills."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0021.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0022",
+   "start": 68.733,
+   "end": 74.633,
+   "dur": 5.9,
+   "colour": {
+    "L_mean": 41.38943227132162,
+    "L_std": 17.683738708496094,
+    "chroma": 27.475798924763996,
+    "a_mean": 2.189750909805298,
+    "b_mean": -0.9487647414207458,
+    "colourfulness": 65.81528583302985
+   },
+   "keyframe": "keyframes/d2e1396662aa-0022.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a large, glossy, 3D animated pill capsule. The background is a smooth gradient.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "3d pill capsule render",
+    "likely_sources": [
+     "hyperframes",
+     "pixabay_image",
+     "pexels_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Green background, large blue and white pill, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a large pill."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0022.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0023",
+   "start": 74.633,
+   "end": 78.0,
+   "dur": 3.367,
+   "colour": {
+    "L_mean": 43.007303873697914,
+    "L_std": 15.995052019755045,
+    "chroma": 25.304931640625,
+    "a_mean": 11.815862019856771,
+    "b_mean": 9.853430112202963,
+    "colourfulness": 79.02276356584429
+   },
+   "keyframe": "keyframes/d2e1396662aa-0023.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a large, surreal image of an open mouth filled with pills. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "open mouth filled with pills",
+    "likely_sources": [
+     "pinterest",
+     "giphy",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Pink lips, multi-colored pills, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of an open mouth filled with pills."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0023.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0024",
+   "start": 78.0,
+   "end": 81.067,
+   "dur": 3.067,
+   "colour": {
+    "L_mean": 42.32974497477213,
+    "L_std": 16.049684524536133,
+    "chroma": 17.33586088816325,
+    "a_mean": 9.814484278361002,
+    "b_mean": 8.652317523956299,
+    "colourfulness": 47.842433878360794
+   },
+   "keyframe": "keyframes/d2e1396662aa-0024.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a woman's face wearing safety goggles. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "woman wearing safety goggles",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Skin tones, clear goggles, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a woman's face wearing goggles."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0024.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.176,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0025",
+   "start": 81.067,
+   "end": 82.1,
+   "dur": 1.033,
+   "colour": {
+    "L_mean": 35.3635368347168,
+    "L_std": 17.213864008585613,
+    "chroma": 14.881528854370117,
+    "a_mean": 8.764539082845053,
+    "b_mean": 6.358373641967773,
+    "colourfulness": 43.707160985415435
+   },
+   "keyframe": "keyframes/d2e1396662aa-0025.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a woman's face wearing safety goggles. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "woman wearing safety goggles",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Skin tones, clear goggles, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a woman's face wearing goggles."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0025.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0026",
+   "start": 82.1,
+   "end": 83.433,
+   "dur": 1.333,
+   "colour": {
+    "L_mean": 46.50834274291992,
+    "L_std": 18.814687728881836,
+    "chroma": 10.068426767985025,
+    "a_mean": 2.83040722211202,
+    "b_mean": 3.7175302505493164,
+    "colourfulness": 35.18106670629649
+   },
+   "keyframe": "keyframes/d2e1396662aa-0026.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a woman's face inside a glass beaker or flask. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "woman face inside glass beaker",
+    "likely_sources": [
+     "pinterest",
+     "giphy",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Skin tones, clear goggles, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a woman's face wearing goggles."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0026.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0027",
+   "start": 83.433,
+   "end": 84.9,
+   "dur": 1.467,
+   "colour": {
+    "L_mean": 24.46150843302409,
+    "L_std": 20.75040626525879,
+    "chroma": 10.572824160257975,
+    "a_mean": -1.377489447593689,
+    "b_mean": 0.8421991864840189,
+    "colourfulness": 37.91162958217058
+   },
+   "keyframe": "keyframes/d2e1396662aa-0027.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a large, circular medical imaging device, possibly an MRI or CT scanner, with an eye visible inside. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "medical scanner eye close up",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Dark blue background, circular medical device, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a medical device with an eye visible inside."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0027.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0028",
+   "start": 84.9,
+   "end": 86.433,
+   "dur": 1.533,
+   "colour": {
+    "L_mean": 26.80204137166341,
+    "L_std": 19.38633855183919,
+    "chroma": 24.284617106119793,
+    "a_mean": 1.8727126121520996,
+    "b_mean": -20.319443384806316,
+    "colourfulness": 56.44617377263702
+   },
+   "keyframe": "keyframes/d2e1396662aa-0028.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a woman's eye inside a circular medical imaging device. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "woman eye inside medical scanner",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Dark blue background, circular medical device, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of a medical device with an eye visible inside."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0028.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0029",
+   "start": 86.433,
+   "end": 87.633,
+   "dur": 1.2,
+   "colour": {
+    "L_mean": 22.46377436319987,
+    "L_std": 18.178775151570637,
+    "chroma": 13.284396171569824,
+    "a_mean": -7.4489156405131025,
+    "b_mean": -1.1501859162623684,
+    "colourfulness": 44.64085708709438
+   },
+   "keyframe": "keyframes/d2e1396662aa-0029.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a retro green-screen monitor displaying a face, with oscilloscope equipment above it. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "retro oscilloscope monitor green screen",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Dark grey background, green CRT monitors, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of old computer monitors displaying a man's face."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0029.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0030",
+   "start": 87.633,
+   "end": 92.833,
+   "dur": 5.2,
+   "colour": {
+    "L_mean": 56.54327265421549,
+    "L_std": 12.952454249064127,
+    "chroma": 24.776667912801106,
+    "a_mean": 6.216248114903768,
+    "b_mean": 18.965236981709797,
+    "colourfulness": 67.92646553031746
+   },
+   "keyframe": "keyframes/d2e1396662aa-0030.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a background of rising bubbles in a liquid. The shot is a composite.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "bubbles rising in liquid",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays appear sequentially at the bottom of the frame, moving from left to right across the three panels.",
+     "palette": "Yellow and orange background, bubbles, light blue shirt",
+     "type_style": "Green, lowercase sans-serif",
+     "notes": "The background is a static image of bubbles in a liquid."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0030.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0031",
+   "start": 92.833,
+   "end": 96.133,
+   "dur": 3.3,
+   "colour": {
+    "L_mean": 32.02067947387695,
+    "L_std": 23.35825030008952,
+    "chroma": 15.894935607910156,
+    "a_mean": 4.1050717035929365,
+    "b_mean": -6.775958731770515,
+    "colourfulness": 46.02065965631431
+   },
+   "keyframe": "keyframes/d2e1396662aa-0031.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a glowing blue neuron graphic. He is gesturing with his hands while speaking.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking neuron background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.467,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0032",
+   "start": 96.133,
+   "end": 101.3,
+   "dur": 5.167,
+   "colour": {
+    "L_mean": 38.20381546020508,
+    "L_std": 22.774099349975586,
+    "chroma": 34.52022806803385,
+    "a_mean": 11.057215372721354,
+    "b_mean": 3.3718953132629395,
+    "colourfulness": 106.93238101206605
+   },
+   "keyframe": "keyframes/d2e1396662aa-0032.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a large, iridescent, rainbow-colored pill graphic. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking pill background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 0.161,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0033",
+   "start": 101.3,
+   "end": 106.733,
+   "dur": 5.433,
+   "colour": {
+    "L_mean": 37.83056513468424,
+    "L_std": 15.838679313659668,
+    "chroma": 29.741010665893555,
+    "a_mean": 5.114722669124603,
+    "b_mean": 4.944917798042297,
+    "colourfulness": 79.91058393980424
+   },
+   "keyframe": "keyframes/d2e1396662aa-0033.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a colorful background featuring a vertical stack of iridescent pill capsules. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking pill stack background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.149,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0034",
+   "start": 106.733,
+   "end": 113.467,
+   "dur": 6.734,
+   "colour": {
+    "L_mean": 33.89161173502604,
+    "L_std": 21.15952428181966,
+    "chroma": 50.472347259521484,
+    "a_mean": 37.95721689860026,
+    "b_mean": 5.69111696879069,
+    "colourfulness": 130.72735391257035
+   },
+   "keyframe": "keyframes/d2e1396662aa-0034.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a large, glowing, iridescent pill graphic. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking pill background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.512,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0035",
+   "start": 113.467,
+   "end": 114.267,
+   "dur": 0.8,
+   "colour": {
+    "L_mean": 24.69877052307129,
+    "L_std": 17.237834294637043,
+    "chroma": 31.3194522857666,
+    "a_mean": 18.457239151000977,
+    "b_mean": 22.567633946736652,
+    "colourfulness": 64.90313010499735
+   },
+   "keyframe": "keyframes/d2e1396662aa-0035.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a warm, orange-lit background featuring a bathroom scale. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking scale background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0036",
+   "start": 114.267,
+   "end": 116.567,
+   "dur": 2.3,
+   "colour": {
+    "L_mean": 25.57140350341797,
+    "L_std": 18.98927116394043,
+    "chroma": 30.097937266031902,
+    "a_mean": 17.806355794270832,
+    "b_mean": 21.224847157796223,
+    "colourfulness": 67.34702158101048
+   },
+   "keyframe": "keyframes/d2e1396662aa-0036.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a bathroom scale dial showing weight numbers. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking scale dial background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 0.729,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0037",
+   "start": 116.567,
+   "end": 118.2,
+   "dur": 1.633,
+   "colour": {
+    "L_mean": 21.304623285929363,
+    "L_std": 13.550215403238932,
+    "chroma": 37.07563781738281,
+    "a_mean": 25.697611490885418,
+    "b_mean": 25.208969751993816,
+    "colourfulness": 85.76899147698889
+   },
+   "keyframe": "keyframes/d2e1396662aa-0037.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a dark background featuring a blurry red object, possibly a pill or capsule. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking red pill background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0038",
+   "start": 118.2,
+   "end": 120.933,
+   "dur": 2.733,
+   "colour": {
+    "L_mean": 31.103789647420246,
+    "L_std": 14.676390329996744,
+    "chroma": 47.70776112874349,
+    "a_mean": 29.801237106323242,
+    "b_mean": 37.079447428385414,
+    "colourfulness": 83.36224448289026
+   },
+   "keyframe": "keyframes/d2e1396662aa-0038.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a bathroom scale dial showing weight numbers. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking scale dial background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0039",
+   "start": 120.933,
+   "end": 127.267,
+   "dur": 6.334,
+   "colour": {
+    "L_mean": 51.77067565917969,
+    "L_std": 17.87092653910319,
+    "chroma": 23.9604434967041,
+    "a_mean": 1.350329836209615,
+    "b_mean": 9.949309508005777,
+    "colourfulness": 66.01465101481263
+   },
+   "keyframe": "keyframes/d2e1396662aa-0039.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a green background featuring a hand holding a blue pen and a fork. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking pen fork background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.193,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0040",
+   "start": 127.267,
+   "end": 130.133,
+   "dur": 2.866,
+   "colour": {
+    "L_mean": 42.166211446126304,
+    "L_std": 17.749379475911457,
+    "chroma": 10.318030993143717,
+    "a_mean": 4.6331454912821455,
+    "b_mean": 6.1800181070963545,
+    "colourfulness": 34.76213420964735
+   },
+   "keyframe": "keyframes/d2e1396662aa-0040.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a black and white surrealist painting of a face with a spiral pattern. He is gesturing with his hands.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking surrealist painting background",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "ai_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_out",
+    "amount": 0.492,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0041",
+   "start": 130.133,
+   "end": 131.567,
+   "dur": 1.434,
+   "colour": {
+    "L_mean": 57.824275970458984,
+    "L_std": 14.14346981048584,
+    "chroma": 13.828128496805826,
+    "a_mean": 4.970956643422444,
+    "b_mean": -4.287142435709636,
+    "colourfulness": 44.60614811092739
+   },
+   "keyframe": "keyframes/d2e1396662aa-0041.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in the foreground against a surreal background of a classical statue of a man painting a blue square in the sky. Green text overlays the bottom of the frame.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "man painting sky clouds",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Blue, white, beige",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static painting of a figure against clouds."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0041.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0042",
+   "start": 131.567,
+   "end": 132.267,
+   "dur": 0.7,
+   "colour": {
+    "L_mean": 46.66307067871094,
+    "L_std": 18.027572631835938,
+    "chroma": 23.025240580240887,
+    "a_mean": 7.243104139963786,
+    "b_mean": 19.075373967488606,
+    "colourfulness": 48.75163470685581
+   },
+   "keyframe": "keyframes/d2e1396662aa-0042.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a classical painting of a muscular man holding up a bull. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "man holding up bull painting",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Brown, beige, skin tones",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static painting of a bodybuilder lifting a bull."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0042.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0043",
+   "start": 132.267,
+   "end": 138.233,
+   "dur": 5.966,
+   "colour": {
+    "L_mean": 48.394910176595054,
+    "L_std": 26.402071634928387,
+    "chroma": 7.82363494237264,
+    "a_mean": -0.2600092093149821,
+    "b_mean": -0.9802920321623484,
+    "colourfulness": 30.26435406998843
+   },
+   "keyframe": "keyframes/d2e1396662aa-0043.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a retro-futuristic grid background resembling the 80s 'Tron' aesthetic. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "retro grid background tron",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Black, white, teal",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static retro-futuristic grid animation."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0043.jpg",
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.643,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0044",
+   "start": 138.233,
+   "end": 141.767,
+   "dur": 3.534,
+   "colour": {
+    "L_mean": 39.325364430745445,
+    "L_std": 30.4656556447347,
+    "chroma": 8.831138292948404,
+    "a_mean": 1.3085565567016602,
+    "b_mean": 3.7475384871164956,
+    "colourfulness": 33.003091537414896
+   },
+   "keyframe": "keyframes/d2e1396662aa-0044.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a silhouette of a bodybuilder lifting a barbell against a sunset sky. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "bodybuilder silhouette sunset",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Black, orange, grey",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static silhouette of a weightlifter at sunset."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0044.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0045",
+   "start": 141.767,
+   "end": 145.633,
+   "dur": 3.866,
+   "colour": {
+    "L_mean": 44.44717534383138,
+    "L_std": 16.90017255147298,
+    "chroma": 5.169918537139893,
+    "a_mean": 0.25128912925720215,
+    "b_mean": 1.956285834312439,
+    "colourfulness": 27.069750203881352
+   },
+   "keyframe": "keyframes/d2e1396662aa-0045.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a muscular arm hanging from a pull-up bar. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "muscular arm pull up bar",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Grey, white, skin tones",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static close-up of a muscular arm holding a barbell."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0045.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.692,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0046",
+   "start": 145.633,
+   "end": 146.333,
+   "dur": 0.7,
+   "colour": {
+    "L_mean": 35.86398188273112,
+    "L_std": 22.69350814819336,
+    "chroma": 4.801202297210693,
+    "a_mean": 0.7059308886528015,
+    "b_mean": 0.5397765735785166,
+    "colourfulness": 24.802313178325733
+   },
+   "keyframe": "keyframes/d2e1396662aa-0046.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a close-up of a hand gripping a bar. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "hand gripping bar close up",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Grey, white, skin tones",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static close-up of a hand gripping a barbell."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0046.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0047",
+   "start": 146.333,
+   "end": 150.333,
+   "dur": 4.0,
+   "colour": {
+    "L_mean": 55.27820714314779,
+    "L_std": 10.810042381286621,
+    "chroma": 21.60250727335612,
+    "a_mean": 18.118574142456055,
+    "b_mean": -4.360064665476481,
+    "colourfulness": 55.167499788739285
+   },
+   "keyframe": "keyframes/d2e1396662aa-0047.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a background filled with rows of pink pill bottles. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "rows of pink pill bottles",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Pink, white, grey",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static grid of pink stadium seats."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0047.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.267,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0048",
+   "start": 150.333,
+   "end": 157.133,
+   "dur": 6.8,
+   "colour": {
+    "L_mean": 39.65837097167969,
+    "L_std": 22.150319417317707,
+    "chroma": 55.481207529703774,
+    "a_mean": 44.895285288492836,
+    "b_mean": -19.090478897094727,
+    "colourfulness": 124.10521841215028
+   },
+   "keyframe": "keyframes/d2e1396662aa-0048.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a surreal purple background featuring a large, glowing eye. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "surreal purple glowing eye",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Purple, pink, yellow",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static abstract image of a purple face profile with glowing yellow eyes."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0048.jpg",
+   "motion": {
+    "move": "punch_in",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0049",
+   "start": 157.133,
+   "end": 165.9,
+   "dur": 8.767,
+   "colour": {
+    "L_mean": 32.09713490804037,
+    "L_std": 22.91585413614909,
+    "chroma": 27.67066256205241,
+    "a_mean": 6.34037717183431,
+    "b_mean": -5.552489121754964,
+    "colourfulness": 64.68844525376316
+   },
+   "keyframe": "keyframes/d2e1396662aa-0049.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a green neon silhouette of a human head with a red eye. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "green neon head silhouette",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Green, purple, red",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static abstract image of a green face profile with glowing red eyes."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0049.jpg",
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.718,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0050",
+   "start": 165.9,
+   "end": 172.567,
+   "dur": 6.667,
+   "colour": {
+    "L_mean": 32.64540481567383,
+    "L_std": 21.589263916015625,
+    "chroma": 21.609010696411133,
+    "a_mean": 12.696683247884115,
+    "b_mean": 11.16595458984375,
+    "colourfulness": 75.88829469415552
+   },
+   "keyframe": "keyframes/d2e1396662aa-0050.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in front of a colorful, abstract background featuring a dark, grinning face. Green text is overlaid at the bottom.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "colorful abstract grinning face",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text overlays bottom left, speaker bottom center, background image fills top",
+     "palette": "Black, red, orange, purple",
+     "type_style": "Green sans-serif",
+     "notes": "Background is a static abstract image of a demonic face with glowing eyes."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0050.jpg",
+   "motion": {
+    "move": "push_out",
+    "amount": 0.659,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0051",
+   "start": 172.567,
+   "end": 175.9,
+   "dur": 3.333,
+   "colour": {
+    "L_mean": 25.764256795247395,
+    "L_std": 23.310094833374023,
+    "chroma": 24.619988123575848,
+    "a_mean": 9.698594093322754,
+    "b_mean": -1.3814769051969051,
+    "colourfulness": 82.87980698054116
+   },
+   "keyframe": "keyframes/d2e1396662aa-0051.jpg",
+   "tags": {
+    "description": "A man in a white shirt stands in the foreground with his hand on his chin, looking at the camera. Behind him is a surreal, dark background featuring a large, purple, clown-like face with green eyebrows and a hand with purple nails pulling strings.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "surreal clown face background",
+    "likely_sources": [
+     "pinterest",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text appears in the lower-left quadrant, overlaid on the man's chest area.",
+     "palette": "Neon purple, magenta, and green against a dark background.",
+     "type_style": "Green, lowercase, sans-serif font.",
+     "notes": "The background features a large, stylized puppet face with glowing eyes and a wide grin."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0051.jpg",
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.819,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "d2e1396662aa-0052",
+   "start": 175.9,
+   "end": 178.233,
+   "dur": 2.333,
+   "colour": {
+    "L_mean": 22.987206776936848,
+    "L_std": 26.46278444925944,
+    "chroma": 16.655990600585938,
+    "a_mean": 7.912179470062256,
+    "b_mean": -3.63891593615214,
+    "colourfulness": 49.29791314836091
+   },
+   "keyframe": "keyframes/d2e1396662aa-0052.jpg",
+   "tags": {
+    "description": "The same man in the white shirt is shown from the chest up, looking slightly to the side. The background is a dark, blurry close-up of a glowing, colorful eye with purple and orange hues.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "glowing eye background",
+    "likely_sources": [
+     "pinterest",
+     "pixabay_image",
+     "giphy"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "Text appears in the lower-left quadrant, overlaid on the man's chest area.",
+     "palette": "Neon orange, purple, and green against a dark background.",
+     "type_style": "Green, lowercase, sans-serif font.",
+     "notes": "The background features a close-up of a stylized eye with glowing eyelashes."
+    }
+   },
+   "strip": "strips/d2e1396662aa-0052.jpg",
+   "motion": {
+    "move": "push_in",
+    "amount": 0.221,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  }
+ ],
+ "calibration": {
+  "dino": {
+   "lo": 0.08107344806194305,
+   "hi": 0.7083003520965576
+  },
+  "siglip_text": {
+   "lo": 0.05858687311410904,
+   "hi": 0.11130296438932419
+  }
+ },
+ "tags_status": "done",
+ "complete": true,
+ "tags_error": "",
+ "describe": {
+  "cost_usd": 0.0,
+  "wall_secs": 135.8,
+  "described": 52,
+  "animate_cost_usd": 0.0
+ },
+ "source": {
+  "kind": "fixture",
+  "name": "fade_psychedelic_reel"
+ }
+}

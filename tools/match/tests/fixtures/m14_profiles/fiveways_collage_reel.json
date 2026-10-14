@@ -1,0 +1,939 @@
+{
+ "hash": "158ca06ed82c",
+ "duration": 40.666666666666664,
+ "windows": [
+  [
+   0.0,
+   40.666666666666664
+  ]
+ ],
+ "shots": [
+  {
+   "id": "158ca06ed82c-0001",
+   "start": 0.0,
+   "end": 2.4,
+   "dur": 2.4,
+   "colour": {
+    "L_mean": 48.76335652669271,
+    "L_std": 36.4309933980306,
+    "chroma": 11.895537376403809,
+    "a_mean": 8.25212287902832,
+    "b_mean": 5.977036158243815,
+    "colourfulness": 73.56062876519623
+   },
+   "keyframe": "keyframes/158ca06ed82c-0001.jpg",
+   "tags": {
+    "description": "A collage of four images: a red background with a shoe, a man with a 'doubt' mask, a silhouette of a crowd, and a man speaking in front of a 3D cube. Text overlays include '10/10 ways to make the LEAST of your creative ideas'.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "man with doubt mask collage",
+    "likely_sources": [
+     "pinterest",
+     "google_images",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a surreal illustration of a man with a 'doubt' mask and a book, bottom half is the speaker in a light blue shirt",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker's video is overlaid on the bottom half of the screen."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0001.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0002",
+   "start": 2.4,
+   "end": 3.7,
+   "dur": 1.3,
+   "colour": {
+    "L_mean": 46.29255294799805,
+    "L_std": 30.769763946533203,
+    "chroma": 6.745245933532715,
+    "a_mean": 3.2521809736887612,
+    "b_mean": 4.07875935236613,
+    "colourfulness": 33.078570039108996
+   },
+   "keyframe": "keyframes/158ca06ed82c-0002.jpg",
+   "tags": {
+    "description": "A top-down view of a white surface covered in various photography and videography equipment like cameras, lenses, and gimbals. A man is superimposed in the center speaking. Text reads '1. Buy EVERY tool you 'need'.'",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "photography equipment flat lay",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a flat lay of camera gear, bottom half is the speaker",
+     "palette": "white, black, orange, brown",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by camera equipment."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0002.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0003",
+   "start": 3.7,
+   "end": 5.367,
+   "dur": 1.667,
+   "colour": {
+    "L_mean": 33.19338862101237,
+    "L_std": 29.562568028767902,
+    "chroma": 8.983879407246908,
+    "a_mean": 0.7376854618390402,
+    "b_mean": 5.187559763590495,
+    "colourfulness": 34.981791524270285
+   },
+   "keyframe": "keyframes/158ca06ed82c-0003.jpg",
+   "tags": {
+    "description": "A man sitting in a cluttered room filled with old computer monitors, wires, and electronic equipment. He is speaking with text overlays '1. Buy EVERY tool you 'need'' and 'Convince yourself that the only reason you can't create'.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man in retro computer room",
+    "likely_sources": [
+     "youtube",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0004",
+   "start": 5.367,
+   "end": 6.733,
+   "dur": 1.366,
+   "colour": {
+    "L_mean": 59.94532903035482,
+    "L_std": 20.991811752319336,
+    "chroma": 17.47930145263672,
+    "a_mean": 5.398129304250081,
+    "b_mean": 15.664780616760254,
+    "colourfulness": 33.45194441732139
+   },
+   "keyframe": "keyframes/158ca06ed82c-0004.jpg",
+   "tags": {
+    "description": "A wide shot of a minimalist room with musical equipment like keyboards and amps on stands. A man is superimposed in the center speaking. Text reads '1. Buy EVERY tool you 'need''.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "empty room with musical equipment",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video",
+     "youtube"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0005",
+   "start": 6.733,
+   "end": 8.633,
+   "dur": 1.9,
+   "colour": {
+    "L_mean": 85.93148803710938,
+    "L_std": 25.8916072845459,
+    "chroma": 2.6446356773376465,
+    "a_mean": 0.9880456924438477,
+    "b_mean": -0.4491824110349019,
+    "colourfulness": 21.71783910115205
+   },
+   "keyframe": "keyframes/158ca06ed82c-0005.jpg",
+   "tags": {
+    "description": "A screenshot of an online store showing expensive camera prices. A man is superimposed in the center speaking. Text reads 'Bonus: choose EXPENSIVE' and 'Bonus points of the tools are very expensive.'",
+    "kind": "graphic",
+    "content": "ui_chart",
+    "sourcing_hint": "online camera store screenshot",
+    "likely_sources": [
+     "google_images",
+     "pexels_image",
+     "pixabay_image"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a product listing for a camera, bottom half is the speaker",
+     "palette": "white, black, blue",
+     "type_style": "monospace",
+     "notes": "The speaker is holding a camera."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0005.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0006",
+   "start": 8.633,
+   "end": 9.9,
+   "dur": 1.267,
+   "colour": {
+    "L_mean": 53.17036819458008,
+    "L_std": 38.31666056315104,
+    "chroma": 9.847475369771322,
+    "a_mean": 5.059107780456543,
+    "b_mean": 6.2091490427653,
+    "colourfulness": 53.109510465062186
+   },
+   "keyframe": "keyframes/158ca06ed82c-0006.jpg",
+   "tags": {
+    "description": "A graphic illustration of a man in a suit with a mask labeled 'doubt' over his face. He is holding a pen. Text reads '2. Plan Paralysis' and 'Doubt'. A man is superimposed in the center speaking.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "man with doubt mask illustration",
+    "likely_sources": [
+     "pinterest",
+     "hyperframes",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a surreal illustration of a man with a 'doubt' mask, bottom half is the speaker",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is holding a pen."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0006.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0007",
+   "start": 9.9,
+   "end": 12.933,
+   "dur": 3.033,
+   "colour": {
+    "L_mean": 48.25643412272135,
+    "L_std": 30.17279879252116,
+    "chroma": 10.033886273701986,
+    "a_mean": 4.511594136555989,
+    "b_mean": -0.9008866945902506,
+    "colourfulness": 32.249304736540545
+   },
+   "keyframe": "keyframes/158ca06ed82c-0007.jpg",
+   "tags": {
+    "description": "A shot of a man sitting at a desk with a whiteboard behind him. Another man is standing next to him. Text reads '2. Plan Paralysis' and 'Instead of starting the idea, plan for hours on how you're going to start.'",
+    "kind": "footage",
+    "content": "multi_subject",
+    "sourcing_hint": "man talking at whiteboard",
+    "likely_sources": [
+     "youtube",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0008",
+   "start": 12.933,
+   "end": 15.833,
+   "dur": 2.9,
+   "colour": {
+    "L_mean": 7.793146133422852,
+    "L_std": 21.929372787475586,
+    "chroma": 1.2865608135859172,
+    "a_mean": 0.6417771577835083,
+    "b_mean": 0.22743865847587585,
+    "colourfulness": 13.019946368174148
+   },
+   "keyframe": "keyframes/158ca06ed82c-0008.jpg",
+   "tags": {
+    "description": "A black background with white text bubbles listing excuses like 'I'll learn the skills first' and 'It won't work.' A man is superimposed in the center speaking. Text reads '2. Plan Paralysis'.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "text bubbles excuses list",
+    "likely_sources": [
+     "hyperframes",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is text bubbles with quotes, bottom half is the speaker",
+     "palette": "black, white, light blue",
+     "type_style": "monospace",
+     "notes": "The speaker is surrounded by text bubbles."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0008.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0009",
+   "start": 15.833,
+   "end": 17.267,
+   "dur": 1.434,
+   "colour": {
+    "L_mean": 56.222955067952476,
+    "L_std": 37.775857289632164,
+    "chroma": 4.917439142862956,
+    "a_mean": 1.212019403775533,
+    "b_mean": -0.6419267058372498,
+    "colourfulness": 25.95940015455881
+   },
+   "keyframe": "keyframes/158ca06ed82c-0009.jpg",
+   "tags": {
+    "description": "A graphic of a man surrounded by microphones and a speech bubble saying 'AAAAAA'. Text reads '3. Tell Everyone.' A man is superimposed in the center speaking.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "man surrounded by microphones",
+    "likely_sources": [
+     "pinterest",
+     "hyperframes",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a surreal illustration of a man with a 'doubt' mask, bottom half is the speaker",
+     "palette": "black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by microphones."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0009.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0010",
+   "start": 17.267,
+   "end": 17.967,
+   "dur": 0.7,
+   "colour": {
+    "L_mean": 67.24569447835286,
+    "L_std": 27.858864466349285,
+    "chroma": 33.216879526774086,
+    "a_mean": 23.573086420694988,
+    "b_mean": 21.002870559692383,
+    "colourfulness": 107.63941156226481
+   },
+   "keyframe": "keyframes/158ca06ed82c-0010.jpg",
+   "tags": {
+    "description": "A graphic of a red staircase with silhouettes of people climbing it. Text reads '3. Tell Everyone.' A man is superimposed in the center speaking.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "red staircase graphic",
+    "likely_sources": [
+     "hyperframes",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is text bubbles with quotes, bottom half is the speaker",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by text bubbles."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0010.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0011",
+   "start": 17.967,
+   "end": 18.767,
+   "dur": 0.8,
+   "colour": {
+    "L_mean": 50.1129035949707,
+    "L_std": 21.64538828531901,
+    "chroma": 58.32385508219401,
+    "a_mean": 45.929237365722656,
+    "b_mean": 34.29241943359375,
+    "colourfulness": 129.84399158957277
+   },
+   "keyframe": "keyframes/158ca06ed82c-0011.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a red background featuring a large white eye at the top. Below, a man in a light blue shirt is superimposed on the left, while a small silhouette of a person walks up a white path on the right. A white text box reads '3. Tell Everyone.'",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "red background eye illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a surreal illustration of a man with a 'doubt' mask, bottom half is the speaker",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by text bubbles."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0011.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0012",
+   "start": 18.767,
+   "end": 19.8,
+   "dur": 1.033,
+   "colour": {
+    "L_mean": 82.46968332926433,
+    "L_std": 22.187882741292317,
+    "chroma": 16.272562662760418,
+    "a_mean": 9.250408172607422,
+    "b_mean": 11.016627311706543,
+    "colourfulness": 81.53912933147976
+   },
+   "keyframe": "keyframes/158ca06ed82c-0012.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a beige background. A man in a light blue shirt is superimposed on the left. On the right, a silhouette of a person walks up a red and white staircase. A white text box reads '3. Tell Everyone.'",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "beige background staircase illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is text bubbles with quotes, bottom half is the speaker",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by text bubbles."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0012.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0013",
+   "start": 19.8,
+   "end": 23.3,
+   "dur": 3.5,
+   "colour": {
+    "L_mean": 11.211991945902506,
+    "L_std": 22.990698496500652,
+    "chroma": 5.46276871363322,
+    "a_mean": 3.2692460219065347,
+    "b_mean": 0.8926619092623392,
+    "colourfulness": 29.494813935356174
+   },
+   "keyframe": "keyframes/158ca06ed82c-0013.jpg",
+   "tags": {
+    "description": "A surreal graphic illustration set against a starry space background. A large blue brain is depicted with red lines radiating from it. A man in a light blue shirt is superimposed in the foreground. A white text box reads '3. Tell Everyone.'",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "space background brain illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "medium",
+     "layout": "split screen: top half is a surreal illustration of a man with a 'doubt' mask, bottom half is the speaker",
+     "palette": "red, black, white, light blue",
+     "type_style": "bold sans-serif",
+     "notes": "The speaker is surrounded by text bubbles."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0013.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0014",
+   "start": 23.3,
+   "end": 25.567,
+   "dur": 2.267,
+   "colour": {
+    "L_mean": 82.12106323242188,
+    "L_std": 18.26086934407552,
+    "chroma": 6.116612275441487,
+    "a_mean": 3.566648483276367,
+    "b_mean": 3.352783203125,
+    "colourfulness": 39.9353888195291
+   },
+   "keyframe": "keyframes/158ca06ed82c-0014.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a textured beige background. A man in a light blue shirt is superimposed on the left. On the right, a silhouette of a person is being pulled by red balloons with hearts on them. A white text box reads '3. Tell Everyone.'",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "beige background heart balloons illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Man on left, animated figure on right, balloons floating above",
+     "palette": "Red, white, light blue",
+     "type_style": "Bold sans-serif",
+     "notes": "Balloons float upwards while text pops in."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0014.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0015",
+   "start": 25.567,
+   "end": 27.133,
+   "dur": 1.566,
+   "colour": {
+    "L_mean": 54.491844177246094,
+    "L_std": 37.10085805257162,
+    "chroma": 10.489482243855795,
+    "a_mean": 7.8786773681640625,
+    "b_mean": 5.644582271575928,
+    "colourfulness": 53.42046818663815
+   },
+   "keyframe": "keyframes/158ca06ed82c-0015.jpg",
+   "tags": {
+    "description": "A static graphic illustration featuring a large black silhouette of a head in profile. Inside the head is a white circle with a red balloon and black spiky lines. A man in a light blue shirt is superimposed in the foreground. A white text box reads '4. Fear your idea.'",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "black head silhouette balloon illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Man on left, large red balloon inside a black head silhouette on right",
+     "palette": "Black, white, red",
+     "type_style": "Bold sans-serif",
+     "notes": "Head silhouette and balloon pop in."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0015.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0016",
+   "start": 27.133,
+   "end": 29.267,
+   "dur": 2.134,
+   "colour": {
+    "L_mean": 52.63973617553711,
+    "L_std": 23.42226219177246,
+    "chroma": 6.970180034637451,
+    "a_mean": 1.2925173044204712,
+    "b_mean": 5.684271812438965,
+    "colourfulness": 20.89759468237214
+   },
+   "keyframe": "keyframes/158ca06ed82c-0016.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a beige background. A man in a light blue shirt is superimposed on the left. On the right, a single orange silhouette stands out among a crowd of grey silhouettes. A white text box reads '4. Fear your idea.'",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "beige background crowd illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Man on left, crowd of grey figures filling the background, small orange figure on right",
+     "palette": "Grey, white, orange",
+     "type_style": "Bold sans-serif",
+     "notes": "Crowd of figures pops in behind the man."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0016.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0017",
+   "start": 29.267,
+   "end": 31.467,
+   "dur": 2.2,
+   "colour": {
+    "L_mean": 44.81985092163086,
+    "L_std": 20.66316795349121,
+    "chroma": 12.502504030863443,
+    "a_mean": 2.4996325969696045,
+    "b_mean": 10.354778607686361,
+    "colourfulness": 31.910737334051305
+   },
+   "keyframe": "keyframes/158ca06ed82c-0017.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a grey background. A man in a light blue shirt is superimposed on the left. On the right, a woman holds a white sign with red text reading 'YOU ARE WAY TOO CREATIVE FOR A 9 TO 5'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "grey background sign illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Man on left, woman holding a sign on right",
+     "palette": "White, red, grey",
+     "type_style": "Handwritten style",
+     "notes": "Woman and sign pop in."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0017.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0018",
+   "start": 31.467,
+   "end": 33.767,
+   "dur": 2.3,
+   "colour": {
+    "L_mean": 37.225311279296875,
+    "L_std": 31.000802993774414,
+    "chroma": 21.428831100463867,
+    "a_mean": 18.774477005004883,
+    "b_mean": 7.832445939381917,
+    "colourfulness": 96.5837747215384
+   },
+   "keyframe": "keyframes/158ca06ed82c-0018.jpg",
+   "tags": {
+    "description": "A static graphic illustration divided into four quadrants. The top left shows a silhouette on a phone, top right a silhouette with a red light, bottom left a silhouette in a cage, and bottom right a silhouette walking on a cliff. A man in a light blue shirt is superimposed in the center. A white text box reads '5. Find inspiration'.",
+    "kind": "graphic",
+    "content": "multi_subject",
+    "sourcing_hint": "four quadrant illustration collage",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Split screen: top half shows a man with a mask and a red figure, bottom half shows the main speaker and a silhouette walking",
+     "palette": "Black, white, red",
+     "type_style": "Bold sans-serif",
+     "notes": "Top and bottom panels pop in simultaneously."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0018.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0019",
+   "start": 33.767,
+   "end": 38.233,
+   "dur": 4.466,
+   "colour": {
+    "L_mean": 88.69156138102214,
+    "L_std": 22.560698827107746,
+    "chroma": 3.648932456970215,
+    "a_mean": 2.9146251678466797,
+    "b_mean": 0.9377888838450114,
+    "colourfulness": 28.819959532016554
+   },
+   "keyframe": "keyframes/158ca06ed82c-0019.jpg",
+   "tags": {
+    "description": "A static graphic illustration on a white background. A man in a light blue shirt is superimposed on the left. On the right, a silhouette of a person struggles to push a large red ball up a hill. A white text box reads '5. Find inspiration'.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "white background red ball illustration",
+    "likely_sources": [
+     "pexels_image",
+     "pixabay_image",
+     "hyperframes"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "Man on left, large red brain on right",
+     "palette": "Red, white, black",
+     "type_style": "Bold sans-serif",
+     "notes": "Brain pops in next to the speaker."
+    }
+   },
+   "strip": "strips/158ca06ed82c-0019.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "158ca06ed82c-0020",
+   "start": 38.233,
+   "end": 40.667,
+   "dur": 2.434,
+   "colour": {
+    "L_mean": 48.074179331461586,
+    "L_std": 19.50697390238444,
+    "chroma": 18.725041071573894,
+    "a_mean": 7.559465726216634,
+    "b_mean": 12.761019388834635,
+    "colourfulness": 51.080623209726724
+   },
+   "keyframe": "keyframes/158ca06ed82c-0020.jpg",
+   "tags": {
+    "description": "Real moving camera footage of a man in a light blue shirt speaking directly to the camera in a bedroom setting. A name tag 'nuhushaik' is visible at the top. Text overlay reads 'Follow for part two if you want to learn how to'.",
+    "kind": "footage",
+    "content": "single_focus",
+    "sourcing_hint": "man talking bedroom interior",
+    "likely_sources": [
+     "youtube",
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  }
+ ],
+ "calibration": {
+  "dino": {
+   "lo": 0.070210300385952,
+   "hi": 0.4122615456581116
+  },
+  "siglip_text": {
+   "lo": 0.06458187848329544,
+   "hi": 0.11267050355672836
+  }
+ },
+ "tags_status": "done",
+ "complete": true,
+ "tags_error": "",
+ "describe": {
+  "cost_usd": 0.0,
+  "wall_secs": 65.6,
+  "described": 20,
+  "animate_cost_usd": 0.0
+ },
+ "source": {
+  "kind": "fixture",
+  "name": "fiveways_collage_reel"
+ }
+}

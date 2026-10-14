@@ -1341,3 +1341,226 @@ The user's words: the Edit stage should be "easy on the eyes as much as possible
 - [ ] `reports/editor-fork-study.md` exists. It covers licence, activity, stack and maturity; timeline, effects and export; and integration of each `src/esta/opencut/` piece for OpenCut, FilmCraft and EffectCraft. It ends with a ranked pros/cons table and a migration-cost estimate, and makes no decision to switch.
 - [ ] `bun run typecheck` and `bun run lint` pass. OpenCut edits outside `src/esta/` are listed in `PORTING.md`.
 - [ ] Work is committed on `m14-chat-native-editor` only.
+
+# Part 12 — Look lanes: what a shot is made of, layers, and the M14 fixes (M15)
+
+Decided with the user on 2026-10-14, after reviewing the M14 overnight test (`reports/m14-targets-overnight-log.md`): four one-minute videos made unattended, one per inspo. Branch: `m15-look-lanes`, cut from `m14-chat-native-editor`. The user builds this from a cloud Claude session.
+
+## What went wrong (the evidence this part answers)
+
+The user's verdict: the motion of our graphics was right, but the look was wrong in three of four videos, and the fourth had no animation. Side-by-side frames showed the cause was the same each time:
+
+| inspo | what it's made of | what we made |
+|---|---|---|
+| "10/10 ways" reel | photo cut-outs, halftone illustration, product screenshots, presenter cut out over every frame | flat red/cream vector shapes |
+| "Ozempic for the brain" reel | airbrushed 3D and AI-style surreal art, grain, chromatic blur, presenter over every frame, small green serif captions | flat neon blobs and rings, yellow karaoke captions |
+| buffmotion showreel | studio 3D renders, product shots, kinetic type with morphing letterforms, no captions | flat colour fields and circles, yellow karaoke captions |
+| Rick and Morty clip | moving cel animation | stills from Pinterest, slowly zoomed |
+
+1. **The analysis saw it; nothing downstream could act on it.** `style_analysis.json` said "3d render", "surreal illustration", "real photos as collage pieces", "talking head cut out over the art", "green serif captions". But it is prose. The plan maps a ref's `kind` (footage / still / graphic) to a shot type, every non-photo ref became `MOTION_GRAPHICS`, and HyperFrames (HTML/CSS) can only draw flat vector and type.
+2. **One keyframe can't tell animation from a still.** `describe.py` tags `kind` from one keyframe and `motion.py` measures only camera moves. 39 of the 41 Rick and Morty shots came out `still` / `static`, so the plan asked for images.
+3. **No idea of layers.** A presenter on every frame, a caption style, a logo bug: these are layers across shots, not shot types. Nothing detected them, so nothing asked how to supply them. `genchar` and the lip-sync lane exist, but the plan only routes to them when `requirements.look` is set, intake only asks about look when the user mentions characters, and genchar is a human-in-the-loop anime design loop.
+4. **The score can't see material.** `score.py` section b (`picture()`) leaves graphics out of the colour check, and no section compares how a frame was made. A flat red collage scores like a real cut-paper one. Finals were 70.5-77.7 while the look missed.
+
+## Goal
+
+**A. Tag what each inspo shot is made of.** Every inspo shot gets a `material`, from a closed list, plus `finish` and `subject_motion`:
+
+- `material`: `flat_vector` | `kinetic_type` | `data_ui` (chart, terminal, app UI) | `photo_collage` (cut-out photographs, torn paper, mixed scale) | `illustration` (drawn, painted or airbrushed 2D art, including surreal editorial art) | `render_3d` (lit 3D objects: glass, clay, chrome, studio light) | `cel_animation` (drawn characters that move) | `live_action` | `screen_capture`;
+- `finish`: zero or more of `grain`, `halftone`, `paper_texture`, `blur`, `chromatic_aberration`, `glow`, `gradient`, `hard_shadow`;
+- `ai_look`: true when the image looks generated;
+- `subject_motion`: `none` | `low` | `high`. This is motion inside the frame after the camera move is taken out: the residual frame difference once `motion.py`'s similarity transform has been undone.
+
+A shot tagged `still` with `subject_motion` `high` is reclassified as moving (`footage`, or `cel_animation` when that's its material).
+
+`style_analysis.json` gains a structured `look` block, built from the profiles rather than written as prose:
+- `materials`: duration-weighted share of each material;
+- `finish`: the finishes on 25% or more of the duration;
+- `palette`;
+- `layers` (goal C);
+- `captions` (goal D).
+
+**B. Route each shot by material, not by kind.** The plan gives every shot `visual.material`, copied from its ref, and `visual.lane`. Lanes:
+
+| material | lane | how |
+|---|---|---|
+| `flat_vector`, `kinetic_type`, `data_ui` | `hyperframes` | as today |
+| `photo_collage` | `collage` (new) | fetch the component images the desc names (google_images, pinterest, wikimedia, pexels_image), cut them out with background removal (rembg, CPU), and composite and animate them in HyperFrames with the kit's paper edge, halftone and shadow treatments |
+| `illustration`, `render_3d` | `genimage` (new) | generate a keyframe image on Kaggle, styled by the ref's strip, through genvideo's keyframe pass. Then animate it: i2v with ai-video when the ref's `subject_motion` is `high`, or a 2.5D parallax or camera move in HyperFrames when it's `none` or `low` |
+| `cel_animation` | `footage` or `ai_video` | moving clips only, never `REAL_IMAGE`. Found clips when `requirements.licensing` allows them; otherwise ai-video with the cartoon look |
+| `live_action`, `screen_capture` | `footage` / `image` | as today |
+| any, with `ai_look` | `ai_video` | the existing plan rule: `AI_VIDEO` plus a `generate` preset |
+
+The validator rejects a shot whose lane can't make its ref's material (for example `hyperframes` for a `render_3d` ref) unless the shot carries `visual.lane_fallback` with a reason. The review page lists every fallback.
+
+**C. Detect layers, and decide how to supply them at intake.** Inspo profiling adds `layers` to `profile.json`:
+
+- `presenter`: a face at a similar position and size in 40% or more of the duration. It records:
+  - `share`;
+  - `bbox` (normalised);
+  - `cutout`: true when the person is matted over the art, false when the frame is a full talking-head shot.
+- `logo_bug` / `frame`: a region that stays the same across 50% or more of the shots.
+- `captions`: goal D.
+
+When an inspo has a presenter layer, intake asks how to supply it, and the answer is saved as `requirements.layers.presenter`:
+- `self`: the user records A-roll;
+- `generated`: a designed presenter (see below);
+- `none`: drop it and let the art fill the frame.
+
+**For unattended runs the question is asked at kickoff, never guessed.** With `none`, the scorer masks the presenter's bbox in the inspo frames, so the comparison stays fair.
+
+The `generated` presenter is a new `genchar presenter` mode:
+1. one realistic design from the user's description or reference photo, picked from a small grid at kickoff;
+2. an idle loop from that still, through ai-video i2v;
+3. LatentSync over the voiceover, through the existing `talk` path;
+4. matting (rembg per frame, or RobustVideoMatting) when `cutout` is true.
+
+Render places it on a presenter track, above the main track and below graphics and captions, at the inspo's `bbox`.
+
+**D. Captions follow the inspo.** Profiling reads the inspo's caption layer by matching OCR word boxes against `words.json`. It records:
+- `present`;
+- the band, as a y range;
+- `colour`, `highlight`;
+- `font_class` (`serif` | `sans` | `condensed` | `display` | `mono`);
+- `case`;
+- `words_per_chunk`;
+- `animation` (`karaoke` | `word_pop` | `static_line`).
+
+Render writes these into the subtitle style instead of `SUBTITLE_STYLE` (`tools/render/run.py:59`), and the OpenCut emitter (`apps/editor/src/esta/opencut/emit.ts`, `text-style.ts`) honours them. When the inspo has no captions, our video has none. When the inspo has no speech or OCR finds nothing, today's style applies. The caption band is also written to `slots.json`, so motion graphics keep text out of it.
+
+**E. Look test before full production, and material in the score.**
+- **Look test.** After the plan validates, each lane renders one representative shot for every material that covers 15% or more of the duration, before anything else is produced. The vision judge (whatever `vision.backend` is) compares each against its ref strip and answers `{material_match, finish_match, palette_match, notes}`. The result goes to `look_test.json`.
+  - If any `material_match` is false, the kit or prompt is revised and retried, up to 2 times.
+  - Attended runs show the look test as a checkpoint card. Unattended runs carry on and flag it in the log and on the review page.
+- **Material in the score.** `score.py` gets section `f`: the duration-weighted total-variation distance between our material shares and the inspo's.
+  - At plan stage, ours come from `visual.material`. At final stage, they come from re-tagging our rendered frames with the same describe prompt.
+  - Section b measures graphics' colour too when graphics are 50% or more of the inspo's duration.
+  - `f` takes the same weight as `c` in `config.yaml` `match.weights`, and must pass its section mark.
+
+**F. Fix what M14 caught.**
+1. **match:final re-picks after a revert.**
+   - Cause: `adjust.py` `refresh_final()` refetches every shot whose plan has `visual.queries_stale`. That flag persists from earlier rounds; `the-clock-was-wrong` still has it on shots 3, 6, 8, 10, 13, 15 and 16. So after `restore()`, the refetch re-picks shots the round never meant to change.
+   - Fix: after a restore, re-render only. A kept round refetches only the shots it changed. Assets' own pick clears `queries_stale`, as autopick's already does.
+2. **The adjust writer contradicts the Part 9 validator.**
+   - Cause: `WRITER_SYSTEM` routes REAL_FOOTAGE low/medium to giphy and MOTION_GRAPHICS to `[giphy]`, and the validator then rejects giphy on non-reaction beats. Two of four final rounds were reverted for exactly this (clock shot 11, fade shot 14).
+   - Fix: the writer follows Part 9, and writer output is filtered per shot through the validator's source rule. An offending source is dropped, not the whole round.
+3. **Adjust's duration splits fail the validator.**
+   - Cause: label's round 1 was reverted because a split left shot 6 at 1.96 s against a 1.37 s target.
+   - Fix: `fix_duration` applies the validator's 35% target check before it proposes a split, and skips splits that would fail.
+4. **Idea-first replan drops AI_VIDEO.** The M13 planner lives in a session folder and maps only F/I/G (`reports/m14-scratch/replan.py`). Port it to `tools/plan/ideas.py` (`cut` / `build`). It must emit every visual type and the new `material` / `lane`, honour the `ai_video` rule, and be what the plan skill's mapped mode calls.
+5. **Watermarks get through.** The judge prompt already asks for watermark rejection, but Qwen passed "www.wildfilmsindia.com", a surf-photo credit and a show logo.
+   - Add a deterministic check to autopick and assets: OCR (rapidocr or easyocr, CPU) on 3 frames across the used window. Text in the outer 15% border band that isn't the shot's planned caption rejects the candidate when it looks like a URL or domain, ©, a credit line or a channel handle.
+   - A small, high-edge corner region that stays static across the frames flags a logo.
+6. **AV1/VP9 picks stall export.** At pick time, assets cuts a non-H.264 video pick to an H.264 window around its in/out points (port `fix_codecs.py`), and the feed points at the cut.
+7. **Export needs a visible tab, and long timelines run out of decoders.** Chrome defers media loading in hidden tabs, so Build for export stalls when the window is minimised.
+   - The Edit stage detects `document.visibilityState === "hidden"` during a build or export, and says so in the status line instead of hanging.
+   - Port `export.mjs` to `tools/opencut/export_headless.mjs` as `bun run export <session-id>`. It uses its own Chrome profile and an in-page capture posted to a local receiver, and turns on software decode automatically above 30 video clips.
+8. **ASR words go into subtitles.** After timestamps, snap words to the script's tokens (port `snapwords.py`, difflib alignment). Keep `timestamps.original-asr.json`. Subtitles and alignment use the script's spelling.
+9. **TTS meaning flips go unnoticed.** After an expressive voiceover, whisper each line wav (port `lines_asr.py`). Flag lines whose transcript differs from the script by WER over 0.2, or that drop or add a negation ("can't" heard as "can"), for an `--only` redo. Unattended runs rewrite and redo flagged lines once.
+10. **No duration target at stitch.** Audio stitch takes `--target-seconds` and fits tempo (up to x1.15) and pause scaling (down to x0.6) to reach it (port `fit.py`). If that isn't enough, it reports how many words to cut.
+11. **The vertical caption band is assumed, not measured.** Our karaoke band sits around y 1150-1300 in 1080x1920, not the bottom 400 px `motion-design.md` assumes. Goal D's band in `slots.json` replaces the assumption. `tools/motiongraphics/build.py` flags any text box that crosses the band.
+12. **The canon pulls against the inspo.** `motion-design.md` §0 ("steal the native surface") decides what a graphic shows. When the plan is mapped to an inspo, the inspo's material and finish win for how it looks. Update §0 and the motion-graphics skill to say so.
+13. **Two match runs at once run out of memory** (paging-file crash). `tools/match/run.py` takes a lock under `cache/`, so a second run waits.
+
+**G. Port the overnight scratch tools.** `reports/m14-scratch/` holds the M14 scripts verbatim (they lived on the user's D: drive). Items F4 and F6-F10 port them into `tools/` with tests. The rest are reference for the lanes:
+- `mg_*.py` and `publish_mg.py`: how the flat kits were authored;
+- `picksheet.py` and `mgsheet.py`: contact sheets for review.
+
+## Non-goals
+
+- No paid APIs, and no new hosts beyond Kaggle and the existing local CPU tools.
+- No per-video LoRA training. The generated presenter is one designed still plus i2v and lip-sync.
+- No generated person that resembles a real, identifiable person. The user's own likeness is used only from their own reference.
+- No found clips from copyrighted shows unless `requirements.licensing` allows them. Otherwise `cel_animation` goes to ai-video.
+- No OpenCut fork change and no Part 11 work. Editor edits are only the caption style (D) and the hidden-tab notice (F7).
+- No rebuild of the four M14 videos inside this build. The user's live re-run is the acceptance test (below).
+
+## Files & interfaces involved
+
+- `tools/match/describe.py`: the prompt adds `material`, `finish` and `ai_look`. `PROMPT_VERSION` goes to 2, so cached v1 answers re-run. `normalise()` validates against the closed lists.
+- `tools/match/motion.py`: `subject_motion` from the residual difference after warping.
+- `tools/match/inspo.py`: the `layers` pass (face detection with OpenCV's DNN or YuNet face detector; OCR for captions; stable-region check). Writes `profile.json` `layers` and `captions`.
+- `tools/style_analysis/` (`schema.py`, `run.py`): the structured `look` block.
+- `tools/match/slots.py`: `material`, `finish` and `subject_motion` per ref; the caption band.
+- `.claude/skills/plan/SKILL.md` and `tools/plan/ideas.py` (new, from `replan.py`): `visual.material`, `visual.lane`, `lane_fallback`. `tools/plan/schema.py` gets the fields.
+- `tools/match/validate_plan.py`: the lane-material check (B).
+- `tools/collage/` (new): component fetch, rembg cut-out, compositor config for HyperFrames. `.claude/skills/motion-graphics/SKILL.md` describes the collage lane.
+- `tools/genvideo/run.py`: a `--lane genimage` keyframe-only path (styled by the ref strip) feeding HyperFrames parallax or i2v.
+- `tools/genchar/run.py`: the `presenter` mode. `.claude/skills/requirements/SKILL.md`: the layers question. `.claude/skills/conductor/` and `tools/pipeline/contracts.json`: new steps `look-test` and `presenter` with their needs and outputs.
+- `tools/render/run.py`: caption style from `look.captions`; the presenter track. `apps/editor/src/esta/opencut/emit.ts`, `text-style.ts`: caption fields.
+- `tools/match/score.py`: section f; section b for graphic-heavy inspos; presenter masking. `config.yaml` / `config.example.yaml`: weight and mark for f.
+- `tools/match/look_test.py` (new): the look test, writing `look_test.json`. `tools/match/review.py` shows it, along with lane fallbacks.
+- F1-F3: `tools/match/adjust.py`, `tools/assets/run.py`. F5: `tools/match/autopick.py`, `tools/assets/run.py`, new `tools/media/watermark.py`. F6: `tools/assets/run.py`. F7: `tools/opencut/export_headless.mjs`, `package.json` script, `apps/editor/src/esta/panels/editor-panel.tsx`. F8: `tools/timestamps/`. F9-F10: `tools/audio/`. F11: `tools/motiongraphics/build.py`. F12: `motion-design.md`. F13: `tools/match/run.py`.
+- `PORTING.md`: every change to a v2 copy (`tools/`, `.claude/skills/`).
+
+## Key decisions & tradeoffs
+
+1. **Material is a closed list, tagged by the vision model.** Free-text style words already existed and got lost. A closed list can drive routing, validation and scoring mechanically. Ambiguous shots take the material that decides their production lane.
+2. **Layers are decided at kickoff, never inferred mid-run.** The user's call: an unattended run that silently drops the presenter makes a video that can't match its inspo. The presenter question belongs with voice and vision in the kickoff questions.
+3. **Collage and generated imagery are composited in HyperFrames.** HyperFrames already gives deterministic motion that the user liked ("the animation and movement was on point"). The new lanes supply what it was missing: real cut-out photographs and generated rendered or illustrated imagery as layers inside it.
+4. **i2v only where the ref really moves.** Generated stills with a camera or parallax move are cheaper and stay on-model. i2v runs when `subject_motion` is `high`, which keeps Kaggle GPU hours down.
+5. **The look test is a gate, not a score.** It runs before the bulk of production, so a wrong look costs 3 shots, not 30.
+
+## Edge cases
+
+- **Mixed-material shots** (a 3D object over a flat field). Take the material of the dominant subject. The background becomes the kit's field.
+- **No face detected, but a full-frame talking head.** `kind` `footage` plus a centred face in 40% or more of shots still counts as a presenter with `cutout: false`.
+- **Inspo without speech** (the showreel). There is no caption layer, so captions are off. Profiling must not invent captions from on-screen display type: OCR words count as captions only if they match `words.json`.
+- **rembg fails on a component** (low contrast, busy ground). Use the next candidate image. After 3 failures the slot falls back to `hyperframes` with `lane_fallback` "collage cut-out failed".
+- **Kaggle down or out of quota** for genimage, ai-video or presenter. The slot falls back to the next lane down, logged as a `lane_fallback`; with Qwen-only vision, the look test is marked unchecked. A run never stops on a lane failure.
+- **The look test fails twice.** Keep the best attempt, flag it, and continue.
+- **Vertical vs landscape.** The caption band and presenter bbox are normalised and mapped onto our format.
+
+## Milestones (build in this order, checkpoint after each)
+
+1. **F1-F13 and G** (fixes and ports, no new lanes).
+2. **A and D** (material, subject motion, layers and captions in profiling; structured look; caption style through render and emit).
+3. **B** (lanes in the plan, validator, collage lane, genimage lane, cel-animation routing).
+4. **C** (intake layers question, `genchar presenter`, presenter track).
+5. **E** (look test, score section f, colour for graphic-heavy inspos).
+
+## Build environment
+
+The build runs in a cloud Claude session. It has no D: drive, no `sessions/` (gitignored), no `cache/inspo/` frames, no Kaggle credentials and no GPU. The repo is public, so inspo frames and our exports are not committed.
+
+- Unit tests use synthetic fixtures generated in the tests. For example: a flat SVG field vs a rendered gradient sphere vs a photo-noise texture for material heuristics; a moving drawn circle on a static background for `subject_motion`; a frame with a URL drawn in the corner for watermarks.
+- `tools/match/tests/fixtures/m14_profiles/` holds the four M14 inspo profiles as text only: tags, colour, motion and durations, with no transcript words and no images. Use them for routing, look-block and scoring tests.
+- Kaggle lanes are tested against stubbed kernels, as the existing genvideo tests do.
+
+## Acceptance criteria
+
+Cloud-checkable:
+- [ ] `python -m pytest tools -q` passes, including new tests for:
+  - **Tagging and profiling:**
+    - `describe.normalise` with `material`/`finish`/`ai_look` (bad values dropped);
+    - `subject_motion` on the moving-circle fixture (`high`) and a pan over a still (`none`);
+    - a still with high subject motion reclassified;
+    - the `look` block built from the four fixture profiles, with tags supplied by the test (the committed profiles predate `material`).
+  - **Plan and validator:** the lane-material check accepts a matching lane, rejects a mismatch, and accepts a mismatch that carries `lane_fallback`. `ideas.py build` emits `AI_VIDEO` for an `ai_look` ref and `material`/`lane` on every shot.
+  - **Adjust:**
+    - `refresh_final` after a restore triggers no autopick;
+    - a kept round refetches only the shots it changed;
+    - writer output with giphy on a non-reaction shot has that source dropped, and the round isn't reverted;
+    - `fix_duration` proposes no split that fails the 35% check.
+  - **Picks and media:** the watermark check rejects the URL-in-corner fixture and keeps a clean frame. The codec cut produces H.264 with in/out shifted correctly.
+  - **Words and audio:** `snapwords` on an ASR stream with "seal test", "0 .53" and "back test" returns the script's tokens with times kept. The per-line check flags "can"/"can't" and WER over 0.2. `--target-seconds` fitting hits the target within 1 s on a fixture, or reports words to cut.
+  - **Render and score:**
+    - render writes the inspo's caption style, and writes no subtitles when `captions.present` is false;
+    - score section f: identical shares give 100, disjoint give 0, and the presenter mask is applied when `layers.presenter` is `none`;
+    - `build.py` flags a text box crossing the caption band;
+    - `run.py` match lock: a second run waits.
+- [ ] `bun run typecheck` and `bun run lint` pass. The emitter honours caption font class, colour, highlight, case, band and `present: false` (unit test in `apps/editor`).
+- [ ] The plan, motion-graphics, requirements and conductor skills, `motion-design.md` §0 and `contracts.json` describe the new fields, lanes, layers question and steps. `validate_flow.py` passes for `standard-vo` with `look-test` and `presenter`. `PORTING.md` logs every v2-copy change.
+
+Manual on the user's PC (live Kaggle, real inspos):
+- [ ] Re-profiling the four M14 inspos gives these results:
+  - most of the Rick and Morty shots move (`cel_animation`, `subject_motion` low or high), not `still`;
+  - both reels show `layers.presenter` with `cutout: true`;
+  - fade's captions read as a green serif band;
+  - the showreel has no caption layer.
+- [ ] A re-run of `fade-the-crowd` and `five-ways-backtest-lies` from plan onwards, with presenter `none`, routes their refs to the `genimage` and `collage` lanes. `look_test.json` shows `material_match` true for each dominant material before the rest renders. Captions follow the inspo.
+- [ ] A re-run of `the-clock-was-wrong` uses moving clips or ai-video for every cartoon beat, with no `REAL_IMAGE` cartoon stills.
+- [ ] Match final for each re-run reports section f. The user judges the side-by-side review against the M14 exports.
+- [ ] `bun run export <session-id>` exports with the editor window minimised.
+- [ ] One video made with presenter `generated`: the designed presenter is lip-synced over the voiceover and composited at the inspo's bbox.
+- [ ] Work is committed on `m15-look-lanes` only. Nothing goes to `main`/`m2-surfaces`.

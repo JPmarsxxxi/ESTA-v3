@@ -1,0 +1,20 @@
+@A hundred and eleven models.|111 counter
+@Straight lines, forests, everything.|model shapes
+@Every single one landed between 0.53 and 0.58.|narrow band
+@So the edge cannot be made bigger. Fine.|capped bar
+@But my label was asking the wrong question.|question mark
+@It asked: did price move a full volatility,|big wave
+@about two hundred basis points,|200 bp
+@in twelve hours?|twelve hours clock
+@The question that pays is smaller.|small target
+@Would this trade have beaten its cost?|toll gate
+@About ten basis points.|10 bp
+@So I rewrote the label. Profitable after cost.|label rewrite
+@Long is good on 48 percent of bars, not 27.|48 vs 27 bars
+@Edge per trade: 5.96 to 19.95.|edge counter
+@Pewwww. Tripled.|tripled burst
+@And for the first time, the more confident the model got, the more often it was right.|rising staircase
+@50, 56, 61 percent.|three numbers
+@It still missed my bar.|bar just missed
+@But it got closer than anything before it.|closer
+@Same data, same models. Different question.|end title

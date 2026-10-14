@@ -1,0 +1,1610 @@
+{
+ "hash": "638fac3f53a2",
+ "duration": 193.19299999999998,
+ "windows": [
+  [
+   0.0,
+   193.19299999999998
+  ]
+ ],
+ "shots": [
+  {
+   "id": "638fac3f53a2-0001",
+   "start": 0.0,
+   "end": 3.295,
+   "dur": 3.295,
+   "colour": {
+    "L_mean": 39.37690353393555,
+    "L_std": 23.129387537638348,
+    "chroma": 17.093948364257812,
+    "a_mean": 0.2678363745411237,
+    "b_mean": 14.407192866007486,
+    "colourfulness": 45.478089489212834
+   },
+   "keyframe": "keyframes/638fac3f53a2-0001.jpg",
+   "tags": {
+    "description": "An animated scene showing a boy and an older man walking into a modern house through a large glass door. The interior features a kitchen and dining area.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0002",
+   "start": 3.295,
+   "end": 8.884,
+   "dur": 5.589,
+   "colour": {
+    "L_mean": 51.88030751546224,
+    "L_std": 20.21550941467285,
+    "chroma": 14.00052579243978,
+    "a_mean": -4.123654921849568,
+    "b_mean": 10.528885205586752,
+    "colourfulness": 32.427972793926244
+   },
+   "keyframe": "keyframes/638fac3f53a2-0002.jpg",
+   "tags": {
+    "description": "An animated medium shot of a woman in a kitchen holding a pot, talking to the older man and the boy who are standing nearby.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0003",
+   "start": 8.884,
+   "end": 13.347,
+   "dur": 4.463,
+   "colour": {
+    "L_mean": 52.976192474365234,
+    "L_std": 22.18087641398112,
+    "chroma": 16.968638737996418,
+    "a_mean": 0.8916522065798441,
+    "b_mean": 14.800779024759928,
+    "colourfulness": 39.40192961375903
+   },
+   "keyframe": "keyframes/638fac3f53a2-0003.jpg",
+   "tags": {
+    "description": "A close-up animated shot of the woman looking surprised while the man and boy stand behind her in the kitchen.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0004",
+   "start": 13.347,
+   "end": 14.89,
+   "dur": 1.543,
+   "colour": {
+    "L_mean": 25.266198476155598,
+    "L_std": 17.401690165201824,
+    "chroma": 15.643585522969564,
+    "a_mean": -0.5982859333356222,
+    "b_mean": 1.5831886927286785,
+    "colourfulness": 38.00601461433421
+   },
+   "keyframe": "keyframes/638fac3f53a2-0004.jpg",
+   "tags": {
+    "description": "An exterior night shot of a modern house with lights on inside, featuring a stone facade and a moon in the sky.",
+    "kind": "still",
+    "content": "background",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0005",
+   "start": 14.89,
+   "end": 37.913,
+   "dur": 23.023,
+   "colour": {
+    "L_mean": 51.07278569539388,
+    "L_std": 21.896596908569336,
+    "chroma": 23.474919001261394,
+    "a_mean": 2.648021936416626,
+    "b_mean": 21.907751083374023,
+    "colourfulness": 48.17191609744264
+   },
+   "keyframe": "keyframes/638fac3f53a2-0005.jpg",
+   "tags": {
+    "description": "An animated scene inside a dining room where the boy and man sit at a table while the woman brings a bowl of stew.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0006",
+   "start": 37.913,
+   "end": 39.873,
+   "dur": 1.96,
+   "colour": {
+    "L_mean": 60.12831497192383,
+    "L_std": 23.966522852579754,
+    "chroma": 14.707024574279785,
+    "a_mean": -0.22368781516949335,
+    "b_mean": 8.938177903493246,
+    "colourfulness": 47.56479048339359
+   },
+   "keyframe": "keyframes/638fac3f53a2-0006.jpg",
+   "tags": {
+    "description": "An animated shot from behind a man with blue hair looking at a blueprint on a wall, with a cat sitting on a desk in the foreground.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0007",
+   "start": 39.873,
+   "end": 41.041,
+   "dur": 1.168,
+   "colour": {
+    "L_mean": 30.6599915822347,
+    "L_std": 24.219083150227863,
+    "chroma": 11.971444765726725,
+    "a_mean": 2.3500859340031943,
+    "b_mean": 8.07002051671346,
+    "colourfulness": 39.65414873551146
+   },
+   "keyframe": "keyframes/638fac3f53a2-0007.jpg",
+   "tags": {
+    "description": "An animated shot of the man working at a desk with a green portal device, while the boy stands nearby holding a controller.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0008",
+   "start": 41.041,
+   "end": 41.959,
+   "dur": 0.918,
+   "colour": {
+    "L_mean": 46.39092000325521,
+    "L_std": 24.99137306213379,
+    "chroma": 14.386603991190592,
+    "a_mean": 2.70281720161438,
+    "b_mean": 10.292624155680338,
+    "colourfulness": 40.46847750162348
+   },
+   "keyframe": "keyframes/638fac3f53a2-0008.jpg",
+   "tags": {
+    "description": "An animated shot of the man working at a desk with a whiteboard covered in diagrams behind him, while the boy stands to the left.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0009",
+   "start": 41.959,
+   "end": 44.211,
+   "dur": 2.252,
+   "colour": {
+    "L_mean": 64.91815821329753,
+    "L_std": 24.85338592529297,
+    "chroma": 22.685341517130535,
+    "a_mean": 2.5401248137156167,
+    "b_mean": 16.846432367960613,
+    "colourfulness": 62.82983898774802
+   },
+   "keyframe": "keyframes/638fac3f53a2-0009.jpg",
+   "tags": {
+    "description": "A close-up animated shot of the man and boy looking at a small mechanical device with green glowing tubes on a workbench.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0010",
+   "start": 44.211,
+   "end": 47.005,
+   "dur": 2.794,
+   "colour": {
+    "L_mean": 56.31319936116537,
+    "L_std": 20.766265869140625,
+    "chroma": 26.95218849182129,
+    "a_mean": -6.217259804407756,
+    "b_mean": 21.805406888326008,
+    "colourfulness": 58.15010048010881
+   },
+   "keyframe": "keyframes/638fac3f53a2-0010.jpg",
+   "tags": {
+    "description": "An animated shot of a green portal opening in a wall, revealing a shocked woman standing on the other side.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation screenshot",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_down",
+    "amount": 0.334,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0011",
+   "start": 47.005,
+   "end": 52.344,
+   "dur": 5.339,
+   "colour": {
+    "L_mean": 61.06464131673177,
+    "L_std": 24.769805908203125,
+    "chroma": 17.68030007680257,
+    "a_mean": -0.03313401838143667,
+    "b_mean": 12.891057014465332,
+    "colourfulness": 52.06994923523367
+   },
+   "keyframe": "keyframes/638fac3f53a2-0011.jpg",
+   "tags": {
+    "description": "A still frame from the animated show Rick and Morty showing Rick, Beth, and Morty in a kitchen. Rick is holding a glowing green flask while Beth and Morty look on with shocked expressions.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty kitchen scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0012",
+   "start": 52.344,
+   "end": 53.512,
+   "dur": 1.168,
+   "colour": {
+    "L_mean": 57.22343063354492,
+    "L_std": 21.807753880818684,
+    "chroma": 19.983552932739258,
+    "a_mean": -0.21555085511257252,
+    "b_mean": 12.684341112772623,
+    "colourfulness": 54.27045436061119
+   },
+   "keyframe": "keyframes/638fac3f53a2-0012.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Rick and Morty watching a TV screen. The screen displays a close-up of a man with white hair and a mustache.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty TV watching scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0013",
+   "start": 53.512,
+   "end": 55.013,
+   "dur": 1.501,
+   "colour": {
+    "L_mean": 52.560892740885414,
+    "L_std": 23.844064076741535,
+    "chroma": 20.33161163330078,
+    "a_mean": 0.7477831840515137,
+    "b_mean": 16.645899454752605,
+    "colourfulness": 46.75632200613452
+   },
+   "keyframe": "keyframes/638fac3f53a2-0013.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing the family in a living room. Rick is painting on an easel, Morty is eating a burger on the couch, and Beth is painting in the background.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty family living room",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0014",
+   "start": 55.013,
+   "end": 58.141,
+   "dur": 3.128,
+   "colour": {
+    "L_mean": 60.23306528727213,
+    "L_std": 23.87862269083659,
+    "chroma": 15.29397455851237,
+    "a_mean": -6.288594722747803,
+    "b_mean": 7.419322490692139,
+    "colourfulness": 46.94704157462721
+   },
+   "keyframe": "keyframes/638fac3f53a2-0014.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Rick in a garage holding a fish. Several other fish are floating in mid-air around him, and a green portal is on the ground.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty garage fish scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0015",
+   "start": 58.141,
+   "end": 61.019,
+   "dur": 2.878,
+   "colour": {
+    "L_mean": 54.82807540893555,
+    "L_std": 19.41041628519694,
+    "chroma": 25.45560582478841,
+    "a_mean": -8.728872458140055,
+    "b_mean": 20.384897232055664,
+    "colourfulness": 55.75706232407952
+   },
+   "keyframe": "keyframes/638fac3f53a2-0015.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Morty walking outside carrying a bucket. In the background, Rick is standing near a window spraying water.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty outside scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_left",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0016",
+   "start": 61.019,
+   "end": 62.02,
+   "dur": 1.001,
+   "colour": {
+    "L_mean": 49.82158915201823,
+    "L_std": 24.740883509318035,
+    "chroma": 15.685492833455404,
+    "a_mean": -0.5811060468355814,
+    "b_mean": 12.855411847432455,
+    "colourfulness": 39.52081000201159
+   },
+   "keyframe": "keyframes/638fac3f53a2-0016.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Rick in a garage holding a tablet. He is standing next to a large piece of machinery and a workbench.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty garage workshop",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0017",
+   "start": 62.02,
+   "end": 63.605,
+   "dur": 1.585,
+   "colour": {
+    "L_mean": 63.05219395955404,
+    "L_std": 12.968438148498535,
+    "chroma": 17.210492451985676,
+    "a_mean": -1.7473589181900024,
+    "b_mean": 6.840946197509766,
+    "colourfulness": 53.28430495375662
+   },
+   "keyframe": "keyframes/638fac3f53a2-0017.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing a framed photo of Beth lying on the floor next to a flask. The photo shows Beth smiling.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty Beth photo flask",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.708,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0018",
+   "start": 63.605,
+   "end": 65.774,
+   "dur": 2.169,
+   "colour": {
+    "L_mean": 47.66515350341797,
+    "L_std": 24.50261052449544,
+    "chroma": 16.20937665303548,
+    "a_mean": 0.10472293694814046,
+    "b_mean": 13.966680844624838,
+    "colourfulness": 38.98906813059035
+   },
+   "keyframe": "keyframes/638fac3f53a2-0018.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Rick in a garage holding a flask. He is standing next to a large piece of machinery and a workbench.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty garage flask scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_right",
+    "amount": 1.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0019",
+   "start": 65.774,
+   "end": 69.403,
+   "dur": 3.629,
+   "colour": {
+    "L_mean": 58.327877044677734,
+    "L_std": 22.87810452779134,
+    "chroma": 16.868781407674152,
+    "a_mean": -2.3841471473375955,
+    "b_mean": 11.91146183013916,
+    "colourfulness": 48.41176222427176
+   },
+   "keyframe": "keyframes/638fac3f53a2-0019.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Rick operating a camera on a tripod. A large explosion is happening in the foreground.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty camera explosion",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0020",
+   "start": 69.403,
+   "end": 71.196,
+   "dur": 1.793,
+   "colour": {
+    "L_mean": 52.35349655151367,
+    "L_std": 22.820568084716797,
+    "chroma": 14.086137135823568,
+    "a_mean": 2.415987412134806,
+    "b_mean": 12.089693387349447,
+    "colourfulness": 35.32352071462095
+   },
+   "keyframe": "keyframes/638fac3f53a2-0020.jpg",
+   "tags": {
+    "description": "A still frame from Rick and Morty showing Beth holding a hose in a messy room. Smoke is filling the room and Rick is visible in the background.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty Beth hose scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0021",
+   "start": 71.196,
+   "end": 72.698,
+   "dur": 1.502,
+   "colour": {
+    "L_mean": 76.94101206461589,
+    "L_std": 15.678211530049643,
+    "chroma": 18.970908482869465,
+    "a_mean": -1.1244296034177144,
+    "b_mean": 11.702988624572754,
+    "colourfulness": 54.34212947745666
+   },
+   "keyframe": "keyframes/638fac3f53a2-0021.jpg",
+   "tags": {
+    "description": "A close-up shot of a hand drawing a schematic on a blueprint with a pen. The camera is static, focusing on the technical drawing.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty blueprint scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0022",
+   "start": 72.698,
+   "end": 74.7,
+   "dur": 2.002,
+   "colour": {
+    "L_mean": 59.82542037963867,
+    "L_std": 22.054401397705078,
+    "chroma": 21.643767674763996,
+    "a_mean": 3.6677980422973633,
+    "b_mean": 18.989800771077473,
+    "colourfulness": 45.58512250426613
+   },
+   "keyframe": "keyframes/638fac3f53a2-0022.jpg",
+   "tags": {
+    "description": "A medium shot of a boy and a woman sitting at a table with plates of food. The boy is looking at a drawing on the table while the woman looks on with a concerned expression.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty dinner scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0023",
+   "start": 74.7,
+   "end": 76.368,
+   "dur": 1.668,
+   "colour": {
+    "L_mean": 72.53162002563477,
+    "L_std": 16.396195771793526,
+    "chroma": 9.716494866830393,
+    "a_mean": 0.21244683228163316,
+    "b_mean": 7.461869239807129,
+    "colourfulness": 30.88746914024542
+   },
+   "keyframe": "keyframes/638fac3f53a2-0023.jpg",
+   "tags": {
+    "description": "A medium shot of a man with wild hair holding a futuristic green device. He looks surprised or intense. The setting appears to be a hallway.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty green gun",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "push_in",
+    "amount": 0.159,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0024",
+   "start": 76.368,
+   "end": 78.161,
+   "dur": 1.793,
+   "colour": {
+    "L_mean": 51.245506286621094,
+    "L_std": 25.049889246622723,
+    "chroma": 24.516443888346355,
+    "a_mean": 8.840481758117676,
+    "b_mean": 20.481245676676433,
+    "colourfulness": 59.28363654793759
+   },
+   "keyframe": "keyframes/638fac3f53a2-0024.jpg",
+   "tags": {
+    "description": "A close-up shot of two characters sitting on a bench. One character is wearing a red shirt with the letters 'MIT' visible.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty MIT shirt",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0025",
+   "start": 78.161,
+   "end": 85.919,
+   "dur": 7.758,
+   "colour": {
+    "L_mean": 42.792502085367836,
+    "L_std": 21.362003326416016,
+    "chroma": 26.55626932779948,
+    "a_mean": 9.549443244934082,
+    "b_mean": 23.41173489888509,
+    "colourfulness": 51.416186461030854
+   },
+   "keyframe": "keyframes/638fac3f53a2-0025.jpg",
+   "tags": {
+    "description": "A wide shot of two characters sitting on a curb in front of a house during sunset. One character has his arms raised in frustration.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty curb scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0026",
+   "start": 85.919,
+   "end": 89.006,
+   "dur": 3.087,
+   "colour": {
+    "L_mean": 42.475677490234375,
+    "L_std": 20.873917897542317,
+    "chroma": 23.591440200805664,
+    "a_mean": 11.550018310546875,
+    "b_mean": 18.780229568481445,
+    "colourfulness": 40.05454992807402
+   },
+   "keyframe": "keyframes/638fac3f53a2-0026.jpg",
+   "tags": {
+    "description": "A medium shot of a woman looking shocked in the foreground, with two characters sitting on a curb in the background.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty shocked woman",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0027",
+   "start": 89.006,
+   "end": 94.845,
+   "dur": 5.839,
+   "colour": {
+    "L_mean": 47.33442687988281,
+    "L_std": 22.803524653116863,
+    "chroma": 27.665565490722656,
+    "a_mean": 8.497734069824219,
+    "b_mean": 24.6984380086263,
+    "colourfulness": 52.090257149563094
+   },
+   "keyframe": "keyframes/638fac3f53a2-0027.jpg",
+   "tags": {
+    "description": "A medium shot of two characters sitting on a curb, talking. The lighting suggests it is late afternoon or evening.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty conversation",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0028",
+   "start": 94.845,
+   "end": 102.436,
+   "dur": 7.591,
+   "colour": {
+    "L_mean": 60.916648864746094,
+    "L_std": 23.78856913248698,
+    "chroma": 26.67235056559245,
+    "a_mean": 10.610639254252115,
+    "b_mean": 22.556588490804035,
+    "colourfulness": 51.4299301736061
+   },
+   "keyframe": "keyframes/638fac3f53a2-0028.jpg",
+   "tags": {
+    "description": "A close-up shot of two characters looking at each other with serious expressions. The background is slightly blurred.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty close up",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0029",
+   "start": 102.436,
+   "end": 108.65,
+   "dur": 6.214,
+   "colour": {
+    "L_mean": 46.44688034057617,
+    "L_std": 21.501763025919598,
+    "chroma": 28.336934407552082,
+    "a_mean": 9.692633310953775,
+    "b_mean": 25.057703653971355,
+    "colourfulness": 53.47455781025767
+   },
+   "keyframe": "keyframes/638fac3f53a2-0029.jpg",
+   "tags": {
+    "description": "A medium shot of two characters sitting on a curb. One character is gesturing with his hand while talking to the other.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty gesture",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0030",
+   "start": 108.65,
+   "end": 112.779,
+   "dur": 4.129,
+   "colour": {
+    "L_mean": 29.6022211710612,
+    "L_std": 18.370716094970703,
+    "chroma": 7.535314559936523,
+    "a_mean": 2.080358902613322,
+    "b_mean": 0.5354081590970358,
+    "colourfulness": 22.14412300839904
+   },
+   "keyframe": "keyframes/638fac3f53a2-0030.jpg",
+   "tags": {
+    "description": "A close-up shot of a character lying in bed, looking worried or anxious. The room is dimly lit.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty bed scene",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0031",
+   "start": 112.779,
+   "end": 113.905,
+   "dur": 1.126,
+   "colour": {
+    "L_mean": 21.545490264892578,
+    "L_std": 16.606183369954426,
+    "chroma": 6.86604102452596,
+    "a_mean": -0.784421960512797,
+    "b_mean": 4.0884222984313965,
+    "colourfulness": 18.96460575032063
+   },
+   "keyframe": "keyframes/638fac3f53a2-0031.jpg",
+   "tags": {
+    "description": "An animated shot of a boy standing on a wooden staircase inside a dimly lit house. The camera is static, capturing the character's full body.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0032",
+   "start": 113.905,
+   "end": 122.622,
+   "dur": 8.717,
+   "colour": {
+    "L_mean": 32.047372817993164,
+    "L_std": 21.203683217366535,
+    "chroma": 11.80591869354248,
+    "a_mean": 2.6269354820251465,
+    "b_mean": 7.167446136474609,
+    "colourfulness": 36.98372186185387
+   },
+   "keyframe": "keyframes/638fac3f53a2-0032.jpg",
+   "tags": {
+    "description": "An animated scene showing a boy in the foreground looking at a woman standing in a kitchen. The lighting is moody with shadows.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_left",
+    "amount": 0.729,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0033",
+   "start": 122.622,
+   "end": 129.629,
+   "dur": 7.007,
+   "colour": {
+    "L_mean": 40.96756108601888,
+    "L_std": 25.739773432413738,
+    "chroma": 11.61047617594401,
+    "a_mean": -2.1023204723993936,
+    "b_mean": 5.366420427958171,
+    "colourfulness": 27.432968145477236
+   },
+   "keyframe": "keyframes/638fac3f53a2-0033.jpg",
+   "tags": {
+    "description": "A split-screen or two-shot composition showing the boy on the stairs on the left and the woman in the kitchen on the right.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0034",
+   "start": 129.629,
+   "end": 135.927,
+   "dur": 6.298,
+   "colour": {
+    "L_mean": 33.43495432535807,
+    "L_std": 21.437394460042317,
+    "chroma": 12.0413179397583,
+    "a_mean": 2.256308635075887,
+    "b_mean": 7.260079860687256,
+    "colourfulness": 37.68396947771782
+   },
+   "keyframe": "keyframes/638fac3f53a2-0034.jpg",
+   "tags": {
+    "description": "A close-up animated shot of the boy looking down with a sad expression, with the woman visible in the background.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0035",
+   "start": 135.927,
+   "end": 136.345,
+   "dur": 0.418,
+   "colour": {
+    "L_mean": 4.080643830200036,
+    "L_std": 4.007397890090942,
+    "chroma": 1.8891430543735623,
+    "a_mean": 0.30167390215986717,
+    "b_mean": 1.0158832870608119,
+    "colourfulness": 6.338388242638725
+   },
+   "keyframe": "keyframes/638fac3f53a2-0035.jpg",
+   "tags": {
+    "description": "A completely black screen with a small text credit in the bottom right corner.",
+    "kind": "graphic",
+    "content": "text_card",
+    "sourcing_hint": "black screen transition",
+    "likely_sources": [
+     "pexels_video",
+     "pixabay_video"
+    ],
+    "text_extra": true,
+    "overlay_extra": false,
+    "text_on_screen": true,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "slides_in",
+     "speed": "slow",
+     "layout": "three distinct panels showing a character in a dimly lit room, a black void, and a bedroom with a sleeping figure",
+     "palette": "dark blues, muted browns, soft greens",
+     "type_style": "none",
+     "notes": "camera pans slowly across the scene, revealing details in each panel"
+    }
+   },
+   "strip": "strips/638fac3f53a2-0035.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0036",
+   "start": 136.345,
+   "end": 144.186,
+   "dur": 7.841,
+   "colour": {
+    "L_mean": 23.434349695841473,
+    "L_std": 18.62523078918457,
+    "chroma": 8.90343189239502,
+    "a_mean": 1.5443776845932007,
+    "b_mean": 5.517921606699626,
+    "colourfulness": 29.949790967878013
+   },
+   "keyframe": "keyframes/638fac3f53a2-0036.jpg",
+   "tags": {
+    "description": "An animated shot of a man in a lab coat kneeling on the floor next to a bed where a boy is sleeping.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0037",
+   "start": 144.186,
+   "end": 146.521,
+   "dur": 2.335,
+   "colour": {
+    "L_mean": 42.88769276936849,
+    "L_std": 32.77774620056152,
+    "chroma": 13.033775011698404,
+    "a_mean": 3.0069127877553306,
+    "b_mean": 10.650300025939941,
+    "colourfulness": 38.80847341683815
+   },
+   "keyframe": "keyframes/638fac3f53a2-0037.jpg",
+   "tags": {
+    "description": "An animated shot of the man in the lab coat standing next to the boy, holding a mug, looking distressed.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "punch_in",
+    "amount": 0.349,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0038",
+   "start": 146.521,
+   "end": 154.029,
+   "dur": 7.508,
+   "colour": {
+    "L_mean": 56.25978215535482,
+    "L_std": 27.326426188151043,
+    "chroma": 15.453389167785645,
+    "a_mean": 2.5085832277933755,
+    "b_mean": 11.800958315531412,
+    "colourfulness": 41.49757078327238
+   },
+   "keyframe": "keyframes/638fac3f53a2-0038.jpg",
+   "tags": {
+    "description": "An animated shot of the woman standing in a doorway looking angry, with the man and boy behind her.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "tilt_up",
+    "amount": 0.25,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0039",
+   "start": 154.029,
+   "end": 166.5,
+   "dur": 12.471,
+   "colour": {
+    "L_mean": 50.93405532836914,
+    "L_std": 29.336371739705402,
+    "chroma": 16.07468605041504,
+    "a_mean": 3.4049060344696045,
+    "b_mean": 14.036423047383627,
+    "colourfulness": 40.73596171798139
+   },
+   "keyframe": "keyframes/638fac3f53a2-0039.jpg",
+   "tags": {
+    "description": "An animated shot of the man in the lab coat holding a mug and talking to the boy.",
+    "kind": "still",
+    "content": "multi_subject",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "pan_right",
+    "amount": 0.467,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0040",
+   "start": 166.5,
+   "end": 172.923,
+   "dur": 6.423,
+   "colour": {
+    "L_mean": 49.38386662801107,
+    "L_std": 19.088643391927082,
+    "chroma": 14.806805610656738,
+    "a_mean": 2.3382631142934165,
+    "b_mean": 9.074854850769043,
+    "colourfulness": 44.24236301608493
+   },
+   "keyframe": "keyframes/638fac3f53a2-0040.jpg",
+   "tags": {
+    "description": "An animated exterior shot of a grey car parked in front of a modern house with a woman driving.",
+    "kind": "still",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty animation still",
+    "likely_sources": [
+     "youtube",
+     "pinterest",
+     "google_images"
+    ],
+    "text_extra": false,
+    "overlay_extra": false,
+    "text_on_screen": false,
+    "overlay": false,
+    "panels": 1,
+    "clips_in_shot": 1
+   },
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  },
+  {
+   "id": "638fac3f53a2-0041",
+   "start": 172.923,
+   "end": 193.193,
+   "dur": 20.27,
+   "colour": {
+    "L_mean": 12.668603897094727,
+    "L_std": 26.64046351114909,
+    "chroma": 4.792359828948975,
+    "a_mean": -2.081690470377604,
+    "b_mean": 3.242582162221273,
+    "colourfulness": 31.485949281895795
+   },
+   "keyframe": "keyframes/638fac3f53a2-0041.jpg",
+   "tags": {
+    "description": "A static end screen featuring the 'Rick and Morty' logo inside a green portal, surrounded by floating cartoon cats against a starry space background. The word 'SUBSCRIBE' is displayed in the center.",
+    "kind": "graphic",
+    "content": "single_focus",
+    "sourcing_hint": "Rick and Morty end screen",
+    "likely_sources": [
+     "pinterest",
+     "google_images",
+     "giphy"
+    ],
+    "text_extra": true,
+    "overlay_extra": true,
+    "text_on_screen": true,
+    "overlay": true,
+    "panels": 1,
+    "clips_in_shot": 1,
+    "animation": {
+     "reveal": "pops_in",
+     "speed": "medium",
+     "layout": "three identical panels featuring a green circular logo surrounded by floating cats against a starry background",
+     "palette": "black, white, bright green",
+     "type_style": "bold sans",
+     "notes": "cats and stars gently float upward while the logo pulses with a subtle glow"
+    }
+   },
+   "strip": "strips/638fac3f53a2-0041.jpg",
+   "motion": {
+    "move": "static",
+    "amount": 0.0,
+    "fade_in": "none",
+    "fade_out": "none"
+   }
+  }
+ ],
+ "calibration": {
+  "dino": {
+   "lo": 0.08257792890071869,
+   "hi": 0.7822192907333374
+  },
+  "siglip_text": {
+   "lo": 0.07726898789405823,
+   "hi": 0.1246730387210846
+  }
+ },
+ "tags_status": "done",
+ "complete": true,
+ "tags_error": "",
+ "describe": {
+  "cost_usd": 0.0,
+  "wall_secs": 64.1,
+  "described": 41,
+  "animate_cost_usd": 0.0
+ },
+ "source": {
+  "kind": "fixture",
+  "name": "clock_rick_and_morty"
+ }
+}

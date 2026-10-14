@@ -1,0 +1,22 @@
+@Five ways to make your backtest lie to you.|title card five ways
+@Number one. Forget the commission.|item 1 title
+@Model the spread, the swap, the slippage.|cost checklist
+@Just not the invoice.|invoice
+@I did this twice.|two fingers
+@On crypto it was 94 percent of my cost.|94 percent pie
+@Number two. Trust the vendor.|item 2 title
+@Yahoo's old S&P opening prices are just copies of the night before.|photocopier copies
+@Three decades of my validation, on numbers that never existed.|ghost numbers
+@Number three. Trust the clock.|item 3 title
+@The broker says Athens time.|athens clock
+@The broker's daylight saving says otherwise.|clock arguing
+@Your sealed test pass is now an hour of hindsight.|looking back mirror
+@Number four. Check the rows, not the columns.|item 4 title
+@Every file had all 288 rows.|stack of full files
+@The columns inside were blank.|blank spreadsheet
+@Requiring them deleted 87 percent of the only bear market.|bear erased
+@Number five. Kill ideas early.|item 5 title
+@Six of my verdicts got reversed.|reversed verdict gavel
+@All six were premature kills.|graveyard of ideas
+@Follow for part two. There will be a part two.|follow prompt
+@Unfortunately.|tired man
