@@ -69,6 +69,22 @@ SUBTITLE_STYLE = {
 VIDEO_EXTS = {".mp4", ".mov", ".avi", ".webm"}
 
 
+def subtitle_style(session_dir: Path) -> dict | None:
+    """The subtitle style the inspo's caption layer asks for (style_analysis.json `look.captions`, SPEC.md Part 12
+    goal D): None when the inspo has no captions, SUBTITLE_STYLE when no inspo was read for them."""
+    cap = ((_load(session_dir / "style_analysis.json", {}) or {}).get("look") or {}).get("captions")
+    if not isinstance(cap, dict):
+        return SUBTITLE_STYLE
+    if not cap.get("present"):
+        return None
+    return {**SUBTITLE_STYLE, "color": cap.get("colour") or "#ffffff",
+            "highlightColor": cap.get("highlight") or cap.get("colour") or "#ffffff",
+            "upcomingColor": cap.get("colour") or "#ffffff", "backgroundColor": "transparent",
+            "fontClass": cap.get("font_class", "sans"), "case": cap.get("case", "sentence"),
+            "band": cap.get("band"), "wordsPerChunk": cap.get("words_per_chunk"),
+            "animation": cap.get("animation", "karaoke")}
+
+
 # ── helpers ──────────────────────────────────────────────────────────────────
 
 def _load(path: Path, default=None):
@@ -878,8 +894,10 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
     )
 
     # ── subtitles (karaoke, word-level from timestamps) ─────────────────────────
+    # The inspo decides whether there are captions and how they look (SPEC.md Part 12, goal D).
+    style = subtitle_style(session_dir)
     subtitles: list[dict] = []
-    for i, seg in enumerate(timestamps.get("segments", [])):
+    for i, seg in enumerate(timestamps.get("segments", []) if style else []):
         words = [
             {"text": w.get("word", ""), "startTime": round(float(w.get("start", 0)), 3),
              "endTime": round(float(w.get("end", 0)), 3)}
@@ -890,8 +908,8 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
             "text": seg.get("text", ""),
             "startTime": round(float(seg.get("start", 0)), 3),
             "endTime": round(float(seg.get("end", 0)), 3),
-            "animationStyle": "karaoke",
-            "style": SUBTITLE_STYLE,
+            "animationStyle": style.get("animation", "karaoke"),
+            "style": style,
             "words": words,
         })
 
@@ -950,6 +968,7 @@ def build(session_dir: Path, width: int | None = None, height: int | None = None
         "timeline": {
             "tracks": tracks,
             "subtitles": subtitles,
+            "captions": {"present": style is not None},
             "duration": duration,
             "markers": [],
         },

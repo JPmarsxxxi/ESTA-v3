@@ -18,6 +18,8 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from tools.match.common import REPO_ROOT, read_json, utf8_stdout, write_json  # noqa: E402
+from tools.plan.lanes import ref_material  # noqa: E402
+from tools.style_analysis.look import captions  # noqa: E402
 
 ALT_WINDOW = 3
 MIN_INSPO_SHOT = 0.1   # under ~2 frames: a flash, merged into its neighbour
@@ -125,14 +127,26 @@ def build(session: Path) -> dict:
                       "text_extra": s["tags"].get("text_extra"), "overlay_extra": s["tags"].get("overlay_extra"),
                       "likely_sources": s["tags"].get("likely_sources") or [], "animation": s["tags"].get("animation"),
                       "motion": s["motion"], "ai_preset": AI_PRESET.get(s["motion"].get("move", "static"), "static"),
-                      "keyframe": s["keyframe"], "strip": s["strip"]}
+                      "keyframe": s["keyframe"], "strip": s["strip"],
+                      # What the shot is made of (SPEC.md Part 12, goal A): the plan routes by it.
+                      "material": ref_material(s["tags"]), "finish": s["tags"].get("finish") or [],
+                      "ai_look": bool(s["tags"].get("ai_look")), "subject_motion": s["motion"].get("subject_motion", "none")}
             for s in inspo if s["id"] in used}
     durs = sorted(s["dur"] for s in slots)
     out = {"session": session.name, "voice_end": end, "inspo_total": round(sum(s["dur"] for s in inspo), 3),
            "inspo_shots": len(inspo), "median_slot": durs[len(durs) // 2] if durs else 0,
            "median_inspo": sorted(s["dur"] for s in inspo)[len(inspo) // 2], "slots": slots, "refs": refs}
+    cap = captions(profiles(session))
+    if cap is not None:
+        # Motion graphics keep text out of the inspo's caption band (motion-design.md, build.py).
+        out["caption_band"] = {"present": True, **cap["band"]} if cap.get("present") else {"present": False}
     write_json(session / "slots.json", out)
     return out
+
+
+def profiles(session: Path) -> list[dict]:
+    idx = read_json(session / "inspo_profiles.json", {}) or {}
+    return [read_json(REPO_ROOT / rel / "profile.json", {}) or {} for rel in idx.get("profiles", [])]
 
 
 def main() -> None:

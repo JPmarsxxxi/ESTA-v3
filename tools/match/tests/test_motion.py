@@ -79,3 +79,44 @@ def test_punch_clip(tmp_path):
                     f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=640x360:fps=25", "-frames:v", "150",
                     "-pix_fmt", "yuv420p", str(clip)], check=True)
     assert measure(clip, 0.0, 6.0, 25.0)["move"] == "punch_in"
+
+
+def _drawn(path: Path, moving: bool) -> Path:
+    """A cartoon-like clip: a flat background with a drawn circle that moves (or doesn't), camera locked off."""
+    import cv2
+    import numpy as np
+    w = cv2.VideoWriter(str(path), cv2.VideoWriter_fourcc(*"mp4v"), 25, (640, 360))
+    bg = np.full((360, 640, 3), (60, 140, 200), np.uint8)
+    cv2.rectangle(bg, (0, 260), (640, 360), (40, 90, 40), -1)
+    for i in range(75):
+        f = bg.copy()
+        x = 120 + (5 * i if moving else 0)
+        cv2.circle(f, (x, 180), 60, (20, 200, 240), -1)
+        cv2.circle(f, (x, 180), 60, (0, 0, 0), 4)
+        w.write(f)
+    w.release()
+    return path
+
+
+def test_subject_motion_moving_circle_is_high(tmp_path):
+    m = measure(_drawn(tmp_path / "moving.mp4", True), 0.0, 3.0, 25.0)
+    assert m["subject_motion"] == "high" and m["move"] == "static"
+
+
+def test_subject_motion_pan_over_a_still_is_none(clips):
+    m = measure(clips["pan_right"], 0.0, 3.0, 25.0)
+    assert m["move"] == "pan_right" and m["subject_motion"] == "none"
+
+
+def test_subject_motion_locked_off_still_is_none(tmp_path):
+    assert measure(_drawn(tmp_path / "still.mp4", False), 0.0, 3.0, 25.0)["subject_motion"] == "none"
+
+
+def test_still_with_high_subject_motion_is_reclassified():
+    from tools.match.motion import reclassify
+    shots = [{"tags": {"kind": "still", "material": "cel_animation"}, "motion": {"subject_motion": "high"}},
+             {"tags": {"kind": "still"}, "motion": {"subject_motion": "low"}},
+             {"tags": {"kind": "graphic"}, "motion": {"subject_motion": "high"}}]
+    assert reclassify(shots) == 1
+    assert shots[0]["tags"] == {"kind": "footage", "kind_described": "still", "material": "cel_animation"}
+    assert shots[1]["tags"]["kind"] == "still" and shots[2]["tags"]["kind"] == "graphic"

@@ -26,9 +26,11 @@ from tools.vision_server import client as vision  # noqa: E402
 from tools.match.common import (  # noqa: E402
     LEAN_CLAUDE, REPO_ROOT, claude_bin, match_config, read_json, utf8_stdout, write_json,
 )
+from tools.plan.lanes import FINISHES, MATERIALS  # noqa: E402
 
 CACHE = REPO_ROOT / "cache" / "describe.json"
-PROMPT_VERSION = 1
+# v2 (SPEC.md Part 12, goal A): material, finish and ai_look. Cached v1 answers re-run.
+PROMPT_VERSION = 2
 KINDS = {"footage", "still", "graphic"}
 CONTENTS = {"single_focus", "multi_subject", "background", "text_card", "ui_chart"}
 SOURCES = {
@@ -73,7 +75,16 @@ PROMPT = (
     '"likely_sources": ["1 to 3 sources from the list below, most likely first"], '
     '"text_extra": true/false (any text on screen OTHER than subtitles that transcribe the speech), '
     '"overlay_extra": true/false (any graphic, sticker, label, number card or text floating over the picture, '
-    "again ignoring speech subtitles)}\n"
+    'again ignoring speech subtitles), '
+    '"material": what the picture is made of, exactly one of "flat_vector" (flat shapes and colour fields) | '
+    '"kinetic_type" (the frame is animated type) | "data_ui" (a chart, terminal or app UI) | "photo_collage" '
+    '(cut-out photographs, torn paper, mixed scale) | "illustration" (drawn, painted or airbrushed 2D art, '
+    'including surreal editorial art) | "render_3d" (lit 3D objects: glass, clay, chrome, studio light) | '
+    '"cel_animation" (drawn cartoon characters) | "live_action" (real camera footage or a real photo) | '
+    '"screen_capture" (a recording of a screen); when several apply, the dominant subject\'s, '
+    '"finish": [zero or more of "grain", "halftone", "paper_texture", "blur", "chromatic_aberration", "glow", '
+    '"gradient", "hard_shadow"], '
+    '"ai_look": true/false (the image looks AI-generated: waxy skin, melting detail, impossible surreal render)}\n'
     "The spoken words are the voiceover the editor was illustrating: use them to judge what the shot is meant to "
     "show. Stock sites hold generic clean clips; youtube is for specific real people, events, shows and "
     "recognisable footage.\nSources:\n" + "\n".join(f"- {k}: {v}" for k, v in SOURCES.items())
@@ -97,6 +108,8 @@ def normalise(ans: dict) -> dict:
         lead = sources[0] if sources else ""
         kind = "graphic" if lead == "hyperframes" else "still" if lead in STILL_SOURCES else "footage"
     content = str(ans.get("content", "")).lower()
+    material = str(ans.get("material", "")).lower().strip()
+    finish = ans.get("finish") if isinstance(ans.get("finish"), list) else []
     return {
         "description": str(ans.get("description", "")).strip(),
         "kind": kind,
@@ -105,6 +118,10 @@ def normalise(ans: dict) -> dict:
         "likely_sources": sources,
         "text_extra": bool(ans.get("text_extra")),
         "overlay_extra": bool(ans.get("overlay_extra")),
+        # Closed lists drive routing, validation and scoring mechanically: anything off the list is dropped.
+        "material": material if material in MATERIALS else "",
+        "finish": [f for f in dict.fromkeys(str(x).lower() for x in finish) if f in FINISHES],
+        "ai_look": ans.get("ai_look") is True or str(ans.get("ai_look")).lower() == "true",
     }
 
 

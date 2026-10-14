@@ -180,7 +180,7 @@ def caption_band(width: int, height: int, lines: int = 2) -> tuple[float, float]
     return round(max(0.0, (centre - half) / height), 4), round(min(1.0, (centre + half) / height), 4)
 
 
-def _chunk_words(words: list[dict], max_chars: int) -> list[list[dict]]:
+def _chunk_words(words: list[dict], max_chars: int, max_words: int = CAPTION_MAX_WORDS) -> list[list[dict]]:
     chunks: list[list[dict]] = []
     cur: list[dict] = []
     for w in words:
@@ -195,7 +195,7 @@ def _chunk_words(words: list[dict], max_chars: int) -> list[list[dict]]:
             cur = nxt
         text = str(w.get("text", "")).strip()
         span = float(cur[-1].get("endTime", 0)) - float(cur[0].get("startTime", 0))
-        if (len(cur) >= CAPTION_MAX_WORDS
+        if (len(cur) >= max_words
                 or span >= CAPTION_MAX_SECONDS
                 or text.endswith(CAPTION_BREAK_CHARS)):
             chunks.append(cur)
@@ -205,8 +205,25 @@ def _chunk_words(words: list[dict], max_chars: int) -> list[list[dict]]:
     return chunks
 
 
+def inspo_caption_style(timeline: dict) -> dict | None:
+    """The caption style the emitter applies (SPEC.md Part 12, goal D): {"present": false} when the inspo has no
+    captions, the inspo's font class, colours, case and band when it has, None for today's style."""
+    if not (timeline.get("captions") or {}).get("present", True):
+        return {"present": False}
+    style = next((sub.get("style") for sub in timeline.get("subtitles") or [] if sub.get("style")), None) or {}
+    if "fontClass" not in style:
+        return None
+    return {"present": True, "fontClass": style["fontClass"], "colour": style.get("color", "#ffffff"),
+            "highlight": style.get("highlightColor"), "case": style.get("case", "sentence"), "band": style.get("band"),
+            "animation": style.get("animation", "karaoke")}
+
+
 def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920) -> list[dict]:
     caption_style, max_chars = caption_style_for(width, height)
+    inspo = next((sub.get("style") for sub in subtitles if (sub.get("style") or {}).get("fontClass")), None)
+    # The inspo's chunk size and animation replace ours; its case is applied by the emitter.
+    max_words = max(1, round(float(inspo.get("wordsPerChunk") or CAPTION_MAX_WORDS))) if inspo else CAPTION_MAX_WORDS
+    karaoke = not inspo or inspo.get("animation", "karaoke") == "karaoke"
     out: list[dict] = []
     for sub in subtitles:
         words = sub.get("words") or []
@@ -219,7 +236,7 @@ def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920)
                         "keyframes": []})
             continue
 
-        for chunk in _chunk_words(words, max_chars):
+        for chunk in _chunk_words(words, max_chars, max_words):
             start = round(float(chunk[0].get("startTime", 0)), 3)
             end = round(float(chunk[-1].get("endTime", start)), 3)
             dur = round(max(end - start, 0.12), 3)
@@ -228,7 +245,8 @@ def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920)
                 continue
             # Uppercase: at this size and weight it reads as a caption rather
             # than a sentence, and keeps block height uniform across cuts.
-            content = content.upper()
+            if not inspo:
+                content = content.upper()
 
             # Pop-in: fast scale settling to 1, plus a couple of frames of fade.
             # Short enough to land inside even a 0.2s word.
@@ -249,7 +267,7 @@ def build_captions(subtitles: list[dict], width: int = 1080, height: int = 1920)
                 "keyframes": keyframes,
                 # Karaoke timing per word, seconds from the caption's start.
                 "words": [[round(float(w.get("startTime", 0)) - start, 3), round(float(w.get("endTime", 0)) - start, 3)]
-                          for w in chunk if str(w.get("text", "")).strip()],
+                          for w in chunk if str(w.get("text", "")).strip()] if karaoke else [],
                 "highlight": (sub.get("style") or {}).get("highlightColor"),
             })
 
@@ -404,6 +422,7 @@ def convert(session_dir: Path, use_proxies: bool = True) -> dict:
             "audio": audio_lanes,
         },
         "text": text_blocks,
+        "captionStyle": inspo_caption_style(project.get("timeline", {})),
         "_summary": {
             "media": len(media),
             "main": len(main_elements),

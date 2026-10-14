@@ -132,3 +132,14 @@ def test_animate_pass_on_graphic_shots(tmp_path, monkeypatch):
         s["tags"].pop("animation", None)
     I.animate_profile(d, prof, log=lambda m: None)
     assert len(calls) == 2 and shots[0]["tags"]["animation"]["reveal"] == "types_on"  # cached: no new calls
+
+
+def test_normalise_material_finish_ai_look():
+    a = D.normalise({**ANSWER, "material": "Render_3D", "finish": ["grain", "sparkles", "GLOW", "grain"], "ai_look": "true"})
+    assert (a["material"], a["finish"], a["ai_look"]) == ("render_3d", ["grain", "glow"], True)
+    b = D.normalise({**ANSWER, "material": "watercolour", "finish": "grain", "ai_look": "maybe"})
+    assert (b["material"], b["finish"], b["ai_look"]) == ("", [], False)
+
+
+def test_prompt_version_two_asks_for_material():
+    assert D.PROMPT_VERSION == 2 and '"material"' in D.PROMPT and "photo_collage" in D.PROMPT and '"ai_look"' in D.PROMPT

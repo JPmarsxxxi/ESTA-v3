@@ -19,6 +19,7 @@ import { getProjectDurationFromScenes } from "@/timeline/scenes";
 import { generateUUID } from "@/utils/id";
 import { ZERO_MEDIA_TIME, mediaTimeFromSeconds } from "@/wasm";
 import { api } from "../api";
+import { type CaptionStyle, captionsShown, styleCaption } from "./caption-style";
 import { KARAOKE_PARAM } from "./karaoke";
 import { planTransition } from "./transitions";
 
@@ -73,6 +74,7 @@ export type EstaImport = {
 		audio: Lane<ImportAudio>[];
 	};
 	text: ImportText[];
+	captionStyle?: CaptionStyle | null;
 	pending: Pending[];
 	originals: boolean;
 	summary: Record<string, unknown>;
@@ -278,7 +280,14 @@ export function buildScene({ doc, info, grades = {} }: { doc: EstaImport; info: 
 
 	// overlay[0] draws on top: captions, then graphics, then the crossfade lane.
 	const overlay: OverlayTrack[] = [];
-	if (doc.text.length) overlay.push({ id: generateUUID(), name: "Captions", type: "text", elements: doc.text.map((block, index) => textElement({ block, index })), hidden: false });
+	if (doc.text.length && captionsShown(doc.captionStyle))
+		overlay.push({
+			id: generateUUID(),
+			name: "Captions",
+			type: "text",
+			elements: doc.text.map((block, index) => textElement({ block: styleCaption({ block, style: doc.captionStyle, canvas: doc.project }), index })),
+			hidden: false,
+		});
 	const overlayLanes = [...doc.tracks.overlay];
 	for (const name of new Set(pending.map((x) => x.track)))
 		if (name !== "Main" && !overlayLanes.some((l) => l.name === name)) overlayLanes.push({ name, elements: [], muted: true });

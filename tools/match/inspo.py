@@ -3,7 +3,8 @@
     python tools/match/inspo.py resolve --session sessions/<id>   # write inspo.json
     python tools/match/inspo.py profile --session sessions/<id>   # build/reuse profiles, describe with Haiku
 
-cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, words, tags, motion),
+cache/inspo/<hash>/: video.mp4, profile.json (shots with timing, colour, words, tags, motion; layers, captions and
+palette from tools/match/layers.py),
 words.json (the inspo transcript),
 embeddings.npz (per-shot DINOv3 and SigLIP 2), keyframes/.
 """
@@ -156,7 +157,8 @@ def describe_profile(d: Path, log=print) -> dict:
     """Haiku describes every shot from its keyframe and the words spoken over it (SPEC.md Part 3, M6.1),
     then how each graphic shot animates (M6.6)."""
     prof = read_json(d / "profile.json")
-    if not (prof.get("tags_status") == "done" and all("content" in s.get("tags", {}) for s in prof["shots"])):
+    # Profiles described before PROMPT_VERSION 2 have no material: describe again (cached v1 answers don't match).
+    if not (prof.get("tags_status") == "done" and all("material" in s.get("tags", {}) for s in prof["shots"])):
         _describe(d, prof, log)
     animate_profile(d, prof, log)
     prof["complete"] = prof["tags_status"] == "done"
@@ -246,12 +248,16 @@ def profile(session: Path, log=print) -> dict:
             describe_profile(d, log)
             from tools.match.motion import motion_profile
             motion_profile(d, log)
+            from tools.match.layers import layers_profile
+            layers_profile(d, log)
             done.append(str(d.relative_to(REPO_ROOT)).replace("\\", "/"))
         except Exception as e:  # noqa: BLE001 - one bad inspo must not sink the rest
             failed.append({"ref": src["ref"], "error": str(e)[:300]})
             log(f"[inspo] {src['ref']}: FAILED {e}")
     out = {"session": session.name, "profiles": done, "failed": failed}
     write_json(session / "inspo_profiles.json", out)
+    from tools.style_analysis.look import write_look
+    write_look(session, [read_json(REPO_ROOT / rel / "profile.json", {}) or {} for rel in done])
     return out
 
 

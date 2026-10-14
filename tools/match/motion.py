@@ -6,6 +6,11 @@ A similarity transform (ORB keypoints + RANSAC) between consecutive frames sampl
 the shot gives its zoom, pan and jitter; mean luma over the first and last frames gives fades. Written onto
 each profile shot as `motion`; the plan copies it into `camera` / `transition_in` / `transition_out` and
 render turns those into keyframes.
+
+`motion.subject_motion` (none / low / high, SPEC.md Part 12 goal A) is the motion inside the frame once the camera
+move is taken out: each frame is warped onto the next by that same transform, and the share of pixels that still
+changed is averaged over the steps. One keyframe can't tell a cartoon from a still (39 of 41 Rick and Morty shots
+came out `still`), so a shot tagged `still` that moves `high` is reclassified as moving.
 """
 
 import argparse
@@ -24,11 +29,14 @@ PUNCH_WINDOW = 0.3
 PUNCH_SHARE = 0.6
 SHAKE = 0.02       # mean per-step translation with little net movement
 DARK, BRIGHT = 8, 247
+MIN_SPAN = 0.15      # inlier keypoints must spread over this share of the frame to count as a camera move
+CHANGED = 25         # a pixel whose grey level moved this much after warping has really changed
+SUBJECT_LOW, SUBJECT_HIGH = 0.01, 0.04   # share of changed pixels per step: none < low < high
 FADE_SECONDS = 0.5   # fades often hold black a few frames before the cut
 
 
-def step(a, b) -> tuple[float, float, float] | None:
-    """(scale, dx, dy) taking frame a to frame b, translation as a share of width/height; None when untrackable."""
+def transform(a, b):
+    """The 2x3 similarity transform taking frame a to frame b (ORB + RANSAC), or None when untrackable."""
     import cv2
     import numpy as np
     ga, gb = (cv2.cvtColor(f, cv2.COLOR_RGB2GRAY) for f in (a, b))
@@ -45,7 +53,23 @@ def step(a, b) -> tuple[float, float, float] | None:
     m, inliers = cv2.estimateAffinePartial2D(pa, pb, method=cv2.RANSAC, ransacReprojThreshold=3.0)
     if m is None or inliers is None or inliers.sum() < 10:
         return None
+    # Keypoints that agree on the move but cluster in a small part of the frame are a subject moving over a
+    # flat background (a cartoon), not the camera: read that as no camera move.
     h, w = ga.shape
+    pts = pb[inliers.ravel() > 0]
+    span = (pts[:, 0].max() - pts[:, 0].min()) * (pts[:, 1].max() - pts[:, 1].min()) / (w * h)
+    if span < MIN_SPAN:
+        return None
+    return m
+
+
+def step(a, b) -> tuple[float, float, float] | None:
+    """(scale, dx, dy) taking frame a to frame b, translation as a share of width/height; None when untrackable."""
+    import numpy as np
+    m = transform(a, b)
+    if m is None:
+        return None
+    h, w = a.shape[:2]
     scale = float(np.hypot(m[0, 0], m[1, 0]))
     # Translation of the frame centre, so a pure zoom about the centre reads as no pan.
     cx, cy = w / 2, h / 2
@@ -79,6 +103,26 @@ def classify(steps: list[tuple[float, float, float] | None], dt: float) -> dict:
     return {"move": "static", "amount": 0.0}
 
 
+def residual(a, b, m) -> float:
+    """Share of pixels that changed between a and b once a is warped by the camera transform m (identity when
+    the camera couldn't be tracked: flat cartoon frames often have too few keypoints, and their camera rarely moves)."""
+    import cv2
+    import numpy as np
+    ga, gb = (cv2.cvtColor(f, cv2.COLOR_RGB2GRAY).astype(np.float32) for f in (a, b))
+    h, w = ga.shape
+    m = np.float32([[1, 0, 0], [0, 1, 0]]) if m is None else np.float32(m)
+    warped = cv2.warpAffine(ga, m, (w, h), flags=cv2.INTER_LINEAR, borderValue=-1)
+    valid = cv2.warpAffine(np.ones_like(ga), m, (w, h), flags=cv2.INTER_NEAREST, borderValue=0) > 0
+    # Edges move by a pixel under any resampling; blur both so only real change counts.
+    diff = np.abs(cv2.GaussianBlur(warped, (5, 5), 0) - cv2.GaussianBlur(gb, (5, 5), 0))
+    inner = cv2.erode(valid.astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
+    return float((diff[inner] > CHANGED).mean()) if inner.any() else 0.0
+
+
+def subject_level(share: float) -> str:
+    return "high" if share >= SUBJECT_HIGH else "low" if share >= SUBJECT_LOW else "none"
+
+
 def fade_kind(lumas: list[float]) -> str:
     """lumas ordered from the cut outward: 'black'/'white' when the first is near black/white and they ramp away."""
     if len(lumas) < 3:
@@ -96,7 +140,11 @@ def measure(video: Path, start: float, end: float, fps: float) -> dict:
     times = list(np.linspace(start + 0.1 * dur, end - 0.1 * dur, SAMPLES)) if dur > 0.3 else [start, end - 1e-3]
     frames = frames_at(video, times)
     dt = (times[1] - times[0]) if len(times) > 1 else dur
-    out = classify([step(a, b) for a, b in zip(frames, frames[1:])] if len(frames) == len(times) else [], dt)
+    pairs = list(zip(frames, frames[1:])) if len(frames) == len(times) else []
+    out = classify([step(a, b) for a, b in pairs], dt)
+    shares = [residual(a, b, transform(a, b)) for a, b in pairs]
+    out["subject_share"] = round(float(np.mean(shares)), 4) if shares else 0.0
+    out["subject_motion"] = subject_level(out["subject_share"])
     luma = lambda ts: [float(f.mean()) for f in frames_at(video, ts)]  # noqa: E731
     n = max(3, min(int(FADE_SECONDS * fps), int(dur * fps / 3)))
     out["fade_in"] = fade_kind(luma([start + i / fps for i in range(n)]))
@@ -104,11 +152,27 @@ def measure(video: Path, start: float, end: float, fps: float) -> dict:
     return out
 
 
+def reclassify(shots: list[dict]) -> int:
+    """A shot tagged `still` whose subject moves `high` is moving footage: its material says what kind (a cartoon
+    stays `cel_animation`). The describe answer is kept as `kind_described`. Returns how many changed."""
+    n = 0
+    for s in shots:
+        tags = s.get("tags") or {}
+        if tags.get("kind") == "still" and (s.get("motion") or {}).get("subject_motion") == "high":
+            tags["kind_described"] = "still"
+            tags["kind"] = "footage"
+            n += 1
+    return n
+
+
 def motion_profile(d: Path, log=print) -> int:
-    """Measure every shot of a profile that has no `motion` yet. Returns how many were measured."""
+    """Measure every shot of a profile that has no `motion` (or no `subject_motion`) yet, then reclassify moving
+    stills. Returns how many were measured."""
     prof = read_json(d / "profile.json")
-    todo = [s for s in prof["shots"] if "motion" not in s]
+    todo = [s for s in prof["shots"] if "subject_motion" not in (s.get("motion") or {})]
     if not todo:
+        if reclassify(prof["shots"]):
+            write_json(d / "profile.json", prof)
         return 0
     _, fps = probe(d / "video.mp4")
     log(f"[motion] {len(todo)} shots")
@@ -116,7 +180,11 @@ def motion_profile(d: Path, log=print) -> int:
         try:
             s["motion"] = measure(d / "video.mp4", s["start"], s["end"], fps or 25.0)
         except Exception as e:  # noqa: BLE001 - an unreadable stretch is a static shot, not a failed profile
-            s["motion"] = {"move": "static", "amount": 0.0, "fade_in": "none", "fade_out": "none", "error": str(e)[:120]}
+            s["motion"] = {"move": "static", "amount": 0.0, "fade_in": "none", "fade_out": "none",
+                           "subject_motion": "none", "subject_share": 0.0, "error": str(e)[:120]}
+    moved = reclassify(prof["shots"])
+    if moved:
+        log(f"[motion] {moved} shots tagged still move: reclassified as footage")
     write_json(d / "profile.json", prof)
     return len(todo)
 

@@ -107,6 +107,8 @@ On success:
 }
 ```
 
+Do not write a `look` key. `match:profile` (`tools/match/inspo.py profile`) adds it, computed from the inspo profiles rather than written as prose (SPEC.md Part 12, goal A; `tools/style_analysis/look.py`): `materials` (duration-weighted share of each material), `finish` (finishes on 25%+ of the duration), `palette`, `layers` (presenter, logo bug, frame) and `captions` (the inspo's caption layer, `{"present": false}` when it has none, `null` when it couldn't be read). When you rewrite an existing `style_analysis.json`, carry its `look` over unchanged. To rebuild it by hand: `python tools/style_analysis/look.py --session sessions/<id>`.
+
 Report to user:
 
 > "Style analysis done. [N] video(s) — [energy_level] energy, [pacing] pacing, [cuts_per_minute] cuts/min. Dominant style: [visual_style]."
