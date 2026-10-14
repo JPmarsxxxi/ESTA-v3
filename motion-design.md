@@ -50,6 +50,20 @@ violation is the punchline. A terminal that types normally and then stamps
 `DECEASED` across itself is funnier than either half alone. Establish the
 convention before you break it.
 
+**When the plan is mapped to an inspo, the inspo decides the look.** The native
+surface decides *what* a graphic shows: the terminal, the scoreboard, the docket.
+The inspo's `material` and `finish` (`visual.material`, `style_analysis.json`
+`look`) decide *how it looks*. If the inspo is cut-out photographs with halftone
+and paper edges, the terminal readout is a cut-out printout on torn paper, not a
+flat vector terminal. If it is airbrushed 3D, the readout sits on a lit glass
+slab. A flat vector surface over a collage or 3D inspo misses the look however
+right the content is (the M14 test: motion right, look wrong in three of four
+videos). Without an inspo, the surface's own look stands.
+
+The caption band (`slots.json` `caption_band`, measured from the inspo; else
+where our captions sit) is not where the bottom ~400px rule below assumes: keep
+graphic text out of the measured band, and `build.py` flags any that crosses it.
+
 ---
 
 ## 1. Deterministic rules — always enforced
@@ -160,7 +174,7 @@ dominant dial; it changes everything downstream.
 
 | | Vertical / short | Horizontal / long |
 |---|---|---|
-| safe area | ≥90px margins, clear of the bottom ~400px (karaoke subs live there) | standard thirds, lower-third band available |
+| safe area | ≥90px margins, clear of the caption band (`slots.json` `caption_band`; `build.py` flags crossings) | standard thirds, clear of the caption band |
 | density | one idea, large | can carry a real table or chart |
 | reveal budget | ~0.4s — the slot is 1–3s | can breathe, sequence multiple beats |
 

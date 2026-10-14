@@ -1,9 +1,32 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ExportButton } from "@/components/editor/export-button";
+import { useEditor } from "@/editor/use-editor";
 import { useOpenCut } from "../opencut/host";
+import { useWorkspace } from "../store";
+
+// Chrome defers media loading in hidden tabs, so a build or export in a minimised window stalls without an
+// error. Say so instead of looking hung (SPEC.md Part 12, F7).
+function useHiddenWhileBusy(busy: boolean): boolean {
+	const [hidden, setHidden] = useState(false);
+	useEffect(() => {
+		if (!busy) return;
+		const check = () => {
+			if (document.visibilityState === "hidden") setHidden(true);
+		};
+		document.addEventListener("visibilitychange", check);
+		const first = setTimeout(check, 0);
+		return () => {
+			clearTimeout(first);
+			document.removeEventListener("visibilitychange", check);
+			setHidden(false);
+		};
+	}, [busy]);
+	return busy && hidden;
+}
 
 export function ConflictBanner() {
 	const { conflict, built, build, keepMine } = useOpenCut();
@@ -26,7 +49,10 @@ export function ConflictBanner() {
 // OpenCut encodes the crf-23 proxies into the finished video.
 export function EditorPanel() {
 	const { projectId, status, built, progress, buildError, build } = useOpenCut();
+	const { session } = useWorkspace();
+	const exporting = useEditor((e) => e.project.getExportState().isExporting);
 	const busy = progress !== null;
+	const hidden = useHiddenWhileBusy(busy || exporting);
 	return (
 		<div className="text-sm">
 			<ConflictBanner />
@@ -50,6 +76,13 @@ export function EditorPanel() {
 						{progress.phase === "convert" && "Converting render output..."}
 						{progress.phase === "media" && `Syncing media ${progress.done}/${progress.total}${progress.label ? `: ${progress.label}` : ""}`}
 						{progress.phase === "save" && "Saving project..."}
+					</div>
+				)}
+				{hidden && (
+					<div className="text-caution text-xs">
+						This tab was hidden during the {busy ? "build" : "export"}: Chrome holds back media loading in hidden tabs, so it
+						stalls until the tab is visible again. Keep this tab in front, or export unattended with{" "}
+						<code>bun run export {session}</code>.
 					</div>
 				)}
 				{buildError && <div className="text-destructive text-xs">{buildError}</div>}

@@ -10,7 +10,8 @@ Makes the video follow its inspo measurably. Local models do the looking and the
 ## Preflight
 
 1. `sessions/<id>/plan.json` and `style_analysis.json` exist (mode final also needs `<id>.openreel.json`). If not, say which step is missing and stop.
-2. The system python runs these tools (`python`, not `conda run -n esta`): `esta` pins transformers 4.33, which predates DINOv3 and SigLIP 2. The `claude` CLI must be on PATH (the describe lane and the auto-pick judge).
+2. The system python runs these tools (`python`, not `conda run -n esta`): `esta` pins transformers 4.33, which predates DINOv3 and SigLIP 2. The `claude` CLI must be on PATH (the describe lane and the auto-pick judge). The watermark check needs `rapidocr_onnxruntime` in the system python (`python -m pip install rapidocr_onnxruntime`); without it the OCR half of the check is skipped and the judge is the only watermark filter.
+3. One match run at a time: `run.py` takes `cache/match.lock`, and a second run waits for the first (two at once ran the PC out of memory). Don't start one in the background while another is running.
 
 ## Invocation
 
@@ -28,7 +29,9 @@ It runs in the background (describing an inspo takes ~3-5 minutes and ~$0.40-0.6
 2. `score.py`: writes `match_plan.json` / `match_final.json` with sections a-e, the overall score and pass/fail (overall >= 80 and every section >= 70; weights in `config.yaml` `match`).
 3. `adjust.py`: while failing, fixes sections in order e (split/merge), a (retype toward the inspo's mix), d (overlays), c (reword off-theme shots), b (colour grades at final, written to `match_grades.json` and applied by Build). Wording is one batched Haiku call per round. A round that gains under 1 point or drops a passing section is reverted and the loop stops; otherwise it runs until pass or 8 rounds. Locked (hand-edited) shots are never touched.
 
-At the final stage, changed shots are re-picked by `tools/match/autopick.py` and the project is re-rendered before re-scoring.
+At the final stage, the shots a round changed are re-picked by `tools/match/autopick.py` and the project is re-rendered before re-scoring. A reverted round only re-renders: the restored plan already matches its assets, and a lingering `queries_stale` from an earlier round no longer triggers a re-pick.
+
+Before ranking, auto-pick (and the assets fetch) reads 3 frames of each candidate's used window with OCR: text in the outer 15% border band that reads as a URL or domain, a © or credit line, or a channel handle rejects the candidate (the shot's own planned caption is allowed), and a static corner logo sends it behind every clean candidate. `autopick.json` `last.watermarked` lists the rejections. A picked AV1 or VP9 clip is cut to an H.264 window around its in/out points (`<file>_h264_<shot>.mp4`), because export stalls on those codecs.
 
 Auto-pick treats stock (Pexels/Pixabay) as a capped last resort (SPEC.md Part 7): a non-stock candidate always wins; a shot with nothing outside stock gets up to 3 Haiku query rewrites on every non-stock source of its kind; only then may it take stock, while fewer than 15% of the plan's shots (`config.yaml` `assets.stock_cap`, `pipeline.json` `ui.stock_cap` overrides) hold a stock pick. Past that it becomes a word-card graphic in the session kit (`retype_reason: "stock_cap"`), or is listed in `stock_overflow.json` for the motion-graphics skill when there is no kit yet. Its report (`autopick.json` `last.stock`) gives the budget, the count used and the retyped shots.
 

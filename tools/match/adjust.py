@@ -49,11 +49,22 @@ WRITER_SYSTEM = (
     "(2-4 words, ALL CAPS, the number or punchline of the spoken line).\n"
     "desc: what the shot shows, concrete, in the inspo's visual grammar (given below). Never change the spoken line.\n"
     "search_sources rules: specificity=high must lead with youtube or wikimedia. Never list a stock source "
-    "(pexels_video, pixabay_video, pexels_image, pixabay_image). REAL_FOOTAGE high: [youtube, archive]; "
-    "REAL_FOOTAGE low/medium: [youtube, archive, giphy]; REAL_IMAGE high: [google_images, wikimedia]; "
-    "REAL_IMAGE low/medium: [google_images, pinterest, wikimedia, openverse]; MOTION_GRAPHICS: [giphy]. "
-    "A meme/reaction shot leads with giphy. 2-3 sources best-first, 1-3 queries each, 3-5 words, concrete nouns."
+    "(pexels_video, pixabay_video, pexels_image, pixabay_image). REAL_FOOTAGE: [youtube, archive]; "
+    "REAL_IMAGE high: [google_images, wikimedia]; REAL_IMAGE low/medium: [google_images, pinterest, wikimedia, openverse]; "
+    "MOTION_GRAPHICS: [] (it is generated). giphy only on a reaction or meme beat, and then the desc starts with "
+    "'Reaction:' and giphy leads. 2-3 sources best-first; the lead source gets 2-3 queries, most specific first; "
+    "each source gets its own queries in its own terms, 3-5 words, concrete nouns."
 )
+
+
+def allowed_sources(shot: dict, entries: list) -> list:
+    """The writer's sources minus any the validator's sourcing rule would reject (stock, giphy off a reaction
+    beat), so one offending source drops that source, not the whole round."""
+    from tools.assets.run import STOCK_SOURCES
+    from tools.match.validate_plan import REACTION
+    reaction = any(m in ((shot.get("visual") or {}).get("desc") or "").lower() for m in REACTION)
+    return [e for e in entries if isinstance(e, dict) and e.get("source") not in STOCK_SOURCES
+            and (e.get("source") != "giphy" or reaction)]
 
 
 def log(msg: str) -> None:
@@ -102,16 +113,22 @@ def _norm(w: str) -> str:
 
 
 def split_word(session: Path, shot: dict) -> str | None:
-    """A word near the middle of the shot that ops.split will resolve to that exact position."""
+    """A word near the middle of the shot that ops.split will resolve to that exact position, and that leaves
+    each half within the validator's tolerance of half the shot's ref target."""
+    from tools.match.validate_plan import TARGET_TOL
     ts = read_json(session / "timestamps.json", {}) or {}
     words = ops._words_in(ts, float(shot["start"]), float(shot["end"]))
     if len(words) < 4:
         return None
-    mid = (float(shot["start"]) + float(shot["end"])) / 2
-    order = sorted(range(1, len(words)), key=lambda i: abs(float(words[i].get("start", 0)) - mid))
+    a, b = float(shot["start"]), float(shot["end"])
+    half = float(shot["ref_target_dur"]) / 2 if shot.get("ref_target_dur") else None
+    order = sorted(range(1, len(words)), key=lambda i: abs(float(words[i].get("start", 0)) - (a + b) / 2))
     for i in order:
         w = _norm(words[i].get("word", ""))
         if not w or i < 2 or i > len(words) - 2:
+            continue
+        t = float(words[i].get("start", 0))
+        if half and any(abs(d - half) > TARGET_TOL * half for d in (t - a, b - t)):
             continue
         if all(_norm(words[j].get("word", "")) != w for j in range(i)):
             return words[i].get("word", "").strip(" ,.!?\"'")
@@ -343,9 +360,10 @@ def fix_colour(session: Path, rep: dict) -> list[str]:
 
 # ── Wording (one Haiku call per round) ───────────────────────────────────────
 
-def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], float]:
+def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], float, list[int]]:
+    """Returns (notes, cost, the shots whose queries this call made stale)."""
     if not tasks:
-        return [], 0.0
+        return [], 0.0, []
     plan = load_plan(session)
     # The grammar is the described inspo itself; style_analysis.json may describe a
     # different (earlier) inspo, and its words leaked into every rewrite.
@@ -397,10 +415,10 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
     cost = sum(a[1] for a in answers)
     errors = [a[2] for a in answers if a[2]]
     if not out:
-        return [f"note: wording failed ({errors[0] if errors else 'empty answer'})"], cost
+        return [f"note: wording failed ({errors[0] if errors else 'empty answer'})"], cost, []
     plan = load_plan(session)
     has_asset = set(scorer._asset_rows(session)) if stage == "final" else set()
-    changed = []
+    changed, restaled = [], []
     for o in out:
         s = shot_by_n(plan, int(o.get("n", -1)))
         if not s or s.get("locked"):
@@ -408,11 +426,13 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
         v = s.setdefault("visual", {})
         if o.get("desc"):
             v["desc"] = str(o["desc"])
-        if isinstance(o.get("search_sources"), list) and o["search_sources"] and not v.get("queries_pinned"):
-            v["search_sources"] = o["search_sources"]
-            v["search_query"] = (o["search_sources"][0].get("queries") or [""])[0]
+        sources = allowed_sources(s, o["search_sources"]) if isinstance(o.get("search_sources"), list) else []
+        if sources and not v.get("queries_pinned"):
+            v["search_sources"] = sources
+            v["search_query"] = (sources[0].get("queries") or [""])[0]
             if str(s["shot_number"]) in has_asset:
                 v["queries_stale"] = True
+                restaled.append(s["shot_number"])
         if s.get("overlay") is not None and o.get("caption"):
             s["overlay"]["caption"] = str(o["caption"])
             s["overlay"]["desc"] = s["overlay"]["desc"] or str(o["caption"])
@@ -430,15 +450,19 @@ def write_wording(session: Path, tasks: dict, stage: str) -> tuple[list[str], fl
             s.pop("overlay")
     save_plan(session, plan)
     kept = [c for c in changed if isinstance(c, str)]
-    return [f"reworded {len(changed) - len(kept)} shots"] + kept + [f"note: a wording batch failed ({e[:120]})" for e in errors], cost
+    notes = [f"reworded {len(changed) - len(kept)} shots"] + kept + [f"note: a wording batch failed ({e[:120]})" for e in errors]
+    return notes, cost, restaled
 
 
 # ── Final-stage follow-through ───────────────────────────────────────────────
 
-def refresh_final(session: Path) -> list[str]:
-    """Refetch stale shots through auto-pick, then re-render."""
+def refresh_final(session: Path, refetch: list[int] | None = None) -> list[str]:
+    """Refetch the given shots through auto-pick, then re-render. Only the shots this round changed:
+    queries_stale can linger from earlier rounds, and refetching those re-picks shots the round never
+    meant to touch. After a restore, pass nothing: the restored plan already matches its assets."""
     from tools.match import autopick
-    stale = [s["shot_number"] for s in load_plan(session)["shots"] if (s.get("visual") or {}).get("queries_stale")]
+    plan = {s["shot_number"]: s for s in load_plan(session)["shots"]}
+    stale = [n for n in sorted(set(refetch or [])) if (plan.get(n, {}).get("visual") or {}).get("queries_stale")]
     notes = []
     if stale:
         res = autopick.run(session, stale, log=log)
@@ -492,13 +516,13 @@ def run(session: Path, stage: str) -> dict:
                 changes += fix_theme(session, rep, tasks)
             elif k == "b" and stage == "final":
                 changes += fix_colour(session, rep)
-        words, cost = write_wording(session, tasks, stage)
+        words, cost, restaled = write_wording(session, tasks, stage)
         total_cost += cost
         changes += words
         if stage == "plan":
             sync_progress(session)
         if stage == "final" and any(not c.startswith(("graded", "note")) for c in changes):
-            changes += refresh_final(session)
+            changes += refresh_final(session, restaled)
         real = [c for c in changes if not c.startswith("note")]
         # A mapped plan must keep passing the validator: a round that adds problems is undone like a losing round.
         after = validator_problems(session) if real else None

@@ -20,6 +20,8 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from tools.media import watermark  # noqa: E402
+from tools.media.codec import h264_window  # noqa: E402
 from tools.vision_server import client as vision  # noqa: E402
 
 TARGET_CANDIDATES = 5  # stop cascading once we have this many candidates
@@ -390,6 +392,25 @@ def _chrome_needed(session_dir: Path, n, query: str, desc: str, audio: str, exc:
 
 # ── Per-shot fetch (cascading search) ────────────────────────────────────────
 
+def _window(c: dict, path: Path, shot_dur: float) -> tuple[float, float]:
+    """Seconds into the full source where the shot's content sits (0/0 for a still)."""
+    from tools.assets.processor import _get_duration
+    if c["type"] != "video" or path.suffix.lower() not in {".mp4", ".mov", ".avi", ".webm"}:
+        return 0.0, 0.0
+    source_dur = _get_duration(path)
+    if c["source"] == "youtube":
+        in_pt = float(c.get("_yt_start", 0.0))
+        out_pt = float(c.get("_yt_end", in_pt + shot_dur))
+    else:
+        in_pt = 0.0
+        out_pt = min(source_dur, shot_dur) if source_dur > 0 else shot_dur
+    if source_dur > 0:
+        out_pt = min(out_pt, source_dur)
+    if out_pt <= in_pt:
+        out_pt = in_pt + shot_dur
+    return in_pt, out_pt
+
+
 def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
     from tools.assets.processor import _get_duration
     from tools.assets.search import NeedsChrome
@@ -643,27 +664,40 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
     best = None
     keep_audio = bool(visual.get("keep_audio"))
     audio_missing = False
+    caption = (shot.get("overlay") or {}).get("caption", "")
+    logo_fallback = None
     for candidate in ranked:
         dest = _source_path(assets_dir, candidate, keep_audio)
         dest.parent.mkdir(parents=True, exist_ok=True)
 
         if dest.exists() and dest.stat().st_size > 1024:
             print(f"[assets] shot {n:02d}: source_pool hit → {dest.name} (no re-download)", flush=True)
-            best, raw_dest = candidate, dest
-            break
-
-        if candidate["source"] == "youtube":
-            ok, audio_missing = _download_youtube_full(candidate["url"], dest, keep_audio)
+            got_audio_missing = False
         else:
-            ok = _download_file(candidate["url"], dest)
+            if candidate["source"] == "youtube":
+                ok, got_audio_missing = _download_youtube_full(candidate["url"], dest, keep_audio)
+            else:
+                ok, got_audio_missing = _download_file(candidate["url"], dest), False
+            if not ok:
+                dest.unlink(missing_ok=True)  # clear partials so a later dedup check can't pick up garbage
+                continue
 
-        if not ok:
-            dest.unlink(missing_ok=True)  # clear partials so a later dedup check can't pick up garbage
+        # F5: the judge lets watermarks through, so a URL, credit or handle in the border band rejects the
+        # candidate, and a static corner logo sends it behind every clean one.
+        in_pt, out_pt = _window(candidate, dest, shot_dur)
+        wm = watermark.check(dest, in_pt, out_pt, caption)
+        if wm["reject"]:
+            print(f"[assets] shot {n:02d}: {dest.name} rejected, {wm['reason']}", flush=True)
             continue
-
-        best, raw_dest = candidate, dest
+        if wm["logo"]:
+            print(f"[assets] shot {n:02d}: {dest.name} has a corner logo, trying the next", flush=True)
+            logo_fallback = logo_fallback or (candidate, dest, got_audio_missing)
+            continue
+        best, raw_dest, audio_missing = candidate, dest, got_audio_missing
         break
 
+    if not best and logo_fallback:
+        best, raw_dest, audio_missing = logo_fallback
     if not best or not raw_dest:
         return _placeholder_result(n, query, "all downloads failed")
 
@@ -671,20 +705,10 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
     # No trim, no re-encode. in/out_point are seconds INTO the full source where
     # this shot's content sits; render (and the editor) apply them and can drag
     # the cut wider because every frame is on disk. Static images get 0/0.
-    if best["type"] == "video" and raw_dest.suffix.lower() in {".mp4", ".mov", ".avi", ".webm"}:
-        source_dur = _get_duration(raw_dest)
-        if best["source"] == "youtube":
-            in_pt = float(best.get("_yt_start", 0.0))
-            out_pt = float(best.get("_yt_end", in_pt + shot_dur))
-        else:
-            in_pt = 0.0
-            out_pt = min(source_dur, shot_dur) if source_dur > 0 else shot_dur
-        if source_dur > 0:
-            out_pt = min(out_pt, source_dur)
-        if out_pt <= in_pt:
-            out_pt = in_pt + shot_dur
-    else:
-        in_pt, out_pt = 0.0, 0.0
+    # The one exception is a non-H.264 video (F6): export stalls on AV1/VP9, so
+    # the pick becomes an H.264 cut of its window, with in/out shifted onto it.
+    in_pt, out_pt = _window(best, raw_dest, shot_dur)
+    raw_dest, in_pt, out_pt = h264_window(raw_dest, in_pt, out_pt, n)
 
     print(f"[assets] shot {n:02d}: ✓ {best['source']} {best['type']} → {raw_dest.name} "
           f"[{in_pt:.1f}s→{out_pt:.1f}s]", flush=True)
@@ -699,6 +723,19 @@ def _fetch_shot(shot: dict, assets_dir: Path, config: dict) -> dict:
         "error": "",
         **({"audio_missing": True} if audio_missing else {}),
     }
+
+
+def _clear_stale(plan_path: Path, numbers: set) -> None:
+    """A fresh pick answers the shot's current queries, so its stale mark goes, as autopick's does; a mark left
+    behind makes match's final adjust refetch the shot again."""
+    if not numbers or not plan_path.exists():
+        return
+    plan = json.loads(plan_path.read_text(encoding="utf-8"))
+    hit = [s for s in plan.get("shots", []) if s.get("shot_number") in numbers and (s.get("visual") or {}).get("queries_stale")]
+    for s in hit:
+        s["visual"].pop("queries_stale")
+    if hit:
+        plan_path.write_text(json.dumps(plan, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 # ── Main command ──────────────────────────────────────────────────────────────
@@ -768,6 +805,7 @@ def cmd_fetch(args: argparse.Namespace) -> None:
 
     fetched = sum(1 for r in results.values() if r.get("ok"))
     failed = len(results) - fetched
+    _clear_stale(plan_path, {n for n, r in results.items() if r.get("ok")})
 
     output = {
         "session_id": session_dir.name,
@@ -1012,6 +1050,8 @@ def cmd_shot(args: argparse.Namespace) -> None:
 
     with open(assets_progress_path, "a", encoding="utf-8") as f:
         f.write(json.dumps(result) + "\n")
+    if result.get("ok") and not (args.source and args.query):
+        _clear_stale(plan_path, {args.n})
 
     if assets_json_path.exists():
         existing = json.loads(assets_json_path.read_text(encoding="utf-8"))

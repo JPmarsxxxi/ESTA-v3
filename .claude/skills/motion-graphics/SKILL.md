@@ -52,6 +52,8 @@ The fix, and the only way to work in this skill: **author the surface ONCE as a 
 
 Apply motion-design §0: **identify the native surface this topic lives on** — the real interface or document where this information exists (trading terminal, broadcast scoreboard, filed document, the product's own UI). Build that; don't invent "a motion graphic." Per §J3 the slots are the *same place seen again* — one surface, revisited — which is exactly what the shared kit enforces.
 
+**On a mapped plan the inspo decides the look** (SPEC.md Part 12, F12; motion-design §0). The native surface still decides *what* each graphic shows, but the shots' `visual.material` and `style_analysis.json` `look` (`materials`, `finish`, `palette`) decide *how it looks*: build the kit in the inspo's material and finish (cut-out photo and halftone, lit glass, grain), never as flat vector over an inspo that isn't flat vector. A shot whose `visual.lane` is not `hyperframes` (`collage`, `genimage`) is not drawn from CSS shapes alone: see its lane below.
+
 Write two files:
 
 ```
@@ -97,7 +99,7 @@ Composition non-negotiables (the builder handles 1, 2, 7's background; you own t
 5. Easing never linear for reveals — `power2.out`/`power3.out`; count-ups snap. Exception (M5): a real machine motion the surface has (cursor blink, scanline, ticker) is linear because the real thing is.
 6. Reveal/type text holds the full string's width from the start so it doesn't slide.
 7. ✅ builder: opaque bg for full-frame, transparent for overlay. You must still keep overlay content inside the card area — never a full-bleed scrim.
-8. Overlay cards inside the safe area (≥90px from edges, clear of the bottom ~400px where subtitles live).
+8. Overlay cards and full-frame text inside the safe area: ≥90px from edges and clear of the caption band (`slots.json` `caption_band`, measured from the inspo; else where our captions sit). The band is not the bottom ~400px: on a vertical video our captions sit around 64-80% down.
 
 ## 3. Build + verify each slot
 
@@ -106,7 +108,7 @@ conda run --no-capture-output -n esta python tools/motiongraphics/build.py --ses
 conda run --no-capture-output -n esta python tools/motiongraphics/build.py --session sessions/<id> --key 5  # one
 ```
 
-This writes `assets/mg/slot_<key>/index.html`, fully assembled. Then:
+This writes `assets/mg/slot_<key>/index.html`, fully assembled, then measures every slot's text in headless Chrome across its timeline. A slot listed in the output's `band_crossings` has text in the caption band (`crosses_caption_band` names it): move that text out of the band and rebuild before rendering. Then:
 
 ```bash
 npx hyperframes lint sessions/<id>/assets/mg/slot_<key>                        # must be 0 errors

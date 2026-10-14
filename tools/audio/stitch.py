@@ -10,11 +10,14 @@ Output matches the other audio modes' contract (`audio.wav` + metadata), so
 """
 
 import json
+import math
 import subprocess
 from datetime import datetime
 from pathlib import Path
 
 SAMPLE_RATE = 48000
+MAX_TEMPO = 1.15   # faster than this and the clone stops sounding human
+MIN_PAUSE = 0.6    # pauses shrink to no less than this share
 
 
 def _atempo_chain(pace: float) -> str:
@@ -28,9 +31,48 @@ def _atempo_chain(pace: float) -> str:
     return ",".join(f"atempo={s:.4f}" for s in steps)
 
 
-def stitch(session_dir: Path) -> dict:
-    job = json.loads((session_dir / "voice_script.json").read_text(encoding="utf-8"))
+def _seconds(wav: Path) -> float:
+    r = subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(wav)],
+                       capture_output=True, text=True)
+    return float(r.stdout.strip() or 0)
+
+
+def fit(job: dict, lines_dir: Path, target: float) -> dict:
+    """Shrink pauses (to x0.6), then raise tempo (to x1.15), just enough to land on `target` seconds, and write
+    the result into the job's per-line pace and pauses (SPEC.md Part 12, F10). When even both limits fall
+    short, report about how many words to cut. A voiceover already at or under the target is left alone."""
+    lines = job["lines"]
+    speech = sum(_seconds(lines_dir / f"line_{l['id']}.wav") / (l.get("pace") or 1.0) for l in lines)
+    pauses = sum(int(l.get("pause_after_ms") or 0) for l in lines) / 1000
+    excess = speech + pauses - target
+    out = {"target": target, "before": round(speech + pauses, 2), "tempo": 1.0, "pause_scale": 1.0, "words_to_cut": 0}
+    if excess <= 0:
+        return out
+    scale = max(MIN_PAUSE, (pauses - excess) / pauses) if pauses else 1.0
+    left = excess - pauses * (1 - scale)
+    tempo = min(MAX_TEMPO, speech / (speech - left)) if left > 0 else 1.0
+    left -= speech - speech / tempo
+    if left > 0.05:
+        words = job.get("word_count") or sum(len(l["text"].split()) for l in lines)
+        out["words_to_cut"] = math.ceil(left * words / (speech / tempo))
+    for l in lines:
+        if tempo > 1.0:
+            l["pace"] = round((l.get("pace") or 1.0) * tempo, 4)
+        if l.get("pause_after_ms"):
+            l["pause_after_ms"] = int(round(l["pause_after_ms"] * scale))
+    out.update(tempo=round(tempo, 4), pause_scale=round(scale, 3))
+    return out
+
+
+def stitch(session_dir: Path, target_seconds: float | None = None) -> dict:
+    job_path = session_dir / "voice_script.json"
+    job = json.loads(job_path.read_text(encoding="utf-8"))
     lines_dir = session_dir / "voice_build" / "lines"
+    fitted = None
+    if target_seconds:
+        fitted = fit(job, lines_dir, float(target_seconds))
+        # Kept in the job, so a later --only redo stitches at the same pace and pauses.
+        job_path.write_text(json.dumps(job, indent=2, ensure_ascii=False), encoding="utf-8")
 
     inputs, filters, labels, missing = [], [], [], []
     for idx, line in enumerate(job["lines"]):
@@ -77,9 +119,15 @@ def stitch(session_dir: Path) -> dict:
     }
     (session_dir / "audio_metadata.json").write_text(json.dumps(meta, indent=2),
                                                      encoding="utf-8")
-    return {"ok": True, "output": str(out), "duration": info["duration"],
-            "lines": len(labels), "warnings": info.get("warnings", [])}
+    res = {"ok": True, "output": str(out), "duration": info["duration"],
+           "lines": len(labels), "warnings": info.get("warnings", [])}
+    if fitted:
+        res["fit"] = fitted
+        if fitted["words_to_cut"]:
+            res["warnings"].append(f"tempo x{MAX_TEMPO} and pauses x{MIN_PAUSE} are not enough for "
+                                   f"{fitted['target']:.0f} s: cut about {fitted['words_to_cut']} words")
+    return res
 
 
 def cmd_stitch(args) -> None:
-    print(json.dumps(stitch(Path(args.session))))
+    print(json.dumps(stitch(Path(args.session), getattr(args, "target_seconds", None))))

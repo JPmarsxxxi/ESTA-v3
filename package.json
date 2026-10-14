@@ -11,6 +11,7 @@
 		"dev": "node scripts/dev.ts",
 		"dev:editor": "bun --cwd apps/editor run dev",
 		"server": "node server/index.ts",
+		"export": "node tools/opencut/export_headless.mjs",
 		"build:wasm": "node scripts/build-wasm.ts",
 		"typecheck": "tsc --noEmit -p apps/editor && tsc --noEmit -p server",
 		"lint": "eslint apps/editor/src/esta apps/editor/src/app/esta apps/editor/src/app/page.tsx server scripts",

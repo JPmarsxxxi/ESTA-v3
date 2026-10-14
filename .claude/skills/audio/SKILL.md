@@ -119,13 +119,21 @@ Run via Bash with `run_in_background: true` — it pushes a Kaggle kernel and po
 then **immediately invoke `style-analysis`** so it runs in parallel. Each line lands
 as `voice_build/lines/line_<id>.wav`.
 
-When the notification arrives, join them (pace + pauses are applied here, locally):
+When the notification arrives, check every line says what the script says before stitching. IndexTTS2 can drop or flip a word, and a flipped negation ("can't" read as "can") reverses the line without sounding wrong:
 
 ```powershell
-conda run --no-capture-output -n esta python tools/audio/run.py stitch --session sessions/<id>
+conda run --no-capture-output -n esta python tools/audio/run.py line-check --session sessions/<id>
 ```
 
-That writes `audio.wav` + `audio_metadata.json` (`method: "indextts2"`).
+It whispers each line wav (medium model, CPU) and writes `voice_check.json`. `flagged` lists lines whose word error rate is over 0.2 or whose negations differ, with the reason. Show the user each flagged line (script vs heard) and redo it with `--only` (step 6). **Unattended runs** rephrase each flagged line once (e.g. "cannot" for "can't", or split the sentence) in `script.tagged.md`, re-run `tag-check`, redo those lines with `--only`, and `line-check --only` them again; a line still flagged after that is kept and noted in the run log.
+
+Then join them (pace + pauses are applied here, locally). Pass the requirements' duration as the target:
+
+```powershell
+conda run --no-capture-output -n esta python tools/audio/run.py stitch --session sessions/<id> --target-seconds <requirements duration in seconds>
+```
+
+That writes `audio.wav` + `audio_metadata.json` (`method: "indextts2"`). With `--target-seconds`, a voiceover over the target is fitted: pauses shrink first (down to x0.6), then every line's pace rises (up to x1.15). The fit is written into `voice_script.json`, so later `--only` redos stitch at the same pace. If both limits are not enough, the output's `fit.words_to_cut` says roughly how many words to cut: tell the user, or on an unattended run cut that many from the script's least important lines and redo them.
 
 ### 6. Review + per-line redo
 
@@ -139,7 +147,7 @@ To redo, edit that line's tags in `script.tagged.md`, re-run `tag-check`, then:
 python tools/audio/run.py expressive --session sessions/<id> --only L04,L07
 ```
 
-Only those lines regenerate; everything else is reused. Re-run `stitch` after.
+Only those lines regenerate; everything else is reused. Re-run `line-check --only L04,L07`, then `stitch` (with the same `--target-seconds`) after.
 
 ### 7. Guide takes (Seed-VC)
 
@@ -309,7 +317,8 @@ You do NOT need to read these at runtime — apply the rules inline.
 - `tools/audio/analyze_pool.py` — `analyze(session_dir)`: tiered comprehension (skip non-speech → youtube captions → whisper the rest). Enriches `audio_pool.json`, writes `audio_pool_analysis.json`.
 - `tools/audio/tagged.py` — markup parser. `script.tagged.md` → `voice_script.json` per-line jobs; `*stress*` → CAPS, `[pause]` splits a line into two units.
 - `tools/audio/kaggle_tts.py` — the Kaggle lane for IndexTTS2 + Seed-VC. One kernel per run, one wav per line, `--only` for redos.
-- `tools/audio/stitch.py` — joins the per-line wavs, applying pace (ffmpeg `atempo`, pitch-preserving) and pauses locally → `audio.wav` + metadata.
+- `tools/audio/stitch.py` — joins the per-line wavs, applying pace (ffmpeg `atempo`, pitch-preserving) and pauses locally → `audio.wav` + metadata. `--target-seconds` fits pauses (to x0.6) and pace (to x1.15) toward a length, or reports words to cut.
+- `tools/audio/line_check.py` — whispers each line wav and flags lines that drift from the script (WER > 0.2, or a negation added or dropped) → `voice_check.json`.
 - `tools/audio/xtts.py` — `generate_xtts(...)`. Includes the torch.load patch from notebook cell 12 (do not strip it).
 - `tools/audio/validate.py` — `validate_wav(path)` returns `{path, duration, channels, sample_rate, size_mb, warnings}`.
 - `tools/audio/schema.py` — `AudioMetadata` TypedDict + `default_audio_metadata(session_id)`.

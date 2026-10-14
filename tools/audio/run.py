@@ -118,6 +118,14 @@ def main() -> None:
     # stitch — join the per-line wavs with pace + pauses into audio.wav
     p_st = sub.add_parser("stitch", help="Stitch per-line wavs into audio.wav")
     p_st.add_argument("--session", required=True, help="Path to session dir")
+    p_st.add_argument("--target-seconds", type=float, dest="target_seconds",
+                      help="Fit pace (up to x1.15) and pauses (down to x0.6) toward this length")
+
+    # line-check — whisper each line wav and flag lines that drift from the script
+    p_lc = sub.add_parser("line-check", help="Flag TTS lines whose words differ from the script")
+    p_lc.add_argument("--session", required=True, help="Path to session dir")
+    p_lc.add_argument("--only", help="Comma-separated line ids to re-check")
+    p_lc.add_argument("--model", default="medium", choices=["base", "small", "medium"])
 
     args = parser.parse_args()
 
@@ -138,6 +146,9 @@ def main() -> None:
             cmd_expressive(args)
         elif args.mode == "stitch":
             cmd_stitch(args)
+        elif args.mode == "line-check":
+            from tools.audio.line_check import cmd_line_check
+            cmd_line_check(args)
     except Exception as exc:
         print(json.dumps({"ok": False, "error": str(exc)}))
         sys.exit(1)

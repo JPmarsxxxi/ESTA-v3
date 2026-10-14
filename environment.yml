@@ -31,3 +31,5 @@ dependencies:
       - requests>=2.31.0
       - youtube-transcript-api>=0.6.0
       - duckduckgo-search>=6.0.0
+      # watermark OCR at pick time (tools/media/watermark.py, SPEC.md Part 12 F5); CPU
+      - rapidocr_onnxruntime>=1.2

@@ -170,6 +170,16 @@ def caption_style_for(width: int, height: int) -> tuple[dict, int]:
     return style, max_chars
 
 
+def caption_band(width: int, height: int, lines: int = 2) -> tuple[float, float]:
+    """The vertical span, as fractions of the frame, that captions styled by caption_style_for() can cover:
+    the block is centred on its positionY and holds up to `lines` lines. Motion graphics keep text out of it."""
+    style, _ = caption_style_for(width, height)
+    px = style["fontSize"] * height / FONT_SIZE_REFERENCE
+    half = (lines * style["lineHeight"] * px) / 2 + style["background.paddingY"]
+    centre = height / 2 + style["transform.positionY"]
+    return round(max(0.0, (centre - half) / height), 4), round(min(1.0, (centre + half) / height), 4)
+
+
 def _chunk_words(words: list[dict], max_chars: int) -> list[list[dict]]:
     chunks: list[list[dict]] = []
     cur: list[dict] = []

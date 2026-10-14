@@ -24,12 +24,20 @@ A slot config is small:
 
     conda run -n esta python tools/motiongraphics/build.py --session sessions/<id>
     conda run -n esta python tools/motiongraphics/build.py --session sessions/<id> --key 5
+
+After building, every slot's text is measured in headless Chrome across its timeline, and any text box that
+reaches into the caption band (slots.json `caption_band`, else where our captions sit) is flagged under
+`band_crossings`: move that text out of the band before rendering (SPEC.md Part 12, F11).
 """
 
 import argparse
 import json
+import shutil
+import subprocess
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 GSAP = "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"
 HOLD_TAIL = 1.0  # extra second so the cut never clips mid-motion (render trims it)
@@ -98,10 +106,49 @@ def build_slot(session: Path, cfg: dict, kit_css: str, kit_js: str) -> Path:
     return out_dir / "index.html"
 
 
+def caption_band(session: Path) -> tuple[float, float] | None:
+    """The caption band as fractions of the frame height: measured from the inspo (slots.json, SPEC.md Part 12
+    goal D), else where our own captions sit. None when the video has no captions."""
+    try:
+        band = json.loads((session / "slots.json").read_text(encoding="utf-8")).get("caption_band")
+    except (OSError, ValueError):
+        band = None
+    if isinstance(band, dict):
+        return (float(band["y0"]), float(band["y1"])) if band.get("present", True) else None
+    from tools.opencut.from_openreel import caption_band as ours
+    return ours(*canvas(session))
+
+
+def band_crossings(boxes: list[dict], band: tuple[float, float], height: int) -> list[dict]:
+    """Text boxes that reach into the caption band, where karaoke captions would sit on top of them."""
+    y0, y1 = band[0] * height, band[1] * height
+    seen, out = set(), []
+    for b in boxes:
+        if b["y1"] > y0 and b["y0"] < y1 and b["text"] not in seen:
+            seen.add(b["text"])
+            out.append({"text": b["text"], "y0": round(b["y0"]), "y1": round(b["y1"])})
+    return out
+
+
+def measure_text(paths: list[Path]) -> dict | None:
+    """{index path: text boxes} from headless Chrome, or None when node or Chrome is missing."""
+    node = shutil.which("node")
+    if not node or not paths:
+        return None
+    script = Path(__file__).with_name("text_boxes.mjs")
+    r = subprocess.run([node, str(script), *map(str, paths)], capture_output=True, text=True, timeout=300)
+    try:
+        out = json.loads(r.stdout.strip().splitlines()[-1])
+    except (ValueError, IndexError):
+        return None
+    return out.get("boxes") if out.get("ok") else None
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Build MG slots from the session kit + configs")
     ap.add_argument("--session", required=True)
     ap.add_argument("--key", help="build one slot only (default: all in _kit/slots)")
+    ap.add_argument("--no-band-check", action="store_true", help="skip measuring text against the caption band")
     args = ap.parse_args()
 
     session = Path(args.session)
@@ -128,7 +175,20 @@ def main() -> None:
         built.append({"key": cfg["key"], "flavor": cfg.get("flavor", "full_frame"),
                       "duration": round(float(cfg["duration"]) + HOLD_TAIL, 3),
                       "index": str(path)})
-    print(json.dumps({"ok": True, "built": len(built), "slots": built}, indent=2))
+    out = {"ok": True, "built": len(built), "slots": built}
+    band = caption_band(session)
+    boxes = measure_text([Path(b["index"]) for b in built]) if band and not args.no_band_check else None
+    if boxes is not None:
+        _, H = canvas(session)
+        out["caption_band"] = {"y0": round(band[0] * H), "y1": round(band[1] * H)}
+        for b in built:
+            hits = band_crossings(boxes.get(b["index"], []), band, H)
+            if hits:
+                b["crosses_caption_band"] = hits
+        out["band_crossings"] = [b["key"] for b in built if b.get("crosses_caption_band")]
+    elif band and not args.no_band_check:
+        out["band_check"] = "skipped: node or Chrome not found"
+    print(json.dumps(out, indent=2))
 
 
 if __name__ == "__main__":

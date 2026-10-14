@@ -32,6 +32,8 @@ Parse the JSON stdout. On `"ok": false`, surface the error. Most common cause: a
 
 `tools/timestamps/run.py` writes `sessions/<session-id>/timestamps.json` directly. The stdout response confirms the write and includes summary stats for display.
 
+When the voiceover was synthesised (`voice_script.json`, or an XTTS read of `script.md`), `transcribe` then snaps whisper's words to the script's own tokens, keeping whisper's timing: "back test" becomes "backtest", "0 .53" becomes "0.53", fillers are dropped (SPEC.md Part 12, F8). The untouched transcript stays in `timestamps.original-asr.json`, and the stdout carries `snapped_to_script`. A self-recorded take is left as heard, since the speaker may ad-lib. To snap an existing `timestamps.json` by hand: `conda run --no-capture-output -n esta python tools/timestamps/run.py snap --session sessions/<id>`.
+
 ## Reconcile plan timing
 
 If `sessions/<session-id>/plan.json` exists, immediately run reconcile (no user interaction needed — this is automatic):
@@ -76,6 +78,7 @@ Read the user's reply per pipeline rules (tweak / redirect / green-light) before
 
 ## Code references
 
-- `tools/timestamps/run.py` — CLI entry point. `transcribe` subcommand. Call via `conda run --no-capture-output -n esta`.
+- `tools/timestamps/run.py` — CLI entry point. `transcribe`, `snap` and `reconcile` subcommands. Call via `conda run --no-capture-output -n esta`.
+- `tools/timestamps/snap.py` — difflib alignment of whisper's words onto the script's tokens (F8).
 - `tools/timestamps/transcribe.py` — faster-whisper wrapper. Constants (CPU_THREADS=12, NUM_WORKERS=4, VAD params, beam_size=5) are ground truth from notebook Cell 8 — do not change.
 - `tools/timestamps/schema.py` — TypedDicts: `Word`, `Segment`, `SilencePoint`, `TimestampsData`.

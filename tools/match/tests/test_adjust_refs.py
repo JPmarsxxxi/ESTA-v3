@@ -60,7 +60,7 @@ def test_round_breaking_the_validator_is_reverted(tmp_path, monkeypatch):
     monkeypatch.setattr(A.scorer, "score", lambda *a, **k: failing)
     monkeypatch.setattr(A.scorer, "report_path", lambda session, stage: session / f"match_{stage}.json")
     monkeypatch.setattr(A, "fix_duration", breaks)
-    monkeypatch.setattr(A, "write_wording", lambda *a, **k: ([], 0.0))
+    monkeypatch.setattr(A, "write_wording", lambda *a, **k: ([], 0.0, []))
     monkeypatch.setattr("tools.match.common.Embedder", lambda: None)
     (s / "match_plan.json").write_text(json.dumps(failing))
     rep = A.run(s, "plan")

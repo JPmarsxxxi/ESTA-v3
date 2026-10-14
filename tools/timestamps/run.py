@@ -2,6 +2,7 @@
 
 Called by SKILL.md via:
     conda run -n esta python tools/timestamps/run.py transcribe --session sessions/<id> [--model small]
+    conda run -n esta python tools/timestamps/run.py snap --session sessions/<id>   # transcribe already runs it
 
 Prints a single JSON object to stdout. Exits 0 on success, 1 on error.
 """
@@ -30,7 +31,12 @@ def cmd_transcribe(args: argparse.Namespace) -> None:
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(result, f, indent=2, ensure_ascii=False)
 
+    # Subtitles and alignment use the script's spelling, not whisper's (SPEC.md Part 12, F8).
+    from tools.timestamps.snap import snap
+    snapped = snap(session_dir)
+
     print(json.dumps({
+        "snapped_to_script": snapped["snapped"],
         "ok": True,
         "output": str(output_path),
         "total_duration": result["total_duration"],
@@ -42,6 +48,11 @@ def cmd_transcribe(args: argparse.Namespace) -> None:
         "transcription_time_seconds": result["metadata"]["transcription_time_seconds"],
         "model": result["metadata"]["model"],
     }))
+
+
+def cmd_snap(args: argparse.Namespace) -> None:
+    from tools.timestamps.snap import snap
+    print(json.dumps(snap(Path(args.session))))
 
 
 def cmd_reconcile(args: argparse.Namespace) -> None:
@@ -64,6 +75,9 @@ def main() -> None:
     p_transcribe.add_argument("--model", default="small", choices=["base", "small", "medium"],
                               help="Whisper model size (default: small)")
 
+    p_snap = sub.add_parser("snap", help="Replace whisper's words with the script's, keeping the timing")
+    p_snap.add_argument("--session", required=True, help="Path to session dir")
+
     p_reconcile = sub.add_parser("reconcile", help="Update plan.json shot timing from timestamps.json")
     p_reconcile.add_argument("--session", required=True, help="Path to session dir")
 
@@ -72,6 +86,8 @@ def main() -> None:
     try:
         if args.mode == "transcribe":
             cmd_transcribe(args)
+        elif args.mode == "snap":
+            cmd_snap(args)
         elif args.mode == "reconcile":
             cmd_reconcile(args)
     except Exception as exc:

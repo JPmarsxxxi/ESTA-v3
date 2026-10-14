@@ -50,6 +50,8 @@ from tools.match.common import (  # noqa: E402
     write_json,
 )
 from tools.match.describe import ask, image_block  # noqa: E402
+from tools.media import watermark  # noqa: E402
+from tools.media.codec import h264_window  # noqa: E402
 from tools.motiongraphics import wordcard  # noqa: E402
 from tools.vision_server import client as vision  # noqa: E402
 
@@ -447,7 +449,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             ref_row[sh["id"]] = i
             if sh["id"] in kf and kf[sh["id"]].exists():
                 ref_image[sh["id"]] = kf[sh["id"]]
-    ranked, items, short = {}, [], {}
+    ranked, items, short, marked = {}, [], {}, {}
     for s in wanted:
         n = s["shot_number"]
         # A shot waiting on the Chrome pass is picked from what it has, and re-picked after the pass.
@@ -470,6 +472,7 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             return (d @ inspo["dino"].T).max(axis=1) if inspo else np.zeros(len(frames))
 
         rows = []
+        caption = (s.get("overlay") or {}).get("caption", "")
         for c in cands:
             path = Path(c["file"]) if Path(c["file"]).is_absolute() else REPO_ROOT / c["file"]
             usable = (c.get("source_duration") or 0) - (c.get("in_point") or 0)
@@ -488,8 +491,15 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
                 frames = media_frames(path, c.get("in_point") or 0, c.get("out_point") or 0, max_side=FRAME_SIDE)
             except Exception:
                 frames = []
-            if frames:
-                rows.append((c, frames))
+            if not frames:
+                continue
+            wm = watermark.check_frames(frames, caption)
+            if wm["reject"]:
+                marked.setdefault(n, []).append(f"{Path(c['file']).name}: {wm['reason']}")
+                continue
+            if wm["logo"]:
+                c = {**c, "logo": True}
+            rows.append((c, frames))
         if not rows:
             continue
         mids = [f[len(f) // 2] for _, f in rows]
@@ -497,7 +507,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
         look = likeness(mids)
         z = lambda x: (x - x.mean()) / (x.std() + 1e-6) if len(x) > 1 else x * 0  # noqa: E731
         reuse = np.array([1.0 if Path(c["file"]).name in used else 0.0 for c, _ in rows])
-        total = 0.6 * z(fit) + 0.4 * z(look) - 1.0 * reuse
+        logo = np.array([1.0 if c.get("logo") else 0.0 for c, _ in rows])
+        total = 0.6 * z(fit) + 0.4 * z(look) - 1.0 * reuse - 1.5 * logo
         order = list(np.argsort(-total))
         ranked[n] = [(rows[i][0], float(total[i]), float(fit[i]), float(look[i])) for i in order]
         finals = order[:FINALISTS]
@@ -554,6 +565,12 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
             filled = fill(c, shot_dur)
             if short.get(n):
                 filled["short_clip"] = True
+            if c["asset_type"] == "video":
+                src = Path(c["file"]) if Path(c["file"]).is_absolute() else REPO_ROOT / c["file"]
+                cut, a, b = h264_window(src, c.get("in_point", 0), c.get("out_point", 0), n)
+                if cut != src:
+                    rel = cut if Path(c["file"]).is_absolute() else cut.relative_to(REPO_ROOT)
+                    c = {**c, "file": str(rel).replace("\\", "/"), "in_point": a, "out_point": b}
             row = {"shot_number": n, "ok": True, "source": c["source"], "asset_type": c["asset_type"],
                    "url": c.get("url", ""), "file": c["file"], "search_query": c.get("query", ""),
                    "in_point": c.get("in_point", 0), "out_point": c.get("out_point", 0),
@@ -604,7 +621,8 @@ def run(session: Path, shots: list[int] | None = None, per_source: int = 2, log=
            "repeats": {str(n): r["repeat_of"] for n, r in report.items() if r.get("repeat_of")},
            "stock": {"budget": budget, "used": stock_used(rows, set()), "shots": len(plan.get("shots", [])),
                      "to_graphic": {str(n): r for n, r in sorted(to_graphic.items())}, **graphics},
-           "chrome_pending": sorted(pending & set(manifests))}
+           "chrome_pending": sorted(pending & set(manifests)),
+           "watermarked": {str(n): m for n, m in sorted(marked.items())}}
     prev = read_json(session / "autopick.json", {}) or {}
     # Runs go in chunks and "last" is replaced each time, so the repeat flags accumulate beside it.
     done = {str(s["shot_number"]) for s in wanted}
